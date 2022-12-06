@@ -3,14 +3,22 @@
     windows_subsystem = "windows"
 )]
 
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}!", name)
-}
+use tauri;
+use tauri_plugin_sql::{Migration, MigrationKind, TauriSql};
 
 fn main() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+    let builder = tauri::Builder::default();
+
+    builder
+        .plugin(TauriSql::default().add_migrations(
+            "sqlite:test.db",
+            vec![Migration {
+                version: 1,
+                description: "create todo",
+                sql: include_str!("../migrations/1.sql"),
+                kind: MigrationKind::Up,
+            }],
+        ))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

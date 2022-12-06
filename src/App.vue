@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { darkTheme } from 'naive-ui'
+
 // https://github.com/vueuse/head
-// you can use this to manipulate the document head in any components,
 // they will be rendered correctly in the html results with vite-ssg
 useHead({
   title: 'Vitesse',
@@ -19,8 +20,23 @@ useHead({
     },
   ],
 })
+
+const store = useStore()
+onMounted(async() => {
+  try {
+    await store.initializeDbBackedStore()
+  }
+  catch (e) {
+    console.error('There was a problem initializing the database', e)
+  }
+})
 </script>
 
 <template>
-  <RouterView />
+  <n-config-provider :theme="darkTheme">
+    <n-theme-editor>
+      <TitleBar />
+      <RouterView />
+    </n-theme-editor>
+  </n-config-provider>
 </template>

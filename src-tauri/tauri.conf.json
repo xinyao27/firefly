@@ -8,11 +8,14 @@
   },
   "package": {
     "productName": "firefly",
-    "version": "0.1.0"
+    "version": "0.0.0"
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "window": {
+        "all": true
+      }
     },
     "bundle": {
       "active": true,
@@ -55,11 +58,17 @@
     },
     "windows": [
       {
+        "hiddenTitle": true,
+        "theme": "Dark",
         "fullscreen": false,
-        "height": 600,
+        "fileDropEnabled": false,
+        "decorations": false,
         "resizable": true,
         "title": "Firefly",
-        "width": 800
+        "width": 1440,
+        "height": 1080,
+        "minWidth": 800,
+        "minHeight": 600
       }
     ]
   }
