@@ -7,10 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    copy: typeof import('./components/TitleBar copy.vue')['default']
+    ListCard: typeof import('./components/ListCard.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NInput: typeof import('naive-ui')['NInput']
     NThemeEditor: typeof import('naive-ui')['NThemeEditor']
+    NTooltip: typeof import('naive-ui')['NTooltip']
     README: typeof import('./components/README.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

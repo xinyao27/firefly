@@ -14,9 +14,7 @@ onMounted(async() => {
 
 <template>
   <NConfigProvider :theme="darkTheme">
-    <NThemeEditor>
-      <TitleBar />
-      <RouterView />
-    </NThemeEditor>
+    <TitleBar />
+    <RouterView />
   </NConfigProvider>
 </template>

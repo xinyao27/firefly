@@ -10,6 +10,11 @@ function handleMinimize() {
 function handleClose() {
   appWindow.close()
 }
+const alwaysOnTop = ref(false)
+function handleToggleSticky() {
+  alwaysOnTop.value = !alwaysOnTop.value
+  appWindow.setAlwaysOnTop(alwaysOnTop.value)
+}
 </script>
 
 <template>
@@ -20,6 +25,24 @@ function handleClose() {
       @mousedown="handleMouseDown"
     />
     <div z-10000 transition-opacity>
+      <NTooltip trigger="hover" :show-arrow="false">
+        <template #trigger>
+          <div
+            w-10 h-8 inline-flex justify-center items-center hover:(bg-dark opacity-100)
+            :opacity="alwaysOnTop ? 100 : 40 "
+            @click="handleToggleSticky"
+          >
+            <i v-if="alwaysOnTop" i-ri-pushpin-2-line />
+            <i v-else i-ri-pushpin-line />
+          </div>
+        </template>
+        <template v-if="alwaysOnTop">
+          关闭窗口总是在最上方
+        </template>
+        <template v-else>
+          窗口总是在最上方
+        </template>
+      </NTooltip>
       <div
         w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark opacity-100)
         @click="handleMinimize"

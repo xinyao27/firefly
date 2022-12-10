@@ -10,4 +10,8 @@ CREATE TABLE messages (
   filePath VARCHAR(1000),
   fileRaw BLOB,
   fileFrom CHAR(10)
+  link VARCHAR(1000)
+  size INTEGER
+  width INTEGER
+  height INTEGER
 );

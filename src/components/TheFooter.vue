@@ -1,5 +1,5 @@
 <template>
-  <nav text-xl mt-6>
+  <nav text-xl>
     footer
   </nav>
 </template>

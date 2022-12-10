@@ -12,6 +12,8 @@ import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 import 'uno.css'
 
+document.oncontextmenu = () => false
+
 const history = createWebHashHistory()
 const routes = setupLayouts(generatedRoutes)
 const router = createRouter({ history, routes })
