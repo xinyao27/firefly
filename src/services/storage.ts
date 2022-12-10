@@ -1,12 +1,12 @@
 import Database from 'tauri-plugin-sql-api'
 import { nanoid } from 'nanoid/async'
 import type { ID, Message } from '~/models/Message'
-import { useStore } from '~/store/messages'
+import { useMessagesStore } from '~/store/messages'
 
 let db: null | Database = null
 
 async function connect() {
-  const s = useStore()
+  const s = useMessagesStore()
   try {
     db = await Database.load('sqlite:firefly.db')
     s.setDbConnectionString(db.path)

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { darkTheme } from 'naive-ui'
+import { useMessagesStore } from '~/store/messages'
 
-const store = useStore()
+const store = useMessagesStore()
 onMounted(async() => {
   try {
     await store.initializeDbBackedStore()

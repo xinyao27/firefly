@@ -18,9 +18,10 @@ function handleToggleSticky() {
 </script>
 
 <template>
-  <div fixed left-0 top-0 flex z-9999 w-full h-8 select-none>
+  <div fixed left-0 top-0 flex items-center z-9999 w-full h-8 p-1 select-none>
+    <CardSizeSlider />
     <div
-      flex-1
+      flex-auto h-full
       data-tauri-drag-region
       @mousedown="handleMouseDown"
     />

@@ -4,6 +4,7 @@ import type { Message } from '~/models/Message'
 import { byteSize } from '~/utils'
 
 const props = defineProps<{
+  size: number
   message: Message
 }>()
 const message = props.message
@@ -34,20 +35,26 @@ const description = computed(() => {
 </script>
 
 <template>
-  <div w-200px inline-flex flex-col text-center>
-    <div w-full h-200px rounded-1 select-none overflow-hidden flex items-center justify-center relative>
+  <div
+    inline-flex flex-col text-center
+    :style="{ width: `${props.size}px` }"
+  >
+    <div
+      rounded-1 select-none overflow-hidden flex items-center justify-center relative
+      :style="{ width: `${props.size}px`, height: `${props.size}px` }"
+    >
       <img
         w-auto h-full max-w-none
         :src="message.thumb" :alt="message.title"
       >
       <div
         v-if="!!message.fileType"
-        bg-black bg-opacity-60 text-white text-xs font-semibold px-1 absolute left-1 top-1 rounded
+        bg-black bg-opacity-60 text-white text-xs font-semibold px-1 absolute left-1 top-1 rounded transform scale-90
       >
         {{ message.fileType.toUpperCase() }}
       </div>
     </div>
-    <div text-sm line-clamp-2 leading-4 mt-2>
+    <div text-xs line-clamp-2 leading-4 mt-2>
       {{ message.title }}
     </div>
     <div text-xs text-neutral-500 select-none mt-1>

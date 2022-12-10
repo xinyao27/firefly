@@ -6,7 +6,7 @@ function localOnly() {
   console.warn('local storage updated but there is no DB connection')
 }
 
-export const useStore = defineStore('messages', {
+export const useMessagesStore = defineStore('messages', {
   state: () => {
     return {
       messages: [] as Message[],
