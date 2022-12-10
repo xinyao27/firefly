@@ -11,11 +11,11 @@ fn main() {
 
     builder
         .plugin(TauriSql::default().add_migrations(
-            "sqlite:test.db",
+            "sqlite:firefly.db",
             vec![Migration {
                 version: 1,
-                description: "create todo",
-                sql: include_str!("../migrations/1.sql"),
+                description: "create message",
+                sql: include_str!("../migrations/initial.sql"),
                 kind: MigrationKind::Up,
             }],
         ))

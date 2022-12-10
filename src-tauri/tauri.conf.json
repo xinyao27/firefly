@@ -15,6 +15,9 @@
       "all": false,
       "window": {
         "all": true
+      },
+      "path": {
+        "all": true
       }
     },
     "bundle": {
@@ -32,7 +35,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.firefly.best",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

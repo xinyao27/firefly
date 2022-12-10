@@ -10,6 +10,11 @@ async function handleAddOne() {
 async function clear() {
   store.clear()
 }
+
+watchEffect(() => {
+  // eslint-disable-next-line no-console
+  console.table(store.all)
+})
 </script>
 
 <template>

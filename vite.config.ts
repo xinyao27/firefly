@@ -3,13 +3,11 @@ import { defineConfig } from 'vite'
 import Preview from 'vite-plugin-vue-component-preview'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
-import generateSitemap from 'vite-ssg-sitemap'
 import Layouts from 'vite-plugin-vue-layouts'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Markdown from 'vite-plugin-vue-markdown'
-import { VitePWA } from 'vite-plugin-pwa'
 import VueI18n from '@intlify/vite-plugin-vue-i18n'
 import Inspect from 'vite-plugin-inspect'
 import LinkAttributes from 'markdown-it-link-attributes'
@@ -47,14 +45,6 @@ export default defineConfig({
         'vue/macros',
         '@vueuse/head',
         '@vueuse/core',
-        {
-          'naive-ui': [
-            'useDialog',
-            'useMessage',
-            'useNotification',
-            'useLoadingBar',
-          ],
-        },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: [
@@ -101,35 +91,6 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/antfu/vite-plugin-pwa
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
-      manifest: {
-        name: 'Vitesse',
-        short_name: 'Vitesse',
-        theme_color: '#ffffff',
-        icons: [
-          {
-            src: '/pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-        ],
-      },
-    }),
-
     // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
     VueI18n({
       runtimeOnly: true,
@@ -147,13 +108,6 @@ export default defineConfig({
     include: ['test/**/*.test.ts'],
     environment: 'jsdom',
     deps: { inline: ['@vue', '@vueuse'] },
-  },
-
-  // https://github.com/antfu/vite-ssg
-  ssgOptions: {
-    script: 'async',
-    formatting: 'minify',
-    onFinished() { generateSitemap() },
   },
 
   ssr: {
