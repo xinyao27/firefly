@@ -1,5 +1,5 @@
 export type ID = string
-export type MessageCategory = 'text' | 'image' | 'link' | 'other'
+export type MessageCategory = 'text' | 'image' | 'link' | 'rss' | 'other'
 export type MessageFileFrom = 'app' | 'browser' | 'pc' | 'other'
 
 export interface Message {

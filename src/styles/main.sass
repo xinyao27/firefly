@@ -8,24 +8,24 @@ html.dark
   color-scheme: dark
 
 *::-webkit-scrollbar
-  @apply bg-transparent w-2 h-2
+  @apply bg-transparent w-1 h-1
   &-thumb
     @apply delay-300 bg-dark-300 rounded-full
     &:hover
-      @apply bg-dark-200
+      @apply bg-dark-50
   &-corner
     @apply bg-transparent
-#root-view
-  &::-webkit-scrollbar-thumb
-    @apply bg-transparent
-  &:hover
-    &::-webkit-scrollbar-thumb
-      @apply bg-dark-200
 
 *
   @apply transition
 
+.v
+  &-enter-active, &-leave-active
+    @apply transition
+  &-enter-from, &-leave-to
+    @apply opacity-0
+
 #nprogress
   @apply pointer-events-none
   .bar
-    @apply bg-green-700 bg-opacity-75 fixed z-1031 top-0 left-0 w-full h-2px
+    @apply bg-green-700 bg-opacity-75 fixed z-35 top-0 left-0 w-full h-2px

@@ -40,7 +40,7 @@ const description = computed(() => {
     :style="{ width: `${props.size}px` }"
   >
     <div
-      rounded-1 select-none overflow-hidden flex items-center justify-center relative
+      rounded-1 overflow-hidden flex items-center justify-center relative
       :style="{ width: `${props.size}px`, height: `${props.size}px` }"
     >
       <img

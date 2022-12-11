@@ -1,6 +1,15 @@
 <script setup lang="ts">
-import { darkTheme } from 'naive-ui'
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { NConfigProvider } from 'naive-ui'
+import { colors } from 'unocss/preset-mini'
 import { useMessagesStore } from '~/store/messages'
+
+const themeOverrides: GlobalThemeOverrides = {
+  common: {
+  // @ts-expect-error noop
+    primaryColor: colors?.blue['500'],
+  },
+}
 
 const store = useMessagesStore()
 onMounted(async() => {
@@ -14,7 +23,7 @@ onMounted(async() => {
 </script>
 
 <template>
-  <NConfigProvider :theme="darkTheme">
+  <NConfigProvider :theme-overrides="themeOverrides">
     <TitleBar />
     <RouterView />
   </NConfigProvider>

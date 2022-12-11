@@ -8,7 +8,11 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CardSizeSlider: typeof import('./components/CardSizeSlider.vue')['default']
+    copy: typeof import('./components/List copy.vue')['default']
+    DragHandler: typeof import('./components/DragHandler.vue')['default']
+    DragProvider: typeof import('./components/DragProvider.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    List: typeof import('./components/List.vue')['default']
     ListCard: typeof import('./components/ListCard.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']

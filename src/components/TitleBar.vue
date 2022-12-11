@@ -23,14 +23,14 @@ function handleToggleSticky() {
 </script>
 
 <template>
-  <div fixed left-0 top-0 flex items-center z-9999 w-full h-8 pl-4 select-none>
+  <div fixed left-0 top-0 flex items-center z-99 w-full h-8 pl-4 select-none>
     <CardSizeSlider />
     <div
       flex-auto h-full
       data-tauri-drag-region
       @mousedown="handleMouseDown"
     />
-    <div z-10000 transition-opacity>
+    <div z-100 transition-opacity>
       <NTooltip trigger="hover" :show-arrow="false">
         <template #trigger>
           <div
