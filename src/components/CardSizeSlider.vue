@@ -1,23 +1,23 @@
 <script setup lang="ts">
 const configsStore = useConfigsStore()
-const step = ref(100)
+const percentage = ref(100)
 const MAX = 100
 const MIN = 30
 
-const stepToCardSize = (step: number) => step / 100 * 200
+const percentageToCardSize = (percentage: number) => percentage / 100 * 200
 
 function handleCardSizeSubtract() {
-  if (step.value > MIN) {
-    step.value -= 10
+  if (percentage.value > MIN) {
+    percentage.value -= 10
   }
 }
 function handleCardSizeAdd() {
-  if (step.value < MAX) {
-    step.value += 10
+  if (percentage.value < MAX) {
+    percentage.value += 10
   }
 }
 watchEffect(() => {
-  configsStore.setCardSize(stepToCardSize(step.value))
+  configsStore.setCardSize(percentageToCardSize(percentage.value))
 })
 </script>
 
@@ -31,17 +31,17 @@ watchEffect(() => {
       opacity="0"
       size="tiny"
       quaternary
-      :disabled="step <= MIN"
+      :disabled="percentage <= MIN"
       @click="handleCardSizeSubtract"
     >
       <i i-ri-subtract-line />
     </NButton>
     <NSlider
-      v-model:value="step"
-      :step="10"
+      v-model:value="percentage"
+      :percentage="10"
       :max="MAX"
       :min="MIN"
-      :tooltip="false"
+      :format-tooltip="(value: number) => `${value}%`"
     >
       <template #thumb>
         <i i-ri-bear-smile-fill />
@@ -52,7 +52,7 @@ watchEffect(() => {
       opacity="0"
       size="tiny"
       quaternary
-      :disabled="step >= MAX"
+      :disabled="percentage >= MAX"
       @click="handleCardSizeAdd"
     >
       <i i-ri-add-line />

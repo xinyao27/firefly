@@ -21,7 +21,7 @@ async function connect() {
 async function all() {
   const db = await connect()
 
-  return db?.select('SELECT * FROM messages')
+  return db?.select('SELECT * FROM messages ORDER BY updatedAt DESC')
 }
 
 async function create(title: string): Promise<Message> {

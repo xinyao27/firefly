@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from 'naive-ui'
-import { NConfigProvider } from 'naive-ui'
+import { NConfigProvider, darkTheme } from 'naive-ui'
 import { colors } from 'unocss/preset-mini'
 import { useMessagesStore } from '~/store/messages'
 
@@ -23,7 +23,7 @@ onMounted(async() => {
 </script>
 
 <template>
-  <NConfigProvider :theme-overrides="themeOverrides">
+  <NConfigProvider :theme-overrides="themeOverrides" :theme="darkTheme">
     <TitleBar />
     <RouterView />
   </NConfigProvider>

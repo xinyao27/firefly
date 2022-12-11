@@ -40,7 +40,7 @@ const description = computed(() => {
     :style="{ width: `${props.size}px` }"
   >
     <div
-      rounded-1 overflow-hidden flex items-center justify-center relative
+      overflow-hidden flex items-center justify-center relative
       :style="{ width: `${props.size}px`, height: `${props.size}px` }"
     >
       <img
@@ -49,7 +49,7 @@ const description = computed(() => {
       >
       <div
         v-if="!!message.fileType"
-        bg-black bg-opacity-60 text-white text-xs font-semibold px-1 absolute left-1 top-1 rounded transform scale-90
+        bg-black bg-opacity-60 text-xs font-semibold px-1 absolute rounded left-1 top-1 transform scale-90 select-none
       >
         {{ message.fileType.toUpperCase() }}
       </div>
@@ -57,7 +57,7 @@ const description = computed(() => {
     <div text-xs line-clamp-2 leading-4 mt-2>
       {{ message.title }}
     </div>
-    <div text-xs text-neutral-500 select-none mt-1>
+    <div text-xs text-neutral-500 select-none mt-1 font-600>
       {{ description }}
     </div>
   </div>

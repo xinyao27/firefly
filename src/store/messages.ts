@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { groupBy } from 'lodash-es'
+import dayjs from 'dayjs'
 import Storage from '~/services/storage'
 import type { ID, Message } from '~/models/Message'
 
@@ -19,6 +21,9 @@ export const useMessagesStore = defineStore('messages', {
     all(state) {
       return state.messages as Message[]
     },
+    sortedAll(state) {
+      return groupBy(state.messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD')) as Record<string, Message[]>
+    },
   },
   actions: {
     setErrorState(err: string) {
@@ -27,9 +32,6 @@ export const useMessagesStore = defineStore('messages', {
     setDbConnectionString(connect: string) {
       this.dbConnectionString = connect
     },
-    /**
-     * Connects to DB and gets all TODOs from DB
-     */
     async initializeDbBackedStore() {
       try {
         await Storage.connect()

@@ -8,21 +8,20 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CardSizeSlider: typeof import('./components/CardSizeSlider.vue')['default']
-    copy: typeof import('./components/List copy.vue')['default']
-    DragHandler: typeof import('./components/DragHandler.vue')['default']
     DragProvider: typeof import('./components/DragProvider.vue')['default']
-    Footer: typeof import('./components/Footer.vue')['default']
     List: typeof import('./components/List.vue')['default']
     ListCard: typeof import('./components/ListCard.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
+    NCheckbox: typeof import('naive-ui')['NCheckbox']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
+    NGi: typeof import('naive-ui')['NGi']
+    NGrid: typeof import('naive-ui')['NGrid']
     NSlider: typeof import('naive-ui')['NSlider']
+    NTimeline: typeof import('naive-ui')['NTimeline']
+    NTimelineItem: typeof import('naive-ui')['NTimelineItem']
     NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheCounter: typeof import('./components/TheCounter.vue')['default']
-    TheFooter: typeof import('./components/TheFooter.vue')['default']
-    TheInput: typeof import('./components/TheInput.vue')['default']
     TitleBar: typeof import('./components/TitleBar.vue')['default']
   }
 }

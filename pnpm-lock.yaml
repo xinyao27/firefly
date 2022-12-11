@@ -10,6 +10,7 @@ specifiers:
   '@release-it/conventional-changelog': ^5.1.1
   '@tauri-apps/api': ^1.2.0
   '@tauri-apps/cli': ^1.2.2
+  '@types/lodash-es': ^4.17.6
   '@types/markdown-it-link-attributes': ^3.0.1
   '@types/nprogress': ^0.2.0
   '@unocss/reset': ^0.47.5
@@ -29,6 +30,7 @@ specifiers:
   https-localhost: ^4.7.1
   husky: ^8.0.2
   lint-staged: ^13.1.0
+  lodash-es: ^4.17.21
   markdown-it-link-attributes: ^4.0.1
   markdown-it-shiki: ^0.7.2
   naive-ui: ^2.34.2
@@ -64,6 +66,7 @@ dependencies:
   '@vueuse/core': 9.6.0_vue@3.2.45
   '@vueuse/head': 1.0.22_vue@3.2.45
   dayjs: 1.11.7
+  lodash-es: 4.17.21
   naive-ui: 2.34.2_vue@3.2.45
   nanoid: 4.0.0
   nprogress: 0.2.0
@@ -82,6 +85,7 @@ devDependencies:
   '@intlify/vite-plugin-vue-i18n': 6.0.3_vite@4.0.0+vue-i18n@9.2.2
   '@release-it/conventional-changelog': 5.1.1_release-it@15.5.1
   '@tauri-apps/cli': 1.2.2
+  '@types/lodash-es': 4.17.6
   '@types/markdown-it-link-attributes': 3.0.1
   '@types/nprogress': 0.2.0
   '@vitejs/plugin-vue': 4.0.0_vite@4.0.0+vue@3.2.45
@@ -1413,11 +1417,9 @@ packages:
     resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
     dependencies:
       '@types/lodash': 4.14.191
-    dev: false
 
   /@types/lodash/4.14.191:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
-    dev: false
 
   /@types/markdown-it-link-attributes/3.0.1:
     resolution: {integrity: sha512-K8RnNb1q8j7rDOJbMF7AnlhCC/45BjrQ8z3WZWOrvkBIl8u9RXvmBdG/hfpnmK1JhhEZcmFEKWt+ilW1Mly+2Q==}
