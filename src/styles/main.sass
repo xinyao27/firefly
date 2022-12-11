@@ -10,7 +10,7 @@ html.dark
 *::-webkit-scrollbar
   @apply bg-transparent w-2 h-2
   &-thumb
-    @apply transition delay-300 bg-dark-300 rounded-full
+    @apply delay-300 bg-dark-300 rounded-full
     &:hover
       @apply bg-dark-200
   &-corner
@@ -21,6 +21,9 @@ html.dark
   &:hover
     &::-webkit-scrollbar-thumb
       @apply bg-dark-200
+
+*
+  @apply transition
 
 #nprogress
   @apply pointer-events-none

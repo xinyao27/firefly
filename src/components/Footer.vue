@@ -1,5 +1,5 @@
 <template>
-  <nav text-xl>
+  <nav px-4>
     footer
   </nav>
 </template>

@@ -7,6 +7,11 @@ function handleMouseDown(e: MouseEvent) {
 function handleMinimize() {
   appWindow.minimize()
 }
+const maximize = ref(false)
+function handleToggleMaximize() {
+  appWindow.toggleMaximize()
+  maximize.value = !maximize.value
+}
 function handleClose() {
   appWindow.close()
 }
@@ -18,7 +23,7 @@ function handleToggleSticky() {
 </script>
 
 <template>
-  <div fixed left-0 top-0 flex items-center z-9999 w-full h-8 p-1 select-none>
+  <div fixed left-0 top-0 flex items-center z-9999 w-full h-8 pl-4 select-none>
     <CardSizeSlider />
     <div
       flex-auto h-full
@@ -29,7 +34,7 @@ function handleToggleSticky() {
       <NTooltip trigger="hover" :show-arrow="false">
         <template #trigger>
           <div
-            w-10 h-8 inline-flex justify-center items-center hover:(bg-dark opacity-100)
+            w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark-300 opacity-100)
             :opacity="alwaysOnTop ? 100 : 40 "
             @click="handleToggleSticky"
           >
@@ -45,15 +50,23 @@ function handleToggleSticky() {
         </template>
       </NTooltip>
       <div
-        w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark opacity-100)
+        w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark-300 opacity-100)
         @click="handleMinimize"
       >
         <i i-ri-subtract-line />
       </div>
       <div
-        w-10 h-8 inline-flex justify-center items-center color-gray-600
+        w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark-300 opacity-100)
+        @click="handleToggleMaximize"
       >
-        <i i-ri-checkbox-blank-line />
+        <i
+          v-if="maximize"
+          transform scale-80 i-ri-checkbox-multiple-blank-line
+        />
+        <i
+          v-else
+          transform scale-80 i-ri-checkbox-blank-line
+        />
       </div>
       <div
         w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-red-500 opacity-100)
