@@ -7,6 +7,8 @@ const props = defineProps<{
   size: number
   message: Message
 }>()
+
+const messagesStore = useMessagesStore()
 const message = props.message
 const description = computed(() => {
   const updatedAt = dayjs(message.updatedAt).format('YYYY/MM/DD HH:mm')
@@ -32,15 +34,19 @@ const description = computed(() => {
       return updatedAt
   }
 })
+const isSelected = computed(() => messagesStore.selectedMessageIds.includes(message.id))
 </script>
 
 <template>
   <div
-    inline-flex flex-col text-center
+    inline-flex flex-col text-center overflow-hidden
     :style="{ width: `${props.size}px` }"
+    data-message-card
+    :data-id="message.id"
   >
     <div
-      overflow-hidden flex items-center justify-center relative
+      overflow-hidden flex items-center justify-center relative rounded-2 border-2 border-style-solid
+      :border-color="isSelected ? 'blue-500' : 'transparent'"
       :style="{ width: `${props.size}px`, height: `${props.size}px` }"
     >
       <img

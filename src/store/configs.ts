@@ -2,7 +2,10 @@ import { defineStore } from 'pinia'
 
 export const useConfigsStore = defineStore('configs', {
   state: () => {
-    return { cardSize: 200 }
+    return {
+      cardSize: 200,
+      rootPaddingTop: 32,
+    }
   },
   actions: {
     setCardSize(size: number) {

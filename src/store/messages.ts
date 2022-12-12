@@ -12,6 +12,7 @@ export const useMessagesStore = defineStore('messages', {
   state: () => {
     return {
       messages: [] as Message[],
+      selectedMessageIds: [] as ID[],
       ready: false,
       dbError: undefined as string | undefined,
       dbConnectionString: '',
@@ -77,8 +78,8 @@ export const useMessagesStore = defineStore('messages', {
       }
       this.messages = []
     },
-    setDbError(err: string) {
-      this.dbError = err
+    selectMessageIds(selected: ID[] = []) {
+      this.selectedMessageIds = selected
     },
   },
 })

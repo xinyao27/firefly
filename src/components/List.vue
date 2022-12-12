@@ -12,7 +12,9 @@ const configsStore = useConfigsStore()
       <div font-semibold text-neutral-500 mb-3>
         {{ key }}
       </div>
-      <div relative z-34 flex flex-wrap gap-3 overflow-x-hidden overflow-y-auto overscroll-contain>
+      <div
+        relative z-34 flex flex-wrap gap-3 overflow-x-hidden overflow-y-auto overscroll-contain
+      >
         <ListCard
           v-for="item in row" :key="item.id"
           :message="item"
