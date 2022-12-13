@@ -3,8 +3,15 @@
     windows_subsystem = "windows"
 )]
 
+use std::path::Path;
 use tauri;
 use tauri_plugin_sql::{Migration, MigrationKind, TauriSql};
+
+#[tauri::command]
+fn is_directory(path: String) -> bool {
+    let target_path = Path::new(&path);
+    target_path.is_dir()
+}
 
 fn main() {
     let builder = tauri::Builder::default();
@@ -19,6 +26,7 @@ fn main() {
                 kind: MigrationKind::Up,
             }],
         ))
+        .invoke_handler(tauri::generate_handler![is_directory])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

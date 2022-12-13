@@ -1,13 +1,85 @@
 <script setup lang="ts">
+import type { FileEntry } from '@tauri-apps/api/fs'
+import { copyFile, createDir, exists, readDir } from '@tauri-apps/api/fs'
+import { appDataDir, basename, join } from '@tauri-apps/api/path'
+import { invoke } from '@tauri-apps/api/tauri'
+import type { UnlistenFn } from '@tauri-apps/api/event'
+import { TauriEvent, listen } from '@tauri-apps/api/event'
+import { useMessage } from 'naive-ui'
 import type { ID } from '~/models/Message'
 
+const message = useMessage()
 const configsStore = useConfigsStore()
 const messagesStore = useMessagesStore()
-
-function onDrop(files: File[] | null) {
-  console.warn(files)
+const uploadStore = useUploadStore()
+async function handleGetAllFilePaths(paths: string[]) {
+  const filePaths = []
+  for (const path of paths) {
+    const isDirectory = await invoke('is_directory', { path })
+    if (isDirectory) {
+      const entries = await readDir(path, { recursive: true })
+      processEntries(entries)
+      function processEntries(entries: FileEntry[]) {
+        for (const entry of entries) {
+          if (entry.children) {
+            processEntries(entry.children)
+          }
+          else if (entry.path) {
+            filePaths.push(entry.path)
+          }
+        }
+      }
+    }
+    else {
+      filePaths.push(path)
+    }
+  }
+  return filePaths
 }
-const { isOverDropZone } = useDropZone(document.documentElement, onDrop)
+const loadingBarTargetRef = ref<HTMLElement>()
+async function handleDrop(filePaths: string[]) {
+  uploadStore.startUpload(filePaths.length)
+  for (let i = 0; i < filePaths.length; i++) {
+    const filePath = filePaths[i]
+    uploadStore.setCurrentIndex(i)
+    try {
+      const dir = await join(await appDataDir(), '/files')
+      const isExists = await exists(dir)
+      if (!isExists) {
+        await createDir(dir, { recursive: true })
+      }
+      const fileName = await join(dir, await basename(filePath))
+      await copyFile(filePath, fileName)
+    }
+    catch (error: any) {
+      message.error(error)
+      uploadStore.stopUpload()
+    }
+  }
+  uploadStore.stopUpload()
+}
+let unListenDrop: UnlistenFn
+let unListenDropHover: UnlistenFn
+let unListenDropCancel: UnlistenFn
+const isOverDropZone = ref(false)
+onMounted(async() => {
+  unListenDrop = await listen<string[]>(TauriEvent.WINDOW_FILE_DROP, async(event) => {
+    isOverDropZone.value = false
+    const filePaths = await handleGetAllFilePaths(event.payload)
+    handleDrop(filePaths)
+  })
+  unListenDropHover = await listen(TauriEvent.WINDOW_FILE_DROP_HOVER, () => {
+    isOverDropZone.value = true
+  })
+  unListenDropCancel = await listen(TauriEvent.WINDOW_FILE_DROP_CANCELLED, () => {
+    isOverDropZone.value = false
+  })
+})
+onUnmounted(() => {
+  unListenDrop?.()
+  unListenDropHover?.()
+  unListenDropCancel?.()
+})
 
 const dragView = ref<HTMLDivElement>()
 const selecting = ref(false)
@@ -39,14 +111,6 @@ const selectAreaHeight = computed(() => {
   }
   return null
 })
-// watchEffect(() => {
-//   console.log({
-//     selectAreaX: selectAreaHeight.value,
-//     selectAreaY: selectAreaY.value,
-//     selectAreaWidth: selectAreaWidth.value,
-//     selectAreaHeight: selectAreaHeight.value,
-//   })
-// })
 const allMessageCardRects = ref<{ rect: DOMRect; element: Element }[] | null>(null)
 function handleSelectMessageCardAndGetIds() {
   const selectedMessages: ID[] = []
@@ -115,55 +179,65 @@ useEventListener('mousemove', (e) => {
 </script>
 
 <template>
-  <div
-    id="drag-view"
-    ref="dragView"
-    flex-auto px-4 relative z-36
-    :overflow="isOverDropZone ? 'hidden' : 'overlay'"
-    @mousedown="handleMouseDown"
+  <NLoadingBarProvider
+    :to="loadingBarTargetRef"
+    container-style="position: absolute;"
   >
-    <!-- select area -->
     <div
-      v-show="
-        selecting
-          && selectAreaX !== null
-          && selectAreaY !== null
-          && selectAreaWidth !== null
-          && selectAreaHeight !== null
-      "
-      bg-opacity-20 bg-dark-100 border-1 border-dark-50 absolute
-      :style="{
-        left: `${selectAreaX}px`,
-        top: `${selectAreaY}px`,
-        width: `${selectAreaWidth}px`,
-        height: `${selectAreaHeight}px`,
-      }"
+      ref="loadingBarTargetRef"
+      absolute bottom-0 left-0 w-screen h-2px pointer-events-none overflow-hidden
     />
-    <Transition>
+    <UploadProgress />
+    <div
+      id="drag-view"
+      ref="dragView"
+      flex-auto px-4 relative z-36
+      :overflow="isOverDropZone ? 'hidden' : 'overlay'"
+      @mousedown="handleMouseDown"
+    >
+      <!-- select area -->
       <div
-        v-show="isOverDropZone"
-        fixed top-8 right-0 bottom-0 left-0 z-35 select-none bg-opacity-20 bg-blue-500 border-2 border-blue-500
+        v-show="
+          selecting
+            && selectAreaX !== null
+            && selectAreaY !== null
+            && selectAreaWidth !== null
+            && selectAreaHeight !== null
+        "
+        bg-opacity-20 bg-dark-100 border-1 border-dark-50 absolute
+        :style="{
+          left: `${selectAreaX}px`,
+          top: `${selectAreaY}px`,
+          width: `${selectAreaWidth}px`,
+          height: `${selectAreaHeight}px`,
+        }"
       />
-    </Transition>
-    <Transition>
-      <NButton
-        v-show="isOverDropZone"
-        fixed bottom-6 w-280px ml--140px z-35 transform select-none animate-bounce color-white
-        left="1/2"
-        bg="blue-500"
-        type="primary"
-        icon-placement="left"
-        size="large"
-      >
-        <template #icon>
-          <i i-ri-inbox-archive-line />
-        </template>
-        将文件拖放到这里添加
-      </NButton>
-    </Transition>
+      <Transition>
+        <div
+          v-show="isOverDropZone"
+          fixed top-8 right-0 bottom-0 left-0 z-35 select-none bg-opacity-20 bg-blue-500 border-2 border-blue-500
+        />
+      </Transition>
+      <Transition>
+        <NButton
+          v-show="isOverDropZone"
+          fixed bottom-6 w-280px ml--140px z-35 transform select-none animate-bounce color-white
+          left="1/2"
+          bg="blue-500"
+          type="primary"
+          icon-placement="left"
+          size="large"
+        >
+          <template #icon>
+            <i i-ri-inbox-archive-line />
+          </template>
+          将文件拖放到这里添加
+        </NButton>
+      </Transition>
 
-    <slot />
-  </div>
+      <slot />
+    </div>
+  </NLoadingBarProvider>
 </template>
 
 <style scoped lang="sass">

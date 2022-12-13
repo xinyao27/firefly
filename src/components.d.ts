@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CardSizeSlider: typeof import('./components/CardSizeSlider.vue')['default']
+    copy: typeof import('./components/ListCard copy.vue')['default']
     DragProvider: typeof import('./components/DragProvider.vue')['default']
     List: typeof import('./components/List.vue')['default']
     ListCard: typeof import('./components/ListCard.vue')['default']
@@ -16,6 +17,7 @@ declare module '@vue/runtime-core' {
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NGi: typeof import('naive-ui')['NGi']
     NGrid: typeof import('naive-ui')['NGrid']
+    NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
     NSlider: typeof import('naive-ui')['NSlider']
     NTimeline: typeof import('naive-ui')['NTimeline']
     NTimelineItem: typeof import('naive-ui')['NTimelineItem']
@@ -23,5 +25,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TitleBar: typeof import('./components/TitleBar.vue')['default']
+    UploadProgress: typeof import('./components/UploadProgress.vue')['default']
   }
 }

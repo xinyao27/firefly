@@ -18,6 +18,10 @@
       },
       "path": {
         "all": true
+      },
+      "fs": {
+        "all": true,
+        "scope": ["**/*"]
       }
     },
     "bundle": {
@@ -64,7 +68,7 @@
         "hiddenTitle": true,
         "theme": "Dark",
         "fullscreen": false,
-        "fileDropEnabled": false,
+        "fileDropEnabled": true,
         "decorations": false,
         "resizable": true,
         "title": "Firefly",

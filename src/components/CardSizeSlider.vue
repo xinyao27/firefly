@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const configsStore = useConfigsStore()
-const percentage = ref(100)
+const percentage = ref(60)
 const MAX = 100
 const MIN = 30
 
