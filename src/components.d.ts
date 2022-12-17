@@ -8,15 +8,10 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CardSizeSlider: typeof import('./components/CardSizeSlider.vue')['default']
-    copy: typeof import('./components/ListCard copy.vue')['default']
     DragProvider: typeof import('./components/DragProvider.vue')['default']
     List: typeof import('./components/List.vue')['default']
     ListCard: typeof import('./components/ListCard.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
-    NCheckbox: typeof import('naive-ui')['NCheckbox']
-    NConfigProvider: typeof import('naive-ui')['NConfigProvider']
-    NGi: typeof import('naive-ui')['NGi']
-    NGrid: typeof import('naive-ui')['NGrid']
     NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
     NSlider: typeof import('naive-ui')['NSlider']
     NTimeline: typeof import('naive-ui')['NTimeline']

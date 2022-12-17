@@ -22,6 +22,11 @@
       "fs": {
         "all": true,
         "scope": ["**/*"]
+      },
+      "protocol": {
+        "all": true,
+        "asset": true,
+        "assetScope": ["**/*"]
       }
     },
     "bundle": {
@@ -68,7 +73,7 @@
         "hiddenTitle": true,
         "theme": "Dark",
         "fullscreen": false,
-        "fileDropEnabled": true,
+        "fileDropEnabled": false,
         "decorations": false,
         "resizable": true,
         "title": "Firefly",

@@ -1,5 +1,5 @@
 import Database from 'tauri-plugin-sql-api'
-import { nanoid } from 'nanoid/async'
+import { v4 as uuid } from 'uuid'
 import type { ID, Message } from '~/models/Message'
 import { useMessagesStore } from '~/store/messages'
 
@@ -24,28 +24,43 @@ async function all() {
   return db?.select('SELECT * FROM messages ORDER BY updatedAt DESC')
 }
 
-async function create(title: string): Promise<Message> {
-  const message: Message = {
-    id: await nanoid(),
-    title,
-    thumb: '',
-    updatedAt: new Date(),
-    createdAt: new Date(),
+async function create(data: Omit<Message, 'id'>): Promise<Message> {
+  const message: Omit<Message, 'tags'> & { tags: string } = {
+    ...data,
+    id: uuid(),
+    updatedAt: data.updatedAt ?? new Date(),
+    createdAt: data.createdAt ?? new Date(),
+    tags: (data.tags ?? []).join(','),
+    category: data.category ?? 'text',
+    fileFrom: data.fileFrom ?? 'pc',
   }
 
   if (db) {
-    await db.execute('INSERT INTO messages (id, title, thumb, createdAt, updatedAt) VALUES ($1,$2,$3,$4,$5)', [
+    await db.execute('INSERT INTO messages (id, title, thumb, createdAt, updatedAt, tags, category, content, fileExt, filePath, fileFrom, link, size, width, height) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)', [
       message.id,
       message.title,
       message.thumb,
       message.createdAt,
       message.updatedAt,
+      message.tags,
+      message.category,
+      message.content,
+      message.fileExt,
+      message.filePath,
+      message.fileFrom,
+      message.link,
+      message.size,
+      message.width,
+      message.height,
     ])
   }
   else {
     console.warn('There is not a valid DB connection, adding Message to local storage only')
   }
-  return message
+  return {
+    ...message,
+    tags: message.tags.split(','),
+  }
 }
 
 async function remove(id: ID) {

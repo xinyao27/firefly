@@ -55,8 +55,8 @@ export const useMessagesStore = defineStore('messages', {
         this.ready = false
       }
     },
-    async add(task: string) {
-      const message: Message = await Storage.create(task)
+    async add(data: Omit<Message, 'id'>) {
+      const message: Message = await Storage.create(data)
 
       this.messages.push(message)
     },

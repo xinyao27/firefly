@@ -1,3 +1,5 @@
+import type { MessageCategory } from '~/models/Message'
+
 export const byteSize = (bytes?: number) => {
   if (bytes === undefined) return undefined
   const b = bytes < 0 ? -bytes : bytes
@@ -16,5 +18,35 @@ function fmt(number: number, unit: string) {
   return {
     number: n,
     unit,
+  }
+}
+
+export async function getCategoryAndThumb({ ext, link, filePath }: {
+  ext?: string
+  link?: string
+  filePath: string
+}): Promise<{
+    category: MessageCategory
+    thumb?: string
+  }> {
+  switch (ext) {
+    case 'txt':
+    case undefined:
+      return { category: 'text' }
+    case 'jpg':
+    case 'jpeg':
+    case 'png':
+    case 'gif':
+    case 'svg':
+    case 'webp':
+    case 'bmp':
+      return { category: 'image', thumb: filePath }
+    case 'url': {
+      // TODO 根据 link 获取缩略图
+      const thumb = link
+      return { category: 'link', thumb }
+    }
+    default:
+      return { category: 'other' }
   }
 }

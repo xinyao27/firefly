@@ -11,7 +11,7 @@ export interface Message {
   /**
    * 缩略图
    */
-  thumb: string
+  thumb?: string
   /**
    * 创建时间
    */
@@ -29,17 +29,17 @@ export interface Message {
    */
   category?: MessageCategory
   /**
+   * 文件内容
+   */
+  content?: string
+  /**
    * 文件类型
    */
-  fileType?: string
+  fileExt?: string
   /**
    * 文件路径
    */
   filePath?: string
-  /**
-   * 文件源
-   */
-  fileRaw?: string
   /**
    * 来源
    */

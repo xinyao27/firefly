@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { appDataDir } from '@tauri-apps/api/path'
+import { convertFileSrc } from '@tauri-apps/api/tauri'
 import dayjs from 'dayjs'
+import normalize from 'normalize-path'
 import type { Message } from '~/models/Message'
 import { byteSize } from '~/utils'
 
@@ -34,6 +37,21 @@ const description = computed(() => {
       return updatedAt
   }
 })
+const appDataDirPath = ref('')
+onMounted(async() => {
+  appDataDirPath.value = await appDataDir()
+})
+const thumb = computed(() => {
+  switch (message.category) {
+    case 'image':
+      return convertFileSrc(normalize(appDataDirPath.value + message.thumb))
+    case 'text':
+      return null
+    default:
+      return '/icons/GenericDocumentIcon.png'
+  }
+})
+
 const isSelected = computed(() => messagesStore.selectedMessageIds.includes(message.id))
 </script>
 
@@ -45,25 +63,35 @@ const isSelected = computed(() => messagesStore.selectedMessageIds.includes(mess
     :data-id="message.id"
   >
     <div
-      overflow-hidden flex items-center justify-center relative rounded-2 border-2 border-style-solid
-      :border-color="isSelected ? 'blue-500' : 'transparent'"
+      overflow-hidden flex items-center justify-center relative
       :style="{ width: `${props.size}px`, height: `${props.size}px` }"
     >
       <img
+        v-if="thumb"
         w-auto h-full max-w-none
-        :src="message.thumb" :alt="message.title"
+        :src="thumb" :alt="message.title"
       >
       <div
-        v-if="!!message.fileType"
+        v-if="!thumb && message.category === 'text'"
+        absolute top-0 right-0 bottom-0 left-0 bg-dark-200 border-2 border-dark-500 p-2 text-left select-none
+      >
+        {{ message.content }}
+      </div>
+      <div
+        v-if="isSelected"
+        absolute top-0 right-0 bottom-0 left-0 bg-blue-500 bg-opacity-10 border-2 border-blue-500
+      />
+      <div
+        v-if="message.fileExt && message.category !== 'text'"
         bg-black bg-opacity-60 text-xs font-semibold px-1 absolute rounded left-1 top-1 transform scale-90 select-none
       >
-        {{ message.fileType.toUpperCase() }}
+        {{ message.fileExt.toUpperCase() }}
       </div>
     </div>
-    <div text-xs line-clamp-2 leading-4 mt-2>
+    <div text-xs line-clamp-2 leading-4 mt-2 select-none>
       {{ message.title }}
     </div>
-    <div text-xs text-neutral-500 select-none mt-1 font-600>
+    <div text-xs text-neutral-500 mt-1 font-600 line-clamp-2 select-none>
       {{ description }}
     </div>
   </div>
