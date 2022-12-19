@@ -3,20 +3,12 @@
     windows_subsystem = "windows"
 )]
 
-use std::path::Path;
-use tauri;
+use tauri::Manager;
 use tauri_plugin_sql::{Migration, MigrationKind, TauriSql};
-
-#[tauri::command]
-fn is_directory(path: String) -> bool {
-    let target_path = Path::new(&path);
-    target_path.is_dir()
-}
+mod commands;
 
 fn main() {
-    let builder = tauri::Builder::default();
-
-    builder
+    tauri::Builder::default()
         .plugin(TauriSql::default().add_migrations(
             "sqlite:firefly.db",
             vec![Migration {
@@ -26,7 +18,13 @@ fn main() {
                 kind: MigrationKind::Up,
             }],
         ))
-        .invoke_handler(tauri::generate_handler![is_directory])
+        .invoke_handler(tauri::generate_handler![commands::is::is_directory])
+        .setup(|app| {
+            #[cfg(debug_assertions)]
+            app.get_window("main").unwrap().open_devtools();
+
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

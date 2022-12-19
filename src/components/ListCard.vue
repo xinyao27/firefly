@@ -47,6 +47,8 @@ const thumb = computed(() => {
       return convertFileSrc(normalize(appDataDirPath.value + message.thumb))
     case 'text':
       return null
+    case 'link':
+      return '/icons/BookmarkIcon.png'
     default:
       return '/icons/GenericDocumentIcon.png'
   }

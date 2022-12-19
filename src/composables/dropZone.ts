@@ -70,7 +70,6 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
         const link = fileExt === 'url' ? selectText : ''
         const { category, thumb } = await getCategoryAndThumb({
           ext: fileExt,
-          link,
           filePath: relativeFilePath,
         })
         const content = file.type === 'text/plain'

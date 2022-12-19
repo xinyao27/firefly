@@ -21,9 +21,8 @@ function fmt(number: number, unit: string) {
   }
 }
 
-export async function getCategoryAndThumb({ ext, link, filePath }: {
+export async function getCategoryAndThumb({ ext, filePath }: {
   ext?: string
-  link?: string
   filePath: string
 }): Promise<{
     category: MessageCategory
@@ -42,9 +41,7 @@ export async function getCategoryAndThumb({ ext, link, filePath }: {
     case 'bmp':
       return { category: 'image', thumb: filePath }
     case 'url': {
-      // TODO 根据 link 获取缩略图
-      const thumb = link
-      return { category: 'link', thumb }
+      return { category: 'link' }
     }
     default:
       return { category: 'other' }
