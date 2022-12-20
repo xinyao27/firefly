@@ -24,6 +24,7 @@
   "dependencies": {
     "@tauri-apps/api": "^1.2.0",
     "@unocss/reset": "^0.47.6",
+    "@vueuse/components": "^9.7.0",
     "@vueuse/core": "^9.7.0",
     "@vueuse/head": "^1.0.22",
     "dayjs": "^1.11.7",

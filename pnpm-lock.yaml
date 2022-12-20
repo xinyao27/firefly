@@ -19,6 +19,7 @@ specifiers:
   '@vitejs/plugin-vue': ^4.0.0
   '@vue-macros/volar': ^0.5.6
   '@vue/test-utils': ^2.2.6
+  '@vueuse/components': ^9.7.0
   '@vueuse/core': ^9.7.0
   '@vueuse/head': ^1.0.22
   commitizen: ^4.2.6
@@ -65,6 +66,7 @@ specifiers:
 dependencies:
   '@tauri-apps/api': 1.2.0
   '@unocss/reset': 0.47.6
+  '@vueuse/components': 9.7.0_vue@3.2.45
   '@vueuse/core': 9.7.0_vue@3.2.45
   '@vueuse/head': 1.0.22_vue@3.2.45
   dayjs: 1.11.7
@@ -2203,6 +2205,17 @@ packages:
     dependencies:
       vue: 3.2.45
     dev: true
+
+  /@vueuse/components/9.7.0_vue@3.2.45:
+    resolution: {integrity: sha512-odbDDQNHVpG+XDBBXnRf0ki92/BiZWxa8PsRNXreqh+A3LIM1Z8Qg+irL0rQQIfJIQI3VGd0C0rasGHCouIT1g==}
+    dependencies:
+      '@vueuse/core': 9.7.0_vue@3.2.45
+      '@vueuse/shared': 9.7.0_vue@3.2.45
+      vue-demi: 0.13.11_vue@3.2.45
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
 
   /@vueuse/core/9.7.0_vue@3.2.45:
     resolution: {integrity: sha512-/AGY/t7jJPxCyRoVTygNKoroTiCvRaaZIW+yeSlBCnI7QRpQ9cvXNTdNaSl3GvSyFbn83+XwZwEZvI1OpQfeGw==}

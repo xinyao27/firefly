@@ -11,75 +11,81 @@ function localOnly() {
 export const useMessagesStore = defineStore('messages', {
   state: () => {
     return {
-      messages: [] as Message[],
-      selectedMessageIds: [] as ID[],
-      ready: false,
-      dbError: undefined as string | undefined,
-      dbConnectionString: '',
+      _messages: [] as Message[],
+      _selectedMessageIds: [] as ID[],
+      _ready: false,
+      _dbError: undefined as string | undefined,
+      _dbConnectionString: '',
     }
   },
   getters: {
-    all(state) {
-      return state.messages as Message[]
+    messages(state) {
+      return state._messages
     },
-    sortedAll(state) {
-      return groupBy(state.messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD')) as Record<string, Message[]>
+    sortedMessages(state) {
+      return groupBy(state._messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD')) as Record<string, Message[]>
+    },
+    selectedMessages(state) {
+      return state._selectedMessageIds.map(id => state._messages.find(v => v.id === id)) as Message[]
+    },
+    selectedMessageIds(state) {
+      return state._selectedMessageIds
     },
   },
   actions: {
     setErrorState(err: string) {
-      this.dbError = err
+      this._dbError = err
     },
     setDbConnectionString(connect: string) {
-      this.dbConnectionString = connect
+      this._dbConnectionString = connect
     },
     async initializeDbBackedStore() {
       try {
         await Storage.connect()
       }
       catch (e) {
-        this.dbError = `Failed to connect to DB: ${e}`
+        this._dbError = `Failed to connect to DB: ${e}`
 
-        this.messages = []
-        this.ready = false
+        this._messages = []
+        this._ready = false
       }
 
       try {
         const messages = await Storage.all()
-        this.messages = messages
-        this.ready = true
+        this._messages = messages
+        this._ready = true
       }
       catch (e) {
-        this.dbError = `Failure getting TODO items from DB: ${e}`
-        this.messages = []
-        this.ready = false
+        this._dbError = `Failure getting TODO items from DB: ${e}`
+        this._messages = []
+        this._ready = false
       }
     },
     async add(data: Omit<Message, 'id'>) {
       const message: Message = await Storage.create(data)
 
-      this.messages.push(message)
+      this._messages.push(message)
     },
     async remove(id: ID) {
-      if (this.ready) {
+      if (this._ready) {
         await Storage.remove(id)
       }
       else {
         localOnly()
       }
-      this.messages = this.messages.filter((i: Message) => i.id !== id)
+      this._messages = this._messages.filter((i: Message) => i.id !== id)
     },
     async clear() {
-      if (this.ready) {
+      if (this._ready) {
         await Storage.clear()
       }
       else {
         localOnly()
       }
-      this.messages = []
+      this._messages = []
     },
     selectMessageIds(selected: ID[] = []) {
-      this.selectedMessageIds = selected
+      this._selectedMessageIds = selected
     },
   },
 })

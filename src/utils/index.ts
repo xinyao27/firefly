@@ -1,3 +1,4 @@
+import { appDataDir, join } from '@tauri-apps/api/path'
 import type { MessageCategory } from '~/models/Message'
 
 export const byteSize = (bytes?: number) => {
@@ -47,3 +48,10 @@ export async function getCategoryAndThumb({ ext, filePath }: {
       return { category: 'other' }
   }
 }
+
+export async function getFinalFilePath(filePath: string) {
+  const finalFilePath = await join(await appDataDir(), filePath)
+  return finalFilePath
+}
+
+export * from './is'

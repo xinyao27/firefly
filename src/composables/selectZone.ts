@@ -61,8 +61,8 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
     e.stopPropagation()
     e.preventDefault()
 
-    // 鼠标左键按下
-    if (e.button === 0) {
+    // @ts-expect-error noop
+    if (e.button === 0 && !('messageCardSelectArea' in e.target?.dataset)) {
       startX.value = e.x + (target.value?.scrollLeft ?? 0)
       startY.value = e.y + (target.value?.scrollTop ?? 0) - configsStore.rootPaddingTop
       selecting.value = true

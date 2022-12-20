@@ -14,6 +14,10 @@ const {
   selectAreaHeight,
   handleMouseDown,
 } = useSelectZone(dragView)
+const { close: closeContextMenu } = useContextMenu()
+function handleScroll() {
+  closeContextMenu()
+}
 </script>
 
 <template>
@@ -32,6 +36,7 @@ const {
       flex-auto px-4 relative z-36
       :overflow="isOverDropZone ? 'hidden' : 'overlay'"
       @mousedown="handleMouseDown"
+      @scroll="handleScroll"
     >
       <!-- select area -->
       <div

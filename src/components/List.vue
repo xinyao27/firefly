@@ -6,7 +6,7 @@ const configsStore = useConfigsStore()
 <template>
   <NTimeline>
     <NTimelineItem
-      v-for="(row, key) in messagesStore.sortedAll"
+      v-for="(row, key) in messagesStore.sortedMessages"
       :key="key"
     >
       <div font-semibold text-neutral-500 mb-3>

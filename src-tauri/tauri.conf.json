@@ -24,10 +24,14 @@
         "all": true,
         "scope": ["**/*"]
       },
-      "protocol": {
-        "all": true,
-        "asset": true,
-        "assetScope": ["**/*"]
+      "os": {
+        "all": true
+      },
+      "shell": {
+        "all": true
+      },
+      "clipboard": {
+        "all": true
       }
     },
     "bundle": {

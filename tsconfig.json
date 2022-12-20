@@ -22,5 +22,6 @@
       "@vue-macros/volar/define-slots"
     ]
   },
+  "include": ["src"],
   "exclude": ["dist", "node_modules", "cypress"]
 }

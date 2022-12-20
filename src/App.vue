@@ -31,8 +31,12 @@ onMounted(async() => {
 <template>
   <NConfigProvider :theme="darkTheme" :theme-overrides="themeOverrides">
     <NMessageProvider :keep-alive-on-hover="true" container-style="top: 52px;">
-      <TitleBar />
-      <RouterView />
+      <ContextMenuProvider>
+        <CustomProvider>
+          <TitleBar />
+          <RouterView />
+        </CustomProvider>
+      </ContextMenuProvider>
     </NMessageProvider>
   </NConfigProvider>
 </template>
