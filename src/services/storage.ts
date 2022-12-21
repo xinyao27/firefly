@@ -15,6 +15,7 @@ async function connect() {
   catch (e) {
     console.error(e)
     s.setErrorState(e as string)
+    return null
   }
 }
 
