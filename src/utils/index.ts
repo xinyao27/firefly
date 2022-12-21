@@ -53,5 +53,3 @@ export async function getFinalFilePath(filePath: string) {
   const finalFilePath = await join(await appDataDir(), filePath)
   return finalFilePath
 }
-
-export * from './is'

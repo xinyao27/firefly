@@ -34,6 +34,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",
     "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
+    "tauri-utils": "^0.1.0",
     "uuid": "^9.0.0",
     "vue": "^3.2.45",
     "vue-i18n": "^9.2.2",

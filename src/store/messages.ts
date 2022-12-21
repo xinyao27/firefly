@@ -1,6 +1,4 @@
 import { defineStore } from 'pinia'
-import { groupBy } from 'lodash-es'
-import dayjs from 'dayjs'
 import Storage from '~/services/storage'
 import type { ID, Message } from '~/models/Message'
 
@@ -11,26 +9,12 @@ function localOnly() {
 export const useMessagesStore = defineStore('messages', {
   state: () => {
     return {
-      _messages: [] as Message[],
-      _selectedMessageIds: [] as ID[],
+      messages: [] as Message[],
+      selectedMessageIds: [] as ID[],
       _ready: false,
       _dbError: undefined as string | undefined,
       _dbConnectionString: '',
     }
-  },
-  getters: {
-    messages(state) {
-      return state._messages
-    },
-    sortedMessages(state) {
-      return groupBy(state._messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD')) as Record<string, Message[]>
-    },
-    selectedMessages(state) {
-      return state._selectedMessageIds.map(id => state._messages.find(v => v.id === id)) as Message[]
-    },
-    selectedMessageIds(state) {
-      return state._selectedMessageIds
-    },
   },
   actions: {
     setErrorState(err: string) {
@@ -46,25 +30,25 @@ export const useMessagesStore = defineStore('messages', {
       catch (e) {
         this._dbError = `Failed to connect to DB: ${e}`
 
-        this._messages = []
+        this.messages = []
         this._ready = false
       }
 
       try {
         const messages = await Storage.all()
-        this._messages = messages
+        this.messages = messages
         this._ready = true
       }
       catch (e) {
         this._dbError = `Failure getting TODO items from DB: ${e}`
-        this._messages = []
+        this.messages = []
         this._ready = false
       }
     },
     async add(data: Omit<Message, 'id'>) {
       const message: Message = await Storage.create(data)
 
-      this._messages.push(message)
+      this.messages.push(message)
     },
     async remove(id: ID) {
       if (this._ready) {
@@ -73,7 +57,7 @@ export const useMessagesStore = defineStore('messages', {
       else {
         localOnly()
       }
-      this._messages = this._messages.filter((i: Message) => i.id !== id)
+      this.messages = this.messages.filter((i: Message) => i.id !== id)
     },
     async clear() {
       if (this._ready) {
@@ -82,10 +66,10 @@ export const useMessagesStore = defineStore('messages', {
       else {
         localOnly()
       }
-      this._messages = []
+      this.messages = []
     },
     selectMessageIds(selected: ID[] = []) {
-      this._selectedMessageIds = selected
+      this.selectedMessageIds = selected
     },
   },
 })

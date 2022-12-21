@@ -3,10 +3,14 @@ import { open } from '@tauri-apps/api/shell'
 import { appDataDir, join } from '@tauri-apps/api/path'
 import { writeText } from '@tauri-apps/api/clipboard'
 import type { ComputedRef } from 'vue'
-import type { Message } from '~/models/Message'
 import { getFinalFilePath } from '~/utils'
 
-export function useContextMenuOptions(messages: ComputedRef<Message[]>): ComputedRef<DropdownOption[]> {
+export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
+  const messagesStore = useMessagesStore()
+  const messages = computed(() => {
+    return messagesStore.selectedMessageIds.map(id => messagesStore.messages.find(v => v.id === id)!)
+  })
+
   return computed(() => {
     return [
       {

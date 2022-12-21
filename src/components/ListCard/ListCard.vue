@@ -4,7 +4,7 @@ import { convertFileSrc } from '@tauri-apps/api/tauri'
 import dayjs from 'dayjs'
 import normalize from 'normalize-path'
 import { useContextMenuOptions } from './contextMenu'
-import { useCardClick } from '~/composables/cardClick'
+import { useCardClick } from './cardClick'
 import { useContextMenu } from '~/composables/contextMenu'
 import type { Message } from '~/models/Message'
 import { byteSize } from '~/utils'
@@ -59,10 +59,15 @@ const thumb = computed(() => {
 const isSelected = computed(() => messagesStore.selectedMessageIds.includes(message.id))
 
 const { handleClick, handleDoubleClick } = useCardClick(message.id)
-const contextMenuOptions = useContextMenuOptions(computed(() => messagesStore.selectedMessages))
+const contextMenuOptions = useContextMenuOptions()
 const { show: showContextMenu } = useContextMenu(contextMenuOptions.value)
 function handleContextMenu(e: MouseEvent) {
-  // handleClick()
+  if (messagesStore.selectedMessageIds.length < 1) {
+    handleClick()
+  }
+  else if (!messagesStore.selectedMessageIds.includes(message.id)) {
+    handleClick()
+  }
   showContextMenu(e)
 }
 </script>

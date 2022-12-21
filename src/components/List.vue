@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import { groupBy } from 'lodash-es'
+import dayjs from 'dayjs'
+
 const messagesStore = useMessagesStore()
 const configsStore = useConfigsStore()
+
+const sortedMessages = computed(() => {
+  return groupBy(messagesStore.messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD'))
+})
 </script>
 
 <template>
   <NTimeline>
     <NTimelineItem
-      v-for="(row, key) in messagesStore.sortedMessages"
+      v-for="(row, key) in sortedMessages"
       :key="key"
     >
       <div font-semibold text-neutral-500 mb-3>

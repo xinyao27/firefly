@@ -37,7 +37,7 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   const allMessageCardRects = ref<{ rect: DOMRect; element: Element }[] | null>(null)
 
   function handleSelectMessageCardAndGetIds() {
-    const selectedMessages: ID[] = []
+    const selectedMessageIds: ID[] = []
     if (allMessageCardRects.value) {
       for (const { rect, element } of allMessageCardRects.value) {
         if (
@@ -51,10 +51,10 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
           && selectAreaY.value + selectAreaHeight.value > rect.y + (target.value?.scrollTop ?? 0)
         ) {
           // @ts-expect-error noop
-          selectedMessages.push(element.dataset.id)
+          selectedMessageIds.push(element.dataset.id)
         }
       }
-      messagesStore.selectMessageIds(selectedMessages)
+      messagesStore.selectMessageIds(selectedMessageIds)
     }
   }
   function handleMouseDown(e: MouseEvent) {
