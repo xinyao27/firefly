@@ -100,25 +100,34 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
 
   const isOverDropZone = ref(false)
   let counter = 0
-  useEventListener<DragEvent>(target, 'dragenter', (event) => {
-    event.preventDefault()
+  useEventListener<DragEvent>(target, 'drag', () => {
+    counter = 0
+    isOverDropZone.value = false
+  })
+  useEventListener<DragEvent>(target, 'dragenter', (e) => {
+    e.preventDefault()
+
     counter += 1
     isOverDropZone.value = true
   })
-  useEventListener<DragEvent>(target, 'dragover', (event) => {
-    event.preventDefault()
+  useEventListener<DragEvent>(target, 'dragover', (e) => {
+    e.preventDefault()
   })
-  useEventListener<DragEvent>(target, 'dragleave', (event) => {
-    event.preventDefault()
+  useEventListener<DragEvent>(target, 'dragleave', (e) => {
+    e.preventDefault()
+
     counter -= 1
     if (counter === 0) { isOverDropZone.value = false }
   })
-  useEventListener<DragEvent>(target, 'drop', (event) => {
-    event.preventDefault()
+  useEventListener<DragEvent>(target, 'drop', (e) => {
+    e.preventDefault()
+
+    if (counter) {
+      const files = Array.from(e.dataTransfer?.files ?? [])
+      handleDrop(files.length === 0 ? null : files, e.dataTransfer?.getData('text'))
+    }
     counter = 0
     isOverDropZone.value = false
-    const files = Array.from(event.dataTransfer?.files ?? [])
-    handleDrop(files.length === 0 ? null : files, event.dataTransfer?.getData('text'))
   })
   return { isOverDropZone }
 }

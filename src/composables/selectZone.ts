@@ -59,7 +59,6 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   }
   function handleMouseDown(e: MouseEvent) {
     e.stopPropagation()
-    e.preventDefault()
 
     // @ts-expect-error noop
     if (e.button === 0 && !('messageCardSelectArea' in e.target?.dataset)) {
@@ -76,7 +75,6 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   }
   useEventListener('mouseup', (e) => {
     e.stopPropagation()
-    e.preventDefault()
 
     if (selecting.value) {
       if (startX.value !== endX.value || startY.value !== endY.value) {
@@ -92,7 +90,6 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   })
   useEventListener('mousemove', (e) => {
     e.stopPropagation()
-    e.preventDefault()
 
     if (selecting.value) {
       endX.value = e.x + (target.value?.scrollLeft ?? 0)

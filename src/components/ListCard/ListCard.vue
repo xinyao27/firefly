@@ -91,6 +91,7 @@ function handleContextMenu(e: MouseEvent) {
         v-if="thumb"
         w-auto h-full max-w-none
         data-message-card-select-area
+        draggable
         :src="thumb"
         :alt="message.title"
       >
