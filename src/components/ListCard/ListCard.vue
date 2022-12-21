@@ -82,7 +82,7 @@ function handleContextMenu(e: MouseEvent) {
     @contextmenu.capture.prevent.stop="handleContextMenu"
   >
     <div
-      overflow-hidden flex items-center justify-center relative
+      overflow-hidden flex items-center justify-center relative select-none
       :style="{ width: `${props.size}px`, height: `${props.size}px` }"
       data-message-card-select-area
       @dblclick.capture.prevent.stop="handleDoubleClick"

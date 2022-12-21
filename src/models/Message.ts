@@ -60,4 +60,9 @@ export interface Message {
    * 图片高度
    */
   height?: number
+
+  /**
+   * 是否已移至废纸篓
+   */
+  isTrash?: boolean
 }

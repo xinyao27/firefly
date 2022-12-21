@@ -13,5 +13,6 @@ CREATE TABLE messages (
   link VARCHAR(1000),
   size INTEGER,
   width INTEGER,
-  height INTEGER
+  height INTEGER,
+  isTrash BOOLEAN
 );

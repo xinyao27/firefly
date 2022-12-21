@@ -11,6 +11,7 @@ export const useMessagesStore = defineStore('messages', {
     return {
       messages: [] as Message[],
       selectedMessageIds: [] as ID[],
+      trashMessages: [] as Message[],
       _ready: false,
       _dbError: undefined as string | undefined,
       _dbConnectionString: '',
@@ -31,42 +32,77 @@ export const useMessagesStore = defineStore('messages', {
         this._dbError = `Failed to connect to DB: ${e}`
 
         this.messages = []
+        this.trashMessages = []
         this._ready = false
       }
 
       try {
         const messages = await Storage.all()
-        this.messages = messages
+        this.messages = messages?.filter(message => !message.isTrash)
+        this.trashMessages = messages?.filter(message => message.isTrash)
         this._ready = true
       }
       catch (e) {
         this._dbError = `Failure getting TODO items from DB: ${e}`
         this.messages = []
+        this.trashMessages = []
         this._ready = false
       }
     },
     async add(data: Omit<Message, 'id'>) {
-      const message: Message = await Storage.create(data)
-
-      this.messages.push(message)
+      if (this._ready) {
+        const message: Message = await Storage.create(data)
+        this.messages.push(message)
+      }
+      else {
+        localOnly()
+      }
+    },
+    async moveToTrash(id: ID) {
+      if (this._ready) {
+        const target = this.messages.find((message: Message) => message.id === id)
+        if (target) {
+          await Storage.moveToTrash(id)
+          this.messages = this.messages.filter((i: Message) => i.id !== id)
+          this.trashMessages.push(target)
+        }
+      }
+      else {
+        localOnly()
+      }
+    },
+    async moveToDashboard(id: ID) {
+      if (this._ready) {
+        const target = this.trashMessages.find((message: Message) => message.id === id)
+        if (target) {
+          await Storage.moveToDashboard(id)
+          this.trashMessages = this.trashMessages.filter((i: Message) => i.id !== id)
+          this.messages.push(target)
+        }
+      }
+      else {
+        localOnly()
+      }
     },
     async remove(id: ID) {
       if (this._ready) {
         await Storage.remove(id)
+        this.messages = this.messages.filter((i: Message) => i.id !== id)
+        this.trashMessages = this.trashMessages.filter((i: Message) => i.id !== id)
       }
       else {
         localOnly()
       }
-      this.messages = this.messages.filter((i: Message) => i.id !== id)
     },
     async clear() {
       if (this._ready) {
         await Storage.clear()
+        this.messages = []
+        this.trashMessages = []
       }
       else {
         localOnly()
       }
-      this.messages = []
     },
     selectMessageIds(selected: ID[] = []) {
       this.selectedMessageIds = selected

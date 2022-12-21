@@ -18,9 +18,14 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'OPEN_WITH_DEFAULT',
         onClick: async() => {
           if (messages.value.length) {
-            for (const message of messages.value) {
-              const filePath = await getFinalFilePath(message.filePath!)
-              open(filePath)
+            try {
+              for (const message of messages.value) {
+                const filePath = await getFinalFilePath(message.filePath!)
+                open(filePath)
+              }
+            }
+            catch (e) {
+              $message.error(e)
             }
           }
         },
@@ -30,8 +35,13 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'OPEN_WITH_EXPLORER',
         onClick: async() => {
           if (messages.value.length) {
-            const dirPath = await join(await appDataDir(), 'files')
-            open(dirPath)
+            try {
+              const dirPath = await join(await appDataDir(), 'files')
+              open(dirPath)
+            }
+            catch (e) {
+              $message.error(e)
+            }
           }
         },
       },
@@ -67,7 +77,9 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
                 allFilePath.push(filePath)
               }
             }
-            catch (_) {}
+            catch (e) {
+              $message.error(e)
+            }
             finally {
               await writeText(allFilePath.join('\n'))
               $message.success(`已复制 ${allFilePath.length} 个文件路径`)
@@ -84,8 +96,19 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'MOVE_TO_TRASH',
         onClick: async() => {
           if (messages.value.length) {
-          // TODO
-            $message.success('已移到废纸篓')
+            const trashes = []
+            try {
+              for (const message of messages.value) {
+                await messagesStore.moveToTrash(message.id)
+                trashes.push(message.id)
+              }
+            }
+            catch (e) {
+              $message.error(e)
+            }
+            finally {
+              $message.success(`已将 ${trashes.length} 个文件移到废纸篓`)
+            }
           }
         },
       },
