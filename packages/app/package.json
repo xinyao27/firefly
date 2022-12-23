@@ -20,6 +20,12 @@
     "tauri-utils": "^0.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.2.2"
+    "@tauri-apps/cli": "^1.2.2",
+    "@types/markdown-it-link-attributes": "^3.0.1",
+    "markdown-it-link-attributes": "^4.0.1",
+    "markdown-it-shiki": "^0.7.2",
+    "shiki": "^0.12.1",
+    "vite-plugin-pages": "^0.28.0",
+    "vite-plugin-vue-markdown": "^0.22.1"
   }
 }

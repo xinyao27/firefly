@@ -1,12 +1,15 @@
-/// <reference types="vitest" />
-
 import { dirname, relative } from 'path'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
+import Preview from 'vite-plugin-vue-component-preview'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import UnoCSS from 'unocss/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+import Inspect from 'vite-plugin-inspect'
+import Unocss from 'unocss/vite'
+import VueMacros from 'unplugin-vue-macros/vite'
 import { isDev, port, r } from './scripts/utils'
 
 export const sharedConfig: UserConfig = {
@@ -14,25 +17,61 @@ export const sharedConfig: UserConfig = {
   resolve: { alias: { '~/': `${r('src')}/` } },
   define: { __DEV__: isDev },
   plugins: [
-    Vue(),
+    Preview(),
 
+    VueMacros({
+      plugins: {
+        vue: Vue({
+          include: [/\.vue$/, /\.md$/],
+          reactivityTransform: true,
+        }),
+      },
+    }),
+
+    // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [
         'vue',
+        'vue-router',
+        'vue-i18n',
+        'vue/macros',
+        '@vueuse/head',
+        '@vueuse/core',
         { 'webextension-polyfill': [['*', 'browser']] },
       ],
       dts: r('src/auto-imports.d.ts'),
+      dirs: [
+        r('src/composables'),
+        r('src/store'),
+      ],
+      vueTemplate: true,
     }),
 
     // https://github.com/antfu/unplugin-vue-components
     Components({
+    // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dirs: [r('src/components')],
-      // generate `components.d.ts` for ts support with Volar
       dts: r('src/components.d.ts'),
+      resolvers: [NaiveUiResolver()],
     }),
 
-    // https://github.com/unocss/unocss
-    UnoCSS(),
+    // https://github.com/antfu/unocss
+    // see unocss.config.ts for config
+    Unocss(),
+
+    // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
+    VueI18n({
+      runtimeOnly: true,
+      compositionOnly: true,
+      include: [r('locales/**')],
+    }),
+
+    // https://github.com/antfu/vite-plugin-inspect
+    // Visit http://localhost:3333/__inspect/ to see the inspector
+    Inspect(),
 
     // rewrite assets to use relative path
     {
@@ -51,6 +90,10 @@ export const sharedConfig: UserConfig = {
       'webextension-polyfill',
     ],
     exclude: ['vue-demi'],
+  },
+  test: {
+    environment: 'jsdom',
+    deps: { inline: ['@vue', '@vueuse'] },
   },
 }
 
@@ -74,9 +117,5 @@ export default defineConfig(({ command }) => ({
         popup: r('src/popup/index.html'),
       },
     },
-  },
-  test: {
-    globals: true,
-    environment: 'jsdom',
   },
 }))

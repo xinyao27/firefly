@@ -1,16 +1,14 @@
-/// <reference types="vitest" />
-
 import path from 'node:path'
 import { defineConfig } from 'vite'
-import Preview from 'vite-plugin-vue-component-preview'
-import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
+import Preview from 'vite-plugin-vue-component-preview'
+import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Markdown from 'vite-plugin-vue-markdown'
-import VueI18n from '@intlify/vite-plugin-vue-i18n'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import Inspect from 'vite-plugin-inspect'
 import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
@@ -20,12 +18,15 @@ import VueMacros from 'unplugin-vue-macros/vite'
 export default defineConfig({
   // prevent vite from obscuring rust errors
   clearScreen: false,
+
   // Tauri expects a fixed port, fail if that port is not available
   server: { strictPort: true },
+
   // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
   // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
   // env variables
   envPrefix: ['VITE_', 'TAURI_'],
+
   build: {
     // Tauri uses Chromium on Windows and WebKit on macOS and Linux
     target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
@@ -49,12 +50,6 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/hannoeru/vite-plugin-pages
-    Pages({ extensions: ['vue', 'md'] }),
-
-    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
-    Layouts(),
-
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [
@@ -75,7 +70,7 @@ export default defineConfig({
 
     // https://github.com/antfu/unplugin-vue-components
     Components({
-      // allow auto load markdown components under `./src/components/`
+    // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
@@ -93,7 +88,7 @@ export default defineConfig({
       wrapperClasses: 'prose prose-sm m-auto text-left',
       headEnabled: true,
       markdownItSetup(md) {
-        // https://prismjs.com/
+      // https://prismjs.com/
         md.use(Shiki, {
           theme: {
             light: 'vitesse-light',
@@ -110,7 +105,7 @@ export default defineConfig({
       },
     }),
 
-    // https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n
+    // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
     VueI18n({
       runtimeOnly: true,
       compositionOnly: true,
@@ -120,11 +115,15 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-inspect
     // Visit http://localhost:3333/__inspect/ to see the inspector
     Inspect(),
+
+    // https://github.com/hannoeru/vite-plugin-pages
+    Pages({ extensions: ['vue', 'md'] }),
+
+    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
+    Layouts(),
   ],
 
-  // https://github.com/vitest-dev/vitest
   test: {
-    include: ['test/**/*.test.ts'],
     environment: 'jsdom',
     deps: { inline: ['@vue', '@vueuse'] },
   },
