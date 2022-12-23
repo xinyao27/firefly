@@ -1,0 +1,12 @@
+{
+  "extends": "@chenyueban/tsconfig",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@firefly/*": ["packages/*/src"]
+    }
+  },
+  "include": [
+    "packages/**/*"
+  ]
+}

@@ -8,9 +8,9 @@ import NProgress from 'nprogress'
 import App from './App.vue'
 import generatedRoutes from '~pages'
 
+import 'uno.css'
 import '@unocss/reset/tailwind.css'
 import './styles/main.sass'
-import 'uno.css'
 
 document.oncontextmenu = () => false
 
@@ -29,6 +29,7 @@ const messages = Object.fromEntries(Object.entries(import.meta.glob<{ default: a
     const yaml = key.endsWith('.yaml')
     return [key.slice(14, yaml ? -5 : -4), value.default]
   }))
+
 const i18n = createI18n({
   legacy: false,
   locale: 'en',

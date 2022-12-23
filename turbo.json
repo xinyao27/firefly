@@ -10,13 +10,7 @@
       "outputs": [],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.vue", "test/**/*.ts", "test/**/*.tsx"]
     },
-    "lint": {
-      "outputs": []
-    },
     "dev": {
-      "outputs": []
-    },
-    "start": {
       "outputs": []
     }
   }

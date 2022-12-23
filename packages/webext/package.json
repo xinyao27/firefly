@@ -1,0 +1,33 @@
+{
+  "name": "@firefly/webext",
+  "displayName": "firefly",
+  "version": "0.0.0",
+  "private": true,
+  "description": "此扩展程序可以轻松保存图像到 Firefly App。",
+  "scripts": {
+    "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
+    "dev:prepare": "tsx scripts/prepare.ts",
+    "dev:web": "vite",
+    "dev:js": "npm run build:js -- --mode development",
+    "build": "cross-env NODE_ENV=production run-s clear build:web build:prepare build:js",
+    "build:prepare": "tsx scripts/prepare.ts",
+    "build:web": "vite build",
+    "build:js": "vite build --config vite.config.content.ts",
+    "pack": "cross-env NODE_ENV=production run-p pack:*",
+    "pack:zip": "rimraf extension.zip && jszip-cli add extension/* -o ./extension.zip",
+    "pack:crx": "crx pack extension -o ./extension.crx",
+    "pack:xpi": "cross-env WEB_EXT_ARTIFACTS_DIR=./ web-ext build --source-dir ./extension --filename extension.xpi --overwrite-dest",
+    "start:chromium": "web-ext run --source-dir ./extension --target=chromium",
+    "start:firefox": "web-ext run --source-dir ./extension --target=firefox-desktop",
+    "clear": "rimraf extension/dist extension/manifest.json extension.*",
+    "test": "vitest test"
+  },
+  "devDependencies": {
+    "@ffflorian/jszip-cli": "^3.1.6",
+    "@types/webextension-polyfill": "^0.9.1",
+    "crx": "^5.0.1",
+    "web-ext": "^7.3.1",
+    "webext-bridge": "^5.0.5",
+    "webextension-polyfill": "^0.10.0"
+  }
+}

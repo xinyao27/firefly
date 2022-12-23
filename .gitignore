@@ -1,7 +1,17 @@
 # compiled output
-dist
 node_modules
 .turbo
+*.crx
+*.local
+*.log
+*.pem
+*.xpi
+*.zip
+dist
+dist-ssr
+auto-imports.d.ts
+components.d.ts
+
 
 # Logs
 logs

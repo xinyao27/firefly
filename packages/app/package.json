@@ -5,14 +5,21 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "dev": "vite --port 3333",
-    "start": "tauri dev",
+    "dev:web": "vite --port 3333",
+    "dev": "tauri dev",
     "tauri": "tauri",
     "preview": "vite preview",
     "preview-https": "serve dist",
-    "lint": "eslint . --fix",
     "test": "vitest",
     "test:e2e": "cypress open",
     "test:unit": "vitest"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.2.0",
+    "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
+    "tauri-utils": "^0.1.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.2.2"
   }
 }
