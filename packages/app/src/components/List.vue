@@ -16,7 +16,7 @@ const sortedMessages = computed(() => {
       v-for="(row, key) in sortedMessages"
       :key="key"
     >
-      <div font-semibold text-neutral-500 mb-3>
+      <div font-semibold text-neutral-500 mb-3 select-none>
         {{ key }}
       </div>
       <div

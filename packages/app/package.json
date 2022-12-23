@@ -1,0 +1,18 @@
+{
+  "name": "@firefly/app",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite --port 3333",
+    "start": "tauri dev",
+    "tauri": "tauri",
+    "preview": "vite preview",
+    "preview-https": "serve dist",
+    "lint": "eslint . --fix",
+    "test": "vitest",
+    "test:e2e": "cypress open",
+    "test:unit": "vitest"
+  }
+}
