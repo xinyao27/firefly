@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useFileDropZone } from '~/composables/dropZone'
-import { useSelectZone } from '~/composables/selectZone'
+import { useFileDropZone } from '~/composables/useFileDropZone'
+import { useSelectZone } from '~/composables/useSelectZone'
 
 const loadingBarTargetRef = ref<HTMLElement>()
 const dragView = ref<HTMLDivElement>()

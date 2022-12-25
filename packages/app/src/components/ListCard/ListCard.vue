@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import normalize from 'normalize-path'
 import { useContextMenuOptions } from './contextMenu'
 import { useCardClick } from './cardClick'
-import { useContextMenu } from '~/composables/contextMenu'
+import { useContextMenu } from '~/composables/useContextMenu'
 import type { Message } from '~/models/Message'
 import { byteSize } from '~/utils'
 

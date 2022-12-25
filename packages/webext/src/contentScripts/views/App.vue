@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { useToggle } from '@vueuse/core'
-import 'uno.css'
 
 const [show, toggle] = useToggle(false)
+
+useEventListener('drag', () => {
+  toggle(true)
+})
+// useEventListener('drop', (e) => {
+//   console.log('drop', e)
+// })
 </script>
 
 <template>
@@ -15,7 +21,7 @@ const [show, toggle] = useToggle(false)
       :class="show ? 'opacity-100' : 'opacity-0'"
     >
       <h1 class="text-lg">
-        Vitesse WebExt
+        Vitesse WebExt 33
       </h1>
       <SharedSubtitle />
     </div>
@@ -24,7 +30,7 @@ const [show, toggle] = useToggle(false)
       bg="teal-600 hover:teal-700"
       @click="toggle()"
     >
-      <pixelarticons-power class="block m-auto text-white text-lg" />
+      <i i-ri-tools-line class="block m-auto text-white text-lg" />
     </div>
   </div>
 </template>

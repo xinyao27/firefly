@@ -62,7 +62,7 @@ A [Vite](https://vitejs.dev/) powered WebExtension ([Chrome](https://developer.c
 
 ### GitHub Template
 
-[Create a repo from this template on GitHub](https://github.com/antfu/vitesse-webext/generate).
+[Create a repo from this template on GitHub](https://github.com/antfu/firefly/generate).
 
 ### Clone to local
 
@@ -71,7 +71,7 @@ If you prefer to do it manually with the cleaner git history
 > If you don't have pnpm installed, run: npm install -g pnpm
 
 ```bash
-npx degit antfu/vitesse-webext my-webext
+npx degit antfu/firefly my-webext
 cd my-webext
 pnpm i
 ```
