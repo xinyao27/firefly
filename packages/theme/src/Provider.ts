@@ -10,13 +10,13 @@ export const ThemeProvider: FunctionalComponent = (_, { slots }) => {
       theme: darkTheme,
       themeOverrides,
     },
-    h(
+    () => h(
       NMessageProvider,
       {
         keepAliveOnHover: true,
         containerStyle: { top: '52px' },
       },
-      slots.default?.(),
+      () => slots.default?.(),
     ),
   )
 }
