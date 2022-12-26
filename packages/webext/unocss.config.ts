@@ -8,7 +8,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import presetAutoprefixer from 'unocss-preset-autoprefixer'
+import presetAutoprefixer from '../../libs/unocssPresetAutoprefix'
 
 export default defineConfig({
   presets: [

@@ -162,7 +162,7 @@ importers:
   packages/webext:
     specifiers:
       '@ffflorian/jszip-cli': ^3.1.6
-      '@firefly/theme': workspace:0.0.0
+      '@firefly/theme': workspace:*
       '@types/webextension-polyfill': ^0.9.1
       crx: ^5.0.1
       web-ext: ^7.3.1
