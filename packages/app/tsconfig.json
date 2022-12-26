@@ -9,7 +9,8 @@
       "vite-plugin-pages/client",
       "vite-plugin-vue-component-preview/client",
       "vite-plugin-vue-layouts/client",
-      "unplugin-vue-macros/macros-global"
+      "unplugin-vue-macros/macros-global",
+      "naive-ui/volar"
     ],
     "paths": {
       "~/*": ["src/*"]

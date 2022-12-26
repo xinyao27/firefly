@@ -125,6 +125,7 @@ importers:
 
   packages/app:
     specifiers:
+      '@firefly/theme': workspace:*
       '@tauri-apps/api': ^1.2.0
       '@tauri-apps/cli': ^1.2.2
       '@types/markdown-it-link-attributes': ^3.0.1
@@ -136,6 +137,7 @@ importers:
       vite-plugin-pages: ^0.28.0
       vite-plugin-vue-markdown: ^0.22.1
     dependencies:
+      '@firefly/theme': link:../theme
       '@tauri-apps/api': 1.2.0
       tauri-plugin-sql-api: github.com/tauri-apps/tauri-plugin-sql/5379183f139625ca6c6660e2f17afa6f250066ef
       tauri-utils: 0.1.0_@tauri-apps+api@1.2.0
@@ -148,14 +150,20 @@ importers:
       vite-plugin-pages: 0.28.0
       vite-plugin-vue-markdown: 0.22.1
 
+  packages/theme:
+    specifiers: {}
+
   packages/webext:
     specifiers:
       '@ffflorian/jszip-cli': ^3.1.6
+      '@firefly/theme': workspace:0.0.0
       '@types/webextension-polyfill': ^0.9.1
       crx: ^5.0.1
       web-ext: ^7.3.1
       webext-bridge: ^5.0.5
       webextension-polyfill: ^0.10.0
+    dependencies:
+      '@firefly/theme': link:../theme
     devDependencies:
       '@ffflorian/jszip-cli': 3.1.6
       '@types/webextension-polyfill': 0.9.2

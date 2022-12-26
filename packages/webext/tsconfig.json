@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "types": [
-      "vite/client"
+      "vite/client",
+      "naive-ui/volar"
     ],
     "paths": {
       "~/*": ["src/*"]

@@ -1,0 +1,15 @@
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { colors } from 'unocss/preset-mini'
+
+export const themeOverrides: GlobalThemeOverrides = {
+  common: {
+    // @ts-expect-error noop
+    primaryColor: colors?.blue['500'],
+    // @ts-expect-error noop
+    primaryColorHover: colors?.blue['400'],
+    // @ts-expect-error noop
+    primaryColorPressed: colors?.blue['600'],
+    // @ts-expect-error noop
+    primaryColorSuppl: colors?.blue['500'],
+  },
+}

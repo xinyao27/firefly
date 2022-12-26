@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import 'uno.css'
 import { useToggle } from '@vueuse/core'
+import { ThemeProvider } from '@firefly/theme'
 
-const [show, toggle] = useToggle(false)
+const [show, toggle] = useToggle(true)
 
 useEventListener('drag', () => {
   toggle(true)
@@ -12,25 +14,31 @@ useEventListener('drag', () => {
 </script>
 
 <template>
-  <div class="fixed right-0 bottom-0 m-5 z-100 flex items-end font-sans select-none leading-1em">
+  <ThemeProvider>
     <div
-      class="bg-white text-gray-800 rounded-lg shadow w-max h-min"
-      p="x-4 y-2"
-      m="y-auto r-2"
-      transition="opacity duration-300"
-      :class="show ? 'opacity-100' : 'opacity-0'"
+      v-if="show"
+      fixed left-0 top-0 m-5 z-1000 flex items-end font-sans select-none leading-1em
     >
-      <h1 class="text-lg">
-        Vitesse WebExt 33
-      </h1>
-      <SharedSubtitle />
+      <div w-48 rounded-2 bg-dark-500 bg-opacity-60>
+        <div>
+          <NUpload
+            multiple
+            directory-dnd
+            action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+            :max="5"
+          >
+            <NUploadDragger>
+              <i
+                i-ri-upload-cloud-2-line
+                text-lg
+              />
+              <div>
+                拖放到这里
+              </div>
+            </NUploadDragger>
+          </NUpload>
+        </div>
+      </div>
     </div>
-    <div
-      class="flex w-10 h-10 rounded-full shadow cursor-pointer"
-      bg="teal-600 hover:teal-700"
-      @click="toggle()"
-    >
-      <i i-ri-tools-line class="block m-auto text-white text-lg" />
-    </div>
-  </div>
+  </ThemeProvider>
 </template>

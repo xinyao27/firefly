@@ -15,6 +15,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@firefly/theme": "workspace:*",
     "@tauri-apps/api": "^1.2.0",
     "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
     "tauri-utils": "^0.1.0"
