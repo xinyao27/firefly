@@ -1,3 +1,4 @@
+import { createPinia } from 'pinia'
 import type { App } from 'vue'
 import { getCurrentContext } from 'webext-bridge'
 
@@ -13,4 +14,6 @@ export function setupApp(app: App) {
   // Here you can install additional plugins for all contexts: popup, options page and content-script.
   // example: app.use(i18n)
   // example excluding content-script context: if (context !== 'content-script') app.use(i18n)
+  const pinia = createPinia()
+  app.use(pinia)
 }
