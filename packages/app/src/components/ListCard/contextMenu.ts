@@ -1,7 +1,7 @@
 import type { DropdownOption } from 'naive-ui'
-import { open } from '@tauri-apps/api/shell'
-import { appDataDir, join } from '@tauri-apps/api/path'
-import { writeText } from '@tauri-apps/api/clipboard'
+// import { open } from '@tauri-apps/api/shell'
+// import { appDataDir, join } from '@tauri-apps/api/path'
+// import { writeText } from '@tauri-apps/api/clipboard'
 import type { ComputedRef } from 'vue'
 import { getFinalFilePath } from '~/utils'
 

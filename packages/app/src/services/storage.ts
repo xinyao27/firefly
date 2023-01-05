@@ -1,9 +1,9 @@
-import Database from 'tauri-plugin-sql-api'
+// import Database from 'tauri-plugin-sql-api'
 import { v4 as uuid } from 'uuid'
 import type { ID, Message } from '~/models/Message'
 import { useMessagesStore } from '~/store/messages'
 
-let db: null | Database = null
+let db = null
 
 async function connect() {
   const s = useMessagesStore()

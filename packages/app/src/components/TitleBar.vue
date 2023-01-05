@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { appWindow } from '@tauri-apps/api/window'
+// import { appWindow } from '@tauri-apps/api/window'
 
 function handleMouseDown(e: MouseEvent) {
   e.preventDefault()

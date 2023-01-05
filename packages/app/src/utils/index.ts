@@ -1,4 +1,4 @@
-import { appDataDir, join } from '@tauri-apps/api/path'
+// import { appDataDir, join } from '@tauri-apps/api/path'
 import type { MessageCategory } from '~/models/Message'
 
 export const byteSize = (bytes?: number) => {

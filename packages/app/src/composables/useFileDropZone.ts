@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import type { Ref } from 'vue'
-import { createDir, exists, writeBinaryFile } from '@tauri-apps/api/fs'
-import { appDataDir, basename, extname, join } from '@tauri-apps/api/path'
+// import { createDir, exists, writeBinaryFile } from '@tauri-apps/api/fs'
+// import { appDataDir, basename, extname, join } from '@tauri-apps/api/path'
 import { useMessage } from 'naive-ui'
 
 import { getCategoryAndThumb } from '~/utils'

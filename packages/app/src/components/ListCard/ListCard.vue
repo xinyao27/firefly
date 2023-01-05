@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { appDataDir } from '@tauri-apps/api/path'
-import { convertFileSrc } from '@tauri-apps/api/tauri'
+// import { appDataDir } from '@tauri-apps/api/path'
+// import { convertFileSrc } from '@tauri-apps/api/tauri'
 import dayjs from 'dayjs'
 import normalize from 'normalize-path'
 import { useContextMenuOptions } from './contextMenu'

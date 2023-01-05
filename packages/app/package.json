@@ -1,6 +1,5 @@
 {
   "name": "@firefly/app",
-  "type": "module",
   "version": "0.0.0",
   "private": true,
   "main": "dist-electron/main/index.js",
