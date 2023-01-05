@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { dirname, relative } from 'path'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'

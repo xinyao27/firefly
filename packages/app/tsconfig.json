@@ -22,5 +22,9 @@
       "@vue-macros/volar/define-slots"
     ]
   },
-  "exclude": ["dist", "node_modules", "cypress"]
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "cypress"],
+  "references": [
+    { "path": "./tsconfig.node.json" }
+  ],
 }

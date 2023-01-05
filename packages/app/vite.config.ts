@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import Pages from 'vite-plugin-pages'
@@ -14,27 +15,24 @@ import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
 import VueMacros from 'unplugin-vue-macros/vite'
+import electron from 'vite-plugin-electron'
+import renderer from 'vite-plugin-electron-renderer'
+import pkg from './package.json'
+
+const isDevelopment = process.env.NODE_ENV === 'development' || !!process.env.VSCODE_DEBUG
+const isProduction = process.env.NODE_ENV === 'production'
 
 export default defineConfig({
-  // prevent vite from obscuring rust errors
+  server: process.env.VSCODE_DEBUG
+    ? (() => {
+      const url = new URL(pkg.debug.env.VITE_DEV_SERVER_URL)
+      return {
+        host: url.hostname,
+        port: +url.port,
+      }
+    })()
+    : undefined,
   clearScreen: false,
-
-  // Tauri expects a fixed port, fail if that port is not available
-  server: { strictPort: true },
-
-  // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
-  // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
-  // env variables
-  envPrefix: ['VITE_', 'TAURI_'],
-
-  build: {
-    // Tauri uses Chromium on Windows and WebKit on macOS and Linux
-    target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
-    // don't minify for debug builds
-    minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
-    // produce sourcemaps for debug builds
-    sourcemap: !!process.env.TAURI_DEBUG,
-  },
 
   resolve: { alias: { '~/': `${path.resolve(__dirname, 'src')}/` } },
 
@@ -121,6 +119,48 @@ export default defineConfig({
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
     Layouts(),
+
+    electron([
+      {
+        // Main-Process entry file of the Electron App.
+        entry: 'electron/main/index.ts',
+        onstart(options) {
+          if (process.env.VSCODE_DEBUG) {
+            // eslint-disable-next-line no-console
+            console.log(/* For `.vscode/.debug.script.mjs` */'[startup] Electron App')
+          }
+          else {
+            options.startup()
+          }
+        },
+        vite: {
+          build: {
+            sourcemap: isDevelopment,
+            minify: isProduction,
+            outDir: 'dist-electron/main',
+            rollupOptions: { external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}) },
+          },
+        },
+      },
+      {
+        entry: 'electron/preload/index.ts',
+        onstart(options) {
+          // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
+          // instead of restarting the entire Electron App.
+          options.reload()
+        },
+        vite: {
+          build: {
+            sourcemap: isDevelopment,
+            minify: isProduction,
+            outDir: 'dist-electron/preload',
+            rollupOptions: { external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}) },
+          },
+        },
+      },
+    ]),
+    // Use Node.js API in the Renderer-process
+    renderer({ nodeIntegration: true }),
   ],
 
   test: {
