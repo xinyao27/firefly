@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import { appDataDir } from '@tauri-apps/api/path'
-// import { convertFileSrc } from '@tauri-apps/api/tauri'
 import dayjs from 'dayjs'
 import normalize from 'normalize-path'
 import { useContextMenuOptions } from './contextMenu'
@@ -8,6 +6,7 @@ import { useCardClick } from './cardClick'
 import { useContextMenu } from '~/composables/useContextMenu'
 import type { Message } from '~/models/Message'
 import { byteSize } from '~/utils'
+import { getAppDataPath } from '~/api'
 
 const props = defineProps<{
   size: number
@@ -42,12 +41,12 @@ const description = computed(() => {
 })
 const appDataDirPath = ref('')
 onMounted(async() => {
-  appDataDirPath.value = await appDataDir()
+  appDataDirPath.value = await getAppDataPath()
 })
 const thumb = computed(() => {
   switch (message.category) {
     case 'image':
-      return convertFileSrc(normalize(appDataDirPath.value + message.thumb))
+      return normalize(appDataDirPath.value + message.thumb)
     case 'text':
       return null
     case 'link':

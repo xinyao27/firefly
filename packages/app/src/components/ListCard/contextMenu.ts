@@ -1,8 +1,8 @@
+import { join } from 'node:path'
 import type { DropdownOption } from 'naive-ui'
-// import { open } from '@tauri-apps/api/shell'
-// import { appDataDir, join } from '@tauri-apps/api/path'
-// import { writeText } from '@tauri-apps/api/clipboard'
+import { clipboard, shell } from 'electron'
 import type { ComputedRef } from 'vue'
+import { getAppDataPath } from '~/api'
 import { getFinalFilePath } from '~/utils'
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
@@ -21,7 +21,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             try {
               for (const message of messages.value) {
                 const filePath = await getFinalFilePath(message.filePath!)
-                open(filePath)
+                shell.openPath(filePath)
               }
             }
             catch (e) {
@@ -36,8 +36,8 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         onClick: async() => {
           if (messages.value.length) {
             try {
-              const dirPath = await join(await appDataDir(), 'files')
-              open(dirPath)
+              const dirPath = join(await getAppDataPath(), 'files')
+              shell.openPath(dirPath)
             }
             catch (e) {
               $message.error(e)
@@ -81,7 +81,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
             finally {
-              await writeText(allFilePath.join('\n'))
+              await clipboard.writeText(allFilePath.join('\n'))
               $message.success(`已复制 ${allFilePath.length} 个文件路径`)
             }
           }

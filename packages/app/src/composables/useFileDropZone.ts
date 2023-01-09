@@ -1,10 +1,10 @@
+import { basename, extname, join } from 'node:path'
+import { mkdir, pathExists, writeFile } from 'fs-extra'
 import dayjs from 'dayjs'
 import type { Ref } from 'vue'
-// import { createDir, exists, writeBinaryFile } from '@tauri-apps/api/fs'
-// import { appDataDir, basename, extname, join } from '@tauri-apps/api/path'
 import { useMessage } from 'naive-ui'
-
 import { getCategoryAndThumb } from '~/utils'
+import { getAppDataPath } from '~/api'
 
 export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
   const message = useMessage()
@@ -56,17 +56,17 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
       uploadStore.setCurrentIndex(i)
       try {
         const relativeDirPath = '/files'
-        const absoluteDirPath = await join(await appDataDir(), relativeDirPath)
-        const isExists = await exists(absoluteDirPath)
+        const absoluteDirPath = join(await getAppDataPath(), relativeDirPath)
+        const isExists = await pathExists(absoluteDirPath)
         if (!isExists) {
-          await createDir(absoluteDirPath, { recursive: true })
+          await mkdir(absoluteDirPath, { recursive: true })
         }
-        const relativeFilePath = await join(relativeDirPath, file.name)
-        const absoluteFilePath = await join(absoluteDirPath, file.name)
+        const relativeFilePath = join(relativeDirPath, file.name)
+        const absoluteFilePath = join(absoluteDirPath, file.name)
         if (file.raw) {
-          await writeBinaryFile(absoluteFilePath, file.raw)
+          await writeFile(absoluteFilePath, Buffer.from(file.raw))
         }
-        const fileExt = data ? await extname(file.name) : undefined
+        const fileExt = data ? extname(file.name).split('.')[1] : undefined
         const link = fileExt === 'url' ? selectText : ''
         const { category, thumb } = await getCategoryAndThumb({
           ext: fileExt,
@@ -75,7 +75,8 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
         const content = file.type === 'text/plain'
           ? (file.raw ? new TextDecoder('utf-8').decode(file.raw) : selectText)
           : undefined
-        const fileName = await basename(file.name, fileExt ? `.${fileExt}` : '')
+        const fileName = basename(file.name, fileExt ? `.${fileExt}` : '')
+
         await messagesStore.add({
           title: fileName,
           thumb,
@@ -91,7 +92,7 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
         })
       }
       catch (error: any) {
-        message.error(error)
+        message.error(error.message || error.stack || error.code)
         uploadStore.stopUpload()
       }
     }

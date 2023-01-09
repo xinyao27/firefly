@@ -8,12 +8,10 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-import presetAutoprefixer from './libs/unocssPresetAutoprefix'
 
 export default defineConfig({
   presets: [
     presetUno(),
-    presetAutoprefixer(),
     presetAttributify(),
     presetIcons({
       scale: 1.2,

@@ -1,24 +1,24 @@
 <script setup lang="ts">
-// import { appWindow } from '@tauri-apps/api/window'
+import { ipcRenderer } from 'electron'
 
 function handleMouseDown(e: MouseEvent) {
   e.preventDefault()
 }
 function handleMinimize() {
-  appWindow.minimize()
+  ipcRenderer.invoke('win:minimize')
 }
 const maximize = ref(false)
 function handleToggleMaximize() {
-  appWindow.toggleMaximize()
+  ipcRenderer.invoke('win:toggleMaximize')
   maximize.value = !maximize.value
 }
 function handleClose() {
-  appWindow.close()
+  ipcRenderer.invoke('win:close')
 }
 const alwaysOnTop = ref(false)
 function handleToggleSticky() {
   alwaysOnTop.value = !alwaysOnTop.value
-  appWindow.setAlwaysOnTop(alwaysOnTop.value)
+  ipcRenderer.invoke('win:setAlwaysOnTop', alwaysOnTop.value)
 }
 </script>
 
@@ -26,8 +26,8 @@ function handleToggleSticky() {
   <div fixed left-0 top-0 flex items-center z-99 w-full h-8 pl-4 select-none>
     <CardSizeSlider />
     <div
-      flex-auto h-full hover:(cursor-move)
-      data-tauri-drag-region
+      flex-auto h-full
+      style="-webkit-app-region: drag"
       @mousedown="handleMouseDown"
     />
     <div z-100 transition-opacity>

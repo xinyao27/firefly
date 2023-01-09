@@ -2,7 +2,7 @@
   "name": "@firefly/app",
   "version": "0.0.0",
   "private": true,
-  "main": "dist-electron/main/index.js",
+  "main": "dist-electron/main.js",
   "debug": {
     "env": {
       "VITE_DEV_SERVER_URL": "http://127.0.0.1:3333/"
@@ -17,7 +17,11 @@
     "test:unit": "vitest"
   },
   "dependencies": {
-    "@firefly/theme": "workspace:*"
+    "@firefly/theme": "workspace:*",
+    "electron-log": "^4.4.8",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.1.4",
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
     "@types/markdown-it-link-attributes": "^3.0.1",

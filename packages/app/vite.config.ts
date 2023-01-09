@@ -123,7 +123,7 @@ export default defineConfig({
     electron([
       {
         // Main-Process entry file of the Electron App.
-        entry: 'electron/main/index.ts',
+        entry: 'electron/main.ts',
         onstart(options) {
           if (process.env.VSCODE_DEBUG) {
             // eslint-disable-next-line no-console
@@ -137,13 +137,13 @@ export default defineConfig({
           build: {
             sourcemap: isDevelopment,
             minify: isProduction,
-            outDir: 'dist-electron/main',
+            outDir: 'dist-electron',
             rollupOptions: { external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}) },
           },
         },
       },
       {
-        entry: 'electron/preload/index.ts',
+        entry: 'electron/preload.ts',
         onstart(options) {
           // Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
           // instead of restarting the entire Electron App.
@@ -153,14 +153,31 @@ export default defineConfig({
           build: {
             sourcemap: isDevelopment,
             minify: isProduction,
-            outDir: 'dist-electron/preload',
+            outDir: 'dist-electron',
+            rollupOptions: { external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}) },
+          },
+        },
+      },
+      {
+        entry: 'electron/server.ts',
+        onstart(options) {
+          options.reload()
+        },
+        vite: {
+          build: {
+            sourcemap: isDevelopment,
+            minify: isProduction,
+            outDir: 'dist-electron',
             rollupOptions: { external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}) },
           },
         },
       },
     ]),
     // Use Node.js API in the Renderer-process
-    renderer({ nodeIntegration: true }),
+    renderer({
+      nodeIntegration: true,
+      optimizeDeps: { include: ['fs-extra'] },
+    }),
   ],
 
   test: {
