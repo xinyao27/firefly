@@ -34,7 +34,12 @@ export default defineConfig({
     : undefined,
   clearScreen: false,
 
-  resolve: { alias: { '~/': `${path.resolve(__dirname, 'src')}/` } },
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+      '~~/': `${path.resolve(__dirname)}/`,
+    },
+  },
 
   plugins: [
     Preview(),
@@ -176,7 +181,7 @@ export default defineConfig({
     // Use Node.js API in the Renderer-process
     renderer({
       nodeIntegration: true,
-      optimizeDeps: { include: ['fs-extra'] },
+      optimizeDeps: { include: ['fs-extra', 'electron-log'] },
     }),
   ],
 

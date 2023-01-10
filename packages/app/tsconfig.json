@@ -13,7 +13,8 @@
       "naive-ui/volar"
     ],
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "~~/*": ["./*"],
     }
   },
   "vueCompilerOptions": {
@@ -22,6 +23,6 @@
       "@vue-macros/volar/define-slots"
     ]
   },
-  "include": ["src", "electron"],
+  "include": ["src", "electron", "models", "utils"],
   "exclude": ["dist", "node_modules", "cypress"]
 }

@@ -1,4 +1,4 @@
-import type { ID } from '~/models/Message'
+import type { ID } from '~~/models/Message'
 
 export function useCardClick(id: ID) {
   const messagesStore = useMessagesStore()

@@ -6,8 +6,8 @@ export class Message {
   @Generated('uuid')
     id: string
 
-  @Column({ type: 'text', nullable: false })
-    title: string
+  @Column({ type: 'text', nullable: true })
+    title?: string
 
   @Column({ type: 'text', nullable: true })
     thumb?: string

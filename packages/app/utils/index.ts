@@ -1,6 +1,4 @@
-import { join } from 'node:path'
-import { getAppDataPath } from '~/api'
-import type { MessageCategory } from '~/models/Message'
+import type { MessageCategory } from '../models/Message'
 
 export const byteSize = (bytes?: number) => {
   if (bytes === undefined) return undefined
@@ -25,7 +23,7 @@ function fmt(number: number, unit: string) {
 
 export async function getCategoryAndThumb({ ext, filePath }: {
   ext?: string
-  filePath: string
+  filePath?: string
 }): Promise<{
     category: MessageCategory
     thumb?: string
@@ -48,9 +46,4 @@ export async function getCategoryAndThumb({ ext, filePath }: {
     default:
       return { category: 'other' }
   }
-}
-
-export async function getFinalFilePath(filePath: string) {
-  const finalFilePath = join(await getAppDataPath(), filePath)
-  return finalFilePath
 }

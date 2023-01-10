@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { ID, Message } from '~/models/Message'
+import type { ID, Message } from '~~/models/Message'
 import { trpc } from '~/api'
 
 export const useMessagesStore = defineStore('messages', {
@@ -11,14 +11,10 @@ export const useMessagesStore = defineStore('messages', {
     }
   },
   actions: {
-    async initializeDbBackedStore() {
+    async findMessages() {
       const messages = await trpc.messages.query()
       this.messages = messages?.filter(message => !message.isTrash)
       this.trashMessages = messages?.filter(message => message.isTrash)
-    },
-    async add(data: Omit<Message, 'id'>) {
-      const message = await trpc.messageCreate.mutate(data)
-      this.messages.push(message)
     },
     async moveToTrash(id: ID) {
       const target = this.messages.find((message: Message) => message.id === id)

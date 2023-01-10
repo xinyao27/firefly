@@ -3,9 +3,9 @@ import dayjs from 'dayjs'
 import normalize from 'normalize-path'
 import { useContextMenuOptions } from './contextMenu'
 import { useCardClick } from './cardClick'
+import { byteSize } from '~~/utils'
 import { useContextMenu } from '~/composables/useContextMenu'
-import type { Message } from '~/models/Message'
-import { byteSize } from '~/utils'
+import type { Message } from '~~/models/Message'
 import { getAppDataPath } from '~/api'
 
 const props = defineProps<{

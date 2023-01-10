@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { upload } from '@firefly/utils'
 
 export const useFilesStore = defineStore('files', {
   state: () => {
@@ -12,7 +13,7 @@ export const useFilesStore = defineStore('files', {
       this.files = files
       this.text = text
 
-      console.warn(files, text)
+      return upload(files, text)
     },
   },
 })

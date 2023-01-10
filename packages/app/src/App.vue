@@ -1,15 +1,29 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
+import log from 'electron-log'
 import { useMessagesStore } from '~/store/messages'
 
 const store = useMessagesStore()
-onMounted(async() => {
+const focused = useWindowFocus()
+const findMessages = useDebounceFn(async() => {
   try {
-    await store.initializeDbBackedStore()
+    await store.findMessages()
   }
   catch (e) {
-    console.error('There was a problem initializing the database', e)
+    log.error('There was a problem initializing the database', e)
   }
+}, 1000)
+watch(
+  focused,
+  (f) => {
+    if (f) {
+      findMessages()
+    }
+  },
+  { deep: true },
+)
+onMounted(async() => {
+  await findMessages()
 })
 </script>
 

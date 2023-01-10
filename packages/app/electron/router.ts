@@ -14,26 +14,6 @@ export const appRouter = t.router({
     .query(() => {
       return dataSource.manager.find(Message)
     }),
-  messageCreate: t.procedure
-    .input(z.object({
-      title: z.string(),
-      thumb: z.string().optional(),
-      tags: z.string().array().optional(),
-      category: z.string().optional(),
-      content: z.string().optional(),
-      fileExt: z.string().optional(),
-      filePath: z.string().optional(),
-      fileFrom: z.string().optional(),
-      link: z.string().optional(),
-      size: z.number().optional(),
-      width: z.number().optional(),
-      height: z.number().optional(),
-      isTrash: z.boolean().optional(),
-    }))
-    .mutation((req) => {
-      const data = req.input
-      return messageRepository.save(data)
-    }),
   messageUpdate: t.procedure
     .input(z.object({
       id: z.string(),

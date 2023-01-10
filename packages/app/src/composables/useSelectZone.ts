@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { ID } from '~/models/Message'
+import type { ID } from '~~/models/Message'
 
 export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   const configsStore = useConfigsStore()
