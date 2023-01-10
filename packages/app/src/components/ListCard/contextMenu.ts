@@ -1,8 +1,9 @@
 import { join } from 'node:path'
 import type { DropdownOption } from 'naive-ui'
-import { clipboard, shell } from 'electron'
+import { shell } from 'electron'
 import type { ComputedRef } from 'vue'
 import { getAppDataPath } from '~/api'
+import { clipboardWrite } from '~~/utils'
 
 async function getFinalFilePath(filePath: string) {
   const finalFilePath = join(await getAppDataPath(), filePath)
@@ -24,8 +25,27 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
           if (messages.value.length) {
             try {
               for (const message of messages.value) {
-                const filePath = await getFinalFilePath(message.filePath!)
-                shell.openPath(filePath)
+                switch (message.category) {
+                  case 'image':
+                  case 'other': {
+                    const filePath = await getFinalFilePath(message.filePath!)
+                    shell.openPath(filePath)
+                    break
+                  }
+                  case 'text': {
+                    if (message.filePath) {
+                      const filePath = await getFinalFilePath(message.filePath!)
+                      shell.openPath(filePath)
+                    }
+                    break
+                  }
+                  case 'link':
+                    shell.openExternal(message.link || message.content!)
+                    break
+                  case 'rss':
+                    // TODO
+                    break
+                }
               }
             }
             catch (e) {
@@ -40,8 +60,13 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         onClick: async() => {
           if (messages.value.length) {
             try {
-              const dirPath = join(await getAppDataPath(), 'files')
-              shell.openPath(dirPath)
+              if (messages.value.length === 1 && messages.value[0].filePath) {
+                shell.showItemInFolder(join(await getAppDataPath(), messages.value[0].filePath))
+              }
+              else {
+                const dirPath = join(await getAppDataPath(), 'files')
+                shell.openPath(dirPath)
+              }
             }
             catch (e) {
               $message.error(e)
@@ -55,17 +80,25 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
       },
       {
         label: '复制文件',
-        key: 'COPY_FILE',
+        key: 'COPY',
         onClick: async() => {
           if (messages.value.length) {
-            // for (const message of messages.value) {
-            //   // TODO
-            //   if (message.filePath) {
-            //     const filePath = await getFinalFilePath(message.filePath)
-            //     await writeText(filePath)
-            //     $message.success('已复制文件')
-            //   }
-            // }
+            const allFilePath = []
+            try {
+              for (const message of messages.value) {
+                if (message.filePath) {
+                  const filePath = await getFinalFilePath(message.filePath)
+                  allFilePath.push(filePath)
+                }
+              }
+            }
+            catch (e) {
+              $message.error(e)
+            }
+            finally {
+              await clipboardWrite({ filePaths: allFilePath })
+              $message.success(`已复制 ${allFilePath.length} 个文件`)
+            }
           }
         },
       },
@@ -77,15 +110,17 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             const allFilePath = []
             try {
               for (const message of messages.value) {
-                const filePath = await getFinalFilePath(message.filePath!)
-                allFilePath.push(filePath)
+                if (message.filePath) {
+                  const filePath = await getFinalFilePath(message.filePath!)
+                  allFilePath.push(filePath)
+                }
               }
             }
             catch (e) {
               $message.error(e)
             }
             finally {
-              await clipboard.writeText(allFilePath.join('\n'))
+              await clipboardWrite({ texts: allFilePath })
               $message.success(`已复制 ${allFilePath.length} 个文件路径`)
             }
           }

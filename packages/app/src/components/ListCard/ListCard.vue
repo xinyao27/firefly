@@ -39,14 +39,10 @@ const description = computed(() => {
       return updatedAt
   }
 })
-const appDataDirPath = ref('')
-onMounted(async() => {
-  appDataDirPath.value = await getAppDataPath()
-})
-const thumb = computed(() => {
+const thumb = computedAsync(async() => {
   switch (message.category) {
     case 'image':
-      return normalize(appDataDirPath.value + message.thumb)
+      return normalize(await getAppDataPath() + message.thumb)
     case 'text':
       return null
     case 'link':
@@ -91,6 +87,7 @@ function handleContextMenu(e: MouseEvent) {
         w-auto h-full max-w-none
         data-message-card-select-area
         draggable
+        loading="lazy"
         :src="thumb"
         :alt="message.title"
       >

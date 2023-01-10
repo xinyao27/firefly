@@ -47,3 +47,6 @@ export async function getCategoryAndThumb({ ext, filePath }: {
       return { category: 'other' }
   }
 }
+
+export * from './is'
+export * from './clipboard'
