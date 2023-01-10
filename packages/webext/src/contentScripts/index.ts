@@ -2,7 +2,7 @@ import { onMessage } from 'webext-bridge'
 import { createApp } from 'vue'
 import App from './views/App.vue'
 import { setupApp } from '~/logic/common-setup'
-
+import 'uno.css'
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
   console.warn('[firefly] Hello world from content script')
