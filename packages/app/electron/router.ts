@@ -12,7 +12,7 @@ const t = initTRPC.create()
 export const appRouter = t.router({
   messages: t.procedure
     .query(() => {
-      return dataSource.manager.find(Message)
+      return messageRepository.find({ order: { updatedAt: 'DESC' } })
     }),
   messageUpdate: t.procedure
     .input(z.object({

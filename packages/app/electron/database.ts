@@ -19,7 +19,7 @@ export class DataBase {
     })
     this.dataSource.initialize()
       .then(() => {
-        log.info(`Database initialized at ${basePath}`)
+        log.info(`Database connected with ${basePath}`)
       })
       .catch(error => log.error(error))
   }
