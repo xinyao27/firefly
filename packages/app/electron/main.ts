@@ -6,9 +6,9 @@ import log from 'electron-log'
 import ipcMain from './ipcMain'
 
 process.env.DIST_ELECTRON = path.join(__dirname, '..')
-process.env.DIST = path.join(process.env.DIST_ELECTRON, '../dist')
+process.env.DIST = path.join(process.env.DIST_ELECTRON, './dist')
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-  ? path.join(process.env.DIST_ELECTRON, '../public')
+  ? path.join(process.env.DIST_ELECTRON, './public')
   : process.env.DIST
 process.env.APP_NAME = 'Firefly'
 process.env.APP_DATA_PATH = app.getPath('userData')
@@ -17,7 +17,10 @@ process.env.APP_DATA_PATH = app.getPath('userData')
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
 // Set application name for Windows 10+ notifications
-if (process.platform === 'win32') app.setAppUserModelId(process.env.APP_NAME)
+if (process.platform === 'win32') {
+  app.setAppUserModelId(process.env.APP_NAME)
+  app.commandLine.appendSwitch('force_high_performance_gpu')
+}
 
 if (!app.requestSingleInstanceLock()) {
   app.quit()

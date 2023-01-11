@@ -8,7 +8,9 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
 
   const isOverDropZone = ref(false)
   let counter = 0
-  useEventListener<DragEvent>(target, 'drag', () => {
+  useEventListener<DragEvent>(target, 'drag', (e) => {
+    e.preventDefault()
+
     counter = 0
     isOverDropZone.value = false
   })

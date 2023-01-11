@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { join } from 'path'
 import dayjs from 'dayjs'
 import normalize from 'normalize-path'
+import { ipcRenderer } from 'electron'
 import { useContextMenuOptions } from './contextMenu'
 import { useCardClick } from './cardClick'
 import { byteSize } from '~~/utils'
@@ -46,9 +48,9 @@ const thumb = computedAsync(async() => {
     case 'text':
       return null
     case 'link':
-      return '/icons/BookmarkIcon.png'
+      return normalize(`${process.env.PUBLIC}/icons/BookmarkIcon.png`)
     default:
-      return '/icons/GenericDocumentIcon.png'
+      return normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
   }
 })
 const isSelected = computed(() => messagesStore.selectedMessageIds.includes(message.id))
@@ -65,6 +67,13 @@ function handleContextMenu(e: MouseEvent) {
   }
   showContextMenu(e)
 }
+
+async function handleDragStart() {
+  if (props.message.filePath) {
+    const iconPath = thumb.value || normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
+    await ipcRenderer.send('api:dragStart', join(await getAppDataPath(), props.message.filePath), iconPath)
+  }
+}
 </script>
 
 <template>
@@ -80,13 +89,14 @@ function handleContextMenu(e: MouseEvent) {
       overflow-hidden flex items-center justify-center relative select-none
       :style="{ width: `${props.size}px`, height: `${props.size}px` }"
       data-message-card-select-area
+      :draggable="true"
       @dblclick.capture.prevent.stop="handleDoubleClick"
+      @dragstart="handleDragStart"
     >
       <img
         v-if="thumb"
         w-auto h-full max-w-none
         data-message-card-select-area
-        draggable
         loading="lazy"
         :src="thumb"
         :alt="message.title"
