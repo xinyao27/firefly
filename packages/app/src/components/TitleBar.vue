@@ -23,40 +23,49 @@ function handleToggleSticky() {
 </script>
 
 <template>
-  <div fixed left-0 top-0 flex items-center z-99 w-full h-8 pl-4 select-none>
-    <CardSizeSlider />
+  <div fixed left-0 top-0 flex items-center gap-1 z-99 w-full h-10 px-2 select-none>
+    <!-- Router Tools  -->
+    <RouterTools />
+    <!-- Drag Area -->
     <div
       flex-auto h-full
       style="-webkit-app-region: drag"
       @mousedown="handleMouseDown"
     />
+    <!-- Common Tools -->
+    <CardSizeSlider />
+    <NTooltip trigger="hover" :show-arrow="false">
+      <template #trigger>
+        <NButton
+          size="small"
+          quaternary
+          :opacity="alwaysOnTop ? 100 : 40 "
+          @click="handleToggleSticky"
+        >
+          <i v-if="alwaysOnTop" i-ri-pushpin-2-line />
+          <i v-else i-ri-pushpin-line />
+        </NButton>
+      </template>
+      <template v-if="alwaysOnTop">
+        关闭窗口总是在最上方
+      </template>
+      <template v-else>
+        窗口总是在最上方
+      </template>
+    </NTooltip>
+    <NDivider vertical />
+    <!-- Windows Tools -->
     <div z-100 transition-opacity>
-      <NTooltip trigger="hover" :show-arrow="false">
-        <template #trigger>
-          <div
-            w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark-300 opacity-100)
-            :opacity="alwaysOnTop ? 100 : 40 "
-            @click="handleToggleSticky"
-          >
-            <i v-if="alwaysOnTop" i-ri-pushpin-2-line />
-            <i v-else i-ri-pushpin-line />
-          </div>
-        </template>
-        <template v-if="alwaysOnTop">
-          关闭窗口总是在最上方
-        </template>
-        <template v-else>
-          窗口总是在最上方
-        </template>
-      </NTooltip>
-      <div
-        w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark-300 opacity-100)
+      <NButton
+        size="small"
+        quaternary
         @click="handleMinimize"
       >
         <i i-ri-subtract-line />
-      </div>
-      <div
-        w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-dark-300 opacity-100)
+      </NButton>
+      <NButton
+        size="small"
+        quaternary
         @click="handleToggleMaximize"
       >
         <i
@@ -67,13 +76,15 @@ function handleToggleSticky() {
           v-else
           transform scale-80 i-ri-checkbox-blank-line
         />
-      </div>
-      <div
-        w-10 h-8 inline-flex justify-center items-center opacity-40 hover:(bg-red-500 opacity-100)
+      </NButton>
+      <NButton
+        style="--n-color-hover: #ef4444"
+        size="small"
+        quaternary
         @click="handleClose"
       >
         <i i-ri-close-line />
-      </div>
+      </NButton>
     </div>
   </div>
 </template>

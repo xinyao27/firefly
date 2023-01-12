@@ -4,7 +4,7 @@ import { useMessage } from 'naive-ui'
 
 export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
   const message = useMessage()
-  const messagesStore = useMessagesStore()
+  const messageStore = useMessageStore()
 
   const isOverDropZone = ref(false)
   let counter = 0
@@ -35,7 +35,7 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
     if (counter) {
       const files = Array.from(e.dataTransfer?.files ?? [])
       upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text'))
-        .then(() => messagesStore.findMessages())
+        .then(() => messageStore.find())
         .catch((error) => {
           message.error(error.message || error.stack || error.code)
         })

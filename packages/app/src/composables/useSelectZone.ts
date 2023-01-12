@@ -2,8 +2,8 @@ import type { Ref } from 'vue'
 import type { ID } from '~~/models/Message'
 
 export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
-  const configsStore = useConfigsStore()
-  const messagesStore = useMessagesStore()
+  const configStore = useConfigStore()
+  const messageStore = useMessageStore()
 
   const selecting = ref(false)
   const startX = ref<number | null>(null)
@@ -54,7 +54,7 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
           selectedMessageIds.push(element.dataset.id)
         }
       }
-      messagesStore.selectMessageIds(selectedMessageIds)
+      messageStore.selectMessageIds(selectedMessageIds)
     }
   }
   function handleMouseDown(e: MouseEvent) {
@@ -63,7 +63,7 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
     // @ts-expect-error noop
     if (e.button === 0 && !('messageCardSelectArea' in e.target?.dataset)) {
       startX.value = e.x + (target.value?.scrollLeft ?? 0)
-      startY.value = e.y + (target.value?.scrollTop ?? 0) - configsStore.rootPaddingTop
+      startY.value = e.y + (target.value?.scrollTop ?? 0) - configStore.rootPaddingTop
       selecting.value = true
 
       const messageCardRects = Array.from(document.querySelectorAll('[data-message-card]')).map(v => ({
@@ -93,7 +93,7 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
 
     if (selecting.value) {
       endX.value = e.x + (target.value?.scrollLeft ?? 0)
-      endY.value = e.y + (target.value?.scrollTop ?? 0) - configsStore.rootPaddingTop
+      endY.value = e.y + (target.value?.scrollTop ?? 0) - configStore.rootPaddingTop
       handleSelectMessageCardAndGetIds()
     }
   })

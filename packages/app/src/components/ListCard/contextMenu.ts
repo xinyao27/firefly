@@ -11,9 +11,9 @@ async function getFinalFilePath(filePath: string) {
 }
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
-  const messagesStore = useMessagesStore()
+  const messageStore = useMessageStore()
   const messages = computed(() => {
-    return messagesStore.selectedMessageIds.map(id => messagesStore.messages.find(v => v.id === id)!)
+    return messageStore.selectedMessageIds.map(id => messageStore.messages.find(v => v.id === id)!)
   })
 
   return computed(() => {
@@ -138,7 +138,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             const trashes = []
             try {
               for (const message of messages.value) {
-                await messagesStore.moveToTrash(message.id)
+                await messageStore.moveToTrash(message.id)
                 trashes.push(message.id)
               }
             }

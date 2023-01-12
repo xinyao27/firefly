@@ -2,11 +2,11 @@
 import { groupBy } from 'lodash-es'
 import dayjs from 'dayjs'
 
-const messagesStore = useMessagesStore()
-const configsStore = useConfigsStore()
+const messageStore = useMessageStore()
+const configStore = useConfigStore()
 
 const sortedMessages = computed(() => {
-  return groupBy(messagesStore.messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD'))
+  return groupBy(messageStore.messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD'))
 })
 </script>
 
@@ -25,7 +25,7 @@ const sortedMessages = computed(() => {
         <ListCard
           v-for="item in row" :key="item.id"
           :message="item"
-          :size="configsStore.cardSize"
+          :size="configStore.cardSize"
         />
       </div>
     </NTimelineItem>

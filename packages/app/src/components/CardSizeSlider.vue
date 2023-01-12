@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const configsStore = useConfigsStore()
+const configStore = useConfigStore()
 const percentage = ref(60)
 const MAX = 100
 const MIN = 30
@@ -17,7 +17,7 @@ function handleCardSizeAdd() {
   }
 }
 watchEffect(() => {
-  configsStore.setCardSize(percentageToCardSize(percentage.value))
+  configStore.setCardSize(percentageToCardSize(percentage.value))
 })
 </script>
 

@@ -1,15 +1,15 @@
 import type { ID } from '~~/models/Message'
 
 export function useCardClick(id: ID) {
-  const messagesStore = useMessagesStore()
+  const messageStore = useMessageStore()
+  const router = useRouter()
 
   const handleClick = () => {
-    messagesStore.selectMessageIds([id])
+    messageStore.selectMessageIds([id])
   }
 
   const handleDoubleClick = () => {
-    // TODO
-    console.warn('double click')
+    router.push(`/preview/${id}`)
   }
 
   return {

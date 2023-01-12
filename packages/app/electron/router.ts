@@ -14,6 +14,17 @@ export const appRouter = t.router({
     .query(() => {
       return messageRepository.find({ order: { updatedAt: 'DESC' } })
     }),
+  messageById: t.procedure
+    .input((val: unknown) => {
+      if (typeof val === 'string') return val
+
+      throw new Error(`Invalid input: ${typeof val}`)
+    })
+    .query((req) => {
+      const { input } = req
+
+      return messageRepository.findOne({ where: { id: input } })
+    }),
   messageUpdate: t.procedure
     .input(z.object({
       id: z.string(),

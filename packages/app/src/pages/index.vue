@@ -1,9 +1,16 @@
 <script setup lang="ts">
 defineOptions({ name: 'IndexPage' })
+
+const configStore = useConfigStore()
+onBeforeMount(() => {
+  configStore.setTitle('')
+})
 </script>
 
 <template>
-  <List />
+  <DragProvider>
+    <List />
+  </DragProvider>
 </template>
 
 <route lang="yaml">

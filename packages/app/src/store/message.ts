@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type { ID, Message } from '~~/models/Message'
 import { trpc } from '~/api'
 
-export const useMessagesStore = defineStore('messages', {
+export const useMessageStore = defineStore('messages', {
   state: () => {
     return {
       messages: [] as Message[],
@@ -11,10 +11,13 @@ export const useMessagesStore = defineStore('messages', {
     }
   },
   actions: {
-    async findMessages() {
+    async find() {
       const messages = await trpc.messages.query()
       this.messages = messages?.filter(message => !message.isTrash)
       this.trashMessages = messages?.filter(message => message.isTrash)
+    },
+    async findOne(id: ID) {
+      return trpc.messageById.query(id)
     },
     async moveToTrash(id: ID) {
       const target = this.messages.find((message: Message) => message.id === id)

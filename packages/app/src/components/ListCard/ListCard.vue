@@ -15,7 +15,7 @@ const props = defineProps<{
   message: Message
 }>()
 
-const messagesStore = useMessagesStore()
+const messageStore = useMessageStore()
 const message = props.message
 const description = computed(() => {
   const updatedAt = dayjs(message.updatedAt).format('YYYY/MM/DD HH:mm')
@@ -53,16 +53,16 @@ const thumb = computedAsync(async() => {
       return normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
   }
 })
-const isSelected = computed(() => messagesStore.selectedMessageIds.includes(message.id))
+const isSelected = computed(() => messageStore.selectedMessageIds.includes(message.id))
 
 const { handleClick, handleDoubleClick } = useCardClick(message.id)
 const contextMenuOptions = useContextMenuOptions()
 const { show: showContextMenu } = useContextMenu(contextMenuOptions.value)
 function handleContextMenu(e: MouseEvent) {
-  if (messagesStore.selectedMessageIds.length < 1) {
+  if (messageStore.selectedMessageIds.length < 1) {
     handleClick()
   }
-  else if (!messagesStore.selectedMessageIds.includes(message.id)) {
+  else if (!messageStore.selectedMessageIds.includes(message.id)) {
     handleClick()
   }
   showContextMenu(e)

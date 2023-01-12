@@ -33,7 +33,7 @@ function handleScroll() {
     <div
       id="drag-view"
       ref="dragView"
-      flex-auto px-4 relative z-36
+      flex-auto relative z-36
       :overflow="isOverDropZone ? 'hidden' : 'overlay'"
       @mousedown="handleMouseDown"
       @scroll="handleScroll"
