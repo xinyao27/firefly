@@ -31,7 +31,6 @@ onMounted(async() => {
   <ThemeProvider>
     <ContextMenuProvider>
       <CustomProvider>
-        <TitleBar />
         <RouterView />
       </CustomProvider>
     </ContextMenuProvider>

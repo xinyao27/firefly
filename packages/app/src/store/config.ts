@@ -4,7 +4,8 @@ export const useConfigStore = defineStore('configs', {
   state: () => {
     return {
       cardSize: 200,
-      rootPaddingTop: 46,
+      rootPaddingTop: 40,
+      rootPaddingLeft: 44,
       title: '',
     }
   },

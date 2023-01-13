@@ -8,9 +8,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <DragProvider>
-    <List />
-  </DragProvider>
+  <List />
 </template>
 
 <route lang="yaml">

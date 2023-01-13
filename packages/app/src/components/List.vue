@@ -11,23 +11,27 @@ const sortedMessages = computed(() => {
 </script>
 
 <template>
-  <NTimeline>
-    <NTimelineItem
-      v-for="(row, key) in sortedMessages"
-      :key="key"
-    >
-      <div font-semibold text-neutral-500 mb-3 select-none>
-        {{ key }}
-      </div>
-      <div
-        relative z-34 flex flex-wrap gap-3 overflow-x-hidden overflow-y-auto overscroll-contain
+  <SelectProvider>
+    <DragProvider>
+      <NTimeline
+        px-4 pt-4
       >
-        <ListCard
-          v-for="item in row" :key="item.id"
-          :message="item"
-          :size="configStore.cardSize"
-        />
-      </div>
-    </NTimelineItem>
-  </NTimeline>
+        <NTimelineItem
+          v-for="(row, key) in sortedMessages"
+          :key="key"
+        >
+          <div font-semibold text-neutral-500 mb-3 select-none>
+            {{ key }}
+          </div>
+          <div relative z-34 flex flex-wrap gap-3>
+            <ListCard
+              v-for="item in row" :key="item.id"
+              :message="item"
+              :size="configStore.cardSize"
+            />
+          </div>
+        </NTimelineItem>
+      </NTimeline>
+    </DragProvider>
+  </SelectProvider>
 </template>

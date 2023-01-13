@@ -2,14 +2,20 @@
 const router = useRouter()
 const route = useRoute()
 const configStore = useConfigStore()
-const navigateBackDisabled = computed(() => route.path === '/')
+
+const navigateBackDisabled = computed(() => {
+  const firstRoutes = ['/', '/text-editor', '/setting']
+  return firstRoutes.includes(route.path)
+})
 // @ts-expect-error noop
 const navigateForwardDisabled = computed(() => router.routeHistory.at(-1)?.path === route.path)
 
 function handleNavigateBack() {
+  if (navigateBackDisabled.value) return
   router.back()
 }
 function handleNavigateForward() {
+  if (navigateForwardDisabled.value) return
   router.forward()
 }
 </script>

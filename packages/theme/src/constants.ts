@@ -12,4 +12,12 @@ export const themeOverrides: GlobalThemeOverrides = {
     // @ts-expect-error noop
     primaryColorSuppl: colors?.blue['500'],
   },
+  Layout: {
+    // @ts-expect-error noop
+    color: colors?.dark['700'],
+    // @ts-expect-error noop
+    headerColor: colors?.dark['700'],
+    // @ts-expect-error noop
+    siderColor: colors?.dark['700'],
+  },
 }

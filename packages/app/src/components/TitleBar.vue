@@ -23,7 +23,7 @@ function handleToggleSticky() {
 </script>
 
 <template>
-  <div fixed left-0 top-0 flex items-center gap-1 z-99 w-full h-10 px-2 select-none>
+  <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
     <!-- Router Tools  -->
     <RouterTools />
     <!-- Drag Area -->
