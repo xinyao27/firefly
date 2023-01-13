@@ -121,10 +121,10 @@ async function handleDragStart() {
         {{ message.fileExt.toUpperCase() }}
       </div>
     </div>
-    <div text-xs line-clamp-2 leading-4 mt-2 select-none>
+    <div text-xs line-clamp-2 break-words leading-4 mt-2 select-none>
       {{ message.title }}
     </div>
-    <div text-xs text-neutral-500 mt-1 font-600 line-clamp-2 select-none>
+    <div text-xs text-neutral-500 mt-1 font-600 line-clamp-2 break-words select-none>
       {{ description }}
     </div>
   </div>
