@@ -21,26 +21,32 @@ async function handleMessageCreateLink() {
   metadata.value = result
   toggleEditing(true)
 }
-async function handleUpload() {
-  try {
-    toggleEditing(false)
-    toggleUploading(true)
-    const url = window.location.href
-    await filesStore.upload(null, url, metadata.value)
-    toggleUploaded(true)
-    toggleUploading(false)
-  }
-  catch (error) {
-    errorMessage.value = '需要打开 Firefly 应用程序才能使用插件, 若已经打开仍然无法使用, 建议关闭代理工具后重试'
-    toggleUploaded(true)
-    toggleUploading(false)
-    setTimeout(() => {
-      toggleShow(false)
-      toggleUploaded(false)
-      errorMessage.value = ''
-      metadata.value = null
-    }, 8000)
-  }
+function handleUpload() {
+  toggleEditing(false)
+  toggleUploading(true)
+  const url = window.location.href
+  filesStore.upload(null, url, metadata.value)
+    .then(() => {
+      toggleUploaded(true)
+      toggleUploading(false)
+      setTimeout(() => {
+        toggleShow(false)
+        toggleUploaded(false)
+        errorMessage.value = ''
+        metadata.value = null
+      }, 2000)
+    })
+    .catch(() => {
+      errorMessage.value = '需要打开 Firefly 应用程序才能使用插件, 若已经打开仍然无法使用, 建议关闭代理工具后重试'
+      toggleUploaded(true)
+      toggleUploading(false)
+      setTimeout(() => {
+        toggleShow(false)
+        toggleUploaded(false)
+        errorMessage.value = ''
+        metadata.value = null
+      }, 8000)
+    })
 }
 function handleClose() {
   toggleShow(false)
