@@ -3,7 +3,7 @@ defineOptions({ name: 'TextEditorPage' })
 </script>
 
 <template>
-  <div>text editor</div>
+  <TextEditorPro />
 </template>
 
 <route lang="yaml">

@@ -31,7 +31,7 @@ function handleScroll() {
         :native-scrollbar="false"
         @scroll="handleScroll"
       >
-        <main h-full text-gray-700 dark:text-gray-200 flex flex-col px-4>
+        <main text-gray-700 dark:text-gray-200 flex flex-col>
           <RouterView />
         </main>
       </NLayoutContent>
