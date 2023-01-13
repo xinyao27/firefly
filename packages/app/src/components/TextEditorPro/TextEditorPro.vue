@@ -1,7 +1,13 @@
 
 <script setup lang="ts">
 import { EditorContent, useEditor } from '@tiptap/vue-3'
-import TipTapStarterKit from '@tiptap/starter-kit'
+import StarterKit from '@tiptap/starter-kit'
+import ExtensionImage from '@tiptap/extension-image'
+import ExtensionUnderline from '@tiptap/extension-underline'
+import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
+import 'highlight.js/scss/github-dark.scss'
+import { lowlight } from 'lowlight'
+import BubbleMenu from './BubbleMenu.vue'
 
 const configStore = useConfigStore()
 
@@ -36,10 +42,15 @@ const editor = useEditor({
       — Mom
     </blockquote>
   `,
-  extensions: [TipTapStarterKit],
+  extensions: [
+    StarterKit,
+    ExtensionImage.configure({ allowBase64: true }),
+    ExtensionUnderline,
+    ExtensionCodeBlockLowLight.configure({ lowlight }),
+  ],
   editorProps: {
     attributes: {
-      class: 'min-h-full prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto my-5 focus:outline-none',
+      class: 'min-h-full !prose mx-auto my-5 focus:outline-none',
       style: 'min-height: 100%',
     },
   },
@@ -47,8 +58,20 @@ const editor = useEditor({
 </script>
 
 <template>
+  <BubbleMenu :editor="editor" />
   <EditorContent
     :style="`height: calc(100vh - ${configStore.rootPaddingTop}px)`"
     :editor="editor"
   />
 </template>
+
+<style lang="sass">
+.ProseMirror
+  pre
+    @apply text-white bg-dark-400 px-4 py-3 rounded-2
+    code
+      @apply text-white p-0 bg-transparent text-sm
+
+  code
+    @apply font-mono bg-dark-200 text-red-400 rounded text-xs px-1.5 py-1 before:content-[""] after:content-[""]
+</style>

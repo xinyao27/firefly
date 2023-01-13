@@ -34,7 +34,7 @@ function handleToggleSticky() {
     />
     <!-- Common Tools -->
     <CardSizeSlider />
-    <NTooltip trigger="hover" :show-arrow="false">
+    <NTooltip trigger="hover">
       <template #trigger>
         <NButton
           size="small"

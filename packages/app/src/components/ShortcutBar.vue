@@ -39,7 +39,6 @@ const settings: Item[] = [
         v-for="item in shortcuts" :key="item.label"
         trigger="hover"
         placement="right"
-        :show-arrow="false"
       >
         <template #trigger>
           <NButton
@@ -58,7 +57,6 @@ const settings: Item[] = [
         v-for="item in settings" :key="item.label"
         trigger="hover"
         placement="right"
-        :show-arrow="false"
       >
         <template #trigger>
           <NButton
