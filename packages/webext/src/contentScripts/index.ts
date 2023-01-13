@@ -2,14 +2,12 @@ import { onMessage } from 'webext-bridge'
 import { createApp } from 'vue'
 import App from './views/App.vue'
 import { setupApp } from '~/logic/common-setup'
-import 'uno.css'
+import '~/styles'
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
-  console.warn('[firefly] Hello world from content script')
-
   // communication example: send previous tab title from background page
   onMessage('tab-prev', ({ data }) => {
-    console.warn(`[firefly] Navigate from page "${data.title}"`)
+    console.warn(`[Firefly] Navigate from page "${data.title}"`)
   })
 
   // mount component to context window

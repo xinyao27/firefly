@@ -1,13 +1,51 @@
-export type ID = string
+export type MessageId = string
 export type MessageCategory = 'text' | 'image' | 'link' | 'rss' | 'other'
-export type MessageFileFrom = 'app' | 'browser' | 'pc' | 'other'
+export type MessageFrom = 'pc' | 'mobile' | 'webext' | 'browser' | 'other'
+export interface MessageMetadata {
+  /**
+   * common
+   */
+  type?: string
 
-export interface Message {
-  id: ID
+  /**
+   * image
+   */
+  width?: number
+  height?: number
+  orientation?: number
+
+  /**
+   * link
+   */
+  audio?: string
+  author?: string
+  copyright?: string
+  description?: string
+  email?: string
+  facebook?: string
+  icon?: string
+  image?: string
+  keywords?: string[]
+  language?: string
+  modified?: string
+  provider?: string
+  published?: string
+  robots?: string
+  section?: string
+  title?: string
+  twitter?: string
+  url?: string
+  video?: string
+
+  [x: string]: string | string[] | number | undefined
+}
+
+export interface MessageModel {
+  id: MessageId
   /**
    * 标题
    */
-  title: string
+  title?: string
   /**
    * 缩略图
    */
@@ -43,23 +81,19 @@ export interface Message {
   /**
    * 来源
    */
-  fileFrom?: MessageFileFrom
-  /**
-   * 链接/图片 link(url)
-   */
-  link?: string
+  from?: MessageFrom
   /**
    * 文件资源大小 (bytes)
    */
   size?: number
   /**
-   * 图片宽度
+   * 链接/图片 link(url)
    */
-  width?: number
+  link?: string
   /**
-   * 图片高度
+   * 元数据
    */
-  height?: number
+  metadata?: MessageMetadata
 
   /**
    * 是否已移至废纸篓

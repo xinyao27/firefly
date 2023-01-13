@@ -7,12 +7,12 @@ import { useContextMenuOptions } from './contextMenu'
 import { useCardClick } from './cardClick'
 import { byteSize } from '~~/utils'
 import { useContextMenu } from '~/composables/useContextMenu'
-import type { Message } from '~~/models/Message'
+import type { MessageModel } from '~~/models/Message'
 import { getAppDataPath } from '~/api'
 
 const props = defineProps<{
   size: number
-  message: Message
+  message: MessageModel
 }>()
 
 const messageStore = useMessageStore()
@@ -28,8 +28,8 @@ const description = computed(() => {
       return `${r?.number} ${r?.unit}`
     }
     case 'image': {
-      if (message.width && message.height) {
-        return `${message.width} × ${message.height}`
+      if (message.metadata?.width && message.metadata?.height) {
+        return `${message.metadata.width} × ${message.metadata.height}`
       }
       return updatedAt
     }

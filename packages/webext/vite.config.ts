@@ -38,6 +38,14 @@ export const sharedConfig: UserConfig = {
         'vue/macros',
         '@vueuse/head',
         '@vueuse/core',
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+          ],
+        },
         { 'webextension-polyfill': [['*', 'browser']] },
       ],
       dts: r('src/auto-imports.d.ts'),
@@ -109,12 +117,6 @@ export default defineConfig(({ command }) => ({
     outDir: r('extension/dist'),
     emptyOutDir: false,
     sourcemap: isDev ? 'inline' : false,
-    rollupOptions: {
-      input: {
-        background: r('src/background/index.html'),
-        options: r('src/options/index.html'),
-        popup: r('src/popup/index.html'),
-      },
-    },
+    rollupOptions: { input: { background: r('src/background/index.html') } },
   },
 }))

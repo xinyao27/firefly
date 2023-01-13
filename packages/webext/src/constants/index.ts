@@ -1,0 +1,3 @@
+export enum MESSAGE_API {
+  MESSAGE_CREATE_LINK,
+}

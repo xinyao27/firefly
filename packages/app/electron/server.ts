@@ -3,11 +3,13 @@ import { basename, extname, join } from 'node:path'
 import { mkdir, move, pathExists, readFile } from 'fs-extra'
 import { createHTTPHandler } from '@trpc/server/adapters/standalone'
 import formidable from 'formidable'
+import getPageMetadata from 'metadata-scraper'
 import { Message } from '../entities/message'
-import { getCategoryAndThumb } from '../utils'
+import { getCategoryAndThumb, getImageMetadata } from '../utils'
 import { appRouter } from './router'
 import { DataBase } from './database'
 import 'reflect-metadata'
+import type { MessageFrom, MessageMetadata } from '~~/models/Message'
 
 const handler = createHTTPHandler({
   router: appRouter,
@@ -47,8 +49,11 @@ const server = http.createServer((req, res) => {
       await queryRunner.connect()
       await queryRunner.startTransaction()
       try {
-        const fileFrom = fields.from as string || 'pc'
+        const from = fields.from as MessageFrom || 'pc'
         const text = fields.text as string
+        const metadata = fields.metadata
+          ? JSON.parse(fields.metadata as string) as unknown as MessageMetadata
+          : undefined
         const relativeDirPath = '/files'
         const absoluteDirPath = join(process.env.APP_DATA_PATH!, relativeDirPath)
         const isExists = await pathExists(absoluteDirPath)
@@ -72,18 +77,29 @@ const server = http.createServer((req, res) => {
             ? await readFile(file.filepath, 'utf-8')
             : undefined
           const fileName = basename(name, fileExt ? `.${fileExt}` : '')
+          await move(file.filepath, absoluteFilePath, { overwrite: true })
+          const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(absoluteFilePath) : undefined)
+          const old = await queryRunner.manager.findOneBy(Message, { filePath: relativeFilePath })
 
           await queryRunner.manager.save(Message, {
+            ...old,
             title: fileName,
             thumb,
             category,
             content,
             fileExt,
             filePath: relativeFilePath,
-            fileFrom,
+            from,
             size: file.size,
+            metadata: finalMetadata,
           })
-          await move(file.filepath, absoluteFilePath, { overwrite: true })
+
+          if (old) {
+            res.statusCode = 200
+            const statusMessage = `${fileName} updated`
+            res.statusMessage = statusMessage
+            return res.end(statusMessage)
+          }
         }
         if (text) {
           const isUrl = validationUrl(text)
@@ -91,19 +107,31 @@ const server = http.createServer((req, res) => {
           const fileExt = isUrl ? 'url' : undefined
           const { category, thumb } = await getCategoryAndThumb({ ext: fileExt })
           const content = text
+          const finalMetadata = metadata || await getPageMetadata(link!)
+          const old = await queryRunner.manager.findOneBy(Message, { link })
+
           await queryRunner.manager.save(Message, {
+            ...old,
             thumb,
             category,
             content,
             fileExt,
-            fileFrom,
+            from,
             link,
             size: content.length,
+            metadata: finalMetadata,
           })
+
+          if (old) {
+            res.statusCode = 200
+            const statusMessage = `${(`${link} `) || ''}updated`
+            res.statusMessage = statusMessage
+            return res.end(statusMessage)
+          }
         }
         await queryRunner.commitTransaction()
-        res.statusCode = 200
-        return res.end('ok')
+        res.statusCode = 201
+        return res.end('created')
       }
       catch (err) {
         await queryRunner.rollbackTransaction()

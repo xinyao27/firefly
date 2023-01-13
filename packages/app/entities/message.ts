@@ -1,7 +1,8 @@
 import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn, UpdateDateColumn } from 'typeorm'
+import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel } from '~~/models/Message'
 
 @Entity()
-export class Message {
+export class Message implements MessageModel {
   @PrimaryColumn({ type: 'text' })
   @Generated('uuid')
     id: string
@@ -22,7 +23,7 @@ export class Message {
     tags?: string[]
 
   @Column({ type: 'text', nullable: true })
-    category?: string
+    category?: MessageCategory
 
   @Column({ type: 'text', nullable: true })
     content?: string
@@ -34,19 +35,16 @@ export class Message {
     filePath?: string
 
   @Column({ type: 'text', nullable: true })
-    fileFrom?: string
-
-  @Column({ type: 'text', nullable: true })
-    link?: string
+    from?: MessageFrom
 
   @Column({ type: 'int', nullable: true })
     size?: number
 
-  @Column({ type: 'int', nullable: true })
-    width?: number
+  @Column({ type: 'text', nullable: true })
+    link?: string
 
-  @Column({ type: 'int', nullable: true })
-    height?: number
+  @Column({ type: 'simple-json', nullable: true })
+    metadata?: MessageMetadata
 
   @Column({ type: 'boolean', nullable: true })
     isTrash?: boolean

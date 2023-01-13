@@ -1,5 +1,6 @@
 import { onMessage, sendMessage } from 'webext-bridge'
 import type { Tabs } from 'webextension-polyfill'
+import { MESSAGE_API } from '~/constants'
 
 // only on dev mode
 if (import.meta.hot) {
@@ -46,5 +47,12 @@ onMessage('get-current-tab', async() => {
   }
   catch {
     return { title: undefined }
+  }
+})
+
+browser.browserAction.onClicked.addListener(async() => {
+  const tabs = await browser.tabs.query({ active: true, currentWindow: true })
+  if (tabs[0].id) {
+    browser.tabs.sendMessage(tabs[0].id, { from: 'webext', api: MESSAGE_API.MESSAGE_CREATE_LINK })
   }
 })

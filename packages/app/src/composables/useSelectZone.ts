@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { ID } from '~~/models/Message'
+import type { MessageId } from '~~/models/Message'
 
 export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   const configStore = useConfigStore()
@@ -37,7 +37,7 @@ export function useSelectZone(target: Ref<HTMLDivElement | undefined>) {
   const allMessageCardRects = ref<{ rect: DOMRect; element: Element }[] | null>(null)
 
   function handleSelectMessageCardAndGetIds() {
-    const selectedMessageIds: ID[] = []
+    const selectedMessageIds: MessageId[] = []
     if (allMessageCardRects.value) {
       for (const { rect, element } of allMessageCardRects.value) {
         if (

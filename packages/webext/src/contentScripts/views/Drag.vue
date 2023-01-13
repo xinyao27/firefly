@@ -38,7 +38,7 @@ function handleDrop(e: DragEvent) {
   if (counter) {
     toggleUploading(true)
     const files = Array.from(e.dataTransfer?.files ?? [])
-    filesStore.upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text'))
+    filesStore.upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text') ?? null, null)
       .then(() => {
         toggleUploaded(true)
         toggleUploading(false)
@@ -68,11 +68,13 @@ function handleDrop(e: DragEvent) {
     v-if="show"
     fixed left-0 top-0 m-5 z-1000 flex items-end font-sans select-none leading-1em
   >
-    <div w-72 p-3 rounded-2 bg-dark-100>
+    <div w-72 p-3 rounded-2 bg-dark-500>
       <div>
+        <!-- title -->
         <div text-center text-lg font-bold mb-3>
           收集到 Firefly
         </div>
+        <!-- status -->
         <div
           v-if="errorMessage"
           p-6 rounded-2 border border-dashed border-red-500 transition leading-1em bg-opacity-30 bg-red-500

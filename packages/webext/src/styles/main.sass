@@ -1,0 +1,17 @@
+html,
+body,
+#app
+  @apply m-0 p-0
+
+
+i
+  @apply inline-block
+
+*::-webkit-scrollbar
+  @apply bg-transparent w-1 h-1
+  &-thumb
+    @apply delay-300 bg-dark-300 rounded-full
+    &:hover
+      @apply bg-dark-50
+  &-corner
+    @apply bg-transparent

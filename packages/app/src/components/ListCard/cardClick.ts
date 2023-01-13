@@ -1,6 +1,6 @@
-import type { ID } from '~~/models/Message'
+import type { MessageId } from '~~/models/Message'
 
-export function useCardClick(id: ID) {
+export function useCardClick(id: MessageId) {
   const messageStore = useMessageStore()
   const router = useRouter()
 

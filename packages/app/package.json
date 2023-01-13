@@ -23,6 +23,8 @@
     "electron-log": "^4.4.8",
     "formidable": "^2.1.1",
     "fs-extra": "^11.1.0",
+    "image-size": "^1.0.2",
+    "metadata-scraper": "^0.2.61",
     "reflect-metadata": "^0.1.13",
     "sharp": "^0.31.3",
     "sqlite3": "^5.1.4",

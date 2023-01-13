@@ -1,4 +1,6 @@
-import type { MessageCategory } from '../models/Message'
+import { promisify } from 'util'
+import imageSizeOf from 'image-size'
+import type { MessageCategory, MessageMetadata } from '../models/Message'
 
 export const byteSize = (bytes?: number) => {
   if (bytes === undefined) return undefined
@@ -46,6 +48,11 @@ export async function getCategoryAndThumb({ ext, filePath }: {
     default:
       return { category: 'other' }
   }
+}
+
+const sizeOf = promisify(imageSizeOf)
+export async function getImageMetadata(filePath: string) {
+  return (await sizeOf(filePath)) as MessageMetadata
 }
 
 export * from './is'

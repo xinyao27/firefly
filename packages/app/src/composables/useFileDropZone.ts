@@ -34,8 +34,11 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
 
     if (counter) {
       const files = Array.from(e.dataTransfer?.files ?? [])
-      upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text'))
-        .then(() => messageStore.find())
+      upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text') ?? null, null, 'pc')
+        .then((res) => {
+          message.success(res.statusText)
+          messageStore.find()
+        })
         .catch((error) => {
           message.error(error.message || error.stack || error.code)
         })

@@ -9,11 +9,11 @@ export const useFilesStore = defineStore('files', {
     }
   },
   actions: {
-    upload(files: File[] | null, text?: string) {
+    upload(files: File[] | null, text: string | null, metadata: any | null) {
       this.files = files
       this.text = text
 
-      return upload(files, text)
+      return upload(files, text, metadata, 'webext')
     },
   },
 })
