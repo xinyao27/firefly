@@ -55,5 +55,4 @@ export async function getImageMetadata(filePath: string) {
   return (await sizeOf(filePath)) as MessageMetadata
 }
 
-export * from './is'
 export * from './clipboard'
