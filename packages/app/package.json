@@ -52,16 +52,11 @@
   },
   "devDependencies": {
     "@types/formidable": "^2.0.5",
-    "@types/markdown-it-link-attributes": "^3.0.1",
     "@types/sharp": "^0.31.1",
-    "electron": "^22.0.0",
+    "electron": "^22.0.2",
     "electron-builder": "^23.6.0",
-    "markdown-it-link-attributes": "^4.0.1",
-    "markdown-it-shiki": "^0.7.2",
-    "shiki": "^0.12.1",
     "vite-plugin-electron": "^0.11.1",
     "vite-plugin-electron-renderer": "^0.11.4",
-    "vite-plugin-pages": "^0.28.0",
-    "vite-plugin-vue-markdown": "^0.22.1"
+    "vite-plugin-pages": "^0.28.0"
   }
 }
