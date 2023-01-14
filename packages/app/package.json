@@ -5,7 +5,7 @@
   "main": "dist-electron/main.js",
   "debug": {
     "env": {
-      "VITE_DEV_SERVER_URL": "http://127.0.0.1:3333/"
+      "VITE_DEV_SERVER_URL": "http://127.0.0.1:5173/"
     }
   },
   "scripts": {
@@ -20,7 +20,6 @@
     "@firefly/utils": "workspace:*",
     "@tiptap/core": "2.0.0-beta.209",
     "@tiptap/extension-bubble-menu": "2.0.0-beta.209",
-    "@tiptap/extension-code-block": "2.0.0-beta.209",
     "@tiptap/extension-code-block-lowlight": "2.0.0-beta.209",
     "@tiptap/extension-image": "2.0.0-beta.209",
     "@tiptap/extension-underline": "2.0.0-beta.209",

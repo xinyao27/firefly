@@ -133,8 +133,8 @@ importers:
       '@firefly/utils': workspace:*
       '@tiptap/core': 2.0.0-beta.209
       '@tiptap/extension-bubble-menu': 2.0.0-beta.209
-      '@tiptap/extension-code-block': 2.0.0-beta.209
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.209
+      '@tiptap/extension-focus': 2.0.0-beta.209
       '@tiptap/extension-image': 2.0.0-beta.209
       '@tiptap/extension-underline': 2.0.0-beta.209
       '@tiptap/starter-kit': 2.0.0-beta.209
@@ -174,8 +174,8 @@ importers:
       '@firefly/utils': link:../utils
       '@tiptap/core': 2.0.0-beta.209_rd5pjtxohzfgv2zee3iufpqkay
       '@tiptap/extension-bubble-menu': 2.0.0-beta.209_vde3gi7hrsabw5pj6bw7jls3ai
-      '@tiptap/extension-code-block': 2.0.0-beta.209_prfudu5zgovreazvyjp3brspre
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.209_oncrp2q33yaneu43jffs7gw3am
+      '@tiptap/extension-focus': 2.0.0-beta.209_vde3gi7hrsabw5pj6bw7jls3ai
       '@tiptap/extension-image': 2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua
       '@tiptap/extension-underline': 2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua
       '@tiptap/starter-kit': 2.0.0-beta.209_jpbjcwtxtditttqwduift4tnzi
@@ -1500,6 +1500,18 @@ packages:
       prosemirror-state: 1.4.2
       prosemirror-view: 1.29.1
       tippy.js: 6.3.7
+    dev: false
+
+  /@tiptap/extension-focus/2.0.0-beta.209_vde3gi7hrsabw5pj6bw7jls3ai:
+    resolution: {integrity: sha512-V60Oimkf8+10zHfiYcknKHYtS89ctpuz9W8Sxhn0gvQS37W6QzUR2DH2ReG9c3O+OE7in0A2ql7rPCsgykfpxA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.193
+      prosemirror-state: ^1.4.1
+      prosemirror-view: ^1.28.2
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.209_rd5pjtxohzfgv2zee3iufpqkay
+      prosemirror-state: 1.4.2
+      prosemirror-view: 1.29.1
     dev: false
 
   /@tiptap/extension-gapcursor/2.0.0-beta.209_v2bfq5maicdelkbmqszbe5xqhy:

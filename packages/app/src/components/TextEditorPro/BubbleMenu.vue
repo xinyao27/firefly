@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
+import type { EditorState } from 'prosemirror-state'
 
 interface Action {
   name: string
@@ -55,6 +56,13 @@ const actions: Action[] = [
     },
   },
 ]
+
+const shouldShow = (props: {
+  state: EditorState
+}) => {
+  // @ts-expect-error noop
+  return !props.state.selection.node && !props.state.selection.empty
+}
 </script>
 
 <template>
@@ -62,6 +70,7 @@ const actions: Action[] = [
     v-if="props.editor"
     :editor="props.editor"
     :tippy-options="{ duration: 100 }"
+    :should-show="shouldShow"
   >
     <div bg-dark-700 border border-dark-200 shadow-lg rounded>
       <NButtonGroup>
