@@ -2,7 +2,7 @@ import { EventEmitter } from 'node:events'
 import path from 'node:path'
 import type { BrowserWindowConstructorOptions } from 'electron'
 import { BrowserWindow, shell } from 'electron'
-
+import is from 'electron-is'
 interface Params {
   onInit: (window: BrowserWindow) => void
   onDestroy?: () => void
@@ -18,17 +18,20 @@ class MainWindow extends EventEmitter {
 
     const defaultOptions: BrowserWindowConstructorOptions = {
       title: process.env.APP_NAME,
-      width: 1440,
-      height: 1080,
+      width: 1200,
+      height: 900,
       minWidth: 800,
       minHeight: 600,
-      frame: false,
+      titleBarStyle: 'hidden',
       icon: path.join(process.env.PUBLIC, 'favicon.ico'),
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
         webSecurity: false,
       },
+    }
+    if (is.windows()) {
+      defaultOptions.frame = false
     }
     this.option = defaultOptions
     this.window = null

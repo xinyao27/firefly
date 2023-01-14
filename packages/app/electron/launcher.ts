@@ -4,7 +4,7 @@ import { fork } from 'node:child_process'
 import { release } from 'node:os'
 import { BrowserWindow, app, protocol } from 'electron'
 import log from 'electron-log'
-import { is } from 'electron-util'
+import is from 'electron-is'
 import ipcMain from './ipcMain'
 import MainWindow from './windows/main'
 
@@ -49,7 +49,7 @@ class Launcher extends EventEmitter {
 
     this.mainWindow = new MainWindow({
       onInit: (window) => {
-        if (is.development) {
+        if (is.dev()) {
           window.webContents.on('did-frame-finish-load', () => {
             window.webContents.once('devtools-opened', () => {
               window.focus()
@@ -69,7 +69,7 @@ class Launcher extends EventEmitter {
     if (release().startsWith('6.1')) app.disableHardwareAcceleration()
 
     // Set application name for Windows 10+ notifications
-    if (is.windows) {
+    if (is.windows()) {
       app.setAppUserModelId(process.env.APP_NAME!)
       app.commandLine.appendSwitch('force_high_performance_gpu')
     }

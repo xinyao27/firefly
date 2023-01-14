@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import is from 'electron-is'
 import { ipcRenderer } from 'electron'
 
 function handleMouseDown(e: MouseEvent) {
@@ -20,15 +21,18 @@ function handleToggleSticky() {
   alwaysOnTop.value = !alwaysOnTop.value
   ipcRenderer.invoke('win:setAlwaysOnTop', alwaysOnTop.value)
 }
+const showWindowActions = computed(() => is.windows() || is.linux())
 </script>
 
 <template>
   <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
+    <!-- placeholder -->
+    <div v-if="!showWindowActions" w-14 />
     <!-- Router Tools  -->
     <RouterTools />
     <!-- Drag Area -->
     <div
-      flex-auto h-full
+      flex-auto h-full select-none
       style="-webkit-app-region: drag"
       @mousedown="handleMouseDown"
     />
@@ -53,9 +57,15 @@ function handleToggleSticky() {
         窗口总是在最上方
       </template>
     </NTooltip>
-    <NDivider vertical />
-    <!-- Windows Tools -->
-    <div z-100 transition-opacity>
+    <NDivider
+      v-if="showWindowActions"
+      vertical
+    />
+    <!-- Windows/Linux Tools -->
+    <div
+      v-if="showWindowActions"
+      z-100 transition-opacity
+    >
       <NButton
         size="small"
         quaternary

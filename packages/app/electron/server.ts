@@ -1,5 +1,6 @@
 import http from 'node:http'
 import { basename, extname, join } from 'node:path'
+import log from 'electron-log'
 import { mkdir, move, pathExists, readFile } from 'fs-extra'
 import { createHTTPHandler } from '@trpc/server/adapters/standalone'
 import formidable from 'formidable'
@@ -8,8 +9,8 @@ import { Message } from '../entities/message'
 import { getCategoryAndThumb, getImageMetadata } from '../utils'
 import { appRouter } from './router'
 import { DataBase } from './database'
-import 'reflect-metadata'
 import type { MessageFrom, MessageMetadata } from '~~/models/Message'
+import 'reflect-metadata'
 
 const handler = createHTTPHandler({
   router: appRouter,
@@ -147,5 +148,15 @@ const server = http.createServer((req, res) => {
 
   return handler(req, res)
 })
-
-server.listen(5487)
+const PORT = 5487
+server.listen(PORT)
+server.on('error', (e: any) => {
+  if (e.code === 'EADDRINUSE') {
+    if (process.env.NODE_ENV === 'development') return
+    log.log('Address in use, retrying...')
+    setTimeout(() => {
+      server.close()
+      server.listen(PORT)
+    }, 1000)
+  }
+})
