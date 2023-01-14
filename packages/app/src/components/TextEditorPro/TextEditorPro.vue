@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 import ExtensionImage from '@tiptap/extension-image'
 import ExtensionUnderline from '@tiptap/extension-underline'
 import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
+import ExtensionTypography from '@tiptap/extension-typography'
 import 'highlight.js/scss/github-dark.scss'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
@@ -55,6 +56,7 @@ const editor = useEditor({
     ExtensionImage.configure({ allowBase64: true }),
     ExtensionUnderline,
     ExtensionCodeBlockLowLight.configure({ lowlight }),
+    ExtensionTypography,
   ],
   editorProps: {
     attributes: {
