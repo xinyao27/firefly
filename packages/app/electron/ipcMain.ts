@@ -3,6 +3,7 @@ import type { BrowserWindow } from 'electron'
 import { app, ipcMain, nativeImage } from 'electron'
 import sharp from 'sharp'
 import { remove } from 'fs-extra'
+import is from 'electron-is'
 
 export default function(win: BrowserWindow | null) {
   ipcMain.handle('get:appDataPath', () => process.env.APP_DATA_PATH)
@@ -22,13 +23,23 @@ export default function(win: BrowserWindow | null) {
   ipcMain.handle('win:setAlwaysOnTop', (_, onTop: boolean) => win?.setAlwaysOnTop(onTop))
 
   ipcMain.on('api:dragStart', async(event, filePath, iconPath) => {
-    const thumbPath = join(app.getPath('temp'), 'thumb.png')
-    await sharp(iconPath).png().toFile(thumbPath)
-    const icon = nativeImage.createFromPath(thumbPath).resize({ width: 80 })
-    event.sender.startDrag({
-      file: filePath,
-      icon,
-    })
-    await remove(thumbPath)
+    if (is.windows()) {
+      const thumbPath = join(app.getPath('temp'), 'thumb.png')
+      await sharp(iconPath).png().toFile(thumbPath)
+      const icon = nativeImage.createFromPath(thumbPath).resize({ width: 80 })
+      event.sender.startDrag({
+        file: filePath,
+        icon,
+      })
+      await remove(thumbPath)
+    }
+    else {
+      const buffer = await sharp(iconPath).png().toBuffer()
+      const icon = nativeImage.createFromBuffer(buffer).resize({ width: 180 })
+      event.sender.startDrag({
+        file: filePath,
+        icon,
+      })
+    }
   })
 }

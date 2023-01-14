@@ -69,9 +69,10 @@ function handleContextMenu(e: MouseEvent) {
 }
 
 async function handleDragStart() {
-  if (props.message.filePath) {
-    const iconPath = thumb.value || normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
-    await ipcRenderer.send('api:dragStart', join(await getAppDataPath(), props.message.filePath), iconPath)
+  if (message.filePath) {
+    const appDataPath = await getAppDataPath()
+    const iconPath = `${appDataPath}${message.thumb}` || normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
+    await ipcRenderer.send('api:dragStart', join(appDataPath, message.filePath), iconPath)
   }
 }
 </script>
@@ -97,6 +98,7 @@ async function handleDragStart() {
         v-if="thumb"
         w-auto h-full max-w-none
         data-message-card-select-area
+        draggable="false"
         loading="lazy"
         :src="thumb"
         :alt="message.title"
