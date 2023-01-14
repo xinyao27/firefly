@@ -10,6 +10,7 @@ import 'highlight.js/scss/github-dark.scss'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import BubbleMenu from './BubbleMenu.vue'
+import DraggableItem from './draggable-item'
 
 const configStore = useConfigStore()
 
@@ -38,7 +39,9 @@ const editor = useEditor({
     <p>
       I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
     </p>
-    <img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
+    <div data-type="draggable-item">
+      <img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
+    </div>
     <blockquote>
       Wow, that’s amazing. Good work, boy! 👏
       <br />
@@ -57,10 +60,11 @@ const editor = useEditor({
     ExtensionUnderline,
     ExtensionCodeBlockLowLight.configure({ lowlight }),
     ExtensionTypography,
+    DraggableItem,
   ],
   editorProps: {
     attributes: {
-      class: 'min-h-full mx-auto my-5 prose prose-sm sm:prose lg:prose-lg xl:prose-2xl focus:outline-none',
+      class: 'min-h-full mx-auto my-5 !prose focus:outline-none',
       style: 'min-height: 100%',
     },
   },
