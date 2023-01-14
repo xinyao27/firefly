@@ -27,7 +27,6 @@ class MainWindow extends EventEmitter {
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
-        webSecurity: false,
       },
     }
     if (is.windows()) {

@@ -7,6 +7,7 @@ import log from 'electron-log'
 import is from 'electron-is'
 import ipcMain from './ipcMain'
 import MainWindow from './windows/main'
+import { SCHEMA, protocolRequestHandler } from './protocol'
 
 class Launcher extends EventEmitter {
   mainWindow?: MainWindow
@@ -42,10 +43,7 @@ class Launcher extends EventEmitter {
       child.kill(0)
     })
 
-    protocol.registerFileProtocol('file', (request, callback) => {
-      const pathname = decodeURI(request.url.replace('file:///', ''))
-      callback(pathname)
-    })
+    protocol.registerBufferProtocol(SCHEMA, protocolRequestHandler)
 
     this.mainWindow = new MainWindow({
       onInit: (window) => {
@@ -73,6 +71,16 @@ class Launcher extends EventEmitter {
       app.setAppUserModelId(process.env.APP_NAME!)
       app.commandLine.appendSwitch('force_high_performance_gpu')
     }
+
+    protocol.registerSchemesAsPrivileged([
+      {
+        scheme: SCHEMA,
+        privileges: {
+          standard: true,
+          secure: true,
+        },
+      },
+    ])
 
     const gotSingleLock = app.requestSingleInstanceLock()
     if (!gotSingleLock) {

@@ -44,13 +44,13 @@ const description = computed(() => {
 const thumb = computedAsync(async() => {
   switch (message.category) {
     case 'image':
-      return normalize(await getAppDataPath() + message.thumb)
+      return normalize(`atom://file/${await getAppDataPath()}${message.thumb}`)
     case 'text':
       return null
     case 'link':
-      return normalize(`${process.env.PUBLIC}/icons/BookmarkIcon.png`)
+      return normalize('/icons/BookmarkIcon.png')
     default:
-      return normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
+      return normalize('/icons/GenericDocumentIcon.png')
   }
 })
 const isSelected = computed(() => messageStore.selectedMessageIds.includes(message.id))
