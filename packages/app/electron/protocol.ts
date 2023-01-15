@@ -31,8 +31,8 @@ function mime(filename: string) {
 }
 
 export async function protocolRequestHandler(req: any, next: any) {
-  const reqUrl = new URL(req.url)
-  let reqPath = decodeURIComponent(path.normalize(reqUrl.pathname))
+  const reqUrl = (req.url as string).slice(7)
+  let reqPath = decodeURIComponent(path.normalize(reqUrl))
   if (reqPath === '/') {
     reqPath = '/index.html'
   }

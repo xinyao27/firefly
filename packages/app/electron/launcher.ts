@@ -72,15 +72,15 @@ class Launcher extends EventEmitter {
       app.commandLine.appendSwitch('force_high_performance_gpu')
     }
 
-    protocol.registerSchemesAsPrivileged([
-      {
-        scheme: SCHEMA,
-        privileges: {
-          standard: true,
-          secure: true,
-        },
-      },
-    ])
+    // protocol.registerSchemesAsPrivileged([
+    //   {
+    //     scheme: SCHEMA,
+    //     privileges: {
+    //       standard: true,
+    //       secure: true,
+    //     },
+    //   },
+    // ])
 
     const gotSingleLock = app.requestSingleInstanceLock()
     if (!gotSingleLock) {

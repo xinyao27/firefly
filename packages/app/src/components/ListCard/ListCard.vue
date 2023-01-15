@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { join } from 'path'
 import dayjs from 'dayjs'
-import normalize from 'normalize-path'
 import { ipcRenderer } from 'electron'
 import { useContextMenuOptions } from './contextMenu'
 import { useCardClick } from './cardClick'
@@ -44,13 +43,13 @@ const description = computed(() => {
 const thumb = computedAsync(async() => {
   switch (message.category) {
     case 'image':
-      return normalize(`atom://file/${await getAppDataPath()}${message.thumb}`)
+      return `atom://${await getAppDataPath()}${message.thumb}`
     case 'text':
       return null
     case 'link':
-      return normalize('/icons/BookmarkIcon.png')
+      return '/icons/BookmarkIcon.png'
     default:
-      return normalize('/icons/GenericDocumentIcon.png')
+      return '/icons/GenericDocumentIcon.png'
   }
 })
 const isSelected = computed(() => messageStore.selectedMessageIds.includes(message.id))
@@ -71,7 +70,7 @@ function handleContextMenu(e: MouseEvent) {
 async function handleDragStart() {
   if (message.filePath) {
     const appDataPath = await getAppDataPath()
-    const iconPath = `${appDataPath}${message.thumb}` || normalize(`${process.env.PUBLIC}/icons/GenericDocumentIcon.png`)
+    const iconPath = `${appDataPath}${message.thumb}` || `${process.env.PUBLIC}/icons/GenericDocumentIcon.png`
     await ipcRenderer.send('api:dragStart', join(appDataPath, message.filePath), iconPath)
   }
 }
