@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { EditorContent, useEditor } from '@tiptap/vue-3'
+import { EditorContent, generateJSON, useEditor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import ExtensionImage from '@tiptap/extension-image'
 import ExtensionUnderline from '@tiptap/extension-underline'
@@ -14,8 +14,21 @@ import DraggableItem from './draggable-item'
 
 const configStore = useConfigStore()
 
-const editor = useEditor({
-  content: `
+const extensions = [
+  StarterKit.configure({
+    dropcursor: {
+      // @ts-expect-error noop
+      color: colors?.blue['400'],
+      width: 4,
+    },
+  }),
+  ExtensionImage.configure({ allowBase64: true }),
+  ExtensionUnderline,
+  ExtensionCodeBlockLowLight.configure({ lowlight }),
+  ExtensionTypography,
+  DraggableItem,
+]
+const html = `
     <h2>
       Hi there,
     </h2>
@@ -39,29 +52,25 @@ const editor = useEditor({
     <p>
       I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
     </p>
-    <div data-type="draggable-item">
-      <img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
-    </div>
+    <img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
     <blockquote>
       Wow, that’s amazing. Good work, boy! 👏
       <br />
       — Mom
     </blockquote>
-  `,
-  extensions: [
-    StarterKit.configure({
-      dropcursor: {
-        // @ts-expect-error noop
-        color: colors?.blue['400'],
-        width: 4,
-      },
-    }),
-    ExtensionImage.configure({ allowBase64: true }),
-    ExtensionUnderline,
-    ExtensionCodeBlockLowLight.configure({ lowlight }),
-    ExtensionTypography,
-    DraggableItem,
-  ],
+  `
+const content = generateJSON(html, extensions)
+if (content.content?.length) {
+  content.content = content.content.map((node: any) => {
+    return {
+      type: 'draggableItem',
+      content: [node],
+    }
+  })
+}
+const editor = useEditor({
+  content,
+  extensions,
   editorProps: {
     attributes: {
       class: 'min-h-full mx-auto my-5 !prose focus:outline-none',

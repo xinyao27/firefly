@@ -11,6 +11,7 @@
         "Debug Main Process",
         "Debug Renderer Process"
       ],
+      "cwd": "${workspaceFolder}/packages/app/",
       "presentation": {
         "hidden": false,
         "group": "",
@@ -24,9 +25,10 @@
       "name": "Debug Main Process",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+      "cwd": "${workspaceFolder}/packages/app/",
+      "runtimeExecutable": "${workspaceRoot}/packages/app/node_modules/.bin/electron",
       "windows": {
-        "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+        "runtimeExecutable": "${workspaceRoot}/packages/app/node_modules/.bin/electron.cmd"
       },
       "runtimeArgs": [
         "--remote-debugging-port=9229",
@@ -43,10 +45,10 @@
       "timeout": 60000,
       "skipFiles": [
         "<node_internals>/**",
-        "${workspaceRoot}/node_modules/**",
-        "${workspaceRoot}/dist-electron/**",
+        "${workspaceRoot}/packages/app/node_modules/**",
+        "${workspaceRoot}/packages/app/dist-electron/**",
         // Skip files in host(VITE_DEV_SERVER_URL)
-        "http://127.0.0.1:3333/**"
+        "http://127.0.0.1:5173/**"
       ]
     },
   ]

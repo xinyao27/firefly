@@ -79,7 +79,7 @@ export const sharedConfig: UserConfig = {
     }),
 
     // https://github.com/antfu/vite-plugin-inspect
-    // Visit http://localhost:3333/__inspect/ to see the inspector
+    // Visit http://localhost:5174/__inspect/ to see the inspector
     Inspect(),
 
     // rewrite assets to use relative path

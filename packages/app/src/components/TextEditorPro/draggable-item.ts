@@ -1,10 +1,11 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-
 import DraggableItem from './DraggableItem.vue'
 
 export default Node.create({
   name: 'draggableItem',
+
+  priority: 10000,
 
   group: 'block',
 
@@ -13,7 +14,7 @@ export default Node.create({
   draggable: true,
 
   parseHTML() {
-    return [{ tag: '[data-type="draggable-item"]' }]
+    return [{ tag: 'div[data-type="draggable-item"]' }]
   },
 
   renderHTML({ HTMLAttributes }) {
@@ -23,4 +24,5 @@ export default Node.create({
   addNodeView() {
     return VueNodeViewRenderer(DraggableItem)
   },
+
 })

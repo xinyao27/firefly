@@ -89,7 +89,7 @@ export default defineConfig({
     }),
 
     // https://github.com/antfu/vite-plugin-inspect
-    // Visit http://localhost:3333/__inspect/ to see the inspector
+    // Visit http://localhost:5173/__inspect/ to see the inspector
     Inspect(),
 
     // https://github.com/hannoeru/vite-plugin-pages

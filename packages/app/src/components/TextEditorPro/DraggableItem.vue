@@ -4,12 +4,14 @@ import { NodeViewContent, NodeViewWrapper } from '@tiptap/vue-3'
 
 <template>
   <NodeViewWrapper class="draggable-item">
-    <i
-      class="drag-handle"
+    <div
+      class="drag-indicator"
       contenteditable="false"
       draggable="true"
       data-drag-handle
-    />
+    >
+      <i i-tabler-grip-vertical w-full h-full block />
+    </div>
     <NodeViewContent />
   </NodeViewWrapper>
 </template>
@@ -18,10 +20,14 @@ import { NodeViewContent, NodeViewWrapper } from '@tiptap/vue-3'
 .draggable-item
   @apply relative
 
-  .drag-handle
-    @apply i-ri-drag-move-2-fill w-4 h-4 absolute -left-6 text-gray cursor-move transition opacity-0
+  .drag-indicator
+    @apply absolute text-gray bg-transparent rounded cursor-grab transition opacity-0 hover:(bg-gray bg-opacity-10)
+    width: 18px
+    height: 18px
+    top: 4px
+    left: -24px
 
   &:hover
-    .drag-handle
-      @apply opacity-100
+    .drag-indicator
+      @apply opacity-80
 </style>

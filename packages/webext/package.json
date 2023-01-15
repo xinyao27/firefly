@@ -1,5 +1,5 @@
 {
-  "name": "@firefly/webext",
+  "name": "firefly-webext",
   "displayName": "firefly",
   "version": "0.0.0",
   "private": true,
