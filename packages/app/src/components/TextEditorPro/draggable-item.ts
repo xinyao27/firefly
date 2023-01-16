@@ -24,5 +24,4 @@ export default Node.create({
   addNodeView() {
     return VueNodeViewRenderer(DraggableItem)
   },
-
 })

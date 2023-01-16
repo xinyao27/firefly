@@ -1,6 +1,7 @@
 import { join } from 'node:path'
 import { DataSource } from 'typeorm'
 import log from 'electron-log'
+import is from 'electron-is'
 import { Message } from '../entities/message'
 
 export class DataBase {
@@ -8,7 +9,9 @@ export class DataBase {
 
   constructor(database: string) {
     const basePath = join(
-      process.env.APP_DATA_PATH!,
+      is.dev()
+        ? __dirname
+        : process.env.APP_DATA_PATH!,
       `./databases/${database}.db`,
     )
     this.dataSource = new DataSource({

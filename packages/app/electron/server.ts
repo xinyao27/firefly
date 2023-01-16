@@ -153,7 +153,7 @@ server.listen(PORT)
 server.on('error', (e: any) => {
   if (e.code === 'EADDRINUSE') {
     if (process.env.NODE_ENV === 'development') return
-    log.log('Address in use, retrying...')
+    log.log(e.message || 'Address in use, retrying...')
     setTimeout(() => {
       server.close()
       server.listen(PORT)

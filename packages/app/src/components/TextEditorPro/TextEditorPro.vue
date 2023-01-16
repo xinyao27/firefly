@@ -28,7 +28,7 @@ const extensions = [
   ExtensionTypography,
   DraggableItem,
 ]
-const html = `
+const html = ref(`
     <h2>
       Hi there,
     </h2>
@@ -58,18 +58,21 @@ const html = `
       <br />
       — Mom
     </blockquote>
-  `
-const content = generateJSON(html, extensions)
-if (content.content?.length) {
-  content.content = content.content.map((node: any) => {
-    return {
-      type: 'draggableItem',
-      content: [node],
-    }
-  })
-}
+  `)
+const content = computed(() => {
+  const json = generateJSON(html.value, extensions)
+  if (json.content?.length) {
+    json.content = json.content.map((node: any) => {
+      return {
+        type: 'draggableItem',
+        content: [node],
+      }
+    })
+  }
+  return json
+})
 const editor = useEditor({
-  content,
+  content: content.value,
   extensions,
   editorProps: {
     attributes: {
