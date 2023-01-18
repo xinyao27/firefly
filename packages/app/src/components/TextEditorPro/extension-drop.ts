@@ -35,13 +35,8 @@ const ExtensionDrop = Extension.create({
                     const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
                     if (pos) {
                       editor.commands.insertContentAt(pos.pos, {
-                        type: 'draggableItem',
-                        content: [
-                          {
-                            type: 'image',
-                            attrs: { src: base64 },
-                          },
-                        ],
+                        type: 'image',
+                        attrs: { src: base64 },
                       })
                     }
                   }

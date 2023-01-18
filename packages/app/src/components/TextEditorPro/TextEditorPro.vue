@@ -10,7 +10,6 @@ import 'highlight.js/scss/github-dark.scss'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import BubbleMenu from './BubbleMenu.vue'
-import DraggableItem from './draggable-item'
 import ExtensionDrop from './extension-drop'
 
 const configStore = useConfigStore()
@@ -27,7 +26,6 @@ const extensions = [
   ExtensionUnderline,
   ExtensionCodeBlockLowLight.configure({ lowlight }),
   ExtensionTypography,
-  DraggableItem,
   ExtensionDrop,
 ]
 const html = ref(`
@@ -63,14 +61,6 @@ const html = ref(`
   `)
 const content = computed(() => {
   const json = generateJSON(html.value, extensions)
-  if (json.content?.length) {
-    json.content = json.content.map((node: any) => {
-      return {
-        type: 'draggableItem',
-        content: [node],
-      }
-    })
-  }
   return json
 })
 const editor = useEditor({

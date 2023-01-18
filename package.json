@@ -37,7 +37,6 @@
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@iconify-json/ri": "^1.1.4",
-    "@iconify-json/tabler": "^1.1.54",
     "@intlify/unplugin-vue-i18n": "^0.8.1",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash-es": "^4.17.6",
