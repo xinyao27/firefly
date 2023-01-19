@@ -6,10 +6,12 @@ import ExtensionImage from '@tiptap/extension-image'
 import ExtensionUnderline from '@tiptap/extension-underline'
 import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
 import ExtensionTypography from '@tiptap/extension-typography'
+import ExtensionCharacterCount from '@tiptap/extension-character-count'
 import 'highlight.js/scss/github-dark.scss'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import BubbleMenu from './BubbleMenu.vue'
+import CharacterCount from './CharacterCount.vue'
 import ExtensionDrop from './extension-drop'
 
 const configStore = useConfigStore()
@@ -27,6 +29,7 @@ const extensions = [
   ExtensionCodeBlockLowLight.configure({ lowlight }),
   ExtensionTypography,
   ExtensionDrop,
+  ExtensionCharacterCount,
 ]
 const html = ref(`
     <h2>
@@ -81,6 +84,7 @@ const editor = useEditor({
     :style="`height: calc(100vh - ${configStore.rootPaddingTop}px)`"
     :editor="editor"
   />
+  <CharacterCount :editor="editor" />
 </template>
 
 <style lang="sass">

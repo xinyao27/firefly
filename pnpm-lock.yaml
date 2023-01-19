@@ -127,6 +127,7 @@ importers:
       '@firefly/utils': workspace:*
       '@tiptap/core': 2.0.0-beta.209
       '@tiptap/extension-bubble-menu': 2.0.0-beta.209
+      '@tiptap/extension-character-count': 2.0.0-beta.209
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.209
       '@tiptap/extension-image': 2.0.0-beta.209
       '@tiptap/extension-typography': 2.0.0-beta.209
@@ -168,6 +169,7 @@ importers:
       '@firefly/utils': link:../utils
       '@tiptap/core': 2.0.0-beta.209_rd5pjtxohzfgv2zee3iufpqkay
       '@tiptap/extension-bubble-menu': 2.0.0-beta.209_vde3gi7hrsabw5pj6bw7jls3ai
+      '@tiptap/extension-character-count': 2.0.0-beta.209_kdf7tbeyuz6zzmi7724b5ghupu
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.209_oncrp2q33yaneu43jffs7gw3am
       '@tiptap/extension-image': 2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua
       '@tiptap/extension-typography': 2.0.0-beta.209_f4ffqkgz5d3wev7su7t7l2rrua
@@ -1389,6 +1391,18 @@ packages:
       '@tiptap/core': ^2.0.0-beta.193
     dependencies:
       '@tiptap/core': 2.0.0-beta.209_rd5pjtxohzfgv2zee3iufpqkay
+    dev: false
+
+  /@tiptap/extension-character-count/2.0.0-beta.209_kdf7tbeyuz6zzmi7724b5ghupu:
+    resolution: {integrity: sha512-ejye00l40wwzycNj86fHbWxngl8IiE+eQm1juUGK0ztR+r/P4MpgdeatjTLchtY79wd9qR3hON2+pcNwy9KKew==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.193
+      prosemirror-model: ^1.18.1
+      prosemirror-state: ^1.4.1
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.209_rd5pjtxohzfgv2zee3iufpqkay
+      prosemirror-model: 1.18.3
+      prosemirror-state: 1.4.2
     dev: false
 
   /@tiptap/extension-code-block-lowlight/2.0.0-beta.209_oncrp2q33yaneu43jffs7gw3am:

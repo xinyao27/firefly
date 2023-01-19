@@ -19,6 +19,7 @@
     "@firefly/utils": "workspace:*",
     "@tiptap/core": "2.0.0-beta.209",
     "@tiptap/extension-bubble-menu": "2.0.0-beta.209",
+    "@tiptap/extension-character-count": "2.0.0-beta.209",
     "@tiptap/extension-code-block-lowlight": "2.0.0-beta.209",
     "@tiptap/extension-image": "2.0.0-beta.209",
     "@tiptap/extension-typography": "2.0.0-beta.209",
