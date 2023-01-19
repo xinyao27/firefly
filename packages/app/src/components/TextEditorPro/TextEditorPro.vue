@@ -69,12 +69,16 @@ const content = computed(() => {
 const editor = useEditor({
   content: content.value,
   extensions,
-  editorProps: {
-    attributes: {
-      class: 'min-h-full mx-auto my-5 focus:outline-none prose prose-white',
-      style: 'min-height: 100%',
+})
+watchEffect(() => {
+  editor.value?.setOptions({
+    editorProps: {
+      attributes: {
+        class: 'min-h-full mx-auto my-5 focus:outline-none prose prose-white',
+        style: 'min-height: 100%;' + `font-size: ${20 * configStore.baseSize / 100}px`,
+      },
     },
-  },
+  })
 })
 </script>
 
@@ -90,10 +94,23 @@ const editor = useEditor({
 <style lang="sass">
 .ProseMirror
   pre
-    @apply text-white bg-dark-400 px-4 py-3 rounded-2
+    @apply text-white bg-dark-400
+    padding-left: 1em
+    padding-right: 1em
+    padding-top: 0.75em
+    padding-bottom: 0.75em
+    border-radius: 0.5em
     code
-      @apply text-white p-0 bg-transparent text-sm
+      @apply text-white p-0 bg-transparent
+      font-size: 0.875em
+      line-height: 1.25em
 
   code
-    @apply font-mono bg-dark-200 text-red-400 rounded text-xs px-1.5 py-1 before:content-[""] after:content-[""]
+    @apply font-mono bg-dark-200 text-red-400 rounded before:content-[""] after:content-[""]
+    font-size: 0.75em
+    line-height: 1em
+    padding-left: 0.375em
+    padding-right: 0.375em
+    padding-top: 0.25em
+    padding-bottom: 0.25em
 </style>

@@ -37,7 +37,7 @@ const showWindowActions = computed(() => is.windows() || is.linux())
       @mousedown="handleMouseDown"
     />
     <!-- Common Tools -->
-    <CardSizeSlider />
+    <SizeSlider />
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton

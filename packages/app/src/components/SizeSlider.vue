@@ -4,20 +4,18 @@ const percentage = ref(60)
 const MAX = 100
 const MIN = 30
 
-const percentageToCardSize = (percentage: number) => percentage / 100 * 200
-
-function handleCardSizeSubtract() {
+function handleSizeSubtract() {
   if (percentage.value > MIN) {
     percentage.value -= 10
   }
 }
-function handleCardSizeAdd() {
+function handleSizeAdd() {
   if (percentage.value < MAX) {
     percentage.value += 10
   }
 }
 watchEffect(() => {
-  configStore.setCardSize(percentageToCardSize(percentage.value))
+  configStore.setBaseSize(percentage.value)
 })
 </script>
 
@@ -32,7 +30,7 @@ watchEffect(() => {
       size="tiny"
       quaternary
       :disabled="percentage <= MIN"
-      @click="handleCardSizeSubtract"
+      @click="handleSizeSubtract"
     >
       <i i-ri-subtract-line />
     </NButton>
@@ -53,7 +51,7 @@ watchEffect(() => {
       size="tiny"
       quaternary
       :disabled="percentage >= MAX"
-      @click="handleCardSizeAdd"
+      @click="handleSizeAdd"
     >
       <i i-ri-add-line />
     </NButton>

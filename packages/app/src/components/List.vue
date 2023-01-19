@@ -27,7 +27,7 @@ const sortedMessages = computed(() => {
             <ListCard
               v-for="item in row" :key="item.id"
               :message="item"
-              :size="configStore.cardSize"
+              :size="configStore.baseSize / 100 * 200"
             />
           </div>
         </NTimelineItem>
