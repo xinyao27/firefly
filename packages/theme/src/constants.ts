@@ -20,11 +20,4 @@ export const themeOverrides: GlobalThemeOverrides = {
     // @ts-expect-error noop
     siderColor: colors?.dark['700'],
   },
-  Tooltip: {
-    padding: '4px 8px',
-    // @ts-expect-error noop
-    fontSize: '12px',
-    // @ts-expect-error noop
-    color: colors?.dark['900'],
-  },
 }

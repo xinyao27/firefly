@@ -27,22 +27,35 @@ const ExtensionDrop = Extension.create({
         props: {
           handleDrop(view, event) {
             (async() => {
+              const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
               const files = Array.from(event.dataTransfer?.files ?? [])
               if (files?.length) {
                 for (const file of files) {
-                  const base64 = await convertBase64(file)
-                  if (base64) {
-                    const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
+                  if (file.type.includes('image')) {
+                    const base64 = await convertBase64(file)
+                    if (base64) {
+                      if (pos) {
+                        editor.commands.insertContentAt(pos.pos, {
+                          type: 'image',
+                          attrs: { src: base64 },
+                        })
+                      }
+                    }
+                  }
+                  else {
                     if (pos) {
-                      editor.commands.insertContentAt(pos.pos, {
-                        type: 'image',
-                        attrs: { src: base64 },
+                      editor.commands.insertCustomItemAt(pos.pos, {
+                        name: file.name,
+                        path: file.path,
+                        size: file.size,
+                        type: file.type,
                       })
                     }
                   }
                 }
               }
             })()
+            return false
           },
         },
       }),
