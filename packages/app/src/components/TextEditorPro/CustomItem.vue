@@ -22,13 +22,15 @@ async function handleOpen() {
     <div flex items-center gap-2 select-none pointer-events-none>
       <i i-ri-file-3-line block text-lg />
       <div flex flex-col>
-        <span>
+        <div flex items-center gap-2>
           {{ props.node.attrs?.name }}
-          <span text-trueGray text-xs>
+          <div text-trueGray text-xs>
             {{ size }}
-          </span>
-        </span>
-        <span text-trueGray text-xs>{{ props.node.attrs?.path }}</span>
+          </div>
+        </div>
+        <div text-trueGray text-xs>
+          {{ props.node.attrs?.path }}
+        </div>
       </div>
     </div>
     <div>
