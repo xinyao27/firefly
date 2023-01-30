@@ -13,6 +13,7 @@ import { colors } from 'unocss/preset-mini'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import ExtensionDrop from './extension-drop'
+import ExtensionColor from './extension-color'
 
 const configStore = useConfigStore()
 
@@ -28,8 +29,9 @@ const extensions = [
   ExtensionUnderline,
   ExtensionCodeBlockLowLight.configure({ lowlight }),
   ExtensionTypography,
-  ExtensionDrop,
   ExtensionCharacterCount,
+  ExtensionDrop,
+  ExtensionColor,
 ]
 const html = ref(`
     <h2>
@@ -113,4 +115,14 @@ watchEffect(() => {
     padding-right: 0.375em
     padding-top: 0.25em
     padding-bottom: 0.25em
+
+  .color
+    &::before
+      @apply inline-block rounded v-middle
+      content: ' '
+      width: 1em
+      height: 1em
+      margin-right: 0.15em
+      margin-bottom: 0.15em
+      background-color: var(--color)
 </style>
