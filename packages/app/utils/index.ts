@@ -1,6 +1,8 @@
 import { promisify } from 'util'
+import { join } from 'node:path'
 import imageSizeOf from 'image-size'
 import type { MessageCategory, MessageMetadata } from '../models/Message'
+import { getAppDataPath } from '~/api'
 
 export const byteSize = (bytes?: number) => {
   if (bytes === undefined) return undefined
@@ -53,6 +55,11 @@ export async function getCategoryAndThumb({ ext, filePath }: {
 const sizeOf = promisify(imageSizeOf)
 export async function getImageMetadata(filePath: string) {
   return (await sizeOf(filePath)) as MessageMetadata
+}
+
+export async function getFinalFilePath(filePath: string) {
+  const finalFilePath = join(await getAppDataPath(), filePath)
+  return finalFilePath
 }
 
 export * from './clipboard'
