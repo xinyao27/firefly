@@ -7,6 +7,7 @@ import ExtensionUnderline from '@tiptap/extension-underline'
 import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
 import ExtensionTypography from '@tiptap/extension-typography'
 import ExtensionCharacterCount from '@tiptap/extension-character-count'
+import ExtensionPlaceholder from '@tiptap/extension-placeholder'
 import 'highlight.js/scss/github-dark.scss'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
@@ -14,6 +15,7 @@ import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import ExtensionDrop from './extension-drop'
 import ExtensionColor from './extension-color'
+import ExtensionBlockMenu from './extension-block-menu'
 
 const configStore = useConfigStore()
 
@@ -32,6 +34,13 @@ const extensions = [
   ExtensionCharacterCount,
   ExtensionDrop,
   ExtensionColor,
+  ExtensionBlockMenu,
+  ExtensionPlaceholder.configure({
+    emptyNodeClass: 'empty-node',
+    placeholder({ node }) {
+      return node.type.name
+    },
+  }),
 ]
 const html = ref(`
     <h2>
@@ -54,15 +63,15 @@ const html = ref(`
 <pre><code class="language-css">body {
   display: none;
 }</code></pre>
-    <p>
-      I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-    </p>
-    <img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
-    <blockquote>
-      Wow, that’s amazing. Good work, boy! 👏
-      <br />
-      — Mom
-    </blockquote>
+<img src="https://source.unsplash.com/8xznAGy4HcY/800x400" />
+<blockquote>
+  Wow, that’s amazing. Good work, boy! 👏
+  <br />
+  — Mom
+  </blockquote>
+  <p>
+    I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
+  </p>
   `)
 const content = computed(() => {
   const json = generateJSON(html.value, extensions)
@@ -125,4 +134,9 @@ watchEffect(() => {
       margin-right: 0.15em
       margin-bottom: 0.15em
       background-color: var(--color)
+
+  .empty-node
+    &::before
+      content: attr(data-placeholder)
+      @apply pointer-events-none h-0 float-left text-neutral-600 capitalize
 </style>
