@@ -79,7 +79,7 @@ onBeforeMount(() => {
     <div w-72 p-3 rounded-2 bg-dark-500>
       <div>
         <!-- title -->
-        <div text-center text-lg font-bold mb-3>
+        <div text-center text-lg text-white font-bold mb-3>
           收集到 Firefly
         </div>
         <!-- status/edit -->
