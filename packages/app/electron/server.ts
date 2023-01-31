@@ -145,30 +145,45 @@ const server = http.createServer((req, res) => {
         }
         if (text) {
           const isUrl = validationUrl(text)
-          const link = isUrl ? text : undefined
-          const fileExt = isUrl ? 'url' : undefined
-          const { category, thumb } = await getCategoryAndThumb({ ext: fileExt })
-          const content = text
-          const finalMetadata = metadata || await getPageMetadata(link!)
-          const old = await queryRunner.manager.findOneBy(Message, { link })
+          if (isUrl) {
+            const link = text
+            const fileExt = 'url'
+            const { category, thumb } = await getCategoryAndThumb({ ext: fileExt })
+            const content = text
+            const finalMetadata = metadata || await getPageMetadata(link)
+            const old = await queryRunner.manager.findOneBy(Message, { link })
 
-          await queryRunner.manager.save(Message, {
-            ...old,
-            thumb,
-            category,
-            content,
-            fileExt,
-            from,
-            link,
-            size: content.length,
-            metadata: finalMetadata,
-          })
+            await queryRunner.manager.save(Message, {
+              ...old,
+              thumb,
+              category,
+              content,
+              fileExt,
+              from,
+              link,
+              size: content.length,
+              metadata: finalMetadata,
+            })
 
-          if (old) {
-            res.statusCode = 200
-            const statusMessage = `${(`${link} `) || ''}updated`
-            res.statusMessage = statusMessage
-            return res.end(statusMessage)
+            if (old) {
+              res.statusCode = 200
+              const statusMessage = `${(`${link} `) || ''}updated`
+              res.statusMessage = statusMessage
+              return res.end(statusMessage)
+            }
+          }
+          else {
+            const { category, thumb } = await getCategoryAndThumb({ ext: undefined })
+            const content = text
+            const finalMetadata = metadata
+            await queryRunner.manager.save(Message, {
+              thumb,
+              category,
+              content,
+              from,
+              size: content.length,
+              metadata: finalMetadata,
+            })
           }
         }
         await queryRunner.commitTransaction()
