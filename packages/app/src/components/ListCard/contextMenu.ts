@@ -3,7 +3,12 @@ import type { DropdownOption } from 'naive-ui'
 import { shell } from 'electron'
 import type { ComputedRef } from 'vue'
 import { getAppDataPath } from '~/api'
-import { clipboardWrite, getFinalFilePath } from '~~/utils'
+import { clipboardWrite } from '~~/utils'
+
+async function getFinalFilePath(filePath: string) {
+  const finalFilePath = join(await getAppDataPath(), filePath)
+  return finalFilePath
+}
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
   const messageStore = useMessageStore()

@@ -35,7 +35,7 @@ export const appRouter = t.router({
       content: z.string().optional(),
       fileExt: z.string().optional(),
       filePath: z.string().optional(),
-      from: z.enum(['app', 'browser', 'pc', 'other']).optional(),
+      from: z.enum(['pc', 'mobile', 'webext', 'browser', 'other']).optional(),
       size: z.number().optional(),
       link: z.string().optional(),
       metadata: z.object({}).optional(),
