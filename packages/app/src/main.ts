@@ -6,12 +6,18 @@ import { createI18n } from 'vue-i18n'
 import type { RouteLocationNormalized } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import NProgress from 'nprogress'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import App from './App.vue'
 import generatedRoutes from '~pages'
 
 import 'uno.css'
 import '@unocss/reset/tailwind.css'
 import './styles/main.sass'
+
+dayjs.locale('zh-cn')
+dayjs.extend(relativeTime)
 
 document.oncontextmenu = () => false
 

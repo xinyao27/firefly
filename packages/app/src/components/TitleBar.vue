@@ -24,6 +24,10 @@ function handleToggleSticky() {
 const showWindowActions = computed(() => is.windows() || is.linux())
 
 const route = useRoute()
+const configStore = useConfigStore()
+function handleToggleDetailBarCollapse() {
+  configStore.detailBarCollapsed = !configStore.detailBarCollapsed
+}
 </script>
 
 <template>
@@ -57,6 +61,25 @@ const route = useRoute()
       </template>
       <template v-else>
         窗口总是在最上方
+      </template>
+    </NTooltip>
+    <NTooltip trigger="hover">
+      <template #trigger>
+        <NButton
+          size="small"
+          quaternary
+          :opacity="configStore.detailBarCollapsed ? 40 : 100"
+          @click="handleToggleDetailBarCollapse"
+        >
+          <i v-if="configStore.detailBarCollapsed" i-ri-layout-right-line />
+          <i v-else i-ri-layout-right-fill />
+        </NButton>
+      </template>
+      <template v-if="configStore.detailBarCollapsed">
+        展开
+      </template>
+      <template v-else>
+        收起
       </template>
     </NTooltip>
     <NDivider

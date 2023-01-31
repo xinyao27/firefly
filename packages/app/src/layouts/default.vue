@@ -35,6 +35,14 @@ function handleScroll() {
           <RouterView />
         </main>
       </NLayoutContent>
+      <NLayoutSider
+        collapse-mode="width"
+        :collapsed="configStore.detailBarCollapsed"
+        :collapsed-width="0"
+        :width="configStore.rootPaddingRight"
+      >
+        <DetailBar />
+      </NLayoutSider>
     </NLayout>
   </NLayout>
 </template>

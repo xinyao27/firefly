@@ -6,6 +6,8 @@ export const useConfigStore = defineStore('configs', {
       baseSize: 60,
       rootPaddingTop: 40,
       rootPaddingLeft: 44,
+      rootPaddingRight: 260,
+      detailBarCollapsed: false,
       title: '',
     }
   },

@@ -4,11 +4,7 @@ import { shell } from 'electron'
 import type { ComputedRef } from 'vue'
 import { getAppDataPath } from '~/api'
 import { clipboardWrite } from '~~/utils'
-
-async function getFinalFilePath(filePath: string) {
-  const finalFilePath = join(await getAppDataPath(), filePath)
-  return finalFilePath
-}
+import { getFinalFilePath } from '~/utils'
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
   const messageStore = useMessageStore()
