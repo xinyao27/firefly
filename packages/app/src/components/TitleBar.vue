@@ -22,6 +22,8 @@ function handleToggleSticky() {
   ipcRenderer.invoke('win:setAlwaysOnTop', alwaysOnTop.value)
 }
 const showWindowActions = computed(() => is.windows() || is.linux())
+
+const route = useRoute()
 </script>
 
 <template>
@@ -37,7 +39,7 @@ const showWindowActions = computed(() => is.windows() || is.linux())
       @mousedown="handleMouseDown"
     />
     <!-- Common Tools -->
-    <SizeSlider />
+    <SizeSlider v-if="route.path === '/'" />
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton

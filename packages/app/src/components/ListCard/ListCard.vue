@@ -87,7 +87,7 @@ async function handleDragStart() {
   >
     <div
       overflow-hidden flex items-center justify-center relative select-none
-      :style="{ width: `${props.size}px`, height: `${props.size}px` }"
+      :style="{ width: `${props.size}px`, height: `${props.size * 0.618}px` }"
       data-message-card-select-area
       draggable="true"
       @dblclick.capture.prevent.stop="handleDoubleClick"

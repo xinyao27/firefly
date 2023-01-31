@@ -1,22 +1,18 @@
 <script setup lang="ts">
 const configStore = useConfigStore()
-const percentage = ref(60)
 const MAX = 100
 const MIN = 30
 
 function handleSizeSubtract() {
-  if (percentage.value > MIN) {
-    percentage.value -= 10
+  if (configStore.baseSize > MIN) {
+    configStore.baseSize -= 10
   }
 }
 function handleSizeAdd() {
-  if (percentage.value < MAX) {
-    percentage.value += 10
+  if (configStore.baseSize < MAX) {
+    configStore.baseSize += 10
   }
 }
-watchEffect(() => {
-  configStore.setBaseSize(percentage.value)
-})
 </script>
 
 <template>
@@ -29,13 +25,13 @@ watchEffect(() => {
       opacity="0"
       size="tiny"
       quaternary
-      :disabled="percentage <= MIN"
+      :disabled="configStore.baseSize <= MIN"
       @click="handleSizeSubtract"
     >
       <i i-ri-subtract-line />
     </NButton>
     <NSlider
-      v-model:value="percentage"
+      v-model:value="configStore.baseSize"
       :percentage="10"
       :max="MAX"
       :min="MIN"
@@ -50,7 +46,7 @@ watchEffect(() => {
       opacity="0"
       size="tiny"
       quaternary
-      :disabled="percentage >= MAX"
+      :disabled="configStore.baseSize >= MAX"
       @click="handleSizeAdd"
     >
       <i i-ri-add-line />

@@ -58,7 +58,7 @@ watchEffect(() => {
     editorProps: {
       attributes: {
         class: 'min-h-full mx-auto my-5 focus:outline-none prose prose-white',
-        style: 'min-height: 100%;' + `font-size: ${20 * configStore.baseSize / 100}px`,
+        style: 'min-height: 100%;',
       },
     },
   })
