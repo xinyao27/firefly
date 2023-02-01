@@ -64,17 +64,17 @@ function handleContextMenu(e: MouseEvent) {
         {{ message.content }}
       </div>
       <div
-        v-if="isSelected"
-        absolute top-0 right-0 bottom-0 left-0 bg-blue-500 bg-opacity-10 border-2 border-blue-500
-        data-message-card-select-area
-      />
-      <div
         v-if="message.fileExt && message.category !== 'text'"
         bg-black bg-opacity-60 text-xs font-semibold px-1 absolute rounded left-1 top-1 transform scale-90 select-none
         data-message-card-select-area
       >
         {{ message.fileExt.toUpperCase() }}
       </div>
+      <div
+        v-if="isSelected"
+        absolute top-0 right-0 bottom-0 left-0 bg-blue-500 bg-opacity-10 border-2 border-blue-500
+        data-message-card-select-area
+      />
     </div>
     <div text-xs line-clamp-2 break-words leading-4 mt-2 select-none>
       {{ message.title }}

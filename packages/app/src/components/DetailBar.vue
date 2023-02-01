@@ -96,7 +96,7 @@ function handleOpen(path?: string) {
           w-full
         >
           <template #header>
-            <span text-trueGray>摘要</span>
+            <span text-neutral>摘要</span>
           </template>
           <NEllipsis
             expand-trigger="click"
@@ -108,7 +108,7 @@ function handleOpen(path?: string) {
         </NThing>
         <NThing w-full>
           <template #header>
-            <span text-trueGray>元数据</span>
+            <span text-neutral>元数据</span>
           </template>
           <NDescriptions
             label-placement="left"
@@ -117,7 +117,7 @@ function handleOpen(path?: string) {
           >
             <NDescriptionsItem v-for="(value, key) in lastMessage.metadata" :key="key">
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   {{ key }}
                 </div>
               </template>
@@ -125,7 +125,7 @@ function handleOpen(path?: string) {
             </NDescriptionsItem>
             <NDescriptionsItem>
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   大小
                 </div>
               </template>
@@ -133,7 +133,7 @@ function handleOpen(path?: string) {
             </NDescriptionsItem>
             <NDescriptionsItem>
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   后缀名
                 </div>
               </template>
@@ -141,7 +141,7 @@ function handleOpen(path?: string) {
             </NDescriptionsItem>
             <NDescriptionsItem>
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   创建于
                 </div>
               </template>
@@ -149,7 +149,7 @@ function handleOpen(path?: string) {
             </NDescriptionsItem>
             <NDescriptionsItem>
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   更新于
                 </div>
               </template>
@@ -157,7 +157,7 @@ function handleOpen(path?: string) {
             </NDescriptionsItem>
             <NDescriptionsItem>
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   来源
                 </div>
               </template>
@@ -169,7 +169,7 @@ function handleOpen(path?: string) {
       <template v-else>
         <NThing w-full>
           <template #header>
-            <span text-trueGray>全部文件</span>
+            <span text-neutral>全部文件</span>
           </template>
           <NDescriptions
             label-placement="left"
@@ -178,7 +178,7 @@ function handleOpen(path?: string) {
           >
             <NDescriptionsItem>
               <template #label>
-                <div text-trueGray capitalize w-16 inline-block>
+                <div text-neutral capitalize w-16 inline-block>
                   文件
                 </div>
               </template>

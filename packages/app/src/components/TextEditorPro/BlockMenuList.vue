@@ -64,7 +64,7 @@ defineExpose({ onKeyDown })
           <div truncate>
             {{ item.label }}
           </div>
-          <div text-truegray text-xs truncate>
+          <div text-neutral text-xs truncate>
             {{ item.description }}
           </div>
         </div>

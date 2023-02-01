@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { groupBy } from 'lodash-es'
 import dayjs from 'dayjs'
+import Draggable from 'vuedraggable'
 import ListCard from './ListCard.vue'
 import ListRow from './ListRow.vue'
 
@@ -21,6 +22,16 @@ const configStore = useConfigStore()
 const sortedMessages = computed(() => {
   return groupBy(messageStore.messages, v => dayjs(v.updatedAt).format('YYYY/MM/DD'))
 })
+
+function handleDragStart(e: any) {
+  messageStore.textEditorDraggingMessage = messageStore.textEditorMessages[e.oldIndex]
+}
+function handleDragEnd(e: any) {
+  nextTick(() => {
+    messageStore.textEditorMessages[e.oldIndex].used = true
+    messageStore.textEditorDraggingMessage = null
+  })
+}
 </script>
 
 <template>
@@ -48,25 +59,53 @@ const sortedMessages = computed(() => {
 
   <div
     v-if="props.mode === 'rowList'"
-    w-full p-4
+    w-full h-full
+    :class="props.functional === 'preview' ? 'px-4 pt-4' : 'px-2 pt-2'"
   >
+    <template v-if="props.functional === 'preview'">
+      <div
+        v-for="(row, key) in sortedMessages"
+        :key="key"
+        w-full h-full mb-2
+      >
+        <div w-full font-semibold text-neutral-500 select-none mb-2>
+          {{ key }}
+        </div>
+        <div
+          w-full flex flex-col gap-1
+        >
+          <ListRow
+            v-for="item in row"
+            :key="item.id"
+            :functional="props.functional"
+            :message="item"
+            :size="configStore.baseSize / 100 * 240"
+          />
+        </div>
+      </div>
+    </template>
     <div
-      v-for="(row, key) in sortedMessages"
-      :key="key"
-      w-full
+      v-if="props.functional === 'draggable'"
+      w-full h-full
     >
-      <div w-full font-semibold text-neutral-500 select-none my-2>
-        {{ key }}
-      </div>
-      <div w-full flex flex-col gap-1>
-        <ListRow
-          v-for="item in row"
-          :key="item.id"
-          :functional="props.functional"
-          :message="item"
-          :size="props.functional === 'preview' ? configStore.baseSize / 100 * 240 : 72"
-        />
-      </div>
+      <Draggable
+        v-model="messageStore.textEditorMessages"
+        class="h-full flex flex-col gap-1"
+        :group="{ name: 'messageDraggable', pull: 'clone', put: false }"
+        item-key="id"
+        :clone="() => {}"
+        :sort="false"
+        @start="handleDragStart"
+        @end="handleDragEnd"
+      >
+        <template #item="{ element }">
+          <ListRow
+            :functional="props.functional"
+            :message="element"
+            :size="72"
+          />
+        </template>
+      </Draggable>
     </div>
   </div>
 </template>

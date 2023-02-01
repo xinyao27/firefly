@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { MessageId, MessageModel } from '~~/models/Message'
+import type { MessageId, MessageModel, MessageModelWithUsed } from '~~/models/Message'
 import { trpc } from '~/api'
 
 export const useMessageStore = defineStore('messages', {
@@ -8,6 +8,9 @@ export const useMessageStore = defineStore('messages', {
       messages: [] as MessageModel[],
       selectedMessageIds: [] as MessageId[],
       trashMessages: [] as MessageModel[],
+
+      textEditorMessages: [] as MessageModelWithUsed[],
+      textEditorDraggingMessage: null as MessageModelWithUsed | null,
     }
   },
   actions: {

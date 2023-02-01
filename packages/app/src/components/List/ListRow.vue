@@ -4,18 +4,18 @@ import { useCardClick } from './useCardClick'
 import { useData } from './useData'
 import { useDragStart } from './useDragStart'
 import { useContextMenu } from '~/composables/useContextMenu'
-import type { MessageModel } from '~~/models/Message'
+import type { MessageModelWithUsed } from '~~/models/Message'
 
 const props = defineProps<{
   functional: 'preview' | 'draggable'
   size: number
-  message: MessageModel
+  message: MessageModelWithUsed
 }>()
 
 const messageStore = useMessageStore()
 const message = props.message
 
-const { title, description, thumb, isSelected, updatedAt, updatedFromNow } = useData(message)
+const { title, description, thumb, updatedAt, updatedFromNow, isSelected } = useData(message)
 const { handleClick, handleDoubleClick } = useCardClick(message.id)
 const contextMenuOptions = useContextMenuOptions()
 const { show: showContextMenu } = useContextMenu(contextMenuOptions.value)
@@ -66,11 +66,6 @@ function handleContextMenu(e: MouseEvent) {
       </div>
     </div>
     <div
-      v-if="isSelected"
-      absolute top-0 right-0 bottom-0 left-0 bg-blue-500 bg-opacity-10 border-2 border-blue-500
-      data-message-card-select-area
-    />
-    <div
       flex-1 overflow-hidden flex flex-col gap-1
       data-message-card-select-area
     >
@@ -95,5 +90,20 @@ function handleContextMenu(e: MouseEvent) {
       </template>
       更新于 {{ updatedAt }}
     </NTooltip>
+    <div
+      v-if="isSelected && props.functional === 'preview'"
+      absolute top-0 right-0 bottom-0 left-0 bg-blue-500 bg-opacity-10 border-2 border-blue-500
+      data-message-card-select-area
+    />
+    <div
+      v-if="message.used"
+      absolute top-0 right-0 bottom-0 left-0 bg-green-500 bg-opacity-10
+      data-message-card-select-area
+    >
+      <i
+        i-ri-checkbox-circle-fill text-green-500 w-4 h-4 absolute right-0 bottom-0 select-none
+        data-message-card-select-area
+      />
+    </div>
   </div>
 </template>

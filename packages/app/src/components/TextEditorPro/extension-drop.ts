@@ -1,20 +1,7 @@
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
-
-const convertBase64 = (file: File) => {
-  return new Promise((resolve, reject) => {
-    const fileReader = new FileReader()
-    fileReader.readAsDataURL(file)
-
-    fileReader.onload = () => {
-      resolve(fileReader.result)
-    }
-
-    fileReader.onerror = (error) => {
-      reject(error)
-    }
-  })
-}
+import { Fragment, Slice } from 'prosemirror-model'
+import { convertBase64 } from './utils'
 
 const ExtensionDrop = Extension.create({
   name: 'drop',
@@ -27,7 +14,16 @@ const ExtensionDrop = Extension.create({
         props: {
           handleDrop(view, event) {
             (async() => {
+              const messageStore = useMessageStore()
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
+              if (messageStore.textEditorDraggingMessage) {
+                if (pos) {
+                  editor.commands.insertCustomItemAt(pos.pos, {
+                    from: 'message',
+                    message: messageStore.textEditorDraggingMessage,
+                  })
+                }
+              }
               const files = Array.from(event.dataTransfer?.files ?? [])
               if (files?.length) {
                 for (const file of files) {
@@ -45,6 +41,7 @@ const ExtensionDrop = Extension.create({
                   else {
                     if (pos) {
                       editor.commands.insertCustomItemAt(pos.pos, {
+                        from: 'file',
                         name: file.name,
                         path: file.path,
                         size: file.size,
@@ -56,6 +53,14 @@ const ExtensionDrop = Extension.create({
               }
             })()
             return false
+          },
+
+          transformPasted(slice) {
+            const messageStore = useMessageStore()
+            if (messageStore.textEditorDraggingMessage) {
+              return new Slice(Fragment.empty, 0, 0)
+            }
+            return slice
           },
         },
       }),

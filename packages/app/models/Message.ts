@@ -100,3 +100,5 @@ export interface MessageModel {
    */
   isTrash?: boolean
 }
+
+export type MessageModelWithUsed = MessageModel & { used?: boolean }

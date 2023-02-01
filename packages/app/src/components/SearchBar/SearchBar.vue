@@ -6,7 +6,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <aside min-h-full flex flex-col items-center justify-between bg-neutral-800>
+  <aside h-full style="border-right: 1px solid var(--n-border-color)">
     <ListSearch v-if="route.path === '/'" />
     <TextEditorSearch v-else-if="route.path === '/text-editor'" />
   </aside>

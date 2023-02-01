@@ -5,7 +5,6 @@ interface Item {
   onClick: () => void
 }
 const router = useRouter()
-const configStore = useConfigStore()
 const shortcuts: Item[] = [
   {
     label: '列表',
@@ -36,7 +35,6 @@ const settings: Item[] = [
 <template>
   <aside
     h-full flex flex-col items-center justify-between py-4 transition
-    :class="configStore.searchBarCollapsed ? '' : 'bg-neutral-800'"
   >
     <div flex flex-col items-center gap-2>
       <NTooltip

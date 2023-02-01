@@ -11,6 +11,7 @@ import ExtensionPlaceholder from '@tiptap/extension-placeholder'
 import 'highlight.js/scss/github-dark.scss'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
+import Draggable from 'vuedraggable'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import ExtensionDrop from './extension-drop'
@@ -19,6 +20,7 @@ import ExtensionBlockMenu from './extension-block-menu'
 import ExtensionCustomItem from './extension-custom-item'
 
 const configStore = useConfigStore()
+const messageStore = useMessageStore()
 
 const extensions = [
   StarterKit.configure({
@@ -57,7 +59,7 @@ watchEffect(() => {
   editor.value?.setOptions({
     editorProps: {
       attributes: {
-        class: 'min-h-full mx-auto my-5 focus:outline-none prose prose-white',
+        class: 'min-h-full mx-auto my-4 px-4 focus:outline-none prose prose-white',
         style: 'min-height: 100%;',
       },
     },
@@ -66,12 +68,30 @@ watchEffect(() => {
 </script>
 
 <template>
-  <BubbleMenu :editor="editor" />
-  <EditorContent
-    :style="`height: calc(100vh - ${configStore.rootPaddingTop}px)`"
-    :editor="editor"
-  />
-  <CharacterCount :editor="editor" />
+  <Draggable
+    v-model="messageStore.textEditorMessages"
+    :group="{ name: 'messageDraggable' }"
+    item-key="id"
+  >
+    <template #header>
+      <BubbleMenu :editor="editor" />
+      <EditorContent
+        :style="`height: calc(100vh - ${configStore.rootPaddingTop}px)`"
+        :editor="editor"
+      />
+      <CharacterCount :editor="editor" />
+    </template>
+
+    <template #item="{ element }">
+      <div v-show="false">
+        <ListRow
+          functional="draggable"
+          :message="element"
+          :size="72"
+        />
+      </div>
+    </template>
+  </Draggable>
 </template>
 
 <style lang="sass">

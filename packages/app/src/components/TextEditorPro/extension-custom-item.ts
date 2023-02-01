@@ -1,15 +1,18 @@
 import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import CustomItem from './CustomItem.vue'
+import type { MessageModel } from '~~/models/Message'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     custom: {
       insertCustomItemAt: (position: number, options: {
-        name: string
-        path: string
-        size: number
-        type: string
+        from: 'file' | 'message'
+        message?: MessageModel
+        name?: string
+        path?: string
+        size?: number
+        type?: string
       }) => ReturnType
     }
   }
@@ -28,6 +31,8 @@ export default Node.create({
 
   addAttributes() {
     return {
+      from: { default: null },
+      message: { default: null },
       name: { default: null },
       path: { default: null },
       size: { default: null },
