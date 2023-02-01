@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { join } from 'path'
-import dayjs from 'dayjs'
-import { ipcRenderer } from 'electron'
-import { useContextMenuOptions } from './contextMenu'
-import { useCardClick } from './cardClick'
-import { byteSize } from '~~/utils'
+import { useContextMenuOptions } from './useContextMenuOptions'
+import { useCardClick } from './useCardClick'
+import { useData } from './useData'
+import { useDragStart } from './useDragStart'
 import { useContextMenu } from '~/composables/useContextMenu'
 import type { MessageModel } from '~~/models/Message'
-import { getAppDataPath } from '~/api'
 
 const props = defineProps<{
   size: number
@@ -16,47 +13,12 @@ const props = defineProps<{
 
 const messageStore = useMessageStore()
 const message = props.message
-const description = computed(() => {
-  const updatedAt = dayjs(message.updatedAt).format('YYYY/MM/DD HH:mm')
-  switch (message.category) {
-    case 'text': {
-      if (!message.size && message.size !== 0) {
-        return updatedAt
-      }
-      const r = byteSize(message.size)
-      return `${r?.number} ${r?.unit}`
-    }
-    case 'image': {
-      if (message.metadata?.width && message.metadata?.height) {
-        return `${message.metadata.width} × ${message.metadata.height}`
-      }
-      return updatedAt
-    }
-    case 'link':
-      return message.link || updatedAt
-    case 'other':
-      return updatedAt
-    default:
-      return updatedAt
-  }
-})
-const thumb = computedAsync(async() => {
-  switch (message.category) {
-    case 'image':
-      return `atom://${await getAppDataPath()}${message.thumb}`
-    case 'text':
-      return null
-    case 'link':
-      return '/icons/BookmarkIcon.png'
-    default:
-      return '/icons/GenericDocumentIcon.png'
-  }
-})
-const isSelected = computed(() => messageStore.selectedMessageIds.includes(message.id))
 
+const { description, thumb, isSelected } = useData(message)
 const { handleClick, handleDoubleClick } = useCardClick(message.id)
 const contextMenuOptions = useContextMenuOptions()
 const { show: showContextMenu } = useContextMenu(contextMenuOptions.value)
+const { handleDragStart } = useDragStart(message)
 function handleContextMenu(e: MouseEvent) {
   if (messageStore.selectedMessageIds.length < 1) {
     handleClick()
@@ -65,14 +27,6 @@ function handleContextMenu(e: MouseEvent) {
     handleClick()
   }
   showContextMenu(e)
-}
-
-async function handleDragStart() {
-  if (message.filePath) {
-    const appDataPath = await getAppDataPath()
-    const iconPath = `${appDataPath}${message.thumb}` || `${process.env.PUBLIC}/icons/GenericDocumentIcon.png`
-    await ipcRenderer.send('api:dragStart', join(appDataPath, message.filePath), iconPath)
-  }
 }
 </script>
 
@@ -103,7 +57,7 @@ async function handleDragStart() {
         :alt="message.title"
       >
       <div
-        v-if="!thumb && message.category === 'text'"
+        v-if="message.category === 'text'"
         absolute top-0 right-0 bottom-0 left-0 bg-dark-200 border-2 border-dark-500 p-2 text-left select-none
         data-message-card-select-area
       >

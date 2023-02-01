@@ -26,6 +26,16 @@ function handleScroll() {
       >
         <ShortcutBar />
       </NLayoutSider>
+      <NLayoutSider
+        collapse-mode="width"
+        :native-scrollbar="false"
+        content-style="height: 100%"
+        :collapsed="configStore.searchBarCollapsed"
+        :collapsed-width="0"
+        :width="configStore.searchPaddingLeft"
+      >
+        <SearchBar />
+      </NLayoutSider>
       <NLayoutContent
         id="scroll-view"
         :native-scrollbar="false"
@@ -37,6 +47,8 @@ function handleScroll() {
       </NLayoutContent>
       <NLayoutSider
         collapse-mode="width"
+        :native-scrollbar="false"
+        content-style="height: 100%"
         :collapsed="configStore.detailBarCollapsed"
         :collapsed-width="0"
         :width="configStore.rootPaddingRight"

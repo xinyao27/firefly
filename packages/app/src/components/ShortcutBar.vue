@@ -1,10 +1,11 @@
 <script setup lang="ts">
-const router = useRouter()
 interface Item {
   label: string
   icon: string
   onClick: () => void
 }
+const router = useRouter()
+const configStore = useConfigStore()
 const shortcuts: Item[] = [
   {
     label: '列表',
@@ -33,7 +34,10 @@ const settings: Item[] = [
 </script>
 
 <template>
-  <aside h-full flex flex-col items-center justify-between py-4>
+  <aside
+    h-full flex flex-col items-center justify-between py-4 transition
+    :class="configStore.searchBarCollapsed ? '' : 'bg-neutral-800'"
+  >
     <div flex flex-col items-center gap-2>
       <NTooltip
         v-for="item in shortcuts" :key="item.label"

@@ -25,7 +25,7 @@ const thumb = computedAsync(async() => {
 })
 const size = computed(() => {
   const s = byteSize(lastMessage.value?.size)
-  return `${s?.number} ${s?.unit}`
+  return s?.text
 })
 const filePath = computedAsync(() => getFinalFilePath(lastMessage.value?.filePath ?? ''))
 function handleOpen(path?: string) {
@@ -36,7 +36,7 @@ function handleOpen(path?: string) {
 </script>
 
 <template>
-  <aside h-full flex flex-col items-center justify-between p-4 bg-trueGray-800>
+  <aside min-h-full flex flex-col items-center justify-between p-4 bg-neutral-800>
     <div w-full flex flex-col items-center gap-8>
       <template v-if="lastMessage">
         <div v-if="messageStore.selectedMessageIds.length > 1">

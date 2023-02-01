@@ -49,8 +49,14 @@ function handleSelectMessageCardAndGetIds() {
           && selectAreaY.value !== null
           && selectAreaWidth.value !== null
           && selectAreaHeight.value !== null
-          && selectAreaX.value < rect.x + rect.width + (scrollView.value?.scrollLeft ?? 0)
-          && selectAreaX.value + selectAreaWidth.value > rect.x + (scrollView.value?.scrollLeft ?? 0)
+          && selectAreaX.value < rect.x
+            + rect.width
+            + (scrollView.value?.scrollLeft ?? 0)
+            - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
+          && selectAreaX.value
+            + selectAreaWidth.value > rect.x
+            + (scrollView.value?.scrollLeft ?? 0)
+            - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
           && selectAreaY.value < rect.y + rect.height + (scrollView.value?.scrollTop ?? 0)
           && selectAreaY.value + selectAreaHeight.value > rect.y + (scrollView.value?.scrollTop ?? 0)
       ) {
@@ -68,7 +74,10 @@ function handleMouseDown(e: MouseEvent) {
 
   // @ts-expect-error noop
   if (e.button === 0 && !('messageCardSelectArea' in e.target?.dataset)) {
-    startX.value = e.x + (scrollView.value?.scrollLeft ?? 0) - configStore.rootPaddingLeft
+    startX.value = e.x
+    + (scrollView.value?.scrollLeft ?? 0)
+    - configStore.rootPaddingLeft
+    - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
     startY.value = e.y + (scrollView.value?.scrollTop ?? 0) - configStore.rootPaddingTop
     selecting.value = true
 
@@ -99,7 +108,10 @@ useEventListener('mousemove', (e) => {
   e.stopPropagation()
 
   if (selecting.value) {
-    endX.value = e.x + (scrollView.value?.scrollLeft ?? 0) - configStore.rootPaddingLeft
+    endX.value = e.x
+    + (scrollView.value?.scrollLeft ?? 0)
+    - configStore.rootPaddingLeft
+    - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
     endY.value = e.y + (scrollView.value?.scrollTop ?? 0) - configStore.rootPaddingTop
     handleSelectMessageCardAndGetIds()
   }

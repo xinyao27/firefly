@@ -8,7 +8,14 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <List />
+  <SelectProvider>
+    <DragProvider>
+      <List
+        :mode="configStore.listMode"
+        functional="preview"
+      />
+    </DragProvider>
+  </SelectProvider>
 </template>
 
 <route lang="yaml">

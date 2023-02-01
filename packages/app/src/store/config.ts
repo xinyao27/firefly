@@ -7,7 +7,10 @@ export const useConfigStore = defineStore('configs', {
       rootPaddingTop: 40,
       rootPaddingLeft: 44,
       rootPaddingRight: 260,
+      searchPaddingLeft: 260,
       detailBarCollapsed: false,
+      searchBarCollapsed: true,
+      listMode: 'cardList',
       title: '',
     }
   },

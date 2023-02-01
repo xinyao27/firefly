@@ -25,8 +25,19 @@ const showWindowActions = computed(() => is.windows() || is.linux())
 
 const route = useRoute()
 const configStore = useConfigStore()
+function handleToggleSearchBarCollapse() {
+  configStore.searchBarCollapsed = !configStore.searchBarCollapsed
+}
 function handleToggleDetailBarCollapse() {
   configStore.detailBarCollapsed = !configStore.detailBarCollapsed
+}
+function handleToggleListMode() {
+  if (configStore.listMode === 'cardList') {
+    configStore.listMode = 'rowList'
+  }
+  else {
+    configStore.listMode = 'cardList'
+  }
 }
 </script>
 
@@ -34,8 +45,28 @@ function handleToggleDetailBarCollapse() {
   <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
     <!-- placeholder -->
     <div v-if="!showWindowActions" w-14 />
+    <!-- searchBarCollapsed -->
+    <NTooltip trigger="hover">
+      <template #trigger>
+        <NButton
+          size="small"
+          quaternary
+          :opacity="configStore.searchBarCollapsed ? 40 : 100"
+          @click="handleToggleSearchBarCollapse"
+        >
+          <i v-if="configStore.searchBarCollapsed" i-ri-layout-left-line />
+          <i v-else i-ri-layout-left-fill />
+        </NButton>
+      </template>
+      <template v-if="configStore.searchBarCollapsed">
+        展开
+      </template>
+      <template v-else>
+        收起
+      </template>
+    </NTooltip>
     <!-- Router Tools  -->
-    <RouterTools />
+    <RouterTools v-if="route.path === '/'" />
     <!-- Drag Area -->
     <div
       flex-auto h-full select-none
@@ -44,6 +75,29 @@ function handleToggleDetailBarCollapse() {
     />
     <!-- Common Tools -->
     <SizeSlider v-if="route.path === '/'" />
+    <!-- 主页切换 卡片/列表 -->
+    <NTooltip
+      v-if="route.path === '/'"
+      trigger="hover"
+    >
+      <template #trigger>
+        <NButton
+          size="small"
+          quaternary
+          opacity-40
+          @click="handleToggleListMode"
+        >
+          <i v-if="configStore.listMode === 'cardList'" i-ri-layout-top-line />
+          <i v-if="configStore.listMode === 'rowList'" i-ri-layout-grid-line />
+        </NButton>
+      </template>
+      <template v-if="configStore.listMode === 'cardList'">
+        列表模式
+      </template>
+      <template v-if="configStore.listMode === 'rowList'">
+        卡片模式
+      </template>
+    </NTooltip>
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton
@@ -63,6 +117,7 @@ function handleToggleDetailBarCollapse() {
         窗口总是在最上方
       </template>
     </NTooltip>
+    <!-- detailBarCollapsed -->
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton

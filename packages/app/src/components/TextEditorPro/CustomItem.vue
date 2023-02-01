@@ -6,7 +6,7 @@ import { byteSize } from '~~/utils'
 const props = defineProps(nodeViewProps)
 const size = computed(() => {
   const s = byteSize(props.node.attrs?.size)
-  return `${s?.number} ${s?.unit}`
+  return s?.text
 })
 
 async function handleOpen() {

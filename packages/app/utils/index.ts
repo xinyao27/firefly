@@ -20,6 +20,7 @@ function fmt(number: number, unit: string) {
   return {
     number: n,
     unit,
+    text: `${n} ${unit}`,
   }
 }
 

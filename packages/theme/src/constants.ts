@@ -20,4 +20,5 @@ export const themeOverrides: GlobalThemeOverrides = {
     // @ts-expect-error noop
     siderColor: colors?.dark['700'],
   },
+  Tooltip: { peers: { Popover: { arrowHeight: '0' } } },
 }
