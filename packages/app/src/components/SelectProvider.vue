@@ -127,7 +127,7 @@ useEventListener('mousemove', (e) => {
         && selectAreaWidth !== null
         && selectAreaHeight !== null
     "
-    bg-opacity-20 bg-dark-100 border-1 border-dark-50 absolute
+    bg-opacity-20 bg-dark-100 border-1 border-dark-50 absolute z-1000
     :style="{
       left: `${selectAreaX}px`,
       top: `${selectAreaY}px`,

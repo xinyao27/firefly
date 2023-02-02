@@ -25,28 +25,6 @@ const history = createWebHashHistory()
 const routes = setupLayouts(generatedRoutes)
 const router = createRouter({ history, routes })
 const routeHistory: RouteLocationNormalized[] = []
-function getRouteIndex(path: string) {
-  for (const i in routeHistory) {
-    const r = routeHistory[i]
-    if (r.path === path) {
-      return Number(i)
-    }
-  }
-  return -1
-}
-router.beforeEach((to, from) => {
-  if (to.path !== from.path) { NProgress.start() }
-})
-router.afterEach((to) => {
-  NProgress.done()
-  const index = getRouteIndex(to.path)
-  if (index !== -1) {
-    routeHistory.splice(index, 1)
-  }
-  routeHistory.push(to)
-})
-// @ts-expect-error noop
-router.routeHistory = routeHistory
 const pinia = createPinia()
 const messages = Object.fromEntries(Object.entries(import.meta.glob<{ default: any }>('../../locales/*.y(a)?ml', { eager: true }))
   .map(([key, value]) => {
@@ -66,5 +44,31 @@ app.use(router)
 app.use(pinia)
 app.use(i18n)
 app.use(Previewer)
+
+const configStore = useConfigStore()
+router.beforeEach((to, from) => {
+  if (to.path !== from.path) { NProgress.start() }
+  configStore.detailBarCollapsed = true
+  configStore.searchBarCollapsed = true
+})
+function getRouteIndex(path: string) {
+  for (const i in routeHistory) {
+    const r = routeHistory[i]
+    if (r.path === path) {
+      return Number(i)
+    }
+  }
+  return -1
+}
+router.afterEach((to) => {
+  NProgress.done()
+  const index = getRouteIndex(to.path)
+  if (index !== -1) {
+    routeHistory.splice(index, 1)
+  }
+  routeHistory.push(to)
+})
+// @ts-expect-error noop
+router.routeHistory = routeHistory
 
 app.mount('#app')

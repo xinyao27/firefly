@@ -22,7 +22,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
           if (messages.value.length) {
             try {
               messageStore.textEditorMessages = messages.value
-              router.push('/text-editor')
+              router.push({ path: '/text-editor', query: { from: 'search' } })
             }
             catch (e) {
               $message.error(e)

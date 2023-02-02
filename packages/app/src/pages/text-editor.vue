@@ -1,5 +1,15 @@
 <script setup lang="ts">
 defineOptions({ name: 'TextEditorPage' })
+
+const route = useRoute()
+const configStore = useConfigStore()
+
+onMounted(() => {
+  const from = route.query.from
+  if (from === 'search') {
+    configStore.searchBarCollapsed = false
+  }
+})
 </script>
 
 <template>
