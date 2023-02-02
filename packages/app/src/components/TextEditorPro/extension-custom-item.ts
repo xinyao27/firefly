@@ -1,6 +1,6 @@
 import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import CustomItem from './CustomItem.vue'
+import CustomItem from './CustomItem'
 import type { MessageModel } from '~~/models/Message'
 
 declare module '@tiptap/core' {

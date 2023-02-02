@@ -151,7 +151,7 @@ export default defineConfig({
     // Use Node.js API in the Renderer-process
     renderer({
       nodeIntegration: true,
-      optimizeDeps: { include: ['fs-extra', 'electron-log', 'electron-clipboard-ex'] },
+      optimizeDeps: { include: ['fs-extra', 'electron-log', 'electron-clipboard-ex', 'metadata-scraper'] },
     }),
   ],
 
