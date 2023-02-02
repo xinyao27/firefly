@@ -25,7 +25,6 @@ async function handleOpen() {
     <div
       v-if="from === 'message'"
       flex items-center gap-2 select-none pointer-events-none
-      class
     >
       <i i-ri-file-3-line block text-lg class="handle" />
       <div flex flex-col>
