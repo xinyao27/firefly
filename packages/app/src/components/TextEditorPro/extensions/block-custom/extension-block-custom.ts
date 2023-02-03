@@ -19,6 +19,8 @@ export const ExtensionBlockCustom = Node.create({
 
   group: 'block',
 
+  content: 'block*',
+
   addAttributes() {
     return {
       from: { default: null },

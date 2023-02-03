@@ -45,7 +45,7 @@ export const ExtensionDrop = Extension.create({
                   else {
                     if (pos) {
                       editor.commands.setBlockCustom(pos.pos, {
-                        from: 'message',
+                        from: 'file',
                         message: {
                           id: new Date().getTime().toString(),
                           category: 'other',
