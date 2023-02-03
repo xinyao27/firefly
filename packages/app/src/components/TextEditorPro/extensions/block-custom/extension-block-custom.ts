@@ -19,7 +19,7 @@ export const ExtensionBlockCustom = Node.create({
 
   group: 'block',
 
-  content: 'block*',
+  selectable: false,
 
   addAttributes() {
     return {
@@ -33,7 +33,7 @@ export const ExtensionBlockCustom = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['blockCustom', mergeAttributes(HTMLAttributes), 0]
+    return ['blockCustom', mergeAttributes(HTMLAttributes)]
   },
 
   addCommands() {
@@ -50,5 +50,4 @@ export const ExtensionBlockCustom = Node.create({
   addNodeView() {
     return VueNodeViewRenderer(BlockCustom)
   },
-
 })
