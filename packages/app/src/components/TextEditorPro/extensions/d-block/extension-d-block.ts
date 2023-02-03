@@ -1,11 +1,12 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import DBlock from './DBlock.vue'
+import { useTextEditorStateStore } from '~/store/textEditorState'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     dBlock: {
-      setdBlock: (position?: number) => ReturnType
+      setDBlock: (position?: number) => ReturnType
     }
   }
 }
@@ -43,7 +44,7 @@ export const ExtensionDBlock = Node.create({
 
   addCommands() {
     return {
-      setdBlock: position => ({ state, chain }) => {
+      setDBlock: position => ({ state, chain }) => {
         const { selection: { from } } = state
 
         const pos
@@ -65,9 +66,12 @@ export const ExtensionDBlock = Node.create({
   },
 
   addKeyboardShortcuts() {
+    const textEditorState = useTextEditorStateStore()
     return {
-      'Mod-Alt-0': () => this.editor.commands.setdBlock(),
+      'Mod-Alt-0': () => this.editor.commands.setDBlock(),
       'Enter': ({ editor }) => {
+        if (textEditorState.slashMenuShow === true) return false
+
         const {
           selection: { $head, from, to },
           doc,

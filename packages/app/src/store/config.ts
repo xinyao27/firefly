@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useConfigStore = defineStore('configs', {
+export const useConfigStore = defineStore('config', {
   state: () => {
     return {
       baseSize: 60,

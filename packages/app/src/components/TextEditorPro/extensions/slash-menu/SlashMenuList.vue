@@ -1,22 +1,30 @@
 <script setup lang="ts">
+import type { SuggestionKeyDownProps } from '@tiptap/suggestion'
+
 const props = defineProps<{
   items: any[]
   command: (params: any) => void
 }>()
 
 const selectedIndex = ref(0)
-function onKeyDown({ event }: any) {
+function onKeyDown({ event }: SuggestionKeyDownProps) {
   if (event.key === 'ArrowUp') {
+    event.stopPropagation()
+    event.preventDefault()
     upHandler()
     return true
   }
 
   if (event.key === 'ArrowDown') {
+    event.stopPropagation()
+    event.preventDefault()
     downHandler()
     return true
   }
 
   if (event.key === 'Enter') {
+    event.stopPropagation()
+    event.preventDefault()
     enterHandler()
     return true
   }

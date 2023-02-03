@@ -1,12 +1,13 @@
 import type { Editor } from '@tiptap/vue-3'
 import { VueRenderer } from '@tiptap/vue-3'
 import { Node } from '@tiptap/core'
-import type { SuggestionOptions } from '@tiptap/suggestion'
-import Suggestion from '@tiptap/suggestion'
 import type { Node as ProseMirrorNode } from 'prosemirror-model'
 import { PluginKey } from 'prosemirror-state'
 import tippy from 'tippy.js'
-import BlockMenuList from './BlockMenuList.vue'
+import { Suggestion } from '@tiptap/suggestion'
+import type { SuggestionOptions } from '@tiptap/suggestion'
+import SlashMenuList from './SlashMenuList.vue'
+import { useTextEditorStateStore } from '~/store/textEditorState'
 
 export interface BlockMenuOptions {
   HTMLAttributes: Record<string, any>
@@ -17,7 +18,7 @@ export interface BlockMenuOptions {
   suggestion: Omit<SuggestionOptions, 'editor'>
 }
 
-export const ExtensionBlockMenu = Node.create<BlockMenuOptions>({
+export const ExtensionSlashMenu = Node.create<BlockMenuOptions>({
   name: 'blockMenu',
 
   group: 'inline',
@@ -29,11 +30,15 @@ export const ExtensionBlockMenu = Node.create<BlockMenuOptions>({
   atom: true,
 
   addProseMirrorPlugins() {
+    const textEditorState = useTextEditorStateStore()
+
     let component: VueRenderer
     let popup: any
+    let localProps: Record<string, any> | undefined
     function destroy() {
       popup[0].destroy()
       component.destroy()
+      textEditorState.slashMenuShow = false
     }
 
     return [
@@ -101,7 +106,9 @@ export const ExtensionBlockMenu = Node.create<BlockMenuOptions>({
         render: () => {
           return {
             onStart: (props) => {
-              component = new VueRenderer(BlockMenuList, {
+              localProps = { ...props, event: '' }
+
+              component = new VueRenderer(SlashMenuList, {
                 props,
                 editor: props.editor,
               })
@@ -118,9 +125,12 @@ export const ExtensionBlockMenu = Node.create<BlockMenuOptions>({
                 trigger: 'manual',
                 placement: 'bottom-start',
               })
+              textEditorState.slashMenuShow = true
             },
 
             onUpdate(props) {
+              localProps = { ...props, event: '' }
+
               component.updateProps(props)
 
               if (!props.clientRect) {
@@ -131,13 +141,15 @@ export const ExtensionBlockMenu = Node.create<BlockMenuOptions>({
             },
 
             onKeyDown(props) {
+              component.updateProps({ ...localProps, event: props.event })
+
               if (props.event.key === 'Escape') {
-                popup[0].hide()
+                destroy()
 
                 return true
               }
 
-              return component.ref?.onKeyDown(props)
+              return component.ref.onKeyDown({ ...localProps, event: props.event })
             },
 
             onExit: destroy,

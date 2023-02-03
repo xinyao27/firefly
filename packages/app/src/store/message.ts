@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import type { MessageId, MessageModel, MessageModelWithUsed } from '~~/models/Message'
 import { trpc } from '~/api'
 
-export const useMessageStore = defineStore('messages', {
+export const useMessageStore = defineStore('message', {
   state: () => {
     return {
       messages: [] as MessageModel[],
