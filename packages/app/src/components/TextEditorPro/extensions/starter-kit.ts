@@ -1,5 +1,5 @@
 import type { AnyExtension } from '@tiptap/core'
-import StarterKit from '@tiptap/starter-kit'
+import { StarterKit } from '@tiptap/starter-kit'
 import ExtensionImage from '@tiptap/extension-image'
 import ExtensionUnderline from '@tiptap/extension-underline'
 import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
@@ -18,6 +18,7 @@ import { ExtensionDocument } from './document'
 export const extensions: AnyExtension[] = [
   ExtensionDocument,
   ExtensionDBlock,
+  ExtensionBlockCustom,
   StarterKit.configure({
     document: false,
     dropcursor: {
@@ -40,5 +41,4 @@ export const extensions: AnyExtension[] = [
       return node.type.name
     },
   }),
-  ExtensionBlockCustom,
 ]

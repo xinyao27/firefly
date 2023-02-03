@@ -6,52 +6,13 @@ import { createHTTPHandler } from '@trpc/server/adapters/standalone'
 import formidable from 'formidable'
 import 'cross-fetch/polyfill'
 import getPageMetadata from 'metadata-scraper'
+import { kill } from 'cross-port-killer'
 import { Message } from '../entities/message'
 import { getCategoryAndThumb, getImageMetadata } from '../utils'
 import { appRouter } from './router'
 import { DataBase } from './database'
 import type { MessageFrom, MessageMetadata } from '~~/models/Message'
 import 'reflect-metadata'
-
-async function killPort(port: number, method = 'tcp') {
-  if (!port) {
-    return Promise.reject(new Error('Invalid port number provided'))
-  }
-  const execaCommand = (await import('execa')).execaCommand
-
-  if (process.platform === 'win32') {
-    return execaCommand('netstat -nao')
-      .then((res) => {
-        const { stdout } = res
-        if (!stdout) return res
-
-        const lines = stdout.split('\n')
-        // The second white-space delimited column of netstat output is the local port,
-        // which is the only port we care about.
-        // The regex here will match only the local port column of the output
-        const lineWithLocalPortRegEx = new RegExp(`^ *${method.toUpperCase()} *[^ ]*:${port}`, 'gm')
-        const linesWithLocalPort = lines.filter(line => line.match(lineWithLocalPortRegEx))
-
-        const pids = linesWithLocalPort.reduce<string[]>((acc, line) => {
-          const match = line.match(/(\d*)\w*(\n|$)/gm)
-          return match && match[0] && !acc.includes(match[0]) ? acc.concat(match[0]) : acc
-        }, [])
-
-        return execaCommand(`TaskKill /F /PID ${pids.join(' /PID ')}`)
-      })
-  }
-
-  return execaCommand('lsof -i -P')
-    .then((res) => {
-      const { stdout } = res
-      if (!stdout) return res
-      const lines = stdout.split('\n')
-      const existProccess = lines.filter(line => line.match(new RegExp(`:*${port}`))).length > 0
-      if (!existProccess) return Promise.reject(new Error('No process running on port'))
-
-      return execaCommand(`lsof -i ${method === 'udp' ? 'udp' : 'tcp'}:${port} | grep ${method === 'udp' ? 'UDP' : 'LISTEN'} | awk '{print $2}' | xargs kill -9`)
-    })
-}
 
 const handler = createHTTPHandler({
   router: appRouter,
@@ -209,7 +170,7 @@ server.listen(PORT)
 server.on('error', (e: any) => {
   if (e.code === 'EADDRINUSE') {
     log.log(e.message || 'Address in use, retrying...')
-    killPort(PORT)
+    kill(PORT)
       .then(() => {
         setTimeout(() => {
           server.close()

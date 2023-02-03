@@ -31,9 +31,13 @@ export const ExtensionDrop = Extension.create({
                     const base64 = await convertBase64(file)
                     if (base64) {
                       if (pos) {
-                        editor.commands.insertContentAt(pos.pos, {
-                          type: 'image',
-                          attrs: { src: base64 },
+                        editor.commands.setBlockCustom(pos.pos, {
+                          from: 'file',
+                          message: {
+                            id: new Date().getTime().toString(),
+                            category: 'image',
+                            filePath: base64,
+                          },
                         })
                       }
                     }
@@ -41,11 +45,15 @@ export const ExtensionDrop = Extension.create({
                   else {
                     if (pos) {
                       editor.commands.setBlockCustom(pos.pos, {
-                        from: 'file',
-                        name: file.name,
-                        path: file.path,
-                        size: file.size,
-                        type: file.type,
+                        from: 'message',
+                        message: {
+                          id: new Date().getTime().toString(),
+                          category: 'other',
+                          title: file.name,
+                          filePath: file.path,
+                          size: file.size,
+                          fileExt: file.type,
+                        },
                       })
                     }
                   }

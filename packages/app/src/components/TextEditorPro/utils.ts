@@ -3,12 +3,12 @@ import { getFinalFilePath } from '~/utils'
 import type { MessageModel } from '~~/models/Message'
 
 export const convertBase64 = (file: File) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     const fileReader = new FileReader()
     fileReader.readAsDataURL(file)
 
     fileReader.onload = () => {
-      resolve(fileReader.result)
+      resolve(fileReader.result as string)
     }
 
     fileReader.onerror = (error) => {

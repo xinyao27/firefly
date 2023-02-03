@@ -1,4 +1,4 @@
-import { Node } from '@tiptap/core'
+import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import BlockCustom from './BlockCustom'
 import type { MessageModel } from '~~/models/Message'
@@ -9,10 +9,6 @@ declare module '@tiptap/core' {
       setBlockCustom: (position: number, options: {
         from: 'file' | 'message'
         message?: MessageModel
-        name?: string
-        path?: string
-        size?: number
-        type?: string
       }) => ReturnType
     }
   }
@@ -21,22 +17,12 @@ declare module '@tiptap/core' {
 export const ExtensionBlockCustom = Node.create({
   name: 'blockCustom',
 
-  group: 'dBlock',
-
-  content: 'block*',
-
-  draggable: true,
-
-  atom: true,
+  group: 'block',
 
   addAttributes() {
     return {
       from: { default: null },
       message: { default: null },
-      name: { default: null },
-      path: { default: null },
-      size: { default: null },
-      type: { default: null },
     }
   },
 
@@ -44,8 +30,8 @@ export const ExtensionBlockCustom = Node.create({
     return [{ tag: 'blockCustom' }]
   },
 
-  renderHTML() {
-    return ['blockCustom', 0]
+  renderHTML({ HTMLAttributes }) {
+    return ['blockCustom', mergeAttributes(HTMLAttributes), 0]
   },
 
   addCommands() {
