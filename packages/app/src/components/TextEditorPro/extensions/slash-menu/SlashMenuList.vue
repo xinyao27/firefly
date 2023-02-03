@@ -1,12 +1,33 @@
 <script setup lang="ts">
 import type { SuggestionKeyDownProps } from '@tiptap/suggestion'
+import type { ScrollbarInst } from 'naive-ui'
+import type { CommandItem } from './commands'
 
 const props = defineProps<{
-  items: any[]
+  items: CommandItem[]
   command: (params: any) => void
 }>()
 
 const selectedIndex = ref(0)
+const buttonRefs = ref<Element[]>([])
+const scrollBarRef = ref<ScrollbarInst>()
+
+function setButtonRef(el: any) {
+  if (el) buttonRefs.value.push(el)
+}
+
+function handleScrollToSelectItem() {
+  const el = buttonRefs.value[selectedIndex.value]
+  if (el) {
+    scrollBarRef.value?.scrollTo({
+      left: 0,
+      // @ts-expect-error noop
+      top: el.offsetTop - 48,
+      behavior: 'smooth',
+    })
+  }
+}
+
 function onKeyDown({ event }: SuggestionKeyDownProps) {
   if (event.key === 'ArrowUp') {
     event.stopPropagation()
@@ -34,21 +55,27 @@ function onKeyDown({ event }: SuggestionKeyDownProps) {
 
 function upHandler() {
   selectedIndex.value = ((selectedIndex.value + props.items.length) - 1) % props.items.length
+  nextTick(() => {
+    handleScrollToSelectItem()
+  })
 }
 
 function downHandler() {
   selectedIndex.value = (selectedIndex.value + 1) % props.items.length
+  nextTick(() => {
+    handleScrollToSelectItem()
+  })
 }
 
 function enterHandler() {
-  selectItem(selectedIndex.value)
+  handleSelectItem(selectedIndex.value)
 }
 
-function selectItem(index: number) {
+function handleSelectItem(index: number) {
   const item = props.items[index]
 
   if (item) {
-    props.command(item)
+    setTimeout(() => props.command(item))
   }
 }
 
@@ -56,33 +83,46 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div p-2 bg-dark-300 rounded flex flex-col gap-1>
-    <template v-if="items.length">
-      <button
-        v-for="(item, index) in items"
-        :key="index"
-        p-1 rounded transition hover:bg-neutral-600 flex items-center gap-2
-        :class="{ 'bg-neutral-600': index === selectedIndex }"
-        @click="selectItem(index)"
+  <div bg-dark-300 rounded p-2>
+    <NScrollbar ref="scrollBarRef" max-h-50>
+      <div v-show="false">
+        <i i-ri-h-1 />
+        <i i-ri-h-2 />
+        <i i-ri-h-3 />
+        <i i-ri-list-ordered />
+        <i i-ri-list-unordered />
+        <i i-ri-double-quotes-l />
+        <i i-ri-code-box-line />
+      </div>
+      <template v-if="items.length">
+        <button
+          v-for="(item, index) in items"
+          :key="index"
+          :ref="el => setButtonRef(el)"
+          w-full p-1 rounded transition flex items-center gap-2
+          :class="{ 'bg-neutral-600': index === selectedIndex }"
+          @click="handleSelectItem(index)"
+          @mouseenter="selectedIndex = index"
+        >
+          <div w-10 h-10 bg-white rounded flex items-center justify-center>
+            <i :class="item.icon" text-black block />
+          </div>
+          <div flex flex-col text-left>
+            <div truncate>
+              {{ item.title }}
+            </div>
+            <div text-neutral text-xs truncate>
+              {{ item.description }}
+            </div>
+          </div>
+        </button>
+      </template>
+      <div
+        v-else
+        p-1 rounded flex items-center gap-2
       >
-        <div w-10 h-10 bg-white rounded flex items-center justify-center>
-          <i :class="item.icon" text-black block />
-        </div>
-        <div flex flex-col text-left>
-          <div truncate>
-            {{ item.label }}
-          </div>
-          <div text-neutral text-xs truncate>
-            {{ item.description }}
-          </div>
-        </div>
-      </button>
-    </template>
-    <div
-      v-else
-      p-1 rounded flex items-center gap-2
-    >
-      No result
-    </div>
+        No result
+      </div>
+    </NScrollbar>
   </div>
 </template>

@@ -1,4 +1,3 @@
-import type { Editor } from '@tiptap/vue-3'
 import { VueRenderer } from '@tiptap/vue-3'
 import { Node } from '@tiptap/core'
 import type { Node as ProseMirrorNode } from 'prosemirror-model'
@@ -7,6 +6,7 @@ import tippy from 'tippy.js'
 import { Suggestion } from '@tiptap/suggestion'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 import SlashMenuList from './SlashMenuList.vue'
+import { commands } from './commands'
 import { useTextEditorStateStore } from '~/store/textEditorState'
 
 export interface BlockMenuOptions {
@@ -69,39 +69,14 @@ export const ExtensionSlashMenu = Node.create<BlockMenuOptions>({
             .run()
 
           window.getSelection()?.collapseToEnd()
-          props.command?.(editor)
+          props.command?.({ editor, range })
           destroy()
         },
         items: ({ query }) => {
-          return [
-            {
-              label: 'Heading 1',
-              description: 'Big section heading.',
-              value: 'h1',
-              icon: 'i-ri-h-1',
-              command: (editor: Editor) => {
-                editor?.chain().focus().toggleHeading({ level: 1 }).run()
-              },
-            },
-            {
-              label: 'Heading 2',
-              description: 'Medium section heading.',
-              value: 'h2',
-              icon: 'i-ri-h-2',
-              command: (editor: Editor) => {
-                editor?.chain().focus().toggleHeading({ level: 2 }).run()
-              },
-            },
-            {
-              label: 'Heading 3',
-              description: 'Small section heading.',
-              value: 'h3',
-              icon: 'i-ri-h-3',
-              command: (editor: Editor) => {
-                editor?.chain().focus().toggleHeading({ level: 3 }).run()
-              },
-            },
-          ].filter(item => item.label.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+          if (query) {
+            return commands.filter(item => item.title.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+          }
+          return commands
         },
         render: () => {
           return {
