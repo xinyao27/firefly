@@ -5,7 +5,6 @@ import ExtensionUnderline from '@tiptap/extension-underline'
 import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
 import ExtensionTypography from '@tiptap/extension-typography'
 import ExtensionCharacterCount from '@tiptap/extension-character-count'
-import ExtensionPlaceholder from '@tiptap/extension-placeholder'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import { ExtensionDrop } from './drop'
@@ -14,6 +13,7 @@ import { ExtensionBlockMenu } from './block-menu'
 import { ExtensionDBlock } from './d-block'
 import { ExtensionBlockCustom } from './block-custom'
 import { ExtensionDocument } from './document'
+import { ExtensionPlaceholder } from './placeholder'
 
 export const extensions: AnyExtension[] = [
   ExtensionDocument,
@@ -36,9 +36,7 @@ export const extensions: AnyExtension[] = [
   ExtensionColor,
   ExtensionBlockMenu,
   ExtensionPlaceholder.configure({
-    emptyNodeClass: 'empty-node',
-    placeholder({ node }) {
-      return node.type.name
-    },
+    placeholder: 'Type `/` for commands',
+    includeChildren: true,
   }),
 ]

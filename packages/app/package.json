@@ -22,7 +22,6 @@
     "@tiptap/extension-character-count": "2.0.0-beta.212",
     "@tiptap/extension-code-block-lowlight": "2.0.0-beta.212",
     "@tiptap/extension-image": "2.0.0-beta.212",
-    "@tiptap/extension-placeholder": "2.0.0-beta.212",
     "@tiptap/extension-typography": "2.0.0-beta.212",
     "@tiptap/extension-underline": "2.0.0-beta.212",
     "@tiptap/starter-kit": "2.0.0-beta.212",

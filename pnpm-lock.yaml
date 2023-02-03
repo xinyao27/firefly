@@ -130,7 +130,6 @@ importers:
       '@tiptap/extension-character-count': 2.0.0-beta.212
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.212
       '@tiptap/extension-image': 2.0.0-beta.212
-      '@tiptap/extension-placeholder': 2.0.0-beta.212
       '@tiptap/extension-typography': 2.0.0-beta.212
       '@tiptap/extension-underline': 2.0.0-beta.212
       '@tiptap/starter-kit': 2.0.0-beta.212
@@ -179,7 +178,6 @@ importers:
       '@tiptap/extension-character-count': 2.0.0-beta.212_zgjcuhkx73ahmrjtl4wwrfvmla
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.212_x7jnapie4rb4yb3etev2dlooee
       '@tiptap/extension-image': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
-      '@tiptap/extension-placeholder': 2.0.0-beta.212_zgjcuhkx73ahmrjtl4wwrfvmla
       '@tiptap/extension-typography': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
       '@tiptap/extension-underline': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
       '@tiptap/starter-kit': 2.0.0-beta.212_@tiptap+pm@2.0.0-beta.212
@@ -1802,16 +1800,6 @@ packages:
       '@tiptap/core': ^2.0.0-beta.209
     dependencies:
       '@tiptap/core': 2.0.0-beta.212_@tiptap+pm@2.0.0-beta.212
-    dev: false
-
-  /@tiptap/extension-placeholder/2.0.0-beta.212_zgjcuhkx73ahmrjtl4wwrfvmla:
-    resolution: {integrity: sha512-Bfx/2L6ig0XiNHZajxzMMR/wBzvDQ9jIRDIotudN5wYoHUTizTWduxdfZWGuTBTxQKxPsZFMzDsn3zQHlJL7Qg==}
-    peerDependencies:
-      '@tiptap/core': ^2.0.0-beta.209
-      '@tiptap/pm': ^2.0.0-beta.209
-    dependencies:
-      '@tiptap/core': 2.0.0-beta.212_@tiptap+pm@2.0.0-beta.212
-      '@tiptap/pm': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
     dev: false
 
   /@tiptap/extension-strike/2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva:

@@ -91,7 +91,7 @@ watchEffect(() => {
       margin-bottom: 0.15em
       background-color: var(--color)
 
-  .empty-node
+  .is-block-empty
     &::before
       content: attr(data-placeholder)
       @apply pointer-events-none h-0 float-left text-neutral-600 capitalize
