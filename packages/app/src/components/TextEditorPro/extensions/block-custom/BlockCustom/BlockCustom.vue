@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { shell } from 'electron'
-import TextItem from './TextItem.vue'
-import ImageItem from './ImageItem.vue'
-import LinkItem from './LinkItem.vue'
+import TextItem from './TextBlock.vue'
+import ImageItem from './ImageBlock.vue'
+import LinkItem from './LinkBlock.vue'
 import type { MessageModel } from '~~/models/Message'
 import { byteSize } from '~~/utils'
 

@@ -31,7 +31,7 @@ function findColors(doc: Node): DecorationSet {
   return DecorationSet.create(doc, decorations)
 }
 
-const ExtensionColor = Extension.create({
+export const ExtensionColor = Extension.create({
   name: 'color',
 
   addProseMirrorPlugins() {
@@ -56,5 +56,3 @@ const ExtensionColor = Extension.create({
     ]
   },
 })
-
-export default ExtensionColor

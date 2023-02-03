@@ -1,51 +1,15 @@
 
 <script setup lang="ts">
 import { EditorContent, generateJSON, useEditor } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
-import ExtensionImage from '@tiptap/extension-image'
-import ExtensionUnderline from '@tiptap/extension-underline'
-import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
-import ExtensionTypography from '@tiptap/extension-typography'
-import ExtensionCharacterCount from '@tiptap/extension-character-count'
-import ExtensionPlaceholder from '@tiptap/extension-placeholder'
 import 'highlight.js/scss/github-dark.scss'
-import { lowlight } from 'lowlight'
-import { colors } from 'unocss/preset-mini'
 import Draggable from 'vuedraggable'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
-import ExtensionDrop from './extension-drop'
-import ExtensionColor from './extension-color'
-import ExtensionBlockMenu from './extension-block-menu'
-import ExtensionCustomItem from './extension-custom-item'
+import { extensions } from './extensions/starter-kit'
 
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
 
-const extensions = [
-  StarterKit.configure({
-    dropcursor: {
-      // @ts-expect-error noop
-      color: colors?.blue['400'],
-      width: 4,
-    },
-  }),
-  ExtensionImage.configure({ allowBase64: true }),
-  ExtensionUnderline,
-  ExtensionCodeBlockLowLight.configure({ lowlight }),
-  ExtensionTypography,
-  ExtensionCharacterCount,
-  ExtensionDrop,
-  ExtensionColor,
-  ExtensionBlockMenu,
-  ExtensionPlaceholder.configure({
-    emptyNodeClass: 'empty-node',
-    placeholder({ node }) {
-      return node.type.name
-    },
-  }),
-  ExtensionCustomItem,
-]
 const html = ref('')
 const content = computed(() => {
   const json = generateJSON(html.value, extensions)

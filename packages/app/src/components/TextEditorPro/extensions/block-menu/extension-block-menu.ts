@@ -17,7 +17,7 @@ export interface BlockMenuOptions {
   suggestion: Omit<SuggestionOptions, 'editor'>
 }
 
-const BlockMenu = Node.create<BlockMenuOptions>({
+export const ExtensionBlockMenu = Node.create<BlockMenuOptions>({
   name: 'blockMenu',
 
   group: 'inline',
@@ -147,5 +147,3 @@ const BlockMenu = Node.create<BlockMenuOptions>({
     ]
   },
 })
-
-export default BlockMenu

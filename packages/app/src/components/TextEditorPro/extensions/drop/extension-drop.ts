@@ -1,9 +1,9 @@
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
-import { convertBase64 } from './utils'
+import { convertBase64 } from '../../utils'
 
-const ExtensionDrop = Extension.create({
+export const ExtensionDrop = Extension.create({
   name: 'drop',
 
   addProseMirrorPlugins() {
@@ -18,7 +18,7 @@ const ExtensionDrop = Extension.create({
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
               if (messageStore.textEditorDraggingMessage) {
                 if (pos) {
-                  editor.commands.insertCustomItemAt(pos.pos, {
+                  editor.commands.setBlockCustom(pos.pos, {
                     from: 'message',
                     message: messageStore.textEditorDraggingMessage,
                   })
@@ -40,7 +40,7 @@ const ExtensionDrop = Extension.create({
                   }
                   else {
                     if (pos) {
-                      editor.commands.insertCustomItemAt(pos.pos, {
+                      editor.commands.setBlockCustom(pos.pos, {
                         from: 'file',
                         name: file.name,
                         path: file.path,
@@ -67,5 +67,3 @@ const ExtensionDrop = Extension.create({
     ]
   },
 })
-
-export default ExtensionDrop

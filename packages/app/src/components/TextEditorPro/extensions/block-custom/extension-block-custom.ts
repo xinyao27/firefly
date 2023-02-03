@@ -1,12 +1,12 @@
 import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import CustomItem from './CustomItem'
+import BlockCustom from './BlockCustom'
 import type { MessageModel } from '~~/models/Message'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    custom: {
-      insertCustomItemAt: (position: number, options: {
+    blockCustom: {
+      setBlockCustom: (position: number, options: {
         from: 'file' | 'message'
         message?: MessageModel
         name?: string
@@ -18,10 +18,10 @@ declare module '@tiptap/core' {
   }
 }
 
-export default Node.create({
-  name: 'custom-item',
+export const ExtensionBlockCustom = Node.create({
+  name: 'blockCustom',
 
-  group: 'block',
+  group: 'dBlock',
 
   content: 'block*',
 
@@ -41,16 +41,16 @@ export default Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'custom-item' }]
+    return [{ tag: 'blockCustom' }]
   },
 
   renderHTML() {
-    return ['custom-item', 0]
+    return ['blockCustom', 0]
   },
 
   addCommands() {
     return {
-      insertCustomItemAt: (position, options) => ({ commands }) => {
+      setBlockCustom: (position, options) => ({ commands }) => {
         return commands.insertContentAt(position, {
           type: this.name,
           attrs: options,
@@ -60,7 +60,7 @@ export default Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(CustomItem)
+    return VueNodeViewRenderer(BlockCustom)
   },
 
 })
