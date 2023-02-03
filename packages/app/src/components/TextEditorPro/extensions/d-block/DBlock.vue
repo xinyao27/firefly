@@ -2,6 +2,17 @@
 import { NodeViewContent, NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 
 const props = defineProps(nodeViewProps)
+
+function handleDeleteBlock() {
+  const from = props.getPos()
+  const to = from + props.node.nodeSize
+
+  props.editor.commands.deleteRange({
+    from,
+    to,
+  })
+}
+
 function handleCreateNodeAfter() {
   const pos = props.getPos() + props.node.nodeSize
 
@@ -15,10 +26,17 @@ function handleCreateNodeAfter() {
 <template>
   <NodeViewWrapper as="div" class="block">
     <section
-      class="flex gap-1 absolute -left-15 top-1/2 -translate-y-1/2"
+      class="flex gap-1 absolute -left-22 top-1/2 -translate-y-1/2"
       aria-label="left-menu"
       :contentEditable="false"
     >
+      <button
+        class="block-button"
+        type="button"
+        @click="handleDeleteBlock"
+      >
+        <i i-ri-delete-bin-line block />
+      </button>
       <button
         class="block-button"
         type="button"
