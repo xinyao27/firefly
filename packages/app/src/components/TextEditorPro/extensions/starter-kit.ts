@@ -3,6 +3,7 @@ import { StarterKit } from '@tiptap/starter-kit'
 import ExtensionImage from '@tiptap/extension-image'
 import ExtensionUnderline from '@tiptap/extension-underline'
 import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
+import ExtensionListItem from '@tiptap/extension-list-item'
 import ExtensionTypography from '@tiptap/extension-typography'
 import ExtensionCharacterCount from '@tiptap/extension-character-count'
 import { lowlight } from 'lowlight'
@@ -38,6 +39,7 @@ export const extensions: AnyExtension[] = [
   ExtensionDBlock,
   ExtensionBlockCustom,
   ExtensionImage.configure({ allowBase64: true }),
+  ExtensionListItem,
   ExtensionCodeBlockLowLight.configure({ lowlight }),
 
   // Mark

@@ -14,7 +14,7 @@ declare module '@tiptap/core' {
 export const ExtensionDBlock = Node.create({
   name: 'dBlock',
 
-  priority: 10000,
+  priority: 1000,
 
   group: 'dBlock',
 
@@ -79,13 +79,28 @@ export const ExtensionDBlock = Node.create({
 
         const parent = $head.node($head.depth - 1)
 
-        if (parent.type.name !== 'dBlock') return false
+        if (parent.type.name !== 'dBlock') {
+          if (parent.type.name === 'listItem') {
+            if (parent.lastChild?.content.size !== undefined && (parent.lastChild.content.size <= 0)) {
+              // TODO 将现有行删除
+              return editor
+                .chain()
+                .insertContent({
+                  type: this.name,
+                  content: [{ type: 'paragraph' }],
+                })
+                .focus(from + 4)
+                .run()
+            }
+            return false
+          }
+          return false
+        }
 
         let currentActiveNodeTo = -1
 
         doc.descendants((node, pos) => {
           if (currentActiveNodeTo !== -1) return false
-          // eslint-disable-next-line consistent-return
           if (node.type.name === this.name) return
 
           const [nodeFrom, nodeTo] = [pos, pos + node.nodeSize]

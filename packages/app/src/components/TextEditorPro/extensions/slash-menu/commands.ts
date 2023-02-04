@@ -15,7 +15,7 @@ export const commands: CommandItem[] = [
     type: 'h1',
     icon: 'i-ri-h-1',
     command: ({ editor, range }) => {
-      editor?.chain().focus().deleteRange(range).toggleHeading({ level: 1 }).run()
+      editor?.chain().focus().deleteRange(range).setHeading({ level: 1 }).run()
     },
     shortcut: '#',
   },
@@ -25,7 +25,7 @@ export const commands: CommandItem[] = [
     type: 'h2',
     icon: 'i-ri-h-2',
     command: ({ editor, range }) => {
-      editor?.chain().focus().deleteRange(range).toggleHeading({ level: 2 }).run()
+      editor?.chain().focus().deleteRange(range).setHeading({ level: 2 }).run()
     },
     shortcut: '##',
   },
@@ -35,7 +35,7 @@ export const commands: CommandItem[] = [
     type: 'h3',
     icon: 'i-ri-h-3',
     command: ({ editor, range }) => {
-      editor?.chain().focus().deleteRange(range).toggleHeading({ level: 3 }).run()
+      editor?.chain().focus().deleteRange(range).setHeading({ level: 3 }).run()
     },
     shortcut: '###',
   },

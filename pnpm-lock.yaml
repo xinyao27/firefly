@@ -130,6 +130,7 @@ importers:
       '@tiptap/extension-character-count': 2.0.0-beta.212
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.212
       '@tiptap/extension-image': 2.0.0-beta.212
+      '@tiptap/extension-list-item': 2.0.0-beta.212
       '@tiptap/extension-typography': 2.0.0-beta.212
       '@tiptap/extension-underline': 2.0.0-beta.212
       '@tiptap/starter-kit': 2.0.0-beta.212
@@ -178,6 +179,7 @@ importers:
       '@tiptap/extension-character-count': 2.0.0-beta.212_zgjcuhkx73ahmrjtl4wwrfvmla
       '@tiptap/extension-code-block-lowlight': 2.0.0-beta.212_x7jnapie4rb4yb3etev2dlooee
       '@tiptap/extension-image': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
+      '@tiptap/extension-list-item': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
       '@tiptap/extension-typography': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
       '@tiptap/extension-underline': 2.0.0-beta.212_fpm27c2ijcgoxttu7rbz5hnmva
       '@tiptap/starter-kit': 2.0.0-beta.212_@tiptap+pm@2.0.0-beta.212
