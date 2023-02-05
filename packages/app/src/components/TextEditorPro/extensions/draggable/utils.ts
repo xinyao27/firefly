@@ -130,16 +130,16 @@ export const selectRootNodeByDom = (
 
   if (!root) return null
 
-  let pos = view.posAtDOM(dom, 0)
+  const pos = view.posAtDOM(dom, 0)
 
   /**
    * img 节点修正
    */
-  if (dom.tagName === 'IMG') {
-    pos -= 1
-  }
+  // if (dom.tagName === 'IMG') {
+  //   pos -= 1
+  // }
 
-  if (pos === 0) return null
+  // if (pos === 0) return null
 
   let $pos = view.state.doc.resolve(pos)
   let node = $pos.node()
