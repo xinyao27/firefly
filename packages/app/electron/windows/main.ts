@@ -18,8 +18,8 @@ class MainWindow extends EventEmitter {
 
     const defaultOptions: BrowserWindowConstructorOptions = {
       title: process.env.APP_NAME,
-      width: 1200,
-      height: 900,
+      width: is.dev() ? 1920 : 1200,
+      height: is.dev() ? 1080 : 900,
       minWidth: 800,
       minHeight: 600,
       titleBarStyle: 'hidden',

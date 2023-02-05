@@ -80,3 +80,5 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
       }
   }
 }
+
+export * from './node'

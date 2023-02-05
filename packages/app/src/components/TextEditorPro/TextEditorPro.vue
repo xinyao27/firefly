@@ -23,8 +23,8 @@ watchEffect(() => {
   editor.value?.setOptions({
     editorProps: {
       attributes: {
-        class: 'min-h-full mx-auto my-4 px-4 focus:outline-none prose prose-white',
-        style: 'min-height: 100%;',
+        class: 'min-h-full mx-auto my-4 focus:outline-none prose prose-white',
+        style: 'min-height: 100%',
       },
     },
   })
@@ -95,4 +95,11 @@ watchEffect(() => {
     &::before
       content: attr(data-placeholder)
       @apply pointer-events-none h-0 float-left text-neutral-600 capitalize
+
+.drag-handle
+  @apply absolute z-100 w-5 h-5 flex items-center justify-center cursor-grab transition hover:bg-neutral-600
+  &.show
+    @apply opacity-30 visible
+  &.hide
+    @apply opacity-0 invisible
 </style>

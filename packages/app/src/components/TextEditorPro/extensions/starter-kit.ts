@@ -8,23 +8,22 @@ import ExtensionTypography from '@tiptap/extension-typography'
 import ExtensionCharacterCount from '@tiptap/extension-character-count'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
+import { ExtensionDraggable } from './draggable'
 import { ExtensionBlockCustom } from './block-custom'
 import { ExtensionColor } from './color'
-import { ExtensionDBlock } from './d-block'
-import { ExtensionDocument } from './document'
 import { ExtensionDrop } from './drop'
 import { ExtensionPlaceholder } from './placeholder'
 import { ExtensionSlashMenu } from './slash-menu'
 
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
-    document: false,
     dropcursor: {
       // @ts-expect-error noop
       color: colors?.blue['400'],
       width: 4,
     },
   }),
+  ExtensionDraggable,
   ExtensionTypography,
   ExtensionCharacterCount,
   ExtensionDrop,
@@ -35,8 +34,6 @@ export const extensions: AnyExtension[] = [
   }),
 
   // Node
-  ExtensionDocument,
-  ExtensionDBlock,
   ExtensionBlockCustom,
   ExtensionImage.configure({ allowBase64: true }),
   ExtensionListItem,
