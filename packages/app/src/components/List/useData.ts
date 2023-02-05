@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { getAppDataPath } from '~/api'
+import { getFinalFilePath } from '~/utils'
 import type { MessageModel } from '~~/models/Message'
 import { byteSize } from '~~/utils'
 
@@ -10,7 +10,7 @@ export function useData(message: MessageModel) {
     if (message.title) return message.title
     switch (message.category) {
       case 'image': {
-        return `${await getAppDataPath()}${message.filePath}`
+        return await getFinalFilePath(message.filePath!)
       }
       case 'link':
         return message.link || ''
@@ -46,7 +46,7 @@ export function useData(message: MessageModel) {
   const thumb = computedAsync(async() => {
     switch (message.category) {
       case 'image':
-        return `atom://${await getAppDataPath()}${message.thumb}`
+        return `atom://${await getFinalFilePath(message.thumb!)}`
       case 'text':
         return '/icons/ClippingTextIcon.png'
       case 'link':

@@ -1,8 +1,6 @@
-import { join } from 'node:path'
 import type { DropdownOption } from 'naive-ui'
 import { shell } from 'electron'
 import type { ComputedRef } from 'vue'
-import { getAppDataPath } from '~/api'
 import { clipboardWrite } from '~~/utils'
 import { getFinalFilePath } from '~/utils'
 
@@ -73,10 +71,10 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
           if (messages.value.length) {
             try {
               if (messages.value.length === 1 && messages.value[0].filePath) {
-                shell.showItemInFolder(join(await getAppDataPath(), messages.value[0].filePath))
+                shell.showItemInFolder(await getFinalFilePath(messages.value[0].filePath))
               }
               else {
-                const dirPath = join(await getAppDataPath(), 'files')
+                const dirPath = await getFinalFilePath('files')
                 shell.openPath(dirPath)
               }
             }

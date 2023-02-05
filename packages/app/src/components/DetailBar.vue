@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import { shell } from 'electron'
 import { byteSize } from '~~/utils'
 import { getFinalFilePath } from '~/utils'
-import { getAppDataPath } from '~/api'
 
 const messageStore = useMessageStore()
 
@@ -15,7 +14,7 @@ const lastMessage = computed(() => {
 const thumb = computedAsync(async() => {
   switch (lastMessage.value?.category) {
     case 'image':
-      return `atom://${await getAppDataPath()}${lastMessage.value?.thumb}`
+      return `atom://${await getFinalFilePath(lastMessage.value?.thumb ?? '')}`
     case 'text':
     case 'link':
       return null

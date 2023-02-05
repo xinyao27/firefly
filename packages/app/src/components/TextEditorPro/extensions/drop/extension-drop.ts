@@ -2,6 +2,7 @@ import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
 import { convertBase64 } from '../../utils'
+import { getFinalFilePath } from '~/utils'
 
 export const ExtensionDrop = Extension.create({
   name: 'drop',
@@ -18,10 +19,14 @@ export const ExtensionDrop = Extension.create({
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
               if (messageStore.textEditorDraggingMessage) {
                 if (pos) {
+                  const message = { ...messageStore.textEditorDraggingMessage }
+                  if (message.filePath) {
+                    message.filePath = await getFinalFilePath(message.filePath)
+                  }
                   editor.commands.setBlockCustom({
                     position: pos.pos,
                     from: 'message',
-                    message: messageStore.textEditorDraggingMessage,
+                    message,
                   })
                 }
               }
