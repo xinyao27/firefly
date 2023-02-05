@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { NodeViewWrapper } from '@tiptap/vue-3'
 import getMetadata from 'metadata-scraper'
 import type { MessageModel } from '~~/models/Message'
 
@@ -13,40 +12,26 @@ const metadata = computedAsync(async() => {
 </script>
 
 <template>
-  <NodeViewWrapper>
-    <NGrid
-      x-gap="12"
-      class="rounded cursor-pointer transition hover:bg-neutral-800"
+  <NGrid
+    x-gap="12"
+    class="overflow-hidden border border-neutral-600 rounded cursor-pointer transition hover:bg-neutral-800"
+  >
+    <NGridItem
+      flex flex-col justify-between gap-2 p-4
+      :span="14"
     >
-      <NGridItem
-        flex flex-col justify-between gap-2 p-4
-        :span="14"
-      >
-        <div flex flex-col gap-2>
-          <NSkeleton
-            v-if="!metadata"
-            text
-          />
-          <div v-else>
-            {{ metadata?.title }}
-          </div>
-          <NSkeleton
-            v-if="!metadata"
-            text
-          />
-          <NSkeleton
-            v-if="!metadata"
-            text
-            style="width: 60%"
-          />
-          <div
-            v-else
-            line-clamp-2 text-neutral text-xs
-          >
-            {{ metadata?.description }}
-          </div>
+      <div flex flex-col gap-2>
+        <NSkeleton
+          v-if="!metadata"
+          text
+        />
+        <div v-else>
+          {{ metadata?.title }}
         </div>
-
+        <NSkeleton
+          v-if="!metadata"
+          text
+        />
         <NSkeleton
           v-if="!metadata"
           text
@@ -54,31 +39,43 @@ const metadata = computedAsync(async() => {
         />
         <div
           v-else
-          flex items-center gap-2 text-xs
+          line-clamp-2 text-neutral text-xs
         >
-          <img
-            w-4 h-4
-            :src="metadata.icon" :alt="metadata.title"
-          >
-          <div truncate>
-            {{ message.link }}
-          </div>
+          {{ metadata?.description }}
         </div>
-      </NGridItem>
-      <NGridItem :span="10">
-        <div h-120px>
-          <NSkeleton
-            v-if="!metadata"
-            h-full
-          />
-          <img
-            v-else
-            w-full h-full
-            :src="metadata?.image"
-            :alt="metadata?.title"
-          >
+      </div>
+
+      <NSkeleton
+        v-if="!metadata"
+        text
+        style="width: 60%"
+      />
+      <div
+        v-else
+        flex items-center gap-2 text-xs
+      >
+        <img
+          w-4 h-4
+          :src="metadata.icon" :alt="metadata.title"
+        >
+        <div truncate>
+          {{ message.link }}
         </div>
-      </NGridItem>
-    </NGrid>
-  </NodeViewWrapper>
+      </div>
+    </NGridItem>
+    <NGridItem :span="10">
+      <div h-120px>
+        <NSkeleton
+          v-if="!metadata"
+          h-full
+        />
+        <img
+          v-else
+          w-full h-full
+          :src="metadata?.image"
+          :alt="metadata?.title"
+        >
+      </div>
+    </NGridItem>
+  </NGrid>
 </template>

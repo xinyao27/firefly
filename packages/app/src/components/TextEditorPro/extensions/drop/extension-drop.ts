@@ -18,7 +18,8 @@ export const ExtensionDrop = Extension.create({
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
               if (messageStore.textEditorDraggingMessage) {
                 if (pos) {
-                  editor.commands.setBlockCustom(pos.pos, {
+                  editor.commands.setBlockCustom({
+                    position: pos.pos,
                     from: 'message',
                     message: messageStore.textEditorDraggingMessage,
                   })
@@ -31,7 +32,8 @@ export const ExtensionDrop = Extension.create({
                     const base64 = await convertBase64(file)
                     if (base64) {
                       if (pos) {
-                        editor.commands.setBlockCustom(pos.pos, {
+                        editor.commands.setBlockCustom({
+                          position: pos.pos,
                           from: 'file',
                           message: {
                             id: new Date().getTime().toString(),
@@ -44,7 +46,8 @@ export const ExtensionDrop = Extension.create({
                   }
                   else {
                     if (pos) {
-                      editor.commands.setBlockCustom(pos.pos, {
+                      editor.commands.setBlockCustom({
+                        position: pos.pos,
                         from: 'file',
                         message: {
                           id: new Date().getTime().toString(),

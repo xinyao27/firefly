@@ -93,6 +93,7 @@ defineExpose({ onKeyDown })
         <i i-ri-list-unordered />
         <i i-ri-double-quotes-l />
         <i i-ri-code-box-line />
+        <i i-ri-drag-move-line />
       </div>
       <template v-if="items.length">
         <button

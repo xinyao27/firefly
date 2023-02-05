@@ -24,7 +24,7 @@ export const ExtensionDraggable = Extension.create({
       dom.draggable = true
       dom.setAttribute('data-drag-handle', 'true')
       dom.classList.add('drag-handle')
-      const icon = document.createElement('div')
+      const icon = document.createElement('i')
       icon.classList.add('i-ri-drag-move-line')
       dom.appendChild(icon)
       return dom
@@ -173,7 +173,9 @@ export const ExtensionDraggable = Extension.create({
               return false
             },
             mousemove: (view, event) => {
-              if (!view.editable || !dragHandleDOM) return false
+              if (!view.editable || !dragHandleDOM) {
+                return false
+              }
 
               const dom = event.target
 
@@ -193,7 +195,7 @@ export const ExtensionDraggable = Extension.create({
                 || result.node.type.name === 'column'
                 // empty paragraph
                 || (result.node.type.name === 'paragraph'
-                  && result.node.nodeSize === 2)
+                && result.node.nodeSize === 2)
               ) {
                 if (dragging) return false
                 hideDragHandleDOM()

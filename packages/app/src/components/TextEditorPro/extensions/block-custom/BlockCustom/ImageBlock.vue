@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { NodeViewWrapper } from '@tiptap/vue-3'
 import { getFinalFilePath } from '~/utils'
 import type { MessageModel } from '~~/models/Message'
 
@@ -21,9 +20,5 @@ const filePath = computedAsync(async() => {
 </script>
 
 <template>
-  <NodeViewWrapper>
-    <div p-2 rounded cursor-pointer transition hover:bg-neutral-800>
-      <img :src="filePath" :alt="message.title">
-    </div>
-  </NodeViewWrapper>
+  <img :src="filePath" :alt="message.title">
 </template>
