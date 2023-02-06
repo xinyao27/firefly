@@ -1,8 +1,25 @@
+import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
 import { convertBase64 } from '../../utils'
 import { getFinalFilePath } from '~/utils'
+import type { MessageModel } from '~~/models/Message'
+
+function getCustomCommand(category: MessageModel['category'], editor: Editor) {
+  switch (category) {
+    case 'text':
+      return editor.commands.setCustomText
+    case 'image':
+      return editor.commands.setCustomImage
+    case 'link':
+      return editor.commands.setCustomLink
+    case 'other':
+      return editor.commands.setCustomOther
+    default:
+      return editor.commands.setCustomOther
+  }
+}
 
 export const ExtensionDrop = Extension.create({
   name: 'drop',
@@ -27,7 +44,7 @@ export const ExtensionDrop = Extension.create({
                   const t = messageStore.textEditorMessages.find(v => v.id === message.id)
                   if (t) t.used = true
 
-                  editor.commands.setBlockCustom({
+                  getCustomCommand(message.category, editor)({
                     position: pos.pos,
                     from: 'message',
                     message,
@@ -41,7 +58,7 @@ export const ExtensionDrop = Extension.create({
                     const base64 = await convertBase64(file)
                     if (base64) {
                       if (pos) {
-                        editor.commands.setBlockCustom({
+                        getCustomCommand('image', editor)({
                           position: pos.pos,
                           from: 'file',
                           message: {
@@ -55,7 +72,7 @@ export const ExtensionDrop = Extension.create({
                   }
                   else {
                     if (pos) {
-                      editor.commands.setBlockCustom({
+                      getCustomCommand('other', editor)({
                         position: pos.pos,
                         from: 'file',
                         message: {

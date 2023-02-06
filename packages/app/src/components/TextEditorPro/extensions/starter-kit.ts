@@ -9,7 +9,10 @@ import ExtensionCharacterCount from '@tiptap/extension-character-count'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import { ExtensionDraggable } from './draggable'
-import { ExtensionBlockCustom } from './block-custom'
+import { ExtensionCustomImage } from './custom-image'
+import { ExtensionCustomLink } from './custom-link'
+import { ExtensionCustomOther } from './custom-other'
+import { ExtensionCustomText } from './custom-text'
 import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
 import { ExtensionPlaceholder } from './placeholder'
@@ -34,7 +37,10 @@ export const extensions: AnyExtension[] = [
   }),
 
   // Node
-  ExtensionBlockCustom,
+  ExtensionCustomImage,
+  ExtensionCustomLink,
+  ExtensionCustomOther,
+  ExtensionCustomText,
   ExtensionImage.configure({ allowBase64: true }),
   ExtensionListItem,
   ExtensionCodeBlockLowLight.configure({ lowlight }),

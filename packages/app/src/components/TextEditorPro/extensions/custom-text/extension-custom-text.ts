@@ -1,9 +1,9 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import BlockCustom from './BlockCustom'
+import CustomText from './CustomText.vue'
 import type { MessageModel } from '~~/models/Message'
 
-export interface BlockCustomAttrs {
+export interface CustomTextAttrs {
   position: number
   from: 'file' | 'message'
   message?: MessageModel
@@ -11,14 +11,14 @@ export interface BlockCustomAttrs {
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    blockCustom: {
-      setBlockCustom: (attr: BlockCustomAttrs) => ReturnType
+    customText: {
+      setCustomText: (attr: CustomTextAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionBlockCustom = Node.create({
-  name: 'blockCustom',
+export const ExtensionCustomText = Node.create({
+  name: 'customText',
 
   group: 'block',
 
@@ -38,16 +38,16 @@ export const ExtensionBlockCustom = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=blockCustom]' }]
+    return [{ tag: 'div[data-type=customText]' }]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'blockCustom' })]
+    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'customText' })]
   },
 
   addCommands() {
     return {
-      setBlockCustom: attrs => ({ commands }) => {
+      setCustomText: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -57,6 +57,6 @@ export const ExtensionBlockCustom = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(BlockCustom)
+    return VueNodeViewRenderer(CustomText)
   },
 })
