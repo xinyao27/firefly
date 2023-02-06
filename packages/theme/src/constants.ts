@@ -1,24 +1,21 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { colors } from 'unocss/preset-mini'
 
 export const themeOverrides: GlobalThemeOverrides = {
   common: {
-    // @ts-expect-error noop
-    primaryColor: colors?.blue['500'],
-    // @ts-expect-error noop
-    primaryColorHover: colors?.blue['400'],
-    // @ts-expect-error noop
-    primaryColorPressed: colors?.blue['600'],
-    // @ts-expect-error noop
-    primaryColorSuppl: colors?.blue['500'],
+    primaryColor: colors.blue['500'],
+    primaryColorHover: colors.blue['400'],
+    primaryColorPressed: colors.blue['600'],
+    primaryColorSuppl: colors.blue['500'],
   },
   Layout: {
-    // @ts-expect-error noop
-    color: colors?.dark['700'],
-    // @ts-expect-error noop
-    headerColor: colors?.dark['700'],
-    // @ts-expect-error noop
-    siderColor: colors?.dark['700'],
+    color: colors.dark['700'],
+    headerColor: colors.dark['700'],
+    siderColor: colors.dark['700'],
   },
   Tooltip: { peers: { Popover: { arrowHeight: '0' } } },
+  Dialog: { color: colors.dark['700'] },
 }

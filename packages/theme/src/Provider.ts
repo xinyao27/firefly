@@ -1,6 +1,6 @@
 import type { FunctionalComponent } from 'vue'
 import { h } from 'vue'
-import { NConfigProvider, NMessageProvider, darkTheme } from 'naive-ui'
+import { NConfigProvider, NDialogProvider, NMessageProvider, darkTheme } from 'naive-ui'
 import { themeOverrides } from './constants'
 
 export const ThemeProvider: FunctionalComponent = (_, { slots }) => {
@@ -16,7 +16,11 @@ export const ThemeProvider: FunctionalComponent = (_, { slots }) => {
         keepAliveOnHover: true,
         containerStyle: { top: '52px' },
       },
-      () => slots.default?.(),
+      () => h(
+        NDialogProvider,
+        null,
+        () => slots.default?.(),
+      ),
     ),
   )
 }

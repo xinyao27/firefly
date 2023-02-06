@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getFinalFilePath } from '~/utils'
 import type { MessageModel } from '~~/models/Message'
 
 const props = defineProps<{
@@ -14,8 +13,8 @@ function isBase64(str: string) {
     return false
   }
 }
-const filePath = computedAsync(async() => {
-  return isBase64(message.filePath!) ? message.filePath : `atom://${await getFinalFilePath(message.filePath!)}`
+const filePath = computed(() => {
+  return isBase64(message.filePath!) ? message.filePath : `atom://${message.filePath}`
 })
 </script>
 

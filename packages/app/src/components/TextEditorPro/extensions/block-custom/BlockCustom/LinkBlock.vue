@@ -14,7 +14,7 @@ const metadata = computedAsync(async() => {
 <template>
   <NGrid
     x-gap="12"
-    class="overflow-hidden border border-neutral-600 rounded cursor-pointer transition hover:bg-neutral-800"
+    class="overflow-hidden"
   >
     <NGridItem
       flex flex-col justify-between gap-2 p-4

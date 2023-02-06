@@ -85,16 +85,6 @@ defineExpose({ onKeyDown })
 <template>
   <div bg-dark-300 rounded p-2>
     <NScrollbar ref="scrollBarRef" max-h-50>
-      <div v-show="false">
-        <i i-ri-h-1 />
-        <i i-ri-h-2 />
-        <i i-ri-h-3 />
-        <i i-ri-list-ordered />
-        <i i-ri-list-unordered />
-        <i i-ri-double-quotes-l />
-        <i i-ri-code-box-line />
-        <i i-ri-drag-move-line />
-      </div>
       <template v-if="items.length">
         <button
           v-for="(item, index) in items"

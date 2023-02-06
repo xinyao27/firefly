@@ -64,10 +64,11 @@ export const ExtensionDraggable = Extension.create({
         = targetNodeRect.top
         - rootRect.top
         + handleRect.height
+        - handleRect.height / 2
         + root.scrollTop
 
       dragHandleDOM.style.left = `${left - 4}px`
-      dragHandleDOM.style.top = `${top - 2}px`
+      dragHandleDOM.style.top = `${top - 8}px`
 
       showDragHandleDOM()
     }
@@ -184,7 +185,6 @@ export const ExtensionDraggable = Extension.create({
                 hideDragHandleDOM()
                 return false
               }
-
               const result = selectRootNodeByDom(dom, view)
 
               if (

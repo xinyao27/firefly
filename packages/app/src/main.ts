@@ -13,7 +13,7 @@ import App from './App.vue'
 import generatedRoutes from '~pages'
 
 import 'uno.css'
-import '@unocss/reset/tailwind.css'
+import './styles/normalize.css'
 import './styles/main.sass'
 
 dayjs.locale('zh-cn')

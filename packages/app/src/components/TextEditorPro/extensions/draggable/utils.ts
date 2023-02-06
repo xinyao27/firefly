@@ -126,9 +126,9 @@ export const selectRootNodeByDom = (
   dom: Element,
   view: EditorView,
 ): ActiveNode | null => {
-  const root = view.dom.parentElement
-
+  const root = view.dom
   if (!root) return null
+  if (dom === root) return null
 
   const pos = view.posAtDOM(dom, 0)
 

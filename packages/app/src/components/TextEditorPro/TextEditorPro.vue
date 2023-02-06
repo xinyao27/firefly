@@ -1,8 +1,8 @@
-
 <script setup lang="ts">
 import { EditorContent, generateJSON, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import Draggable from 'vuedraggable'
+import TitleBar from './TitleBar'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
@@ -23,8 +23,8 @@ watchEffect(() => {
   editor.value?.setOptions({
     editorProps: {
       attributes: {
-        class: 'min-h-full mx-auto my-4 focus:outline-none prose prose-white',
-        style: 'min-height: 100%',
+        class: 'min-h-full mx-auto overflow-hidden focus:outline-none prose prose-white',
+        style: `min-height: calc(100vh - ${configStore.rootPaddingTop}px - 46px)`,
       },
     },
   })
@@ -38,16 +38,16 @@ watchEffect(() => {
     item-key="id"
   >
     <template #header>
+      <TitleBar :editor="editor" />
       <BubbleMenu :editor="editor" />
-      <EditorContent
-        :style="`height: calc(100vh - ${configStore.rootPaddingTop}px)`"
-        :editor="editor"
-      />
+      <NScrollbar>
+        <EditorContent :editor="editor" />
+      </NScrollbar>
       <CharacterCount :editor="editor" />
     </template>
 
     <template #item="{ element }">
-      <div v-show="false">
+      <div hidden>
         <ListRow
           functional="draggable"
           :message="element"

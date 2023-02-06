@@ -38,11 +38,11 @@ export const ExtensionBlockCustom = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'div[class=block-custom]' }]
+    return [{ tag: 'div[data-type=blockCustom]' }]
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes)]
+    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'blockCustom' })]
   },
 
   addCommands() {
