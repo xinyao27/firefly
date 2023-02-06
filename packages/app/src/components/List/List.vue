@@ -26,11 +26,8 @@ const sortedMessages = computed(() => {
 function handleDragStart(e: any) {
   messageStore.textEditorDraggingMessage = messageStore.textEditorMessages[e.oldIndex]
 }
-function handleDragEnd(e: any) {
-  nextTick(() => {
-    messageStore.textEditorMessages[e.oldIndex].used = true
-    messageStore.textEditorDraggingMessage = null
-  })
+function handleDragEnd() {
+  messageStore.textEditorDraggingMessage = null
 }
 </script>
 

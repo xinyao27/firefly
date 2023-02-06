@@ -23,6 +23,10 @@ export const ExtensionDrop = Extension.create({
                   if (message.filePath) {
                     message.filePath = await getFinalFilePath(message.filePath)
                   }
+
+                  const t = messageStore.textEditorMessages.find(v => v.id === message.id)
+                  if (t) t.used = true
+
                   editor.commands.setBlockCustom({
                     position: pos.pos,
                     from: 'message',
