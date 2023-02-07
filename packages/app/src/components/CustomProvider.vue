@@ -16,6 +16,8 @@ window.$message = useMessage()
     <i i-ri-code-box-line />
     <i i-ri-drag-move-line />
     <i i-ri-arrow-drop-down-line />
+    <i i-ri-download-2-line />
+    <i i-ri-upload-2-line />
     <div class="!w-300px text-neutral-800" />
   </div>
 </template>

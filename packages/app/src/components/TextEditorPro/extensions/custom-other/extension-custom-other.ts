@@ -51,11 +51,11 @@ export const ExtensionCustomOther = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, {
         'data-type': 'customOther',
-        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800',
+        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
         'div',
-        { class: 'flex items-center gap-2 select-none pointer-events-none' },
+        { class: 'p-2 flex items-center gap-2 select-none pointer-events-none' },
         [
           'div',
           { class: 'i-ri-file-3-line block text-lg' },

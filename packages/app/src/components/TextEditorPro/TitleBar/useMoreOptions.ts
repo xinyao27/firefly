@@ -1,17 +1,13 @@
 import type { Editor } from '@tiptap/core'
 import { NButton, NDropdown, useDialog } from 'naive-ui'
 import type { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface'
+import { exportByFormat } from './export'
 
 export type ExportFormat = 'markdown' | 'html' | 'pdf'
 
-function exportByFormat(editor: Editor, format: ExportFormat) {
-  const html = editor.getHTML()
-  console.warn(format, html)
-}
-
 export function useMoreOptions(o: { editor?: Editor }) {
   const dialog = useDialog()
-  const exportFormat = ref<ExportFormat>('markdown')
+  const exportFormat = ref<ExportFormat>('html')
   function handleExportFormatSelect(key: ExportFormat) {
     exportFormat.value = key
   }

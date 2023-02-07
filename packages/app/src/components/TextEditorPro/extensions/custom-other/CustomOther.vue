@@ -24,19 +24,17 @@ async function handleOpen() {
   <NodeViewWrapper
     class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
   >
-    <div flex items-center justify-between p-2>
-      <div
-        flex items-center gap-2 select-none pointer-events-none
-      >
-        <i i-ri-file-3-line block text-lg />
-        <div flex flex-col>
-          <div flex items-center gap-2>
+    <div class="flex items-center justify-between p-2">
+      <div class="flex items-center gap-2 select-none pointer-events-none">
+        <i class="i-ri-file-3-line block text-lg" />
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
             {{ message.title }}
-            <div text-neutral text-xs>
+            <div class="text-neutral text-xs">
               {{ size }}
             </div>
           </div>
-          <div text-neutral text-xs>
+          <div class="text-neutral text-xs">
             {{ message.filePath }}
           </div>
         </div>

@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import type { MessageApiInjection } from 'naive-ui'
+import type { MessageApi } from 'naive-ui'
 
 declare module '*.vue' {
   const component: any
@@ -7,8 +7,8 @@ declare module '*.vue' {
 }
 
 declare global {
-  const $message: MessageApiInjection
+  const $message: MessageApi
   interface Window {
-    $message: MessageApiInjection
+    $message: MessageApi
   }
 }

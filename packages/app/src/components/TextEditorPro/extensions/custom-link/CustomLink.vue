@@ -15,9 +15,9 @@ const metadata = computedAsync(async() => {
   <NodeViewWrapper
     class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
   >
-    <div overflow-hidden grid grid-cols-12 gap-2>
-      <div flex flex-col justify-between gap-2 p-4 col-span-7>
-        <div flex flex-col gap-2>
+    <div class="overflow-hidden grid grid-cols-12 gap-2">
+      <div class="flex flex-col justify-between gap-2 p-4 col-span-7">
+        <div class="flex flex-col gap-2">
           <NSkeleton
             v-if="!metadata"
             text
@@ -36,7 +36,7 @@ const metadata = computedAsync(async() => {
           />
           <div
             v-else
-            line-clamp-2 text-neutral text-xs
+            class="line-clamp-2 text-neutral text-xs"
           >
             {{ metadata?.description }}
           </div>
@@ -49,25 +49,26 @@ const metadata = computedAsync(async() => {
         />
         <div
           v-else
-          flex items-center gap-2 text-xs
+          class="flex items-center gap-2 text-xs"
         >
           <img
-            w-4 h-4
-            :src="metadata.icon" :alt="metadata.title"
+            class="w-4 h-4"
+            :src="metadata.icon"
+            :alt="metadata.title"
           >
-          <div truncate>
+          <div class="truncate">
             {{ message.link }}
           </div>
         </div>
       </div>
-      <div col-span-5 h-120px>
+      <div class="col-span-5 h-120px">
         <NSkeleton
           v-if="!metadata"
           h-full
         />
         <img
           v-else
-          w-full h-full
+          class="w-full h-full"
           :src="metadata?.image"
           :alt="metadata?.title"
         >

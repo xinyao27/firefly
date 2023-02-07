@@ -1,6 +1,6 @@
 import { join } from 'node:path'
-import type { BrowserWindow } from 'electron'
-import { app, ipcMain, nativeImage } from 'electron'
+import type { BrowserWindow, SaveDialogOptions } from 'electron'
+import { app, dialog, ipcMain, nativeImage } from 'electron'
 import sharp from 'sharp'
 import { remove } from 'fs-extra'
 import is from 'electron-is'
@@ -21,6 +21,11 @@ export default function(win: BrowserWindow | null) {
   })
   ipcMain.handle('win:close', () => win?.close())
   ipcMain.handle('win:setAlwaysOnTop', (_, onTop: boolean) => win?.setAlwaysOnTop(onTop))
+  ipcMain.handle('win:showSaveDialog', async(_, options: SaveDialogOptions) => {
+    const { canceled, filePath } = await dialog.showSaveDialog(options)
+    if (canceled) return false
+    return filePath
+  })
 
   ipcMain.on('api:dragStart', async(event, filePath, iconPath) => {
     if (is.windows()) {
