@@ -138,6 +138,7 @@ importers:
       '@tiptap/suggestion': ^2.0.0-beta.213
       '@tiptap/vue-3': ^2.0.0-beta.213
       '@types/formidable': ^2.0.5
+      '@types/mime-types': ^2.1.1
       '@types/sharp': ^0.31.1
       cross-fetch: ^3.1.5
       cross-port-killer: ^1.4.0
@@ -153,6 +154,7 @@ importers:
       image-size: ^1.0.2
       lowlight: ^2.8.0
       metadata-scraper: ^0.2.61
+      mime-types: ^2.1.35
       prosemirror-commands: ^1.5.0
       prosemirror-dropcursor: ^1.6.1
       prosemirror-gapcursor: ^1.3.1
@@ -199,6 +201,7 @@ importers:
       image-size: 1.0.2
       lowlight: 2.8.0
       metadata-scraper: 0.2.61
+      mime-types: 2.1.35
       prosemirror-commands: 1.5.0
       prosemirror-dropcursor: 1.6.1
       prosemirror-gapcursor: 1.3.1
@@ -217,6 +220,7 @@ importers:
       vuedraggable: 4.1.0_vue@3.2.47
     devDependencies:
       '@types/formidable': 2.0.5
+      '@types/mime-types': 2.1.1
       '@types/sharp': 0.31.1
       electron: 22.0.2
       electron-builder: 23.6.0
@@ -2087,6 +2091,10 @@ packages:
 
   /@types/mdurl/1.0.2:
     resolution: {integrity: sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA==}
+    dev: true
+
+  /@types/mime-types/2.1.1:
+    resolution: {integrity: sha512-vXOTGVSLR2jMw440moWTC7H19iUyLtP3Z1YTj7cSsubOICinjMxFeb/V57v9QdyyPGbbWolUFSSmSiRSn94tFw==}
     dev: true
 
   /@types/minimatch/3.0.5:
@@ -8654,14 +8662,12 @@ packages:
   /mime-db/1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /mime-types/2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.52.0
-    dev: true
 
   /mime/1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
