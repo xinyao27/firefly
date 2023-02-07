@@ -60,12 +60,10 @@ watchEffect(() => {
 
 <style lang="sass">
 .ProseMirror
-  & > *
-    @apply relative
-    &::after
-      @apply block w-20 h-full absolute -left-20 top-0 z-99 cursor-default
-      content: ''
-
+  > *
+    @apply relative after:(content-[""] block w-20 h-full absolute -left-20 top-0 z-99 cursor-default)
+  > * + *
+    margin-top: 0.75em
   pre
     @apply text-white bg-dark-400
     padding-left: 1em
@@ -77,7 +75,6 @@ watchEffect(() => {
       @apply text-white p-0 bg-transparent
       font-size: 0.875em
       line-height: 1.25em
-
   code
     @apply font-mono bg-dark-200 text-red-400 rounded before:content-[""] after:content-[""]
     font-size: 0.75em
@@ -86,7 +83,6 @@ watchEffect(() => {
     padding-right: 0.375em
     padding-top: 0.25em
     padding-bottom: 0.25em
-
   .color
     &::before
       @apply inline-block rounded v-middle
@@ -96,11 +92,8 @@ watchEffect(() => {
       margin-right: 0.15em
       margin-bottom: 0.15em
       background-color: var(--color)
-
   .is-block-empty
-    &::before
-      content: attr(data-placeholder)
-      @apply pointer-events-none h-0 float-left text-neutral-600 capitalize
+    @apply before:(content-[attr(data-placeholder)] pointer-events-none h-0 float-left text-neutral-600 capitalize)
 
 .drag-handle
   @apply absolute z-100 w-5 h-5 flex items-center justify-center cursor-grab transition hover:bg-neutral-600
