@@ -56,4 +56,13 @@ export async function getImageMetadata(filePath: string) {
   return (await sizeOf(filePath)) as MessageMetadata
 }
 
+export function isBase64(str: string) {
+  if (str.includes('data:') && str.includes('base64')) {
+    return true
+  }
+  else {
+    return false
+  }
+}
+
 export * from './clipboard'

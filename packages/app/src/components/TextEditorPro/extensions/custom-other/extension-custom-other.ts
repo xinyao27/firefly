@@ -2,6 +2,7 @@ import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import CustomOther from './CustomOther.vue'
 import type { MessageModel } from '~~/models/Message'
+import { byteSize } from '~~/utils'
 
 export interface CustomOtherAttrs {
   position: number
@@ -41,8 +42,49 @@ export const ExtensionCustomOther = Node.create({
     return [{ tag: 'div[data-type=customOther]' }]
   },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'customOther' })]
+  renderHTML({ HTMLAttributes, node }) {
+    const message = node.attrs.message as MessageModel
+    const title = message.title ?? ''
+    const size = byteSize(message.size)?.text ?? ''
+    const filePath = message.filePath ?? ''
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'customOther',
+        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800',
+      }),
+      [
+        'div',
+        { class: 'flex items-center gap-2 select-none pointer-events-none' },
+        [
+          'div',
+          { class: 'i-ri-file-3-line block text-lg' },
+        ],
+        [
+          'div',
+          { class: 'flex flex-col' },
+          [
+            'div',
+            { class: 'flex items-center gap-2' },
+            [
+              'div',
+              {},
+              title,
+            ],
+            [
+              'div',
+              { class: 'text-neutral text-xs' },
+              size,
+            ],
+          ],
+          [
+            'div',
+            { class: 'text-neutral text-xs' },
+            filePath,
+          ],
+        ],
+      ],
+    ]
   },
 
   addCommands() {

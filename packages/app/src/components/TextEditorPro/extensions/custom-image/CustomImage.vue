@@ -1,18 +1,11 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import type { MessageModel } from '~~/models/Message'
+import { isBase64 } from '~~/utils'
 
 const props = defineProps(nodeViewProps)
 const message = props.node.attrs.message as MessageModel
 
-function isBase64(str: string) {
-  if (str.includes('data:') && str.includes('base64')) {
-    return true
-  }
-  else {
-    return false
-  }
-}
 const filePath = computed(() => {
   return isBase64(message.filePath!) ? message.filePath : `atom://${message.filePath}`
 })

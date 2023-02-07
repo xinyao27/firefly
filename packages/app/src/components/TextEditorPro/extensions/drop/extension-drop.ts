@@ -2,6 +2,7 @@ import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
+import getMetadata from 'metadata-scraper'
 import { convertBase64 } from '../../utils'
 import { getFinalFilePath } from '~/utils'
 import type { MessageModel } from '~~/models/Message'
@@ -44,11 +45,22 @@ export const ExtensionDrop = Extension.create({
                   const t = messageStore.textEditorMessages.find(v => v.id === message.id)
                   if (t) t.used = true
 
-                  getCustomCommand(message.category, editor)({
-                    position: pos.pos,
-                    from: 'message',
-                    message,
-                  })
+                  if (message.category === 'link') {
+                    const metadata = await getMetadata(message.link!)
+                    getCustomCommand(message.category, editor)({
+                      position: pos.pos,
+                      from: 'message',
+                      message,
+                      metadata,
+                    })
+                  }
+                  else {
+                    getCustomCommand(message.category, editor)({
+                      position: pos.pos,
+                      from: 'message',
+                      message,
+                    })
+                  }
                 }
               }
               const files = Array.from(event.dataTransfer?.files ?? [])

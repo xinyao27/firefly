@@ -41,8 +41,20 @@ export const ExtensionCustomText = Node.create({
     return [{ tag: 'div[data-type=customText]' }]
   },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'customText' })]
+  renderHTML({ HTMLAttributes, node }) {
+    const message = node.attrs.message as MessageModel
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'customText',
+        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800',
+      }),
+      [
+        'div',
+        { class: 'whitespace-pre-line p-2' },
+        message.content,
+      ],
+    ]
   },
 
   addCommands() {

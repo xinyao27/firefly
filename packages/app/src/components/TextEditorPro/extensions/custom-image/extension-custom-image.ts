@@ -41,8 +41,22 @@ export const ExtensionCustomImage = Node.create({
     return [{ tag: 'div[data-type=customImage]' }]
   },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(HTMLAttributes, { 'data-type': 'customImage' })]
+  renderHTML({ HTMLAttributes, node }) {
+    const message = node.attrs.message as MessageModel
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-type': 'customImage',
+        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800',
+      }),
+      [
+        'img',
+        {
+          src: message.filePath,
+          alt: message.title,
+        },
+      ],
+    ]
   },
 
   addCommands() {

@@ -7,7 +7,7 @@ const props = defineProps(nodeViewProps)
 const message = props.node.attrs.message as MessageModel
 
 const metadata = computedAsync(async() => {
-  return await getMetadata(message.link!)
+  return props.node.attrs.metadata || await getMetadata(message.link!)
 })
 </script>
 
@@ -15,14 +15,8 @@ const metadata = computedAsync(async() => {
   <NodeViewWrapper
     class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
   >
-    <NGrid
-      x-gap="12"
-      class="overflow-hidden"
-    >
-      <NGridItem
-        flex flex-col justify-between gap-2 p-4
-        :span="14"
-      >
+    <div overflow-hidden grid grid-cols-12 gap-2>
+      <div flex flex-col justify-between gap-2 p-4 col-span-7>
         <div flex flex-col gap-2>
           <NSkeleton
             v-if="!metadata"
@@ -65,21 +59,19 @@ const metadata = computedAsync(async() => {
             {{ message.link }}
           </div>
         </div>
-      </NGridItem>
-      <NGridItem :span="10">
-        <div h-120px>
-          <NSkeleton
-            v-if="!metadata"
-            h-full
-          />
-          <img
-            v-else
-            w-full h-full
-            :src="metadata?.image"
-            :alt="metadata?.title"
-          >
-        </div>
-      </NGridItem>
-    </NGrid>
+      </div>
+      <div col-span-5 h-120px>
+        <NSkeleton
+          v-if="!metadata"
+          h-full
+        />
+        <img
+          v-else
+          w-full h-full
+          :src="metadata?.image"
+          :alt="metadata?.title"
+        >
+      </div>
+    </div>
   </NodeViewWrapper>
 </template>
