@@ -8,10 +8,10 @@ const message = props.node.attrs.message as MessageModel
 
 <template>
   <NodeViewWrapper
-    class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
+    class="my-1 border border-neutral-700 rounded cursor-pointer"
   >
     <div
-      class="whitespace-pre-line p-2"
+      class="whitespace-pre-line p-2 transition hover:bg-neutral-800"
       contenteditable="true"
     >
       {{ message.content }}

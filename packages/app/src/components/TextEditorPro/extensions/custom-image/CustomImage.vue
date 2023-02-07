@@ -13,7 +13,7 @@ const filePath = computed(() => {
 
 <template>
   <NodeViewWrapper
-    class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
+    class="my-1 border border-neutral-700 rounded cursor-pointer"
   >
     <img :src="filePath" :alt="message.title">
   </NodeViewWrapper>

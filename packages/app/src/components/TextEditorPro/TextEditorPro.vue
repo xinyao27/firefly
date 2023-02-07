@@ -23,7 +23,7 @@ watchEffect(() => {
   editor.value?.setOptions({
     editorProps: {
       attributes: {
-        class: 'min-h-full mx-auto overflow-hidden focus:outline-none prose prose-white',
+        class: 'min-h-full max-w-full px-[calc((100%-65ch)/2)] overflow-hidden focus:outline-none prose prose-white',
         style: `min-height: calc(100vh - ${configStore.rootPaddingTop}px - 46px)`,
       },
     },
@@ -60,6 +60,12 @@ watchEffect(() => {
 
 <style lang="sass">
 .ProseMirror
+  & > *
+    @apply relative
+    &::after
+      @apply block w-20 h-full absolute -left-20 top-0 z-99 cursor-default
+      content: ''
+
   pre
     @apply text-white bg-dark-400
     padding-left: 1em

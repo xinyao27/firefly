@@ -13,9 +13,9 @@ const metadata = computedAsync(async() => {
 
 <template>
   <NodeViewWrapper
-    class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
+    class="my-1 border border-neutral-700 rounded cursor-pointer"
   >
-    <div class="overflow-hidden grid grid-cols-12 gap-2">
+    <div class="overflow-hidden grid grid-cols-12 gap-2 transition hover:bg-neutral-800">
       <div class="flex flex-col justify-between gap-2 p-4 col-span-7">
         <div class="flex flex-col gap-2">
           <NSkeleton

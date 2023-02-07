@@ -51,7 +51,7 @@ export const ExtensionCustomOther = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, {
         'data-type': 'customOther',
-        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition',
+        'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
         'div',

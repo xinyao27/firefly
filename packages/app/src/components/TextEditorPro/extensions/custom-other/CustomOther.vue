@@ -22,9 +22,9 @@ async function handleOpen() {
 
 <template>
   <NodeViewWrapper
-    class="overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition hover:bg-neutral-800"
+    class="my-1 border border-neutral-700 rounded cursor-pointer"
   >
-    <div class="flex items-center justify-between p-2">
+    <div class="flex items-center justify-between p-2 transition hover:bg-neutral-800">
       <div class="flex items-center gap-2 select-none pointer-events-none">
         <i class="i-ri-file-3-line block text-lg" />
         <div class="flex flex-col">

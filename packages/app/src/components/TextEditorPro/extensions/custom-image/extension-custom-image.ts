@@ -47,7 +47,7 @@ export const ExtensionCustomImage = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, {
         'data-type': 'customImage',
-        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition',
+        'class': 'my-1 border border-neutral-700 rounded cursor-pointer',
       }),
       [
         'img',

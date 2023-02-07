@@ -51,7 +51,7 @@ export const ExtensionCustomLink = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, {
         'data-type': 'customLink',
-        'class': 'overflow-hidden my-1 border border-neutral-700 rounded cursor-pointer transition',
+        'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
         'div',
