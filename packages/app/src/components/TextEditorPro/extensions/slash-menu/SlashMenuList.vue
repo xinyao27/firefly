@@ -86,11 +86,11 @@ defineExpose({ onKeyDown })
   <div bg-dark-300 rounded p-2>
     <NScrollbar ref="scrollBarRef" max-h-50>
       <template v-if="items.length">
-        <button
+        <div
           v-for="(item, index) in items"
           :key="index"
           :ref="el => setButtonRef(el)"
-          w-full p-1 rounded transition flex items-center gap-2
+          w-full p-1 rounded transition flex items-center gap-2 cursor-pointer
           :class="{ 'bg-neutral-600': index === selectedIndex }"
           @click="handleSelectItem(index)"
           @mouseenter="selectedIndex = index"
@@ -106,7 +106,7 @@ defineExpose({ onKeyDown })
               {{ item.description }}
             </div>
           </div>
-        </button>
+        </div>
       </template>
       <div
         v-else

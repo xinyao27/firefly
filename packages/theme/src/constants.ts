@@ -17,5 +17,5 @@ export const themeOverrides: GlobalThemeOverrides = {
     siderColor: colors.dark['700'],
   },
   Tooltip: { peers: { Popover: { arrowHeight: '0' } } },
-  Dialog: { color: colors.dark['700'] },
+  Dialog: { color: colors.dark['600'] },
 }
