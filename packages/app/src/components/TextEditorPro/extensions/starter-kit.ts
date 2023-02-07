@@ -1,11 +1,12 @@
 import type { AnyExtension } from '@tiptap/core'
 import { StarterKit } from '@tiptap/starter-kit'
-import ExtensionImage from '@tiptap/extension-image'
-import ExtensionUnderline from '@tiptap/extension-underline'
-import ExtensionCodeBlockLowLight from '@tiptap/extension-code-block-lowlight'
-import ExtensionListItem from '@tiptap/extension-list-item'
-import ExtensionTypography from '@tiptap/extension-typography'
-import ExtensionCharacterCount from '@tiptap/extension-character-count'
+import { Image as ExtensionImage } from '@tiptap/extension-image'
+import { Underline as ExtensionUnderline } from '@tiptap/extension-underline'
+import { CodeBlockLowlight as ExtensionCodeBlockLowLight } from '@tiptap/extension-code-block-lowlight'
+import { ListItem as ExtensionListItem } from '@tiptap/extension-list-item'
+import { Typography as ExtensionTypography } from '@tiptap/extension-typography'
+import { CharacterCount as ExtensionCharacterCount } from '@tiptap/extension-character-count'
+import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placeholder'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import { ExtensionDraggable } from './draggable'
@@ -15,7 +16,6 @@ import { ExtensionCustomOther } from './custom-other'
 import { ExtensionCustomText } from './custom-text'
 import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
-import { ExtensionPlaceholder } from './placeholder'
 import { ExtensionSlashMenu } from './slash-menu'
 
 export const extensions: AnyExtension[] = [
@@ -31,10 +31,7 @@ export const extensions: AnyExtension[] = [
   ExtensionCharacterCount,
   ExtensionDrop,
   ExtensionColor,
-  ExtensionPlaceholder.configure({
-    placeholder: 'Type `/` for commands',
-    includeChildren: true,
-  }),
+  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 命令...' }),
 
   // Node
   ExtensionCustomImage,

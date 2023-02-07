@@ -18,16 +18,17 @@ const content = computed(() => {
 const editor = useEditor({
   content: content.value,
   extensions,
-})
-watchEffect(() => {
-  editor.value?.setOptions({
-    editorProps: {
-      attributes: {
-        class: 'min-h-full max-w-full px-[calc((100%-65ch)/2)] overflow-hidden focus:outline-none prose prose-white',
-        style: `min-height: calc(100vh - ${configStore.rootPaddingTop}px - 46px)`,
-      },
+  editorProps: {
+    attributes: {
+      class: 'min-h-full max-w-full px-[calc((100%-65ch)/2)] overflow-hidden focus:outline-none prose prose-white',
+      style: `min-height: calc(100vh - ${configStore.rootPaddingTop}px - 46px)`,
+      spellcheck: 'false',
+      suppressContentEditableWarning: 'true',
     },
-  })
+  },
+  onCreate(props) {
+    props.editor.view.focus()
+  },
 })
 </script>
 
@@ -92,8 +93,13 @@ watchEffect(() => {
       margin-right: 0.15em
       margin-bottom: 0.15em
       background-color: var(--color)
-  .is-block-empty
+  .is-empty
     @apply before:(content-[attr(data-placeholder)] pointer-events-none h-0 float-left text-neutral-600 capitalize)
+  &.ProseMirror-hideselection > .ProseMirror-gapcursor:last-child
+    caret-color: auto !important
+    &::before
+      @apply pointer-events-none h-0 float-left text-neutral-600 capitalize
+      content: "输入 `/` 命令..."
 
 .drag-handle
   @apply absolute z-100 w-5 h-5 flex items-center justify-center cursor-grab transition hover:bg-neutral-600
