@@ -7,6 +7,7 @@ import { ListItem as ExtensionListItem } from '@tiptap/extension-list-item'
 import { Typography as ExtensionTypography } from '@tiptap/extension-typography'
 import { CharacterCount as ExtensionCharacterCount } from '@tiptap/extension-character-count'
 import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placeholder'
+import { FocusClasses as ExtensionFocus } from '@tiptap/extension-focus'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import { ExtensionDraggable } from './draggable'
@@ -32,6 +33,7 @@ export const extensions: AnyExtension[] = [
   ExtensionDrop,
   ExtensionColor,
   ExtensionPlaceholder.configure({ placeholder: '输入 `/` 命令...' }),
+  ExtensionFocus,
 
   // Node
   ExtensionCustomImage,

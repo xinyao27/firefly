@@ -11,7 +11,7 @@ const { options: moreOptions, handleSelect: handleMoreSelect } = useMoreOptions(
 <template>
   <div
     v-if="props.editor"
-    h-46px sticky top-0 left-0 z-100 flex items-center justify-between px-4
+    h-46px sticky top-0 left-0 z-100 flex items-center justify-between px-4 bg-dark-700
   >
     <div>{{ title }}</div>
 
