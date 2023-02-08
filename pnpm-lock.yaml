@@ -9,6 +9,7 @@ importers:
       '@commitlint/cli': ^17.4.2
       '@commitlint/config-conventional': ^17.4.2
       '@iconify-json/ri': ^1.1.4
+      '@iconify-json/tabler': ^1.1.58
       '@intlify/unplugin-vue-i18n': ^0.8.1
       '@trpc/client': ^10.10.0
       '@trpc/server': ^10.10.0
@@ -84,6 +85,7 @@ importers:
       '@commitlint/cli': 17.4.2
       '@commitlint/config-conventional': 17.4.2
       '@iconify-json/ri': 1.1.4
+      '@iconify-json/tabler': 1.1.58
       '@intlify/unplugin-vue-i18n': 0.8.1_vue-i18n@9.2.2
       '@types/fs-extra': 11.0.1
       '@types/lodash-es': 4.17.6
@@ -1098,6 +1100,12 @@ packages:
 
   /@iconify-json/ri/1.1.4:
     resolution: {integrity: sha512-gAk2gQBVghgbMLOmbUCc3l4COMMH5sR3HhBqpjaPUFBbC4WsNNRyOD4RZgjlanU7DTgFrj4NarY5K2EkXaVxuw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/tabler/1.1.58:
+    resolution: {integrity: sha512-b0qb7ppWz5qhyy+Cy+QCJvrx1albrLxqSEb9qYJtoNVhxd0pghWWpNhTsYrFMeyGSF+v4Q56sk1MW7t8yhpq9g==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
