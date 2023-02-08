@@ -35,6 +35,7 @@ function handleDragEnd() {
   <NTimeline
     v-if="props.mode === 'cardList'"
     px-4 pt-4
+    draggable="false"
   >
     <NTimelineItem
       v-for="(row, key) in sortedMessages"
@@ -58,6 +59,7 @@ function handleDragEnd() {
     v-if="props.mode === 'rowList'"
     w-full h-full
     :class="props.functional === 'preview' ? 'px-4 pt-4' : 'px-2 pt-2'"
+    draggable="false"
   >
     <template v-if="props.functional === 'preview'">
       <div
