@@ -52,11 +52,11 @@ function handleSelectMessageCardAndGetIds() {
           && selectAreaX.value < rect.x
             + rect.width
             + (scrollView.value?.scrollLeft ?? 0)
-            - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
+            - (configStore.leftBarCollapsed ? 0 : configStore.searchPaddingLeft)
           && selectAreaX.value
             + selectAreaWidth.value > rect.x
             + (scrollView.value?.scrollLeft ?? 0)
-            - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
+            - (configStore.leftBarCollapsed ? 0 : configStore.searchPaddingLeft)
           && selectAreaY.value < rect.y + rect.height + (scrollView.value?.scrollTop ?? 0)
           && selectAreaY.value + selectAreaHeight.value > rect.y + (scrollView.value?.scrollTop ?? 0)
       ) {
@@ -77,7 +77,7 @@ function handleMouseDown(e: MouseEvent) {
     startX.value = e.x
     + (scrollView.value?.scrollLeft ?? 0)
     - configStore.rootPaddingLeft
-    - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
+    - (configStore.leftBarCollapsed ? 0 : configStore.searchPaddingLeft)
     startY.value = e.y + (scrollView.value?.scrollTop ?? 0) - configStore.rootPaddingTop
     selecting.value = true
 
@@ -111,7 +111,7 @@ useEventListener('mousemove', (e) => {
     endX.value = e.x
     + (scrollView.value?.scrollLeft ?? 0)
     - configStore.rootPaddingLeft
-    - (configStore.searchBarCollapsed ? 0 : configStore.searchPaddingLeft)
+    - (configStore.leftBarCollapsed ? 0 : configStore.searchPaddingLeft)
     endY.value = e.y + (scrollView.value?.scrollTop ?? 0) - configStore.rootPaddingTop
     handleSelectMessageCardAndGetIds()
   }

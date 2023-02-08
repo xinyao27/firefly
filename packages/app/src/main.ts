@@ -48,8 +48,8 @@ app.use(Previewer)
 const configStore = useConfigStore()
 router.beforeEach((to, from) => {
   if (to.path !== from.path) { NProgress.start() }
-  configStore.detailBarCollapsed = true
-  configStore.searchBarCollapsed = true
+  configStore.rightBarCollapsed = true
+  configStore.leftBarCollapsed = true
 })
 function getRouteIndex(path: string) {
   for (const i in routeHistory) {

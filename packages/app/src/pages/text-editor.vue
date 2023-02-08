@@ -7,7 +7,7 @@ const configStore = useConfigStore()
 onMounted(() => {
   const from = route.query.from
   if (from === 'search') {
-    configStore.searchBarCollapsed = false
+    configStore.rightBarCollapsed = false
   }
 })
 </script>

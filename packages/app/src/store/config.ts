@@ -8,8 +8,8 @@ export const useConfigStore = defineStore('config', {
       rootPaddingLeft: 44,
       rootPaddingRight: 260,
       searchPaddingLeft: 260,
-      detailBarCollapsed: true,
-      searchBarCollapsed: false,
+      rightBarCollapsed: true,
+      leftBarCollapsed: false,
       listMode: 'cardList',
       title: '',
     }

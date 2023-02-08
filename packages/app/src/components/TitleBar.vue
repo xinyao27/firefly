@@ -25,11 +25,11 @@ const showWindowActions = computed(() => is.windows() || is.linux())
 
 const route = useRoute()
 const configStore = useConfigStore()
-function handleToggleSearchBarCollapse() {
-  configStore.searchBarCollapsed = !configStore.searchBarCollapsed
+function handleToggleLeftBarCollapse() {
+  configStore.leftBarCollapsed = !configStore.leftBarCollapsed
 }
-function handleToggleDetailBarCollapse() {
-  configStore.detailBarCollapsed = !configStore.detailBarCollapsed
+function handleToggleRightBarCollapse() {
+  configStore.rightBarCollapsed = !configStore.rightBarCollapsed
 }
 function handleToggleListMode() {
   if (configStore.listMode === 'cardList') {
@@ -45,20 +45,20 @@ function handleToggleListMode() {
   <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
     <!-- placeholder -->
     <div v-if="!showWindowActions" w-14 />
-    <!-- searchBarCollapsed -->
+    <!-- leftBarCollapsed -->
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton
           size="small"
           quaternary
-          :opacity="configStore.searchBarCollapsed ? 40 : 100"
-          @click="handleToggleSearchBarCollapse"
+          :opacity="configStore.leftBarCollapsed ? 40 : 100"
+          @click="handleToggleLeftBarCollapse"
         >
-          <i v-if="configStore.searchBarCollapsed" i-ri-layout-left-line />
+          <i v-if="configStore.leftBarCollapsed" i-ri-layout-left-line />
           <i v-else i-ri-layout-left-fill />
         </NButton>
       </template>
-      <template v-if="configStore.searchBarCollapsed">
+      <template v-if="configStore.leftBarCollapsed">
         展开
       </template>
       <template v-else>
@@ -117,20 +117,20 @@ function handleToggleListMode() {
         窗口总是在最上方
       </template>
     </NTooltip>
-    <!-- detailBarCollapsed -->
+    <!-- rightBarCollapsed -->
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton
           size="small"
           quaternary
-          :opacity="configStore.detailBarCollapsed ? 40 : 100"
-          @click="handleToggleDetailBarCollapse"
+          :opacity="configStore.rightBarCollapsed ? 40 : 100"
+          @click="handleToggleRightBarCollapse"
         >
-          <i v-if="configStore.detailBarCollapsed" i-ri-layout-right-line />
+          <i v-if="configStore.rightBarCollapsed" i-ri-layout-right-line />
           <i v-else i-ri-layout-right-fill />
         </NButton>
       </template>
-      <template v-if="configStore.detailBarCollapsed">
+      <template v-if="configStore.rightBarCollapsed">
         展开
       </template>
       <template v-else>

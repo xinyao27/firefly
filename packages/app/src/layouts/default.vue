@@ -30,11 +30,11 @@ function handleScroll() {
         collapse-mode="width"
         :native-scrollbar="false"
         content-style="height: 100%"
-        :collapsed="configStore.searchBarCollapsed"
+        :collapsed="configStore.leftBarCollapsed"
         :collapsed-width="0"
         :width="configStore.searchPaddingLeft"
       >
-        <SearchBar />
+        <LeftBar />
       </NLayoutSider>
       <NLayoutContent
         id="scroll-view"
@@ -49,11 +49,11 @@ function handleScroll() {
         collapse-mode="width"
         :native-scrollbar="false"
         content-style="height: 100%"
-        :collapsed="configStore.detailBarCollapsed"
+        :collapsed="configStore.rightBarCollapsed"
         :collapsed-width="0"
         :width="configStore.rootPaddingRight"
       >
-        <DetailBar />
+        <RightBar />
       </NLayoutSider>
     </NLayout>
   </NLayout>
