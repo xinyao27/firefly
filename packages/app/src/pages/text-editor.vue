@@ -3,6 +3,7 @@ defineOptions({ name: 'TextEditorPage' })
 
 const route = useRoute()
 const configStore = useConfigStore()
+const textEditorStore = useTextEditorStore()
 
 onMounted(() => {
   const from = route.query.from
@@ -10,6 +11,8 @@ onMounted(() => {
     configStore.rightBarCollapsed = false
   }
   configStore.leftBarCollapsed = false
+
+  textEditorStore.findArticles()
 })
 </script>
 

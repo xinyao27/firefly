@@ -143,6 +143,7 @@ importers:
       '@types/formidable': ^2.0.5
       '@types/mime-types': ^2.1.1
       '@types/sharp': ^0.31.1
+      '@types/uuid': ^9.0.0
       cross-fetch: ^3.1.5
       cross-port-killer: ^1.4.0
       electron: ^22.0.2
@@ -176,6 +177,7 @@ importers:
       sqlite3: ^5.1.4
       tippy.js: ^6.3.7
       typeorm: ^0.3.11
+      uuid: ^9.0.0
       vite-plugin-electron: ^0.11.1
       vite-plugin-electron-renderer: ^0.11.4
       vite-plugin-pages: ^0.28.0
@@ -227,11 +229,13 @@ importers:
       sqlite3: 5.1.4
       tippy.js: 6.3.7
       typeorm: 0.3.11_sqlite3@5.1.4
+      uuid: 9.0.0
       vuedraggable: 4.1.0_vue@3.2.47
     devDependencies:
       '@types/formidable': 2.0.5
       '@types/mime-types': 2.1.1
       '@types/sharp': 0.31.1
+      '@types/uuid': 9.0.0
       electron: 22.0.2
       electron-builder: 23.6.0
       vite-plugin-electron: 0.11.1
@@ -2264,6 +2268,10 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+
+  /@types/uuid/9.0.0:
+    resolution: {integrity: sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==}
+    dev: true
 
   /@types/verror/1.10.6:
     resolution: {integrity: sha512-NNm+gdePAX1VGvPcGZCDKQZKYSiAWigKhKaz5KF94hG6f2s8de9Ow5+7AbXoeKxL8gavZfk4UquSAygOF2duEQ==}
@@ -12956,6 +12964,11 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache-lib/3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}

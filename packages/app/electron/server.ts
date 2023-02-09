@@ -9,9 +9,10 @@ import getPageMetadata from 'metadata-scraper'
 import { kill } from 'cross-port-killer'
 import { Message } from '../entities/message'
 import { getCategoryAndThumb, getImageMetadata } from '../utils'
+import { MESSAGE_SAVE_DIR_PATH } from '../constants'
+import type { MessageFrom, MessageMetadata } from '../models/Message'
 import { appRouter } from './router'
 import { DataBase } from './database'
-import type { MessageFrom, MessageMetadata } from '~~/models/Message'
 import 'reflect-metadata'
 
 const handler = createHTTPHandler({
@@ -57,7 +58,7 @@ const server = http.createServer((req, res) => {
         const metadata = fields.metadata
           ? JSON.parse(fields.metadata as string) as unknown as MessageMetadata
           : undefined
-        const relativeDirPath = '/files'
+        const relativeDirPath = MESSAGE_SAVE_DIR_PATH
         const absoluteDirPath = join(process.env.APP_DATA_PATH!, relativeDirPath)
         const isExists = await pathExists(absoluteDirPath)
         if (!isExists) {

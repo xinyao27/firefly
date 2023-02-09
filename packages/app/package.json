@@ -61,12 +61,14 @@
     "sqlite3": "^5.1.4",
     "tippy.js": "^6.3.7",
     "typeorm": "^0.3.11",
+    "uuid": "^9.0.0",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@types/formidable": "^2.0.5",
     "@types/mime-types": "^2.1.1",
     "@types/sharp": "^0.31.1",
+    "@types/uuid": "^9.0.0",
     "electron": "^22.0.2",
     "electron-builder": "^23.6.0",
     "vite-plugin-electron": "^0.11.1",

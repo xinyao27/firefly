@@ -8,6 +8,7 @@ import is from 'electron-is'
 import ipcMain from './ipcMain'
 import MainWindow from './windows/main'
 import { SCHEMA, protocolRequestHandler } from './protocol'
+import initEnv from './initEnv'
 
 class Launcher extends EventEmitter {
   mainWindow?: MainWindow
@@ -57,6 +58,7 @@ class Launcher extends EventEmitter {
           window.webContents.openDevTools()
         }
         ipcMain(window)
+        initEnv()
       },
       onDestroy: () => { },
     })

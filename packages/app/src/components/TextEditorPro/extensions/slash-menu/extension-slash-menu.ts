@@ -7,7 +7,6 @@ import { Suggestion } from '@tiptap/suggestion'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 import SlashMenuList from './SlashMenuList.vue'
 import { commands } from './commands'
-import { useTextEditorStateStore } from '~/store/textEditorState'
 
 export interface BlockMenuOptions {
   HTMLAttributes: Record<string, any>
@@ -30,7 +29,7 @@ export const ExtensionSlashMenu = Node.create<BlockMenuOptions>({
   atom: true,
 
   addProseMirrorPlugins() {
-    const textEditorState = useTextEditorStateStore()
+    const textEditorStore = useTextEditorStore()
 
     let component: VueRenderer
     let popup: any
@@ -38,7 +37,7 @@ export const ExtensionSlashMenu = Node.create<BlockMenuOptions>({
     function destroy() {
       popup[0].destroy()
       component.destroy()
-      textEditorState.slashMenuShow = false
+      textEditorStore.slashMenuShow = false
     }
 
     return [
@@ -100,7 +99,7 @@ export const ExtensionSlashMenu = Node.create<BlockMenuOptions>({
                 trigger: 'manual',
                 placement: 'bottom-start',
               })
-              textEditorState.slashMenuShow = true
+              textEditorStore.slashMenuShow = true
             },
 
             onUpdate(props) {
