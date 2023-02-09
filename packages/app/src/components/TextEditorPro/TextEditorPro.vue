@@ -95,7 +95,7 @@ const editor = useEditor({
       content: "输入 `/` 命令..."
 
 .drag-handle
-  @apply absolute z-100 w-5 h-5 flex items-center justify-center cursor-grab transition hover:bg-neutral-600
+  @apply absolute z-100 w-6 h-6 rounded flex items-center justify-center cursor-grab transition hover:bg-neutral-600
   &.show
     @apply opacity-30 visible
   &.hide

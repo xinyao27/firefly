@@ -7,6 +7,7 @@ window.$message = useMessage()
 <template>
   <slot />
   <div hidden>
+    <i i-tabler-grip-vertical />
     <i i-ri-h-1 />
     <i i-ri-h-2 />
     <i i-ri-h-3 />
@@ -14,7 +15,6 @@ window.$message = useMessage()
     <i i-ri-list-unordered />
     <i i-ri-double-quotes-l />
     <i i-ri-code-box-line />
-    <i i-ri-drag-move-line />
     <i i-ri-arrow-drop-down-line />
     <i i-ri-download-2-line />
     <i i-ri-upload-2-line />

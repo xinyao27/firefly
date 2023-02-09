@@ -25,7 +25,7 @@ export const ExtensionDraggable = Extension.create({
       dom.setAttribute('data-drag-handle', 'true')
       dom.classList.add('drag-handle')
       const icon = document.createElement('i')
-      icon.classList.add('i-ri-drag-move-line')
+      icon.classList.add('i-tabler-grip-vertical')
       dom.appendChild(icon)
       return dom
     }
@@ -63,12 +63,10 @@ export const ExtensionDraggable = Extension.create({
       const top
         = targetNodeRect.top
         - rootRect.top
-        + handleRect.height
-        - handleRect.height / 2
         + root.scrollTop
 
-      dragHandleDOM.style.left = `${left - 4}px`
-      dragHandleDOM.style.top = `${top - 8}px`
+      dragHandleDOM.style.left = `${left - 2}px`
+      dragHandleDOM.style.top = `${top - 0}px`
 
       showDragHandleDOM()
     }

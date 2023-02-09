@@ -33,7 +33,7 @@ function handleContextMenu(e: MouseEvent) {
 
 <template>
   <div
-    flex items-center gap-2 overflow-hidden relative transition hover:bg-neutral-800
+    flex items-center gap-2 overflow-hidden relative rounded transition hover:bg-neutral-700
     :class="props.functional === 'draggable' ? 'cursor-grab' : 'cursor-default'"
     data-message-card
     :data-id="message.id"
@@ -97,11 +97,11 @@ function handleContextMenu(e: MouseEvent) {
     />
     <div
       v-if="message.used"
-      absolute top-0 right-0 bottom-0 left-0 bg-green-500 bg-opacity-10
+      absolute top-0 right-0 bottom-0 left-0 bg-green-400 bg-opacity-10
       data-message-card-select-area
     >
       <i
-        i-ri-checkbox-circle-fill text-green-500 w-4 h-4 absolute right-0 bottom-0 select-none
+        i-ri-checkbox-circle-fill text-green-500 w-4 h-4 absolute right-1 bottom-1 select-none
         data-message-card-select-area
       />
     </div>
