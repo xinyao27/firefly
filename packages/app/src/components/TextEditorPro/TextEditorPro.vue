@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EditorContent, generateJSON, useEditor } from '@tiptap/vue-3'
+import { EditorContent, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import Draggable from 'vuedraggable'
 import TitleBar from './TitleBar'
@@ -10,13 +10,8 @@ import { extensions } from './extensions/starter-kit'
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
 
-const html = ref('')
-const content = computed(() => {
-  const json = generateJSON(html.value, extensions)
-  return json
-})
 const editor = useEditor({
-  content: content.value,
+  content: '',
   extensions,
   editorProps: {
     attributes: {
@@ -26,9 +21,7 @@ const editor = useEditor({
       suppressContentEditableWarning: 'true',
     },
   },
-  onCreate(props) {
-    props.editor.view.focus()
-  },
+  autofocus: true,
 })
 </script>
 
