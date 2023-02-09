@@ -3,7 +3,7 @@ import { NButton, NDropdown, useDialog } from 'naive-ui'
 import type { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface'
 import { exportByFormat } from './export'
 
-export type ExportFormat = 'markdown' | 'html' | 'pdf'
+export type ExportFormat = 'markdown' | 'html' | 'pdf' | 'docx'
 
 export function useMoreOptions(o: { editor?: Editor }) {
   const dialog = useDialog()
@@ -40,6 +40,10 @@ export function useMoreOptions(o: { editor?: Editor }) {
           {
             key: 'html',
             label: 'HTML',
+          },
+          {
+            key: 'docx',
+            label: 'DOCX',
           },
         ]
         dialog.create({
