@@ -1,17 +1,34 @@
 <script setup lang="ts">
+import { join } from 'node:path'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import Draggable from 'vuedraggable'
+import { readJSON, writeJSON } from 'fs-extra'
 import TitleBar from './TitleBar'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
+import { getArticleDirPath } from '~/utils'
 
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
+const textEditorStore = useTextEditorStore()
+
+const currentArticlePath = computedAsync(async() => {
+  const article = textEditorStore.currentArticleId!
+  if (article) {
+    return join(await getArticleDirPath(), article)
+  }
+  return ''
+})
+const content = computedAsync(async() => {
+  if (currentArticlePath.value) {
+    return await readJSON(currentArticlePath.value)
+  }
+  return ''
+})
 
 const editor = useEditor({
-  content: '',
   extensions,
   editorProps: {
     attributes: {
@@ -22,6 +39,15 @@ const editor = useEditor({
     },
   },
   autofocus: true,
+  onUpdate({ editor }) {
+    const content = editor.getJSON()
+    writeJSON(currentArticlePath.value, content)
+  },
+})
+
+watch(content, (value) => {
+  editor.value?.commands.setContent(value)
+  editor.value?.commands.focus()
 })
 </script>
 

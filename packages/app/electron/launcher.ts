@@ -20,6 +20,8 @@ class Launcher extends EventEmitter {
   }
 
   init() {
+    initEnv()
+
     const serverPath = path.resolve(__dirname, 'server.js')
     const child = fork(serverPath, {
       env: { ...process.env },
@@ -58,7 +60,6 @@ class Launcher extends EventEmitter {
           window.webContents.openDevTools()
         }
         ipcMain(window)
-        initEnv()
       },
       onDestroy: () => { },
     })

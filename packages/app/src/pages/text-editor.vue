@@ -17,7 +17,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <TextEditorPro />
+  <TextEditorPro
+    v-if="textEditorStore.currentArticleId"
+  />
 </template>
 
 <route lang="yaml">

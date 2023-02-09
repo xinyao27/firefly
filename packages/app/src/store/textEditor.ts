@@ -1,31 +1,33 @@
-import { join } from 'node:path'
-import { readdir } from 'fs-extra'
+import { join } from 'path'
+import { readdir, writeJSON } from 'fs-extra'
 import { defineStore } from 'pinia'
-import { v4 as uuid } from 'uuid'
-import { getAppDataPath } from '~/api'
-import { ARTICLE_SAVE_DIR_PATH } from '~~/constants'
+import dayjs from 'dayjs'
+import { getArticleDirPath } from '~/utils'
 
 export const useTextEditorStore = defineStore('textEditor', {
   state: () => {
     return {
       slashMenuShow: false,
 
-      articles: [],
-      currentArticleId: null,
+      articles: [] as string[],
+      currentArticleId: null as string | null,
     }
   },
   actions: {
     async findArticles() {
-      const appDataPath = await getAppDataPath()
-      const relativeDirPath = ARTICLE_SAVE_DIR_PATH
-      const finalDirPath = join(appDataPath, relativeDirPath)
+      const finalDirPath = await getArticleDirPath()
       const dir = await readdir(finalDirPath)
-      console.warn(dir)
+      this.articles = dir
     },
     async createArticle() {
-      const id = uuid()
-      const article = { id }
-      this.article.push(article)
+      const articleDirPath = await getArticleDirPath()
+      const name = `${dayjs().format('YYMMDDHHmmss')}.json`
+      const path = join(articleDirPath, name)
+      try {
+        await writeJSON(path, {})
+      }
+      catch (_) {}
+      this.articles.push(name)
     },
     setCurrentArticle(id: string) {
       this.currentArticleId = id
