@@ -9,6 +9,7 @@ onMounted(() => {
   if (from === 'search') {
     configStore.rightBarCollapsed = false
   }
+  configStore.leftBarCollapsed = false
 })
 </script>
 
