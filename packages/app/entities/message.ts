@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn, UpdateDateColumn } from 'typeorm'
-import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel } from '~~/models/Message'
+import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel, MessageWhere } from '~~/models/Message'
 
 @Entity()
 export class Message implements MessageModel {
@@ -46,6 +46,6 @@ export class Message implements MessageModel {
   @Column({ type: 'simple-json', nullable: true })
     metadata?: MessageMetadata
 
-  @Column({ type: 'boolean', nullable: true })
-    isTrash?: boolean
+  @Column({ type: 'text', nullable: true, default: 'default' })
+    where?: MessageWhere
 }

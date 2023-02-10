@@ -39,7 +39,7 @@ export const appRouter = t.router({
       size: z.number().optional(),
       link: z.string().optional(),
       metadata: z.object({}).optional(),
-      isTrash: z.boolean().optional(),
+      where: z.enum(['default', 'trash']).optional(),
     }))
     .mutation((req) => {
       const data = req.input

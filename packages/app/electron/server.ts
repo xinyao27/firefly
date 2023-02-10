@@ -96,9 +96,11 @@ const server = http.createServer((req, res) => {
             from,
             size: file.size,
             metadata: finalMetadata,
+            where: 'default',
           })
 
           if (old) {
+            await queryRunner.commitTransaction()
             res.statusCode = 200
             const statusMessage = `${fileName} updated`
             res.statusMessage = statusMessage
@@ -125,9 +127,11 @@ const server = http.createServer((req, res) => {
               link,
               size: content.length,
               metadata: finalMetadata,
+              where: 'default',
             })
 
             if (old) {
+              await queryRunner.commitTransaction()
               res.statusCode = 200
               const statusMessage = `${(`${link} `) || ''}updated`
               res.statusMessage = statusMessage
@@ -145,6 +149,7 @@ const server = http.createServer((req, res) => {
               from,
               size: content.length,
               metadata: finalMetadata,
+              where: 'default',
             })
           }
         }

@@ -40,6 +40,8 @@ export interface MessageMetadata {
   [x: string]: string | string[] | number | undefined
 }
 
+export type MessageWhere = 'default' | 'trash'
+
 export interface MessageModel {
   id: MessageId
   /**
@@ -96,9 +98,10 @@ export interface MessageModel {
   metadata?: MessageMetadata
 
   /**
-   * 是否已移至废纸篓
+   * 位置
+   * default(默认) | trash(废纸篓)
    */
-  isTrash?: boolean
+  where?: MessageWhere
 }
 
 export type MessageModelWithUsed = MessageModel & { used?: boolean }

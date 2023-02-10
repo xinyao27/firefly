@@ -16,8 +16,8 @@ export const useMessageStore = defineStore('message', {
   actions: {
     async find() {
       const messages = await trpc.messages.query()
-      this.messages = messages?.filter(message => !message.isTrash)
-      this.trashMessages = messages?.filter(message => message.isTrash)
+      this.messages = messages?.filter(message => message.where === 'default')
+      this.trashMessages = messages?.filter(message => message.where === 'trash')
     },
     async findOne(id: MessageId) {
       return trpc.messageById.query(id)
@@ -27,7 +27,7 @@ export const useMessageStore = defineStore('message', {
       if (target) {
         await trpc.messageUpdate.mutate({
           id,
-          isTrash: true,
+          where: 'trash',
         })
         this.messages = this.messages.filter((i: MessageModel) => i.id !== id)
         this.trashMessages.push(target)
@@ -38,7 +38,7 @@ export const useMessageStore = defineStore('message', {
       if (target) {
         await trpc.messageUpdate.mutate({
           id,
-          isTrash: false,
+          where: 'default',
         })
         this.trashMessages = this.trashMessages.filter((i: MessageModel) => i.id !== id)
         this.messages.push(target)
