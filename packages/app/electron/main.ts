@@ -8,7 +8,6 @@ process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
   ? path.join(process.env.DIST_ELECTRON, './public')
   : process.env.DIST
 process.env.APP_NAME = 'Firefly'
-process.env.APP_DATA_PATH = app.getPath('userData')
-
+process.env.APP_DATA_PATH = path.join(app.getPath('documents'), process.env.APP_NAME)
 // eslint-disable-next-line no-new
 new Launcher()

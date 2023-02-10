@@ -13,12 +13,12 @@ export default async function() {
   const messagesDirPath = join(appDataPath, MESSAGE_SAVE_DIR_PATH)
   const articlesDirPath = join(appDataPath, ARTICLE_SAVE_DIR_PATH)
   try {
-    await mkdir(messagesDirPath)
+    await mkdir(messagesDirPath, { recursive: true })
     log.log(`create dir ${messagesDirPath}`)
   }
   catch (_) {}
   try {
-    await mkdir(articlesDirPath)
+    await mkdir(articlesDirPath, { recursive: true })
     log.log(`create dir ${articlesDirPath}`)
   }
   catch (_) {}
