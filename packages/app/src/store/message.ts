@@ -15,17 +15,17 @@ export const useMessageStore = defineStore('message', {
   },
   actions: {
     async find() {
-      const messages = await trpc.messages.query()
+      const messages = await trpc.message.find.query()
       this.messages = messages?.filter(message => message.where === 'default')
       this.trashMessages = messages?.filter(message => message.where === 'trash')
     },
     async findOne(id: MessageId) {
-      return trpc.messageById.query(id)
+      return trpc.message.findOne.query(id)
     },
     async moveToTrash(id: MessageId) {
       const target = this.messages.find((message: MessageModel) => message.id === id)
       if (target) {
-        await trpc.messageUpdate.mutate({
+        await trpc.message.update.mutate({
           id,
           where: 'trash',
         })
@@ -36,7 +36,7 @@ export const useMessageStore = defineStore('message', {
     async moveToDashboard(id: MessageId) {
       const target = this.trashMessages.find((message: MessageModel) => message.id === id)
       if (target) {
-        await trpc.messageUpdate.mutate({
+        await trpc.message.update.mutate({
           id,
           where: 'default',
         })

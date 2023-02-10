@@ -1,11 +1,28 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
 import { useMoreOptions } from './useMoreOptions'
+
 const props = defineProps<{
   editor?: Editor
 }>()
-const textEditorStore = useTextEditorStore()
+const articleStore = useArticleStore()
 const { options: moreOptions, handleSelect: handleMoreSelect } = useMoreOptions(props)
+
+const popoverDefaultTitle = ref(articleStore.currentArticle?.title)
+function handleTitlePopoverUpdate(show: boolean) {
+  if (show) {
+    popoverDefaultTitle.value = articleStore.currentArticle?.title
+  }
+  else {
+    if (
+      articleStore.currentArticle
+    && popoverDefaultTitle.value
+    && articleStore.currentArticle.title !== popoverDefaultTitle.value
+    ) {
+      articleStore.updateTitle(articleStore.currentArticle.id, popoverDefaultTitle.value)
+    }
+  }
+}
 </script>
 
 <template>
@@ -13,7 +30,25 @@ const { options: moreOptions, handleSelect: handleMoreSelect } = useMoreOptions(
     v-if="props.editor"
     h-46px sticky top-0 left-0 z-100 flex items-center justify-between px-4 bg-dark-700
   >
-    <div>{{ textEditorStore.currentArticleId }}</div>
+    <NPopover
+      :show-arrow="false"
+      overlap
+      trigger="click"
+      placement="bottom-start"
+      :on-update:show="handleTitlePopoverUpdate"
+    >
+      <template #trigger>
+        <NButton
+          quaternary
+          size="small"
+        >
+          {{ articleStore.currentArticle?.title }}
+        </NButton>
+      </template>
+      <div>
+        <NInput v-model:value="popoverDefaultTitle" />
+      </div>
+    </NPopover>
 
     <div flex items-center justify-between>
       <NDropdown

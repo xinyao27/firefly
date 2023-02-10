@@ -53,14 +53,6 @@ export interface MessageModel {
    */
   thumb?: string
   /**
-   * 创建时间
-   */
-  createdAt?: Date
-  /**
-   * 修改时间
-   */
-  updatedAt?: Date
-  /**
    * 标签
    */
   tags?: string[]
@@ -96,12 +88,19 @@ export interface MessageModel {
    * 元数据
    */
   metadata?: MessageMetadata
-
   /**
    * 位置
    * default(默认) | trash(废纸篓)
    */
   where?: MessageWhere
+  /**
+   * 创建时间
+   */
+  createdAt?: Date
+  /**
+   * 修改时间
+   */
+  updatedAt?: Date
 }
 
 export type MessageModelWithUsed = MessageModel & { used?: boolean }

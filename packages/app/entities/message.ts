@@ -13,12 +13,6 @@ export class Message implements MessageModel {
   @Column({ type: 'text', nullable: true })
     thumb?: string
 
-  @CreateDateColumn()
-    createdAt: Date
-
-  @UpdateDateColumn()
-    updatedAt: Date
-
   @Column({ type: 'simple-array', nullable: true })
     tags?: string[]
 
@@ -48,4 +42,10 @@ export class Message implements MessageModel {
 
   @Column({ type: 'text', nullable: true, default: 'default' })
     where?: MessageWhere
+
+  @CreateDateColumn()
+    createdAt: Date
+
+  @UpdateDateColumn()
+    updatedAt: Date
 }

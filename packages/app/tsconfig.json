@@ -22,6 +22,6 @@
       "@vue-macros/volar/define-slots"
     ]
   },
-  "include": ["src", "electron", "models", "utils", "constants"],
+  "include": ["src", "electron", "models", "entities", "utils", "constants"],
   "exclude": ["dist", "node_modules"]
 }

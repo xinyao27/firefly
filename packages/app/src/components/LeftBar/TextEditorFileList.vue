@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const textEditorStore = useTextEditorStore()
+const articleStore = useArticleStore()
 </script>
 
 <template>
@@ -8,7 +8,7 @@ const textEditorStore = useTextEditorStore()
       <NButton
         quaternary
         size="tiny"
-        @click="textEditorStore.createArticle"
+        @click="articleStore.create"
       >
         <i i-ri-edit-2-line />
       </NButton>
@@ -16,13 +16,13 @@ const textEditorStore = useTextEditorStore()
 
     <div>
       <div
-        v-for="article in textEditorStore.articles"
-        :key="article"
-        p-1 rounded transition hover:bg-neutral-800
-        :class="textEditorStore.currentArticleId === article ? 'bg-neutral-800' : ''"
-        @click="textEditorStore.setCurrentArticle(article)"
+        v-for="article in articleStore.articles"
+        :key="article.id"
+        p-1 rounded select-none transition hover:bg-neutral-800
+        :class="articleStore.currentArticleId === article.id ? 'bg-neutral-800' : ''"
+        @click="articleStore.setCurrentId(article.id)"
       >
-        {{ article }}
+        {{ article.title }}
       </div>
     </div>
   </div>

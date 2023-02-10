@@ -1,20 +1,15 @@
-import { initTRPC } from '@trpc/server'
 import { z } from 'zod'
-import { Message } from '../entities/message'
-import { DataBase } from './database'
-import 'reflect-metadata'
+import { db, t } from './trpc'
+import { Message } from '~~/entities/message'
 
-const dataSource = new DataBase('firefly').dataSource
-const messageRepository = dataSource.getRepository(Message)
+const messageRepository = db.getRepository(Message)
 
-const t = initTRPC.create()
-
-export const appRouter = t.router({
-  messages: t.procedure
+export const messageRouter = t.router({
+  find: t.procedure
     .query(() => {
       return messageRepository.find({ order: { updatedAt: 'DESC' } })
     }),
-  messageById: t.procedure
+  findOne: t.procedure
     .input((val: unknown) => {
       if (typeof val === 'string') return val
 
@@ -25,7 +20,7 @@ export const appRouter = t.router({
 
       return messageRepository.findOne({ where: { id: input } })
     }),
-  messageUpdate: t.procedure
+  update: t.procedure
     .input(z.object({
       id: z.string(),
       title: z.string().optional(),
@@ -41,14 +36,12 @@ export const appRouter = t.router({
       metadata: z.object({}).optional(),
       where: z.enum(['default', 'trash']).optional(),
     }))
-    .mutation((req) => {
+    .mutation(async(req) => {
       const data = req.input
-      const target = messageRepository.findOneBy({ id: data.id })
+      const old = await messageRepository.findOneBy({ id: data.id })
       return messageRepository.save({
-        ...target,
+        ...old,
         ...data,
       })
     }),
 })
-
-export type AppRouter = typeof appRouter

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { join } from 'node:path'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import Draggable from 'vuedraggable'
@@ -8,16 +7,16 @@ import TitleBar from './TitleBar'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
-import { getArticleDirPath } from '~/utils'
+import { getFinalFilePath } from '~/utils'
 
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
-const textEditorStore = useTextEditorStore()
+const articleStore = useArticleStore()
 
 const currentArticlePath = computedAsync(async() => {
-  const article = textEditorStore.currentArticleId!
+  const article = articleStore.currentArticle
   if (article) {
-    return join(await getArticleDirPath(), article)
+    return await getFinalFilePath(article.filePath)
   }
   return ''
 })

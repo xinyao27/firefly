@@ -111,6 +111,12 @@ export default defineConfig({
           }
         },
         vite: {
+          resolve: {
+            alias: {
+              '~/': `${path.resolve(__dirname, 'src')}/`,
+              '~~/': `${path.resolve(__dirname)}/`,
+            },
+          },
           build: {
             sourcemap: isDevelopment,
             minify: isProduction,
@@ -125,6 +131,12 @@ export default defineConfig({
           options.reload()
         },
         vite: {
+          resolve: {
+            alias: {
+              '~/': `${path.resolve(__dirname, 'src')}/`,
+              '~~/': `${path.resolve(__dirname)}/`,
+            },
+          },
           build: {
             sourcemap: isDevelopment,
             minify: isProduction,
@@ -139,6 +151,12 @@ export default defineConfig({
           options.reload()
         },
         vite: {
+          resolve: {
+            alias: {
+              '~/': `${path.resolve(__dirname, 'src')}/`,
+              '~~/': `${path.resolve(__dirname)}/`,
+            },
+          },
           build: {
             sourcemap: isDevelopment,
             minify: isProduction,

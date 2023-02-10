@@ -2,7 +2,8 @@ import { join } from 'node:path'
 import { DataSource } from 'typeorm'
 import log from 'electron-log'
 import is from 'electron-is'
-import { Message } from '../entities/message'
+import { Message } from '~~/entities/message'
+import { Article } from '~~/entities/article'
 
 export class DataBase {
   dataSource: DataSource
@@ -16,7 +17,7 @@ export class DataBase {
     )
     this.dataSource = new DataSource({
       type: 'sqlite',
-      entities: [Message],
+      entities: [Message, Article],
       database: basePath,
       synchronize: true,
     })

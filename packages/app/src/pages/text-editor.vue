@@ -3,7 +3,8 @@ defineOptions({ name: 'TextEditorPage' })
 
 const route = useRoute()
 const configStore = useConfigStore()
-const textEditorStore = useTextEditorStore()
+const articleStore = useArticleStore()
+const focused = useWindowFocus()
 
 onMounted(() => {
   const from = route.query.from
@@ -12,13 +13,22 @@ onMounted(() => {
   }
   configStore.leftBarCollapsed = false
 
-  textEditorStore.findArticles()
+  articleStore.find()
 })
+watch(
+  focused,
+  (f) => {
+    if (f) {
+      articleStore.find()
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <template>
   <TextEditorPro
-    v-if="textEditorStore.currentArticleId"
+    v-if="articleStore.currentArticleId"
   />
 </template>
 
