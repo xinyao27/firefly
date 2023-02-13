@@ -1,13 +1,11 @@
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    name: string
-    color: 'dark' | 'default' | 'light' | 'medium' | 'medium-dark' | 'medium-light'
-    tooltip?: string
-    onClick?: () => void
-  }>(),
-  { onClick: () => {} },
-)
+const props = defineProps<{
+  name: string
+  color: 'dark' | 'default' | 'light' | 'medium' | 'medium-dark' | 'medium-light'
+  tooltip?: string
+  hoverable: boolean
+}>()
+const emit = defineEmits(['click'])
 
 const metadata = computedAsync(async() => {
   const asset = await import(`../../../emoji/${props.name}/${props.color}/emoji.svg`)
@@ -23,9 +21,10 @@ const metadata = computedAsync(async() => {
 <template>
   <KeepAlive>
     <div
-      w-8 h-8 p-1 flex items-center justify-center rounded cursor-pointer transition hover:bg-neutral-600
+      w-8 h-8 p-1 flex items-center justify-center rounded cursor-pointer transition
       style="content-visibility: auto"
-      @click="props.onClick"
+      :class="props.hoverable ? 'hover:bg-neutral-600' : ''"
+      @click="emit('click')"
     >
       <NTooltip
         trigger="hover"

@@ -6,8 +6,11 @@ import metadata from '~~/emoji/metadata.json'
 const props = defineProps<{
   name: string
   color: 'dark' | 'default' | 'light' | 'medium' | 'medium-dark' | 'medium-light'
+  hoverable: boolean
 }>()
+const emit = defineEmits(['select'])
 
+const show = ref(false)
 const el = ref<HTMLElement>()
 const group = [
   'Smileys & Emotion',
@@ -44,19 +47,28 @@ const handleSearch = useDebounceFn((e) => {
 
 const currentColor = ref(props.color)
 const showColorSelector = ref(false)
+
+function handleSelect(name: string) {
+  emit('select', name)
+  show.value = false
+}
 </script>
 
 <template>
   <NPopover
+    :show="show"
     :show-arrow="false"
-    trigger="click"
+    trigger="manual"
     placement="bottom-start"
     raw
+    @clickoutside="show = false"
   >
     <template #trigger>
       <View
         :name="props.name"
         :color="props.color"
+        :hoverable="props.hoverable"
+        @click="show = !show"
       />
     </template>
     <div bg-neutral-700 rounded-2 shadow>
@@ -141,7 +153,12 @@ const showColorSelector = ref(false)
             v-for="{ item } in searchResult"
             :key="item.name"
           >
-            <View :name="item.name" :color="currentColor" />
+            <View
+              :name="item.name"
+              :color="currentColor"
+              :hoverable="props.hoverable"
+              @click="handleSelect(item.name)"
+            />
           </NGridItem>
         </NGrid>
         <div
@@ -162,7 +179,12 @@ const showColorSelector = ref(false)
               v-for="name in names"
               :key="name"
             >
-              <View :name="name" :color="currentColor" />
+              <View
+                :name="name"
+                :color="currentColor"
+                :hoverable="props.hoverable"
+                @click="handleSelect(name)"
+              />
             </NGridItem>
           </NGrid>
         </div>

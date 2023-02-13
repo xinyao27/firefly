@@ -14,14 +14,18 @@ const articleStore = useArticleStore()
       </NButton>
     </div>
 
-    <div>
+    <div flex flex-col gap-1>
       <div
         v-for="article in articleStore.articles"
         :key="article.id"
-        p-1 rounded select-none transition hover:bg-neutral-800
+        flex items-center px-1 rounded select-none cursor-pointer transition hover:bg-neutral-800
         :class="articleStore.currentArticleId === article.id ? 'bg-neutral-800' : ''"
         @click="articleStore.setCurrentId(article.id)"
       >
+        <Emoji
+          :name="article.icon"
+          :hoverable="false"
+        />
         {{ article.title }}
       </div>
     </div>

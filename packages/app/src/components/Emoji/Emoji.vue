@@ -7,13 +7,20 @@ const props = withDefaults(
     name: string
     color: 'dark' | 'default' | 'light' | 'medium' | 'medium-dark' | 'medium-light'
     selector?: boolean
+    hoverable?: boolean
   }>(),
   {
-    name: 'abacus', // TODO 替换掉
+    name: 'grinning-face',
     color: 'default',
     selector: false,
+    hoverable: true,
   },
 )
+const emit = defineEmits(['select'])
+
+function handleSelect(name: string) {
+  emit('select', name)
+}
 </script>
 
 <template>
@@ -21,10 +28,13 @@ const props = withDefaults(
     v-if="!props.selector"
     :name="props.name"
     :color="props.color"
+    :hoverable="props.hoverable"
   />
   <Selector
     v-else
     :name="props.name"
     :color="props.color"
+    :hoverable="props.hoverable"
+    @select="handleSelect"
   />
 </template>

@@ -36,6 +36,16 @@ export const useArticleStore = defineStore('article', {
         })
       }
     },
+    updateIcon(id: ArticleId, icon: string) {
+      const article = (this.articles as ArticleModel[]).find(v => v.id === id)
+      if (article) {
+        article.icon = icon
+        trpc.article.update.mutate({
+          id,
+          icon,
+        })
+      }
+    },
     setCurrentId(id: ArticleId) {
       this.currentArticleId = id
     },
