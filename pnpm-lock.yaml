@@ -125,6 +125,7 @@ importers:
 
   packages/app:
     specifiers:
+      '@bytebase/vue-kbar': ^0.1.8
       '@firefly/theme': workspace:*
       '@firefly/utils': workspace:*
       '@tiptap/core': ^2.0.0-beta.215
@@ -184,6 +185,7 @@ importers:
       vite-plugin-pages: ^0.28.0
       vuedraggable: ^4.1.0
     dependencies:
+      '@bytebase/vue-kbar': 0.1.8_vue@3.2.47
       '@firefly/theme': link:../theme
       '@firefly/utils': link:../utils
       '@tiptap/core': 2.0.0-beta.215_@tiptap+pm@2.0.0-beta.212
@@ -520,6 +522,19 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+
+  /@bytebase/vue-kbar/0.1.8_vue@3.2.47:
+    resolution: {integrity: sha512-XfF3JadEvWzFngpu1U6C3RvseBEoWXF51Y0D3gL2R7T8Lx+OHEoPCR8jxCMXzROCCJ+eheerKqEiFl5WXrWw4w==}
+    peerDependencies:
+      vue: ^3.2.33
+    dependencies:
+      '@vueuse/core': 7.7.1_vue@3.2.47
+      match-sorter: 6.3.1
+      tiny-invariant: 1.3.1
+      vue: 3.2.47
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
 
   /@chenyueban/eslint-config/1.0.14_4vsywjlpuriuw3tl5oq6zy5a64:
     resolution: {integrity: sha512-b5DbSEtoA7r2k/qLGcUad/IemFx/K/mzMd+gWaVKMNPHaPaSmWfjOplgPxw6VHpjiRKz5Q1g8eJj6IhiwhxNoA==}
@@ -3113,6 +3128,22 @@ packages:
       - vue
     dev: false
 
+  /@vueuse/core/7.7.1_vue@3.2.47:
+    resolution: {integrity: sha512-PRRgbATMpoeUmkCEBtUeJgOwtew8s+4UsEd+Pm7MhkjL2ihCNrSqxNVtM6NFE4uP2sWnkGcZpCjPuNSxowJ1Ow==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@vueuse/shared': 7.7.1_vue@3.2.47
+      vue: 3.2.47
+      vue-demi: 0.13.11_vue@3.2.47
+    dev: false
+
   /@vueuse/core/9.12.0_vue@3.2.47:
     resolution: {integrity: sha512-h/Di8Bvf6xRcvS/PvUVheiMYYz3U0tH3X25YxONSaAUBa841ayMwxkuzx/DGUMCW/wHWzD8tRy2zYmOC36r4sg==}
     dependencies:
@@ -3138,6 +3169,21 @@ packages:
 
   /@vueuse/metadata/9.12.0:
     resolution: {integrity: sha512-9oJ9MM9lFLlmvxXUqsR1wLt1uF7EVbP5iYaHJYqk+G2PbMjY6EXvZeTjbdO89HgoF5cI6z49o2zT/jD9SVoNpQ==}
+
+  /@vueuse/shared/7.7.1_vue@3.2.47:
+    resolution: {integrity: sha512-rN2qd22AUl7VdBxihagWyhUNHCyVk9IpvBTTfHoLH9G7rGE552X1f+zeCfehuno0zXif13jPw+icW/wn2a0rnQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      vue: 3.2.47
+      vue-demi: 0.13.11_vue@3.2.47
+    dev: false
 
   /@vueuse/shared/9.12.0_vue@3.2.47:
     resolution: {integrity: sha512-TWuJLACQ0BVithVTRbex4Wf1a1VaRuSpVeyEd4vMUWl54PzlE0ciFUshKCXnlLuD0lxIaLK4Ypj3NXYzZh4+SQ==}
@@ -8999,6 +9045,13 @@ packages:
     resolution: {integrity: sha512-q9JtQJKjpsVxCRVgQ+WapguSbKC3SQ5HEzFGPAJMStgh3QjCawp00UKv3MTTAArTmGmmPUvllHZoNbZ3gs0I+Q==}
     dev: true
 
+  /match-sorter/6.3.1:
+    resolution: {integrity: sha512-mxybbo3pPNuA+ZuCUhm5bwNkXrJTbsk5VWbR5wiwz/GC6LIiegBGn2w3O08UG/jdbYLinw51fSQ5xNU1U3MgBw==}
+    dependencies:
+      '@babel/runtime': 7.20.1
+      remove-accents: 0.4.2
+    dev: false
+
   /matcher/3.0.0:
     resolution: {integrity: sha512-OkeDaAZ/bQCxeFAozM55PKcKU0yJMPGifLwV4Qgjitu+5MoAfSQN4lsLJeXZ1b8w0x+/Emda6MZgXS1jvsapng==}
     engines: {node: '>=10'}
@@ -11050,6 +11103,10 @@ packages:
       - supports-color
     dev: false
 
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+    dev: false
+
   /request/2.88.2:
     resolution: {integrity: sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==}
     engines: {node: '>= 6'}
@@ -12179,6 +12236,10 @@ packages:
     dependencies:
       readable-stream: 3.6.0
     dev: true
+
+  /tiny-invariant/1.3.1:
+    resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
+    dev: false
 
   /tiny-uid/1.1.2:
     resolution: {integrity: sha512-0beRFXR+fv4C40ND2PqgNjq6iyB1dKXciKJjslLw0kPYCcR82aNd2b+Tt2yy06LimIlvtoehgvrm/fUZCutSfg==}

@@ -1,11 +1,21 @@
 <script setup lang="ts">
+import { useKBar } from '@bytebase/vue-kbar'
+
 interface Item {
   label: string
   icon: string
   onClick: () => void
 }
 const router = useRouter()
+const kbar = useKBar()
 const shortcuts: Item[] = [
+  {
+    label: '搜索',
+    icon: 'i-ri-search-line',
+    onClick() {
+      kbar.state.value.visibility = 'visible'
+    },
+  },
   {
     label: '列表',
     icon: 'i-ri-home-smile-line',

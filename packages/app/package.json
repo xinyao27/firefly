@@ -15,6 +15,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@bytebase/vue-kbar": "^0.1.8",
     "@firefly/theme": "workspace:*",
     "@firefly/utils": "workspace:*",
     "@tiptap/core": "^2.0.0-beta.215",
