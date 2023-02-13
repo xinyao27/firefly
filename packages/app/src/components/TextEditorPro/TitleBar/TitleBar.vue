@@ -33,6 +33,7 @@ function handleTitlePopoverUpdate(show: boolean) {
     <NPopover
       :show-arrow="false"
       overlap
+      raw
       trigger="click"
       placement="bottom-start"
       :on-update:show="handleTitlePopoverUpdate"
@@ -45,8 +46,12 @@ function handleTitlePopoverUpdate(show: boolean) {
           {{ articleStore.currentArticle?.title }}
         </NButton>
       </template>
-      <div>
-        <NInput v-model:value="popoverDefaultTitle" />
+      <div bg-neutral-700 rounded-2 shadow flex gap-1 p-1>
+        <Emoji selector />
+        <NInput
+          v-model:value="popoverDefaultTitle"
+          size="small"
+        />
       </div>
     </NPopover>
 
