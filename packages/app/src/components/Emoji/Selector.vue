@@ -24,14 +24,22 @@ const group = [
   'Flags',
 ]
 const currentGroupIndex = ref(0)
-const categories = ref({ 'Smileys & Emotion': metadata.categories['Smileys & Emotion'] })
+const categories = ref<Record<string, string[]>>({ 'Smileys & Emotion': metadata.categories['Smileys & Emotion'] })
+const recentlyUsed = useStorage<string[]>('recentlyUsedEmoji', [])
+watchEffect(() => {
+  if (recentlyUsed.value.length) {
+    categories.value = {
+      最近使用: recentlyUsed.value,
+      ...categories.value,
+    }
+  }
+})
 useInfiniteScroll(
   el,
   () => {
     currentGroupIndex.value = currentGroupIndex.value + 1
     const key = group[currentGroupIndex.value]
-    // @ts-expect-error noop
-    categories.value[key] = metadata.categories[key]
+    categories.value[key] = (metadata.categories as Record<string, string[]>)[key]
   },
   { distance: 100 },
 )
@@ -51,6 +59,15 @@ const showColorSelector = ref(false)
 function handleSelect(name: string) {
   emit('select', name)
   show.value = false
+  if (recentlyUsed.value.includes(name)) {
+    recentlyUsed.value = [name, ...recentlyUsed.value.filter(v => v !== name)]
+  }
+  else {
+    recentlyUsed.value.unshift(name)
+    if (recentlyUsed.value.length >= 6) {
+      recentlyUsed.value.pop()
+    }
+  }
 }
 </script>
 

@@ -1,10 +1,13 @@
 <script setup lang="ts">
-const props = defineProps<{
-  name: string
-  color: 'dark' | 'default' | 'light' | 'medium' | 'medium-dark' | 'medium-light'
-  tooltip?: string
-  hoverable: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    name: string
+    color: 'dark' | 'default' | 'light' | 'medium' | 'medium-dark' | 'medium-light'
+    tooltip?: string
+    hoverable?: boolean
+  }>(),
+  { hoverable: true },
+)
 const emit = defineEmits(['click'])
 
 const metadata = computedAsync(async() => {
