@@ -24,7 +24,7 @@ function handleScroll() {
         bordered
         :width="configStore.rootPaddingLeft"
       >
-        <ShortcutBar />
+        <RibbonBar />
       </NLayoutSider>
       <NLayoutSider
         collapse-mode="width"
