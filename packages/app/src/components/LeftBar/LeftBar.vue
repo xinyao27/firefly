@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import ListSearch from './ListSearch.vue'
-import TextEditorSearch from './TextEditorSearch.vue'
+import HomeView from './HomeView.vue'
+import TextEditorView from './TextEditorView.vue'
 
 const route = useRoute()
 </script>
 
 <template>
   <aside h-full style="border-right: 1px solid var(--n-border-color)">
-    <ListSearch v-if="route.path === '/'" />
-    <TextEditorSearch v-else-if="route.path === '/text-editor'" />
+    <HomeView v-if="route.path === '/'" />
+    <TextEditorView v-else-if="route.path === '/text-editor'" />
   </aside>
 </template>

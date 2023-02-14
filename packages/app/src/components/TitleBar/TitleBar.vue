@@ -1,27 +1,22 @@
 <script setup lang="ts">
-import is from 'electron-is'
 import { ipcRenderer } from 'electron'
+import is from 'electron-is'
+import WindowsTools from './WindowsTools.vue'
+import RouterTools from './RouterTools.vue'
+import SizeSlider from './SizeSlider.vue'
+import TextEditorLeftToggleTools from './TextEditorLeftToggleTools.vue'
+
+const showWindowActions = computed(() => is.windows() || is.linux())
 
 function handleMouseDown(e: MouseEvent) {
   e.preventDefault()
 }
-function handleMinimize() {
-  ipcRenderer.invoke('win:minimize')
-}
-const maximize = ref(false)
-function handleToggleMaximize() {
-  ipcRenderer.invoke('win:toggleMaximize')
-  maximize.value = !maximize.value
-}
-function handleClose() {
-  ipcRenderer.invoke('win:close')
-}
+
 const alwaysOnTop = ref(false)
 function handleToggleSticky() {
   alwaysOnTop.value = !alwaysOnTop.value
   ipcRenderer.invoke('win:setAlwaysOnTop', alwaysOnTop.value)
 }
-const showWindowActions = computed(() => is.windows() || is.linux())
 
 const route = useRoute()
 const configStore = useConfigStore()
@@ -44,7 +39,7 @@ function handleToggleListMode() {
 <template>
   <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
     <!-- placeholder -->
-    <div v-if="!showWindowActions" w-14 />
+    <div v-if="is.macOS()" w-14 />
     <!-- leftBarCollapsed -->
     <NTooltip trigger="hover">
       <template #trigger>
@@ -65,6 +60,8 @@ function handleToggleListMode() {
         收起
       </template>
     </NTooltip>
+    <!-- 编辑器切换文件列表/搜索 -->
+    <TextEditorLeftToggleTools v-if="route.path === '/text-editor'" />
     <!-- Router Tools  -->
     <RouterTools v-if="route.path === '/'" />
     <!-- Drag Area -->
@@ -75,7 +72,7 @@ function handleToggleListMode() {
     />
     <!-- Common Tools -->
     <SizeSlider v-if="route.path === '/'" />
-    <!-- 主页切换 卡片/列表 -->
+    <!-- 主页 切换 卡片/列表 -->
     <NTooltip
       v-if="route.path === '/'"
       trigger="hover"
@@ -142,39 +139,6 @@ function handleToggleListMode() {
       vertical
     />
     <!-- Windows/Linux Tools -->
-    <div
-      v-if="showWindowActions"
-      z-100 transition-opacity
-    >
-      <NButton
-        size="small"
-        quaternary
-        @click="handleMinimize"
-      >
-        <i i-ri-subtract-line />
-      </NButton>
-      <NButton
-        size="small"
-        quaternary
-        @click="handleToggleMaximize"
-      >
-        <i
-          v-if="maximize"
-          transform scale-80 i-ri-checkbox-multiple-blank-line
-        />
-        <i
-          v-else
-          transform scale-80 i-ri-checkbox-blank-line
-        />
-      </NButton>
-      <NButton
-        style="--n-color-hover: #ef4444"
-        size="small"
-        quaternary
-        @click="handleClose"
-      >
-        <i i-ri-close-line />
-      </NButton>
-    </div>
+    <WindowsTools v-if="showWindowActions" />
   </div>
 </template>

@@ -8,9 +8,15 @@ export const useConfigStore = defineStore('config', {
       rootPaddingLeft: 44,
       rootPaddingRight: 260,
       searchPaddingLeft: 260,
+
       rightBarCollapsed: true,
       leftBarCollapsed: false,
+
       listMode: 'cardList',
+      /**
+       * 编辑器左侧显示内容 文件列表/搜索
+       */
+      textEditorLeftToggleTool: 'fileList',
       title: '',
     }
   },
