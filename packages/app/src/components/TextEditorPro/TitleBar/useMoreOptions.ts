@@ -3,10 +3,11 @@ import { NButton, NDropdown, useDialog } from 'naive-ui'
 import type { DropdownMixedOption } from 'naive-ui/es/dropdown/src/interface'
 import { exportByFormat } from './export'
 
-export type ExportFormat = 'markdown' | 'html' | 'pdf' | 'docx'
+export type ExportFormat = 'markdown' | 'html' | 'docx' | 'image' | 'text'
 
 export function useMoreOptions(o: { editor?: Editor }) {
   const dialog = useDialog()
+  const articleStore = useArticleStore()
   const exportFormat = ref<ExportFormat>('html')
   function handleExportFormatSelect(key: ExportFormat) {
     exportFormat.value = key
@@ -34,16 +35,20 @@ export function useMoreOptions(o: { editor?: Editor }) {
             label: 'Markdown',
           },
           {
-            key: 'pdf',
-            label: 'PDF',
-          },
-          {
             key: 'html',
             label: 'HTML',
           },
           {
             key: 'docx',
             label: 'DOCX',
+          },
+          {
+            key: 'image',
+            label: 'Image',
+          },
+          {
+            key: 'text',
+            label: 'Text',
           },
         ]
         dialog.create({
@@ -70,7 +75,7 @@ export function useMoreOptions(o: { editor?: Editor }) {
           positiveText: '导出',
           negativeText: '取消',
           onPositiveClick: () => {
-            exportByFormat(o.editor!, exportFormat.value)
+            exportByFormat(o.editor!, exportFormat.value, articleStore.currentArticle?.title)
           },
           negativeButtonProps: {
             ghost: false,

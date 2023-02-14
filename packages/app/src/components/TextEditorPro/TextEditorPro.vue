@@ -31,6 +31,7 @@ const editor = useEditor({
   extensions,
   editorProps: {
     attributes: {
+      id: 'text-editor',
       class: 'min-h-full max-w-full px-[calc((100%-65ch)/2)] overflow-hidden focus:outline-none prose prose-white',
       style: `min-height: calc(100vh - ${configStore.rootPaddingTop}px - 46px)`,
       spellcheck: 'false',
