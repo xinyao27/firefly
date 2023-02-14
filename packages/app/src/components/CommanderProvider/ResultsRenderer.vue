@@ -19,7 +19,7 @@ const itemHeight = (params: { item: any; index: number }) => {
     <template #item="{ item, active }">
       <div
         v-if="typeof item === 'string'"
-        flex items-center p-2 cursor-pointer rounded transition hover:bg-neutral-700
+        flex items-center px-2 py-1 text-neutral-600 font-semibold
       >
         {{ item }}
       </div>

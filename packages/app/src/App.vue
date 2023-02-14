@@ -6,9 +6,9 @@ import { ThemeProvider } from '@firefly/theme'
   <ThemeProvider>
     <ContextMenuProvider>
       <CustomProvider>
-        <SearchProvider>
+        <CommanderProvider>
           <RouterView />
-        </SearchProvider>
+        </CommanderProvider>
       </CustomProvider>
     </ContextMenuProvider>
   </ThemeProvider>

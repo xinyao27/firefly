@@ -7,13 +7,17 @@ export const actions = [
     shortcut: ['g', 'h'],
     section: 'Navigation',
     subtitle: 'Go back to home',
-    perform: () => {},
+    perform: () => {
+      $router.push('/')
+    },
   }),
   createAction({
-    id: 'docs',
-    name: 'Docs',
-    shortcut: ['g', 'd'],
+    id: 'editor',
+    name: 'Editor',
+    shortcut: ['g', 'e'],
     section: 'Navigation',
-    perform: () => {},
+    perform: () => {
+      $router.push('/text-editor')
+    },
   }),
 ]

@@ -102,8 +102,11 @@ declare module 'html-pdf-node' {
 
 declare namespace globalThis {
   import type { MessageApi } from 'naive-ui'
+  import type { Router } from 'vue-router'
   const $message: MessageApi
+  const $router: Router
   interface Window {
     $message: MessageApi
+    $router: Router
   }
 }
