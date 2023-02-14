@@ -10,13 +10,6 @@ const router = useRouter()
 const kbar = useKBar()
 const shortcuts: Item[] = [
   {
-    label: '搜索',
-    icon: 'i-ri-search-line',
-    onClick() {
-      kbar.state.value.visibility = 'visible'
-    },
-  },
-  {
     label: '列表',
     icon: 'i-ri-home-smile-line',
     onClick() {
@@ -32,6 +25,13 @@ const shortcuts: Item[] = [
   },
 ]
 const settings: Item[] = [
+  {
+    label: '快捷命令',
+    icon: 'i-ri-terminal-line',
+    onClick() {
+      kbar.state.value.visibility = 'visible'
+    },
+  },
   {
     label: '设置',
     icon: 'i-ri-settings-3-line',
