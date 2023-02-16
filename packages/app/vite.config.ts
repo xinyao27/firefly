@@ -177,7 +177,6 @@ export default defineConfig({
           'metadata-scraper',
           'html-to-md',
           'html-to-docx',
-          'rasterizehtml',
         ],
       },
     }),
