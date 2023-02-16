@@ -1,3 +1,4 @@
+import devtools from '@vue/devtools'
 import { createApp } from 'vue'
 import { setupLayouts } from 'virtual:generated-layouts'
 import Previewer from 'virtual:vue-component-preview'
@@ -15,6 +16,10 @@ import generatedRoutes from '~pages'
 import 'uno.css'
 import './styles/normalize.css'
 import './styles/main.sass'
+
+if (import.meta.env.DEV) {
+  devtools.connect('localhost', 8098)
+}
 
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)

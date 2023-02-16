@@ -29,12 +29,25 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
     counter -= 1
     if (counter === 0) { isOverDropZone.value = false }
   })
-  useEventListener<DragEvent>(target, 'drop', (e) => {
+  useEventListener<DragEvent>(target, 'drop', async(e) => {
     e.preventDefault()
 
     if (counter) {
-      const files = Array.from(e.dataTransfer?.files ?? [])
-      upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text') ?? null, null, 'pc')
+      const sources = Array.from(e.dataTransfer?.files ?? [])
+      const files = sources.filter(v => !v.path)
+      const jsonFiles = sources.filter(v => !!v.path).map(v => ({
+        name: v.name,
+        filepath: v.path,
+        updatedAt: v.lastModified,
+        size: v.size,
+        mimetype: v.type,
+      }))
+      upload({
+        files: files.length === 0 ? undefined : files,
+        jsonFiles: jsonFiles.length === 0 ? undefined : jsonFiles,
+        text: e.dataTransfer?.getData('text'),
+        from: 'pc',
+      })
         .then((res) => {
           message.success(res.statusText)
           messageStore.find()

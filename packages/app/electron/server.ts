@@ -3,11 +3,12 @@ import 'reflect-metadata'
 import http from 'node:http'
 import { basename, extname, join } from 'node:path'
 import log from 'electron-log'
-import { mkdir, move, pathExists, readFile } from 'fs-extra'
+import { createSymlink, mkdir, move, pathExists, readFile } from 'fs-extra'
 import { createHTTPHandler } from '@trpc/server/adapters/standalone'
 import formidable from 'formidable'
 import getPageMetadata from 'metadata-scraper'
 import { kill } from 'cross-port-killer'
+import type { UploadJSONFile } from '@firefly/utils'
 import { appRouter } from './router'
 import { DataBase } from './database'
 import { MESSAGE_SAVE_DIR_PATH } from '~~/constants'
@@ -58,6 +59,9 @@ const server = http.createServer((req, res) => {
         const metadata = fields.metadata
           ? JSON.parse(fields.metadata as string) as unknown as MessageMetadata
           : undefined
+        const jsonFiles = fields.jsonFiles
+          ? JSON.parse(fields.jsonFiles as string) as unknown as UploadJSONFile[]
+          : undefined
         const relativeDirPath = MESSAGE_SAVE_DIR_PATH
         const absoluteDirPath = join(process.env.APP_DATA_PATH!, relativeDirPath)
         const isExists = await pathExists(absoluteDirPath)
@@ -105,6 +109,48 @@ const server = http.createServer((req, res) => {
             const statusMessage = `${fileName} updated`
             res.statusMessage = statusMessage
             return res.end(statusMessage)
+          }
+        }
+        if (jsonFiles) {
+          for (const file of jsonFiles) {
+            if (Array.isArray(file)) return
+            const name = file.name
+            const relativeFilePath = join(relativeDirPath, name)
+            const absoluteFilePath = join(absoluteDirPath, name)
+            const fileExt = extname(name).split('.')[1]
+            const { category, thumb } = await getCategoryAndThumb({
+              ext: fileExt,
+              filePath: relativeFilePath,
+            })
+            const content = file.mimetype === 'text/plain'
+              ? await readFile(file.filepath, 'utf-8')
+              : undefined
+            const fileName = basename(name, fileExt ? `.${fileExt}` : '')
+            await createSymlink(file.filepath, absoluteFilePath)
+            const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(file.filepath) : undefined)
+            const old = await queryRunner.manager.findOneBy(Message, { filePath: relativeFilePath })
+
+            await queryRunner.manager.save(Message, {
+              ...old,
+              title: fileName,
+              thumb,
+              category,
+              content,
+              fileExt,
+              filePath: relativeFilePath,
+              from,
+              size: file.size,
+              metadata: finalMetadata,
+              where: 'default',
+            })
+
+            if (old) {
+              await queryRunner.commitTransaction()
+              res.statusCode = 200
+              const statusMessage = `${fileName} updated`
+              res.statusMessage = statusMessage
+              return res.end(statusMessage)
+            }
           }
         }
         if (text) {

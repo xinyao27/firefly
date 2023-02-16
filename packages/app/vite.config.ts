@@ -175,7 +175,6 @@ export default defineConfig({
           'electron-log',
           'electron-clipboard-ex',
           'metadata-scraper',
-          'html-pdf-node',
           'html-to-md',
           'html-to-docx',
         ],

@@ -1,9 +1,9 @@
 import type { Editor } from '@tiptap/core'
 import { ipcRenderer } from 'electron'
 import { writeFile } from 'fs-extra'
-import html2pdf from 'html-pdf-node'
 import html2md from 'html-to-md'
 import html2docx from 'html-to-docx'
+import { drawHTML as html2canvas } from 'rasterizehtml'
 import unocss from 'uno.css?raw'
 import type { ExportFormat } from './useMoreOptions'
 import normalize from '~/styles/normalize.css?raw'
@@ -32,23 +32,25 @@ export function getExtByFormat(format: ExportFormat) {
   switch (format) {
     case 'html':
       return 'html'
-    case 'pdf':
-      return 'pdf'
     case 'markdown':
       return 'md'
     case 'docx':
       return 'docx'
+    case 'image':
+      return 'svg'
+    case 'text':
+      return 'txt'
   }
 }
 
-export async function exportByFormat(editor: Editor, format: ExportFormat) {
+export async function exportByFormat(editor: Editor, format: ExportFormat, t?: string) {
   const { destroy } = $message.loading('正在导出...')
   const html = editor.getHTML()
   const head = [
     `<style>${normalize}</style>`,
     `<style>${unocss}</style>`,
   ].join('\n')
-  const title = 'untitled'
+  const title = t || 'untitled'
   const filters = [
     {
       name: format,
@@ -61,12 +63,6 @@ export async function exportByFormat(editor: Editor, format: ExportFormat) {
     case 'html':
       buffer = htmlRaw
       break
-    case 'pdf': {
-      const file = { content: htmlRaw }
-      const options = { format: 'A4' }
-      buffer = await html2pdf.generatePdf(file, options)
-      break
-    }
     case 'markdown':
       buffer = await html2md(htmlRaw)
       break
@@ -77,6 +73,16 @@ export async function exportByFormat(editor: Editor, format: ExportFormat) {
         pageNumber: true,
       })
       break
+    case 'image': {
+      const canvas = document.createElement('canvas')
+      const result = await html2canvas(htmlRaw, canvas)
+      buffer = Buffer.from(result.svg as unknown as string, 'utf-8')
+      break
+    }
+    case 'text': {
+      buffer = editor.getText()
+      break
+    }
   }
 
   const filePath = await ipcRenderer.invoke('win:showSaveDialog', {
