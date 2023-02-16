@@ -25,7 +25,10 @@ function handleUpload() {
   toggleEditing(false)
   toggleUploading(true)
   const url = window.location.href
-  filesStore.upload(null, url, metadata.value)
+  filesStore.upload({
+    text: url,
+    metadata: metadata.value,
+  })
     .then(() => {
       toggleUploaded(true)
       toggleUploading(false)

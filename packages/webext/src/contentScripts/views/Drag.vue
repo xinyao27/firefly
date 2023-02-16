@@ -38,7 +38,10 @@ function handleDrop(e: DragEvent) {
   if (counter) {
     toggleUploading(true)
     const files = Array.from(e.dataTransfer?.files ?? [])
-    filesStore.upload(files.length === 0 ? null : files, e.dataTransfer?.getData('text') ?? null, null)
+    filesStore.upload({
+      files: files.length === 0 ? undefined : files,
+      text: e.dataTransfer?.getData('text'),
+    })
       .then(() => {
         toggleUploaded(true)
         toggleUploading(false)
