@@ -12,11 +12,10 @@ export const useConfigStore = defineStore('config', {
       rightBarCollapsed: true,
       leftBarCollapsed: false,
 
-      listMode: 'cardList',
       /**
-       * 编辑器左侧显示内容 文件列表/搜索
+       * 左侧显示内容 文件列表/搜索
        */
-      textEditorLeftToggleTool: 'fileList',
+      leftCurrentTool: 'messageList',
       title: '',
     }
   },

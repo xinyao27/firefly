@@ -2,7 +2,7 @@
 import { join } from 'node:path'
 import { mkdir } from 'fs-extra'
 import log from 'electron-log'
-import { ARTICLE_SAVE_DIR_PATH, MESSAGE_SAVE_DIR_PATH } from '~~/constants'
+import { MESSAGE_SAVE_DIR_PATH } from '~~/constants'
 
 /**
  * 用于初始化环境
@@ -11,15 +11,9 @@ import { ARTICLE_SAVE_DIR_PATH, MESSAGE_SAVE_DIR_PATH } from '~~/constants'
 export default async function() {
   const appDataPath = process.env.APP_DATA_PATH!
   const messagesDirPath = join(appDataPath, MESSAGE_SAVE_DIR_PATH)
-  const articleDirPath = join(appDataPath, ARTICLE_SAVE_DIR_PATH)
   try {
     await mkdir(messagesDirPath, { recursive: true })
     log.log(`create dir ${messagesDirPath}`)
-  }
-  catch (_) {}
-  try {
-    await mkdir(articleDirPath, { recursive: true })
-    log.log(`create dir ${articleDirPath}`)
   }
   catch (_) {}
 }

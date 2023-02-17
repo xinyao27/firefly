@@ -20,13 +20,32 @@ export const messageRouter = t.router({
 
       return messageRepository.findOne({ where: { id: input } })
     }),
+  create: t.procedure
+    .input(z.object({
+      title: z.string().optional(),
+      thumb: z.string().optional(),
+      tags: z.string().array().optional(),
+      category: z.enum(['article', 'text', 'image', 'link', 'rss', 'other']).optional(),
+      content: z.string().optional(),
+      fileExt: z.string().optional(),
+      filePath: z.string().optional(),
+      from: z.enum(['pc', 'mobile', 'webext', 'browser', 'other']).optional(),
+      size: z.number().optional(),
+      link: z.string().optional(),
+      metadata: z.object({}).optional(),
+      where: z.enum(['default', 'trash']).optional(),
+    }))
+    .mutation(async(req) => {
+      const data = req.input
+      return messageRepository.save(data)
+    }),
   update: t.procedure
     .input(z.object({
       id: z.string(),
       title: z.string().optional(),
       thumb: z.string().optional(),
       tags: z.string().array().optional(),
-      category: z.enum(['text', 'image', 'link', 'rss', 'other']).optional(),
+      category: z.enum(['article', 'text', 'image', 'link', 'rss', 'other']).optional(),
       content: z.string().optional(),
       fileExt: z.string().optional(),
       filePath: z.string().optional(),

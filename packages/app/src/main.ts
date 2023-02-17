@@ -50,11 +50,8 @@ app.use(pinia)
 app.use(i18n)
 app.use(Preview)
 
-const configStore = useConfigStore()
 router.beforeEach((to, from) => {
   if (to.path !== from.path) { NProgress.start() }
-  configStore.rightBarCollapsed = true
-  configStore.leftBarCollapsed = true
 })
 function getRouteIndex(path: string) {
   for (const i in routeHistory) {

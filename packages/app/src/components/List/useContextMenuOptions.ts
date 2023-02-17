@@ -5,7 +5,6 @@ import { clipboardWrite } from '~~/utils'
 import { getFinalFilePath } from '~/utils'
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
-  const router = useRouter()
   const messageStore = useMessageStore()
   const messages = computed(() => {
     return messageStore.selectedMessageIds.map(id => messageStore.messages.find(v => v.id === id)!)
@@ -13,21 +12,6 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
 
   return computed(() => {
     return [
-      {
-        label: '整理',
-        key: 'PUT',
-        onClick: async() => {
-          if (messages.value.length) {
-            try {
-              messageStore.textEditorMessages = messages.value
-              router.push({ path: '/text-editor', query: { from: 'search' } })
-            }
-            catch (e) {
-              $message.error(e)
-            }
-          }
-        },
-      },
       {
         label: '默认应用打开',
         key: 'OPEN_WITH_DEFAULT',

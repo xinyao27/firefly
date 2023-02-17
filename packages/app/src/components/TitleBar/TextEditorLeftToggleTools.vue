@@ -6,17 +6,17 @@ const configStore = useConfigStore()
   <div flex gap-1>
     <NButton
       size="small"
-      :tertiary="configStore.textEditorLeftToggleTool === 'fileList'"
-      :quaternary="configStore.textEditorLeftToggleTool !== 'fileList'"
-      @click="configStore.textEditorLeftToggleTool = 'fileList'"
+      :tertiary="configStore.leftCurrentTool === 'messageList'"
+      :quaternary="configStore.leftCurrentTool !== 'messageList'"
+      @click="configStore.leftCurrentTool = 'messageList'"
     >
       <i i-ri-folder-line />
     </NButton>
     <NButton
       size="small"
-      :tertiary="configStore.textEditorLeftToggleTool === 'search'"
-      :quaternary="configStore.textEditorLeftToggleTool !== 'search'"
-      @click="configStore.textEditorLeftToggleTool = 'search'"
+      :tertiary="configStore.leftCurrentTool === 'search'"
+      :quaternary="configStore.leftCurrentTool !== 'search'"
+      @click="configStore.leftCurrentTool = 'search'"
     >
       <i i-ri-search-line />
     </NButton>

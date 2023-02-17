@@ -26,14 +26,6 @@ function handleToggleLeftBarCollapse() {
 function handleToggleRightBarCollapse() {
   configStore.rightBarCollapsed = !configStore.rightBarCollapsed
 }
-function handleToggleListMode() {
-  if (configStore.listMode === 'cardList') {
-    configStore.listMode = 'rowList'
-  }
-  else {
-    configStore.listMode = 'cardList'
-  }
-}
 </script>
 
 <template>
@@ -72,29 +64,6 @@ function handleToggleListMode() {
     />
     <!-- Common Tools -->
     <SizeSlider v-if="route.path === '/'" />
-    <!-- 主页 切换 卡片/列表 -->
-    <NTooltip
-      v-if="route.path === '/'"
-      trigger="hover"
-    >
-      <template #trigger>
-        <NButton
-          size="small"
-          quaternary
-          opacity-40
-          @click="handleToggleListMode"
-        >
-          <i v-if="configStore.listMode === 'cardList'" i-ri-layout-top-line />
-          <i v-if="configStore.listMode === 'rowList'" i-ri-layout-grid-line />
-        </NButton>
-      </template>
-      <template v-if="configStore.listMode === 'cardList'">
-        列表模式
-      </template>
-      <template v-if="configStore.listMode === 'rowList'">
-        卡片模式
-      </template>
-    </NTooltip>
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton

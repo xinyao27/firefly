@@ -5,27 +5,27 @@ import { useMoreOptions } from './useMoreOptions'
 const props = defineProps<{
   editor?: Editor
 }>()
-const articleStore = useArticleStore()
+const messageStore = useMessageStore()
 const { options: moreOptions, handleSelect: handleMoreSelect } = useMoreOptions(props)
 
-const popoverDefaultTitle = ref(articleStore.currentArticle?.title)
+const popoverDefaultTitle = ref(messageStore.currentMessage?.title)
 function handleTitlePopoverUpdate(show: boolean) {
   if (show) {
-    popoverDefaultTitle.value = articleStore.currentArticle?.title
+    popoverDefaultTitle.value = messageStore.currentMessage?.title
   }
   else {
     if (
-      articleStore.currentArticle
+      messageStore.currentMessage
     && popoverDefaultTitle.value
-    && articleStore.currentArticle.title !== popoverDefaultTitle.value
+    && messageStore.currentMessage.title !== popoverDefaultTitle.value
     ) {
-      articleStore.updateTitle(articleStore.currentArticle.id, popoverDefaultTitle.value)
+      messageStore.updateArticleTitle(messageStore.currentMessage.id, popoverDefaultTitle.value)
     }
   }
 }
 function handleIconChange(name: string) {
-  if (articleStore.currentArticle) {
-    articleStore.updateIcon(articleStore.currentArticle.id, name)
+  if (messageStore.currentMessage) {
+    messageStore.updateArticleIcon(messageStore.currentMessage.id, name)
   }
 }
 </script>
@@ -49,15 +49,15 @@ function handleIconChange(name: string) {
           size="small"
         >
           <Emoji
-            :name="articleStore.currentArticle?.icon"
+            :name="messageStore.currentMessage?.thumb"
             :hoverable="false"
           />
-          {{ articleStore.currentArticle?.title }}
+          {{ messageStore.currentMessage?.title }}
         </NButton>
       </template>
       <div bg-neutral-700 rounded-2 shadow flex gap-1 p-1>
         <Emoji
-          :name="articleStore.currentArticle?.icon"
+          :name="messageStore.currentMessage?.thumb"
           selector
           @select="handleIconChange"
         />

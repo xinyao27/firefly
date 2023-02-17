@@ -1,1 +1,1 @@
-export { default } from './HomeView.vue'
+export { default } from './CardView.vue'

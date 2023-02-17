@@ -1,32 +1,24 @@
 <script setup lang="ts">
+import type { JSONContent } from '@tiptap/vue-3'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import Draggable from 'vuedraggable'
-import { readJSON, writeJSON } from 'fs-extra'
+import { debounce } from 'lodash-es'
 import TitleBar from './TitleBar'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
-import { getFinalFilePath } from '~/utils'
 
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
-const articleStore = useArticleStore()
 
-const currentArticlePath = computedAsync(async() => {
-  const article = articleStore.currentArticle
-  if (article) {
-    return await getFinalFilePath(article.filePath)
-  }
-  return ''
-})
-const content = computedAsync(async() => {
-  if (currentArticlePath.value) {
-    return await readJSON(currentArticlePath.value)
-  }
-  return ''
-})
+const currentMessage = computed(() => messageStore.currentMessage)
 
+const handleUpdate = debounce((content: JSONContent) => {
+  if (currentMessage.value) {
+    messageStore.updateArticleContent(currentMessage.value?.id, JSON.stringify(content))
+  }
+}, 300)
 const editor = useEditor({
   extensions,
   editorProps: {
@@ -40,20 +32,30 @@ const editor = useEditor({
   },
   autofocus: true,
   onUpdate({ editor }) {
-    const content = editor.getJSON()
-    writeJSON(currentArticlePath.value, content)
+    if (currentMessage.value) {
+      const content = editor.getJSON()
+      handleUpdate(content)
+    }
   },
 })
 
-watch(content, (value) => {
-  editor.value?.commands.setContent(value)
-  editor.value?.commands.focus()
+onMounted(() => {
+  if (currentMessage.value?.content) {
+    editor.value?.commands.setContent(JSON.parse(currentMessage.value.content))
+    editor.value?.commands.focus()
+  }
+})
+watch(currentMessage, (value) => {
+  if (value?.content) {
+    editor.value?.commands.setContent(JSON.parse(value.content))
+    editor.value?.commands.focus()
+  }
 })
 </script>
 
 <template>
   <Draggable
-    v-model="messageStore.textEditorMessages"
+    v-model="messageStore.messages"
     :group="{ name: 'messageDraggable' }"
     item-key="id"
   >
@@ -69,7 +71,6 @@ watch(content, (value) => {
     <template #item="{ element }">
       <div hidden>
         <ListRow
-          functional="draggable"
           :message="element"
           :size="72"
         />

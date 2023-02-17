@@ -35,14 +35,14 @@ export const ExtensionDrop = Extension.create({
             (async() => {
               const messageStore = useMessageStore()
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
-              if (messageStore.textEditorDraggingMessage) {
+              if (messageStore.draggingMessage) {
                 if (pos) {
-                  const message = { ...messageStore.textEditorDraggingMessage }
+                  const message = { ...messageStore.draggingMessage }
                   if (message.filePath) {
                     message.filePath = await getFinalFilePath(message.filePath)
                   }
 
-                  const t = messageStore.textEditorMessages.find(v => v.id === message.id)
+                  const t = messageStore.messages.find(v => v.id === message.id)
                   if (t) t.used = true
 
                   if (message.category === 'link') {
@@ -106,7 +106,7 @@ export const ExtensionDrop = Extension.create({
 
           transformPasted(slice) {
             const messageStore = useMessageStore()
-            if (messageStore.textEditorDraggingMessage) {
+            if (messageStore.draggingMessage) {
               return new Slice(Fragment.empty, 0, 0)
             }
             return slice

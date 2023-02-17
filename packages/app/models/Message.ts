@@ -1,5 +1,5 @@
 export type MessageId = string
-export type MessageCategory = 'text' | 'image' | 'link' | 'rss' | 'other'
+export type MessageCategory = 'article' | 'text' | 'image' | 'link' | 'rss' | 'other'
 export type MessageFrom = 'pc' | 'mobile' | 'webext' | 'browser' | 'other'
 export interface MessageMetadata {
   /**

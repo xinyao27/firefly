@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import HomeView from './HomeView.vue'
-import TextEditorView from './TextEditorView.vue'
+import MessageListView from './MessageListView.vue'
+import SearchView from './SearchView.vue'
 
-const route = useRoute()
+const configStore = useConfigStore()
 </script>
 
 <template>
   <aside h-full style="border-right: 1px solid var(--n-border-color)">
-    <HomeView v-if="route.path === '/'" />
-    <TextEditorView v-else-if="route.path === '/text-editor'" />
+    <MessageListView v-show="configStore.leftCurrentTool === 'messageList'" />
+    <SearchView v-show="configStore.leftCurrentTool === 'search'" />
   </aside>
 </template>

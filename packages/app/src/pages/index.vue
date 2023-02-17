@@ -3,6 +3,7 @@ defineOptions({ name: 'IndexPage' })
 
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
+
 const focused = useWindowFocus()
 
 onBeforeMount(() => {
@@ -23,14 +24,9 @@ watch(
 </script>
 
 <template>
-  <SelectProvider>
-    <DragProvider>
-      <List
-        :mode="configStore.listMode"
-        functional="preview"
-      />
-    </DragProvider>
-  </SelectProvider>
+  <TextEditorPro
+    v-if="messageStore.currentMessageId && messageStore.currentMessage?.category === 'article'"
+  />
 </template>
 
 <route lang="yaml">

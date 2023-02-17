@@ -16,13 +16,6 @@ const shortcuts: Item[] = [
       router.replace('/')
     },
   },
-  {
-    label: '文本编辑器',
-    icon: 'i-ri-collage-line',
-    onClick() {
-      router.replace('/text-editor')
-    },
-  },
 ]
 const settings: Item[] = [
   {

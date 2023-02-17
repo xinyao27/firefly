@@ -6,6 +6,7 @@ export function useCardClick(id: MessageId) {
 
   const handleClick = () => {
     messageStore.selectMessageIds([id])
+    messageStore.currentMessageId = id
   }
 
   const handleDoubleClick = () => {
