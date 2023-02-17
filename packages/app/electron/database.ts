@@ -18,7 +18,7 @@ export class DataBase {
       type: 'sqlite',
       entities: [Message],
       database: basePath,
-      synchronize: true,
+      synchronize: is.dev(),
     })
     this.dataSource.initialize()
       .then(() => {

@@ -4,7 +4,7 @@ defineOptions({ name: 'IndexPage' })
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
 
-const focused = useWindowFocus()
+const visibility = useDocumentVisibility()
 
 onBeforeMount(() => {
   configStore.setTitle('')
@@ -13,7 +13,7 @@ onMounted(() => {
   messageStore.find()
 })
 watch(
-  focused,
+  visibility,
   (f) => {
     if (f) {
       messageStore.find()

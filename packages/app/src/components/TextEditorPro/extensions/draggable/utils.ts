@@ -1,15 +1,15 @@
 import type { Transaction } from 'prosemirror-state'
-import type { Node, ResolvedPos } from 'prosemirror-model'
+import type { Node, ResolvedPos, Slice } from 'prosemirror-model'
 import type { EditorView } from 'prosemirror-view'
 
-function dropPoint(doc, pos, slice) {
+function dropPoint(doc: Node, pos: number, slice: Slice) {
   const $pos = doc.resolve(pos)
   if (!slice.content.size) {
     return pos
   }
   let content = slice.content
   for (let i = 0; i < slice.openStart; i++) {
-    content = content.firstChild.content
+    content = content.firstChild!.content
   }
   for (
     let pass = 1;
@@ -32,7 +32,7 @@ function dropPoint(doc, pos, slice) {
       else {
         const wrapping = parent
           .contentMatchAt(insertPos)
-          .findWrapping(content.firstChild.type)
+          .findWrapping(content.firstChild!.type)!
         fits
           = wrapping && parent.canReplaceWith(insertPos, insertPos, wrapping[0])
       }
