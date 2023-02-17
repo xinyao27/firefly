@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "package": "vite build && electron-builder --publish always",
     "test": "vitest",
     "test:unit": "vitest"
   },

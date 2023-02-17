@@ -8,6 +8,7 @@
     "prepare": "husky install",
     "lint": "eslint . --fix",
     "build": "turbo run build",
+    "package:app": "turbo run package --filter=firefly",
     "devtools": "npx vue-devtools",
     "dev": "turbo run dev",
     "dev:app": "turbo run dev --filter=firefly",
