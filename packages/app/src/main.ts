@@ -1,7 +1,7 @@
 import devtools from '@vue/devtools'
 import { createApp } from 'vue'
 import { setupLayouts } from 'virtual:generated-layouts'
-import Previewer from 'virtual:vue-component-preview'
+import Preview from 'vite-plugin-vue-component-preview/client'
 import { createPinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import type { RouteLocationNormalized } from 'vue-router'
@@ -48,7 +48,7 @@ const app = createApp(App)
 app.use(router)
 app.use(pinia)
 app.use(i18n)
-app.use(Previewer)
+app.use(Preview)
 
 const configStore = useConfigStore()
 router.beforeEach((to, from) => {

@@ -7,7 +7,6 @@
       "vite/client",
       "vue/ref-macros",
       "vite-plugin-pages/client",
-      "vite-plugin-vue-component-preview/client",
       "vite-plugin-vue-layouts/client",
       "unplugin-vue-macros/macros-global"
     ],
@@ -19,9 +18,17 @@
   "vueCompilerOptions": {
     "plugins": [
       "@vue-macros/volar/define-model",
-      "@vue-macros/volar/define-slots"
-    ]
+      "@vue-macros/volar/define-props",
+      "@vue-macros/volar/define-props-refs",
+      "@vue-macros/volar/short-vmodel",
+      "@vue-macros/volar/define-slots",
+      "@vue-macros/volar/export-props",
+      "vite-plugin-vue-component-preview/tooling"
+    ],
+    "shortVmodel": {
+      "prefix": "$"
+    }
   },
   "include": ["src", "electron", "models", "entities", "utils", "constants"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["dist", "node_modules"],
 }
