@@ -2,7 +2,6 @@
 import { dirname, relative } from 'path'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
-import Preview from 'vite-plugin-vue-component-preview'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -18,8 +17,6 @@ export const sharedConfig: UserConfig = {
   resolve: { alias: { '~/': `${r('src')}/` } },
   define: { __DEV__: isDev },
   plugins: [
-    Preview(),
-
     VueMacros({
       plugins: {
         vue: Vue({

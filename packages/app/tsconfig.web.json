@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "composite": true
+  },
+  "include": [
+    "src/renderer/shims.d.ts",
+    "src/renderer/**/*",
+    "src/renderer/**/*.vue",
+    "src/preload/*.d.ts"
+  ]
+}

@@ -8,9 +8,7 @@ node_modules
 *.xpi
 *.zip
 dist
-dist-ssr
-dist-electron
-release
+out
 *.local
 auto-imports.d.ts
 components.d.ts

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn, UpdateDateColumn } from 'typeorm'
-import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel, MessageWhere } from '~~/models/Message'
+import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel, MessageWhere } from '~/models/Message'
 
 @Entity()
 export class Message implements MessageModel {
