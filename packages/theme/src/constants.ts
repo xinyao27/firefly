@@ -12,9 +12,9 @@ export const themeOverrides: GlobalThemeOverrides = {
     primaryColorSuppl: colors.blue['500'],
   },
   Layout: {
-    color: colors.dark['700'],
-    headerColor: colors.dark['700'],
-    siderColor: colors.dark['700'],
+    color: colors.dark['800'],
+    headerColor: colors.dark['600'],
+    siderColor: colors.dark['600'],
   },
   Tooltip: { peers: { Popover: { arrowHeight: '0' } } },
   Dialog: { color: colors.dark['600'] },

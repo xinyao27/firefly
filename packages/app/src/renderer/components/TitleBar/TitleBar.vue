@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import WindowsTools from './WindowsTools.vue'
 import RouterTools from './RouterTools.vue'
-import SizeSlider from './SizeSlider.vue'
 import TextEditorLeftToggleTools from './TextEditorLeftToggleTools.vue'
 
 const showWindowActions = computed(() => $electron.process.platform === 'win32' || $electron.process.platform === 'linux')
@@ -61,7 +60,6 @@ function handleToggleRightBarCollapse() {
       @mousedown="handleMouseDown"
     />
     <!-- Common Tools -->
-    <SizeSlider v-if="route.path === '/'" />
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton

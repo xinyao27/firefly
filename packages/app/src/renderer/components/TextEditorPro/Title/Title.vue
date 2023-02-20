@@ -23,17 +23,12 @@ function handleTitlePopoverUpdate(show: boolean) {
     }
   }
 }
-function handleIconChange(name: string) {
-  if (messageStore.currentMessage) {
-    messageStore.updateArticleIcon(messageStore.currentMessage.id, name)
-  }
-}
 </script>
 
 <template>
   <div
     v-if="props.editor"
-    h-46px sticky top-0 left-0 z-200 flex items-center justify-between px-4 bg-dark-700
+    h-46px sticky top-0 left-0 z-200 flex items-center justify-between px-4 bg-dark-800
   >
     <NPopover
       :show-arrow="false"
@@ -48,19 +43,10 @@ function handleIconChange(name: string) {
           quaternary
           size="small"
         >
-          <Emoji
-            :name="messageStore.currentMessage?.thumb"
-            :hoverable="false"
-          />
           {{ messageStore.currentMessage?.title }}
         </NButton>
       </template>
-      <div bg-neutral-700 rounded-2 shadow px-2 py-1 flex items-center>
-        <Emoji
-          :name="messageStore.currentMessage?.thumb"
-          selector
-          @select="handleIconChange"
-        />
+      <div bg-neutral-700 rounded-2 shadow px-2 py-1>
         <NInput
           v-model:value="popoverDefaultTitle"
           class="!w-36 ml-1"

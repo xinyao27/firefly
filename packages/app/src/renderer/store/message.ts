@@ -66,14 +66,6 @@ export const useMessageStore = defineStore('message', {
         title,
       })
     },
-    async updateArticleIcon(id: MessageId, icon: string) {
-      const article = (this.messages as MessageModel[]).find(v => v.id === id)!
-      article.thumb = icon
-      return trpc.message.update.mutate({
-        id,
-        thumb: icon,
-      })
-    },
     async updateArticleContent(id: MessageId, content: string) {
       const article = (this.messages as MessageModel[]).find(v => v.id === id)!
       article.content = content

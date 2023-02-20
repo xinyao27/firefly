@@ -14,6 +14,8 @@ const props = defineProps<{
 const messageStore = useMessageStore()
 const message = props.message
 
+const isCurrent = computed(() => messageStore.currentMessageId === message.id)
+
 const { title, thumb } = useData(message)
 const { handleClick, handleDoubleClick } = useCardClick(message.id)
 const contextMenuOptions = useContextMenuOptions()
@@ -32,14 +34,15 @@ function handleContextMenu(e: MouseEvent) {
 
 <template>
   <div
-    flex items-center gap-2 overflow-hidden relative rounded transition hover:bg-neutral-700 cursor-grab
+    flex items-center gap-2 p-1 overflow-hidden relative rounded transition hover:bg-neutral-700 cursor-grab
+    :class="isCurrent ? 'bg-neutral-800' : ''"
     data-message-card
     :data-id="message.id"
     @click.capture.prevent.stop="handleClick"
     @contextmenu.capture.prevent.stop="handleContextMenu"
   >
     <div
-      w-7 h-7 overflow-hidden flex items-center justify-center relative select-none
+      w-5 h-5 overflow-hidden flex items-center justify-center relative select-none
       data-message-card-select-area
       draggable="true"
       @dblclick.capture.prevent.stop="handleDoubleClick"
@@ -64,12 +67,10 @@ function handleContextMenu(e: MouseEvent) {
       </nimage>
     </div>
     <div
-      flex-1 overflow-hidden flex flex-col gap-1
+      flex-1 overflow-hidden flex flex-col gap-1 text-xs truncate leading-4 select-none
       data-message-card-select-area
     >
-      <div text-xs truncate leading-4 select-none>
-        {{ title }}
-      </div>
+      {{ title }}
     </div>
     <div
       v-if="message.used"
