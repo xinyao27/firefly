@@ -56,21 +56,21 @@ function handleContextMenu(e: MouseEvent) {
         preview-disabled
         :src="thumb"
         :alt="message.title"
-      >
-        <div
-          v-if="message.fileExt && message.category !== 'text'"
-          bg-black bg-opacity-60 text-xs font-semibold px-1 absolute rounded left-1 top-1 transform scale-90 select-none
-          data-message-card-select-area
-        >
-          {{ message.fileExt.toUpperCase() }}
-        </div>
-      </nimage>
+      />
     </div>
     <div
-      flex-1 overflow-hidden flex flex-col gap-1 text-xs truncate leading-4 select-none
+      overflow-hidden flex flex-col gap-1 truncate leading-4 select-none
+      :class="isCurrent ? 'font-semibold' : ''"
       data-message-card-select-area
     >
       {{ title }}
+    </div>
+    <div
+      v-if="message.fileExt && message.category !== 'text'"
+      bg-neutral-700 bg-opacity-60 text-xs font-semibold scale-60 px-1 rounded select-none
+      data-message-card-select-area
+    >
+      {{ message.fileExt.toUpperCase() }}
     </div>
     <div
       v-if="message.used"
