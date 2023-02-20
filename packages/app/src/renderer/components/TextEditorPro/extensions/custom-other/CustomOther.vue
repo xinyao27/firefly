@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-// TODO
-// import { shell } from 'electron'
+import { byteSize } from '@firefly/utils'
 import type { MessageModel } from '~/models/Message'
-import { byteSize } from '~/utils'
 
 const props = defineProps(nodeViewProps)
 const message = props.node.attrs.message as MessageModel
@@ -16,7 +14,7 @@ const size = computed(() => {
 async function handleOpen() {
   const path = message.filePath
   if (path) {
-    shell.openPath(path)
+    $api.shellOpenPath(path)
   }
 }
 </script>

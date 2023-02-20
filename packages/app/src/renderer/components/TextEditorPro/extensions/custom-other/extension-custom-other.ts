@@ -1,8 +1,8 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import { byteSize } from '@firefly/utils'
 import CustomOther from './CustomOther.vue'
 import type { MessageModel } from '~/models/Message'
-import { byteSize } from '~/utils'
 
 export interface CustomOtherAttrs {
   position: number

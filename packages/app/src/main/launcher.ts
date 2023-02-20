@@ -4,7 +4,7 @@ import { fork } from 'node:child_process'
 import { release } from 'node:os'
 import { BrowserWindow, app, protocol } from 'electron'
 import log from 'electron-log'
-import { devTools, is, platform } from '@electron-toolkit/utils'
+import { is, platform } from '@electron-toolkit/utils'
 import ipcMain from './ipcMain'
 import MainWindow from './windows/main'
 import { SCHEMA, protocolRequestHandler } from './protocol'
@@ -50,7 +50,6 @@ class Launcher extends EventEmitter {
 
     this.mainWindow = new MainWindow({
       onInit: (window) => {
-        window.webContents.openDevTools()
         if (is.dev) {
           window.webContents.on('did-frame-finish-load', () => {
             window.webContents.once('devtools-opened', () => {
@@ -59,7 +58,6 @@ class Launcher extends EventEmitter {
             window.webContents.openDevTools()
           })
           window.webContents.openDevTools()
-          devTools.install('VUEJS3_DEVTOOLS', { allowFileAccess: true })
         }
         ipcMain(window)
       },

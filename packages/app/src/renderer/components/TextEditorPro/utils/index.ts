@@ -1,6 +1,5 @@
 import type { Content } from '@tiptap/core'
 import type { MessageModel } from '~/models/Message'
-import { getFinalFilePath } from '~renderer/utils'
 
 export const convertBase64 = (file: File) => {
   return new Promise<string>((resolve, reject) => {
@@ -32,7 +31,7 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
     case 'image':
       return {
         type: 'image',
-        attrs: { src: `atom://${await getFinalFilePath(message.filePath!)}` },
+        attrs: { src: `atom://${await $api.getFinalFilePath(message.filePath!)}` },
       }
     case 'link':
       // TODO

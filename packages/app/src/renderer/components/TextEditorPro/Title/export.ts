@@ -1,6 +1,4 @@
 import type { Editor } from '@tiptap/core'
-// TODO
-// import html2md from 'html-to-md'
 import { drawHTML as html2canvas } from 'rasterizehtml'
 import unocss from 'uno.css?raw'
 import type { ExportFormat } from './useMoreOptions'
@@ -74,15 +72,13 @@ export async function exportByFormat(editor: Editor, format: ExportFormat, t?: s
     }
   }
 
-  const filePath = await window.$electron.ipcRenderer.invoke('win:showSaveDialog', {
+  const filePath = await $electron.ipcRenderer.invoke('win:showSaveDialog', {
     title: '导出',
     defaultPath: title,
     buttonLabel: '导出',
     filters,
   })
-  // TODO
-  console.warn(filePath, buffer, 'utf-8')
-  // await writeFile(filePath, buffer, 'utf-8')
+  await $api.fsWriteFile(filePath, buffer)
   $message.success('导出成功')
   destroy()
 }

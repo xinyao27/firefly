@@ -4,7 +4,7 @@ import RouterTools from './RouterTools.vue'
 import SizeSlider from './SizeSlider.vue'
 import TextEditorLeftToggleTools from './TextEditorLeftToggleTools.vue'
 
-const showWindowActions = computed(() => window.$electron.process.platform === 'win32' || window.$electron.process.platform === 'linux')
+const showWindowActions = computed(() => $electron.process.platform === 'win32' || $electron.process.platform === 'linux')
 
 function handleMouseDown(e: MouseEvent) {
   e.preventDefault()
@@ -13,7 +13,7 @@ function handleMouseDown(e: MouseEvent) {
 const alwaysOnTop = ref(false)
 function handleToggleSticky() {
   alwaysOnTop.value = !alwaysOnTop.value
-  window.$electron.ipcRenderer.invoke('win:setAlwaysOnTop', alwaysOnTop.value)
+  $electron.ipcRenderer.invoke('win:setAlwaysOnTop', alwaysOnTop.value)
 }
 
 const route = useRoute()

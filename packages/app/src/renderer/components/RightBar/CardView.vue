@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
-// TODO
-// import { shell } from 'electron'
-import { byteSize } from '~/utils'
-import { getFinalFilePath } from '~renderer/utils'
+import { byteSize } from '@firefly/utils'
 
 const messageStore = useMessageStore()
 
@@ -15,7 +12,7 @@ const lastMessage = computed(() => {
 const thumb = computedAsync(async() => {
   switch (lastMessage.value?.category) {
     case 'image':
-      return `atom://${await getFinalFilePath(lastMessage.value?.thumb ?? '')}`
+      return `atom://${await $api.getFinalFilePath(lastMessage.value?.thumb ?? '')}`
     case 'text':
     case 'link':
       return null
@@ -27,10 +24,10 @@ const size = computed(() => {
   const s = byteSize(lastMessage.value?.size)
   return s?.text
 })
-const filePath = computedAsync(() => getFinalFilePath(lastMessage.value?.filePath ?? ''))
+const filePath = computedAsync(() => $api.getFinalFilePath(lastMessage.value?.filePath ?? ''))
 function handleOpen(path?: string) {
   if (path) {
-    shell.openPath(path)
+    $api.shellOpenPath(path)
   }
 }
 </script>

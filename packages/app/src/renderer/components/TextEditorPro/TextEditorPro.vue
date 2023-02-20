@@ -4,7 +4,7 @@ import { EditorContent, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import Draggable from 'vuedraggable'
 import { debounce } from 'lodash-es'
-import TitleBar from './TitleBar'
+import Title from './Title'
 import BubbleMenu from './BubbleMenu.vue'
 import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
@@ -40,16 +40,12 @@ const editor = useEditor({
 })
 
 onMounted(() => {
-  if (currentMessage.value?.content) {
-    editor.value?.commands.setContent(JSON.parse(currentMessage.value.content))
-    editor.value?.commands.focus()
-  }
+  editor.value?.commands.setContent(JSON.parse(currentMessage.value?.content || '{}'))
+  editor.value?.commands.focus()
 })
 watch(currentMessage, (value) => {
-  if (value?.content) {
-    editor.value?.commands.setContent(JSON.parse(value.content))
-    editor.value?.commands.focus()
-  }
+  editor.value?.commands.setContent(JSON.parse(value?.content || '{}'))
+  editor.value?.commands.focus()
 })
 </script>
 
@@ -60,7 +56,7 @@ watch(currentMessage, (value) => {
     item-key="id"
   >
     <template #header>
-      <TitleBar :editor="editor" />
+      <Title :editor="editor" />
       <BubbleMenu :editor="editor" />
       <NScrollbar>
         <EditorContent :editor="editor" />

@@ -1,8 +1,5 @@
 import type { DropdownOption } from 'naive-ui'
-// TODO
-// import { shell } from 'electron'
 import type { ComputedRef } from 'vue'
-import { getFinalFilePath } from '~renderer/utils'
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
   const messageStore = useMessageStore()
@@ -22,19 +19,19 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
                 switch (message.category) {
                   case 'image':
                   case 'other': {
-                    const filePath = await getFinalFilePath(message.filePath!)
-                    shell.openPath(filePath)
+                    const filePath = await $api.getFinalFilePath(message.filePath!)
+                    $api.shellOpenPath(filePath)
                     break
                   }
                   case 'text': {
                     if (message.filePath) {
-                      const filePath = await getFinalFilePath(message.filePath!)
-                      shell.openPath(filePath)
+                      const filePath = await $api.getFinalFilePath(message.filePath!)
+                      $api.shellOpenPath(filePath)
                     }
                     break
                   }
                   case 'link':
-                    shell.openExternal(message.link || message.content!)
+                    $api.shellOpenExternal(message.link || message.content!)
                     break
                   case 'rss':
                     // TODO
@@ -55,11 +52,11 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
           if (messages.value.length) {
             try {
               if (messages.value.length === 1 && messages.value[0].filePath) {
-                shell.showItemInFolder(await getFinalFilePath(messages.value[0].filePath))
+                $api.shellShowItemInFolder(await $api.getFinalFilePath(messages.value[0].filePath))
               }
               else {
-                const dirPath = await getFinalFilePath('files')
-                shell.openPath(dirPath)
+                const dirPath = await $api.getFinalFilePath('files')
+                $api.shellOpenPath(dirPath)
               }
             }
             catch (e) {
@@ -81,7 +78,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             try {
               for (const message of messages.value) {
                 if (message.filePath) {
-                  const filePath = await getFinalFilePath(message.filePath)
+                  const filePath = await $api.getFinalFilePath(message.filePath)
                   allFilePath.push(filePath)
                 }
               }
@@ -105,7 +102,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             try {
               for (const message of messages.value) {
                 if (message.filePath) {
-                  const filePath = await getFinalFilePath(message.filePath!)
+                  const filePath = await $api.getFinalFilePath(message.filePath!)
                   allFilePath.push(filePath)
                 }
               }

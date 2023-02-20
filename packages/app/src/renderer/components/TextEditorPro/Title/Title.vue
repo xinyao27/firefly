@@ -55,7 +55,7 @@ function handleIconChange(name: string) {
           {{ messageStore.currentMessage?.title }}
         </NButton>
       </template>
-      <div bg-neutral-700 rounded-2 shadow flex gap-1 p-1>
+      <div bg-neutral-700 rounded-2 shadow px-2 py-1 flex items-center>
         <Emoji
           :name="messageStore.currentMessage?.thumb"
           selector
@@ -63,7 +63,9 @@ function handleIconChange(name: string) {
         />
         <NInput
           v-model:value="popoverDefaultTitle"
+          class="!w-36 ml-1"
           size="small"
+          autofocus
         />
       </div>
     </NPopover>

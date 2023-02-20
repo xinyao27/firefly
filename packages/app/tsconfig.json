@@ -3,14 +3,19 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~main/*": ["src/main/*"],
-      "~renderer/*": ["src/renderer/*"],
-      "~/*": ["./*"]
+      "~main/*": [
+        "src/main/*"
+      ],
+      "~renderer/*": [
+        "src/renderer/*"
+      ],
+      "~/*": [
+        "./*"
+      ]
     },
     "types": [
       "vitest",
       "electron-vite/node",
-
       "vite/client",
       "vue/ref-macros",
       "vite-plugin-pages/client",
@@ -31,5 +36,12 @@
       "prefix": "$"
     }
   },
-  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
+  "include": [
+    "src",
+    "api",
+    "constants",
+    "entities",
+    "models",
+    "electron.vite.config.*"
+  ]
 }

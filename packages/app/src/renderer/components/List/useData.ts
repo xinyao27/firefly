@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
+import { byteSize } from '@firefly/utils'
 import type { MessageModel } from '~/models/Message'
-import { byteSize } from '~/utils'
-import { getFinalFilePath } from '~renderer/utils'
 
 export function useData(message: MessageModel) {
   const messageStore = useMessageStore()
@@ -10,7 +9,7 @@ export function useData(message: MessageModel) {
     if (message.title) return message.title
     switch (message.category) {
       case 'image': {
-        return await getFinalFilePath(message.filePath!)
+        return await $api.getFinalFilePath(message.filePath!)
       }
       case 'link':
         return message.link || ''
@@ -19,6 +18,7 @@ export function useData(message: MessageModel) {
     }
   })
   const updatedAt = computed(() => dayjs(message.updatedAt).format('YYYY/MM/DD HH:mm'))
+  const createdAt = computed(() => dayjs(message.createdAt).format('YYYY/MM/DD HH:mm'))
   const updatedFromNow = computed(() => dayjs(message.updatedAt).fromNow())
   const description = computed(() => {
     switch (message.category) {
@@ -46,7 +46,7 @@ export function useData(message: MessageModel) {
   const thumb = computedAsync(async() => {
     switch (message.category) {
       case 'image':
-        return `atom://${await getFinalFilePath(message.thumb!)}`
+        return `atom://${await $api.getFinalFilePath(message.thumb!)}`
       case 'text':
         return '/icons/ClippingTextIcon.png'
       case 'link':
@@ -62,6 +62,7 @@ export function useData(message: MessageModel) {
     description,
     thumb,
     updatedAt,
+    createdAt,
     updatedFromNow,
     isSelected,
   }

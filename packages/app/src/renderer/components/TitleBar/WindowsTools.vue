@@ -1,14 +1,14 @@
 <script setup lang="ts">
 function handleMinimize() {
-  window.$electron.ipcRenderer.invoke('win:minimize')
+  $electron.ipcRenderer.invoke('win:minimize')
 }
 const maximize = ref(false)
 function handleToggleMaximize() {
-  window.$electron.ipcRenderer.invoke('win:toggleMaximize')
+  $electron.ipcRenderer.invoke('win:toggleMaximize')
   maximize.value = !maximize.value
 }
 function handleClose() {
-  window.$electron.ipcRenderer.invoke('win:close')
+  $electron.ipcRenderer.invoke('win:close')
 }
 </script>
 

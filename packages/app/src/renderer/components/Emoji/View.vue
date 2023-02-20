@@ -11,36 +11,49 @@ const props = withDefaults(
 const emit = defineEmits(['click'])
 
 const metadata = computedAsync(async() => {
-  const asset = await import(`../../emoji/${props.name}/${props.color}/emoji.svg`)
-  const data = await import(`../../emoji/${props.name}/metadata.json`)
-
-  return {
-    src: asset.default,
-    ...data,
+  try {
+    const asset = await import(`../../emoji/${props.name}/${props.color}/emoji.svg?inline`)
+    const data = await import(`../../emoji/${props.name}/metadata.json`)
+    return {
+      src: asset.default,
+      ...data,
+    }
+  }
+  catch (_) {
+    const asset = await import(`../../emoji/${props.name}/default/emoji.svg?inline`)
+    const data = await import(`../../emoji/${props.name}/metadata.json`)
+    return {
+      src: asset.default,
+      ...data,
+    }
   }
 })
+const tooltip = computed(() => props.tooltip || metadata.value?.tts || props.name)
 </script>
 
 <template>
   <KeepAlive>
     <div
-      w-8 h-8 p-1 flex items-center justify-center rounded cursor-pointer transition
+      w-7 h-7 p-1 inline-flex items-center justify-center rounded cursor-pointer transition
       style="content-visibility: auto"
       :class="props.hoverable ? 'hover:bg-neutral-600' : ''"
       @click="emit('click')"
     >
       <NTooltip
         trigger="hover"
+        :disabled="!tooltip"
       >
         <template #trigger>
-          <img
-            w-full h-full block
-            loading="lazy"
+          <NImage
+            object-fit="fill"
+            lazy
+            preview-disabled
             :src="metadata?.src"
+            fallback-src="/icons/GenericDocumentIcon.png"
             :alt="metadata?.glyph || props.name"
-          >
+          />
         </template>
-        {{ props.tooltip || metadata?.tts || props.name }}
+        {{ tooltip }}
       </NTooltip>
     </div>
   </KeepAlive>

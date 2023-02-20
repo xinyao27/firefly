@@ -2,11 +2,8 @@ import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
-// TODO
-// import getMetadata from 'metadata-scraper'
 import { convertBase64 } from '../../utils'
 import type { MessageModel } from '~/models/Message'
-import { getFinalFilePath } from '~renderer/utils'
 
 function getCustomCommand(category: MessageModel['category'], editor: Editor) {
   switch (category) {
@@ -40,14 +37,14 @@ export const ExtensionDrop = Extension.create({
                 if (pos) {
                   const message = { ...messageStore.draggingMessage }
                   if (message.filePath) {
-                    message.filePath = await getFinalFilePath(message.filePath)
+                    message.filePath = await $api.getFinalFilePath(message.filePath)
                   }
 
                   const t = messageStore.messages.find(v => v.id === message.id)
                   if (t) t.used = true
 
                   if (message.category === 'link') {
-                    const metadata = await getMetadata(message.link!)
+                    const metadata = await $api.getWebsiteMetadata(message.link!)
                     getCustomCommand(message.category, editor)({
                       position: pos.pos,
                       from: 'message',

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-// TODO
-// import getMetadata from 'metadata-scraper'
 import type { MessageModel } from '~/models/Message'
 
 const props = defineProps(nodeViewProps)
 const message = props.node.attrs.message as MessageModel
 
 const metadata = computedAsync(async() => {
-  return props.node.attrs.metadata || await getMetadata(message.link!)
+  return props.node.attrs.metadata || await $api.getWebsiteMetadata(message.link!)
 })
 </script>
 

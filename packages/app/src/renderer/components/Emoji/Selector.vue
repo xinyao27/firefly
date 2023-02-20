@@ -118,21 +118,21 @@ function handleSelect(name: string) {
           <div bg-neutral-700 rounded-2 shadow flex gap-1 p-1>
             <View
               name="hand-with-fingers-splayed"
-              color="dark"
-              tooltip="dark"
-              @click="currentColor = 'dark'; showColorSelector = false"
+              color="light"
+              tooltip="light"
+              @click="currentColor = 'light'; showColorSelector = false"
+            />
+            <View
+              name="hand-with-fingers-splayed"
+              color="medium-light"
+              tooltip="medium-light"
+              @click="currentColor = 'medium-light'; showColorSelector = false"
             />
             <View
               name="hand-with-fingers-splayed"
               color="default"
               tooltip="default"
               @click="currentColor = 'default'; showColorSelector = false"
-            />
-            <View
-              name="hand-with-fingers-splayed"
-              color="light"
-              tooltip="light"
-              @click="currentColor = 'light'; showColorSelector = false"
             />
             <View
               name="hand-with-fingers-splayed"
@@ -148,9 +148,9 @@ function handleSelect(name: string) {
             />
             <View
               name="hand-with-fingers-splayed"
-              color="medium-light"
-              tooltip="medium-light"
-              @click="currentColor = 'medium-light'; showColorSelector = false"
+              color="dark"
+              tooltip="dark"
+              @click="currentColor = 'dark'; showColorSelector = false"
             />
           </div>
         </NPopover>
@@ -193,14 +193,14 @@ function handleSelect(name: string) {
             :cols="12"
           >
             <NGridItem
-              v-for="name in names"
-              :key="name"
+              v-for="v in names"
+              :key="v"
             >
               <View
-                :name="name"
+                :name="v"
                 :color="currentColor"
                 :hoverable="props.hoverable"
-                @click="handleSelect(name)"
+                @click="handleSelect(v)"
               />
             </NGridItem>
           </NGrid>
