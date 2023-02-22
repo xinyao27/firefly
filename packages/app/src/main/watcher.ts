@@ -1,24 +1,21 @@
-import { basename, extname, join } from 'node:path'
+import { basename, dirname, extname } from 'node:path'
 import chokidar from 'chokidar'
 import { log } from 'electron-log'
-import type { Repository } from 'typeorm'
+import type { DataSource, Repository } from 'typeorm'
 import { readFile, stat } from 'fs-extra'
 import mime from 'mime-types'
-import { getAppDataPath } from './ipcMain'
+import { getAppDataPath, getMessageDirPath } from './ipcMain'
 import { getCategoryAndThumb, getImageMetadata } from './utils'
 import { Message } from '~/entities/message'
-import { DataBase } from '~/api/database'
-import { MESSAGE_SAVE_DIR_PATH } from '~/constants'
+
+const messageDirPath = getMessageDirPath()
+const appDataPath = getAppDataPath()
 
 async function handleFileAdded(path: string, repository: Repository<Message>) {
-  log(`File ${path} has been added`)
-  const appDataPath = getAppDataPath()
   const relativeFilePath = path.split(appDataPath)[1]
   const message = await repository.findOneBy({ filePath: relativeFilePath })
   // 没有对应记录 需要创建
   if (!message) {
-    const name = basename(path)
-    const relativeFilePath = join(MESSAGE_SAVE_DIR_PATH, name)
     const fileExt = extname(path).split('.')[1]
     const { category, thumb } = await getCategoryAndThumb({
       ext: fileExt,
@@ -31,8 +28,8 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
     const fileName = basename(path, fileExt ? `.${fileExt}` : '')
     const finalMetadata = category === 'image' ? await getImageMetadata(path) : undefined
     const size = (await stat(path)).size
-
-    await repository.save({
+    const dirPath = dirname(path)
+    const messageObject = repository.create({
       title: fileName,
       thumb,
       category,
@@ -44,11 +41,19 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
       metadata: finalMetadata,
       where: 'default',
     })
+    // 非顶层目录
+    if (dirPath !== messageDirPath) {
+      const relativeDirPath = dirPath.split(appDataPath)[1]
+      const folderMessage = await repository.findOneBy({ filePath: relativeDirPath })
+      if (folderMessage) {
+        messageObject.parent = folderMessage
+      }
+    }
+    await repository.save(messageObject)
+    log(`File ${path} has been added`)
   }
 }
 async function handleFileChanged(path: string, repository: Repository<Message>) {
-  log(`File ${path} has been changed`)
-  const appDataPath = getAppDataPath()
   const relativeFilePath = path.split(appDataPath)[1]
   const message = await repository.findOneBy({ filePath: relativeFilePath })
   // text 类型文件需要单独更新 content
@@ -56,33 +61,43 @@ async function handleFileChanged(path: string, repository: Repository<Message>) 
     const content = await readFile(path, 'utf-8')
     message.content = content
     await repository.save(message)
+    log(`File ${path} has been changed`)
   }
 }
-async function handleFileUnlinked(path: string, repository: Repository<Message>) {
-  log(`File ${path} has been removed`)
-  const appDataPath = getAppDataPath()
+async function handleDirAdded(path: string, repository: Repository<Message>) {
+  if (path === messageDirPath) return
+
+  const relativeFilePath = path.split(appDataPath)[1]
+  const message = await repository.findOneBy({ filePath: relativeFilePath })
+  if (!message) {
+    const title = basename(path)
+    await repository.save({
+      title,
+      category: 'folder',
+      filePath: relativeFilePath,
+      from: 'pc',
+      where: 'default',
+    })
+    log(`Dir ${path} has been added`)
+  }
+}
+async function handleUnlinked(path: string, repository: Repository<Message>) {
   const relativeFilePath = path.split(appDataPath)[1]
   const message = await repository.findOneBy({ filePath: relativeFilePath })
   if (message) {
     await repository.remove(message)
+    log(`${path} has been removed`)
   }
 }
-async function handleDirAdded(path: string, repository: Repository<Message>) {
-  log(`Dir ${path} has been added`, repository)
-}
-async function handleDirUnlinked(path: string, repository: Repository<Message>) {
-  log(`Dir ${path} has been removed`, repository)
-}
 
-export default function(dirPath?: string) {
-  if (dirPath) {
-    const db = new DataBase('firefly').dataSource
+export default function(db: DataSource) {
+  if (messageDirPath) {
     const messageRepository = db.getRepository(Message)
-    const watcher = chokidar.watch(dirPath)
+    const watcher = chokidar.watch(messageDirPath)
     watcher.on('add', (path: string) => handleFileAdded(path, messageRepository))
       .on('change', (path: string) => handleFileChanged(path, messageRepository))
-      .on('unlink', (path: string) => handleFileUnlinked(path, messageRepository))
       .on('addDir', (path: string) => handleDirAdded(path, messageRepository))
-      .on('unlinkDir', (path: string) => handleDirUnlinked(path, messageRepository))
+      .on('unlink', (path: string) => handleUnlinked(path, messageRepository))
+      .on('unlinkDir', (path: string) => handleUnlinked(path, messageRepository))
   }
 }

@@ -2,7 +2,7 @@ import 'cross-fetch/polyfill'
 import 'reflect-metadata'
 import http from 'node:http'
 import { basename, extname, join } from 'node:path'
-import log from 'electron-log'
+import { log } from 'electron-log'
 import { createSymlink, mkdir, move, pathExists, readFile } from 'fs-extra'
 import { createHTTPHandler } from '@trpc/server/adapters/standalone'
 import formidable from 'formidable'
@@ -11,20 +11,23 @@ import { kill } from 'cross-port-killer'
 import type { UploadJSONFile } from '@firefly/utils'
 import { getAppDataPath } from './ipcMain'
 import { getCategoryAndThumb, getImageMetadata } from './utils'
+import watcher from './watcher'
 import { appRouter } from '~/api'
 import { MESSAGE_SAVE_DIR_PATH } from '~/constants'
 import type { MessageFrom, MessageMetadata } from '~/models/Message'
 import { Message } from '~/entities/message'
-import { DataBase } from '~/api/database'
+import { DataBase } from '~main/database'
+
+const db = new DataBase('firefly').dataSource
+
+export const createContext = async() => {
+  return { db }
+}
 
 const handler = createHTTPHandler({
   router: appRouter,
-  createContext() {
-    return {}
-  },
+  createContext,
 })
-
-const dataSource = new DataBase('firefly').dataSource
 
 const validationUrl = (url: string) => {
   try {
@@ -51,7 +54,7 @@ const server = http.createServer((req, res) => {
         res.statusCode = err.httpCode || 400
         return res.end(String(err))
       }
-      const queryRunner = dataSource.createQueryRunner()
+      const queryRunner = db.createQueryRunner()
       await queryRunner.connect()
       await queryRunner.startTransaction()
       try {
@@ -219,10 +222,14 @@ const server = http.createServer((req, res) => {
   return handler(req, res)
 })
 const PORT = 5487
-server.listen(PORT)
+server.listen(PORT, () => {
+  log(`Server is enabled at port ${PORT}`)
+
+  watcher(db)
+})
 server.on('error', (e: any) => {
   if (e.code === 'EADDRINUSE') {
-    log.log(e.message || 'Address in use, retrying...')
+    log(e.message || 'Address in use, retrying...')
     kill(PORT)
       .then(() => {
         setTimeout(() => {

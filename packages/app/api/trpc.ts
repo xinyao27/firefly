@@ -1,6 +1,4 @@
 import { initTRPC } from '@trpc/server'
-import { DataBase } from './database'
+import type { createContext } from '~main/server'
 
-export const t = initTRPC.create()
-
-export const db = new DataBase('firefly').dataSource
+export const t = initTRPC.context<typeof createContext>().create()

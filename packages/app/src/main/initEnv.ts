@@ -1,7 +1,7 @@
 
 import { join } from 'node:path'
 import { mkdir } from 'fs-extra'
-import log from 'electron-log'
+import { log } from 'electron-log'
 import { getAppDataPath } from './ipcMain'
 import { DATABASES_DIR_PATH, MESSAGE_SAVE_DIR_PATH } from '~/constants'
 
@@ -15,12 +15,12 @@ export default async function() {
   const databasesDirPath = join(appDataPath, DATABASES_DIR_PATH)
   try {
     await mkdir(messagesDirPath, { recursive: true })
-    log.log(`create dir ${messagesDirPath}`)
+    log(`create dir ${messagesDirPath}`)
   }
   catch (_) {}
   try {
     await mkdir(databasesDirPath, { recursive: true })
-    log.log(`create dir ${databasesDirPath}`)
+    log(`create dir ${databasesDirPath}`)
   }
   catch (_) {}
 }

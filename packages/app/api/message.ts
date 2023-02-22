@@ -1,14 +1,13 @@
 import { z } from 'zod'
 import { remove } from 'fs-extra'
-import { db, t } from './trpc'
+import { t } from './trpc'
 import { Message } from '~/entities/message'
 import { getFinalFilePath } from '~main/ipcMain'
 
-const messageRepository = db.getRepository(Message)
-
 export const messageRouter = t.router({
   find: t.procedure
-    .query(() => {
+    .query(({ ctx }) => {
+      const messageRepository = ctx.db.getRepository(Message)
       return messageRepository.find({ order: { updatedAt: 'DESC' } })
     }),
   findOne: t.procedure
@@ -17,9 +16,8 @@ export const messageRouter = t.router({
 
       throw new Error(`Invalid input: ${typeof val}`)
     })
-    .query((req) => {
-      const { input } = req
-
+    .query(({ input, ctx }) => {
+      const messageRepository = ctx.db.getRepository(Message)
       return messageRepository.findOne({ where: { id: input } })
     }),
   create: t.procedure
@@ -37,9 +35,9 @@ export const messageRouter = t.router({
       metadata: z.object({}).optional(),
       where: z.enum(['default', 'trash']).optional(),
     }))
-    .mutation(async(req) => {
-      const data = req.input
-      return messageRepository.save(data)
+    .mutation(async({ input, ctx }) => {
+      const messageRepository = ctx.db.getRepository(Message)
+      return messageRepository.save(input)
     }),
   update: t.procedure
     .input(z.object({
@@ -57,19 +55,19 @@ export const messageRouter = t.router({
       metadata: z.object({}).optional(),
       where: z.enum(['default', 'trash']).optional(),
     }))
-    .mutation(async(req) => {
-      const data = req.input
-      const old = await messageRepository.findOneBy({ id: data.id })
+    .mutation(async({ input, ctx }) => {
+      const messageRepository = ctx.db.getRepository(Message)
+      const old = await messageRepository.findOneBy({ id: input.id })
       return messageRepository.save({
         ...old,
-        ...data,
+        ...input,
       })
     }),
   remove: t.procedure
     .input(z.object({ id: z.string() }))
-    .mutation(async(req) => {
-      const data = req.input
-      const message = await messageRepository.findOneBy({ id: data.id })
+    .mutation(async({ input, ctx }) => {
+      const messageRepository = ctx.db.getRepository(Message)
+      const message = await messageRepository.findOneBy({ id: input.id })
       if (message) {
         if (message.filePath) {
           const filePath = getFinalFilePath(message.filePath)

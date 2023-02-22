@@ -5,8 +5,7 @@ import { release } from 'node:os'
 import { BrowserWindow, app, protocol } from 'electron'
 import log from 'electron-log'
 import { platform } from '@electron-toolkit/utils'
-import ipcMain, { getMessageDirPath } from './ipcMain'
-import watcher from './watcher'
+import ipcMain from './ipcMain'
 import MainWindow from './windows/main'
 import { SCHEMA, protocolRequestHandler } from './protocol'
 import initEnv from './initEnv'
@@ -52,7 +51,6 @@ class Launcher extends EventEmitter {
     this.mainWindow = new MainWindow({
       onInit: (window) => {
         ipcMain(window)
-        watcher(getMessageDirPath())
       },
     })
   }
