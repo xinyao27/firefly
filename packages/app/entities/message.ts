@@ -25,7 +25,7 @@ export class Message implements MessageModel {
   @Column({ type: 'text', nullable: true })
     fileExt?: string
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'text', nullable: true, unique: true })
     filePath?: string
 
   @Column({ type: 'text', nullable: true })

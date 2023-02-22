@@ -27,10 +27,19 @@ export async function clipboardWrite({ filePaths, texts, imagePath }: ClipboardW
   }
 }
 
+export function getAppDataPath() {
+  return process.env.APP_DATA_PATH!
+}
+export function getMessageDirPath() {
+  return join(getAppDataPath(), MESSAGE_SAVE_DIR_PATH)
+}
+export function getFinalFilePath(filePath: string) {
+  return join(getAppDataPath(), filePath)
+}
 export default function(win: BrowserWindow | null) {
-  ipcMain.handle('get:appDataPath', () => process.env.APP_DATA_PATH)
-  ipcMain.handle('get:messageDirPath', () => join(process.env.APP_DATA_PATH!, MESSAGE_SAVE_DIR_PATH))
-  ipcMain.handle('get:finalFilePath', (_, filePath: string) => join(process.env.APP_DATA_PATH!, filePath))
+  ipcMain.handle('get:appDataPath', getAppDataPath)
+  ipcMain.handle('get:messageDirPath', getMessageDirPath)
+  ipcMain.handle('get:finalFilePath', (_, filePath: string) => getFinalFilePath(filePath))
 
   ipcMain.handle('win:minimize', () => win?.minimize())
   ipcMain.handle('win:toggleMaximize', () => {

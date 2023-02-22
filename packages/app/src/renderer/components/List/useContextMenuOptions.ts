@@ -122,14 +122,14 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'D2',
       },
       {
-        label: '移到废纸篓',
-        key: 'MOVE_TO_TRASH',
+        label: '删除',
+        key: 'REMOVE',
         onClick: async() => {
           if (messages.value.length) {
             const trashes = []
             try {
               for (const message of messages.value) {
-                await messageStore.moveToTrash(message.id)
+                await messageStore.remove(message.id)
                 trashes.push(message.id)
               }
             }
@@ -137,7 +137,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
             finally {
-              $message.success(`已将 ${trashes.length} 个文件移到废纸篓`)
+              $message.success(`已删除 ${trashes.length} 个文件`)
             }
           }
         },

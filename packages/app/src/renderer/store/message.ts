@@ -9,7 +9,6 @@ export const useMessageStore = defineStore('message', {
       messages: [] as MessageModelWithUsed[],
       selectedMessageIds: [] as MessageId[],
       currentMessageId: null as MessageId | null,
-      trashMessages: [] as MessageModelWithUsed[],
       draggingMessage: null as MessageModelWithUsed | null,
     }
   },
@@ -21,32 +20,16 @@ export const useMessageStore = defineStore('message', {
   actions: {
     async find() {
       const messages = await trpc.message.find.query()
-      this.messages = messages?.filter(message => message.where === 'default')
-      this.trashMessages = messages?.filter(message => message.where === 'trash')
+      this.messages = messages
     },
     async findOne(id: MessageId) {
       return trpc.message.findOne.query(id)
     },
-    async moveToTrash(id: MessageId) {
+    async remove(id: MessageId) {
       const target = this.messages.find((message: MessageModel) => message.id === id)
       if (target) {
-        await trpc.message.update.mutate({
-          id,
-          where: 'trash',
-        })
+        await trpc.message.remove.mutate({ id })
         this.messages = this.messages.filter((i: MessageModel) => i.id !== id)
-        this.trashMessages.push(target)
-      }
-    },
-    async moveToDashboard(id: MessageId) {
-      const target = this.trashMessages.find((message: MessageModel) => message.id === id)
-      if (target) {
-        await trpc.message.update.mutate({
-          id,
-          where: 'default',
-        })
-        this.trashMessages = this.trashMessages.filter((i: MessageModel) => i.id !== id)
-        this.messages.push(target)
       }
     },
     selectMessageIds(selected: MessageId[] = []) {

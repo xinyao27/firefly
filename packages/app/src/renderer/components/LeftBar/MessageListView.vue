@@ -14,8 +14,6 @@ const messageStore = useMessageStore()
       </NButton>
     </div>
 
-    <DragProvider>
-      <List />
-    </DragProvider>
+    <List />
   </div>
 </template>

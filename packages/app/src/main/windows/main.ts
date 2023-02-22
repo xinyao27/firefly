@@ -44,6 +44,16 @@ class MainWindow extends EventEmitter {
     this.window = new BrowserWindow(options)
     onInit(this.window)
 
+    if (is.dev) {
+      this.window.webContents.on('did-frame-finish-load', () => {
+        this.window?.webContents.once('devtools-opened', () => {
+          this.window?.focus()
+        })
+        this.window?.webContents.openDevTools()
+      })
+      this.window.webContents.openDevTools()
+    }
+
     if (is.dev && process.env.ELECTRON_RENDERER_URL) {
       this.window.loadURL(process.env.ELECTRON_RENDERER_URL)
     }

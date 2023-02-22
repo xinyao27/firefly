@@ -9,43 +9,13 @@ import formidable from 'formidable'
 import getPageMetadata from 'metadata-scraper'
 import { kill } from 'cross-port-killer'
 import type { UploadJSONFile } from '@firefly/utils'
-import imageSizeOf from 'image-size'
+import { getAppDataPath } from './ipcMain'
+import { getCategoryAndThumb, getImageMetadata } from './utils'
 import { appRouter } from '~/api'
 import { MESSAGE_SAVE_DIR_PATH } from '~/constants'
-import type { MessageCategory, MessageFrom, MessageMetadata } from '~/models/Message'
+import type { MessageFrom, MessageMetadata } from '~/models/Message'
 import { Message } from '~/entities/message'
 import { DataBase } from '~/api/database'
-
-async function getImageMetadata(filePath: string) {
-  return imageSizeOf(filePath) as MessageMetadata
-}
-
-export async function getCategoryAndThumb({ ext, filePath }: {
-  ext?: string
-  filePath?: string
-}): Promise<{
-    category: MessageCategory
-    thumb?: string
-  }> {
-  switch (ext) {
-    case 'txt':
-    case undefined:
-      return { category: 'text' }
-    case 'jpg':
-    case 'jpeg':
-    case 'png':
-    case 'gif':
-    case 'svg':
-    case 'webp':
-    case 'bmp':
-      return { category: 'image', thumb: filePath }
-    case 'url': {
-      return { category: 'link' }
-    }
-    default:
-      return { category: 'other' }
-  }
-}
 
 const handler = createHTTPHandler({
   router: appRouter,
@@ -94,7 +64,7 @@ const server = http.createServer((req, res) => {
           ? JSON.parse(fields.jsonFiles as string) as unknown as UploadJSONFile[]
           : undefined
         const relativeDirPath = MESSAGE_SAVE_DIR_PATH
-        const absoluteDirPath = join(process.env.APP_DATA_PATH!, relativeDirPath)
+        const absoluteDirPath = join(getAppDataPath(), relativeDirPath)
         const isExists = await pathExists(absoluteDirPath)
         if (!isExists) {
           await mkdir(absoluteDirPath, { recursive: true })

@@ -1,6 +1,8 @@
 import { z } from 'zod'
+import { remove } from 'fs-extra'
 import { db, t } from './trpc'
 import { Message } from '~/entities/message'
+import { getFinalFilePath } from '~main/ipcMain'
 
 const messageRepository = db.getRepository(Message)
 
@@ -62,5 +64,19 @@ export const messageRouter = t.router({
         ...old,
         ...data,
       })
+    }),
+  remove: t.procedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async(req) => {
+      const data = req.input
+      const message = await messageRepository.findOneBy({ id: data.id })
+      if (message) {
+        if (message.filePath) {
+          const filePath = getFinalFilePath(message.filePath)
+          await remove(filePath)
+        }
+        return messageRepository.remove(message)
+      }
+      throw new Error('没有找到可以删除的内容')
     }),
 })

@@ -36,8 +36,6 @@ if (process.contextIsolated) {
   }
 }
 else {
-  // @ts-expect-error noop
   window.$electron = electronAPI
-  // @ts-expect-error noop
   window.$api = api
 }

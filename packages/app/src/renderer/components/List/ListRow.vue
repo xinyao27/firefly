@@ -35,7 +35,7 @@ function handleContextMenu(e: MouseEvent) {
 <template>
   <div
     flex items-center gap-2 p-1 overflow-hidden relative rounded transition hover:bg-neutral-700 cursor-grab
-    :class="isCurrent ? 'bg-neutral-800' : ''"
+    :class="isCurrent ? 'bg-neutral-700' : ''"
     data-message-card
     :data-id="message.id"
     @click.capture.prevent.stop="handleClick"

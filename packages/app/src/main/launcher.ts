@@ -4,8 +4,9 @@ import { fork } from 'node:child_process'
 import { release } from 'node:os'
 import { BrowserWindow, app, protocol } from 'electron'
 import log from 'electron-log'
-import { is, platform } from '@electron-toolkit/utils'
-import ipcMain from './ipcMain'
+import { platform } from '@electron-toolkit/utils'
+import ipcMain, { getMessageDirPath } from './ipcMain'
+import watcher from './watcher'
 import MainWindow from './windows/main'
 import { SCHEMA, protocolRequestHandler } from './protocol'
 import initEnv from './initEnv'
@@ -50,18 +51,9 @@ class Launcher extends EventEmitter {
 
     this.mainWindow = new MainWindow({
       onInit: (window) => {
-        if (is.dev) {
-          window.webContents.on('did-frame-finish-load', () => {
-            window.webContents.once('devtools-opened', () => {
-              window.focus()
-            })
-            window.webContents.openDevTools()
-          })
-          window.webContents.openDevTools()
-        }
         ipcMain(window)
+        watcher(getMessageDirPath())
       },
-      onDestroy: () => { },
     })
   }
 

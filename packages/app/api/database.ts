@@ -3,13 +3,14 @@ import { DataSource } from 'typeorm'
 import log from 'electron-log'
 import { Message } from '~/entities/message'
 import { DATABASES_DIR_PATH } from '~/constants'
+import { getAppDataPath } from '~main/ipcMain'
 
 export class DataBase {
   dataSource: DataSource
 
   constructor(database: string) {
     const basePath = join(
-      process.env.APP_DATA_PATH!,
+      getAppDataPath(),
       `${DATABASES_DIR_PATH}/${database}.db`,
     )
     this.dataSource = new DataSource({
