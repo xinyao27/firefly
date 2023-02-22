@@ -74,7 +74,7 @@
     "@types/mime-types": "^2.1.1",
     "@types/sharp": "^0.31.1",
     "@types/uuid": "^9.0.0",
-    "electron": "^23.1.0",
+    "electron": "23.1.0",
     "electron-builder": "^23.6.0",
     "electron-vite": "^1.0.17",
     "vite-plugin-pages": "^0.28.0"

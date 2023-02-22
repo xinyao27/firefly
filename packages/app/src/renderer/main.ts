@@ -1,4 +1,3 @@
-import devtools from '@vue/devtools'
 import { createApp } from 'vue'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createPinia } from 'pinia'
@@ -11,6 +10,7 @@ import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import App from './App.vue'
 import generatedRoutes from '~pages'
+import '@total-typescript/ts-reset'
 
 import 'uno.css'
 import './styles/normalize.css'
