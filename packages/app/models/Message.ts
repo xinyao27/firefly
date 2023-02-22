@@ -101,6 +101,13 @@ export interface MessageModel {
    * 修改时间
    */
   updatedAt?: Date
+  /**
+   * 父级 message
+   */
+  parent?: MessageModel
 }
 
-export type MessageModelWithUsed = MessageModel & { used?: boolean }
+export type Message = MessageModel & {
+  used?: boolean
+  children?: MessageModel[]
+}

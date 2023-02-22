@@ -3,12 +3,12 @@ import { useContextMenuOptions } from './useContextMenuOptions'
 import { useCardClick } from './useCardClick'
 import { useData } from './useData'
 import { useDragStart } from './useDragStart'
-import type { MessageModelWithUsed } from '~/models/Message'
+import type { Message } from '~/models/Message'
 import { useContextMenu } from '~renderer/composables/useContextMenu'
 
 const props = defineProps<{
   size: number
-  message: MessageModelWithUsed
+  message: Message
 }>()
 
 const messageStore = useMessageStore()

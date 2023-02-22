@@ -28,7 +28,6 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
     const fileName = basename(path, fileExt ? `.${fileExt}` : '')
     const finalMetadata = category === 'image' ? await getImageMetadata(path) : undefined
     const size = (await stat(path)).size
-    const dirPath = dirname(path)
     const messageObject = repository.create({
       title: fileName,
       thumb,
@@ -41,6 +40,7 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
       metadata: finalMetadata,
       where: 'default',
     })
+    const dirPath = dirname(path)
     // 非顶层目录
     if (dirPath !== messageDirPath) {
       const relativeDirPath = dirPath.split(appDataPath)[1]
@@ -71,13 +71,23 @@ async function handleDirAdded(path: string, repository: Repository<Message>) {
   const message = await repository.findOneBy({ filePath: relativeFilePath })
   if (!message) {
     const title = basename(path)
-    await repository.save({
+    const messageObject = repository.create({
       title,
       category: 'folder',
       filePath: relativeFilePath,
       from: 'pc',
       where: 'default',
     })
+    const dirPath = dirname(path)
+    // 非顶层目录
+    if (dirPath !== messageDirPath) {
+      const relativeDirPath = dirPath.split(appDataPath)[1]
+      const folderMessage = await repository.findOneBy({ filePath: relativeDirPath })
+      if (folderMessage) {
+        messageObject.parent = folderMessage
+      }
+    }
+    await repository.save(messageObject)
     log(`Dir ${path} has been added`)
   }
 }

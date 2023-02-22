@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia'
 import dayjs from 'dayjs'
-import type { MessageId, MessageModel, MessageModelWithUsed } from '~/models/Message'
+import type { Message, MessageId, MessageModel } from '~/models/Message'
 import { trpc } from '~renderer/api'
 
 export const useMessageStore = defineStore('message', {
   state: () => {
     return {
-      messages: [] as MessageModelWithUsed[],
+      messages: [] as Message[],
       selectedMessageIds: [] as MessageId[],
       currentMessageId: null as MessageId | null,
-      draggingMessage: null as MessageModelWithUsed | null,
+      draggingMessage: null as Message | null,
     }
   },
   getters: {

@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, Generated, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn, Tree, TreeChildren, TreeParent, UpdateDateColumn } from 'typeorm'
 import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel, MessageWhere } from '~/models/Message'
-
 @Entity()
+@Tree('closure-table')
 export class Message implements MessageModel {
   @PrimaryColumn({ type: 'text' })
   @Generated('uuid')
@@ -49,7 +49,9 @@ export class Message implements MessageModel {
   @UpdateDateColumn()
     updatedAt: Date
 
-  @ManyToOne(() => Message)
-  @JoinColumn()
+  @TreeParent()
     parent?: Message
+
+  @TreeChildren()
+    children?: Message[]
 }

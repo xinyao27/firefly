@@ -14,9 +14,10 @@ export class DataBase {
       `${DATABASES_DIR_PATH}/${database}.db`,
     )
     this.dataSource = new DataSource({
-      type: 'sqlite',
+      type: 'better-sqlite3',
       entities: [Message],
       database: basePath,
+      synchronize: true,
     })
     this.dataSource.initialize()
       .then(() => {

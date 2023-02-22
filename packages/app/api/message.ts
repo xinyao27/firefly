@@ -7,8 +7,8 @@ import { getFinalFilePath } from '~main/ipcMain'
 export const messageRouter = t.router({
   find: t.procedure
     .query(({ ctx }) => {
-      const messageRepository = ctx.db.getRepository(Message)
-      return messageRepository.find({ order: { updatedAt: 'DESC' } })
+      const messageRepository = ctx.db.getTreeRepository(Message)
+      return messageRepository.findTrees()
     }),
   findOne: t.procedure
     .input((val: unknown) => {
@@ -18,7 +18,10 @@ export const messageRouter = t.router({
     })
     .query(({ input, ctx }) => {
       const messageRepository = ctx.db.getRepository(Message)
-      return messageRepository.findOne({ where: { id: input } })
+      return messageRepository.findOne({
+        where: { id: input },
+        relations: { parent: true },
+      })
     }),
   create: t.procedure
     .input(z.object({
