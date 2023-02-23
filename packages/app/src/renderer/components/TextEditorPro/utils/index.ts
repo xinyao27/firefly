@@ -31,7 +31,7 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
     case 'image':
       return {
         type: 'image',
-        attrs: { src: `atom://${await $api.getFinalFilePath(message.filePath!)}` },
+        attrs: { src: `atom://${await $api.getFinalPath(message.path!)}` },
       }
     case 'link':
       // TODO

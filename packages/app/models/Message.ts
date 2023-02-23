@@ -71,7 +71,7 @@ export interface MessageModel {
   /**
    * 文件路径
    */
-  filePath?: string
+  path?: string
   /**
    * 来源
    */

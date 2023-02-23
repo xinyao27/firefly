@@ -19,14 +19,14 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
                 switch (message.category) {
                   case 'image':
                   case 'other': {
-                    const filePath = await $api.getFinalFilePath(message.filePath!)
-                    $api.shellOpenPath(filePath)
+                    const path = await $api.getFinalPath(message.path!)
+                    $api.shellOpenPath(path)
                     break
                   }
                   case 'text': {
-                    if (message.filePath) {
-                      const filePath = await $api.getFinalFilePath(message.filePath!)
-                      $api.shellOpenPath(filePath)
+                    if (message.path) {
+                      const path = await $api.getFinalPath(message.path!)
+                      $api.shellOpenPath(path)
                     }
                     break
                   }
@@ -51,11 +51,11 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         onClick: async() => {
           if (messages.value.length) {
             try {
-              if (messages.value.length === 1 && messages.value[0].filePath) {
-                $api.shellShowItemInFolder(await $api.getFinalFilePath(messages.value[0].filePath))
+              if (messages.value.length === 1 && messages.value[0].path) {
+                $api.shellShowItemInFolder(await $api.getFinalPath(messages.value[0].path))
               }
               else {
-                const dirPath = await $api.getFinalFilePath('files')
+                const dirPath = await $api.getFinalPath('files')
                 $api.shellOpenPath(dirPath)
               }
             }
@@ -74,12 +74,12 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'COPY',
         onClick: async() => {
           if (messages.value.length) {
-            const allFilePath = []
+            const allPath = []
             try {
               for (const message of messages.value) {
-                if (message.filePath) {
-                  const filePath = await $api.getFinalFilePath(message.filePath)
-                  allFilePath.push(filePath)
+                if (message.path) {
+                  const path = await $api.getFinalPath(message.path)
+                  allPath.push(path)
                 }
               }
             }
@@ -87,8 +87,8 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
             finally {
-              await $api.clipboardWrite({ filePaths: allFilePath })
-              $message.success(`已复制 ${allFilePath.length} 个文件`)
+              await $api.clipboardWrite({ paths: allPath })
+              $message.success(`已复制 ${allPath.length} 个文件`)
             }
           }
         },
@@ -98,12 +98,12 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'COPY_FILE_PATH',
         onClick: async() => {
           if (messages.value.length) {
-            const allFilePath = []
+            const allPath = []
             try {
               for (const message of messages.value) {
-                if (message.filePath) {
-                  const filePath = await $api.getFinalFilePath(message.filePath!)
-                  allFilePath.push(filePath)
+                if (message.path) {
+                  const path = await $api.getFinalPath(message.path!)
+                  allPath.push(path)
                 }
               }
             }
@@ -111,8 +111,8 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
             finally {
-              await $api.clipboardWrite({ texts: allFilePath })
-              $message.success(`已复制 ${allFilePath.length} 个文件路径`)
+              await $api.clipboardWrite({ texts: allPath })
+              $message.success(`已复制 ${allPath.length} 个文件路径`)
             }
           }
         },

@@ -36,8 +36,8 @@ export const ExtensionDrop = Extension.create({
               if (messageStore.draggingMessage) {
                 if (pos) {
                   const message = { ...messageStore.draggingMessage }
-                  if (message.filePath) {
-                    message.filePath = await $api.getFinalFilePath(message.filePath)
+                  if (message.path) {
+                    message.path = await $api.getFinalPath(message.path)
                   }
 
                   const t = messageStore.messages.find(v => v.id === message.id)
@@ -74,7 +74,7 @@ export const ExtensionDrop = Extension.create({
                           message: {
                             id: new Date().getTime().toString(),
                             category: 'image',
-                            filePath: base64,
+                            path: base64,
                           },
                         })
                       }
@@ -89,7 +89,7 @@ export const ExtensionDrop = Extension.create({
                           id: new Date().getTime().toString(),
                           category: 'other',
                           title: file.name,
-                          filePath: file.path,
+                          path: file.path,
                           size: file.size,
                           fileExt: file.type,
                         },

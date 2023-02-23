@@ -52,7 +52,7 @@ export const ExtensionMessageImage = Node.create({
       [
         'img',
         {
-          src: message.filePath,
+          src: message.path,
           alt: message.title,
         },
       ],

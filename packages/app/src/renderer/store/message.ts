@@ -36,6 +36,11 @@ export const useMessageStore = defineStore('message', {
       this.selectedMessageIds = selected
     },
 
+    async createFolder() {
+      const title = dayjs().format('YYMMDDHHmmss')
+      const folder = await trpc.message.create.mutate({ title, category: 'folder', from: 'pc' })
+      this.messages.push(folder)
+    },
     async createArticle() {
       const title = dayjs().format('YYMMDDHHmmss')
       const article = await trpc.message.create.mutate({ title, category: 'article', from: 'pc' })

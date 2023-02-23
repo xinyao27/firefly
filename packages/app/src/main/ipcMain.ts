@@ -11,13 +11,13 @@ import { MESSAGE_SAVE_DIR_PATH } from '~/constants'
  * https://github.com/rubickCenter/rubick/blob/master/src/common/utils/getCopyFiles.ts
  */
 export interface ClipboardWrite {
-  filePaths?: string[]
+  paths?: string[]
   texts?: string[]
   imagePath?: string
 }
-export async function clipboardWrite({ filePaths, texts, imagePath }: ClipboardWrite) {
-  if (filePaths) {
-    return clipboardEx.writeFilePaths(filePaths)
+export async function clipboardWrite({ paths, texts, imagePath }: ClipboardWrite) {
+  if (paths) {
+    return clipboardEx.writeFilePaths(paths)
   }
   if (texts) {
     return clipboard.writeText(texts.join('\n'))
@@ -33,13 +33,13 @@ export function getAppDataPath() {
 export function getMessageDirPath() {
   return join(getAppDataPath(), MESSAGE_SAVE_DIR_PATH)
 }
-export function getFinalFilePath(filePath: string) {
-  return join(getAppDataPath(), filePath)
+export function getFinalPath(path: string) {
+  return join(getAppDataPath(), path)
 }
 export default function(win: BrowserWindow | null) {
   ipcMain.handle('get:appDataPath', getAppDataPath)
   ipcMain.handle('get:messageDirPath', getMessageDirPath)
-  ipcMain.handle('get:finalFilePath', (_, filePath: string) => getFinalFilePath(filePath))
+  ipcMain.handle('get:finalPath', (_, path: string) => getFinalPath(path))
 
   ipcMain.handle('win:minimize', () => win?.minimize())
   ipcMain.handle('win:toggleMaximize', () => {
@@ -60,11 +60,11 @@ export default function(win: BrowserWindow | null) {
     return filePath
   })
 
-  ipcMain.on('api:dragStart', async(event, filePath, iconPath) => {
+  ipcMain.on('api:dragStart', async(event, path, iconPath) => {
     const buffer = await sharp(iconPath).png().toBuffer()
     const icon = nativeImage.createFromBuffer(buffer).resize({ width: 180 })
     event.sender.startDrag({
-      file: filePath,
+      file: path,
       icon,
     })
   })

@@ -87,13 +87,13 @@ export async function exportByFormat(editor: Editor, format: ExportFormat, t?: s
     }
   }
 
-  const filePath = await $electron.ipcRenderer.invoke('win:showSaveDialog', {
+  const path = await $electron.ipcRenderer.invoke('win:showSaveDialog', {
     title: '导出',
     defaultPath: title,
     buttonLabel: '导出',
     filters,
   })
-  await $api.fsWriteFile(filePath, buffer)
+  await $api.fsWriteFile(path, buffer)
   $message.success('导出成功')
   destroy()
 }

@@ -21,8 +21,8 @@ export const api = {
   getWebsiteMetadata(url: string) {
     return electronAPI.ipcRenderer.invoke('api:getWebsiteMetadata', url)
   },
-  getFinalFilePath(filePath: string) {
-    return electronAPI.ipcRenderer.invoke('get:finalFilePath', filePath)
+  getFinalPath(path: string) {
+    return electronAPI.ipcRenderer.invoke('get:finalPath', path)
   },
 }
 

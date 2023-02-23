@@ -1,13 +1,13 @@
 import imageSizeOf from 'image-size'
 import type { MessageCategory, MessageMetadata } from '~/models/Message'
 
-export async function getImageMetadata(filePath: string) {
-  return imageSizeOf(filePath) as MessageMetadata
+export async function getImageMetadata(path: string) {
+  return imageSizeOf(path) as MessageMetadata
 }
 
-export async function getCategoryAndThumb({ ext, filePath }: {
+export async function getCategoryAndThumb({ ext, path }: {
   ext?: string
-  filePath?: string
+  path?: string
 }): Promise<{
     category: MessageCategory
     thumb?: string
@@ -23,7 +23,7 @@ export async function getCategoryAndThumb({ ext, filePath }: {
     case 'svg':
     case 'webp':
     case 'bmp':
-      return { category: 'image', thumb: filePath }
+      return { category: 'image', thumb: path }
     case 'url': {
       return { category: 'link' }
     }

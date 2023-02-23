@@ -9,7 +9,7 @@ export function useData(message: MessageModel) {
     if (message.title) return message.title
     switch (message.category) {
       case 'image': {
-        return await $api.getFinalFilePath(message.filePath!)
+        return await $api.getFinalPath(message.path!)
       }
       case 'link':
         return message.link || ''
@@ -46,7 +46,7 @@ export function useData(message: MessageModel) {
   const thumb = computedAsync(async() => {
     switch (message.category) {
       case 'image':
-        return `atom://${await $api.getFinalFilePath(message.thumb!)}`
+        return `atom://${await $api.getFinalPath(message.thumb!)}`
       case 'text':
         return '/icons/ClippingTextIcon.png'
       case 'link':

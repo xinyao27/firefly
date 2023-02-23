@@ -12,7 +12,7 @@ const lastMessage = computed(() => {
 const thumb = computedAsync(async() => {
   switch (lastMessage.value?.category) {
     case 'image':
-      return `atom://${await $api.getFinalFilePath(lastMessage.value?.thumb ?? '')}`
+      return `atom://${await $api.getFinalPath(lastMessage.value?.thumb ?? '')}`
     case 'text':
     case 'link':
       return null
@@ -24,7 +24,7 @@ const size = computed(() => {
   const s = byteSize(lastMessage.value?.size)
   return s?.text
 })
-const filePath = computedAsync(() => $api.getFinalFilePath(lastMessage.value?.filePath ?? ''))
+const path = computedAsync(() => $api.getFinalPath(lastMessage.value?.path ?? ''))
 function handleOpen(path?: string) {
   if (path) {
     $api.shellOpenPath(path)
@@ -56,19 +56,19 @@ function handleOpen(path?: string) {
         </template>
         <NSpace vertical>
           <NTooltip
-            v-if="filePath"
+            v-if="path"
             trigger="hover"
           >
             <template #trigger>
               <a
                 block truncate text-true-gray cursor-pointer text-xs hover:underline
-                @click="handleOpen(filePath)"
+                @click="handleOpen(path)"
               >
                 <i i-ri-external-link-line inline-block align-top />
-                {{ filePath }}
+                {{ path }}
               </a>
             </template>
-            {{ filePath }}
+            {{ path }}
           </NTooltip>
           <NTooltip
             v-if="lastMessage.link"

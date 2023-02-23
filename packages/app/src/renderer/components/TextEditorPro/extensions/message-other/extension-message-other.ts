@@ -46,7 +46,7 @@ export const ExtensionMessageOther = Node.create({
     const message = node.attrs.message as MessageModel
     const title = message.title ?? ''
     const size = byteSize(message.size)?.text ?? ''
-    const filePath = message.filePath ?? ''
+    const path = message.path ?? ''
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
@@ -80,7 +80,7 @@ export const ExtensionMessageOther = Node.create({
           [
             'div',
             { class: 'text-neutral text-xs' },
-            filePath,
+            path,
           ],
         ],
       ],

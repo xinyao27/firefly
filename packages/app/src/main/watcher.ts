@@ -12,14 +12,14 @@ const messageDirPath = getMessageDirPath()
 const appDataPath = getAppDataPath()
 
 async function handleFileAdded(path: string, repository: Repository<Message>) {
-  const relativeFilePath = path.split(appDataPath)[1]
-  const message = await repository.findOneBy({ filePath: relativeFilePath })
+  const relativePath = path.split(appDataPath)[1]
+  const message = await repository.findOneBy({ path: relativePath })
   // 没有对应记录 需要创建
   if (!message) {
     const fileExt = extname(path).split('.')[1]
     const { category, thumb } = await getCategoryAndThumb({
       ext: fileExt,
-      filePath: relativeFilePath,
+      path: relativePath,
     })
     const mimetype = mime.lookup(path)
     const content = mimetype === 'text/plain'
@@ -34,7 +34,7 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
       category,
       content,
       fileExt,
-      filePath: relativeFilePath,
+      path: relativePath,
       from: 'pc',
       size,
       metadata: finalMetadata,
@@ -44,7 +44,7 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
     // 非顶层目录
     if (dirPath !== messageDirPath) {
       const relativeDirPath = dirPath.split(appDataPath)[1]
-      const folderMessage = await repository.findOneBy({ filePath: relativeDirPath })
+      const folderMessage = await repository.findOneBy({ path: relativeDirPath })
       if (folderMessage) {
         messageObject.parent = folderMessage
       }
@@ -54,8 +54,8 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
   }
 }
 async function handleFileChanged(path: string, repository: Repository<Message>) {
-  const relativeFilePath = path.split(appDataPath)[1]
-  const message = await repository.findOneBy({ filePath: relativeFilePath })
+  const relativePath = path.split(appDataPath)[1]
+  const message = await repository.findOneBy({ path: relativePath })
   // text 类型文件需要单独更新 content
   if (message && message.category === 'text') {
     const content = await readFile(path, 'utf-8')
@@ -67,14 +67,14 @@ async function handleFileChanged(path: string, repository: Repository<Message>) 
 async function handleDirAdded(path: string, repository: Repository<Message>) {
   if (path === messageDirPath) return
 
-  const relativeFilePath = path.split(appDataPath)[1]
-  const message = await repository.findOneBy({ filePath: relativeFilePath })
+  const relativePath = path.split(appDataPath)[1]
+  const message = await repository.findOneBy({ path: relativePath })
   if (!message) {
     const title = basename(path)
     const messageObject = repository.create({
       title,
       category: 'folder',
-      filePath: relativeFilePath,
+      path: relativePath,
       from: 'pc',
       where: 'default',
     })
@@ -82,7 +82,7 @@ async function handleDirAdded(path: string, repository: Repository<Message>) {
     // 非顶层目录
     if (dirPath !== messageDirPath) {
       const relativeDirPath = dirPath.split(appDataPath)[1]
-      const folderMessage = await repository.findOneBy({ filePath: relativeDirPath })
+      const folderMessage = await repository.findOneBy({ path: relativeDirPath })
       if (folderMessage) {
         messageObject.parent = folderMessage
       }
@@ -92,8 +92,8 @@ async function handleDirAdded(path: string, repository: Repository<Message>) {
   }
 }
 async function handleUnlinked(path: string, repository: Repository<Message>) {
-  const relativeFilePath = path.split(appDataPath)[1]
-  const message = await repository.findOneBy({ filePath: relativeFilePath })
+  const relativePath = path.split(appDataPath)[1]
+  const message = await repository.findOneBy({ path: relativePath })
   if (message) {
     await repository.remove(message)
     log(`${path} has been removed`)

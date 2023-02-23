@@ -6,8 +6,8 @@ import type { MessageModel } from '~/models/Message'
 const props = defineProps(nodeViewProps)
 const message = props.node.attrs.message as MessageModel
 
-const filePath = computed(() => {
-  return isBase64(message.filePath!) ? message.filePath : `atom://${message.filePath}`
+const path = computed(() => {
+  return isBase64(message.path!) ? message.path : `atom://${message.path}`
 })
 </script>
 
@@ -15,6 +15,6 @@ const filePath = computed(() => {
   <NodeViewWrapper
     class="my-1 border border-neutral-700 rounded cursor-pointer"
   >
-    <img :src="filePath" :alt="message.title">
+    <img :src="path" :alt="message.title">
   </NodeViewWrapper>
 </template>

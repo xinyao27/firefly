@@ -12,7 +12,7 @@ const size = computed(() => {
 })
 
 async function handleOpen() {
-  const path = message.filePath
+  const path = message.path
   if (path) {
     $api.shellOpenPath(path)
   }
@@ -34,7 +34,7 @@ async function handleOpen() {
             </div>
           </div>
           <div class="text-neutral text-xs">
-            {{ message.filePath }}
+            {{ message.path }}
           </div>
         </div>
       </div>

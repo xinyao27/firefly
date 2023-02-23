@@ -1,8 +1,10 @@
+import { join } from 'node:path'
 import { z } from 'zod'
-import { remove } from 'fs-extra'
+import { mkdir, remove } from 'fs-extra'
+import dayjs from 'dayjs'
 import { t } from './trpc'
 import { Message } from '~/entities/message'
-import { getFinalFilePath } from '~main/ipcMain'
+import { getFinalPath, getMessageDirPath } from '~main/ipcMain'
 
 export const messageRouter = t.router({
   find: t.procedure
@@ -28,10 +30,10 @@ export const messageRouter = t.router({
       title: z.string().optional(),
       thumb: z.string().optional(),
       tags: z.string().array().optional(),
-      category: z.enum(['article', 'text', 'image', 'link', 'rss', 'other']).optional(),
+      category: z.enum(['folder', 'article', 'text', 'image', 'link', 'rss', 'other']).optional(),
       content: z.string().optional(),
       fileExt: z.string().optional(),
-      filePath: z.string().optional(),
+      path: z.string().optional(),
       from: z.enum(['pc', 'mobile', 'webext', 'browser', 'other']).optional(),
       size: z.number().optional(),
       link: z.string().optional(),
@@ -40,7 +42,15 @@ export const messageRouter = t.router({
     }))
     .mutation(async({ input, ctx }) => {
       const messageRepository = ctx.db.getRepository(Message)
-      return messageRepository.save(input)
+      const messageObject = messageRepository.create(input)
+      if (input.category === 'folder') {
+        const title = input.title ?? dayjs().format('YYMMDDHHmmss')
+        const path = join(getMessageDirPath(), title)
+        await mkdir(path, { recursive: true })
+        messageObject.title = title
+        messageObject.path = path
+      }
+      return messageRepository.save(messageObject)
     }),
   update: t.procedure
     .input(z.object({
@@ -51,7 +61,7 @@ export const messageRouter = t.router({
       category: z.enum(['article', 'text', 'image', 'link', 'rss', 'other']).optional(),
       content: z.string().optional(),
       fileExt: z.string().optional(),
-      filePath: z.string().optional(),
+      path: z.string().optional(),
       from: z.enum(['pc', 'mobile', 'webext', 'browser', 'other']).optional(),
       size: z.number().optional(),
       link: z.string().optional(),
@@ -72,9 +82,9 @@ export const messageRouter = t.router({
       const messageRepository = ctx.db.getRepository(Message)
       const message = await messageRepository.findOneBy({ id: input.id })
       if (message) {
-        if (message.filePath) {
-          const filePath = getFinalFilePath(message.filePath)
-          await remove(filePath)
+        if (message.path) {
+          const path = getFinalPath(message.path)
+          await remove(path)
         }
         return messageRepository.remove(message)
       }

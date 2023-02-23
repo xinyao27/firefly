@@ -77,21 +77,21 @@ const server = http.createServer((req, res) => {
         for (const file of uploadFiles) {
           if (Array.isArray(file)) return
           const name = file.originalFilename!
-          const relativeFilePath = join(relativeDirPath, name)
-          const absoluteFilePath = join(absoluteDirPath, name)
+          const relativePath = join(relativeDirPath, name)
+          const absolutePath = join(absoluteDirPath, name)
 
           const fileExt = extname(name).split('.')[1]
           const { category, thumb } = await getCategoryAndThumb({
             ext: fileExt,
-            filePath: relativeFilePath,
+            path: relativePath,
           })
           const content = file.mimetype === 'text/plain'
             ? await readFile(file.filepath, 'utf-8')
             : undefined
           const fileName = basename(name, fileExt ? `.${fileExt}` : '')
-          await move(file.filepath, absoluteFilePath, { overwrite: true })
-          const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(absoluteFilePath) : undefined)
-          const old = await queryRunner.manager.findOneBy(Message, { filePath: relativeFilePath })
+          await move(file.filepath, absolutePath, { overwrite: true })
+          const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(absolutePath) : undefined)
+          const old = await queryRunner.manager.findOneBy(Message, { path: relativePath })
 
           await queryRunner.manager.save(Message, {
             ...old,
@@ -100,7 +100,7 @@ const server = http.createServer((req, res) => {
             category,
             content,
             fileExt,
-            filePath: relativeFilePath,
+            path: relativePath,
             from,
             size: file.size,
             metadata: finalMetadata,
@@ -119,20 +119,20 @@ const server = http.createServer((req, res) => {
           for (const file of jsonFiles) {
             if (Array.isArray(file)) return
             const name = file.name
-            const relativeFilePath = join(relativeDirPath, name)
-            const absoluteFilePath = join(absoluteDirPath, name)
+            const relativePath = join(relativeDirPath, name)
+            const absolutePath = join(absoluteDirPath, name)
             const fileExt = extname(name).split('.')[1]
             const { category, thumb } = await getCategoryAndThumb({
               ext: fileExt,
-              filePath: relativeFilePath,
+              path: relativePath,
             })
             const content = file.mimetype === 'text/plain'
               ? await readFile(file.filepath, 'utf-8')
               : undefined
             const fileName = basename(name, fileExt ? `.${fileExt}` : '')
-            await createSymlink(file.filepath, absoluteFilePath)
+            await createSymlink(file.filepath, absolutePath)
             const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(file.filepath) : undefined)
-            const old = await queryRunner.manager.findOneBy(Message, { filePath: relativeFilePath })
+            const old = await queryRunner.manager.findOneBy(Message, { path: relativePath })
 
             await queryRunner.manager.save(Message, {
               ...old,
@@ -141,7 +141,7 @@ const server = http.createServer((req, res) => {
               category,
               content,
               fileExt,
-              filePath: relativeFilePath,
+              path: relativePath,
               from,
               size: file.size,
               metadata: finalMetadata,
