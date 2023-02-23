@@ -1,6 +1,11 @@
-import type { Editor } from '@tiptap/core'
+import type { Editor, JSONContent } from '@tiptap/core'
 import { drawHTML as html2canvas } from 'rasterizehtml'
+import {
+  MarkdownSerializer as ProseMirrorMarkdownSerializer,
+  defaultMarkdownSerializer,
+} from 'prosemirror-markdown'
 import unocss from 'uno.css?raw'
+import type { Schema } from 'prosemirror-model'
 import type { ExportFormat } from './useMoreOptions'
 import normalize from '~renderer/styles/normalize.css?raw'
 
@@ -37,6 +42,16 @@ export function getExtByFormat(format: ExportFormat) {
   }
 }
 
+function serialize(schema: Schema, content: JSONContent) {
+  const proseMirrorDocument = schema.nodeFromJSON(content)
+  const serializer = new ProseMirrorMarkdownSerializer(
+    defaultMarkdownSerializer.nodes,
+    defaultMarkdownSerializer.marks,
+  )
+
+  return serializer.serialize(proseMirrorDocument, { tightLists: true })
+}
+
 export async function exportByFormat(editor: Editor, format: ExportFormat, t?: string) {
   const { destroy } = $message.loading('正在导出...')
   const html = editor.getHTML()
@@ -58,7 +73,7 @@ export async function exportByFormat(editor: Editor, format: ExportFormat, t?: s
       buffer = htmlRaw
       break
     case 'markdown':
-      // buffer = await html2md(htmlRaw)
+      buffer = serialize(editor.schema, editor.getJSON())
       break
     case 'image': {
       const canvas = document.createElement('canvas')
