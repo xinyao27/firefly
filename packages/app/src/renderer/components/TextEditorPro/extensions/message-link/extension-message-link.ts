@@ -1,10 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import type { MetaData } from 'metadata-scraper'
-import CustomLink from './CustomLink.vue'
+import MessageLink from './MessageLink.vue'
 import type { MessageModel } from '~/models/Message'
 
-export interface CustomLinkAttrs {
+export interface MessageLinkAttrs {
   position: number
   from: 'file' | 'message'
   message?: MessageModel
@@ -13,14 +13,14 @@ export interface CustomLinkAttrs {
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    customLink: {
-      setCustomLink: (attr: CustomLinkAttrs) => ReturnType
+    messageLink: {
+      setMessageLink: (attr: MessageLinkAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionCustomLink = Node.create({
-  name: 'customLink',
+export const ExtensionMessageLink = Node.create({
+  name: 'messageLink',
 
   group: 'block',
 
@@ -41,7 +41,7 @@ export const ExtensionCustomLink = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=customLink]' }]
+    return [{ tag: 'div[data-type=messageLink]' }]
   },
 
   renderHTML({ HTMLAttributes, node }) {
@@ -50,7 +50,7 @@ export const ExtensionCustomLink = Node.create({
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
-        'data-type': 'customLink',
+        'data-type': 'messageLink',
         'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
@@ -109,7 +109,7 @@ export const ExtensionCustomLink = Node.create({
 
   addCommands() {
     return {
-      setCustomLink: attrs => ({ commands }) => {
+      setMessageLink: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -119,6 +119,6 @@ export const ExtensionCustomLink = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(CustomLink)
+    return VueNodeViewRenderer(MessageLink)
   },
 })

@@ -65,8 +65,7 @@
     "sharp": "^0.31.3",
     "tippy.js": "^6.3.7",
     "typeorm": "^0.3.11",
-    "uuid": "^9.0.0",
-    "vuedraggable": "^4.1.0"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@electron/notarize": "^1.2.3",

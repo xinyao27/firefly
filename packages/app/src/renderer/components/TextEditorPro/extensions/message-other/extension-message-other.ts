@@ -1,10 +1,10 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import { byteSize } from '@firefly/utils'
-import CustomOther from './CustomOther.vue'
+import MessageOther from './MessageOther.vue'
 import type { MessageModel } from '~/models/Message'
 
-export interface CustomOtherAttrs {
+export interface MessageOtherAttrs {
   position: number
   from: 'file' | 'message'
   message?: MessageModel
@@ -12,14 +12,14 @@ export interface CustomOtherAttrs {
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    customOther: {
-      setCustomOther: (attr: CustomOtherAttrs) => ReturnType
+    messageOther: {
+      setMessageOther: (attr: MessageOtherAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionCustomOther = Node.create({
-  name: 'customOther',
+export const ExtensionMessageOther = Node.create({
+  name: 'messageOther',
 
   group: 'block',
 
@@ -39,7 +39,7 @@ export const ExtensionCustomOther = Node.create({
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=customOther]' }]
+    return [{ tag: 'div[data-type=messageOther]' }]
   },
 
   renderHTML({ HTMLAttributes, node }) {
@@ -50,7 +50,7 @@ export const ExtensionCustomOther = Node.create({
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
-        'data-type': 'customOther',
+        'data-type': 'messageOther',
         'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
@@ -89,7 +89,7 @@ export const ExtensionCustomOther = Node.create({
 
   addCommands() {
     return {
-      setCustomOther: attrs => ({ commands }) => {
+      setMessageOther: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -99,6 +99,6 @@ export const ExtensionCustomOther = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(CustomOther)
+    return VueNodeViewRenderer(MessageOther)
   },
 })

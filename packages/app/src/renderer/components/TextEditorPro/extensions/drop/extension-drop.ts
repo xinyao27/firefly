@@ -5,18 +5,18 @@ import { Fragment, Slice } from 'prosemirror-model'
 import { convertBase64 } from '../../utils'
 import type { MessageModel } from '~/models/Message'
 
-function getCustomCommand(category: MessageModel['category'], editor: Editor) {
+function getMessageCommand(category: MessageModel['category'], editor: Editor) {
   switch (category) {
     case 'text':
-      return editor.commands.setCustomText
+      return editor.commands.setMessageText
     case 'image':
-      return editor.commands.setCustomImage
+      return editor.commands.setMessageImage
     case 'link':
-      return editor.commands.setCustomLink
+      return editor.commands.setMessageLink
     case 'other':
-      return editor.commands.setCustomOther
+      return editor.commands.setMessageOther
     default:
-      return editor.commands.setCustomOther
+      return editor.commands.setMessageOther
   }
 }
 
@@ -45,7 +45,7 @@ export const ExtensionDrop = Extension.create({
 
                   if (message.category === 'link') {
                     const metadata = await $api.getWebsiteMetadata(message.link!)
-                    getCustomCommand(message.category, editor)({
+                    getMessageCommand(message.category, editor)({
                       position: pos.pos,
                       from: 'message',
                       message,
@@ -53,7 +53,7 @@ export const ExtensionDrop = Extension.create({
                     })
                   }
                   else {
-                    getCustomCommand(message.category, editor)({
+                    getMessageCommand(message.category, editor)({
                       position: pos.pos,
                       from: 'message',
                       message,
@@ -68,7 +68,7 @@ export const ExtensionDrop = Extension.create({
                     const base64 = await convertBase64(file)
                     if (base64) {
                       if (pos) {
-                        getCustomCommand('image', editor)({
+                        getMessageCommand('image', editor)({
                           position: pos.pos,
                           from: 'file',
                           message: {
@@ -82,7 +82,7 @@ export const ExtensionDrop = Extension.create({
                   }
                   else {
                     if (pos) {
-                      getCustomCommand('other', editor)({
+                      getMessageCommand('other', editor)({
                         position: pos.pos,
                         from: 'file',
                         message: {

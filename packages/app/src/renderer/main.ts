@@ -8,6 +8,7 @@ import NProgress from 'nprogress'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import devtools from '@vue/devtools'
 import App from './App.vue'
 import generatedRoutes from '~pages'
 import '@total-typescript/ts-reset'
@@ -20,9 +21,9 @@ const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-schem
 const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
 if (setting === 'dark' || (prefersDark && setting !== 'light')) { document.documentElement.classList.toggle('dark', true) }
 
-// if (import.meta.env.DEV) {
-//   devtools.connect('localhost', 8098)
-// }
+if (import.meta.env.DEV) {
+  devtools.connect('localhost', 8098)
+}
 
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)

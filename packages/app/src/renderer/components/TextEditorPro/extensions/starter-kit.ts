@@ -11,10 +11,10 @@ import { FocusClasses as ExtensionFocus } from '@tiptap/extension-focus'
 import { lowlight } from 'lowlight'
 import { colors } from 'unocss/preset-mini'
 import { ExtensionDraggable } from './draggable'
-import { ExtensionCustomImage } from './custom-image'
-import { ExtensionCustomLink } from './custom-link'
-import { ExtensionCustomOther } from './custom-other'
-import { ExtensionCustomText } from './custom-text'
+import { ExtensionMessageImage } from './message-image'
+import { ExtensionMessageLink } from './message-link'
+import { ExtensionMessageOther } from './message-other'
+import { ExtensionMessageText } from './message-text'
 import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
 import { ExtensionSlashMenu } from './slash-menu'
@@ -36,10 +36,10 @@ export const extensions: AnyExtension[] = [
   ExtensionFocus,
 
   // Node
-  ExtensionCustomImage,
-  ExtensionCustomLink,
-  ExtensionCustomOther,
-  ExtensionCustomText,
+  ExtensionMessageImage,
+  ExtensionMessageLink,
+  ExtensionMessageOther,
+  ExtensionMessageText,
   ExtensionImage.configure({ allowBase64: true }),
   ExtensionListItem,
   ExtensionCodeBlockLowLight.configure({ lowlight }),
