@@ -1,7 +1,22 @@
 import { defineStore } from 'pinia'
 import dayjs from 'dayjs'
-import type { Message, MessageId, MessageModel } from '~/models/Message'
+import type { Message, MessageId } from '~/models/Message'
 import { trpc } from '~renderer/api'
+
+function find(id: string, array: Message[]): Message | null {
+  let result: Message | null = null
+  for (const v of array) {
+    if (v.id === id) {
+      result = v
+      break
+    }
+    else {
+      result = find(id, v.children || [])
+      if (result) break
+    }
+  }
+  return result
+}
 
 export const useMessageStore = defineStore('message', {
   state: () => {
@@ -14,7 +29,8 @@ export const useMessageStore = defineStore('message', {
   },
   getters: {
     currentMessage(state) {
-      return state.messages.find(message => message.id === state.currentMessageId)
+      if (state.currentMessageId) return find(state.currentMessageId, state.messages)
+      return null
     },
   },
   actions: {
@@ -26,49 +42,43 @@ export const useMessageStore = defineStore('message', {
       return trpc.message.findOne.query(id)
     },
     async remove(id: MessageId) {
-      const target = this.messages.find((message: MessageModel) => message.id === id)
-      if (target) {
-        await trpc.message.remove.mutate({ id })
-        this.messages = this.messages.filter((i: MessageModel) => i.id !== id)
-      }
+      await trpc.message.remove.mutate({ id })
+      await this.find()
     },
     selectMessageIds(selected: MessageId[] = []) {
       this.selectedMessageIds = selected
     },
     async move(targetMessageId: MessageId, dragMessageId: MessageId) {
-      const message = await trpc.message.update.mutate({
+      await trpc.message.update.mutate({
         id: dragMessageId,
         parentId: targetMessageId,
       })
       await this.find()
-      return message
     },
 
     async createFolder() {
       const title = dayjs().format('YYMMDDHHmmss')
-      const folder = await trpc.message.create.mutate({ title, category: 'folder', from: 'pc' })
-      this.messages.push(folder)
+      await trpc.message.create.mutate({ title, category: 'folder', from: 'pc' })
+      await this.find()
     },
     async createArticle() {
       const title = dayjs().format('YYMMDDHHmmss')
-      const article = await trpc.message.create.mutate({ title, category: 'article', from: 'pc' })
-      this.messages.push(article)
+      await trpc.message.create.mutate({ title, category: 'article', from: 'pc' })
+      await this.find()
     },
     async updateArticleTitle(id: MessageId, title: string) {
-      const article = (this.messages as MessageModel[]).find(v => v.id === id)!
-      article.title = title
-      return trpc.message.update.mutate({
+      await trpc.message.update.mutate({
         id,
         title,
       })
+      await this.find()
     },
     async updateArticleContent(id: MessageId, content: string) {
-      const article = (this.messages as MessageModel[]).find(v => v.id === id)!
-      article.content = content
-      return trpc.message.update.mutate({
+      await trpc.message.update.mutate({
         id,
         content,
       })
+      await this.find()
     },
   },
 })

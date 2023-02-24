@@ -4,7 +4,7 @@ import { mkdir, remove } from 'fs-extra'
 import dayjs from 'dayjs'
 import { t } from './trpc'
 import { Message } from '~/entities/message'
-import { getFinalPath, getMessageDirPath } from '~main/ipcMain'
+import { getAppDataPath, getFinalPath, getMessageDirPath } from '~main/ipcMain'
 
 export const messageRouter = t.router({
   find: t.procedure
@@ -19,7 +19,7 @@ export const messageRouter = t.router({
       throw new Error(`Invalid input: ${typeof val}`)
     })
     .query(({ input, ctx }) => {
-      const messageRepository = ctx.db.getRepository(Message)
+      const messageRepository = ctx.db.getTreeRepository(Message)
       return messageRepository.findOne({
         where: { id: input },
         relations: ['parent'],
@@ -41,14 +41,17 @@ export const messageRouter = t.router({
       where: z.enum(['default', 'trash']).optional(),
     }))
     .mutation(async({ input, ctx }) => {
-      const messageRepository = ctx.db.getRepository(Message)
+      const messageRepository = ctx.db.getTreeRepository(Message)
       const messageObject = messageRepository.create(input)
+      const fireflyMessage = await messageRepository.findOneBy({ id: '0' })
+      if (fireflyMessage) messageObject.parent = fireflyMessage
       if (input.category === 'folder') {
         const title = input.title ?? dayjs().format('YYMMDDHHmmss')
         const path = join(getMessageDirPath(), title)
         await mkdir(path, { recursive: true })
         messageObject.title = title
-        messageObject.path = path
+        const relativePath = path.split(getAppDataPath())[1]
+        messageObject.path = relativePath
       }
       return messageRepository.save(messageObject)
     }),
@@ -70,7 +73,7 @@ export const messageRouter = t.router({
       parentId: z.string().optional(),
     }))
     .mutation(async({ input, ctx }) => {
-      const messageRepository = ctx.db.getRepository(Message)
+      const messageRepository = ctx.db.getTreeRepository(Message)
       const message = await messageRepository.findOneBy({ id: input.id })
       if (message) {
         const parentId = input.parentId
@@ -91,7 +94,7 @@ export const messageRouter = t.router({
   remove: t.procedure
     .input(z.object({ id: z.string() }))
     .mutation(async({ input, ctx }) => {
-      const messageRepository = ctx.db.getRepository(Message)
+      const messageRepository = ctx.db.getTreeRepository(Message)
       const message = await messageRepository.findOneBy({ id: input.id })
       if (message) {
         if (message.path) {

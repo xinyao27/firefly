@@ -96,14 +96,12 @@ async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
 }
 
 const contextMenuOptions = useContextMenuOptions()
-const { show: showContextMenu } = useContextMenu(contextMenuOptions.value)
+const { show: showContextMenu } = useContextMenu()
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     onContextmenu(e: MouseEvent) {
       messageStore.currentMessageId = (option.data as Message)?.id
-      nextTick(() => {
-        showContextMenu(e)
-      })
+      showContextMenu(e, contextMenuOptions)
     },
   }
 }

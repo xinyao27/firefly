@@ -7,7 +7,6 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
   const messages = computed(() => {
     return messageStore.selectedMessageIds.map(id => messageStore.messages.find(v => v.id === id)!)
   })
-  const currentMessage = messageStore.currentMessage
 
   return computed(() => {
     return [
@@ -48,8 +47,8 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
           }
-          else if (currentMessage) {
-            await fn(currentMessage)
+          else if (messageStore.currentMessage) {
+            await fn(messageStore.currentMessage)
           }
         },
       },
@@ -71,8 +70,8 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
           }
-          else if (currentMessage) {
-            $api.shellShowItemInFolder(await $api.getFinalPath(currentMessage.path))
+          else if (messageStore.currentMessage) {
+            $api.shellShowItemInFolder(await $api.getFinalPath(messageStore.currentMessage.path))
           }
         },
       },
@@ -102,9 +101,9 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.success(`已复制 ${allPath.length} 个文件`)
             }
           }
-          else if (currentMessage) {
-            if (currentMessage.path) {
-              const path = await $api.getFinalPath(currentMessage.path)
+          else if (messageStore.currentMessage) {
+            if (messageStore.currentMessage.path) {
+              const path = await $api.getFinalPath(messageStore.currentMessage.path)
               await $api.clipboardWrite({ paths: [path] })
               $message.success('已复制 1 个文件')
             }
@@ -133,9 +132,9 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.success(`已复制 ${allPath.length} 个文件路径`)
             }
           }
-          else if (currentMessage) {
-            if (currentMessage.path) {
-              const path = await $api.getFinalPath(currentMessage.path)
+          else if (messageStore.currentMessage) {
+            if (messageStore.currentMessage.path) {
+              const path = await $api.getFinalPath(messageStore.currentMessage.path)
               await $api.clipboardWrite({ texts: [path] })
               $message.success('已复制 1 个文件路径')
             }
@@ -165,8 +164,9 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.success(`已删除 ${trashes.length} 个文件`)
             }
           }
-          else if (currentMessage) {
-            await messageStore.remove(currentMessage.id)
+          else if (messageStore.currentMessage) {
+            await messageStore.remove(messageStore.currentMessage.id)
+            $message.success('已删除 1 个文件')
           }
         },
       },

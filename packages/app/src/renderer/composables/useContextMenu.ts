@@ -1,10 +1,10 @@
 import type { DropdownOption } from 'naive-ui'
 import { CONTEXT_MENU_KEY } from '~renderer/keys'
 
-export function useContextMenu(options?: DropdownOption[]) {
+export function useContextMenu() {
   const injected = inject(CONTEXT_MENU_KEY)
 
-  const show = (e: MouseEvent) => {
+  const show = (e: MouseEvent, options: ComputedRef<DropdownOption[]>) => {
     e.preventDefault()
     if (injected) {
       injected.open.value = false
@@ -14,7 +14,7 @@ export function useContextMenu(options?: DropdownOption[]) {
           x: e.x,
           y: e.y,
         }
-        if (options) injected.options.value = options
+        injected.options.value = options.value
       })
     }
   }
