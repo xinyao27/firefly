@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TreeDropInfo, TreeOption } from 'naive-ui'
+import { useContextMenuOptions } from './useContextMenuOptions'
 import type { Message } from '~/models/Message'
 
 const messageStore = useMessageStore()
@@ -35,6 +36,7 @@ function createData(messages: Message[]): TreeOption[] {
       label: message.title,
       key: message.id,
       prefix: getIconByMessageCategory(message),
+      suffix: message.fileExt ? () => h('div', { class: 'bg-neutral-700 bg-opacity-60 text-xs font-semibold scale-80 px-1 rounded select-none' }, message.fileExt?.toUpperCase()) : undefined,
     }
   })
 }
@@ -48,6 +50,24 @@ function handleDragEnd() {
   messageStore.draggingMessage = null
 }
 
+const handleUpdatePrefixWithExpanded = (
+  _keys: Array<string | number>,
+  _option: Array<TreeOption | null>,
+  meta: {
+    node: TreeOption | null
+    action: 'expand' | 'collapse' | 'filter'
+  },
+) => {
+  if (!meta.node) return
+  switch (meta.action) {
+    case 'expand':
+      meta.node.prefix = () => h('i', { class: 'i-ri-folder-5-fill' })
+      break
+    case 'collapse':
+      meta.node.prefix = () => h('i', { class: 'i-ri-folder-fill' })
+      break
+  }
+}
 function handleSelect(
   value: Array<string & number>,
   _: any,
@@ -60,52 +80,31 @@ function handleSelect(
   if (meta.node?.category === 'folder') return
 
   messageStore.selectMessageIds(value)
-  messageStore.currentMessageId = meta.node?.key as string
+  messageStore.currentMessageId = (meta.node?.data as Message)?.id as string
 }
 
-function findSiblingsAndIndex(
-  node: TreeOption,
-  nodes?: TreeOption[],
-): [TreeOption[], number] | [null, null] {
-  if (!nodes) return [null, null]
-  for (let i = 0; i < nodes.length; ++i) {
-    const siblingNode = nodes[i]
-    if (siblingNode.key === node.key) return [nodes, i]
-    const [siblings, index] = findSiblingsAndIndex(node, siblingNode.children)
-    if (siblings && index !== null) return [siblings, index]
-  }
-  return [null, null]
-}
-function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
-  const [dragNodeSiblings, dragNodeIndex] = findSiblingsAndIndex(
-    dragNode,
-    data.value,
-  )
-  if (dragNodeSiblings === null || dragNodeIndex === null) return
-  dragNodeSiblings.splice(dragNodeIndex, 1)
+async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   if (dropPosition === 'inside') {
-    if (node.children) {
-      node.children.unshift(dragNode)
-    }
-    else {
-      node.children = [dragNode]
+    await messageStore.move((node.data as Message)?.id, (dragNode.data as Message)?.id)
+  }
+  else {
+    // 拖拽到根目录
+    if (!(node.data as Message).parent) {
+      await messageStore.move('0', (dragNode.data as Message)?.id)
     }
   }
-  else if (dropPosition === 'before') {
-    const [nodeSiblings, nodeIndex] = findSiblingsAndIndex(
-      node,
-      data.value,
-    )
-    if (nodeSiblings === null || nodeIndex === null) return
-    nodeSiblings.splice(nodeIndex, 0, dragNode)
-  }
-  else if (dropPosition === 'after') {
-    const [nodeSiblings, nodeIndex] = findSiblingsAndIndex(
-      node,
-      data.value,
-    )
-    if (nodeSiblings === null || nodeIndex === null) return
-    nodeSiblings.splice(nodeIndex + 1, 0, dragNode)
+}
+
+const contextMenuOptions = useContextMenuOptions()
+const { show: showContextMenu } = useContextMenu(contextMenuOptions.value)
+const nodeProps = ({ option }: { option: TreeOption }) => {
+  return {
+    onContextmenu(e: MouseEvent) {
+      messageStore.currentMessageId = (option.data as Message)?.id
+      nextTick(() => {
+        showContextMenu(e)
+      })
+    },
   }
 }
 </script>
@@ -118,6 +117,9 @@ function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
     draggable
     selectable
     :data="data"
+    :node-props="nodeProps"
+    :default-expanded-keys="[data?.[0]?.key ?? '0']"
+    @update-expanded-keys="handleUpdatePrefixWithExpanded"
     @update:selected-keys="handleSelect"
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"

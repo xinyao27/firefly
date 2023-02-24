@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm'
 import log from 'electron-log'
 import { Message } from '~/entities/message'
 import { DATABASES_DIR_PATH } from '~/constants'
-import { getAppDataPath } from '~main/ipcMain'
+import { getAppDataPath, getMessageDirPath } from '~main/ipcMain'
 
 export class DataBase {
   dataSource: DataSource
@@ -20,8 +20,19 @@ export class DataBase {
       synchronize: true,
     })
     this.dataSource.initialize()
-      .then(() => {
+      .then(async() => {
         log.info(`Database connected with ${basePath}`)
+
+        const messageRepository = this.dataSource.manager.getTreeRepository(Message)
+        const fireflyMessage = await messageRepository.findOneBy({ id: '0' })
+        if (fireflyMessage) return
+        return messageRepository.save({
+          id: '0',
+          title: 'Firefly',
+          category: 'folder',
+          from: 'pc',
+          path: getMessageDirPath().split(getAppDataPath())[1],
+        })
       })
       .catch(error => log.error(error))
   }

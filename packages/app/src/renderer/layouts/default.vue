@@ -1,10 +1,5 @@
 <script setup lang="ts">
 const configStore = useConfigStore()
-
-const { close: closeContextMenu } = useContextMenu()
-function handleScroll() {
-  closeContextMenu()
-}
 </script>
 
 <template>
@@ -37,9 +32,7 @@ function handleScroll() {
         <LeftBar />
       </NLayoutSider>
       <NLayoutContent
-        id="scroll-view"
         :native-scrollbar="false"
-        @scroll="handleScroll"
       >
         <main text-gray-700 dark:text-gray-200 flex flex-col>
           <RouterView />

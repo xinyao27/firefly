@@ -1,7 +1,7 @@
 import { basename, dirname, extname } from 'node:path'
 import chokidar from 'chokidar'
 import { log } from 'electron-log'
-import type { DataSource, Repository } from 'typeorm'
+import type { DataSource, Repository, TreeRepository } from 'typeorm'
 import { readFile, stat } from 'fs-extra'
 import mime from 'mime-types'
 import { getAppDataPath, getMessageDirPath } from './ipcMain'
@@ -11,7 +11,7 @@ import { Message } from '~/entities/message'
 const messageDirPath = getMessageDirPath()
 const appDataPath = getAppDataPath()
 
-async function handleFileAdded(path: string, repository: Repository<Message>) {
+async function handleFileAdded(path: string, repository: TreeRepository<Message>) {
   const relativePath = path.split(appDataPath)[1]
   const message = await repository.findOneBy({ path: relativePath })
   // 没有对应记录 需要创建
@@ -49,6 +49,13 @@ async function handleFileAdded(path: string, repository: Repository<Message>) {
         messageObject.parent = folderMessage
       }
     }
+    // 顶层目录
+    else {
+      const fireflyMessage = await repository.findOneBy({ id: '0' })
+      if (fireflyMessage) {
+        messageObject.parent = fireflyMessage
+      }
+    }
     await repository.save(messageObject)
     log(`File ${path} has been added`)
   }
@@ -64,7 +71,7 @@ async function handleFileChanged(path: string, repository: Repository<Message>) 
     log(`File ${path} has been changed`)
   }
 }
-async function handleDirAdded(path: string, repository: Repository<Message>) {
+async function handleDirAdded(path: string, repository: TreeRepository<Message>) {
   if (path === messageDirPath) return
 
   const relativePath = path.split(appDataPath)[1]
@@ -87,6 +94,13 @@ async function handleDirAdded(path: string, repository: Repository<Message>) {
         messageObject.parent = folderMessage
       }
     }
+    // 顶层目录
+    else {
+      const fireflyMessage = await repository.findOneBy({ id: '0' })
+      if (fireflyMessage) {
+        messageObject.parent = fireflyMessage
+      }
+    }
     await repository.save(messageObject)
     log(`Dir ${path} has been added`)
   }
@@ -102,7 +116,7 @@ async function handleUnlinked(path: string, repository: Repository<Message>) {
 
 export default function(db: DataSource) {
   if (messageDirPath) {
-    const messageRepository = db.getRepository(Message)
+    const messageRepository = db.getTreeRepository(Message)
     const watcher = chokidar.watch(messageDirPath)
     watcher.on('add', (path: string) => handleFileAdded(path, messageRepository))
       .on('change', (path: string) => handleFileChanged(path, messageRepository))

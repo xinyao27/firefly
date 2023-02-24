@@ -35,6 +35,14 @@ export const useMessageStore = defineStore('message', {
     selectMessageIds(selected: MessageId[] = []) {
       this.selectedMessageIds = selected
     },
+    async move(targetMessageId: MessageId, dragMessageId: MessageId) {
+      const message = await trpc.message.update.mutate({
+        id: dragMessageId,
+        parentId: targetMessageId,
+      })
+      await this.find()
+      return message
+    },
 
     async createFolder() {
       const title = dayjs().format('YYMMDDHHmmss')

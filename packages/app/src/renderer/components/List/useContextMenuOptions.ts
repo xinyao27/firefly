@@ -1,11 +1,13 @@
 import type { DropdownOption } from 'naive-ui'
 import type { ComputedRef } from 'vue'
+import type { Message } from '~/models/Message'
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
   const messageStore = useMessageStore()
   const messages = computed(() => {
     return messageStore.selectedMessageIds.map(id => messageStore.messages.find(v => v.id === id)!)
   })
+  const currentMessage = messageStore.currentMessage
 
   return computed(() => {
     return [
@@ -13,35 +15,41 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         label: '默认应用打开',
         key: 'OPEN_WITH_DEFAULT',
         onClick: async() => {
+          async function fn(message: Message) {
+            switch (message.category) {
+              case 'image':
+              case 'other': {
+                const path = await $api.getFinalPath(message.path!)
+                $api.shellOpenPath(path)
+                break
+              }
+              case 'text': {
+                if (message.path) {
+                  const path = await $api.getFinalPath(message.path!)
+                  $api.shellOpenPath(path)
+                }
+                break
+              }
+              case 'link':
+                $api.shellOpenExternal(message.link || message.content!)
+                break
+              case 'rss':
+                // TODO
+                break
+            }
+          }
           if (messages.value.length) {
             try {
               for (const message of messages.value) {
-                switch (message.category) {
-                  case 'image':
-                  case 'other': {
-                    const path = await $api.getFinalPath(message.path!)
-                    $api.shellOpenPath(path)
-                    break
-                  }
-                  case 'text': {
-                    if (message.path) {
-                      const path = await $api.getFinalPath(message.path!)
-                      $api.shellOpenPath(path)
-                    }
-                    break
-                  }
-                  case 'link':
-                    $api.shellOpenExternal(message.link || message.content!)
-                    break
-                  case 'rss':
-                    // TODO
-                    break
-                }
+                await fn(message)
               }
             }
             catch (e) {
               $message.error(e)
             }
+          }
+          else if (currentMessage) {
+            await fn(currentMessage)
           }
         },
       },
@@ -63,6 +71,9 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.error(e)
             }
           }
+          else if (currentMessage) {
+            $api.shellShowItemInFolder(await $api.getFinalPath(currentMessage.path))
+          }
         },
       },
       {
@@ -74,7 +85,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'COPY',
         onClick: async() => {
           if (messages.value.length) {
-            const allPath = []
+            const allPath: string[] = []
             try {
               for (const message of messages.value) {
                 if (message.path) {
@@ -91,6 +102,13 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
               $message.success(`已复制 ${allPath.length} 个文件`)
             }
           }
+          else if (currentMessage) {
+            if (currentMessage.path) {
+              const path = await $api.getFinalPath(currentMessage.path)
+              await $api.clipboardWrite({ paths: [path] })
+              $message.success('已复制 1 个文件')
+            }
+          }
         },
       },
       {
@@ -98,7 +116,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         key: 'COPY_FILE_PATH',
         onClick: async() => {
           if (messages.value.length) {
-            const allPath = []
+            const allPath: string[] = []
             try {
               for (const message of messages.value) {
                 if (message.path) {
@@ -113,6 +131,13 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             finally {
               await $api.clipboardWrite({ texts: allPath })
               $message.success(`已复制 ${allPath.length} 个文件路径`)
+            }
+          }
+          else if (currentMessage) {
+            if (currentMessage.path) {
+              const path = await $api.getFinalPath(currentMessage.path)
+              await $api.clipboardWrite({ texts: [path] })
+              $message.success('已复制 1 个文件路径')
             }
           }
         },
@@ -139,6 +164,9 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
             finally {
               $message.success(`已删除 ${trashes.length} 个文件`)
             }
+          }
+          else if (currentMessage) {
+            await messageStore.remove(currentMessage.id)
           }
         },
       },

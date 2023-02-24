@@ -22,7 +22,7 @@ export const messageRouter = t.router({
       const messageRepository = ctx.db.getRepository(Message)
       return messageRepository.findOne({
         where: { id: input },
-        relations: { parent: true },
+        relations: ['parent'],
       })
     }),
   create: t.procedure
@@ -67,14 +67,26 @@ export const messageRouter = t.router({
       link: z.string().optional(),
       metadata: z.object({}).optional(),
       where: z.enum(['default', 'trash']).optional(),
+      parentId: z.string().optional(),
     }))
     .mutation(async({ input, ctx }) => {
       const messageRepository = ctx.db.getRepository(Message)
-      const old = await messageRepository.findOneBy({ id: input.id })
-      return messageRepository.save({
-        ...old,
-        ...input,
-      })
+      const message = await messageRepository.findOneBy({ id: input.id })
+      if (message) {
+        const parentId = input.parentId
+        delete input.parentId
+        if (parentId) {
+          const parent = await messageRepository.findOneBy({ id: parentId })
+          if (parent) {
+            message.parent = parent
+          }
+        }
+        return messageRepository.save({
+          ...message,
+          ...input,
+        })
+      }
+      throw new Error('没有找到可以更新的内容')
     }),
   remove: t.procedure
     .input(z.object({ id: z.string() }))
