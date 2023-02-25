@@ -17,12 +17,6 @@ function handleToggleSticky() {
 
 const route = useRoute()
 const configStore = useConfigStore()
-function handleToggleLeftBarCollapse() {
-  configStore.leftBarCollapsed = !configStore.leftBarCollapsed
-}
-function handleToggleRightBarCollapse() {
-  configStore.rightBarCollapsed = !configStore.rightBarCollapsed
-}
 </script>
 
 <template>
@@ -36,7 +30,7 @@ function handleToggleRightBarCollapse() {
           size="small"
           quaternary
           :opacity="configStore.leftBarCollapsed ? 40 : 100"
-          @click="handleToggleLeftBarCollapse"
+          @click="configStore.toggleLeftBarCollapse"
         >
           <i v-if="configStore.leftBarCollapsed" i-ri-layout-left-line />
           <i v-else i-ri-layout-left-fill />
@@ -86,7 +80,7 @@ function handleToggleRightBarCollapse() {
           size="small"
           quaternary
           :opacity="configStore.rightBarCollapsed ? 40 : 100"
-          @click="handleToggleRightBarCollapse"
+          @click="configStore.toggleRightBarCollapse"
         >
           <i v-if="configStore.rightBarCollapsed" i-ri-layout-right-line />
           <i v-else i-ri-layout-right-fill />

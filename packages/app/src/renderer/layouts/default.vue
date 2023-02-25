@@ -1,5 +1,19 @@
 <script setup lang="ts">
+import '~renderer/styles/splitpanes.sass'
+
 const configStore = useConfigStore()
+
+function handleResize(args: {
+  min: number
+  max: number
+  size: number
+}[]) {
+  configStore.leftBarSize = configStore.leftBarCollapsed ? 0 : args.at(0)?.size ?? 0
+  configStore.rightBarSize = configStore.rightBarCollapsed ? 0 : args.at(-1)?.size ?? 0
+}
+function handlePaneAdd(...args) {
+  // console.log(args)
+}
 </script>
 
 <template>
@@ -21,33 +35,33 @@ const configStore = useConfigStore()
       >
         <RibbonBar />
       </NLayoutSider>
-      <NLayoutSider
-        collapse-mode="width"
-        :native-scrollbar="false"
-        content-style="height: 100%"
-        :collapsed="configStore.leftBarCollapsed"
-        :collapsed-width="0"
-        :width="configStore.searchPaddingLeft"
-      >
-        <LeftBar />
-      </NLayoutSider>
-      <NLayoutContent
-        :native-scrollbar="false"
-      >
-        <main text-gray-700 dark:text-gray-200 flex flex-col>
-          <RouterView />
-        </main>
+      <NLayoutContent>
+        <Splitpanes
+          class="h-full"
+          @resize="handleResize"
+          @pane-add="handlePaneAdd"
+        >
+          <Pane
+            v-if="!configStore.leftBarCollapsed"
+            min-size="8"
+            :size="configStore.leftBarSize"
+          >
+            <LeftBar />
+          </Pane>
+          <Pane :size="configStore.contentSize">
+            <main text-gray-700 dark:text-gray-200 flex flex-col>
+              <RouterView />
+            </main>
+          </Pane>
+          <Pane
+            v-if="!configStore.rightBarCollapsed"
+            min-size="8"
+            :size="configStore.rightBarSize"
+          >
+            <RightBar />
+          </Pane>
+        </Splitpanes>
       </NLayoutContent>
-      <NLayoutSider
-        collapse-mode="width"
-        :native-scrollbar="false"
-        content-style="height: 100%"
-        :collapsed="configStore.rightBarCollapsed"
-        :collapsed-width="0"
-        :width="configStore.rootPaddingRight"
-      >
-        <RightBar />
-      </NLayoutSider>
     </NLayout>
   </NLayout>
 </template>
