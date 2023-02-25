@@ -9,7 +9,6 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import Inspect from 'vite-plugin-inspect'
 import Unocss from 'unocss/vite'
-// @ts-expect-error noop
 import VueMacros from 'unplugin-vue-macros/vite'
 import { defineConfig, externalizeDepsPlugin, splitVendorChunkPlugin } from 'electron-vite'
 

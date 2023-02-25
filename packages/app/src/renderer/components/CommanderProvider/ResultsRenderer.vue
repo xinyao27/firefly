@@ -1,49 +1,58 @@
 <script setup lang="ts">
-import { KBarResults, useKBarMatches } from '@bytebase/vue-kbar'
+import type { ActionOption, ActionType } from './options'
+import { answeredOptions, initialOptions, selectedOptions } from './options'
 
-const matches = useKBarMatches()
+const props = defineProps<{
+  status: 'empty' | 'answered' | 'error'
+  loading: boolean
+  data: string[]
+}>()
+const emit = defineEmits<{
+  (e: ActionType): void
+}>()
 
-// Tell KBarResults the height of each item will be rendered
-const itemHeight = (params: { item: any; index: number }) => {
-  if (typeof params.item === 'string') return 32
-  return 64
+const options = ref<ActionOption[]>(initialOptions)
+const optionPosition = ref({
+  x: 0,
+  y: 0,
+})
+const answerRef = ref<Element>()
+watchEffect(() => {
+  if (props.status === 'answered') {
+    const answerRect = answerRef.value?.getBoundingClientRect()
+    if (answerRect) {
+      optionPosition.value.x = answerRect.x + answerRect.width + 108
+      optionPosition.value.y = answerRect.y - 6
+      options.value = answeredOptions
+    }
+  }
+})
+
+function handleSelectItem(_: string, option: ActionOption) {
+  option.action?.(emit)
 }
 </script>
 
 <template>
-  <KBarResults
-    :items="matches.results"
-    :item-height="itemHeight"
-    class="max-h-96 p-2"
-  >
-    <template #item="{ item, active }">
-      <div
-        v-if="typeof item === 'string'"
-        flex items-center px-2 py-1 text-neutral-600 font-semibold
-      >
+  <div p-4>
+    <div
+      ref="answerRef"
+      max-h-50 p-2 bg-neutral-800 rounded
+    >
+      <div v-for="item in props.data" :key="item">
         {{ item }}
       </div>
-      <div
-        v-else
-        flex items-center gap-2 p-2 cursor-pointer rounded transition hover:bg-neutral-700
-        :class="{ 'bg-neutral-700': active }"
-      >
-        <span>
-          {{ item.name }}
-        </span>
-        <span
-          v-if="item.subtitle"
-          text-neutral-600
-        >
-          —
-        </span>
-        <span
-          v-if="item.subtitle"
-          text-neutral-600
-        >
-          {{ item.subtitle }}
-        </span>
-      </div>
-    </template>
-  </KBarResults>
+    </div>
+    <NDropdown
+      class="w-46"
+      size="small"
+      :options="options"
+      :disabled="loading"
+      :show="!!props.data.length && (!!optionPosition.x && !!optionPosition.y) && !!options.length"
+      trigger="manual"
+      :x="optionPosition.x"
+      :y="optionPosition.y"
+      @select="handleSelectItem"
+    />
+  </div>
 </template>

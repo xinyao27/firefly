@@ -83,7 +83,7 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div bg-dark-300 rounded p-2>
+  <div bg-dark-300 rounded p-2 shadow-lg>
     <NScrollbar ref="scrollBarRef" max-h-50>
       <template v-if="items.length">
         <div

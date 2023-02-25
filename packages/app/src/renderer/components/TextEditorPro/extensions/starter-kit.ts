@@ -18,6 +18,7 @@ import { ExtensionMessageText } from './message-text'
 import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
 import { ExtensionSlashMenu } from './slash-menu'
+import { ExtensionAIMenu } from './ai-menu'
 
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
@@ -32,8 +33,10 @@ export const extensions: AnyExtension[] = [
   ExtensionCharacterCount,
   ExtensionDrop,
   ExtensionColor,
-  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 命令...' }),
+  ExtensionPlaceholder.configure({ placeholder: '输入 `空格` 调用 AI, `/` 调用命令...' }),
   ExtensionFocus,
+  ExtensionSlashMenu,
+  ExtensionAIMenu,
 
   // Node
   ExtensionMessageImage,
@@ -46,5 +49,4 @@ export const extensions: AnyExtension[] = [
 
   // Mark
   ExtensionUnderline,
-  ExtensionSlashMenu,
 ]

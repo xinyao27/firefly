@@ -1,24 +1,25 @@
 import { VueRenderer } from '@tiptap/vue-3'
+import type { Range } from '@tiptap/core'
 import { Node } from '@tiptap/core'
 import type { Node as ProseMirrorNode } from 'prosemirror-model'
 import { PluginKey } from 'prosemirror-state'
 import tippy, { sticky } from 'tippy.js'
 import { Suggestion } from '@tiptap/suggestion'
 import type { SuggestionOptions } from '@tiptap/suggestion'
-import SlashMenuList from './SlashMenuList.vue'
+import AIMenu from './AIMenu.vue'
 import { commands } from './commands'
 
-export interface SlashMenuOptions {
+export interface AIMenuOptions {
   HTMLAttributes: Record<string, any>
   renderLabel: (props: {
-    options: SlashMenuOptions
+    options: AIMenuOptions
     node: ProseMirrorNode
   }) => string
   suggestion: Omit<SuggestionOptions, 'editor'>
 }
 
-export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
-  name: 'slashMenu',
+export const ExtensionAIMenu = Node.create<AIMenuOptions>({
+  name: 'aiMenu',
 
   group: 'inline',
 
@@ -30,21 +31,30 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
 
   addProseMirrorPlugins() {
     const textEditorStore = useTextEditorStore()
-
+    const _editor = this.editor
     let component: VueRenderer
     let popup: any
     let localProps: Record<string, any> | undefined
-    function destroy() {
+    function destroy(range?: Range) {
       popup[0].destroy()
       component.destroy()
-      textEditorStore.slashMenuShow = false
+      textEditorStore.aiMenuShow = false
+
+      if (range) {
+        _editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .run()
+        window.getSelection()?.collapseToEnd()
+      }
     }
 
     return [
       Suggestion({
         editor: this.editor,
-        char: '/',
-        pluginKey: new PluginKey('slashMenu'),
+        char: ' ',
+        pluginKey: new PluginKey('aiMenu'),
         decorationClass: 'block',
         allow: ({ state, range }) => {
           const $from = state.doc.resolve(range.from)
@@ -61,15 +71,8 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
             range.to += 1
           }
 
-          editor
-            .chain()
-            .focus()
-            .deleteRange(range)
-            .run()
-
-          window.getSelection()?.collapseToEnd()
+          destroy(range)
           props.command?.({ editor, range })
-          destroy()
         },
         items: ({ query }) => {
           if (query) {
@@ -82,7 +85,7 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
             onStart: (props) => {
               localProps = { ...props, event: '' }
 
-              component = new VueRenderer(SlashMenuList, {
+              component = new VueRenderer(AIMenu, {
                 props,
                 editor: props.editor,
               })
@@ -98,10 +101,17 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
                 interactive: true,
                 trigger: 'manual',
                 placement: 'bottom-start',
+                offset: [0, -25],
                 sticky: 'reference',
                 plugins: [sticky],
+                onDestroy() {
+                  destroy(props.range)
+                },
+                onHidden() {
+                  destroy(props.range)
+                },
               })
-              textEditorStore.slashMenuShow = true
+              textEditorStore.aiMenuShow = true
             },
 
             onUpdate(props) {
@@ -120,7 +130,7 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
               component.updateProps({ ...localProps, event: props.event })
 
               if (props.event.key === 'Escape') {
-                destroy()
+                destroy(props.range)
 
                 return true
               }
@@ -128,7 +138,7 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
               return component.ref.onKeyDown({ ...localProps, event: props.event })
             },
 
-            onExit: destroy,
+            onExit: props => destroy(props.range),
           }
         },
       }),

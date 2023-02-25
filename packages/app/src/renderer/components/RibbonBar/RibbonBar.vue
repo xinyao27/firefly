@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { useKBar } from '@bytebase/vue-kbar'
-
 interface Item {
   label: string
   icon: string
   onClick: () => void
 }
 const router = useRouter()
-const kbar = useKBar()
+const commanderStore = useCommanderStore()
 const shortcuts: Item[] = [
   {
     label: '列表',
@@ -19,10 +17,10 @@ const shortcuts: Item[] = [
 ]
 const settings: Item[] = [
   {
-    label: '快捷命令',
-    icon: 'i-ri-terminal-line',
+    label: 'Firefly AI',
+    icon: 'i-tabler-brain',
     onClick() {
-      kbar.state.value.visibility = 'visible'
+      commanderStore.show = true
     },
   },
   {

@@ -20,6 +20,8 @@ window.$router = useRouter()
     <i i-ri-arrow-drop-down-line />
     <i i-ri-download-2-line />
     <i i-ri-upload-2-line />
+    <i i-ri-upload-2-line />
+    <i i-ri-restart-line />
     <div class="!w-300px text-neutral-800" />
   </div>
 </template>
