@@ -3,6 +3,10 @@ import { TransitionPresets } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 const DEFAULT_SIZE = 12
+const rightBarCollapsed = useLocalStorage('rightBarCollapsed', true)
+const leftBarCollapsed = useLocalStorage('leftBarCollapsed', false)
+const leftBarSize = useLocalStorage('leftBarSize', DEFAULT_SIZE)
+const rightBarSize = useLocalStorage('rightBarSize', 0)
 const DURATION = 300
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
 function createEasingFunction([p0, p1, p2, p3]: CubicBezierPoints): EasingFunction {
@@ -34,20 +38,18 @@ const easingFunction = createEasingFunction(TransitionPresets.easeInOutCubic)
 export const useConfigStore = defineStore('config', {
   state: () => {
     return {
-      baseSize: 60,
       rootPaddingTop: 40,
       rootPaddingLeft: 44,
-
-      rightBarCollapsed: true,
-      leftBarCollapsed: false,
-      leftBarSize: DEFAULT_SIZE,
-      rightBarSize: 0,
-
       /**
        * 左侧显示内容 文件列表/搜索
        */
       leftCurrentTool: 'messageList',
       title: '',
+
+      rightBarCollapsed,
+      leftBarCollapsed,
+      leftBarSize,
+      rightBarSize,
     }
   },
   getters: {
