@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { ActionOption, ActionType } from './options'
-import { answeredOptions, initialOptions, selectedOptions } from './options'
+import { answeredOptions, initialOptions } from './options'
 
 const props = defineProps<{
   status: 'empty' | 'answered' | 'error'
   loading: boolean
-  data: string[]
+  data: string
 }>()
 const emit = defineEmits<{
   (e: ActionType): void
@@ -34,13 +34,13 @@ function handleSelectItem(_: string, option: ActionOption) {
 </script>
 
 <template>
-  <div p-4>
+  <div p-4 pt-0>
     <div
       ref="answerRef"
       max-h-50 p-2 bg-neutral-800 rounded
     >
-      <div v-for="item in props.data" :key="item">
-        {{ item }}
+      <div>
+        {{ props.data }}
       </div>
     </div>
     <NDropdown

@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { InputInst } from 'naive-ui'
 import { uniq } from 'lodash'
+import { SSE } from 'sse.js'
+import type { CreateCompletionResponse } from 'openai'
 import ResultsRenderer from './ResultsRenderer.vue'
 import RecentlyQuestion from './RecentlyQuestion.vue'
-import { supabase } from '~renderer/api'
 import { useCommanderRecently } from '~renderer/composables/useCommanderRecently'
 
 const question = ref('')
-const results = ref<string[]>([])
+const results = ref<string>('')
 const loading = ref(false)
 const status = ref<'empty' | 'error' | 'answered'>('empty')
 const inputInstRef = ref<InputInst | null>(null)
@@ -41,50 +42,75 @@ async function handleSearch() {
     recently.value = uniq([question.value, ...recently.value])
   }
 }
-async function handleGetCompletion(prompt?: string) {
-  try {
-    loading.value = true
-    const { data } = await supabase.functions.invoke<{
-      choices: {
-        text: string
-      }[]
-    }>('completion', { body: { prompt: prompt || question.value } })
-    if (data?.choices) {
-      if (!prompt) {
-        results.value = (data.choices).map(v => v.text?.trim())
-      }
-      else {
-        results.value = results.value.concat((data.choices).map(v => v.text?.trim()))
-      }
-    }
-    status.value = 'answered'
-  }
-  catch (error) {
-    status.value = 'error'
-    results.value = [error as string]
-  }
-  finally {
-    loading.value = false
-  }
+function getEdgeFunctionUrl() {
+  const supabaseUrl = (
+    import.meta.env.DEV
+      ? 'http://localhost:54321'
+      : import.meta.env.RENDERER_VITE_SUPABASE_URL
+  )
+    ?.replace(/\/$/, '')
+
+  return `${supabaseUrl}/functions/v1`
 }
+async function handleGetCompletion(type = 'default', text = '', language = 'chinese') {
+  loading.value = true
+  const eventSource = new SSE(`${getEdgeFunctionUrl()}/completion`, {
+    headers: {
+      'apikey': import.meta.env.RENDERER_VITE_SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${import.meta.env.RENDERER_VITE_SUPABASE_ANON_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    payload: JSON.stringify({ prompt: question.value, type, text, language }),
+  })
+  function handleError<T>(err: T) {
+    status.value = 'error'
+    results.value = err as string
+    console.error(err)
+  }
+  eventSource.addEventListener('error', handleError)
+  eventSource.addEventListener('message', (e) => {
+    try {
+      loading.value = true
+
+      if (e.data === '[DONE]') {
+        loading.value = false
+        status.value = 'answered'
+        return
+      }
+
+      const completionResponse = JSON.parse(e.data) as CreateCompletionResponse
+      const [{ text }] = completionResponse.choices
+
+      results.value = (results.value ?? '') + text
+    }
+    catch (err) {
+      handleError(err)
+    }
+  })
+  eventSource.stream()
+}
+
 function handleReset() {
   question.value = ''
-  results.value = []
+  results.value = ''
   loading.value = false
   status.value = 'empty'
   inputInstRef.value?.focus()
 }
 function handleContinue() {
-  handleGetCompletion(results.value.join('\n'))
+  handleGetCompletion('continue', results.value)
 }
 function handleRewrite() {
+  const tempPrompt = question.value
+  handleReset()
+  question.value = tempPrompt
   handleGetCompletion()
 }
 </script>
 
 <template>
   <div w-600px bg-neutral-700 shadow-lg rounded flex flex-col>
-    <div p-4 pb-0>
+    <div p-4>
       <NInput
         ref="inputInstRef"
         v-model:value="question"
@@ -136,12 +162,5 @@ function handleRewrite() {
         handleGetCompletion()
       }"
     />
-    <div
-      v-if="loading"
-      p-4
-    >
-      <NSkeleton text :repeat="2" />
-      <NSkeleton text style="width: 60%" />
-    </div>
   </div>
 </template>

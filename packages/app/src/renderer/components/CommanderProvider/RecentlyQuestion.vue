@@ -13,7 +13,7 @@ function handleSelect(prompt: string) {
 </script>
 
 <template>
-  <div p-4 min-h-24 flex justify-start>
+  <div p-4 pt-0 min-h-24 flex justify-start>
     <div v-if="recently.length" flex flex-col gap-4>
       <div text-sm>
         最近问题
