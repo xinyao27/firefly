@@ -22,6 +22,8 @@ window.$router = useRouter()
     <i i-ri-upload-2-line />
     <i i-ri-upload-2-line />
     <i i-ri-restart-line />
+    <i i-ri-pencil-line />
+    <i i-ri-send-plane-line />
     <div class="!w-300px text-neutral-800" />
   </div>
 </template>

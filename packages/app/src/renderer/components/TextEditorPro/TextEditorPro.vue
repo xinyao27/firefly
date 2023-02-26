@@ -10,6 +10,7 @@ import { extensions } from './extensions/starter-kit'
 
 const configStore = useConfigStore()
 const messageStore = useMessageStore()
+const textEditorStore = useTextEditorStore()
 
 const currentMessage = computed(() => messageStore.currentMessage)
 
@@ -38,14 +39,15 @@ const editor = useEditor({
   },
 })
 
-// onMounted(() => {
-//   editor.value?.commands.setContent(JSON.parse(currentMessage.value?.content || '{}') as JSONContent)
-//   editor.value?.commands.focus()
-// })
-// watch(currentMessage, (value) => {
-//   editor.value?.commands.setContent(JSON.parse(value?.content || '{}') as JSONContent)
-//   editor.value?.commands.focus()
-// })
+onMounted(() => {
+  textEditorStore.editor = editor.value
+  editor.value?.commands.setContent(JSON.parse(currentMessage.value?.content || '{}') as JSONContent)
+  editor.value?.commands.focus()
+})
+watch(currentMessage, (value) => {
+  editor.value?.commands.setContent(JSON.parse(value?.content || '{}') as JSONContent)
+  editor.value?.commands.focus()
+})
 </script>
 
 <template>

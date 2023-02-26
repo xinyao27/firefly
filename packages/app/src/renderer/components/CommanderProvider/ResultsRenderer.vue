@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import type { ActionOption, ActionType } from './options'
-import { answeredOptions, initialOptions } from './options'
+import type { ActionOption } from './options'
+import { answeredOptions, articleOptions, initialOptions } from './options'
 
-const props = defineProps<{
-  status: 'empty' | 'answered' | 'error'
-  loading: boolean
-  data: string
-}>()
-const emit = defineEmits<{
-  (e: ActionType): void
-}>()
+const commanderStore = useCommanderStore()
+const messageStore = useMessageStore()
 
 const options = ref<ActionOption[]>(initialOptions)
 const optionPosition = ref({
@@ -17,19 +11,23 @@ const optionPosition = ref({
   y: 0,
 })
 const answerRef = ref<Element>()
-watchEffect(() => {
-  if (props.status === 'answered') {
+watch(() => commanderStore.status, () => {
+  if (commanderStore.status === 'answered') {
     const answerRect = answerRef.value?.getBoundingClientRect()
     if (answerRect) {
       optionPosition.value.x = answerRect.x + answerRect.width + 108
       optionPosition.value.y = answerRect.y - 6
-      options.value = answeredOptions
+      let _options = [...answeredOptions]
+      if (messageStore.currentMessage && messageStore.currentMessage.category === 'article') {
+        _options = [...articleOptions, ..._options]
+      }
+      options.value = _options
     }
   }
 })
 
 function handleSelectItem(_: string, option: ActionOption) {
-  option.action?.(emit)
+  option.action?.()
 }
 </script>
 
@@ -40,15 +38,15 @@ function handleSelectItem(_: string, option: ActionOption) {
       max-h-50 p-2 bg-neutral-800 rounded
     >
       <div>
-        {{ props.data }}
+        {{ commanderStore.results }}
       </div>
     </div>
     <NDropdown
       class="w-46"
       size="small"
       :options="options"
-      :disabled="loading"
-      :show="!!props.data.length && (!!optionPosition.x && !!optionPosition.y) && !!options.length"
+      :disabled="commanderStore.loading"
+      :show="!!commanderStore.results.length && (!!optionPosition.x && !!optionPosition.y) && !!options.length"
       trigger="manual"
       :x="optionPosition.x"
       :y="optionPosition.y"

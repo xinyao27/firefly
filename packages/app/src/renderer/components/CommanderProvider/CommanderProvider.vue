@@ -10,6 +10,7 @@ const commanderStore = useCommanderStore()
     v-model:show="commanderStore.show"
     transform-origin="center"
     display-directive="show"
+    :mask-closable="!commanderStore.loading"
   >
     <Commander />
   </NModal>

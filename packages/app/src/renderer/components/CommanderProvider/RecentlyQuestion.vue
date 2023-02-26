@@ -1,26 +1,22 @@
 <script setup lang="ts">
-import { useCommanderRecently } from '~renderer/composables/useCommanderRecently'
-
-const emit = defineEmits<{
-  (e: 'select', prompt: string): void
-}>()
-
-const recently = useCommanderRecently()
+const commanderStore = useCommanderStore()
 
 function handleSelect(prompt: string) {
-  emit('select', prompt)
+  commanderStore.reset()
+  commanderStore.question = prompt
+  commanderStore.getCompletion()
 }
 </script>
 
 <template>
   <div p-4 pt-0 min-h-24 flex justify-start>
-    <div v-if="recently.length" flex flex-col gap-4>
+    <div v-if="commanderStore.recently.length" flex flex-col gap-4>
       <div text-sm>
         最近问题
       </div>
       <div flex flex-wrap gap-4>
         <NButton
-          v-for="item in recently"
+          v-for="item in commanderStore.recently"
           :key="item"
           tertiary
           size="small"
