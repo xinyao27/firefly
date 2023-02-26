@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { colors } from 'unocss/preset-mini'
 
