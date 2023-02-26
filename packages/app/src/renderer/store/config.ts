@@ -5,8 +5,8 @@ import { defineStore } from 'pinia'
 const DEFAULT_SIZE = 12
 const rightBarCollapsed = useLocalStorage('rightBarCollapsed', true)
 const leftBarCollapsed = useLocalStorage('leftBarCollapsed', false)
-const leftBarSize = useLocalStorage('leftBarSize', DEFAULT_SIZE)
-const rightBarSize = useLocalStorage('rightBarSize', 0)
+const leftBarSizeCached = useLocalStorage('leftBarSize', DEFAULT_SIZE)
+const rightBarSizeCached = useLocalStorage('rightBarSize', 0)
 const DURATION = 300
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
 function createEasingFunction([p0, p1, p2, p3]: CubicBezierPoints): EasingFunction {
@@ -48,8 +48,10 @@ export const useConfigStore = defineStore('config', {
 
       rightBarCollapsed,
       leftBarCollapsed,
-      leftBarSize,
-      rightBarSize,
+      leftBarSize: 12,
+      rightBarSize: 0,
+      leftBarSizeCached,
+      rightBarSizeCached,
     }
   },
   getters: {
@@ -64,6 +66,7 @@ export const useConfigStore = defineStore('config', {
     toggleLeftBarCollapse() {
       const startAt = Date.now()
       const endAt = startAt + DURATION
+      const originalSize = this.leftBarSizeCached
       // 展开
       if (this.leftBarCollapsed) {
         this.leftBarCollapsed = false
@@ -71,7 +74,7 @@ export const useConfigStore = defineStore('config', {
           nextTick(() => {
             const now = Date.now()
             const progress = clamp(1 - ((endAt - now) / DURATION), 0, 1)
-            this.leftBarSize = DEFAULT_SIZE * easingFunction(progress)
+            this.leftBarSize = originalSize * easingFunction(progress)
             if (progress >= 1) {
               pause()
             }
@@ -81,7 +84,6 @@ export const useConfigStore = defineStore('config', {
       }
       // 收起
       else {
-        const originalSize = this.leftBarSize
         const { pause, resume } = useRafFn(() => {
           nextTick(() => {
             const now = Date.now()
@@ -99,6 +101,7 @@ export const useConfigStore = defineStore('config', {
     toggleRightBarCollapse() {
       const startAt = Date.now()
       const endAt = startAt + DURATION
+      const originalSize = this.rightBarSizeCached
       // 展开
       if (this.rightBarCollapsed) {
         this.rightBarCollapsed = false
@@ -106,7 +109,7 @@ export const useConfigStore = defineStore('config', {
           nextTick(() => {
             const now = Date.now()
             const progress = clamp(1 - ((endAt - now) / DURATION), 0, 1)
-            this.rightBarSize = DEFAULT_SIZE * easingFunction(progress)
+            this.rightBarSize = originalSize * easingFunction(progress)
             if (progress >= 1) {
               pause()
             }
@@ -116,7 +119,6 @@ export const useConfigStore = defineStore('config', {
       }
       // 收起
       else {
-        const originalSize = this.rightBarSize
         const { pause, resume } = useRafFn(() => {
           nextTick(() => {
             const now = Date.now()

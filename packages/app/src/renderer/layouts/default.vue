@@ -3,6 +3,11 @@ import '~renderer/styles/splitpanes.sass'
 
 const configStore = useConfigStore()
 
+onMounted(() => {
+  configStore.leftBarSize = configStore.leftBarSizeCached
+  configStore.rightBarSize = configStore.rightBarSizeCached
+})
+
 function handleResize(args: {
   min: number
   max: number
@@ -11,8 +16,15 @@ function handleResize(args: {
   configStore.leftBarSize = configStore.leftBarCollapsed ? 0 : args.at(0)?.size ?? 0
   configStore.rightBarSize = configStore.rightBarCollapsed ? 0 : args.at(-1)?.size ?? 0
 }
-function handlePaneAdd(...args) {
-  // console.log(args)
+function handleResized(args: {
+  min: number
+  max: number
+  size: number
+}[]) {
+  configStore.leftBarSize = configStore.leftBarCollapsed ? 0 : args.at(0)?.size ?? 0
+  configStore.rightBarSize = configStore.rightBarCollapsed ? 0 : args.at(-1)?.size ?? 0
+  configStore.leftBarSizeCached = configStore.leftBarCollapsed ? 0 : args.at(0)?.size ?? 0
+  configStore.rightBarSizeCached = configStore.rightBarCollapsed ? 0 : args.at(-1)?.size ?? 0
 }
 </script>
 
@@ -39,7 +51,7 @@ function handlePaneAdd(...args) {
         <Splitpanes
           class="h-full"
           @resize="handleResize"
-          @pane-add="handlePaneAdd"
+          @resized="handleResized"
         >
           <Pane
             v-if="!configStore.leftBarCollapsed"
