@@ -3,6 +3,7 @@ import path from 'node:path'
 import type { BrowserWindowConstructorOptions } from 'electron'
 import { BrowserWindow, shell } from 'electron'
 import { is, platform } from '@electron-toolkit/utils'
+import { registerGlobalShortcuts } from '~main/shortcut'
 interface Params {
   onInit: (window: BrowserWindow) => void
   onDestroy?: () => void
@@ -60,6 +61,8 @@ class MainWindow extends EventEmitter {
     else {
       this.window.loadFile(path.join(__dirname, '../renderer/index.html'))
     }
+
+    registerGlobalShortcuts()
 
     // Test actively push message to the Electron-Renderer
     this.window.webContents.on('did-finish-load', () => {

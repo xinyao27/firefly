@@ -2,10 +2,14 @@
 import '~renderer/styles/splitpanes.sass'
 
 const configStore = useConfigStore()
+const commanderStore = useCommanderStore()
 
 onMounted(() => {
   configStore.leftBarSize = configStore.leftBarSizeCached
   configStore.rightBarSize = configStore.rightBarSizeCached
+  $electron.ipcRenderer.on('api:openCommander', () => {
+    commanderStore.open()
+  })
 })
 
 function handleResize(args: {

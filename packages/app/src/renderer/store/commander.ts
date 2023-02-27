@@ -107,7 +107,11 @@ export const useCommanderStore = defineStore('commander', {
       }
     },
 
-    async open(context: Context) {
+    async open() {
+      this.reset()
+      this.show = true
+    },
+    async openAndSearch(context: Context) {
       this.text = context.text
       this.show = true
       await this.getCompletion(context)

@@ -55,7 +55,7 @@ function getTranslateOptions() {
     onClick(editor?: Editor) {
       const commanderStore = useCommanderStore()
       const text = editor?.commands.getTextSelection()
-      commanderStore.open({
+      commanderStore.openAndSearch({
         type: 'translate',
         text,
         language: v.key,
@@ -94,7 +94,7 @@ export const maskActions: Action[] = [
         onClick(editor?: Editor) {
           const commanderStore = useCommanderStore()
           const text = editor?.commands.getTextSelection()
-          commanderStore.open({
+          commanderStore.openAndSearch({
             type: 'summarize',
             text,
           })
@@ -107,7 +107,7 @@ export const maskActions: Action[] = [
         onClick(editor?: Editor) {
           const commanderStore = useCommanderStore()
           const text = editor?.commands.getTextSelection()
-          commanderStore.open({
+          commanderStore.openAndSearch({
             type: 'improveWriting',
             text,
           })
@@ -120,7 +120,7 @@ export const maskActions: Action[] = [
         onClick(editor?: Editor) {
           const commanderStore = useCommanderStore()
           const text = editor?.commands.getTextSelection()
-          commanderStore.open({
+          commanderStore.openAndSearch({
             type: 'fixSpellingAndGrammar',
             text,
           })

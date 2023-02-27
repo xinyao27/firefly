@@ -2,6 +2,7 @@
 interface Item {
   label: string
   icon: string
+  shortcut?: string[]
   onClick: () => void
 }
 const router = useRouter()
@@ -10,6 +11,7 @@ const shortcuts: Item[] = [
   {
     label: '列表',
     icon: 'i-ri-home-smile-line',
+    shortcut: ['Ctrl', '1'],
     onClick() {
       router.replace('/')
     },
@@ -19,6 +21,7 @@ const settings: Item[] = [
   {
     label: 'Firefly AI',
     icon: 'i-tabler-brain',
+    shortcut: ['Ctrl', 'k'],
     onClick() {
       commanderStore.show = true
     },
@@ -52,7 +55,8 @@ const settings: Item[] = [
             <i :class="item.icon" />
           </NButton>
         </template>
-        {{ item.label }}
+        <span mr-2>{{ item.label }}</span>
+        <KBD :shortcut="item.shortcut" />
       </NTooltip>
     </div>
     <div flex flex-col items-center gap-2>
@@ -70,7 +74,8 @@ const settings: Item[] = [
             <i :class="item.icon" />
           </NButton>
         </template>
-        {{ item.label }}
+        <span mr-2>{{ item.label }}</span>
+        <KBD :shortcut="item.shortcut" />
       </NTooltip>
     </div>
   </aside>

@@ -60,6 +60,13 @@ export default function(win: BrowserWindow | null) {
     return filePath
   })
 
+  ipcMain.handle('api:clipboardWrite', (_, options: ClipboardWrite) => clipboardWrite(options))
+  ipcMain.handle('api:shellOpenPath', (_, path: string) => shell.openPath(path))
+  ipcMain.handle('api:shellOpenExternal', (_, path: string) => shell.openExternal(path))
+  ipcMain.handle('api:shellShowItemInFolder', (_, path: string) => shell.showItemInFolder(path))
+  ipcMain.handle('api:fsWriteFile', (_, path: string, buffer: string | Buffer) => writeFile(path, buffer, 'utf-8'))
+  ipcMain.handle('api:getWebsiteMetadata', (_, url: string) => getMetadata(url))
+
   ipcMain.on('api:dragStart', async(event, path, iconPath) => {
     const buffer = await sharp(iconPath).png().toBuffer()
     const icon = nativeImage.createFromBuffer(buffer).resize({ width: 180 })
@@ -68,10 +75,4 @@ export default function(win: BrowserWindow | null) {
       icon,
     })
   })
-  ipcMain.handle('api:clipboardWrite', (_, options: ClipboardWrite) => clipboardWrite(options))
-  ipcMain.handle('api:shellOpenPath', (_, path: string) => shell.openPath(path))
-  ipcMain.handle('api:shellOpenExternal', (_, path: string) => shell.openExternal(path))
-  ipcMain.handle('api:shellShowItemInFolder', (_, path: string) => shell.showItemInFolder(path))
-  ipcMain.handle('api:fsWriteFile', (_, path: string, buffer: string | Buffer) => writeFile(path, buffer, 'utf-8'))
-  ipcMain.handle('api:getWebsiteMetadata', (_, url: string) => getMetadata(url))
 }

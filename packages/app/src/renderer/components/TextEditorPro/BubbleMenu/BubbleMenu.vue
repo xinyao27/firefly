@@ -70,14 +70,7 @@ function handleSelect(_: string, option: DropdownOption) {
             </template>
             <div>{{ item.description }}</div>
             <div text-gray-400 text-xs flex gap-1>
-              <kbd
-                v-for="s in item.shortcut"
-                :key="s"
-                text-gray-600 bg-gray-400 px-1 font-mono font-bold
-                leading-normal tracking-wide uppercase rounded text-xs
-              >
-                {{ s }}
-              </kbd>
+              <KBD :shortcut="item.shortcut" />
             </div>
           </NTooltip>
         </template>
