@@ -24,7 +24,7 @@ const editor = useEditor({
   editorProps: {
     attributes: {
       id: 'text-editor',
-      class: 'min-h-full max-w-full px-[calc((100%-65ch)/2)] overflow-hidden focus:outline-none prose prose-white',
+      class: 'max-w-full px-[calc((100%-65ch)/2)] overflow-hidden focus:outline-none prose prose-white',
       style: `min-height: calc(100vh - ${configStore.rootPaddingTop}px - 46px)`,
       spellcheck: 'false',
       suppressContentEditableWarning: 'true',
@@ -53,9 +53,10 @@ watch(currentMessage, (value) => {
 <template>
   <Title :editor="editor" />
   <BubbleMenu :editor="editor" />
-  <NScrollbar>
-    <EditorContent :editor="editor" />
-  </NScrollbar>
+  <EditorContent
+    class="h-full overflow-x-hidden overflow-y-auto relative"
+    :editor="editor"
+  />
   <CharacterCount :editor="editor" />
 </template>
 

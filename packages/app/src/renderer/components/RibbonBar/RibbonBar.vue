@@ -11,7 +11,6 @@ const shortcuts: Item[] = [
   {
     label: '列表',
     icon: 'i-ri-home-smile-line',
-    shortcut: ['Ctrl', '1'],
     onClick() {
       router.replace('/')
     },
