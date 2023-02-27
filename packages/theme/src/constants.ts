@@ -9,10 +9,10 @@ export const themeOverrides: GlobalThemeOverrides = {
     primaryColorSuppl: colors.blue['500'],
   },
   Layout: {
-    color: colors.dark['700'],
-    headerColor: colors.dark['700'],
+    color: colors.dark['500'],
+    headerColor: colors.dark['500'],
     headerBorderColor: colors.neutral[700],
-    siderColor: colors.dark['700'],
+    siderColor: colors.dark['500'],
     siderBorderColor: colors.neutral[700],
   },
   Tooltip: {
@@ -22,4 +22,5 @@ export const themeOverrides: GlobalThemeOverrides = {
     peers: { Popover: { arrowHeight: '0' } },
   },
   Dialog: { color: colors.dark['600'] },
+  Dropdown: { color: colors.dark[400] },
 }

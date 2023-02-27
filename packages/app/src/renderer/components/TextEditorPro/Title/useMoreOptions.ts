@@ -83,10 +83,10 @@ export function useMoreOptions(o: { editor?: Editor }) {
         })
       },
     },
-    {
-      key: 'import-export-divider',
-      type: 'divider',
-    },
+    // {
+    //   key: 'import-export-divider',
+    //   type: 'divider',
+    // },
   ])
   function handleSelect(key: string) {
     return options.value.find(v => v.key === key)?.action?.()

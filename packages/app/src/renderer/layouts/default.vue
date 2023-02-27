@@ -65,7 +65,7 @@ function handleResized(args: {
             <LeftBar />
           </Pane>
           <Pane :size="configStore.contentSize">
-            <main h-full overflow-hidden bg-dark-500>
+            <main h-full overflow-hidden bg-dark-700>
               <RouterView />
             </main>
           </Pane>

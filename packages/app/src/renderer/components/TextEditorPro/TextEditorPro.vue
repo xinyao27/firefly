@@ -51,13 +51,15 @@ watch(currentMessage, (value) => {
 </script>
 
 <template>
-  <Title :editor="editor" />
-  <BubbleMenu :editor="editor" />
-  <EditorContent
-    class="h-full overflow-x-hidden overflow-y-auto relative"
-    :editor="editor"
-  />
-  <CharacterCount :editor="editor" />
+  <div h-full flex flex-col relative>
+    <Title :editor="editor" />
+    <EditorContent
+      class="flex-1 overflow-x-hidden overflow-y-auto relative"
+      :editor="editor"
+    />
+    <CharacterCount :editor="editor" />
+    <BubbleMenu :editor="editor" />
+  </div>
 </template>
 
 <style lang="sass">
