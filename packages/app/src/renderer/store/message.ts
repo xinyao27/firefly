@@ -78,7 +78,6 @@ export const useMessageStore = defineStore('message', {
         id,
         content,
       })
-      await this.find()
     },
   },
 })

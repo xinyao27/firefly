@@ -5,6 +5,7 @@ export const useTextEditorStore = defineStore('textEditor', {
   state: () => {
     return {
       slashMenuShow: false,
+      aiMenuShow: false,
       editor: undefined as Editor | undefined,
     }
   },
@@ -12,8 +13,16 @@ export const useTextEditorStore = defineStore('textEditor', {
     insertContent(content: Content) {
       const editor = this.editor as Editor
       if (editor) {
-        editor.commands.insertContent(content)
         editor.commands.focus()
+        const { to } = editor.state.selection
+        const position = to + 1
+        editor.commands.insertContentAt(position, content, { updateSelection: true })
+        const node = editor.state.doc.nodeAt(position)
+        const range = {
+          from: position,
+          to: position + (node?.nodeSize ?? 0),
+        }
+        editor.commands.setTextSelection(range)
       }
     },
   },

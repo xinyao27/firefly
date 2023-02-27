@@ -24,6 +24,15 @@ window.$router = useRouter()
     <i i-ri-restart-line />
     <i i-ri-pencil-line />
     <i i-ri-send-plane-line />
+    <i i-ri-bold />
+    <i i-ri-italic />
+    <i i-ri-underline />
+    <i i-ri-strikethrough />
+    <i i-ri-code-line />
+    <i i-ri-translate-2 />
+    <i i-tabler-float-left />
+    <i i-ri-magic-line />
+    <i i-ri-check-line />
     <div class="!w-300px text-neutral-800" />
   </div>
 </template>

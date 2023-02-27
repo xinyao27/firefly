@@ -27,6 +27,7 @@ function handleKeyUp(e: KeyboardEvent) {
   <div w-600px bg-neutral-700 shadow-lg rounded flex flex-col>
     <div p-4>
       <NInput
+        v-show="!commanderStore.text"
         id="aiInput"
         :ref="ref => commanderStore.inputRef = ref"
         v-model:value="commanderStore.question"
@@ -60,6 +61,14 @@ function handleKeyUp(e: KeyboardEvent) {
           </NTooltip>
         </template>
       </NInput>
+      <NSpin :show="commanderStore.loading">
+        <div
+          v-show="commanderStore.text"
+          bg-neutral-600 rounded p-2
+        >
+          {{ commanderStore.text }}
+        </div>
+      </NSpin>
     </div>
     <ResultsRenderer v-if="commanderStore.results.length" />
     <RecentlyQuestion v-if="!commanderStore.results.length && !commanderStore.loading" />

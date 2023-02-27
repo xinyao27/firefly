@@ -18,12 +18,11 @@ import { ExtensionMessageText } from './message-text'
 import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
 import { ExtensionSlashMenu } from './slash-menu'
-import { ExtensionAIMenu } from './ai-menu'
+import { ExtensionCommands } from './commands'
 
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
     dropcursor: {
-      // @ts-expect-error noop
       color: colors?.blue['400'],
       width: 4,
     },
@@ -33,10 +32,10 @@ export const extensions: AnyExtension[] = [
   ExtensionCharacterCount,
   ExtensionDrop,
   ExtensionColor,
-  ExtensionPlaceholder.configure({ placeholder: '输入 `空格` 调用 AI, `/` 调用命令...' }),
+  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
   ExtensionFocus,
   ExtensionSlashMenu,
-  ExtensionAIMenu,
+  ExtensionCommands,
 
   // Node
   ExtensionMessageImage,

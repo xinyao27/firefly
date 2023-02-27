@@ -3,6 +3,12 @@ import type { CreateCompletionResponse } from 'openai'
 import { defineStore } from 'pinia'
 import { SSE } from 'sse.js'
 
+interface Context {
+  type?: 'default' | 'translate' | 'continue' | 'summarize' | 'improveWriting' | 'fixSpellingAndGrammar'
+  text?: string
+  language?: string
+}
+
 function getEdgeFunctionUrl() {
   const supabaseUrl = (
     import.meta.env.DEV
@@ -19,6 +25,7 @@ export const useCommanderStore = defineStore('commander', {
     return {
       show: false,
       question: '',
+      text: '',
       loading: false,
       status: 'empty' as 'empty' | 'error' | 'answered',
       results: '',
@@ -27,7 +34,7 @@ export const useCommanderStore = defineStore('commander', {
     }
   },
   actions: {
-    getCompletion(type = 'default', text = '', language = 'chinese') {
+    getCompletion({ type, text, language }: Context) {
       this.inputRef?.blur()
       this.loading = true
       const eventSource = new SSE(`${getEdgeFunctionUrl()}/completion`, {
@@ -39,6 +46,7 @@ export const useCommanderStore = defineStore('commander', {
         payload: JSON.stringify({ prompt: this.question, type, text, language }),
       })
       const handleError = <T>(err: T) => {
+        this.loading = false
         this.status = 'error'
         this.results = err as string
         console.error(err)
@@ -68,13 +76,17 @@ export const useCommanderStore = defineStore('commander', {
     },
     reset() {
       this.question = ''
-      this.results = ''
+      this.text = ''
       this.loading = false
       this.status = 'empty'
-      if (this.show) this.inputRef?.focus()
+      this.results = ''
+      if (this.show) this.inputRef?.select()
     },
     continue() {
-      this.getCompletion('continue', this.results)
+      this.getCompletion({
+        type: 'continue',
+        text: this.results,
+      })
     },
     rewrite() {
       const tempPrompt = this.question
@@ -93,6 +105,12 @@ export const useCommanderStore = defineStore('commander', {
       else {
         this.recently = uniq([this.question, ...this.recently])
       }
+    },
+
+    async open(context: Context) {
+      this.text = context.text
+      this.show = true
+      await this.getCompletion(context)
     },
   },
 })

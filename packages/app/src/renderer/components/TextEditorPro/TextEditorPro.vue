@@ -4,7 +4,7 @@ import { EditorContent, useEditor } from '@tiptap/vue-3'
 import 'highlight.js/scss/github-dark.scss'
 import { debounce } from 'lodash-es'
 import Title from './Title'
-import BubbleMenu from './BubbleMenu.vue'
+import BubbleMenu from './BubbleMenu'
 import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
 
@@ -99,7 +99,7 @@ watch(currentMessage, (value) => {
     caret-color: auto !important
     &::before
       @apply pointer-events-none h-0 float-left text-neutral-600 capitalize
-      content: "输入 `空格` 调用 AI, `/` 调用命令..."
+      content: "输入 `/` 调用命令..."
 
 .drag-handle
   @apply absolute z-100 w-6 h-6 rounded flex items-center justify-center cursor-grab transition hover:bg-neutral-600

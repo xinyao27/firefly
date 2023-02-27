@@ -63,9 +63,12 @@ export const articleOptions: ActionOption[] = [
     action() {
       const textEditorStore = useTextEditorStore()
       const commanderStore = useCommanderStore()
+      const content = `<p>${commanderStore.results.trim()}</p>`
       commanderStore.show = false
-      textEditorStore.insertContent(`<p>${commanderStore.results.trim()}</p>`)
       commanderStore.reset()
+      nextTick(() => {
+        textEditorStore.insertContent(content)
+      })
     },
   },
 ]
