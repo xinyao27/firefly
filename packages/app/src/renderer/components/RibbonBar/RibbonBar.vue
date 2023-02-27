@@ -54,8 +54,13 @@ const settings: Item[] = [
             <i :class="item.icon" />
           </NButton>
         </template>
-        <span mr-2>{{ item.label }}</span>
-        <KBD :shortcut="item.shortcut" />
+        <div flex gap-2>
+          <span>{{ item.label }}</span>
+          <KBD
+            v-if="item.shortcut"
+            :shortcut="item.shortcut"
+          />
+        </div>
       </NTooltip>
     </div>
     <div flex flex-col items-center gap-2>
@@ -73,8 +78,13 @@ const settings: Item[] = [
             <i :class="item.icon" />
           </NButton>
         </template>
-        <span mr-2>{{ item.label }}</span>
-        <KBD :shortcut="item.shortcut" />
+        <div flex gap-2>
+          <span>{{ item.label }}</span>
+          <KBD
+            v-if="item.shortcut"
+            :shortcut="item.shortcut"
+          />
+        </div>
       </NTooltip>
     </div>
   </aside>
