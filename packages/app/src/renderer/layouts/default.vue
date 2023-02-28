@@ -5,8 +5,8 @@ const configStore = useConfigStore()
 const copilotStore = useCopilotStore()
 
 onMounted(() => {
-  configStore.leftBarSize = configStore.leftBarSizeCached
-  configStore.rightBarSize = configStore.rightBarSizeCached
+  configStore.leftBarSize = configStore.leftBarCollapsed ? 0 : configStore.leftBarSizeCached
+  configStore.rightBarSize = configStore.rightBarCollapsed ? 0 : configStore.rightBarSizeCached
   $electron.ipcRenderer.on('api:openCopilot', () => {
     copilotStore.open()
   })
