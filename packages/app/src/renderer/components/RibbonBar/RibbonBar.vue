@@ -20,7 +20,7 @@ const settings: Item[] = [
   {
     label: 'Firefly AI',
     icon: 'i-tabler-brain',
-    shortcut: ['Ctrl', 'k'],
+    shortcut: ['ctrl', 'k'],
     onClick() {
       copilotStore.show = true
     },

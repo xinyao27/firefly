@@ -127,14 +127,14 @@ export const maskActions: Action[] = [
         },
       },
     ],
-    shortcut: ['Ctrl', '/'],
+    shortcut: ['ctrl', '/'],
     onClick() {
     },
   },
   { type: 'divider', key: 'd1' },
   {
     key: 'bold',
-    shortcut: ['Ctrl', 'B'],
+    shortcut: ['ctrl', 'b'],
     prefix: () => h('i', { class: 'i-ri-bold' }),
     description: '加粗',
     onClick(editor) {
@@ -143,7 +143,7 @@ export const maskActions: Action[] = [
   },
   {
     key: 'italicize',
-    shortcut: ['Ctrl', 'I'],
+    shortcut: ['ctrl', 'i'],
     prefix: () => h('i', { class: 'i-ri-italic' }),
     description: '斜体',
     onClick(editor) {
@@ -152,7 +152,7 @@ export const maskActions: Action[] = [
   },
   {
     key: 'underline',
-    shortcut: ['Ctrl', 'U'],
+    shortcut: ['ctrl', 'u'],
     prefix: () => h('i', { class: 'i-ri-underline' }),
     description: '下划线',
     onClick(editor) {
@@ -161,7 +161,7 @@ export const maskActions: Action[] = [
   },
   {
     key: 'strike through',
-    shortcut: ['Ctrl', 'Shift', 'X'],
+    shortcut: ['ctrl', 'shift', 'x'],
     prefix: () => h('i', { class: 'i-ri-strikethrough' }),
     description: '中划线',
     onClick(editor) {
@@ -170,7 +170,7 @@ export const maskActions: Action[] = [
   },
   {
     key: 'mark as code',
-    shortcut: ['Ctrl', 'E'],
+    shortcut: ['ctrl', 'e'],
     prefix: () => h('i', { class: 'i-ri-code-line' }),
     description: '代码',
     onClick(editor) {

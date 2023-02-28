@@ -23,9 +23,12 @@ watch(
 </script>
 
 <template>
-  <TextEditorPro
-    v-if="blockStore.currentBlockId && blockStore.currentBlock?.category === 'article'"
-  />
+  <template v-if="blockStore.currentBlockId">
+    <TextEditorPro
+      v-if="blockStore.currentBlock?.category === 'article'"
+    />
+  </template>
+  <Empty v-else />
 </template>
 
 <route lang="yaml">
