@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TreeDropInfo, TreeOption } from 'naive-ui'
 import { useContextMenuOptions } from './useContextMenuOptions'
+import { useClick } from './useClick'
 import type { Block } from '~/models/Block'
 
 const blockStore = useBlockStore()
@@ -41,6 +42,7 @@ function createData(blocks: Block[]): TreeOption[] {
     }
   })
 }
+
 const data = computed(() => createData(blockStore.blocks))
 
 function handleDragStart({ node }: { event: DragEvent; node: TreeOption }) {
@@ -84,29 +86,19 @@ async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
 
 const contextMenuOptions = useContextMenuOptions()
 const { show: showContextMenu } = useContextMenu()
+const onClick = useClick()
+
 const nodeProps = ({ option }: { option: TreeOption }) => {
+  const block = option.data as Block
   return {
+    'data-block-id': block.id,
     onContextmenu(e: MouseEvent) {
-      blockStore.currentBlockId = (option.data as Block)?.id
+      blockStore.currentBlockId = block?.id
       showContextMenu(e, contextMenuOptions)
     },
     onClick(e: MouseEvent) {
       const prevBlockId = blockStore.currentBlockId
-      const blockId = (option.data as Block)?.id
-      const block = blockStore.getOne(blockId)
-      if (prevBlockId !== blockId) {
-        blockStore.currentBlockId = blockId
-        if (e.ctrlKey)
-          blockStore.selectBlockIds([...blockStore.selectedBlockIds, blockId])
-        else
-          blockStore.selectBlockIds([blockId])
-      }
-      if (block?.category === 'folder' && (!e.ctrlKey && !e.shiftKey)) {
-        if (blockStore.expandedBlockIds.includes(blockId))
-          blockStore.expandedBlockIds = blockStore.expandedBlockIds.filter(id => id !== blockId)
-        else
-          blockStore.expandedBlockIds.push(blockId)
-      }
+      onClick(e, prevBlockId, block)
     },
   }
 }
@@ -114,7 +106,7 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
 
 <template>
   <NTree
-    ref="treeRef"
+    id="block-tree"
     class="h-[calc(100%-22px)]"
     block-line
     block-node
