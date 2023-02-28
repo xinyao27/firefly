@@ -80,7 +80,8 @@ export const useCopilotStore = defineStore('copilot', {
       this.loading = false
       this.status = 'empty'
       this.results = ''
-      if (this.show) this.inputRef?.select()
+      if (this.show)
+        this.inputRef?.select()
     },
     continue() {
       this.getCompletion({

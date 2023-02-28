@@ -18,9 +18,8 @@ function handleTitlePopoverUpdate(show: boolean) {
       blockStore.currentBlock
     && popoverDefaultTitle.value
     && blockStore.currentBlock.title !== popoverDefaultTitle.value
-    ) {
+    )
       blockStore.updateArticleTitle(blockStore.currentBlock.id, popoverDefaultTitle.value)
-    }
   }
 }
 </script>

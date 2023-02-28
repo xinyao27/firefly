@@ -11,11 +11,13 @@ const navigateBackDisabled = computed(() => {
 const navigateForwardDisabled = computed(() => router.routeHistory.at(-1)?.path === route.path)
 
 function handleNavigateBack() {
-  if (navigateBackDisabled.value) return
+  if (navigateBackDisabled.value)
+    return
   router.back()
 }
 function handleNavigateForward() {
-  if (navigateForwardDisabled.value) return
+  if (navigateForwardDisabled.value)
+    return
   router.forward()
 }
 </script>

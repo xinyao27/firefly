@@ -29,9 +29,9 @@ class MainWindow extends EventEmitter {
         sandbox: false,
       },
     }
-    if (platform.isWindows) {
+    if (platform.isWindows)
       defaultOptions.frame = false
-    }
+
     this.option = defaultOptions
     this.window = null
     this.init(this.option, onInit, onDestroy)
@@ -55,12 +55,11 @@ class MainWindow extends EventEmitter {
       this.window.webContents.openDevTools()
     }
 
-    if (is.dev && process.env.ELECTRON_RENDERER_URL) {
+    if (is.dev && process.env.ELECTRON_RENDERER_URL)
       this.window.loadURL(process.env.ELECTRON_RENDERER_URL)
-    }
-    else {
+
+    else
       this.window.loadFile(path.join(__dirname, '../renderer/index.html'))
-    }
 
     registerGlobalShortcuts()
 
@@ -71,7 +70,8 @@ class MainWindow extends EventEmitter {
 
     // Make all links open with the browser, not with the application
     this.window.webContents.setWindowOpenHandler(({ url }) => {
-      if (url.startsWith('https:')) shell.openExternal(url)
+      if (url.startsWith('https:'))
+        shell.openExternal(url)
       return { action: 'deny' }
     })
 
@@ -87,7 +87,8 @@ class MainWindow extends EventEmitter {
 
   show() {
     if (this.window) {
-      if (this.window.isMinimized()) this.window.restore()
+      if (this.window.isMinimized())
+        this.window.restore()
       this.window.show()
     }
   }

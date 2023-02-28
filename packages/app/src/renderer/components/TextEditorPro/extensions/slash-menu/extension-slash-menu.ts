@@ -57,9 +57,8 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
           const nodeAfter = editor.view.state.selection.$to.nodeAfter
           const overrideSpace = nodeAfter?.text?.startsWith(' ')
 
-          if (overrideSpace) {
+          if (overrideSpace)
             range.to += 1
-          }
 
           editor
             .chain()
@@ -72,9 +71,9 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
           destroy()
         },
         items: ({ query }) => {
-          if (query) {
+          if (query)
             return commands.filter(item => item.title.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
-          }
+
           return commands
         },
         render: () => {
@@ -87,9 +86,9 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
                 editor: props.editor,
               })
 
-              if (!props.clientRect) {
+              if (!props.clientRect)
                 return
-              }
+
               popup = tippy('body', {
                 getReferenceClientRect: props.clientRect as any,
                 appendTo: () => document.body,
@@ -109,9 +108,8 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
 
               component.updateProps(props)
 
-              if (!props.clientRect) {
+              if (!props.clientRect)
                 return
-              }
 
               popup[0].setProps({ getReferenceClientRect: props.clientRect })
             },

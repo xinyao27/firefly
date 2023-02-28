@@ -18,9 +18,9 @@ watch(() => copilotStore.status, () => {
       optionPosition.value.x = answerRect.x + answerRect.width + 108
       optionPosition.value.y = answerRect.y - 6
       let _options = [...answeredOptions]
-      if (blockStore.currentBlock && blockStore.currentBlock.category === 'article') {
+      if (blockStore.currentBlock && blockStore.currentBlock.category === 'article')
         _options = [...articleOptions, ..._options]
-      }
+
       options.value = _options
     }
   }

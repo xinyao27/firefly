@@ -25,9 +25,8 @@ function runRule(ruleSet: RuleSet, doc: Document, context: Context) {
         if (ruleSet.scorer) {
           const newScore = ruleSet.scorer(element, score)
 
-          if (newScore) {
+          if (newScore)
             score = newScore
-          }
         }
 
         if (score > maxScore) {
@@ -39,16 +38,14 @@ function runRule(ruleSet: RuleSet, doc: Document, context: Context) {
   }
 
   if (value) {
-    if (ruleSet.processor) {
+    if (ruleSet.processor)
       value = ruleSet.processor(value, context)
-    }
 
     return value
   }
 
-  if ((!value || value.length < 1) && ruleSet.defaultValue) {
+  if ((!value || value.length < 1) && ruleSet.defaultValue)
     return ruleSet.defaultValue(context)
-  }
 
   return undefined
 }

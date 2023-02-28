@@ -16,15 +16,14 @@ export interface ClipboardWrite {
   imagePath?: string
 }
 export async function clipboardWrite({ paths, texts, imagePath }: ClipboardWrite) {
-  if (paths) {
+  if (paths)
     return clipboardEx.writeFilePaths(paths)
-  }
-  if (texts) {
+
+  if (texts)
     return clipboard.writeText(texts.join('\n'))
-  }
-  if (imagePath) {
+
+  if (imagePath)
     return clipboardEx.putImage(imagePath)
-  }
 }
 
 export function getAppDataPath() {
@@ -36,7 +35,7 @@ export function getBlockDirPath() {
 export function getFinalPath(path: string) {
   return join(getAppDataPath(), path)
 }
-export default function(win: BrowserWindow | null) {
+export default function (win: BrowserWindow | null) {
   ipcMain.handle('get:appDataPath', getAppDataPath)
   ipcMain.handle('get:blockDirPath', getBlockDirPath)
   ipcMain.handle('get:finalPath', (_, path: string) => getFinalPath(path))
@@ -44,19 +43,19 @@ export default function(win: BrowserWindow | null) {
   ipcMain.handle('win:minimize', () => win?.minimize())
   ipcMain.handle('win:toggleMaximize', () => {
     if (win) {
-      if (win.isMaximized()) {
+      if (win.isMaximized())
         win.unmaximize()
-      }
-      else {
+
+      else
         win.maximize()
-      }
     }
   })
   ipcMain.handle('win:close', () => win?.close())
   ipcMain.handle('win:setAlwaysOnTop', (_, onTop: boolean) => win?.setAlwaysOnTop(onTop))
-  ipcMain.handle('win:showSaveDialog', async(_, options: SaveDialogOptions) => {
+  ipcMain.handle('win:showSaveDialog', async (_, options: SaveDialogOptions) => {
     const { canceled, filePath } = await dialog.showSaveDialog(options)
-    if (canceled) return false
+    if (canceled)
+      return false
     return filePath
   })
 
@@ -67,7 +66,7 @@ export default function(win: BrowserWindow | null) {
   ipcMain.handle('api:fsWriteFile', (_, path: string, buffer: string | Buffer) => writeFile(path, buffer, 'utf-8'))
   ipcMain.handle('api:getWebsiteMetadata', (_, url: string) => getMetadata(url))
 
-  ipcMain.on('api:dragStart', async(event, path, iconPath) => {
+  ipcMain.on('api:dragStart', async (event, path, iconPath) => {
     const buffer = await sharp(iconPath).png().toBuffer()
     const icon = nativeImage.createFromBuffer(buffer).resize({ width: 180 })
     event.sender.startDrag({

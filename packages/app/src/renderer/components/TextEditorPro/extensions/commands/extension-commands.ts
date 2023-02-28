@@ -16,9 +16,8 @@ export const ExtensionCommands = Extension.create({
       getTextSelection: () => ({ editor }) => {
         const { from, to, empty } = editor.state.selection
 
-        if (empty) {
+        if (empty)
           return ''
-        }
 
         return editor.state.doc.textBetween(from, to, ' ')
       },

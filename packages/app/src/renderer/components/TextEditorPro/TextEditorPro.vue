@@ -15,9 +15,8 @@ const textEditorStore = useTextEditorStore()
 const currentBlock = computed(() => blockStore.currentBlock)
 
 const handleUpdate = debounce((content: JSONContent) => {
-  if (currentBlock.value) {
+  if (currentBlock.value)
     blockStore.updateArticleContent(currentBlock.value?.id, JSON.stringify(content))
-  }
 }, 300)
 const editor = useEditor({
   extensions,
@@ -65,7 +64,7 @@ watch(currentBlock, (value) => {
 <style lang="sass">
 .ProseMirror
   > *
-    @apply relative after:(content-[""] block w-20 h-full absolute -left-20 top-0 z-99 cursor-default)
+    @apply relative overflow-x-visible after:(content-empty block w-20 h-full absolute -left-20 top-0 z-99 cursor-default)
   > * + *
     margin-top: 0.75em
   pre
@@ -76,7 +75,7 @@ watch(currentBlock, (value) => {
     padding-bottom: 0.75em
     border-radius: 0.5em
     code
-      @apply text-white p-0 bg-transparent
+      @apply text-white p-0 bg-transparent overflow-x-auto
       font-size: 0.875em
       line-height: 1.25em
   code

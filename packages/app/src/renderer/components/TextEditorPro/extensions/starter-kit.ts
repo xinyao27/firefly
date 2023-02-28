@@ -19,6 +19,7 @@ import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
 import { ExtensionSlashMenu } from './slash-menu'
 import { ExtensionCommands } from './commands'
+import { ExtensionBlockID } from './block-id'
 
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
@@ -36,6 +37,7 @@ export const extensions: AnyExtension[] = [
   ExtensionFocus,
   ExtensionSlashMenu,
   ExtensionCommands,
+  ExtensionBlockID.configure({ types: ['heading', 'paragraph'] }),
 
   // Node
   ExtensionBlockImage,

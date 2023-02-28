@@ -27,9 +27,10 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
     e.preventDefault()
 
     counter -= 1
-    if (counter === 0) { isOverDropZone.value = false }
+    if (counter === 0)
+      isOverDropZone.value = false
   })
-  useEventListener<DragEvent>(target, 'drop', async(e) => {
+  useEventListener<DragEvent>(target, 'drop', async (e) => {
     e.preventDefault()
 
     if (counter) {

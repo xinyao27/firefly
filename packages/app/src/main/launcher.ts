@@ -57,7 +57,8 @@ class Launcher extends EventEmitter {
 
   makeSingleInstance(callback: () => void) {
     // Disable GPU Acceleration for Windows 7
-    if (release().startsWith('6.1')) app.disableHardwareAcceleration()
+    if (release().startsWith('6.1'))
+      app.disableHardwareAcceleration()
 
     // Set application name for Windows 10+ notifications
     if (platform.isWindows) {
@@ -92,12 +93,11 @@ class Launcher extends EventEmitter {
 
     app.on('activate', () => {
       const allWindows = BrowserWindow.getAllWindows()
-      if (allWindows.length) {
+      if (allWindows.length)
         allWindows[0].focus()
-      }
-      else {
+
+      else
         callback()
-      }
     })
 
     app.on('window-all-closed', () => {

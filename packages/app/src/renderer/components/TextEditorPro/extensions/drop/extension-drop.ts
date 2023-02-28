@@ -30,18 +30,18 @@ export const ExtensionDrop = Extension.create({
         key: new PluginKey('drop'),
         props: {
           handleDrop(view, event) {
-            (async() => {
+            (async () => {
               const blockStore = useBlockStore()
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
               if (blockStore.draggingBlock) {
                 if (pos) {
                   const block = { ...blockStore.draggingBlock }
-                  if (block.path) {
+                  if (block.path)
                     block.path = await $api.getFinalPath(block.path)
-                  }
 
                   const t = blockStore.blocks.find(v => v.id === block.id)
-                  if (t) t.used = true
+                  if (t)
+                    t.used = true
 
                   if (block.category === 'link') {
                     const metadata = await $api.getWebsiteMetadata(block.link!)
@@ -104,9 +104,9 @@ export const ExtensionDrop = Extension.create({
 
           transformPasted(slice) {
             const blockStore = useBlockStore()
-            if (blockStore.draggingBlock) {
+            if (blockStore.draggingBlock)
               return new Slice(Fragment.empty, 0, 0)
-            }
+
             return slice
           },
         },

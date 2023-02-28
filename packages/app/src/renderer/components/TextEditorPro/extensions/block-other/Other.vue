@@ -13,9 +13,8 @@ const size = computed(() => {
 
 async function handleOpen() {
   const path = block.path
-  if (path) {
+  if (path)
     $api.shellOpenPath(path)
-  }
 }
 </script>
 

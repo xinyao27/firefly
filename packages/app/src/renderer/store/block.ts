@@ -12,7 +12,8 @@ function find(id: string, array: Block[]): Block | null {
     }
     else {
       result = find(id, v.children || [])
-      if (result) break
+      if (result)
+        break
     }
   }
   return result
@@ -29,7 +30,8 @@ export const useBlockStore = defineStore('block', {
   },
   getters: {
     currentBlock(state) {
-      if (state.currentBlockId) return find(state.currentBlockId, state.blocks)
+      if (state.currentBlockId)
+        return find(state.currentBlockId, state.blocks)
       return null
     },
   },

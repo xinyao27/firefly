@@ -19,9 +19,8 @@ export function useContextMenu() {
     }
   }
   const close = () => {
-    if (injected) {
+    if (injected)
       injected.open.value = false
-    }
   }
 
   return { show, close }

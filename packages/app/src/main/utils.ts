@@ -9,9 +9,9 @@ export async function getCategoryAndThumb({ ext, path }: {
   ext?: string
   path?: string
 }): Promise<{
-    category: BlockCategory
-    thumb?: string
-  }> {
+  category: BlockCategory
+  thumb?: string
+}> {
   switch (ext) {
     case 'txt':
     case undefined:

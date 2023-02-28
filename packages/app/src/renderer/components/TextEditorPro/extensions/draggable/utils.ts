@@ -4,16 +4,16 @@ import type { EditorView } from 'prosemirror-view'
 
 function dropPoint(doc: Node, pos: number, slice: Slice) {
   const $pos = doc.resolve(pos)
-  if (!slice.content.size) {
+  if (!slice.content.size)
     return pos
-  }
+
   let content = slice.content
-  for (let i = 0; i < slice.openStart; i++) {
+  for (let i = 0; i < slice.openStart; i++)
     content = content.firstChild!.content
-  }
+
   for (
     let pass = 1;
-    pass <= (slice.openStart === 0 && slice.size ? 2 : 1);
+    pass <= (slice.openStart === 0 && (slice.size ? 2 : 1));
     pass++
   ) {
     for (let d = $pos.depth; d >= 0; d--) {
@@ -62,13 +62,16 @@ export const removePossibleTable = (
         left: event.clientX,
         top: event.clientY,
       })
-      if (!eventPos) return null
+      if (!eventPos)
+        return null
       const slice = view.dragging?.slice
-      if (!slice) return null
+      if (!slice)
+        return null
 
       const $mouse = view.state.doc.resolve(eventPos.pos)
       const insertPos = dropPoint(view.state.doc, $mouse.pos, slice)
-      if (!insertPos) return null
+      if (!insertPos)
+        return null
 
       let tr = state.tr
       tr = tr.delete($pos.before(d), $pos.after(d))
@@ -97,10 +100,11 @@ const nodeIsFirstChild = (pos: ResolvedPos) => {
   let parent = pos.parent
   const node = pos.node()
 
-  if (parent === node) {
+  if (parent === node)
     parent = pos.node(pos.depth - 1)
-  }
-  if (!parent || parent.type.name === 'doc') return false
+
+  if (!parent || parent.type.name === 'doc')
+    return false
 
   return parent.firstChild === node
 }
@@ -127,8 +131,10 @@ export const selectRootNodeByDom = (
   view: EditorView,
 ): ActiveNode | null => {
   const root = view.dom
-  if (!root) return null
-  if (dom === root) return null
+  if (!root)
+    return null
+  if (dom === root)
+    return null
 
   const pos = view.posAtDOM(dom, 0)
 

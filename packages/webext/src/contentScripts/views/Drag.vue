@@ -13,12 +13,14 @@ const filesStore = useFilesStore()
 
 useEventListener('drag', (e) => {
   e.preventDefault()
-  if (counter < 0) { counter = 0 }
+  if (counter < 0)
+    counter = 0
   toggleShow(true)
 })
 useEventListener('dragend', (e) => {
   e.preventDefault()
-  if (counter === 0) { toggleShow(false) }
+  if (counter === 0)
+    toggleShow(false)
 })
 
 function handleDragEnter() {
@@ -30,7 +32,8 @@ function handleDragOver() {
 }
 function handleDragLeave() {
   counter -= 1
-  if (counter === 0) { toggleDragIn(false) }
+  if (counter === 0)
+    toggleDragIn(false)
 }
 
 function handleDrop(e: DragEvent) {

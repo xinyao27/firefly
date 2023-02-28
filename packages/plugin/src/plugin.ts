@@ -1,4 +1,3 @@
-
 export class Plugin {
   manifest: PluginManifest
 

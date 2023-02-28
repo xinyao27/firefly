@@ -15,9 +15,8 @@ onMounted(() => {
 watch(
   visibility,
   (f) => {
-    if (f) {
+    if (f)
       blockStore.find()
-    }
   },
   { deep: true },
 )

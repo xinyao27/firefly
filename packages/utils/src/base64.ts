@@ -1,8 +1,7 @@
 export function isBase64(str: string) {
-  if (str.includes('data:') && str.includes('base64')) {
+  if (str.includes('data:') && str.includes('base64'))
     return true
-  }
-  else {
+
+  else
     return false
-  }
 }

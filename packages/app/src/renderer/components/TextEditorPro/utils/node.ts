@@ -6,9 +6,8 @@ export function getCurrentNode(state: EditorState): Node | null {
   const $head = state.selection.$head
   let node: Node | null = null
 
-  for (let d = $head.depth; d > 0; d--) {
+  for (let d = $head.depth; d > 0; d--)
     node = $head.node(d)
-  }
 
   return node
 }
@@ -17,9 +16,8 @@ export function getNodeAtPos(state: EditorState, pos: number): Node | null {
   const $head = state.doc.resolve(pos)
   let node: Node | null = null
 
-  for (let d = $head.depth; d > 0; d--) {
+  for (let d = $head.depth; d > 0; d--)
     node = $head.node(d)
-  }
 
   return node
 }
@@ -36,13 +34,13 @@ export function isNodeActive(editor: Editor, extensionName: string): boolean {
 }
 
 export function isInCustomNode(state: EditorState, nodeName: string): boolean {
-  if (!state.schema.nodes[nodeName]) return false
+  if (!state.schema.nodes[nodeName])
+    return false
 
   const $head = state.selection.$head
   for (let d = $head.depth; d > 0; d--) {
-    if ($head.node(d).type === state.schema.nodes[nodeName]) {
+    if ($head.node(d).type === state.schema.nodes[nodeName])
       return true
-    }
   }
   return false
 }
@@ -52,7 +50,8 @@ export function isInCodeBlock(state: EditorState): boolean {
 }
 
 export function isInTitle(state: EditorState): boolean {
-  if (state?.selection?.$head?.pos === 0) return true
+  if (state?.selection?.$head?.pos === 0)
+    return true
   return isInCustomNode(state, 'title')
 }
 
@@ -109,7 +108,8 @@ export const findNodeByBlockId = (
 }
 
 export const isNodeEmpty = (node: Node) => {
-  if (node.isAtom && !node.isTextblock) return false
+  if (node.isAtom && !node.isTextblock)
+    return false
 
   return node.type.name === 'paragraph' && node.nodeSize === 2
 }

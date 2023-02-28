@@ -20,12 +20,13 @@ export class DataBase {
       synchronize: true,
     })
     this.dataSource.initialize()
-      .then(async() => {
+      .then(async () => {
         log.info(`Database connected with ${basePath}`)
 
         const blockRepository = this.dataSource.manager.getTreeRepository(Block)
         const fireflyBlock = await blockRepository.findOneBy({ id: '0' })
-        if (fireflyBlock) return
+        if (fireflyBlock)
+          return
         return blockRepository.save({
           id: '0',
           title: 'Firefly',

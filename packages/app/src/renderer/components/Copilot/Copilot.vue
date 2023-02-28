@@ -6,20 +6,18 @@ const copilotStore = useCopilotStore()
 
 watch(() => copilotStore.show, (value) => {
   nextTick(() => {
-    if (value) {
+    if (value)
       copilotStore.inputRef?.focus()
-    }
-    else {
+
+    else
       copilotStore.inputRef?.blur()
-    }
   })
 })
 
 const activeElement = useActiveElement()
 function handleKeyUp(e: KeyboardEvent) {
-  if (e.key === 'Enter' && (activeElement.value?.id && activeElement.value?.id === (e.target as HTMLElement)?.id)) {
+  if (e.key === 'Enter' && (activeElement.value?.id && activeElement.value?.id === (e.target as HTMLElement)?.id))
     copilotStore.search()
-  }
 }
 </script>
 

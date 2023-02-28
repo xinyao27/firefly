@@ -14,7 +14,8 @@ export const blockRouter = t.router({
     }),
   findOne: t.procedure
     .input((val: unknown) => {
-      if (typeof val === 'string') return val
+      if (typeof val === 'string')
+        return val
 
       throw new Error(`Invalid input: ${typeof val}`)
     })
@@ -40,11 +41,12 @@ export const blockRouter = t.router({
       metadata: z.object({}).optional(),
       where: z.enum(['default', 'trash']).optional(),
     }))
-    .mutation(async({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const blockRepository = ctx.db.getTreeRepository(Block)
       const blockObject = blockRepository.create(input)
       const fireflyBlock = await blockRepository.findOneBy({ id: '0' })
-      if (fireflyBlock) blockObject.parent = fireflyBlock
+      if (fireflyBlock)
+        blockObject.parent = fireflyBlock
       if (input.category === 'folder') {
         const title = input.title ?? dayjs().format('YYMMDDHHmmss')
         const path = join(getBlockDirPath(), title)
@@ -72,7 +74,7 @@ export const blockRouter = t.router({
       where: z.enum(['default', 'trash']).optional(),
       parentId: z.string().optional(),
     }))
-    .mutation(async({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const blockRepository = ctx.db.getTreeRepository(Block)
       const block = await blockRepository.findOneBy({ id: input.id })
       if (block) {
@@ -80,9 +82,8 @@ export const blockRouter = t.router({
         delete input.parentId
         if (parentId) {
           const parent = await blockRepository.findOneBy({ id: parentId })
-          if (parent) {
+          if (parent)
             block.parent = parent
-          }
         }
         return blockRepository.save({
           ...block,
@@ -93,7 +94,7 @@ export const blockRouter = t.router({
     }),
   remove: t.procedure
     .input(z.object({ id: z.string() }))
-    .mutation(async({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const blockRepository = ctx.db.getTreeRepository(Block)
       const block = await blockRepository.findOneBy({ id: input.id })
       if (block) {

@@ -8,9 +8,9 @@ export const SCHEMA = 'atom'
 export async function protocolRequestHandler(req: any, next: any) {
   const reqUrl = (req.url as string).slice(7)
   let reqPath = decodeURIComponent(path.normalize(reqUrl))
-  if (reqPath === '/') {
+  if (reqPath === '/')
     reqPath = '/index.html'
-  }
+
   const reqFilename = path.basename(reqPath)
 
   try {

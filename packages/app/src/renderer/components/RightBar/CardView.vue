@@ -9,7 +9,7 @@ const lastBlock = computed(() => {
   const lastBlockId = blockStore.selectedBlockIds.at(-1)
   return blocks.find(v => v.id === lastBlockId)
 })
-const thumb = computedAsync(async() => {
+const thumb = computedAsync(async () => {
   switch (lastBlock.value?.category) {
     case 'image':
       return `atom://${await $api.getFinalPath(lastBlock.value?.thumb ?? '')}`
@@ -26,9 +26,8 @@ const size = computed(() => {
 })
 const path = computedAsync(() => $api.getFinalPath(lastBlock.value?.path ?? ''))
 function handleOpen(path?: string) {
-  if (path) {
+  if (path)
     $api.shellOpenPath(path)
-  }
 }
 </script>
 

@@ -19,7 +19,7 @@ let previousTabId = 0
 
 // communication example: send previous tab title from background page
 // see shim.d.ts for type declaration
-browser.tabs.onActivated.addListener(async({ tabId }) => {
+browser.tabs.onActivated.addListener(async ({ tabId }) => {
   if (!previousTabId) {
     previousTabId = tabId
     return
@@ -40,7 +40,7 @@ browser.tabs.onActivated.addListener(async({ tabId }) => {
   sendMessage('tab-prev', { title: tab.title }, { context: 'content-script', tabId })
 })
 
-onMessage('get-current-tab', async() => {
+onMessage('get-current-tab', async () => {
   try {
     const tab = await browser.tabs.get(previousTabId)
     return { title: tab?.title }
@@ -50,9 +50,8 @@ onMessage('get-current-tab', async() => {
   }
 })
 
-browser.browserAction.onClicked.addListener(async() => {
+browser.browserAction.onClicked.addListener(async () => {
   const tabs = await browser.tabs.query({ active: true, currentWindow: true })
-  if (tabs[0].id) {
+  if (tabs[0].id)
     browser.tabs.sendMessage(tabs[0].id, { from: 'webext', api: MESSAGE_API.MESSAGE_CREATE_LINK })
-  }
 })

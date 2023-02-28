@@ -11,9 +11,8 @@ const { state, isReady, isLoading } = useAsyncState(
   null,
   {
     onSuccess(data) {
-      if (data?.title) {
+      if (data?.title)
         configStore.setTitle(data.title)
-      }
     },
   },
 )

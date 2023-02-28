@@ -58,7 +58,8 @@ const handleUpdatePrefixWithExpanded = (
     action: 'expand' | 'collapse' | 'filter'
   },
 ) => {
-  if (!meta.node) return
+  if (!meta.node)
+    return
   switch (meta.action) {
     case 'expand':
       meta.node.prefix = () => h('i', { class: 'i-ri-folder-5-fill' })
@@ -76,8 +77,10 @@ function handleSelect(
     action: 'select' | 'unselect'
   },
 ) {
-  if (meta.action === 'unselect') return
-  if (meta.node?.category === 'folder') return
+  if (meta.action === 'unselect')
+    return
+  if (meta.node?.category === 'folder')
+    return
 
   blockStore.selectBlockIds(value)
   blockStore.currentBlockId = (meta.node?.data as Block)?.id as string
@@ -89,9 +92,8 @@ async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   }
   else {
     // 拖拽到根目录
-    if (!(node.data as Block).parent) {
+    if (!(node.data as Block).parent)
       await blockStore.move('0', (dragNode.data as Block)?.id)
-    }
   }
 }
 

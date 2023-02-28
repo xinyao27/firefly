@@ -12,16 +12,15 @@ export function makeUrlAbsolute(base: string, relative: string): string {
   try {
     const relativeParsed = new URL(relative)
 
-    if (relativeParsed.host === null) {
+    if (relativeParsed.host === null)
       return resolve(base, relative)
-    }
 
     return relative
   }
   catch (_) {
-    if (relative.startsWith('/')) {
+    if (relative.startsWith('/'))
       return resolve(base, relative)
-    }
+
     return relative
   }
 }

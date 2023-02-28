@@ -237,9 +237,8 @@ export const metaDataRules: Record<string, RuleSet> = {
         const sizeMatches = sizes.match(/\d+/g)
         if (sizeMatches) {
           const parsed = parseInt(sizeMatches[0])
-          if (!isNaN(parsed)) {
+          if (!isNaN(parsed))
             return parsed
-          }
         }
       }
     },

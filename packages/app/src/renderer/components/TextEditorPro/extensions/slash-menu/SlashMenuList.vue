@@ -13,7 +13,8 @@ const buttonRefs = ref<Element[]>([])
 const scrollBarRef = ref<ScrollbarInst>()
 
 function setButtonRef(el: any) {
-  if (el) buttonRefs.value.push(el)
+  if (el)
+    buttonRefs.value.push(el)
 }
 
 function handleScrollToSelectItem() {
@@ -74,9 +75,8 @@ function enterHandler() {
 function handleSelectItem(index: number) {
   const item = props.items[index]
 
-  if (item) {
+  if (item)
     setTimeout(() => props.command(item))
-  }
 }
 
 defineExpose({ onKeyDown })

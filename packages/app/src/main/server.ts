@@ -20,7 +20,7 @@ import { DataBase } from '~main/database'
 
 const db = new DataBase('firefly').dataSource
 
-export const createContext = async() => {
+export const createContext = async () => {
   return { db }
 }
 
@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
   }
   if (req.url === '/upload' && req.method?.toLowerCase() === 'post') {
     const form = formidable({})
-    return form.parse(req, async(err, fields, files) => {
+    return form.parse(req, async (err, fields, files) => {
       if (err) {
         res.statusCode = err.httpCode || 400
         return res.end(String(err))
@@ -69,13 +69,13 @@ const server = http.createServer((req, res) => {
         const relativeDirPath = MESSAGE_SAVE_DIR_PATH
         const absoluteDirPath = join(getAppDataPath(), relativeDirPath)
         const isExists = await pathExists(absoluteDirPath)
-        if (!isExists) {
+        if (!isExists)
           await mkdir(absoluteDirPath, { recursive: true })
-        }
 
         const uploadFiles = Object.keys(files).map(v => files[v])
         for (const file of uploadFiles) {
-          if (Array.isArray(file)) return
+          if (Array.isArray(file))
+            return
           const name = file.originalFilename!
           const relativePath = join(relativeDirPath, name)
           const absolutePath = join(absoluteDirPath, name)
@@ -117,7 +117,8 @@ const server = http.createServer((req, res) => {
         }
         if (jsonFiles) {
           for (const file of jsonFiles) {
-            if (Array.isArray(file)) return
+            if (Array.isArray(file))
+              return
             const name = file.name
             const relativePath = join(relativeDirPath, name)
             const absolutePath = join(absoluteDirPath, name)

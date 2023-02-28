@@ -13,7 +13,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
       {
         label: '默认应用打开',
         key: 'OPEN_WITH_DEFAULT',
-        onClick: async() => {
+        onClick: async () => {
           async function fn(block: Block) {
             switch (block.category) {
               case 'image':
@@ -39,9 +39,8 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
           }
           if (blocks.value.length) {
             try {
-              for (const block of blocks.value) {
+              for (const block of blocks.value)
                 await fn(block)
-              }
             }
             catch (e) {
               $message.error(e)
@@ -55,7 +54,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
       {
         label: '文件资源管理器打开',
         key: 'OPEN_WITH_EXPLORER',
-        onClick: async() => {
+        onClick: async () => {
           if (blocks.value.length) {
             try {
               if (blocks.value.length === 1 && blocks.value[0].path) {
@@ -82,7 +81,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
       {
         label: '复制文件',
         key: 'COPY',
-        onClick: async() => {
+        onClick: async () => {
           if (blocks.value.length) {
             const allPath: string[] = []
             try {
@@ -113,7 +112,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
       {
         label: '复制文件路径',
         key: 'COPY_FILE_PATH',
-        onClick: async() => {
+        onClick: async () => {
           if (blocks.value.length) {
             const allPath: string[] = []
             try {
@@ -148,7 +147,7 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
       {
         label: '删除',
         key: 'REMOVE',
-        onClick: async() => {
+        onClick: async () => {
           if (blocks.value.length) {
             const trashes = []
             try {

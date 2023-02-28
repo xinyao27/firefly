@@ -23,7 +23,8 @@ function createEasingFunction([p0, p1, p2, p3]: CubicBezierPoints): EasingFuncti
 
     for (let i = 0; i < 4; ++i) {
       const currentSlope = getSlope(aGuessT, p0, p2)
-      if (currentSlope === 0) { return aGuessT }
+      if (currentSlope === 0)
+        return aGuessT
       const currentX = calcBezier(aGuessT, p0, p2) - x
       aGuessT -= currentX / currentSlope
     }
@@ -75,9 +76,8 @@ export const useConfigStore = defineStore('config', {
             const now = Date.now()
             const progress = clamp(1 - ((endAt - now) / DURATION), 0, 1)
             this.leftBarSize = originalSize * easingFunction(progress)
-            if (progress >= 1) {
+            if (progress >= 1)
               pause()
-            }
           })
         }, { immediate: false })
         resume()
@@ -110,9 +110,8 @@ export const useConfigStore = defineStore('config', {
             const now = Date.now()
             const progress = clamp(1 - ((endAt - now) / DURATION), 0, 1)
             this.rightBarSize = originalSize * easingFunction(progress)
-            if (progress >= 1) {
+            if (progress >= 1)
               pause()
-            }
           })
         }, { immediate: false })
         resume()

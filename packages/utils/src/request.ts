@@ -24,31 +24,30 @@ export function upload({
 }) {
   const formData = new FormData()
   if (files && Array.isArray(files)) {
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++)
       formData.append(`file${i}`, files[i])
-    }
   }
   else if (typeof text === 'string') {
     formData.append('text', text)
   }
 
-  if (jsonFiles) {
+  if (jsonFiles)
     formData.append('jsonFiles', JSON.stringify(jsonFiles))
-  }
-  if (metadata) {
+
+  if (metadata)
     formData.append('metadata', JSON.stringify(metadata))
-  }
-  if (from) {
+
+  if (from)
     formData.append('from', from)
-  }
+
   return fetch('http://localhost:5487/upload', {
     method: 'POST',
     body: formData,
   })
     .then((res) => {
-      if (res.status >= 400) {
+      if (res.status >= 400)
         throw new Error(res.statusText)
-      }
+
       return res
     })
 }

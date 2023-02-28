@@ -5,7 +5,7 @@ import type { BlockModel } from '~/models/Block'
 const props = defineProps(nodeViewProps)
 const block = props.node.attrs.block as BlockModel
 
-const metadata = computedAsync(async() => {
+const metadata = computedAsync(async () => {
   return props.node.attrs.metadata || await $api.getWebsiteMetadata(block.link!)
 })
 </script>

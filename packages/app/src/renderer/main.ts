@@ -19,11 +19,11 @@ import './styles/main.sass'
 
 const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
-if (setting === 'dark' || (prefersDark && setting !== 'light')) { document.documentElement.classList.toggle('dark', true) }
+if (setting === 'dark' || (prefersDark && setting !== 'light'))
+  document.documentElement.classList.toggle('dark', true)
 
-if (import.meta.env.DEV) {
+if (import.meta.env.DEV)
   devtools.connect('localhost', 8098)
-}
 
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
@@ -53,23 +53,23 @@ app.use(pinia)
 app.use(i18n)
 
 router.beforeEach((to, from) => {
-  if (to.path !== from.path) { NProgress.start() }
+  if (to.path !== from.path)
+    NProgress.start()
 })
 function getRouteIndex(path: string) {
   for (const i in routeHistory) {
     const r = routeHistory[i]
-    if (r.path === path) {
+    if (r.path === path)
       return Number(i)
-    }
   }
   return -1
 }
 router.afterEach((to) => {
   NProgress.done()
   const index = getRouteIndex(to.path)
-  if (index !== -1) {
+  if (index !== -1)
     routeHistory.splice(index, 1)
-  }
+
   routeHistory.push(to)
 })
 // @ts-expect-error noop

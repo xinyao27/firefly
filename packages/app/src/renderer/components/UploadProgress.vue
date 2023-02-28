@@ -4,12 +4,11 @@ import { useLoadingBar } from 'naive-ui'
 const uploadStore = useUploadStore()
 const loadingBar = useLoadingBar()
 watchEffect(() => {
-  if (uploadStore.isUploading) {
+  if (uploadStore.isUploading)
     loadingBar.start()
-  }
-  else {
+
+  else
     loadingBar.finish()
-  }
 })
 </script>
 

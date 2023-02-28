@@ -43,12 +43,13 @@ export const ExtensionDraggable = Extension.create({
     const renderDragHandleDOM = (view: EditorView, el: HTMLElement) => {
       const root = view.dom.parentElement
 
-      if (!root) return
+      if (!root)
+        return
 
       while (el && el.parentElement) {
-        if (el.parentElement.classList.contains('ProseMirror')) {
+        if (el.parentElement.classList.contains('ProseMirror'))
           break
-        }
+
         el = el.parentElement
       }
 
@@ -72,7 +73,8 @@ export const ExtensionDraggable = Extension.create({
     }
 
     const handleMouseDown = () => {
-      if (!activeNode) return null
+      if (!activeNode)
+        return null
 
       if (NodeSelection.isSelectable(activeNode.node)) {
         const nodeSelection = NodeSelection.create(
@@ -89,7 +91,8 @@ export const ExtensionDraggable = Extension.create({
     }
 
     const handleMouseUp = () => {
-      if (!dragging) return
+      if (!dragging)
+        return
 
       dragging = false
       activeSelection = null
@@ -128,7 +131,8 @@ export const ExtensionDraggable = Extension.create({
               editorView = view
             },
             destroy: () => {
-              if (!dragHandleDOM) return
+              if (!dragHandleDOM)
+                return
 
               dragHandleDOM.removeEventListener('mousedown', handleMouseDown)
               dragHandleDOM.removeEventListener('mouseup', handleMouseUp)
@@ -140,24 +144,23 @@ export const ExtensionDraggable = Extension.create({
         props: {
           handleDOMEvents: {
             drop: (view, event: DragEvent) => {
-              if (!view.editable || !dragHandleDOM) return false
+              if (!view.editable || !dragHandleDOM)
+                return false
 
               const eventPos = view.posAtCoords({
                 left: event.clientX,
                 top: event.clientY,
               })
-              if (!eventPos) {
+              if (!eventPos)
                 return true
-              }
 
               const $mouse = view.state.doc.resolve(eventPos.pos)
 
               /**
                * 不允许在 title 处放置
                */
-              if ($mouse?.parent?.type?.name === 'title') {
+              if ($mouse?.parent?.type?.name === 'title')
                 return true
-              }
 
               if (dragging) {
                 const tr = removePossibleTable(view, event)
@@ -172,14 +175,14 @@ export const ExtensionDraggable = Extension.create({
               return false
             },
             mousemove: (view, event) => {
-              if (!view.editable || !dragHandleDOM) {
+              if (!view.editable || !dragHandleDOM)
                 return false
-              }
 
               const dom = event.target
 
               if (!(dom instanceof Element)) {
-                if (dragging) return false
+                if (dragging)
+                  return false
                 hideDragHandleDOM()
                 return false
               }
@@ -192,10 +195,10 @@ export const ExtensionDraggable = Extension.create({
                 || result.node.type.name === 'tableOfContents'
                 || result.node.type.name === 'column'
                 // empty paragraph
-                || (result.node.type.name === 'paragraph'
-                && result.node.nodeSize === 2)
+                || (result.node.type.name === 'paragraph' && result.node.nodeSize === 2)
               ) {
-                if (dragging) return false
+                if (dragging)
+                  return false
                 hideDragHandleDOM()
                 return false
               }
@@ -211,7 +214,8 @@ export const ExtensionDraggable = Extension.create({
                   const parent = getNodeAtPos(view.state, pos)
 
                   if (parent && parent.type.name !== 'paragraph') {
-                    if (dragging) return false
+                    if (dragging)
+                      return false
                     hideDragHandleDOM()
                     return false
                   }
@@ -224,7 +228,8 @@ export const ExtensionDraggable = Extension.create({
               return false
             },
             keydown: () => {
-              if (!editorView.editable || !dragHandleDOM) return false
+              if (!editorView.editable || !dragHandleDOM)
+                return false
               hideDragHandleDOM()
               return false
             },

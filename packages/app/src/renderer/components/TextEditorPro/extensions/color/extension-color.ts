@@ -8,9 +8,8 @@ function findColors(doc: Node): DecorationSet {
   const decorations: Decoration[] = []
 
   doc.descendants((node, position) => {
-    if (!node.text) {
+    if (!node.text)
       return
-    }
 
     Array
       .from(node.text.matchAll(hexColor))

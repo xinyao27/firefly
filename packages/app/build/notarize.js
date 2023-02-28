@@ -1,12 +1,13 @@
 const { notarize } = require('@electron/notarize')
 
 module.exports = async (context) => {
-  if (process.platform !== 'darwin') return
+  if (process.platform !== 'darwin')
+    return
 
-  console.log('aftersign hook triggered, start to notarize app.')
+  console.warn('aftersign hook triggered, start to notarize app.')
 
   if (!process.env.CI) {
-    console.log(`skipping notarizing, not in CI.`)
+    console.warn('skipping notarizing, not in CI.')
     return
   }
 
@@ -26,11 +27,12 @@ module.exports = async (context) => {
       appBundleId: appId,
       appPath: `${appOutDir}/${appName}.app`,
       appleId: process.env.APPLE_ID,
-      appleIdPassword: process.env.APPLEIDPASS
+      appleIdPassword: process.env.APPLEIDPASS,
     })
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error)
   }
 
-  console.log(`done notarizing ${appId}.`)
+  console.warn(`done notarizing ${appId}.`)
 }

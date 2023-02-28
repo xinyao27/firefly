@@ -45,16 +45,14 @@ async function handleFileAdded(path: string, repository: TreeRepository<Block>) 
     if (dirPath !== blockDirPath) {
       const relativeDirPath = dirPath.split(appDataPath)[1]
       const folderBlock = await repository.findOneBy({ path: relativeDirPath })
-      if (folderBlock) {
+      if (folderBlock)
         blockObject.parent = folderBlock
-      }
     }
     // 顶层目录
     else {
       const fireflyBlock = await repository.findOneBy({ id: '0' })
-      if (fireflyBlock) {
+      if (fireflyBlock)
         blockObject.parent = fireflyBlock
-      }
     }
     await repository.save(blockObject)
     log(`File ${path} has been added`)
@@ -72,7 +70,8 @@ async function handleFileChanged(path: string, repository: Repository<Block>) {
   }
 }
 async function handleDirAdded(path: string, repository: TreeRepository<Block>) {
-  if (path === blockDirPath) return
+  if (path === blockDirPath)
+    return
 
   const relativePath = path.split(appDataPath)[1]
   const block = await repository.findOneBy({ path: relativePath })
@@ -90,16 +89,14 @@ async function handleDirAdded(path: string, repository: TreeRepository<Block>) {
     if (dirPath !== blockDirPath) {
       const relativeDirPath = dirPath.split(appDataPath)[1]
       const folderBlock = await repository.findOneBy({ path: relativeDirPath })
-      if (folderBlock) {
+      if (folderBlock)
         blockObject.parent = folderBlock
-      }
     }
     // 顶层目录
     else {
       const fireflyBlock = await repository.findOneBy({ id: '0' })
-      if (fireflyBlock) {
+      if (fireflyBlock)
         blockObject.parent = fireflyBlock
-      }
     }
     await repository.save(blockObject)
     log(`Dir ${path} has been added`)
@@ -114,7 +111,7 @@ async function handleUnlinked(path: string, repository: Repository<Block>) {
   }
 }
 
-export default function(db: DataSource) {
+export default function (db: DataSource) {
   if (blockDirPath) {
     const blockRepository = db.getTreeRepository(Block)
     const watcher = chokidar.watch(blockDirPath)
