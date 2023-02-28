@@ -23,6 +23,7 @@ export const useBlockStore = defineStore('block', {
   state: () => {
     return {
       blocks: [] as Block[],
+      expandedBlockIds: [] as BlockId[],
       selectedBlockIds: [] as BlockId[],
       currentBlockId: null as BlockId | null,
       draggingBlock: null as Block | null,
@@ -34,8 +35,17 @@ export const useBlockStore = defineStore('block', {
         return find(state.currentBlockId, state.blocks)
       return null
     },
+    selectedBlocks(state) {
+      if (state.selectedBlockIds)
+        return state.selectedBlockIds.map(id => find(id, state.blocks))
+
+      return []
+    },
   },
   actions: {
+    getOne(id: BlockId) {
+      return find(id, this.blocks)
+    },
     async find() {
       const blocks = await trpc.block.find.query()
       this.blocks = blocks
@@ -46,6 +56,9 @@ export const useBlockStore = defineStore('block', {
     async remove(id: BlockId) {
       await trpc.block.remove.mutate({ id })
       await this.find()
+    },
+    expandBlockIds(expanded: BlockId[] = []) {
+      this.expandedBlockIds = expanded
     },
     selectBlockIds(selected: BlockId[] = []) {
       this.selectedBlockIds = selected
@@ -58,14 +71,14 @@ export const useBlockStore = defineStore('block', {
       await this.find()
     },
 
-    async createFolder() {
+    async createFolder(parentId = '0') {
       const title = dayjs().format('YYMMDDHHmmss')
-      await trpc.block.create.mutate({ title, category: 'folder', from: 'pc' })
+      await trpc.block.create.mutate({ title, category: 'folder', from: 'pc', parentId })
       await this.find()
     },
-    async createArticle() {
+    async createArticle(parentId = '0') {
       const title = dayjs().format('YYMMDDHHmmss')
-      await trpc.block.create.mutate({ title, category: 'article', from: 'pc' })
+      await trpc.block.create.mutate({ title, category: 'article', from: 'pc', parentId })
       await this.find()
     },
     async updateArticleTitle(id: BlockId, title: string) {

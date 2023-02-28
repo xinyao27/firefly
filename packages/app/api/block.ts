@@ -40,13 +40,16 @@ export const blockRouter = t.router({
       link: z.string().optional(),
       metadata: z.object({}).optional(),
       where: z.enum(['default', 'trash']).optional(),
+      parentId: z.string().optional(),
     }))
     .mutation(async ({ input, ctx }) => {
       const blockRepository = ctx.db.getTreeRepository(Block)
+      const parentId = input.parentId
+      delete input.parentId
       const blockObject = blockRepository.create(input)
-      const fireflyBlock = await blockRepository.findOneBy({ id: '0' })
-      if (fireflyBlock)
-        blockObject.parent = fireflyBlock
+      const parent = await blockRepository.findOneBy({ id: parentId })
+      if (parent)
+        blockObject.parent = parent
       if (input.category === 'folder') {
         const title = input.title ?? dayjs().format('YYMMDDHHmmss')
         const path = join(getBlockDirPath(), title)

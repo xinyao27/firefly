@@ -4,12 +4,25 @@ import type { Block } from '~/models/Block'
 
 export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
   const blockStore = useBlockStore()
-  const blocks = computed(() => {
-    return blockStore.selectedBlockIds.map(id => blockStore.blocks.find(v => v.id === id)!)
-  })
 
   return computed(() => {
     return [
+      {
+        label: '新建文章',
+        key: 'CREATE_ARTICLE',
+        onClick: async () => {
+          if (blockStore.currentBlockId)
+            blockStore.createArticle(blockStore.currentBlockId)
+        },
+      },
+      {
+        label: '新建文件夹',
+        key: 'CREATE_FOLDER',
+        onClick: async () => {
+          if (blockStore.currentBlockId)
+            blockStore.createFolder(blockStore.currentBlockId)
+        },
+      },
       {
         label: '默认应用打开',
         key: 'OPEN_WITH_DEFAULT',
@@ -37,10 +50,12 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
                 break
             }
           }
-          if (blocks.value.length) {
+          if (blockStore.selectedBlocks.length) {
             try {
-              for (const block of blocks.value)
-                await fn(block)
+              for (const block of blockStore.selectedBlocks) {
+                if (block)
+                  await fn(block)
+              }
             }
             catch (e) {
               $message.error(e)
@@ -55,10 +70,10 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         label: '文件资源管理器打开',
         key: 'OPEN_WITH_EXPLORER',
         onClick: async () => {
-          if (blocks.value.length) {
+          if (blockStore.selectedBlocks.length) {
             try {
-              if (blocks.value.length === 1 && blocks.value[0].path) {
-                $api.shellShowItemInFolder(await $api.getFinalPath(blocks.value[0].path))
+              if (blockStore.selectedBlocks.length === 1 && blockStore.selectedBlocks[0]?.path) {
+                $api.shellShowItemInFolder(await $api.getFinalPath(blockStore.selectedBlocks[0].path))
               }
               else {
                 const dirPath = await $api.getFinalPath('files')
@@ -82,11 +97,11 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         label: '复制文件',
         key: 'COPY',
         onClick: async () => {
-          if (blocks.value.length) {
+          if (blockStore.selectedBlocks.length) {
             const allPath: string[] = []
             try {
-              for (const block of blocks.value) {
-                if (block.path) {
+              for (const block of blockStore.selectedBlocks) {
+                if (block?.path) {
                   const path = await $api.getFinalPath(block.path)
                   allPath.push(path)
                 }
@@ -113,11 +128,11 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         label: '复制文件路径',
         key: 'COPY_FILE_PATH',
         onClick: async () => {
-          if (blocks.value.length) {
+          if (blockStore.selectedBlocks.length) {
             const allPath: string[] = []
             try {
-              for (const block of blocks.value) {
-                if (block.path) {
+              for (const block of blockStore.selectedBlocks) {
+                if (block?.path) {
                   const path = await $api.getFinalPath(block.path!)
                   allPath.push(path)
                 }
@@ -148,12 +163,14 @@ export function useContextMenuOptions(): ComputedRef<DropdownOption[]> {
         label: '删除',
         key: 'REMOVE',
         onClick: async () => {
-          if (blocks.value.length) {
+          if (blockStore.selectedBlocks.length) {
             const trashes = []
             try {
-              for (const block of blocks.value) {
-                await blockStore.remove(block.id)
-                trashes.push(block.id)
+              for (const block of blockStore.selectedBlocks) {
+                if (block?.id) {
+                  await blockStore.remove(block.id)
+                  trashes.push(block.id)
+                }
               }
             }
             catch (e) {

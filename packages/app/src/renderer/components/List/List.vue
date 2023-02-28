@@ -35,6 +35,7 @@ function createData(blocks: Block[]): TreeOption[] {
       data: block,
       label: block.title,
       key: block.id,
+      isLeaf: true,
       prefix: getIconByBlockCategory(block),
       suffix: block.fileExt ? () => h('div', { class: 'bg-neutral-700 bg-opacity-60 text-xs font-semibold scale-80 px-1 rounded select-none' }, block.fileExt?.toUpperCase()) : undefined,
     }
@@ -69,22 +70,6 @@ const handleUpdatePrefixWithExpanded = (
       break
   }
 }
-function handleSelect(
-  value: Array<string & number>,
-  _: any,
-  meta: {
-    node: TreeOption | null
-    action: 'select' | 'unselect'
-  },
-) {
-  if (meta.action === 'unselect')
-    return
-  if (meta.node?.category === 'folder')
-    return
-
-  blockStore.selectBlockIds(value)
-  blockStore.currentBlockId = (meta.node?.data as Block)?.id as string
-}
 
 async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   if (dropPosition === 'inside') {
@@ -105,22 +90,42 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
       blockStore.currentBlockId = (option.data as Block)?.id
       showContextMenu(e, contextMenuOptions)
     },
+    onClick(e: MouseEvent) {
+      const prevBlockId = blockStore.currentBlockId
+      const blockId = (option.data as Block)?.id
+      const block = blockStore.getOne(blockId)
+      if (prevBlockId !== blockId) {
+        blockStore.currentBlockId = blockId
+        if (e.ctrlKey)
+          blockStore.selectBlockIds([...blockStore.selectedBlockIds, blockId])
+        else
+          blockStore.selectBlockIds([blockId])
+      }
+      if (block?.category === 'folder' && (!e.ctrlKey && !e.shiftKey)) {
+        if (blockStore.expandedBlockIds.includes(blockId))
+          blockStore.expandedBlockIds = blockStore.expandedBlockIds.filter(id => id !== blockId)
+        else
+          blockStore.expandedBlockIds.push(blockId)
+      }
+    },
   }
 }
 </script>
 
 <template>
   <NTree
+    ref="treeRef"
     class="h-[calc(100%-22px)]"
     block-line
-    expand-on-click
+    block-node
     draggable
     selectable
+    :selected-keys="blockStore.selectedBlockIds"
+    :expanded-keys="blockStore.expandedBlockIds"
     :data="data"
     :node-props="nodeProps"
     :default-expanded-keys="[data?.[0]?.key ?? '0']"
     @update-expanded-keys="handleUpdatePrefixWithExpanded"
-    @update:selected-keys="handleSelect"
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"
     @drop="handleDrop"
