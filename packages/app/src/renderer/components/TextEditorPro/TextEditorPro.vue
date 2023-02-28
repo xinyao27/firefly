@@ -68,14 +68,14 @@ watch(currentBlock, (value) => {
   > * + *
     margin-top: 0.75em
   pre
-    @apply text-white bg-dark-400
-    padding-left: 1em
-    padding-right: 1em
-    padding-top: 0.75em
-    padding-bottom: 0.75em
+    @apply text-white bg-dark-400 p-0
     border-radius: 0.5em
     code
-      @apply text-white p-0 bg-transparent overflow-x-auto
+      @apply inline-block w-full text-white p-0 bg-transparent overflow-x-auto
+      padding-left: 1em
+      padding-right: 1em
+      padding-top: 0.75em
+      padding-bottom: 0.75em
       font-size: 0.875em
       line-height: 1.25em
   code
