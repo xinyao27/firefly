@@ -93,10 +93,14 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     'data-block-id': block.id,
     onContextmenu(e: MouseEvent) {
+      e.preventDefault()
+      e.stopPropagation()
       blockStore.currentBlockId = block?.id
       showContextMenu(e, contextMenuOptions)
     },
     onClick(e: MouseEvent) {
+      e.preventDefault()
+      e.stopPropagation()
       const prevBlockId = blockStore.currentBlockId
       onClick(e, prevBlockId, block)
     },
@@ -121,5 +125,6 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"
     @drop="handleDrop"
+    @click="blockStore.selectBlockIds([])"
   />
 </template>
