@@ -1,22 +1,22 @@
 <script setup lang="ts">
-const commanderStore = useCommanderStore()
+const copilotStore = useCopilotStore()
 
 function handleSelect(prompt: string) {
-  commanderStore.reset()
-  commanderStore.question = prompt
-  commanderStore.getCompletion()
+  copilotStore.reset()
+  copilotStore.question = prompt
+  copilotStore.getCompletion()
 }
 </script>
 
 <template>
   <div p-4 pt-0 min-h-24 flex justify-start>
-    <div v-if="commanderStore.recently.length" flex flex-col gap-4>
+    <div v-if="copilotStore.recently.length" flex flex-col gap-4>
       <div text-sm>
         最近问题
       </div>
       <div flex flex-wrap gap-4>
         <NButton
-          v-for="item in commanderStore.recently"
+          v-for="item in copilotStore.recently"
           :key="item"
           tertiary
           size="small"

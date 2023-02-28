@@ -16,8 +16,8 @@ export const selectedOptions: ActionOption[] = [
     label: '翻译',
     key: 'translate',
     action() {
-      // const commanderStore = useCommanderStore()
-      // commanderStore.translate()
+      // const copilotStore = useCopilotStore()
+      // copilotStore.translate()
     },
   },
 ]
@@ -31,8 +31,8 @@ export const answeredOptions: ActionOption[] = [
     label: '继续写',
     key: 'continue',
     action() {
-      const commanderStore = useCommanderStore()
-      commanderStore.continue()
+      const copilotStore = useCopilotStore()
+      copilotStore.continue()
     },
   },
   {
@@ -40,8 +40,8 @@ export const answeredOptions: ActionOption[] = [
     label: '重新写',
     key: 'rewrite',
     action() {
-      const commanderStore = useCommanderStore()
-      commanderStore.rewrite()
+      const copilotStore = useCopilotStore()
+      copilotStore.rewrite()
     },
   },
   {
@@ -49,8 +49,8 @@ export const answeredOptions: ActionOption[] = [
     label: '重置',
     key: 'reset',
     action() {
-      const commanderStore = useCommanderStore()
-      commanderStore.reset()
+      const copilotStore = useCopilotStore()
+      copilotStore.reset()
     },
   },
 ]
@@ -62,10 +62,10 @@ export const articleOptions: ActionOption[] = [
     key: 'insert-into-article',
     action() {
       const textEditorStore = useTextEditorStore()
-      const commanderStore = useCommanderStore()
-      const content = `<p>${commanderStore.results.trim()}</p>`
-      commanderStore.show = false
-      commanderStore.reset()
+      const copilotStore = useCopilotStore()
+      const content = `<p>${copilotStore.results.trim()}</p>`
+      copilotStore.show = false
+      copilotStore.reset()
       nextTick(() => {
         textEditorStore.insertContent(content)
       })

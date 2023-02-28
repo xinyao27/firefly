@@ -20,7 +20,7 @@ function getEdgeFunctionUrl() {
   return `${supabaseUrl}/functions/v1`
 }
 
-export const useCommanderStore = defineStore('commander', {
+export const useCopilotStore = defineStore('copilot', {
   state: () => {
     return {
       show: false,
@@ -30,7 +30,7 @@ export const useCommanderStore = defineStore('commander', {
       status: 'empty' as 'empty' | 'error' | 'answered',
       results: '',
       inputRef: null as any | null,
-      recently: useCommanderRecently(),
+      recently: useCopilotRecently(),
     }
   },
   actions: {

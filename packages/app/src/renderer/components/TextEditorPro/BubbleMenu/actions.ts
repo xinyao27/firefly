@@ -53,9 +53,9 @@ function getTranslateOptions() {
     key: v.key,
     label: v.label,
     onClick(editor?: Editor) {
-      const commanderStore = useCommanderStore()
+      const copilotStore = useCopilotStore()
       const text = editor?.commands.getTextSelection()
-      commanderStore.openAndSearch({
+      copilotStore.openAndSearch({
         type: 'translate',
         text,
         language: v.key,
@@ -92,9 +92,9 @@ export const maskActions: Action[] = [
         label: '总结',
         icon: () => h('i', { class: 'i-tabler-float-left' }),
         onClick(editor?: Editor) {
-          const commanderStore = useCommanderStore()
+          const copilotStore = useCopilotStore()
           const text = editor?.commands.getTextSelection()
-          commanderStore.openAndSearch({
+          copilotStore.openAndSearch({
             type: 'summarize',
             text,
           })
@@ -105,9 +105,9 @@ export const maskActions: Action[] = [
         label: '改善内容',
         icon: () => h('i', { class: 'i-ri-magic-line' }),
         onClick(editor?: Editor) {
-          const commanderStore = useCommanderStore()
+          const copilotStore = useCopilotStore()
           const text = editor?.commands.getTextSelection()
-          commanderStore.openAndSearch({
+          copilotStore.openAndSearch({
             type: 'improveWriting',
             text,
           })
@@ -118,9 +118,9 @@ export const maskActions: Action[] = [
         label: '修复拼写 & 语法错误',
         icon: () => h('i', { class: 'i-ri-check-line' }),
         onClick(editor?: Editor) {
-          const commanderStore = useCommanderStore()
+          const copilotStore = useCopilotStore()
           const text = editor?.commands.getTextSelection()
-          commanderStore.openAndSearch({
+          copilotStore.openAndSearch({
             type: 'fixSpellingAndGrammar',
             text,
           })

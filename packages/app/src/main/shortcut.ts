@@ -6,7 +6,7 @@ export const globalShortcuts = [
     action: () => {
       const mainWindow = global.launcher.mainWindow
       mainWindow?.show()
-      mainWindow?.window?.webContents.send('api:openCommander')
+      mainWindow?.window?.webContents.send('api:openCopilot')
     },
   },
 ]

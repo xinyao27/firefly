@@ -2,7 +2,7 @@
 import type { ActionOption } from './options'
 import { answeredOptions, articleOptions, initialOptions } from './options'
 
-const commanderStore = useCommanderStore()
+const copilotStore = useCopilotStore()
 const messageStore = useMessageStore()
 
 const options = ref<ActionOption[]>(initialOptions)
@@ -11,8 +11,8 @@ const optionPosition = ref({
   y: 0,
 })
 const answerRef = ref<Element>()
-watch(() => commanderStore.status, () => {
-  if (commanderStore.status === 'answered') {
+watch(() => copilotStore.status, () => {
+  if (copilotStore.status === 'answered') {
     const answerRect = answerRef.value?.getBoundingClientRect()
     if (answerRect) {
       optionPosition.value.x = answerRect.x + answerRect.width + 108
@@ -38,15 +38,15 @@ function handleSelectItem(_: string, option: ActionOption) {
       max-h-50 p-2 bg-neutral-800 rounded
     >
       <div>
-        {{ commanderStore.results }}
+        {{ copilotStore.results }}
       </div>
     </div>
     <NDropdown
       class="w-46"
       size="small"
       :options="options"
-      :disabled="commanderStore.loading"
-      :show="!!commanderStore.results.length && (!!optionPosition.x && !!optionPosition.y) && !!options.length"
+      :disabled="copilotStore.loading"
+      :show="!!copilotStore.results.length && (!!optionPosition.x && !!optionPosition.y) && !!options.length"
       trigger="manual"
       :x="optionPosition.x"
       :y="optionPosition.y"

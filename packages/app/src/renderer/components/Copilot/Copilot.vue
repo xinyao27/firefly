@@ -2,15 +2,15 @@
 import ResultsRenderer from './ResultsRenderer.vue'
 import RecentlyQuestion from './RecentlyQuestion.vue'
 
-const commanderStore = useCommanderStore()
+const copilotStore = useCopilotStore()
 
-watch(() => commanderStore.show, (value) => {
+watch(() => copilotStore.show, (value) => {
   nextTick(() => {
     if (value) {
-      commanderStore.inputRef?.focus()
+      copilotStore.inputRef?.focus()
     }
     else {
-      commanderStore.inputRef?.blur()
+      copilotStore.inputRef?.blur()
     }
   })
 })
@@ -18,7 +18,7 @@ watch(() => commanderStore.show, (value) => {
 const activeElement = useActiveElement()
 function handleKeyUp(e: KeyboardEvent) {
   if (e.key === 'Enter' && (activeElement.value?.id && activeElement.value?.id === (e.target as HTMLElement)?.id)) {
-    commanderStore.search()
+    copilotStore.search()
   }
 }
 </script>
@@ -27,12 +27,12 @@ function handleKeyUp(e: KeyboardEvent) {
   <div w-600px bg-neutral-700 shadow-lg rounded flex flex-col>
     <div p-4>
       <NInput
-        v-show="!commanderStore.text"
+        v-show="!copilotStore.text"
         id="aiInput"
-        :ref="ref => commanderStore.inputRef = ref"
-        v-model:value="commanderStore.question"
+        :ref="ref => copilotStore.inputRef = ref"
+        v-model:value="copilotStore.question"
         size="large"
-        :disabled="commanderStore.loading"
+        :disabled="copilotStore.loading"
         autofocus
         placeholder="随便问我点什么..."
         @keyup="handleKeyUp"
@@ -43,16 +43,16 @@ function handleKeyUp(e: KeyboardEvent) {
         <template #suffix>
           <NTooltip
             trigger="hover"
-            :disabled="commanderStore.loading"
+            :disabled="copilotStore.loading"
           >
             <template #trigger>
               <NButton
-                :disabled="!commanderStore.question"
-                :loading="commanderStore.loading"
+                :disabled="!copilotStore.question"
+                :loading="copilotStore.loading"
                 text
-                @click="commanderStore.search"
+                @click="copilotStore.search"
               >
-                <i v-if="!commanderStore.loading" i-ri-arrow-up-circle-fill />
+                <i v-if="!copilotStore.loading" i-ri-arrow-up-circle-fill />
               </NButton>
             </template>
             <div flex items-center gap-1>
@@ -61,16 +61,16 @@ function handleKeyUp(e: KeyboardEvent) {
           </NTooltip>
         </template>
       </NInput>
-      <NSpin :show="commanderStore.loading">
+      <NSpin :show="copilotStore.loading">
         <div
-          v-show="commanderStore.text"
+          v-show="copilotStore.text"
           bg-neutral-600 rounded p-2
         >
-          {{ commanderStore.text }}
+          {{ copilotStore.text }}
         </div>
       </NSpin>
     </div>
-    <ResultsRenderer v-if="commanderStore.results.length" />
-    <RecentlyQuestion v-if="!commanderStore.results.length && !commanderStore.loading" />
+    <ResultsRenderer v-if="copilotStore.results.length" />
+    <RecentlyQuestion v-if="!copilotStore.results.length && !copilotStore.loading" />
   </div>
 </template>

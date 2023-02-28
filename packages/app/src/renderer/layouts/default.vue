@@ -2,13 +2,13 @@
 import '~renderer/styles/splitpanes.sass'
 
 const configStore = useConfigStore()
-const commanderStore = useCommanderStore()
+const copilotStore = useCopilotStore()
 
 onMounted(() => {
   configStore.leftBarSize = configStore.leftBarSizeCached
   configStore.rightBarSize = configStore.rightBarSizeCached
-  $electron.ipcRenderer.on('api:openCommander', () => {
-    commanderStore.open()
+  $electron.ipcRenderer.on('api:openCopilot', () => {
+    copilotStore.open()
   })
 })
 

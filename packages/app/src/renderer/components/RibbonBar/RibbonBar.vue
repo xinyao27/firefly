@@ -6,7 +6,7 @@ interface Item {
   onClick: () => void
 }
 const router = useRouter()
-const commanderStore = useCommanderStore()
+const copilotStore = useCopilotStore()
 const shortcuts: Item[] = [
   {
     label: '列表',
@@ -22,7 +22,7 @@ const settings: Item[] = [
     icon: 'i-tabler-brain',
     shortcut: ['Ctrl', 'k'],
     onClick() {
-      commanderStore.show = true
+      copilotStore.show = true
     },
   },
   {
