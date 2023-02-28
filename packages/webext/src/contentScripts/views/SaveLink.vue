@@ -14,7 +14,7 @@ const metadata = ref<MetaData | null>(null)
 
 const filesStore = useFilesStore()
 
-async function handleMessageCreateLink() {
+async function handleBlockCreateLink() {
   toggleShow(true)
   const url = window.location.href
   const result = getPageMetadata({ url })
@@ -66,7 +66,7 @@ onBeforeMount(() => {
     if (from === 'webext') {
       switch (api) {
         case MESSAGE_API.MESSAGE_CREATE_LINK:
-          handleMessageCreateLink()
+          handleBlockCreateLink()
           break
       }
     }

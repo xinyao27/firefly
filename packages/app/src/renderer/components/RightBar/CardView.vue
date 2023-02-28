@@ -2,17 +2,17 @@
 import dayjs from 'dayjs'
 import { byteSize } from '@firefly/utils'
 
-const messageStore = useMessageStore()
+const blockStore = useBlockStore()
 
-const lastMessage = computed(() => {
-  const messages = messageStore.messages
-  const lastMessageId = messageStore.selectedMessageIds.at(-1)
-  return messages.find(v => v.id === lastMessageId)
+const lastBlock = computed(() => {
+  const blocks = blockStore.blocks
+  const lastBlockId = blockStore.selectedBlockIds.at(-1)
+  return blocks.find(v => v.id === lastBlockId)
 })
 const thumb = computedAsync(async() => {
-  switch (lastMessage.value?.category) {
+  switch (lastBlock.value?.category) {
     case 'image':
-      return `atom://${await $api.getFinalPath(lastMessage.value?.thumb ?? '')}`
+      return `atom://${await $api.getFinalPath(lastBlock.value?.thumb ?? '')}`
     case 'text':
     case 'link':
       return null
@@ -21,10 +21,10 @@ const thumb = computedAsync(async() => {
   }
 })
 const size = computed(() => {
-  const s = byteSize(lastMessage.value?.size)
+  const s = byteSize(lastBlock.value?.size)
   return s?.text
 })
-const path = computedAsync(() => $api.getFinalPath(lastMessage.value?.path ?? ''))
+const path = computedAsync(() => $api.getFinalPath(lastBlock.value?.path ?? ''))
 function handleOpen(path?: string) {
   if (path) {
     $api.shellOpenPath(path)
@@ -34,9 +34,9 @@ function handleOpen(path?: string) {
 
 <template>
   <div w-full flex flex-col items-center gap-8 p-4>
-    <template v-if="lastMessage">
-      <div v-if="messageStore.selectedMessageIds.length > 1">
-        已选择 {{ messageStore.selectedMessageIds.length }} 个文件
+    <template v-if="lastBlock">
+      <div v-if="blockStore.selectedBlockIds.length > 1">
+        已选择 {{ blockStore.selectedBlockIds.length }} 个文件
       </div>
       <NImage
         v-if="thumb"
@@ -46,12 +46,12 @@ function handleOpen(path?: string) {
         show-toolbar-tooltip
       />
       <NThing w-full>
-        <template v-if="lastMessage.title" #header>
-          <span text-lg font-semibold uppercase>{{ lastMessage.title }}</span>
+        <template v-if="lastBlock.title" #header>
+          <span text-lg font-semibold uppercase>{{ lastBlock.title }}</span>
         </template>
-        <template v-if="lastMessage.category" #description>
+        <template v-if="lastBlock.category" #description>
           <NTag size="small" :bordered="false">
-            {{ lastMessage.category }}
+            {{ lastBlock.category }}
           </NTag>
         </template>
         <NSpace vertical>
@@ -71,24 +71,24 @@ function handleOpen(path?: string) {
             {{ path }}
           </NTooltip>
           <NTooltip
-            v-if="lastMessage.link"
+            v-if="lastBlock.link"
             trigger="hover"
           >
             <template #trigger>
               <a
                 block truncate text-true-gray cursor-pointer text-xs hover:underline
-                @click="handleOpen(lastMessage?.link)"
+                @click="handleOpen(lastBlock?.link)"
               >
                 <i i-ri-link inline-block align-top />
-                {{ lastMessage.link }}
+                {{ lastBlock.link }}
               </a>
             </template>
-            {{ lastMessage.link }}
+            {{ lastBlock.link }}
           </NTooltip>
         </NSpace>
       </NThing>
       <NThing
-        v-if="lastMessage.content"
+        v-if="lastBlock.content"
         w-full
       >
         <template #header>
@@ -99,7 +99,7 @@ function handleOpen(path?: string) {
           line-clamp="8"
           :tooltip="false"
         >
-          {{ lastMessage.content }}
+          {{ lastBlock.content }}
         </NEllipsis>
       </NThing>
       <NThing w-full>
@@ -111,7 +111,7 @@ function handleOpen(path?: string) {
           :column="1"
           separator=" "
         >
-          <NDescriptionsItem v-for="(value, key) in lastMessage.metadata" :key="key">
+          <NDescriptionsItem v-for="(value, key) in lastBlock.metadata" :key="key">
             <template #label>
               <div text-neutral capitalize w-16 inline-block>
                 {{ key }}
@@ -133,7 +133,7 @@ function handleOpen(path?: string) {
                 后缀名
               </div>
             </template>
-            {{ lastMessage.fileExt }}
+            {{ lastBlock.fileExt }}
           </NDescriptionsItem>
           <NDescriptionsItem>
             <template #label>
@@ -141,7 +141,7 @@ function handleOpen(path?: string) {
                 创建于
               </div>
             </template>
-            {{ dayjs(lastMessage.createdAt).fromNow() }}
+            {{ dayjs(lastBlock.createdAt).fromNow() }}
           </NDescriptionsItem>
           <NDescriptionsItem>
             <template #label>
@@ -149,7 +149,7 @@ function handleOpen(path?: string) {
                 更新于
               </div>
             </template>
-            {{ dayjs(lastMessage.updatedAt).fromNow() }}
+            {{ dayjs(lastBlock.updatedAt).fromNow() }}
           </NDescriptionsItem>
           <NDescriptionsItem>
             <template #label>
@@ -157,7 +157,7 @@ function handleOpen(path?: string) {
                 来源
               </div>
             </template>
-            {{ lastMessage.from }}
+            {{ lastBlock.from }}
           </NDescriptionsItem>
         </NDescriptions>
       </NThing>
@@ -178,7 +178,7 @@ function handleOpen(path?: string) {
                 文件
               </div>
             </template>
-            {{ messageStore.messages.length }}
+            {{ blockStore.blocks.length }}
           </NDescriptionsItem>
         </NDescriptions>
       </NThing>

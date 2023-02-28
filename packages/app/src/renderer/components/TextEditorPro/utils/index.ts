@@ -1,5 +1,5 @@
 import type { Content } from '@tiptap/core'
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
 export const convertBase64 = (file: File) => {
   return new Promise<string>((resolve, reject) => {
@@ -16,22 +16,22 @@ export const convertBase64 = (file: File) => {
   })
 }
 
-export async function createBlockFromMessage(message: MessageModel): Promise<Content> {
-  switch (message.category) {
+export async function createBlockFromBlock(block: BlockModel): Promise<Content> {
+  switch (block.category) {
     case 'text':
       return {
         type: 'paragraph',
         content: [
           {
             type: 'text',
-            text: message.content,
+            text: block.content,
           },
         ],
       }
     case 'image':
       return {
         type: 'image',
-        attrs: { src: `atom://${await $api.getFinalPath(message.path!)}` },
+        attrs: { src: `atom://${await $api.getFinalPath(block.path!)}` },
       }
     case 'link':
       // TODO
@@ -40,7 +40,7 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
         content: [
           {
             type: 'text',
-            text: message.link,
+            text: block.link,
           },
         ],
       }
@@ -51,7 +51,7 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
         content: [
           {
             type: 'text',
-            text: message.title || message.content,
+            text: block.title || block.content,
           },
         ],
       }
@@ -62,7 +62,7 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
         content: [
           {
             type: 'text',
-            text: message.title || message.content,
+            text: block.title || block.content,
           },
         ],
       }
@@ -73,7 +73,7 @@ export async function createBlockFromMessage(message: MessageModel): Promise<Con
         content: [
           {
             type: 'text',
-            text: message.title || message.content,
+            text: block.title || block.content,
           },
         ],
       }

@@ -6,9 +6,9 @@ const configStore = useConfigStore()
   <div flex gap-1>
     <NButton
       size="small"
-      :tertiary="configStore.leftCurrentTool === 'messageList'"
-      :quaternary="configStore.leftCurrentTool !== 'messageList'"
-      @click="configStore.leftCurrentTool = 'messageList'"
+      :tertiary="configStore.leftCurrentTool === 'blockList'"
+      :quaternary="configStore.leftCurrentTool !== 'blockList'"
+      @click="configStore.leftCurrentTool = 'blockList'"
     >
       <i i-ri-folder-line />
     </NButton>

@@ -1,15 +1,15 @@
 import imageSizeOf from 'image-size'
-import type { MessageCategory, MessageMetadata } from '~/models/Message'
+import type { BlockCategory, BlockMetadata } from '~/models/Block'
 
 export async function getImageMetadata(path: string) {
-  return imageSizeOf(path) as MessageMetadata
+  return imageSizeOf(path) as BlockMetadata
 }
 
 export async function getCategoryAndThumb({ ext, path }: {
   ext?: string
   path?: string
 }): Promise<{
-    category: MessageCategory
+    category: BlockCategory
     thumb?: string
   }> {
   switch (ext) {

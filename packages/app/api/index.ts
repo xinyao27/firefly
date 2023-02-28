@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { t } from './trpc'
-import { messageRouter } from './message'
+import { blockRouter } from './block'
 
-export const appRouter = t.router({ message: messageRouter })
+export const appRouter = t.router({ block: blockRouter })
 
 export type AppRouter = typeof appRouter

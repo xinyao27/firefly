@@ -9,14 +9,14 @@ import CharacterCount from './CharacterCount.vue'
 import { extensions } from './extensions/starter-kit'
 
 const configStore = useConfigStore()
-const messageStore = useMessageStore()
+const blockStore = useBlockStore()
 const textEditorStore = useTextEditorStore()
 
-const currentMessage = computed(() => messageStore.currentMessage)
+const currentBlock = computed(() => blockStore.currentBlock)
 
 const handleUpdate = debounce((content: JSONContent) => {
-  if (currentMessage.value) {
-    messageStore.updateArticleContent(currentMessage.value?.id, JSON.stringify(content))
+  if (currentBlock.value) {
+    blockStore.updateArticleContent(currentBlock.value?.id, JSON.stringify(content))
   }
 }, 300)
 const editor = useEditor({
@@ -32,7 +32,7 @@ const editor = useEditor({
   },
   autofocus: true,
   onUpdate({ editor }) {
-    if (currentMessage.value) {
+    if (currentBlock.value) {
       const content = editor.getJSON()
       handleUpdate(content)
     }
@@ -41,10 +41,10 @@ const editor = useEditor({
 
 onMounted(() => {
   textEditorStore.editor = editor.value
-  editor.value?.commands.setContent(JSON.parse(currentMessage.value?.content || '{}') as JSONContent)
+  editor.value?.commands.setContent(JSON.parse(currentBlock.value?.content || '{}') as JSONContent)
   editor.value?.commands.focus()
 })
-watch(currentMessage, (value) => {
+watch(currentBlock, (value) => {
   editor.value?.commands.setContent(JSON.parse(value?.content || '{}') as JSONContent)
   editor.value?.commands.focus()
 })

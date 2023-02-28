@@ -1,25 +1,25 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import { byteSize } from '@firefly/utils'
-import MessageOther from './MessageOther.vue'
-import type { MessageModel } from '~/models/Message'
+import Other from './Other.vue'
+import type { BlockModel } from '~/models/Block'
 
-export interface MessageOtherAttrs {
+export interface BlockOtherAttrs {
   position: number
-  from: 'file' | 'message'
-  message?: MessageModel
+  from: 'file' | 'block'
+  block?: BlockModel
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    messageOther: {
-      setMessageOther: (attr: MessageOtherAttrs) => ReturnType
+    blockOther: {
+      setBlockOther: (attr: BlockOtherAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionMessageOther = Node.create({
-  name: 'messageOther',
+export const ExtensionBlockOther = Node.create({
+  name: 'blockOther',
 
   group: 'block',
 
@@ -34,23 +34,23 @@ export const ExtensionMessageOther = Node.create({
   addAttributes() {
     return {
       from: { default: null },
-      message: { default: null },
+      block: { default: null },
     }
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=messageOther]' }]
+    return [{ tag: 'div[data-type=blockOther]' }]
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const message = node.attrs.message as MessageModel
-    const title = message.title ?? ''
-    const size = byteSize(message.size)?.text ?? ''
-    const path = message.path ?? ''
+    const block = node.attrs.block as BlockModel
+    const title = block.title ?? ''
+    const size = byteSize(block.size)?.text ?? ''
+    const path = block.path ?? ''
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
-        'data-type': 'messageOther',
+        'data-type': 'blockOther',
         'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
@@ -89,7 +89,7 @@ export const ExtensionMessageOther = Node.create({
 
   addCommands() {
     return {
-      setMessageOther: attrs => ({ commands }) => {
+      setBlockOther: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -99,6 +99,6 @@ export const ExtensionMessageOther = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(MessageOther)
+    return VueNodeViewRenderer(Other)
   },
 })

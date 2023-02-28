@@ -7,15 +7,15 @@ import { DATABASES_DIR_PATH, MESSAGE_SAVE_DIR_PATH } from '~/constants'
 
 /**
  * 用于初始化环境
- * 初始化 message article 存储目录
+ * 初始化 block article 存储目录
  */
 export default async function() {
   const appDataPath = getAppDataPath()
-  const messagesDirPath = join(appDataPath, MESSAGE_SAVE_DIR_PATH)
+  const blocksDirPath = join(appDataPath, MESSAGE_SAVE_DIR_PATH)
   const databasesDirPath = join(appDataPath, DATABASES_DIR_PATH)
   try {
-    await mkdir(messagesDirPath, { recursive: true })
-    log(`create dir ${messagesDirPath}`)
+    await mkdir(blocksDirPath, { recursive: true })
+    log(`create dir ${blocksDirPath}`)
   }
   catch (_) {}
   try {

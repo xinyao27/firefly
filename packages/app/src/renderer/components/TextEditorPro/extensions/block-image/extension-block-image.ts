@@ -1,24 +1,24 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import MessageImage from './MessageImage.vue'
-import type { MessageModel } from '~/models/Message'
+import Image from './Image.vue'
+import type { BlockModel } from '~/models/Block'
 
-export interface MessageImageAttrs {
+export interface BlockImageAttrs {
   position: number
-  from: 'file' | 'message'
-  message?: MessageModel
+  from: 'file' | 'block'
+  block?: BlockModel
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    messageImage: {
-      setMessageImage: (attr: MessageImageAttrs) => ReturnType
+    blockImage: {
+      setBlockImage: (attr: BlockImageAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionMessageImage = Node.create({
-  name: 'messageImage',
+export const ExtensionBlockImage = Node.create({
+  name: 'blockImage',
 
   group: 'block',
 
@@ -33,27 +33,27 @@ export const ExtensionMessageImage = Node.create({
   addAttributes() {
     return {
       from: { default: null },
-      message: { default: null },
+      block: { default: null },
     }
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=messageImage]' }]
+    return [{ tag: 'div[data-type=blockImage]' }]
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const message = node.attrs.message as MessageModel
+    const block = node.attrs.block as BlockModel
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
-        'data-type': 'messageImage',
+        'data-type': 'blockImage',
         'class': 'my-1 border border-neutral-700 rounded cursor-pointer',
       }),
       [
         'img',
         {
-          src: message.path,
-          alt: message.title,
+          src: block.path,
+          alt: block.title,
         },
       ],
     ]
@@ -61,7 +61,7 @@ export const ExtensionMessageImage = Node.create({
 
   addCommands() {
     return {
-      setMessageImage: attrs => ({ commands }) => {
+      setBlockImage: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -71,6 +71,6 @@ export const ExtensionMessageImage = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(MessageImage)
+    return VueNodeViewRenderer(Image)
   },
 })

@@ -674,7 +674,7 @@ export default {
       })
 
       /* Disabled otherwise will show up on hot reload.
-      // if there is still space to allocate show warning message.
+      // if there is still space to allocate show warning block.
       if (this.panesCount && ~~spaceLeftToDistribute) {
         // eslint-disable-next-line no-console
         console.warn('Splitpanes: Could not distribute all the empty space between panes due to their constraints.')

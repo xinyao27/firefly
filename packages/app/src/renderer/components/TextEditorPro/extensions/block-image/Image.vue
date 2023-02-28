@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { isBase64 } from '@firefly/utils'
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
 const props = defineProps(nodeViewProps)
-const message = props.node.attrs.message as MessageModel
+const block = props.node.attrs.block as BlockModel
 
 const path = computed(() => {
-  return isBase64(message.path!) ? message.path : `atom://${message.path}`
+  return isBase64(block.path!) ? block.path : `atom://${block.path}`
 })
 </script>
 
@@ -15,6 +15,6 @@ const path = computed(() => {
   <NodeViewWrapper
     class="my-1 border border-neutral-700 rounded cursor-pointer"
   >
-    <img :src="path" :alt="message.title">
+    <img :src="path" :alt="block.title">
   </NodeViewWrapper>
 </template>

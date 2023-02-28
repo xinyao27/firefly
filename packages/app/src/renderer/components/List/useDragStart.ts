@@ -1,11 +1,11 @@
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
-export function useDragStart(message: MessageModel) {
+export function useDragStart(block: BlockModel) {
   async function handleDragStart() {
-    if (message.path) {
+    if (block.path) {
       // TODO 待确认
-      const iconPath = message.thumb ? await $api.getFinalPath(message.thumb) : '/icons/GenericDocumentIcon.png'
-      await $electron.ipcRenderer.send('api:dragStart', await $api.getFinalPath(message.path), iconPath)
+      const iconPath = block.thumb ? await $api.getFinalPath(block.thumb) : '/icons/GenericDocumentIcon.png'
+      await $electron.ipcRenderer.send('api:dragStart', await $api.getFinalPath(block.path), iconPath)
     }
   }
 

@@ -3,14 +3,14 @@ import { z } from 'zod'
 import { mkdir, remove } from 'fs-extra'
 import dayjs from 'dayjs'
 import { t } from './trpc'
-import { Message } from '~/entities/message'
-import { getAppDataPath, getFinalPath, getMessageDirPath } from '~main/ipcMain'
+import { Block } from '~/entities/block'
+import { getAppDataPath, getBlockDirPath, getFinalPath } from '~main/ipcMain'
 
-export const messageRouter = t.router({
+export const blockRouter = t.router({
   find: t.procedure
     .query(({ ctx }) => {
-      const messageRepository = ctx.db.getTreeRepository(Message)
-      return messageRepository.findTrees()
+      const blockRepository = ctx.db.getTreeRepository(Block)
+      return blockRepository.findTrees()
     }),
   findOne: t.procedure
     .input((val: unknown) => {
@@ -19,8 +19,8 @@ export const messageRouter = t.router({
       throw new Error(`Invalid input: ${typeof val}`)
     })
     .query(({ input, ctx }) => {
-      const messageRepository = ctx.db.getTreeRepository(Message)
-      return messageRepository.findOne({
+      const blockRepository = ctx.db.getTreeRepository(Block)
+      return blockRepository.findOne({
         where: { id: input },
         relations: ['parent'],
       })
@@ -41,19 +41,19 @@ export const messageRouter = t.router({
       where: z.enum(['default', 'trash']).optional(),
     }))
     .mutation(async({ input, ctx }) => {
-      const messageRepository = ctx.db.getTreeRepository(Message)
-      const messageObject = messageRepository.create(input)
-      const fireflyMessage = await messageRepository.findOneBy({ id: '0' })
-      if (fireflyMessage) messageObject.parent = fireflyMessage
+      const blockRepository = ctx.db.getTreeRepository(Block)
+      const blockObject = blockRepository.create(input)
+      const fireflyBlock = await blockRepository.findOneBy({ id: '0' })
+      if (fireflyBlock) blockObject.parent = fireflyBlock
       if (input.category === 'folder') {
         const title = input.title ?? dayjs().format('YYMMDDHHmmss')
-        const path = join(getMessageDirPath(), title)
+        const path = join(getBlockDirPath(), title)
         await mkdir(path, { recursive: true })
-        messageObject.title = title
+        blockObject.title = title
         const relativePath = path.split(getAppDataPath())[1]
-        messageObject.path = relativePath
+        blockObject.path = relativePath
       }
-      return messageRepository.save(messageObject)
+      return blockRepository.save(blockObject)
     }),
   update: t.procedure
     .input(z.object({
@@ -73,19 +73,19 @@ export const messageRouter = t.router({
       parentId: z.string().optional(),
     }))
     .mutation(async({ input, ctx }) => {
-      const messageRepository = ctx.db.getTreeRepository(Message)
-      const message = await messageRepository.findOneBy({ id: input.id })
-      if (message) {
+      const blockRepository = ctx.db.getTreeRepository(Block)
+      const block = await blockRepository.findOneBy({ id: input.id })
+      if (block) {
         const parentId = input.parentId
         delete input.parentId
         if (parentId) {
-          const parent = await messageRepository.findOneBy({ id: parentId })
+          const parent = await blockRepository.findOneBy({ id: parentId })
           if (parent) {
-            message.parent = parent
+            block.parent = parent
           }
         }
-        return messageRepository.save({
-          ...message,
+        return blockRepository.save({
+          ...block,
           ...input,
         })
       }
@@ -94,14 +94,14 @@ export const messageRouter = t.router({
   remove: t.procedure
     .input(z.object({ id: z.string() }))
     .mutation(async({ input, ctx }) => {
-      const messageRepository = ctx.db.getTreeRepository(Message)
-      const message = await messageRepository.findOneBy({ id: input.id })
-      if (message) {
-        if (message.path) {
-          const path = getFinalPath(message.path)
+      const blockRepository = ctx.db.getTreeRepository(Block)
+      const block = await blockRepository.findOneBy({ id: input.id })
+      if (block) {
+        if (block.path) {
+          const path = getFinalPath(block.path)
           await remove(path)
         }
-        return messageRepository.remove(message)
+        return blockRepository.remove(block)
       }
       throw new Error('没有找到可以删除的内容')
     }),

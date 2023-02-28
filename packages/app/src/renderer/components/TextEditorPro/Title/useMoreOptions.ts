@@ -7,7 +7,7 @@ export type ExportFormat = 'markdown' | 'html' | 'image' | 'text'
 
 export function useMoreOptions(o: { editor?: Editor }) {
   const dialog = useDialog()
-  const messageStore = useMessageStore()
+  const blockStore = useBlockStore()
   const exportFormat = ref<ExportFormat>('html')
   function handleExportFormatSelect(key: ExportFormat) {
     exportFormat.value = key
@@ -71,7 +71,7 @@ export function useMoreOptions(o: { editor?: Editor }) {
           positiveText: '导出',
           negativeText: '取消',
           onPositiveClick: () => {
-            exportByFormat(o.editor!, exportFormat.value, messageStore.currentMessage?.title)
+            exportByFormat(o.editor!, exportFormat.value, blockStore.currentBlock?.title)
           },
           negativeButtonProps: {
             ghost: false,

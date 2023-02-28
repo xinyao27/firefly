@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const messageStore = useMessageStore()
+const blockStore = useBlockStore()
 </script>
 
 <template>
@@ -8,14 +8,14 @@ const messageStore = useMessageStore()
       <NButton
         quaternary
         size="small"
-        @click="messageStore.createArticle"
+        @click="blockStore.createArticle"
       >
         <i i-ri-edit-2-line />
       </NButton>
       <NButton
         quaternary
         size="small"
-        @click="messageStore.createFolder"
+        @click="blockStore.createFolder"
       >
         <i i-ri-folder-add-line />
       </NButton>

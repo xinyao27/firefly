@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { TreeDropInfo, TreeOption } from 'naive-ui'
 import { useContextMenuOptions } from './useContextMenuOptions'
-import type { Message } from '~/models/Message'
+import type { Block } from '~/models/Block'
 
-const messageStore = useMessageStore()
-function getIconByMessageCategory(message: Message) {
-  switch (message.category) {
+const blockStore = useBlockStore()
+function getIconByBlockCategory(block: Block) {
+  switch (block.category) {
     case 'folder':
       return () => h('i', { class: 'i-ri-folder-fill' })
     case 'article':
@@ -20,34 +20,34 @@ function getIconByMessageCategory(message: Message) {
       return () => h('i', { class: 'i-ri-file-3-fill' })
   }
 }
-function createData(messages: Message[]): TreeOption[] {
-  return messages.map((message) => {
-    if (message.children && message.children.length) {
+function createData(blocks: Block[]): TreeOption[] {
+  return blocks.map((block) => {
+    if (block.children && block.children.length) {
       return {
-        data: message,
-        label: message.title,
-        key: message.id,
-        prefix: getIconByMessageCategory(message),
-        children: createData(message.children),
+        data: block,
+        label: block.title,
+        key: block.id,
+        prefix: getIconByBlockCategory(block),
+        children: createData(block.children),
       }
     }
     return {
-      data: message,
-      label: message.title,
-      key: message.id,
-      prefix: getIconByMessageCategory(message),
-      suffix: message.fileExt ? () => h('div', { class: 'bg-neutral-700 bg-opacity-60 text-xs font-semibold scale-80 px-1 rounded select-none' }, message.fileExt?.toUpperCase()) : undefined,
+      data: block,
+      label: block.title,
+      key: block.id,
+      prefix: getIconByBlockCategory(block),
+      suffix: block.fileExt ? () => h('div', { class: 'bg-neutral-700 bg-opacity-60 text-xs font-semibold scale-80 px-1 rounded select-none' }, block.fileExt?.toUpperCase()) : undefined,
     }
   })
 }
-const data = computed(() => createData(messageStore.messages))
+const data = computed(() => createData(blockStore.blocks))
 
 function handleDragStart({ node }: { event: DragEvent; node: TreeOption }) {
-  const message = node.data as Message
-  messageStore.draggingMessage = message
+  const block = node.data as Block
+  blockStore.draggingBlock = block
 }
 function handleDragEnd() {
-  messageStore.draggingMessage = null
+  blockStore.draggingBlock = null
 }
 
 const handleUpdatePrefixWithExpanded = (
@@ -79,18 +79,18 @@ function handleSelect(
   if (meta.action === 'unselect') return
   if (meta.node?.category === 'folder') return
 
-  messageStore.selectMessageIds(value)
-  messageStore.currentMessageId = (meta.node?.data as Message)?.id as string
+  blockStore.selectBlockIds(value)
+  blockStore.currentBlockId = (meta.node?.data as Block)?.id as string
 }
 
 async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   if (dropPosition === 'inside') {
-    await messageStore.move((node.data as Message)?.id, (dragNode.data as Message)?.id)
+    await blockStore.move((node.data as Block)?.id, (dragNode.data as Block)?.id)
   }
   else {
     // 拖拽到根目录
-    if (!(node.data as Message).parent) {
-      await messageStore.move('0', (dragNode.data as Message)?.id)
+    if (!(node.data as Block).parent) {
+      await blockStore.move('0', (dragNode.data as Block)?.id)
     }
   }
 }
@@ -100,7 +100,7 @@ const { show: showContextMenu } = useContextMenu()
 const nodeProps = ({ option }: { option: TreeOption }) => {
   return {
     onContextmenu(e: MouseEvent) {
-      messageStore.currentMessageId = (option.data as Message)?.id
+      blockStore.currentBlockId = (option.data as Block)?.id
       showContextMenu(e, contextMenuOptions)
     },
   }

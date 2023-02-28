@@ -1,26 +1,26 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import type { MetaData } from 'metadata-scraper'
-import MessageLink from './MessageLink.vue'
-import type { MessageModel } from '~/models/Message'
+import Link from './Link.vue'
+import type { BlockModel } from '~/models/Block'
 
-export interface MessageLinkAttrs {
+export interface BlockLinkAttrs {
   position: number
-  from: 'file' | 'message'
-  message?: MessageModel
+  from: 'file' | 'block'
+  block?: BlockModel
   metadata?: MetaData
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    messageLink: {
-      setMessageLink: (attr: MessageLinkAttrs) => ReturnType
+    blockLink: {
+      setBlockLink: (attr: BlockLinkAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionMessageLink = Node.create({
-  name: 'messageLink',
+export const ExtensionBlockLink = Node.create({
+  name: 'blockLink',
 
   group: 'block',
 
@@ -35,22 +35,22 @@ export const ExtensionMessageLink = Node.create({
   addAttributes() {
     return {
       from: { default: null },
-      message: { default: null },
+      block: { default: null },
       metadata: { default: null },
     }
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=messageLink]' }]
+    return [{ tag: 'div[data-type=blockLink]' }]
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const message = node.attrs.message as MessageModel
+    const block = node.attrs.block as BlockModel
     const metadata = node.attrs.metadata as MetaData
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
-        'data-type': 'messageLink',
+        'data-type': 'blockLink',
         'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
@@ -87,7 +87,7 @@ export const ExtensionMessageLink = Node.create({
             [
               'div',
               { class: 'truncate' },
-              message.link ?? '',
+              block.link ?? '',
             ],
           ],
         ],
@@ -109,7 +109,7 @@ export const ExtensionMessageLink = Node.create({
 
   addCommands() {
     return {
-      setMessageLink: attrs => ({ commands }) => {
+      setBlockLink: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -119,6 +119,6 @@ export const ExtensionMessageLink = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(MessageLink)
+    return VueNodeViewRenderer(Link)
   },
 })

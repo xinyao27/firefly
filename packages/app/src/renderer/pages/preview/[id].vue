@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { MessageId } from '~/models/Message'
+import type { BlockId } from '~/models/Block'
 
 defineOptions({ name: 'PreviewPage' })
 
 const route = useRoute()
-const messageStore = useMessageStore()
+const blockStore = useBlockStore()
 const configStore = useConfigStore()
 const { state, isReady, isLoading } = useAsyncState(
-  messageStore.findOne(route.params.id as MessageId),
+  blockStore.findOne(route.params.id as BlockId),
   null,
   {
     onSuccess(data) {

@@ -1,8 +1,8 @@
 import { Column, CreateDateColumn, Entity, Generated, PrimaryColumn, Tree, TreeChildren, TreeParent, UpdateDateColumn } from 'typeorm'
-import type { MessageCategory, MessageFrom, MessageMetadata, MessageModel, MessageWhere } from '~/models/Message'
+import type { BlockCategory, BlockFrom, BlockMetadata, BlockModel, BlockWhere } from '~/models/Block'
 @Entity()
 @Tree('closure-table')
-export class Message implements MessageModel {
+export class Block implements BlockModel {
   @PrimaryColumn({ type: 'text' })
   @Generated('uuid')
     id: string
@@ -17,7 +17,7 @@ export class Message implements MessageModel {
     tags?: string[]
 
   @Column({ type: 'text', nullable: true })
-    category?: MessageCategory
+    category?: BlockCategory
 
   @Column({ type: 'text', nullable: true })
     content?: string
@@ -29,7 +29,7 @@ export class Message implements MessageModel {
     path?: string
 
   @Column({ type: 'text', nullable: true })
-    from?: MessageFrom
+    from?: BlockFrom
 
   @Column({ type: 'int', nullable: true })
     size?: number
@@ -38,10 +38,10 @@ export class Message implements MessageModel {
     link?: string
 
   @Column({ type: 'simple-json', nullable: true })
-    metadata?: MessageMetadata
+    metadata?: BlockMetadata
 
   @Column({ type: 'text', nullable: true, default: 'default' })
-    where?: MessageWhere
+    where?: BlockWhere
 
   @CreateDateColumn()
     createdAt: Date
@@ -50,8 +50,8 @@ export class Message implements MessageModel {
     updatedAt: Date
 
   @TreeParent()
-    parent?: Message
+    parent?: Block
 
   @TreeChildren()
-    children?: Message[]
+    children?: Block[]
 }

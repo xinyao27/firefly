@@ -5,21 +5,21 @@ import { useMoreOptions } from './useMoreOptions'
 const props = defineProps<{
   editor?: Editor
 }>()
-const messageStore = useMessageStore()
+const blockStore = useBlockStore()
 const { options: moreOptions, handleSelect: handleMoreSelect } = useMoreOptions(props)
 
-const popoverDefaultTitle = ref(messageStore.currentMessage?.title)
+const popoverDefaultTitle = ref(blockStore.currentBlock?.title)
 function handleTitlePopoverUpdate(show: boolean) {
   if (show) {
-    popoverDefaultTitle.value = messageStore.currentMessage?.title
+    popoverDefaultTitle.value = blockStore.currentBlock?.title
   }
   else {
     if (
-      messageStore.currentMessage
+      blockStore.currentBlock
     && popoverDefaultTitle.value
-    && messageStore.currentMessage.title !== popoverDefaultTitle.value
+    && blockStore.currentBlock.title !== popoverDefaultTitle.value
     ) {
-      messageStore.updateArticleTitle(messageStore.currentMessage.id, popoverDefaultTitle.value)
+      blockStore.updateArticleTitle(blockStore.currentBlock.id, popoverDefaultTitle.value)
     }
   }
 }
@@ -43,7 +43,7 @@ function handleTitlePopoverUpdate(show: boolean) {
           quaternary
           size="small"
         >
-          {{ messageStore.currentMessage?.title }}
+          {{ blockStore.currentBlock?.title }}
         </NButton>
       </template>
       <div bg-neutral-700 rounded-2 shadow px-2 py-1>

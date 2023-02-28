@@ -43,7 +43,7 @@ export const useConfigStore = defineStore('config', {
       /**
        * 左侧显示内容 文件列表/搜索
        */
-      leftCurrentTool: 'messageList',
+      leftCurrentTool: 'blockList',
       title: '',
 
       rightBarCollapsed,

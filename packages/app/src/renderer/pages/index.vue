@@ -2,7 +2,7 @@
 defineOptions({ name: 'IndexPage' })
 
 const configStore = useConfigStore()
-const messageStore = useMessageStore()
+const blockStore = useBlockStore()
 
 const visibility = useDocumentVisibility()
 
@@ -10,13 +10,13 @@ onBeforeMount(() => {
   configStore.setTitle('')
 })
 onMounted(() => {
-  messageStore.find()
+  blockStore.find()
 })
 watch(
   visibility,
   (f) => {
     if (f) {
-      messageStore.find()
+      blockStore.find()
     }
   },
   { deep: true },
@@ -25,7 +25,7 @@ watch(
 
 <template>
   <TextEditorPro
-    v-if="messageStore.currentMessageId && messageStore.currentMessage?.category === 'article'"
+    v-if="blockStore.currentBlockId && blockStore.currentBlock?.category === 'article'"
   />
 </template>
 

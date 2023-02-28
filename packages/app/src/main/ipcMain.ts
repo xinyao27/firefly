@@ -30,7 +30,7 @@ export async function clipboardWrite({ paths, texts, imagePath }: ClipboardWrite
 export function getAppDataPath() {
   return process.env.APP_DATA_PATH!
 }
-export function getMessageDirPath() {
+export function getBlockDirPath() {
   return join(getAppDataPath(), MESSAGE_SAVE_DIR_PATH)
 }
 export function getFinalPath(path: string) {
@@ -38,7 +38,7 @@ export function getFinalPath(path: string) {
 }
 export default function(win: BrowserWindow | null) {
   ipcMain.handle('get:appDataPath', getAppDataPath)
-  ipcMain.handle('get:messageDirPath', getMessageDirPath)
+  ipcMain.handle('get:blockDirPath', getBlockDirPath)
   ipcMain.handle('get:finalPath', (_, path: string) => getFinalPath(path))
 
   ipcMain.handle('win:minimize', () => win?.minimize())

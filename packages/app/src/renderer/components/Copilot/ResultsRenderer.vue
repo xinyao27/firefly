@@ -3,7 +3,7 @@ import type { ActionOption } from './options'
 import { answeredOptions, articleOptions, initialOptions } from './options'
 
 const copilotStore = useCopilotStore()
-const messageStore = useMessageStore()
+const blockStore = useMessageStore()
 
 const options = ref<ActionOption[]>(initialOptions)
 const optionPosition = ref({
@@ -18,7 +18,7 @@ watch(() => copilotStore.status, () => {
       optionPosition.value.x = answerRect.x + answerRect.width + 108
       optionPosition.value.y = answerRect.y - 6
       let _options = [...answeredOptions]
-      if (messageStore.currentMessage && messageStore.currentMessage.category === 'article') {
+      if (blockStore.currentBlock && blockStore.currentBlock.category === 'article') {
         _options = [...articleOptions, ..._options]
       }
       options.value = _options

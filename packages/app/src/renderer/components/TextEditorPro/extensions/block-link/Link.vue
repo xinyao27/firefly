@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
 const props = defineProps(nodeViewProps)
-const message = props.node.attrs.message as MessageModel
+const block = props.node.attrs.block as BlockModel
 
 const metadata = computedAsync(async() => {
-  return props.node.attrs.metadata || await $api.getWebsiteMetadata(message.link!)
+  return props.node.attrs.metadata || await $api.getWebsiteMetadata(block.link!)
 })
 </script>
 
@@ -56,7 +56,7 @@ const metadata = computedAsync(async() => {
             :alt="metadata.title"
           >
           <div class="truncate">
-            {{ message.link }}
+            {{ block.link }}
           </div>
         </div>
       </div>

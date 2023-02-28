@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { byteSize } from '@firefly/utils'
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
 const props = defineProps(nodeViewProps)
-const message = props.node.attrs.message as MessageModel
+const block = props.node.attrs.block as BlockModel
 
 const size = computed(() => {
-  const s = byteSize(message.size)
+  const s = byteSize(block.size)
   return s?.text
 })
 
 async function handleOpen() {
-  const path = message.path
+  const path = block.path
   if (path) {
     $api.shellOpenPath(path)
   }
@@ -28,13 +28,13 @@ async function handleOpen() {
         <i class="i-ri-file-3-line block text-lg" />
         <div class="flex flex-col">
           <div class="flex items-center gap-2">
-            {{ message.title }}
+            {{ block.title }}
             <div class="text-neutral text-xs">
               {{ size }}
             </div>
           </div>
           <div class="text-neutral text-xs">
-            {{ message.path }}
+            {{ block.path }}
           </div>
         </div>
       </div>

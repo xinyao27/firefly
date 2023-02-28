@@ -3,8 +3,8 @@ import { upload } from '@firefly/utils'
 import { useMessage } from 'naive-ui'
 
 export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
-  const message = useMessage()
-  const messageStore = useMessageStore()
+  const block = useMessage()
+  const blockStore = useBlockStore()
 
   const isOverDropZone = ref(false)
   let counter = 0
@@ -49,11 +49,11 @@ export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {
         from: 'pc',
       })
         .then((res) => {
-          message.success(res.statusText)
-          messageStore.find()
+          block.success(res.statusText)
+          blockStore.find()
         })
         .catch((error) => {
-          message.error(error.message || error.stack || error.code)
+          block.error(error.block || error.stack || error.code)
         })
     }
     counter = 0

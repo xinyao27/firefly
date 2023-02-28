@@ -1,24 +1,24 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import MessageText from './MessageText.vue'
-import type { MessageModel } from '~/models/Message'
+import Text from './Text.vue'
+import type { BlockModel } from '~/models/Block'
 
-export interface MessageTextAttrs {
+export interface BlockTextAttrs {
   position: number
-  from: 'file' | 'message'
-  message?: MessageModel
+  from: 'file' | 'block'
+  block?: BlockModel
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    messageText: {
-      setMessageText: (attr: MessageTextAttrs) => ReturnType
+    blockText: {
+      setBlockText: (attr: BlockTextAttrs) => ReturnType
     }
   }
 }
 
-export const ExtensionMessageText = Node.create({
-  name: 'messageText',
+export const ExtensionBlockText = Node.create({
+  name: 'blockText',
 
   group: 'block',
 
@@ -33,33 +33,33 @@ export const ExtensionMessageText = Node.create({
   addAttributes() {
     return {
       from: { default: null },
-      message: { default: null },
+      block: { default: null },
     }
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type=messageText]' }]
+    return [{ tag: 'div[data-type=blockText]' }]
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const message = node.attrs.message as MessageModel
+    const block = node.attrs.block as BlockModel
     return [
       'div',
       mergeAttributes(HTMLAttributes, {
-        'data-type': 'messageText',
+        'data-type': 'blockText',
         'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
       }),
       [
         'div',
         { class: 'whitespace-pre-line p-2' },
-        message.content,
+        block.content,
       ],
     ]
   },
 
   addCommands() {
     return {
-      setMessageText: attrs => ({ commands }) => {
+      setBlockText: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,
@@ -69,6 +69,6 @@ export const ExtensionMessageText = Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(MessageText)
+    return VueNodeViewRenderer(Text)
   },
 })

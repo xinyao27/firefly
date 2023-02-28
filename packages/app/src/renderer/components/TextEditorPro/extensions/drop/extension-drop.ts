@@ -3,20 +3,20 @@ import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
 import { Fragment, Slice } from 'prosemirror-model'
 import { convertBase64 } from '../../utils'
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
-function getMessageCommand(category: MessageModel['category'], editor: Editor) {
+function getBlockCommand(category: BlockModel['category'], editor: Editor) {
   switch (category) {
     case 'text':
-      return editor.commands.setMessageText
+      return editor.commands.setBlockText
     case 'image':
-      return editor.commands.setMessageImage
+      return editor.commands.setBlockImage
     case 'link':
-      return editor.commands.setMessageLink
+      return editor.commands.setBlockLink
     case 'other':
-      return editor.commands.setMessageOther
+      return editor.commands.setBlockOther
     default:
-      return editor.commands.setMessageOther
+      return editor.commands.setBlockOther
   }
 }
 
@@ -31,32 +31,32 @@ export const ExtensionDrop = Extension.create({
         props: {
           handleDrop(view, event) {
             (async() => {
-              const messageStore = useMessageStore()
+              const blockStore = useBlockStore()
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
-              if (messageStore.draggingMessage) {
+              if (blockStore.draggingBlock) {
                 if (pos) {
-                  const message = { ...messageStore.draggingMessage }
-                  if (message.path) {
-                    message.path = await $api.getFinalPath(message.path)
+                  const block = { ...blockStore.draggingBlock }
+                  if (block.path) {
+                    block.path = await $api.getFinalPath(block.path)
                   }
 
-                  const t = messageStore.messages.find(v => v.id === message.id)
+                  const t = blockStore.blocks.find(v => v.id === block.id)
                   if (t) t.used = true
 
-                  if (message.category === 'link') {
-                    const metadata = await $api.getWebsiteMetadata(message.link!)
-                    getMessageCommand(message.category, editor)({
+                  if (block.category === 'link') {
+                    const metadata = await $api.getWebsiteMetadata(block.link!)
+                    getBlockCommand(block.category, editor)({
                       position: pos.pos,
-                      from: 'message',
-                      message,
+                      from: 'block',
+                      block,
                       metadata,
                     })
                   }
                   else {
-                    getMessageCommand(message.category, editor)({
+                    getBlockCommand(block.category, editor)({
                       position: pos.pos,
-                      from: 'message',
-                      message,
+                      from: 'block',
+                      block,
                     })
                   }
                 }
@@ -68,10 +68,10 @@ export const ExtensionDrop = Extension.create({
                     const base64 = await convertBase64(file)
                     if (base64) {
                       if (pos) {
-                        getMessageCommand('image', editor)({
+                        getBlockCommand('image', editor)({
                           position: pos.pos,
                           from: 'file',
-                          message: {
+                          block: {
                             id: new Date().getTime().toString(),
                             category: 'image',
                             path: base64,
@@ -82,10 +82,10 @@ export const ExtensionDrop = Extension.create({
                   }
                   else {
                     if (pos) {
-                      getMessageCommand('other', editor)({
+                      getBlockCommand('other', editor)({
                         position: pos.pos,
                         from: 'file',
-                        message: {
+                        block: {
                           id: new Date().getTime().toString(),
                           category: 'other',
                           title: file.name,
@@ -103,8 +103,8 @@ export const ExtensionDrop = Extension.create({
           },
 
           transformPasted(slice) {
-            const messageStore = useMessageStore()
-            if (messageStore.draggingMessage) {
+            const blockStore = useBlockStore()
+            if (blockStore.draggingBlock) {
               return new Slice(Fragment.empty, 0, 0)
             }
             return slice

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-import type { MessageModel } from '~/models/Message'
+import type { BlockModel } from '~/models/Block'
 
 const props = defineProps(nodeViewProps)
-const message = props.node.attrs.message as MessageModel
+const block = props.node.attrs.block as BlockModel
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const message = props.node.attrs.message as MessageModel
       class="whitespace-pre-line p-2 transition hover:bg-neutral-800"
       contenteditable="true"
     >
-      {{ message.content }}
+      {{ block.content }}
     </div>
   </NodeViewWrapper>
 </template>

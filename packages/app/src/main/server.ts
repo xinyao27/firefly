@@ -14,8 +14,8 @@ import { getCategoryAndThumb, getImageMetadata } from './utils'
 import watcher from './watcher'
 import { appRouter } from '~/api'
 import { MESSAGE_SAVE_DIR_PATH } from '~/constants'
-import type { MessageFrom, MessageMetadata } from '~/models/Message'
-import { Message } from '~/entities/message'
+import type { BlockFrom, BlockMetadata } from '~/models/Block'
+import { Block } from '~/entities/block'
 import { DataBase } from '~main/database'
 
 const db = new DataBase('firefly').dataSource
@@ -58,10 +58,10 @@ const server = http.createServer((req, res) => {
       await queryRunner.connect()
       await queryRunner.startTransaction()
       try {
-        const from = fields.from as MessageFrom || 'pc'
+        const from = fields.from as BlockFrom || 'pc'
         const text = fields.text as string
         const metadata = fields.metadata
-          ? JSON.parse(fields.metadata as string) as unknown as MessageMetadata
+          ? JSON.parse(fields.metadata as string) as unknown as BlockMetadata
           : undefined
         const jsonFiles = fields.jsonFiles
           ? JSON.parse(fields.jsonFiles as string) as unknown as UploadJSONFile[]
@@ -91,9 +91,9 @@ const server = http.createServer((req, res) => {
           const fileName = basename(name, fileExt ? `.${fileExt}` : '')
           await move(file.filepath, absolutePath, { overwrite: true })
           const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(absolutePath) : undefined)
-          const old = await queryRunner.manager.findOneBy(Message, { path: relativePath })
+          const old = await queryRunner.manager.findOneBy(Block, { path: relativePath })
 
-          await queryRunner.manager.save(Message, {
+          await queryRunner.manager.save(Block, {
             ...old,
             title: fileName,
             thumb,
@@ -132,9 +132,9 @@ const server = http.createServer((req, res) => {
             const fileName = basename(name, fileExt ? `.${fileExt}` : '')
             await createSymlink(file.filepath, absolutePath)
             const finalMetadata = metadata || (category === 'image' ? await getImageMetadata(file.filepath) : undefined)
-            const old = await queryRunner.manager.findOneBy(Message, { path: relativePath })
+            const old = await queryRunner.manager.findOneBy(Block, { path: relativePath })
 
-            await queryRunner.manager.save(Message, {
+            await queryRunner.manager.save(Block, {
               ...old,
               title: fileName,
               thumb,
@@ -165,9 +165,9 @@ const server = http.createServer((req, res) => {
             const { category, thumb } = await getCategoryAndThumb({ ext: fileExt })
             const content = text
             const finalMetadata = metadata || await getPageMetadata(link)
-            const old = await queryRunner.manager.findOneBy(Message, { link })
+            const old = await queryRunner.manager.findOneBy(Block, { link })
 
-            await queryRunner.manager.save(Message, {
+            await queryRunner.manager.save(Block, {
               ...old,
               thumb,
               category,
@@ -192,7 +192,7 @@ const server = http.createServer((req, res) => {
             const { category, thumb } = await getCategoryAndThumb({ ext: undefined })
             const content = text
             const finalMetadata = metadata
-            await queryRunner.manager.save(Message, {
+            await queryRunner.manager.save(Block, {
               thumb,
               category,
               content,
@@ -229,7 +229,7 @@ server.listen(PORT, () => {
 })
 server.on('error', (e: any) => {
   if (e.code === 'EADDRINUSE') {
-    log(e.message || 'Address in use, retrying...')
+    log(e.block || 'Address in use, retrying...')
     kill(PORT)
       .then(() => {
         setTimeout(() => {

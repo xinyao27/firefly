@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MessageListView from './MessageListView.vue'
+import BlockListView from './BlockListView.vue'
 import SearchView from './SearchView.vue'
 
 const configStore = useConfigStore()
@@ -7,7 +7,7 @@ const configStore = useConfigStore()
 
 <template>
   <aside h-full style="border-right: 1px solid var(--n-border-color)">
-    <MessageListView v-show="configStore.leftCurrentTool === 'messageList'" />
+    <BlockListView v-show="configStore.leftCurrentTool === 'blockList'" />
     <SearchView v-show="configStore.leftCurrentTool === 'search'" />
   </aside>
 </template>

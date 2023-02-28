@@ -1,7 +1,7 @@
-export type MessageId = string
-export type MessageCategory = 'folder' | 'article' | 'text' | 'image' | 'link' | 'rss' | 'other'
-export type MessageFrom = 'pc' | 'mobile' | 'webext' | 'browser' | 'other'
-export interface MessageMetadata {
+export type BlockId = string
+export type BlockCategory = 'folder' | 'article' | 'text' | 'image' | 'link' | 'rss' | 'other'
+export type BlockFrom = 'pc' | 'mobile' | 'webext' | 'browser' | 'other'
+export interface BlockMetadata {
   /**
    * common
    */
@@ -40,10 +40,10 @@ export interface MessageMetadata {
   [x: string]: string | string[] | number | undefined
 }
 
-export type MessageWhere = 'default' | 'trash'
+export type BlockWhere = 'default' | 'trash'
 
-export interface MessageModel {
-  id: MessageId
+export interface BlockModel {
+  id: BlockId
   /**
    * 标题
    */
@@ -59,7 +59,7 @@ export interface MessageModel {
   /**
    * 类型
    */
-  category?: MessageCategory
+  category?: BlockCategory
   /**
    * 文件内容
    */
@@ -75,7 +75,7 @@ export interface MessageModel {
   /**
    * 来源
    */
-  from?: MessageFrom
+  from?: BlockFrom
   /**
    * 文件资源大小 (bytes)
    */
@@ -87,12 +87,12 @@ export interface MessageModel {
   /**
    * 元数据
    */
-  metadata?: MessageMetadata
+  metadata?: BlockMetadata
   /**
    * 位置
    * default(默认) | trash(废纸篓)
    */
-  where?: MessageWhere
+  where?: BlockWhere
   /**
    * 创建时间
    */
@@ -102,12 +102,12 @@ export interface MessageModel {
    */
   updatedAt?: Date
   /**
-   * 父级 message
+   * 父级 block
    */
-  parent?: MessageModel
+  parent?: BlockModel
 }
 
-export type Message = MessageModel & {
+export type Block = BlockModel & {
   used?: boolean
-  children?: MessageModel[]
+  children?: BlockModel[]
 }

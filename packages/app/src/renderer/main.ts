@@ -35,7 +35,7 @@ const routes = setupLayouts(generatedRoutes)
 const router = createRouter({ history, routes })
 const routeHistory: RouteLocationNormalized[] = []
 const pinia = createPinia()
-const messages = Object.fromEntries(Object.entries(import.meta.glob<{ default: any }>('../../locales/*.y(a)?ml', { eager: true }))
+const blocks = Object.fromEntries(Object.entries(import.meta.glob<{ default: any }>('../../locales/*.y(a)?ml', { eager: true }))
   .map(([key, value]) => {
     const yaml = key.endsWith('.yaml')
     return [key.slice(14, yaml ? -5 : -4), value.default]
@@ -44,7 +44,7 @@ const messages = Object.fromEntries(Object.entries(import.meta.glob<{ default: a
 const i18n = createI18n({
   legacy: false,
   locale: 'en',
-  messages,
+  blocks,
 })
 
 const app = createApp(App)
