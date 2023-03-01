@@ -16,57 +16,46 @@ watch(() => copilotStore.show, (value) => {
 
 const activeElement = useActiveElement()
 function handleKeyUp(e: KeyboardEvent) {
-  if (e.key === 'Enter' && (activeElement.value?.id && activeElement.value?.id === (e.target as HTMLElement)?.id))
+  if ((e.key === 'Enter' && e.ctrlKey) && (activeElement.value?.className && activeElement.value?.className === (e.target as HTMLElement)?.className))
     copilotStore.search()
 }
 </script>
 
 <template>
-  <div w-600px bg-neutral-700 shadow-lg rounded flex flex-col>
-    <div p-4>
-      <NInput
+  <div w-600px bg-dark-800 shadow-lg rounded-2 flex flex-col>
+    <div p-4 flex flex-col gap-2>
+      <NMention
         v-show="!copilotStore.text"
-        id="aiInput"
         :ref="ref => copilotStore.inputRef = ref"
         v-model:value="copilotStore.question"
+        :autosize="{ maxRows: 5, minRows: 5 }"
+        type="textarea"
         size="large"
         :disabled="copilotStore.loading"
         autofocus
         placeholder="随便问我点什么..."
         @keyup="handleKeyUp"
-      >
-        <template #prefix>
-          <i i-tabler-brain />
-        </template>
-        <template #suffix>
-          <NTooltip
-            trigger="hover"
-            :disabled="copilotStore.loading"
-          >
-            <template #trigger>
-              <NButton
-                :disabled="!copilotStore.question"
-                :loading="copilotStore.loading"
-                text
-                @click="copilotStore.search"
-              >
-                <i v-if="!copilotStore.loading" i-ri-arrow-up-circle-fill />
-              </NButton>
-            </template>
-            <div flex items-center gap-1>
-              问问AI <i i-tabler-arrow-back text-xs />
-            </div>
-          </NTooltip>
-        </template>
-      </NInput>
-      <NSpin :show="copilotStore.loading">
-        <div
-          v-show="copilotStore.text"
-          bg-neutral-600 rounded p-2
+      />
+      <div flex justify-between>
+        <div />
+        <NTooltip
+          trigger="hover"
+          :disabled="copilotStore.loading"
         >
-          {{ copilotStore.text }}
-        </div>
-      </NSpin>
+          <template #trigger>
+            <NButton
+              :disabled="!copilotStore.question"
+              :loading="copilotStore.loading"
+              @click="copilotStore.search"
+            >
+              Firefly AI
+            </NButton>
+          </template>
+          <div flex items-center gap-1>
+            问问AI <i i-tabler-arrow-back text-xs />
+          </div>
+        </NTooltip>
+      </div>
     </div>
     <ResultsRenderer v-if="copilotStore.results.length" />
     <RecentlyQuestion v-if="!copilotStore.results.length && !copilotStore.loading" />

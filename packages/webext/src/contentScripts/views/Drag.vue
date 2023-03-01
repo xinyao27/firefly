@@ -102,9 +102,9 @@ function handleDrop(e: DragEvent) {
         </div>
         <div
           v-else-if="uploading"
-          p-6 rounded-2 border border-dashed border-blue-500 transition leading-1em bg-opacity-30 bg-blue-500
+          p-6 rounded-2 border border-dashed border-primary transition leading-1em bg-opacity-30 bg-primary
         >
-          <div h-8 flex items-center justify-center gap-3 pointer-events-none text-blue-500>
+          <div h-8 flex items-center justify-center gap-3 pointer-events-none bg-primary>
             <i
               i-ri-loader-2-line
               text-lg block animate-spin
@@ -114,8 +114,8 @@ function handleDrop(e: DragEvent) {
         <div
           v-else
           p-6 rounded-2 border border-dashed transition leading-1em bg-opacity-30
-          :border-color="`${dragIn ? 'blue-500' : 'gray-500'}`"
-          :bg="`${dragIn ? 'blue-500' : 'dark-300'}`"
+          :border-color="`${dragIn ? 'primary' : 'gray-500'}`"
+          :bg="`${dragIn ? 'primary' : 'dark-300'}`"
           @dragenter.prevent="handleDragEnter"
           @dragover.prevent="handleDragOver"
           @dragleave.prevent="handleDragLeave"
@@ -123,7 +123,7 @@ function handleDrop(e: DragEvent) {
         >
           <div
             h-8 flex items-center justify-center gap-3 pointer-events-none
-            :text="`${dragIn ? 'blue-500' : 'gray-500'}`"
+            :text="`${dragIn ? 'primary' : 'gray-500'}`"
           >
             <i
               v-show="!dragIn"

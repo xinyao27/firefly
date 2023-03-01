@@ -53,26 +53,6 @@ function handleDragEnd() {
   blockStore.draggingBlock = null
 }
 
-const handleUpdatePrefixWithExpanded = (
-  _keys: Array<string | number>,
-  _option: Array<TreeOption | null>,
-  meta: {
-    node: TreeOption | null
-    action: 'expand' | 'collapse' | 'filter'
-  },
-) => {
-  if (!meta.node)
-    return
-  switch (meta.action) {
-    case 'expand':
-      meta.node.prefix = () => h('i', { class: 'i-ri-folder-5-fill' })
-      break
-    case 'collapse':
-      meta.node.prefix = () => h('i', { class: 'i-ri-folder-fill' })
-      break
-  }
-}
-
 async function handleDrop({ node, dragNode, dropPosition }: TreeDropInfo) {
   if (dropPosition === 'inside') {
     await blockStore.move((node.data as Block)?.id, (dragNode.data as Block)?.id)
@@ -121,7 +101,6 @@ const nodeProps = ({ option }: { option: TreeOption }) => {
     :data="data"
     :node-props="nodeProps"
     :default-expanded-keys="[data?.[0]?.key ?? '0']"
-    @update-expanded-keys="handleUpdatePrefixWithExpanded"
     @dragstart="handleDragStart"
     @dragend="handleDragEnd"
     @drop="handleDrop"

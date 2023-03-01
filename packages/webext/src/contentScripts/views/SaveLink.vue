@@ -107,9 +107,9 @@ onBeforeMount(() => {
         </div>
         <div
           v-else-if="uploading"
-          p-6 rounded-2 border border-dashed border-blue-500 transition leading-1em bg-opacity-30 bg-blue-500
+          p-6 rounded-2 border border-dashed border-primary transition leading-1em bg-opacity-30 bg-primary
         >
-          <div h-8 flex items-center justify-center gap-3 pointer-events-none text-blue-500>
+          <div h-8 flex items-center justify-center gap-3 pointer-events-none bg-primary>
             <i
               i-ri-loader-2-line
               text-lg block animate-spin
@@ -150,7 +150,7 @@ onBeforeMount(() => {
               <i i-ri-delete-bin-line />
             </button>
             <button
-              w-full h-10 bg-blue-500 text-white rounded-full
+              w-full h-10 bg-primary text-white rounded-full
               @click="handleUpload"
             >
               完成

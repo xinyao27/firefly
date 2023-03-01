@@ -16,6 +16,9 @@ html.dark
   &-corner
     @apply bg-transparent
 
+::selection
+  @apply bg-primary bg-opacity-30
+
 .v
   &-enter-active, &-leave-active
     @apply transition
@@ -25,7 +28,7 @@ html.dark
 #nprogress
   @apply pointer-events-none
   .bar
-    @apply bg-blue-500 bg-opacity-75 fixed z-35 top-0 left-0 w-full h-2px
+    @apply bg-primary bg-opacity-75 fixed z-35 top-0 left-0 w-full h-2px
 
 i
   @apply block

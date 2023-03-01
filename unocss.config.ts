@@ -8,6 +8,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import { primaryColor } from './packages/theme/src/constants'
 
 export default defineConfig({
   presets: [
@@ -30,4 +31,9 @@ export default defineConfig({
     transformerDirectives(),
     transformerVariantGroup(),
   ],
+  theme: {
+    colors: {
+      primary: primaryColor.default,
+    },
+  },
 })

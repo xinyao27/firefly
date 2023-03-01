@@ -24,16 +24,15 @@ const { isOverDropZone } = useFileDropZone(dragView)
       <Transition>
         <div
           v-show="isOverDropZone"
-          fixed right-0 bottom-0 z-35 select-none bg-opacity-20 bg-blue-500 border-2 border-blue-500
+          fixed right-0 bottom-0 z-35 select-none bg-opacity-20 bg-primary border-2 border-primary
           :style="`left: ${configStore.rootPaddingLeft}px; top: ${configStore.rootPaddingTop}px`"
         />
       </Transition>
       <Transition>
         <NButton
           v-show="isOverDropZone"
-          fixed bottom-6 w-280px ml--140px z-35 transform select-none animate-bounce color-white
+          fixed bottom-6 w-280px ml--140px z-35 transform select-none animate-bounce bg-primary color-white
           left="1/2"
-          bg="blue-500"
           type="primary"
           icon-placement="left"
           size="large"

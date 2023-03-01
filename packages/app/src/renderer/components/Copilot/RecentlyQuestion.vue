@@ -9,8 +9,11 @@ function handleSelect(prompt: string) {
 </script>
 
 <template>
-  <div p-4 pt-0 min-h-24 flex justify-start>
-    <div v-if="copilotStore.recently.length" flex flex-col gap-4>
+  <div min-h-24 bg-neutral-800 flex justify-start p-4>
+    <div
+      v-if="copilotStore.recently.length"
+      flex flex-col gap-4
+    >
       <div text-sm>
         最近问题
       </div>

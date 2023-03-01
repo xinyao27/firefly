@@ -1,12 +1,18 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { colors } from 'unocss/preset-mini'
 
+export const primaryColor = {
+  default: '#ff8787',
+  hover: '#ff8787aa',
+  active: '#ff87877f',
+}
+
 export const themeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: colors.blue['500'],
-    primaryColorHover: colors.blue['400'],
-    primaryColorPressed: colors.blue['600'],
-    primaryColorSuppl: colors.blue['500'],
+    primaryColor: primaryColor.default,
+    primaryColorHover: primaryColor.hover,
+    primaryColorPressed: primaryColor.active,
+    primaryColorSuppl: primaryColor.default,
   },
   Layout: {
     color: colors.dark['500'],

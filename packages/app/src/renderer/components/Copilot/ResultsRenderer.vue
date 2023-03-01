@@ -3,7 +3,7 @@ import type { ActionOption } from './options'
 import { answeredOptions, articleOptions, initialOptions } from './options'
 
 const copilotStore = useCopilotStore()
-const blockStore = useMessageStore()
+const blockStore = useBlockStore()
 
 const options = ref<ActionOption[]>(initialOptions)
 const optionPosition = ref({
@@ -32,10 +32,10 @@ function handleSelectItem(_: string, option: ActionOption) {
 </script>
 
 <template>
-  <div p-4 pt-0>
+  <div>
     <div
       ref="answerRef"
-      max-h-50 p-2 bg-neutral-800 rounded
+      max-h-50 p-4 bg-neutral-800 rounded overflow-x-hidden overflow-y-auto
     >
       <div>
         {{ copilotStore.results }}

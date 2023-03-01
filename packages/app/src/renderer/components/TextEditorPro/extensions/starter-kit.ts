@@ -9,7 +9,7 @@ import { CharacterCount as ExtensionCharacterCount } from '@tiptap/extension-cha
 import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placeholder'
 import { FocusClasses as ExtensionFocus } from '@tiptap/extension-focus'
 import { lowlight } from 'lowlight'
-import { colors } from 'unocss/preset-mini'
+import { primaryColor } from '@firefly/theme'
 import { ExtensionDraggable } from './draggable'
 import { ExtensionBlockImage } from './block-image'
 import { ExtensionBlockLink } from './block-link'
@@ -24,13 +24,13 @@ import { ExtensionBlockID } from './block-id'
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
     dropcursor: {
-      color: colors?.blue['400'],
+      color: primaryColor.default,
       width: 4,
     },
   }),
+  ExtensionCharacterCount,
   ExtensionDraggable,
   ExtensionTypography,
-  ExtensionCharacterCount,
   ExtensionDrop,
   ExtensionColor,
   ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),

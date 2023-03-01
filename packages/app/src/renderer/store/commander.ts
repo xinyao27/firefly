@@ -34,8 +34,9 @@ export const useCopilotStore = defineStore('copilot', {
     }
   },
   actions: {
-    getCompletion({ type, text, language }: Context) {
-      this.inputRef?.blur()
+    getCompletion(context?: Context) {
+      const { type = 'default', text = '', language } = context || {}
+      this.inputRef?.blur?.()
       this.loading = true
       const eventSource = new SSE(`${getEdgeFunctionUrl()}/completion`, {
         headers: {
@@ -59,7 +60,7 @@ export const useCopilotStore = defineStore('copilot', {
           if (e.data === '[DONE]') {
             this.loading = false
             this.status = 'answered'
-            this.inputRef?.blur()
+            this.inputRef?.blur?.()
             return
           }
 
@@ -81,7 +82,7 @@ export const useCopilotStore = defineStore('copilot', {
       this.status = 'empty'
       this.results = ''
       if (this.show)
-        this.inputRef?.select()
+        this.inputRef?.select?.()
     },
     continue() {
       this.getCompletion({
@@ -97,7 +98,7 @@ export const useCopilotStore = defineStore('copilot', {
     },
     async search() {
       await this.getCompletion()
-      this.inputRef?.select()
+      this.inputRef?.select?.()
       // 控制最近问题最大数量
       if (this.recently.length >= 10) {
         this.recently.pop()
