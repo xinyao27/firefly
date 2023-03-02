@@ -7,7 +7,7 @@ import { debounce } from 'lodash-es'
 import Title from './Title'
 import BubbleMenu from './BubbleMenu'
 import CharacterCount from './CharacterCount.vue'
-import { extensions } from './extensions/starter-kit'
+import { proExtensions } from './extensions/starter-kit'
 
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
@@ -20,7 +20,7 @@ const handleUpdate = debounce((content: JSONContent) => {
     blockStore.updateArticleContent(currentBlock.value?.id, JSON.stringify(content))
 }, 300)
 const editor = useEditor({
-  extensions,
+  extensions: proExtensions,
   editorProps: {
     attributes: {
       id: 'text-editor-pro',
