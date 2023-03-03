@@ -1,6 +1,5 @@
-import type { Content, Editor } from '@tiptap/core'
 import { uniq } from 'lodash-es'
-import type { CreateChatCompletionResponse } from 'openai'
+import type { CreateCompletionResponse } from 'openai'
 import { defineStore } from 'pinia'
 import { SSE } from 'sse.js'
 
@@ -25,28 +24,27 @@ export const useCopilotStore = defineStore('copilot', {
   state: () => {
     return {
       show: false,
-      question: {} as Content,
+      question: '',
       text: '',
       loading: false,
       status: 'empty' as 'empty' | 'error' | 'answered',
       results: '',
-      editor: undefined as Editor | undefined,
+      inputRef: null as any | null,
       recently: useCopilotRecently(),
     }
   },
   actions: {
     getCompletion(context?: Context) {
       const { type = 'default', text = '', language } = context || {}
-      this.editor?.commands?.blur?.()
+      this.inputRef?.blur?.()
       this.loading = true
-      const prompt = this.editor.getText()
       const eventSource = new SSE(`${getEdgeFunctionUrl()}/completion`, {
         headers: {
           'apikey': import.meta.env.RENDERER_VITE_SUPABASE_ANON_KEY,
           'Authorization': `Bearer ${import.meta.env.RENDERER_VITE_SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json',
         },
-        payload: JSON.stringify({ prompt, type, text, language }),
+        payload: JSON.stringify({ prompt: this.question, type, text, language }),
       })
       const handleError = <T>(err: T) => {
         this.loading = false
@@ -62,14 +60,14 @@ export const useCopilotStore = defineStore('copilot', {
           if (e.data === '[DONE]') {
             this.loading = false
             this.status = 'answered'
-            this.editor?.commands?.blur?.()
+            this.inputRef?.blur?.()
             return
           }
 
-          const completionResponse = JSON.parse(e.data) as CreateChatCompletionResponse
-          // @ts-expect-error noop
-          const content = completionResponse.choices[0]?.delta?.content ?? ''
-          this.results = (this.results ?? '') + content
+          const completionResponse = JSON.parse(e.data) as CreateCompletionResponse
+          const [{ text }] = completionResponse.choices
+
+          this.results = (this.results ?? '') + text
         }
         catch (err) {
           handleError(err)
@@ -78,13 +76,13 @@ export const useCopilotStore = defineStore('copilot', {
       eventSource.stream()
     },
     reset() {
-      this.question = {}
+      this.question = ''
       this.text = ''
       this.loading = false
       this.status = 'empty'
       this.results = ''
       if (this.show)
-        this.editor?.commands?.select?.()
+        this.inputRef?.select?.()
     },
     continue() {
       this.getCompletion({
@@ -100,14 +98,14 @@ export const useCopilotStore = defineStore('copilot', {
     },
     async search() {
       await this.getCompletion()
-      const content = this.editor?.getText()
+      this.inputRef?.select?.()
       // 控制最近问题最大数量
       if (this.recently.length >= 10) {
         this.recently.pop()
-        this.recently = uniq([content, ...this.recently])
+        this.recently = uniq([this.question, ...this.recently])
       }
       else {
-        this.recently = uniq([content, ...this.recently])
+        this.recently = uniq([this.question, ...this.recently])
       }
     },
 

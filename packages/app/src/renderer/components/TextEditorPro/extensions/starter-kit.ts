@@ -21,40 +21,33 @@ import { ExtensionSlashMenu } from './slash-menu'
 import { ExtensionCommands } from './commands'
 import { ExtensionBlockID } from './block-id'
 
-export function getExtensions(params: { placeholder: string }) {
-  const extensions: AnyExtension[] = [
-    StarterKit.configure({
-      dropcursor: {
-        color: primaryColor.default,
-        width: 4,
-      },
-    }),
-    ExtensionTypography,
-    ExtensionDrop,
-    ExtensionColor,
-    ExtensionPlaceholder.configure({ placeholder: params.placeholder }),
-    ExtensionFocus,
-
-    // Node
-    ExtensionBlockImage,
-    ExtensionBlockLink,
-    ExtensionBlockOther,
-    ExtensionBlockText,
-    ExtensionImage.configure({ allowBase64: true }),
-    ExtensionListItem,
-    ExtensionCodeBlockLowLight.configure({ lowlight }),
-
-    // Mark
-    ExtensionUnderline,
-  ]
-  return extensions
-}
-
-export const proExtensions: AnyExtension[] = [
-  ...getExtensions({ placeholder: '输入 `/` 调用命令...' }),
+export const extensions: AnyExtension[] = [
+  StarterKit.configure({
+    dropcursor: {
+      color: primaryColor.default,
+      width: 4,
+    },
+  }),
   ExtensionCharacterCount,
   ExtensionDraggable,
+  ExtensionTypography,
+  ExtensionDrop,
+  ExtensionColor,
+  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
+  ExtensionFocus,
   ExtensionSlashMenu,
   ExtensionCommands,
   ExtensionBlockID.configure({ types: ['heading', 'paragraph'] }),
+
+  // Node
+  ExtensionBlockImage,
+  ExtensionBlockLink,
+  ExtensionBlockOther,
+  ExtensionBlockText,
+  ExtensionImage.configure({ allowBase64: true }),
+  ExtensionListItem,
+  ExtensionCodeBlockLowLight.configure({ lowlight }),
+
+  // Mark
+  ExtensionUnderline,
 ]

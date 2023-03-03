@@ -3,7 +3,7 @@ const copilotStore = useCopilotStore()
 
 function handleSelect(prompt: string) {
   copilotStore.reset()
-  copilotStore.question = `<p>${prompt}</p>`
+  copilotStore.question = prompt
   copilotStore.getCompletion()
 }
 </script>
@@ -25,9 +25,7 @@ function handleSelect(prompt: string) {
           size="small"
           @click="handleSelect(item)"
         >
-          <div max-w-40 truncate>
-            {{ item }}
-          </div>
+          {{ item }}
         </NButton>
       </div>
     </div>

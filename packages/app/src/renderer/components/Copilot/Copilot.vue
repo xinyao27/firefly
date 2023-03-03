@@ -7,9 +7,10 @@ const copilotStore = useCopilotStore()
 watch(() => copilotStore.show, (value) => {
   nextTick(() => {
     if (value)
-      copilotStore.editor?.commands.focus()
+      copilotStore.inputRef?.focus()
+
     else
-      copilotStore.editor?.commands.blur()
+      copilotStore.inputRef?.blur()
   })
 })
 
@@ -22,14 +23,18 @@ function handleKeyUp(e: KeyboardEvent) {
 
 <template>
   <div w-600px bg-dark-800 shadow-lg rounded-2 flex flex-col>
-    <div p-4 flex flex-col gap-4>
-      <TextEditor
+    <div p-4 flex flex-col gap-2>
+      <NMention
         v-show="!copilotStore.text"
+        :ref="ref => copilotStore.inputRef = ref"
         v-model:value="copilotStore.question"
-        class="h-24 bg-neutral-800"
-        placeholder="随便问我点什么..."
+        :autosize="{ maxRows: 5, minRows: 5 }"
+        type="textarea"
+        size="large"
         :disabled="copilotStore.loading"
-        :on-mounted="editor => copilotStore.editor = editor"
+        autofocus
+        placeholder="随便问我点什么..."
+        @keyup="handleKeyUp"
       />
       <div flex justify-between>
         <div />

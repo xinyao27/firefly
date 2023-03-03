@@ -1,10 +1,5 @@
 import type { Content, Editor } from '@tiptap/core'
 import { defineStore } from 'pinia'
-import type { Schema } from 'prosemirror-model'
-import {
-  MarkdownSerializer as ProseMirrorMarkdownSerializer,
-  defaultMarkdownSerializer,
-} from 'prosemirror-markdown'
 
 export const useTextEditorStore = defineStore('textEditor', {
   state: () => {
@@ -29,16 +24,6 @@ export const useTextEditorStore = defineStore('textEditor', {
         }
         editor.commands.setTextSelection(range)
       }
-    },
-
-    toMarkdown(content: Content, schema: Schema) {
-      const proseMirrorDocument = schema.nodeFromJSON(content)
-      const serializer = new ProseMirrorMarkdownSerializer(
-        defaultMarkdownSerializer.nodes,
-        defaultMarkdownSerializer.marks,
-      )
-
-      return serializer.serialize(proseMirrorDocument, { tightLists: true })
     },
   },
 })
