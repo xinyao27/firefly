@@ -25,7 +25,9 @@ function handleSelect(prompt: string) {
           size="small"
           @click="handleSelect(item)"
         >
-          {{ item }}
+          <div max-w-40 truncate>
+            {{ item }}
+          </div>
         </NButton>
       </div>
     </div>

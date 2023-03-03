@@ -8,14 +8,14 @@ const blockStore = useBlockStore()
       <NButton
         quaternary
         size="small"
-        @click="blockStore.createArticle"
+        @click="blockStore.createArticle('0')"
       >
         <i i-ri-edit-2-line />
       </NButton>
       <NButton
         quaternary
         size="small"
-        @click="blockStore.createFolder"
+        @click="blockStore.createFolder('0')"
       >
         <i i-ri-folder-add-line />
       </NButton>

@@ -1,5 +1,5 @@
 import { uniq } from 'lodash-es'
-import type { CreateCompletionResponse } from 'openai'
+import type { CreateChatCompletionResponse } from 'openai'
 import { defineStore } from 'pinia'
 import { SSE } from 'sse.js'
 
@@ -64,10 +64,10 @@ export const useCopilotStore = defineStore('copilot', {
             return
           }
 
-          const completionResponse = JSON.parse(e.data) as CreateCompletionResponse
-          const [{ text }] = completionResponse.choices
-
-          this.results = (this.results ?? '') + text
+          const completionResponse = JSON.parse(e.data) as CreateChatCompletionResponse
+          // @ts-expect-error noop
+          const content = completionResponse.choices[0]?.delta?.content ?? ''
+          this.results = (this.results ?? '') + content
         }
         catch (err) {
           handleError(err)
