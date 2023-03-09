@@ -10,7 +10,7 @@
     "build": "turbo run build",
     "package:app": "turbo run package --filter=firefly",
     "devtools": "npx vue-devtools",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=firefly-web",
     "dev:app": "turbo run dev --filter=firefly",
     "dev:webext": "turbo run dev --filter=firefly-webext",
     "test": "turbo run test"

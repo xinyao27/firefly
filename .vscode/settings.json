@@ -11,14 +11,5 @@
     "*.css": "postcss"
   },
   "editor.formatOnSave": false,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "json.schemas": [
-    {
-      "fileMatch": [
-        "/*electron-builder.json5",
-        "/*electron-builder.json"
-      ],
-      "url": "https://json.schemastore.org/electron-builder"
-    }
-  ]
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -385,6 +385,112 @@ importers:
 
   packages/utils: {}
 
+  packages/web:
+    dependencies:
+      '@firefly/theme':
+        specifier: workspace:*
+        version: link:../theme
+      '@firefly/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@tiptap/core':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-bubble-menu':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-character-count':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-code-block-lowlight':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/extension-code-block@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-focus':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-image':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)
+      '@tiptap/extension-list-item':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)
+      '@tiptap/extension-placeholder':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-typography':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)
+      '@tiptap/extension-underline':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)
+      '@tiptap/starter-kit':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/suggestion':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/vue-3':
+        specifier: ^2.0.0-beta.215
+        version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)(vue@3.2.47)
+      fuse.js:
+        specifier: ^6.6.2
+        version: 6.6.2
+      highlight.js:
+        specifier: ^11.7.0
+        version: 11.7.0
+      lowlight:
+        specifier: ^2.8.0
+        version: 2.8.0
+      openai:
+        specifier: ^3.2.1
+        version: 3.2.1
+      prosemirror-commands:
+        specifier: ^1.5.0
+        version: 1.5.0
+      prosemirror-dropcursor:
+        specifier: ^1.6.1
+        version: 1.6.1
+      prosemirror-gapcursor:
+        specifier: ^1.3.1
+        version: 1.3.1
+      prosemirror-history:
+        specifier: ^1.3.0
+        version: 1.3.0
+      prosemirror-keymap:
+        specifier: ^1.2.0
+        version: 1.2.0
+      prosemirror-markdown:
+        specifier: ^1.10.1
+        version: 1.10.1
+      prosemirror-model:
+        specifier: ^1.19.0
+        version: 1.19.0
+      prosemirror-schema-list:
+        specifier: ^1.2.2
+        version: 1.2.2
+      prosemirror-state:
+        specifier: ^1.4.2
+        version: 1.4.2
+      prosemirror-transform:
+        specifier: ^1.7.1
+        version: 1.7.1
+      prosemirror-view:
+        specifier: ^1.30.0
+        version: 1.30.0
+      rasterizehtml:
+        specifier: ^1.3.1
+        version: 1.3.1
+      sse.js:
+        specifier: ^0.6.1
+        version: 0.6.1
+      tippy.js:
+        specifier: ^6.3.7
+        version: 6.3.7
+    devDependencies:
+      vite-plugin-pages:
+        specifier: ^0.28.0
+        version: 0.28.0(vite@4.1.4)
+
   packages/webext:
     dependencies:
       '@firefly/theme':
@@ -8805,11 +8911,6 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
-  /local-pkg@0.4.2:
-    resolution: {integrity: sha512-mlERgSPrbxU3BP4qBqAvvwlgW4MTg78iwJdGGnv7kibKjWcJksrG3t6LB5lXI93wXRDvG4NpUgJFmTG4T6rdrg==}
-    engines: {node: '>=14'}
-    dev: true
-
   /local-pkg@0.4.3:
     resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
@@ -13074,7 +13175,7 @@ packages:
       extract-comments: 1.1.0
       fast-glob: 3.2.12
       json5: 2.2.3
-      local-pkg: 0.4.2
+      local-pkg: 0.4.3
       picocolors: 1.0.0
       vite: 4.1.4(@types/node@18.11.18)(sass@1.58.3)
       yaml: 2.2.1

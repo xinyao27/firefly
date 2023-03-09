@@ -10,7 +10,7 @@ export const blockRouter = t.router({
   find: t.procedure
     .query(({ ctx }) => {
       const blockRepository = ctx.db.getTreeRepository(Block)
-      return blockRepository.findTrees()
+      return blockRepository.find()
     }),
   findOne: t.procedure
     .input((val: unknown) => {
