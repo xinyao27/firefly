@@ -118,6 +118,7 @@ export const ExtensionDraggable = Extension.create({
         view: (view) => {
           if (view.editable) {
             dragHandleDOM = createDragHandleDOM()
+            hideDragHandleDOM()
             dragHandleDOM.addEventListener('mousedown', handleMouseDown)
             dragHandleDOM.addEventListener('mouseup', handleMouseUp)
             dragHandleDOM.addEventListener('dragstart', handleDragStart)

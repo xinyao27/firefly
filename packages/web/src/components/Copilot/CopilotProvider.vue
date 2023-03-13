@@ -6,18 +6,20 @@ const copilotStore = useCopilotStore()
 onKeyStroke(['Ctrl', 'l'], (e) => {
   e.preventDefault()
   if (!copilotStore.show)
-    copilotStore.show = true
+    copilotStore.open('create')
 })
 </script>
 
 <template>
   <slot />
+
   <NModal
     v-model:show="copilotStore.show"
     transform-origin="center"
-    display-directive="show"
-    :mask-closable="!copilotStore.loading"
+    display-directive="if"
+    :mask-closable="copilotStore.closable"
+    @after-leave="copilotStore.close"
   >
-    <Copilot />
+    <Copilot class="w-600px shadow-lg rounded-2" />
   </NModal>
 </template>

@@ -28,7 +28,7 @@ function handleSelect(_: string, option: DropdownOption) {
     :tippy-options="{ duration: 100 }"
     :should-show="shouldShow"
   >
-    <div bg-dark-700 border border-dark-200 shadow-lg rounded>
+    <div bg-white shadow-lg rounded>
       <NButtonGroup>
         <template v-for="item in maskActions" :key="item.key">
           <NDropdown v-if="item.options" :options="item.options" @select="handleSelect">

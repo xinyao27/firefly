@@ -1,13 +1,14 @@
-import { uniq } from 'lodash-es'
 import type { CreateChatCompletionResponse } from 'openai'
 import { defineStore } from 'pinia'
 import { SSE } from 'sse.js'
+import type { BlockModel } from '~/models/Block'
 
 interface Context {
   type?: 'default' | 'translate' | 'continue' | 'summarize' | 'improveWriting' | 'fixSpellingAndGrammar'
   text?: string
   language?: string
 }
+type Type = 'update' | 'create'
 
 function getEdgeFunctionUrl() {
   const supabaseUrl = (
@@ -25,16 +26,24 @@ export const useCopilotStore = defineStore('copilot', {
     return {
       show: false,
       value: '',
-      question: '',
-      text: '',
-      loading: false,
-      status: 'empty' as 'empty' | 'error' | 'answered',
-      results: '',
-      inputRef: null as any | null,
-      recently: useCopilotRecently(),
+      closable: true,
+      type: 'create' as Type,
+      editingBlock: null as BlockModel | null,
     }
   },
   actions: {
+    open(type: Type, block?: BlockModel) {
+      this.type = type
+      this.show = true
+      if (type === 'update') {
+        this.value = block?.content ?? ''
+        this.editingBlock = block
+      }
+    },
+    close() {
+      this.show = false
+      this.value = ''
+    },
     getCompletion(context?: Context) {
       const { type = 'default', text = '', language } = context || {}
       this.inputRef?.blur?.()
@@ -75,49 +84,6 @@ export const useCopilotStore = defineStore('copilot', {
         }
       })
       eventSource.stream()
-    },
-    reset() {
-      this.question = ''
-      this.text = ''
-      this.loading = false
-      this.status = 'empty'
-      this.results = ''
-      if (this.show)
-        this.inputRef?.select?.()
-    },
-    continue() {
-      this.getCompletion({
-        type: 'continue',
-        text: this.results,
-      })
-    },
-    rewrite() {
-      const tempPrompt = this.question
-      this.reset()
-      this.question = tempPrompt
-      this.getCompletion()
-    },
-    async search() {
-      await this.getCompletion()
-      this.inputRef?.select?.()
-      // 控制最近问题最大数量
-      if (this.recently.length >= 10) {
-        this.recently.pop()
-        this.recently = uniq([this.question, ...this.recently])
-      }
-      else {
-        this.recently = uniq([this.question, ...this.recently])
-      }
-    },
-
-    async open() {
-      this.reset()
-      this.show = true
-    },
-    async openAndSearch(context: Context) {
-      this.text = context.text
-      this.show = true
-      await this.getCompletion(context)
     },
   },
 })

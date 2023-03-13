@@ -54,21 +54,3 @@ export const answeredOptions: ActionOption[] = [
     },
   },
 ]
-
-export const articleOptions: ActionOption[] = [
-  {
-    icon: () => h('i', { class: 'i-ri-send-plane-line' }),
-    label: '插入到当前文章中',
-    key: 'insert-into-article',
-    action() {
-      const textEditorStore = useTextEditorStore()
-      const copilotStore = useCopilotStore()
-      const content = `<p>${copilotStore.results.trim()}</p>`
-      copilotStore.show = false
-      copilotStore.reset()
-      nextTick(() => {
-        textEditorStore.insertContent(content)
-      })
-    },
-  },
-]

@@ -66,6 +66,7 @@ export const ExtensionDrop = Extension.create({
                       id: new Date().getTime().toString(),
                       category: 'link',
                       link: text,
+                      content: '',
                     },
                   })
                   return
@@ -86,6 +87,7 @@ export const ExtensionDrop = Extension.create({
                             id: new Date().getTime().toString(),
                             category: 'image',
                             path: base64,
+                            content: '',
                           },
                         })
                       }
@@ -100,8 +102,7 @@ export const ExtensionDrop = Extension.create({
                           id: new Date().getTime().toString(),
                           category: 'other',
                           title: file.name,
-                          size: file.size,
-                          fileExt: file.type,
+                          content: '',
                         },
                       })
                     }

@@ -1,34 +1,44 @@
 <script setup lang="ts">
 import type { BlockModel } from '~/models/Block'
 
-const copilotStore = useCopilotStore()
-const textEditorStore = useTextEditorStore()
-const blockStore = useBlockStore()
+const props = defineProps<{
+  class?: string
+}>()
 
-watch(() => copilotStore.show, (value) => {
-  nextTick(() => {
-    if (value)
-      textEditorStore.editor?.commands.focus()
-    else
-      textEditorStore.editor?.commands.blur()
-  })
-})
+const copilotStore = useCopilotStore()
+const blockStore = useBlockStore()
 
 const loading = ref(false)
 async function handleSave() {
+  copilotStore.closable = false
   loading.value = true
+
   const content = copilotStore.value
-  const block: BlockModel = {
-    content,
+  if (copilotStore.type === 'create') {
+    const block: BlockModel = {
+      content,
+    }
+    await blockStore.save(block)
   }
-  await blockStore.save(block)
+  else if (copilotStore.type === 'update') {
+    const block = copilotStore.editingBlock
+    await blockStore.update({
+      ...block,
+      content,
+    })
+  }
+
+  copilotStore.closable = true
+  copilotStore.close()
   loading.value = false
-  copilotStore.show = false
 }
 </script>
 
 <template>
-  <div w-600px p-4 pb-2 bg-white shadow-lg rounded-2 flex flex-col gap-2>
+  <div
+    p-4 pb-2 bg-white flex flex-col gap-2
+    :class="props.class"
+  >
     <TextEditor
       v-model:value="copilotStore.value"
     />
@@ -38,10 +48,11 @@ async function handleSave() {
       <NButton
         secondary
         type="primary"
+        size="small"
         :loading="loading"
         @click="handleSave"
       >
-        保存
+        <i i-ri-send-plane-fill />
       </NButton>
     </div>
   </div>

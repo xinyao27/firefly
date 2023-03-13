@@ -3,16 +3,19 @@ body,
 #app
   @apply h-full m-0 p-0
 
-html.dark
-  @apply bg-neutral-700
-  color-scheme: dark
+html
+  @apply text-neutral-500
+  color-scheme: light
+  &.dark
+    @apply bg-neutral-700
+    color-scheme: dark
 
 *::-webkit-scrollbar
   @apply bg-transparent w-2.5 h-2.5
   &-thumb
-    @apply bg-neutral-700 bg-opacity-30
+    @apply bg-neutral-600 bg-opacity-30
     &:hover
-      @apply bg-neutral-600
+      @apply bg-neutral-600 bg-opacity-60
   &-corner
     @apply bg-transparent
 

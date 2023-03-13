@@ -14,15 +14,12 @@ const emits = defineEmits<{
 }>()
 const { value } = useVModels(props, emits)
 
-const textEditorStore = useTextEditorStore()
-
 const editor = useEditor({
   content: value,
   extensions,
   editorProps: {
     attributes: {
-      id: 'text-editor',
-      class: 'min-h-32 max-h-60 overflow-auto relative focus:outline-none prose prose-black',
+      class: 'w-full max-w-full min-h-18 max-h-60 overflow-auto relative focus:outline-none prose prose-black',
       suppressContentEditableWarning: 'true',
     },
   },
@@ -33,13 +30,16 @@ const editor = useEditor({
 })
 
 onMounted(() => {
-  textEditorStore.editor = editor.value
   editor.value?.commands.focus()
+})
+watchEffect(() => {
+  if (props.value !== undefined)
+    editor.value?.commands.setContent(props.value)
 })
 </script>
 
 <template>
-  <div p-4 pl-6.5 rounded-2>
+  <div p-4 pl-6.5 rounded-2 bg-neutral-50 transition>
     <EditorContent
       :editor="editor"
       class="relative"

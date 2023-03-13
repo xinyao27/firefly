@@ -83,7 +83,7 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div bg-dark-300 rounded p-2 shadow-lg>
+  <div bg-white rounded p-2 shadow-lg>
     <NScrollbar ref="scrollBarRef" max-h-50>
       <template v-if="items.length">
         <div
@@ -91,7 +91,7 @@ defineExpose({ onKeyDown })
           :key="index"
           :ref="el => setButtonRef(el)"
           w-full p-1 rounded transition flex items-center gap-2 cursor-pointer
-          :class="{ 'bg-neutral-600': index === selectedIndex }"
+          :class="{ 'bg-neutral-200': index === selectedIndex }"
           @click="handleSelectItem(index)"
           @mouseenter="selectedIndex = index"
         >

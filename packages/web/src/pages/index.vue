@@ -66,7 +66,7 @@ onMounted(() => {
     </template>
 
     <Pane :size="configStore.contentSize">
-      <main h-full overflow-hidden p-4>
+      <main h-full overflow-auto>
         <List />
       </main>
     </Pane>

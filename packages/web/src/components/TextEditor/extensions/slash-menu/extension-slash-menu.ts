@@ -29,15 +29,12 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
   atom: true,
 
   addProseMirrorPlugins() {
-    const textEditorStore = useTextEditorStore()
-
     let component: VueRenderer
     let popup: any
     let localProps: Record<string, any> | undefined
     function destroy() {
       popup[0].destroy()
       component.destroy()
-      textEditorStore.slashMenuShow = false
     }
 
     return [
@@ -100,7 +97,6 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
                 sticky: 'reference',
                 plugins: [sticky],
               })
-              textEditorStore.slashMenuShow = true
             },
 
             onUpdate(props) {

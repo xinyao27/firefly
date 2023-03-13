@@ -11,7 +11,7 @@ const configStore = useConfigStore()
 </script>
 
 <template>
-  <div bg-neutral-50 flex items-center gap-1 z-99 w-full h-full px-2 select-none>
+  <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
     <!-- leftBarShow -->
     <NTooltip trigger="hover">
       <template #trigger>

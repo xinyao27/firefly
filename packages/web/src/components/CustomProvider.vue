@@ -33,6 +33,6 @@ window.$router = useRouter()
     <i i-tabler-float-left />
     <i i-ri-magic-line />
     <i i-ri-check-line />
-    <div class="!w-300px text-neutral-800" />
+    <div class="!w-300px text-neutral-800 bg-neutral-200" />
   </div>
 </template>
