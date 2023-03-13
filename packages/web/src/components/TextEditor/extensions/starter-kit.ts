@@ -7,7 +7,6 @@ import { ListItem as ExtensionListItem } from '@tiptap/extension-list-item'
 import { Typography as ExtensionTypography } from '@tiptap/extension-typography'
 import { CharacterCount as ExtensionCharacterCount } from '@tiptap/extension-character-count'
 import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placeholder'
-import { FocusClasses as ExtensionFocus } from '@tiptap/extension-focus'
 import { lowlight } from 'lowlight'
 import { primaryColor } from '@firefly/theme'
 import { ExtensionDraggable } from './draggable'
@@ -21,22 +20,15 @@ import { ExtensionSlashMenu } from './slash-menu'
 import { ExtensionCommands } from './commands'
 import { ExtensionBlockID } from './block-id'
 
-export const extensions: AnyExtension[] = [
+export const previewExtensions: AnyExtension[] = [
   StarterKit.configure({
     dropcursor: {
       color: primaryColor.default,
       width: 4,
     },
   }),
-  ExtensionCharacterCount,
-  ExtensionDraggable,
   ExtensionTypography,
-  ExtensionDrop,
   ExtensionColor,
-  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
-  ExtensionFocus,
-  ExtensionSlashMenu,
-  ExtensionCommands,
   ExtensionBlockID.configure({ types: ['heading', 'paragraph'] }),
 
   // Node
@@ -50,4 +42,14 @@ export const extensions: AnyExtension[] = [
 
   // Mark
   ExtensionUnderline,
+]
+
+export const extensions: AnyExtension[] = [
+  ...previewExtensions,
+  ExtensionCharacterCount,
+  ExtensionDraggable,
+  ExtensionDrop,
+  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
+  ExtensionSlashMenu,
+  ExtensionCommands,
 ]

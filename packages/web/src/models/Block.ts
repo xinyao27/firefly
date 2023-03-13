@@ -43,7 +43,7 @@ export interface BlockMetadata {
 export type BlockWhere = 'default' | 'trash'
 
 export interface BlockModel {
-  id: BlockId
+  id?: BlockId
   /**
    * 标题
    */
@@ -63,11 +63,7 @@ export interface BlockModel {
   /**
    * 文件内容
    */
-  content?: string
-  /**
-   * 文件类型
-   */
-  fileExt?: string
+  content: string
   /**
    * 文件路径
    */
@@ -77,10 +73,6 @@ export interface BlockModel {
    */
   from?: BlockFrom
   /**
-   * 文件资源大小 (bytes)
-   */
-  size?: number
-  /**
    * 链接/图片 link(url)
    */
   link?: string
@@ -89,11 +81,6 @@ export interface BlockModel {
    */
   metadata?: BlockMetadata
   /**
-   * 位置
-   * default(默认) | trash(废纸篓)
-   */
-  where?: BlockWhere
-  /**
    * 创建时间
    */
   createdAt?: Date
@@ -101,13 +88,4 @@ export interface BlockModel {
    * 修改时间
    */
   updatedAt?: Date
-  /**
-   * 父级 block
-   */
-  parent?: BlockModel
-}
-
-export type Block = BlockModel & {
-  used?: boolean
-  children?: BlockModel[]
 }

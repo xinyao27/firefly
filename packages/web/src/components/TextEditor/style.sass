@@ -3,6 +3,8 @@
     @apply relative overflow-x-visible after:(content-empty block w-20 h-full absolute -left-20 top-0 z-99 cursor-default)
   > * + *
     margin-top: 0.75em
+  p,ul,ol,pre,h1,h2,h3,h4
+    @apply m-0
   pre
     @apply text-white bg-dark-400 p-0
     border-radius: 0.5em
@@ -40,7 +42,7 @@
       content: "输入 `/` 调用命令..."
 
 .drag-handle
-  @apply absolute z-100 w-6 h-6 rounded flex items-center justify-center cursor-grab transition hover:bg-neutral-600
+  @apply absolute z-100 w-6 h-6 rounded flex items-center justify-center cursor-grab transition hover:bg-neutral-200
   &.show
     @apply opacity-30 visible
   &.hide

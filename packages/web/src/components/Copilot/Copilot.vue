@@ -1,63 +1,48 @@
 <script setup lang="ts">
-import ResultsRenderer from './ResultsRenderer.vue'
-import RecentlyQuestion from './RecentlyQuestion.vue'
+import type { BlockModel } from '~/models/Block'
 
 const copilotStore = useCopilotStore()
+const textEditorStore = useTextEditorStore()
+const blockStore = useBlockStore()
 
 watch(() => copilotStore.show, (value) => {
   nextTick(() => {
     if (value)
-      copilotStore.inputRef?.focus()
-
+      textEditorStore.editor?.commands.focus()
     else
-      copilotStore.inputRef?.blur()
+      textEditorStore.editor?.commands.blur()
   })
 })
 
-const activeElement = useActiveElement()
-function handleKeyUp(e: KeyboardEvent) {
-  if ((e.key === 'Enter' && e.ctrlKey) && (activeElement.value?.className && activeElement.value?.className === (e.target as HTMLElement)?.className))
-    copilotStore.search()
+const loading = ref(false)
+async function handleSave() {
+  loading.value = true
+  const content = copilotStore.value
+  const block: BlockModel = {
+    content,
+  }
+  await blockStore.save(block)
+  loading.value = false
+  copilotStore.show = false
 }
 </script>
 
 <template>
-  <div w-600px bg-dark-800 shadow-lg rounded-2 flex flex-col>
-    <div p-4 flex flex-col gap-2>
-      <NMention
-        v-show="!copilotStore.text"
-        :ref="ref => copilotStore.inputRef = ref"
-        v-model:value="copilotStore.question"
-        :autosize="{ maxRows: 5, minRows: 5 }"
-        type="textarea"
-        size="large"
-        :disabled="copilotStore.loading"
-        autofocus
-        placeholder="随便问我点什么..."
-        @keyup="handleKeyUp"
-      />
-      <div flex justify-between>
-        <div />
-        <NTooltip
-          trigger="hover"
-          :disabled="copilotStore.loading"
-        >
-          <template #trigger>
-            <NButton
-              :disabled="!copilotStore.question"
-              :loading="copilotStore.loading"
-              @click="copilotStore.search"
-            >
-              Firefly AI
-            </NButton>
-          </template>
-          <div flex items-center gap-1>
-            问问AI <i i-tabler-arrow-back text-xs />
-          </div>
-        </NTooltip>
-      </div>
+  <div w-600px p-4 pb-2 bg-white shadow-lg rounded-2 flex flex-col gap-2>
+    <TextEditor
+      v-model:value="copilotStore.value"
+    />
+
+    <div flex justify-between>
+      <div />
+      <NButton
+        secondary
+        type="primary"
+        :loading="loading"
+        @click="handleSave"
+      >
+        保存
+      </NButton>
     </div>
-    <ResultsRenderer v-if="copilotStore.results.length" />
-    <RecentlyQuestion v-if="!copilotStore.results.length && !copilotStore.loading" />
   </div>
 </template>

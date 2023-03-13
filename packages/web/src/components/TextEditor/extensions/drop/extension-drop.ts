@@ -1,9 +1,31 @@
 import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
-import { Fragment, Slice } from 'prosemirror-model'
 import { convertBase64 } from '../../utils'
 import type { BlockModel } from '~/models/Block'
+
+function isUrl(string: string) {
+  const protocolAndDomainRE = /^(?:\w+:)?\/\/(\S+)$/
+  const localhostDomainRE = /^localhost[\:?\d]*(?:[^\:?\d]\S*)?$/
+  const nonLocalhostDomainRE = /^[^\s\.]+\.\S{2,}$/
+
+  if (typeof string !== 'string')
+    return false
+
+  const match = string.match(protocolAndDomainRE)
+  if (!match)
+    return false
+
+  const everythingAfterProtocol = match[1]
+  if (!everythingAfterProtocol)
+    return false
+
+  if (localhostDomainRE.test(everythingAfterProtocol)
+      || nonLocalhostDomainRE.test(everythingAfterProtocol))
+    return true
+
+  return false
+}
 
 function getBlockCommand(category: BlockModel['category'], editor: Editor) {
   switch (category) {
@@ -30,37 +52,26 @@ export const ExtensionDrop = Extension.create({
         key: new PluginKey('drop'),
         props: {
           handleDrop(view, event) {
-            (async () => {
-              const blockStore = useBlockStore()
+            event.preventDefault()
+            event.stopPropagation()
+            ;(async () => {
+              const text = event.dataTransfer?.getData('text') ?? ''
               const pos = view.posAtCoords({ left: event.clientX, top: event.clientY })
-              if (blockStore.draggingBlock) {
-                if (pos) {
-                  const block = { ...blockStore.draggingBlock }
-                  if (block.path)
-                    block.path = await $api.getFinalPath(block.path)
-
-                  const t = blockStore.blocks.find(v => v.id === block.id)
-                  if (t)
-                    t.used = true
-
-                  if (block.category === 'link') {
-                    const metadata = await $api.getWebsiteMetadata(block.link!)
-                    getBlockCommand(block.category, editor)({
-                      position: pos.pos,
-                      from: 'block',
-                      block,
-                      metadata,
-                    })
-                  }
-                  else {
-                    getBlockCommand(block.category, editor)({
-                      position: pos.pos,
-                      from: 'block',
-                      block,
-                    })
-                  }
+              if (pos) {
+                if (isUrl(text)) {
+                  getBlockCommand('link', editor)({
+                    position: pos.pos,
+                    from: 'block',
+                    block: {
+                      id: new Date().getTime().toString(),
+                      category: 'link',
+                      link: text,
+                    },
+                  })
+                  return
                 }
               }
+
               const files = Array.from(event.dataTransfer?.files ?? [])
               if (files?.length) {
                 for (const file of files) {
@@ -89,7 +100,6 @@ export const ExtensionDrop = Extension.create({
                           id: new Date().getTime().toString(),
                           category: 'other',
                           title: file.name,
-                          path: file.path,
                           size: file.size,
                           fileExt: file.type,
                         },
@@ -100,14 +110,6 @@ export const ExtensionDrop = Extension.create({
               }
             })()
             return false
-          },
-
-          transformPasted(slice) {
-            const blockStore = useBlockStore()
-            if (blockStore.draggingBlock)
-              return new Slice(Fragment.empty, 0, 0)
-
-            return slice
           },
         },
       }),

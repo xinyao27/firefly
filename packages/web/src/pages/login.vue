@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { supabase } from '~/api'
 
-const router = useRouter()
-
 async function signInWithGithub() {
   await supabase.auth.signInWithOAuth({
     provider: 'github',

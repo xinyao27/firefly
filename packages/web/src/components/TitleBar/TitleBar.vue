@@ -11,21 +11,21 @@ const configStore = useConfigStore()
 </script>
 
 <template>
-  <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
-    <!-- leftBarCollapsed -->
+  <div bg-neutral-50 flex items-center gap-1 z-99 w-full h-full px-2 select-none>
+    <!-- leftBarShow -->
     <NTooltip trigger="hover">
       <template #trigger>
         <NButton
           size="small"
           quaternary
-          :opacity="configStore.leftBarCollapsed ? 40 : 100"
+          :opacity="configStore.leftBarShow ? 100 : 40"
           @click="configStore.toggleLeftBarCollapse"
         >
-          <i v-if="configStore.leftBarCollapsed" i-ri-layout-left-line />
+          <i v-if="!configStore.leftBarShow" i-ri-layout-left-line />
           <i v-else i-ri-layout-left-fill />
         </NButton>
       </template>
-      <template v-if="configStore.leftBarCollapsed">
+      <template v-if="!configStore.leftBarShow">
         展开
       </template>
       <template v-else>
@@ -42,25 +42,5 @@ const configStore = useConfigStore()
       style="-webkit-app-region: drag"
       @mousedown="handleMouseDown"
     />
-    <!-- rightBarCollapsed -->
-    <NTooltip trigger="hover">
-      <template #trigger>
-        <NButton
-          size="small"
-          quaternary
-          :opacity="configStore.rightBarCollapsed ? 40 : 100"
-          @click="configStore.toggleRightBarCollapse"
-        >
-          <i v-if="configStore.rightBarCollapsed" i-ri-layout-right-line />
-          <i v-else i-ri-layout-right-fill />
-        </NButton>
-      </template>
-      <template v-if="configStore.rightBarCollapsed">
-        展开
-      </template>
-      <template v-else>
-        收起
-      </template>
-    </NTooltip>
   </div>
 </template>

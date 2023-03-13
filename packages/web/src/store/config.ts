@@ -2,11 +2,10 @@ import type { CubicBezierPoints, EasingFunction } from '@vueuse/core'
 import { TransitionPresets } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
+const isMobileScreen = useMediaQuery('(max-width: 640px)')
 const DEFAULT_SIZE = 40
-const rightBarCollapsed = useLocalStorage('rightBarCollapsed', true)
-const leftBarCollapsed = useLocalStorage('leftBarCollapsed', false)
+const leftBarShow = useLocalStorage('leftBarShow', true)
 const leftBarSizeCached = useLocalStorage('leftBarSize', DEFAULT_SIZE)
-const rightBarSizeCached = useLocalStorage('rightBarSize', 0)
 const DURATION = 300
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
 function createEasingFunction([p0, p1, p2, p3]: CubicBezierPoints): EasingFunction {
@@ -47,17 +46,18 @@ export const useConfigStore = defineStore('config', {
       leftCurrentTool: 'blockList',
       title: '',
 
-      rightBarCollapsed,
-      leftBarCollapsed,
+      isMobileScreen,
+      leftBarShow,
       leftBarSize: DEFAULT_SIZE,
-      rightBarSize: 0,
       leftBarSizeCached,
-      rightBarSizeCached,
     }
   },
   getters: {
     contentSize(state) {
-      return 100 - state.leftBarSize - state.rightBarSize
+      if (state.isMobileScreen)
+        return 100
+
+      return 100 - state.leftBarSize
     },
   },
   actions: {
@@ -69,8 +69,8 @@ export const useConfigStore = defineStore('config', {
       const endAt = startAt + DURATION
       const originalSize = this.leftBarSizeCached
       // 展开
-      if (this.leftBarCollapsed) {
-        this.leftBarCollapsed = false
+      if (!this.leftBarShow) {
+        this.leftBarShow = true
         const { pause, resume } = useRafFn(() => {
           nextTick(() => {
             const now = Date.now()
@@ -80,7 +80,8 @@ export const useConfigStore = defineStore('config', {
               pause()
           })
         }, { immediate: false })
-        resume()
+        if (!this.isMobileScreen)
+          resume()
       }
       // 收起
       else {
@@ -91,45 +92,14 @@ export const useConfigStore = defineStore('config', {
             this.leftBarSize = originalSize - originalSize * easingFunction(progress)
             if (progress >= 1) {
               pause()
-              this.leftBarCollapsed = true
+              this.leftBarShow = false
             }
           })
         }, { immediate: false })
-        resume()
-      }
-    },
-    toggleRightBarCollapse() {
-      const startAt = Date.now()
-      const endAt = startAt + DURATION
-      const originalSize = this.rightBarSizeCached
-      // 展开
-      if (this.rightBarCollapsed) {
-        this.rightBarCollapsed = false
-        const { pause, resume } = useRafFn(() => {
-          nextTick(() => {
-            const now = Date.now()
-            const progress = clamp(1 - ((endAt - now) / DURATION), 0, 1)
-            this.rightBarSize = originalSize * easingFunction(progress)
-            if (progress >= 1)
-              pause()
-          })
-        }, { immediate: false })
-        resume()
-      }
-      // 收起
-      else {
-        const { pause, resume } = useRafFn(() => {
-          nextTick(() => {
-            const now = Date.now()
-            const progress = clamp(1 - ((endAt - now) / DURATION), 0, 1)
-            this.rightBarSize = originalSize - originalSize * easingFunction(progress)
-            if (progress >= 1) {
-              pause()
-              this.rightBarCollapsed = true
-            }
-          })
-        }, { immediate: false })
-        resume()
+        if (!this.isMobileScreen)
+          resume()
+        else
+          this.leftBarShow = false
       }
     },
   },

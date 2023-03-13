@@ -8,17 +8,13 @@
     "prepare": "husky install",
     "lint": "eslint . --fix",
     "build": "turbo run build",
-    "package:app": "turbo run package --filter=firefly",
     "devtools": "npx vue-devtools",
     "dev": "turbo run dev --filter=firefly-web",
-    "dev:app": "turbo run dev --filter=firefly",
     "dev:webext": "turbo run dev --filter=firefly-webext",
     "test": "turbo run test"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.10.0",
-    "@trpc/client": "^10.13.2",
-    "@trpc/server": "^10.13.2",
     "@unocss/reset": "^0.50.3",
     "@vueuse/components": "^9.13.0",
     "@vueuse/core": "^9.13.0",

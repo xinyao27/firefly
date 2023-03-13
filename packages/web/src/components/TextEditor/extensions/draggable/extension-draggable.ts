@@ -41,8 +41,7 @@ export const ExtensionDraggable = Extension.create({
     }
 
     const renderDragHandleDOM = (view: EditorView, el: HTMLElement) => {
-      const root = view.dom.parentElement
-
+      const root = view.dom
       if (!root)
         return
 
@@ -64,7 +63,6 @@ export const ExtensionDraggable = Extension.create({
       const top
         = targetNodeRect.top
         - rootRect.top
-        + root.scrollTop
 
       dragHandleDOM.style.left = `${left - 2}px`
       dragHandleDOM.style.top = `${top - 0}px`

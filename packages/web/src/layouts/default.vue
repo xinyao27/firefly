@@ -24,12 +24,6 @@ onMounted(async () => {
       position="absolute"
       :style="`top: ${configStore.rootPaddingTop}px`"
     >
-      <NLayoutSider
-        bordered
-        :width="configStore.rootPaddingLeft"
-      >
-        <RibbonBar />
-      </NLayoutSider>
       <NLayoutContent>
         <RouterView />
       </NLayoutContent>

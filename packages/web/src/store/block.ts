@@ -1,98 +1,39 @@
 import { defineStore } from 'pinia'
-import dayjs from 'dayjs'
-import type { Block, BlockId } from '~/models/Block'
-import { trpc } from '~/api'
-
-function find(id: string, array: Block[]): Block | null {
-  let result: Block | null = null
-  for (const v of array) {
-    if (v.id === id) {
-      result = v
-      break
-    }
-    else {
-      result = find(id, v.children || [])
-      if (result)
-        break
-    }
-  }
-  return result
-}
+import { supabase } from '~/api'
+import type { BlockModel } from '~/models/Block'
 
 export const useBlockStore = defineStore('block', {
   state: () => {
     return {
-      blocks: [] as Block[],
-      expandedBlockIds: [] as BlockId[],
-      selectedBlockIds: [] as BlockId[],
-      currentBlockId: null as BlockId | null,
-      draggingBlock: null as Block | null,
+      blocks: [] as BlockModel[],
     }
   },
-  getters: {
-    currentBlock(state) {
-      if (state.currentBlockId)
-        return find(state.currentBlockId, state.blocks)
-      return null
-    },
-    selectedBlocks(state) {
-      if (state.selectedBlockIds)
-        return state.selectedBlockIds.map(id => find(id, state.blocks))
-
-      return []
-    },
-  },
   actions: {
-    getOne(id: BlockId) {
-      return find(id, this.blocks)
-    },
     async find() {
-      const blocks = await trpc.block.find.query()
-      this.blocks = blocks
-    },
-    async findOne(id: BlockId) {
-      return trpc.block.findOne.query(id)
-    },
-    async remove(id: BlockId) {
-      await trpc.block.remove.mutate({ id })
-      await this.find()
-    },
-    expandBlockIds(expanded: BlockId[] = []) {
-      this.expandedBlockIds = expanded
-    },
-    selectBlockIds(selected: BlockId[] = []) {
-      this.selectedBlockIds = selected
-    },
-    async move(targetBlockId: BlockId, dragBlockId: BlockId) {
-      await trpc.block.update.mutate({
-        id: dragBlockId,
-        parentId: targetBlockId,
-      })
-      await this.find()
-    },
+      try {
+        const response = await supabase.from('blocks').select()
+        if (response.error)
+          throw new Error(response.error.message)
 
-    async createFolder(parentId = '0') {
-      const title = dayjs().format('YYMMDDHHmmss')
-      await trpc.block.create.mutate({ title, category: 'folder', from: 'pc', parentId })
-      await this.find()
+        this.blocks = response.data
+        return this.blocks
+      }
+      catch (error) {
+        $message.error(error)
+      }
     },
-    async createArticle(parentId = '0') {
-      const title = dayjs().format('YYMMDDHHmmss')
-      await trpc.block.create.mutate({ title, category: 'article', from: 'pc', parentId })
-      await this.find()
-    },
-    async updateArticleTitle(id: BlockId, title: string) {
-      await trpc.block.update.mutate({
-        id,
-        title,
-      })
-      await this.find()
-    },
-    async updateArticleContent(id: BlockId, content: string) {
-      await trpc.block.update.mutate({
-        id,
-        content,
-      })
+    async save(data: BlockModel) {
+      try {
+        const response = await supabase.from('blocks').insert(data)
+        if (response.error)
+          throw new Error(response.error.message)
+
+        $message.success('保存成功')
+        await this.find()
+      }
+      catch (error) {
+        $message.error(error)
+      }
     },
   },
 })

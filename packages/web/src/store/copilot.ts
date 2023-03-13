@@ -24,6 +24,7 @@ export const useCopilotStore = defineStore('copilot', {
   state: () => {
     return {
       show: false,
+      value: '',
       question: '',
       text: '',
       loading: false,
