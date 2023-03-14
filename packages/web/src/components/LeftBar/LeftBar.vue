@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const copilotStore = useCopilotStore()
 </script>
 
 <template>
@@ -8,25 +7,6 @@ const copilotStore = useCopilotStore()
       left
     </section>
 
-    <section>
-      <NTooltip
-        trigger="hover"
-        placement="right"
-      >
-        <template #trigger>
-          <NButton
-            block
-            strong
-            tertiary
-            size="large"
-            @click="copilotStore.open('create')"
-          >
-            <i i-ri-add-line />
-          </NButton>
-        </template>
-        写点什么...
-        <KBD :shortcut="['ctrl', 'l']" />
-      </NTooltip>
-    </section>
+    <section />
   </aside>
 </template>

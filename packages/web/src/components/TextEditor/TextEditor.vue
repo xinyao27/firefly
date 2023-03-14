@@ -3,17 +3,18 @@ import 'highlight.js/scss/github.scss'
 import './style.sass'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import BubbleMenu from './BubbleMenu'
-import FloatingMenu from './FloatingMenu'
 import { extensions } from './extensions/starter-kit'
 
 const copilotStore = useCopilotStore()
+const configStore = useConfigStore()
 
+const className = ref('w-full max-w-full max-h-80 overflow-auto relative focus:outline-none prose prose-black')
 const editor = useEditor({
   content: copilotStore.value,
   extensions,
   editorProps: {
     attributes: {
-      class: 'w-full max-w-full min-h-32 max-h-60 overflow-auto relative focus:outline-none prose prose-black',
+      class: className.value,
       suppressContentEditableWarning: 'true',
     },
   },
@@ -21,21 +22,43 @@ const editor = useEditor({
     const content = editor.getHTML()
     copilotStore.value = content
   },
+  onFocus({ editor }) {
+    editor.setOptions({
+      editorProps: {
+        attributes: {
+          style: 'min-height: 6rem',
+        },
+      },
+    })
+  },
+  onBlur({ editor }) {
+    editor.setOptions({
+      editorProps: {
+        attributes: {
+          style: 'min-height: 1.5rem',
+        },
+      },
+    })
+  },
 })
 
 onMounted(() => {
-  editor.value?.commands.focus()
-  editor.value?.commands.selectAll()
+  if (!configStore.isMobileScreen) {
+    editor.value?.commands.focus()
+    editor.value?.commands.selectAll()
+  }
+})
+watch(() => copilotStore.value, (value) => {
+  editor.value?.commands.setContent(value)
 })
 </script>
 
 <template>
-  <div p-4 pl-6.5 rounded-2 bg-neutral-50 transition>
+  <div p-4 rounded-2 bg-neutral-50 transition>
     <EditorContent
       :editor="editor"
       class="relative"
     />
     <BubbleMenu :editor="editor" />
-    <FloatingMenu :editor="editor" />
   </div>
 </template>

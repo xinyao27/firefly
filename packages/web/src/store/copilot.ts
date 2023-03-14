@@ -24,9 +24,7 @@ function getEdgeFunctionUrl() {
 export const useCopilotStore = defineStore('copilot', {
   state: () => {
     return {
-      show: false,
       value: '',
-      closable: true,
       type: 'create' as Type,
       editingBlock: null as BlockModel | null,
     }
@@ -38,11 +36,11 @@ export const useCopilotStore = defineStore('copilot', {
         this.editingBlock = block
       }
       this.type = type
-      this.show = true
     },
-    close() {
-      this.show = false
+    cancel() {
       this.value = ''
+      this.type = 'create'
+      this.editingBlock = null
     },
     getCompletion(context?: Context) {
       const { type = 'default', text = '', language } = context || {}

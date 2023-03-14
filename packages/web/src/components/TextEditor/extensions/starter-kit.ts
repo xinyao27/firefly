@@ -10,12 +10,10 @@ import ExtensionTaskItem from '@tiptap/extension-task-item'
 import ExtensionTaskList from '@tiptap/extension-task-list'
 import { lowlight } from 'lowlight'
 import { primaryColor } from '@firefly/theme'
-import { ExtensionDraggable } from './draggable'
 import { ExtensionBlockImage } from './block-image'
 import { ExtensionBlockLink } from './block-link'
 import { ExtensionBlockOther } from './block-other'
 import { ExtensionBlockText } from './block-text'
-import { ExtensionColor } from './color'
 import { ExtensionDrop } from './drop'
 import { ExtensionSlashMenu } from './slash-menu'
 import { ExtensionCommands } from './commands'
@@ -29,7 +27,6 @@ export const extensions: AnyExtension[] = [
     },
   }),
   ExtensionTypography,
-  ExtensionColor,
   ExtensionBlockID.configure({ types: ['heading', 'paragraph'] }),
 
   // Node
@@ -48,7 +45,6 @@ export const extensions: AnyExtension[] = [
   // Mark
   ExtensionUnderline,
 
-  ExtensionDraggable,
   ExtensionDrop,
   ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
   ExtensionSlashMenu,

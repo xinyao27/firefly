@@ -10,7 +10,6 @@ const blockStore = useBlockStore()
 
 const loading = ref(false)
 async function handleSave() {
-  copilotStore.closable = false
   loading.value = true
 
   const content = copilotStore.value
@@ -28,30 +27,40 @@ async function handleSave() {
     })
   }
 
-  copilotStore.closable = true
-  copilotStore.close()
+  copilotStore.cancel()
   loading.value = false
 }
 </script>
 
 <template>
   <div
-    p-4 pb-2 bg-white flex flex-col gap-2
+    p-4 pb-2 flex flex-col gap-2 bg-white border-t border-neutral-200
     :class="props.class"
   >
     <TextEditor />
 
     <div flex justify-between>
       <div />
-      <NButton
-        secondary
-        type="primary"
-        size="small"
-        :loading="loading"
-        @click="handleSave"
-      >
-        <i i-ri-send-plane-fill />
-      </NButton>
+      <div flex items-center gap-2>
+        <NButton
+          v-if="copilotStore.editingBlock"
+          text
+          size="small"
+          :disabled="!copilotStore.value || loading"
+          @click="copilotStore.cancel"
+        >
+          取消
+        </NButton>
+        <NButton
+          secondary
+          type="primary"
+          size="small"
+          :loading="loading"
+          @click="handleSave"
+        >
+          <i i-ri-send-plane-fill />
+        </NButton>
+      </div>
     </div>
   </div>
 </template>

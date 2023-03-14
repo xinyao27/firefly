@@ -13,8 +13,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <main h-full overflow-auto>
+  <main h-full flex flex-col overflow-hidden>
     <List />
+    <Copilot />
   </main>
 </template>
 

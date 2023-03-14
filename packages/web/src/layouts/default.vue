@@ -36,12 +36,12 @@ onMounted(async () => {
         </NDrawer>
       </template>
       <template v-else>
-        <NLayoutSider>
+        <NLayoutSider bordered>
           <LeftBar />
         </NLayoutSider>
       </template>
 
-      <NLayoutContent :native-scrollbar="false">
+      <NLayoutContent content-style="height: 100%">
         <RouterView />
       </NLayoutContent>
     </NLayout>

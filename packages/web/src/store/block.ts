@@ -58,6 +58,7 @@ export const useBlockStore = defineStore('block', {
             tx.done,
           ])
           await this.refresh()
+          $message.success(`同步了 ${response.data.length} 条数据`)
         }
         return this.blocks
       }
