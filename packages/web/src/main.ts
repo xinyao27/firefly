@@ -11,11 +11,13 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import App from './App.vue'
 import generatedRoutes from '~pages'
 import '@total-typescript/ts-reset'
+import { initDB } from '~/db'
 
 import 'uno.css'
 import './styles/normalize.css'
 import './styles/main.sass'
 
+initDB()
 // const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 // const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
 // if (setting === 'dark' || (prefersDark && setting !== 'light'))

@@ -17,6 +17,7 @@ export const themeOverrides: GlobalThemeOverrides = {
   Layout: {
     color: colors.neutral[50],
     headerColor: colors.neutral[50],
+    siderColor: colors.neutral[50],
   },
   Tooltip: {
     padding: '4px 6px',

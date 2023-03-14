@@ -22,9 +22,9 @@ importers:
       dayjs:
         specifier: ^1.11.7
         version: 1.11.7
-      idb-keyval:
-        specifier: ^6.2.0
-        version: 6.2.0
+      idb:
+        specifier: ^7.1.1
+        version: 7.1.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -91,7 +91,7 @@ importers:
         version: 4.0.0(vite@4.1.4)(vue@3.2.47)
       '@vue-macros/volar':
         specifier: ^0.8.4
-        version: 0.8.4(vue-tsc@1.2.0)(vue@3.2.47)
+        version: 0.8.4(@vue-macros/reactivity-transform@0.2.4)(vue-tsc@1.2.0)(vue@3.2.47)
       '@vue/devtools':
         specifier: ^6.5.0
         version: 6.5.0
@@ -160,7 +160,7 @@ importers:
         version: 4.9.5
       unocss:
         specifier: ^0.50.3
-        version: 0.50.3(vite@4.1.4)
+        version: 0.50.3(postcss@8.4.21)(vite@4.1.4)
       unplugin-auto-import:
         specifier: ^0.15.0
         version: 0.15.0(@vueuse/core@9.13.0)
@@ -2513,7 +2513,7 @@ packages:
       sirv: 2.0.2
     dev: true
 
-  /@unocss/postcss@0.50.3:
+  /@unocss/postcss@0.50.3(postcss@8.4.21):
     resolution: {integrity: sha512-8XLwWyy2aC0pgoIzsaasrTy0rv8SVGqmlN2y9jYUAAXHPkSoTVuELXcvWf9WKVuSR1Qa1AIzm9kN0K29CLx92Q==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2524,6 +2524,7 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.2.12
       magic-string: 0.30.0
+      postcss: 8.4.21
     dev: true
 
   /@unocss/preset-attributify@0.50.3:
@@ -2976,7 +2977,7 @@ packages:
       - vue
     dev: true
 
-  /@vue-macros/volar@0.8.4(vue-tsc@1.2.0)(vue@3.2.47):
+  /@vue-macros/volar@0.8.4(@vue-macros/reactivity-transform@0.2.4)(vue-tsc@1.2.0)(vue@3.2.47):
     resolution: {integrity: sha512-zShxUN5Pceuqo0X+hzk1/HGghp1UuJmUZHNxqxSqYz1zfjQsb9QVB9RZq0NKeXqVaQ5+ALY3uPwnW4zAIDHFjA==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
@@ -7168,10 +7169,8 @@ packages:
       safer-buffer: 2.1.2
     dev: true
 
-  /idb-keyval@6.2.0:
-    resolution: {integrity: sha512-uw+MIyQn2jl3+hroD7hF8J7PUviBU7BPKWw4f/ISf32D4LoGu98yHjrzWWJDASu9QNrX10tCJqk9YY0ClWm8Ng==}
-    dependencies:
-      safari-14-idb-fix: 3.0.0
+  /idb@7.1.1:
+    resolution: {integrity: sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==}
     dev: false
 
   /ieee754@1.2.1:
@@ -10438,10 +10437,6 @@ packages:
       tslib: 2.4.1
     dev: true
 
-  /safari-14-idb-fix@3.0.0:
-    resolution: {integrity: sha512-eBNFLob4PMq8JA1dGyFn6G97q3/WzNtFK4RnzT1fnLq+9RyrGknzYiM/9B12MnKAxuj1IXr7UKYtTNtjyKMBog==}
-    dev: false
-
   /safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
     dev: true
@@ -11747,7 +11742,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unocss@0.50.3(vite@4.1.4):
+  /unocss@0.50.3(postcss@8.4.21)(vite@4.1.4):
     resolution: {integrity: sha512-6quL19+WPJeuQmVdDIbSSXARHUhIvJSyJQYzHVlZRX4tv9fb+ZeZ2o8upRWodlIT2ulmDRnhXcUQyVdSRnRDDA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -11759,7 +11754,7 @@ packages:
       '@unocss/astro': 0.50.3(vite@4.1.4)
       '@unocss/cli': 0.50.3
       '@unocss/core': 0.50.3
-      '@unocss/postcss': 0.50.3
+      '@unocss/postcss': 0.50.3(postcss@8.4.21)
       '@unocss/preset-attributify': 0.50.3
       '@unocss/preset-icons': 0.50.3
       '@unocss/preset-mini': 0.50.3

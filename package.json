@@ -20,7 +20,7 @@
     "@vueuse/core": "^9.13.0",
     "@vueuse/head": "^1.1.15",
     "dayjs": "^1.11.7",
-    "idb-keyval": "^6.2.0",
+    "idb": "^7.1.1",
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.34.3",
     "nprogress": "^0.2.0",

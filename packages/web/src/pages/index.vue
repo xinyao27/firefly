@@ -8,7 +8,7 @@ onBeforeMount(() => {
   configStore.setTitle('')
 })
 onMounted(() => {
-  blockStore.find()
+  blockStore.sync()
 })
 </script>
 
