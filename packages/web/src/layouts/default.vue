@@ -24,7 +24,24 @@ onMounted(async () => {
       position="absolute"
       :style="`top: ${configStore.rootPaddingTop}px`"
     >
-      <NLayoutContent>
+      <template v-if="configStore.isMobileScreen">
+        <NDrawer
+          v-model:show="configStore.leftBarShow"
+          :width="320"
+          placement="left"
+        >
+          <NDrawerContent>
+            <LeftBar />
+          </NDrawerContent>
+        </NDrawer>
+      </template>
+      <template v-else>
+        <NLayoutSider>
+          <LeftBar />
+        </NLayoutSider>
+      </template>
+
+      <NLayoutContent :native-scrollbar="false">
         <RouterView />
       </NLayoutContent>
     </NLayout>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import RouterTools from './RouterTools.vue'
-import TextEditorLeftToggleTools from './TextEditorLeftToggleTools.vue'
 
 function handleMouseDown(e: MouseEvent) {
   e.preventDefault()
@@ -13,13 +12,16 @@ const configStore = useConfigStore()
 <template>
   <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
     <!-- leftBarShow -->
-    <NTooltip trigger="hover">
+    <NTooltip
+      v-if="configStore.isMobileScreen"
+      trigger="hover"
+    >
       <template #trigger>
         <NButton
           size="small"
           quaternary
           :opacity="configStore.leftBarShow ? 100 : 40"
-          @click="configStore.toggleLeftBarCollapse"
+          @click="configStore.toggleLeftBarShow"
         >
           <i v-if="!configStore.leftBarShow" i-ri-layout-left-line />
           <i v-else i-ri-layout-left-fill />
@@ -32,8 +34,6 @@ const configStore = useConfigStore()
         收起
       </template>
     </NTooltip>
-    <!-- 编辑器切换文件列表/搜索 -->
-    <TextEditorLeftToggleTools v-if="route.path === '/text-editor'" />
     <!-- Router Tools  -->
     <RouterTools v-if="route.path === '/'" />
     <!-- Drag Area -->
