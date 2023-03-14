@@ -1,21 +1,14 @@
 <script setup lang="ts">
 import 'highlight.js/scss/github.scss'
 import './style.sass'
-import type { Content } from '@tiptap/vue-3'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import BubbleMenu from './BubbleMenu'
 import { extensions } from './extensions/starter-kit'
 
-const props = defineProps<{
-  value: Content
-}>()
-const emits = defineEmits<{
-  (event: 'update:value', value: string): void
-}>()
-const { value } = useVModels(props, emits)
+const copilotStore = useCopilotStore()
 
 const editor = useEditor({
-  content: value,
+  content: copilotStore.value,
   extensions,
   editorProps: {
     attributes: {
@@ -25,16 +18,13 @@ const editor = useEditor({
   },
   onUpdate({ editor }) {
     const content = editor.getHTML()
-    value.value = content
+    copilotStore.value = content
   },
 })
 
 onMounted(() => {
   editor.value?.commands.focus()
-})
-watchEffect(() => {
-  if (props.value !== undefined)
-    editor.value?.commands.setContent(props.value)
+  editor.value?.commands.selectAll()
 })
 </script>
 

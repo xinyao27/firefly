@@ -2,7 +2,6 @@
 import dayjs from 'dayjs'
 import type { DropdownOption } from 'naive-ui'
 import type { BlockModel } from '~/models/Block'
-import Preview from '~/components/TextEditor/Preview.vue'
 
 const props = defineProps<{
   data: BlockModel
@@ -54,6 +53,9 @@ function handleSelect(_: string, option: DropdownOption) {
         </NButton>
       </NDropdown>
     </template>
-    <Preview :value="props.data.content" />
+    <div
+      class="ProseMirror prose prose-black"
+      v-html="props.data.content"
+    />
   </NCard>
 </template>

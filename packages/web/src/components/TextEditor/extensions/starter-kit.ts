@@ -5,7 +5,6 @@ import { Underline as ExtensionUnderline } from '@tiptap/extension-underline'
 import { CodeBlockLowlight as ExtensionCodeBlockLowLight } from '@tiptap/extension-code-block-lowlight'
 import { ListItem as ExtensionListItem } from '@tiptap/extension-list-item'
 import { Typography as ExtensionTypography } from '@tiptap/extension-typography'
-import { CharacterCount as ExtensionCharacterCount } from '@tiptap/extension-character-count'
 import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placeholder'
 import { lowlight } from 'lowlight'
 import { primaryColor } from '@firefly/theme'
@@ -20,7 +19,7 @@ import { ExtensionSlashMenu } from './slash-menu'
 import { ExtensionCommands } from './commands'
 import { ExtensionBlockID } from './block-id'
 
-export const previewExtensions: AnyExtension[] = [
+export const extensions: AnyExtension[] = [
   StarterKit.configure({
     dropcursor: {
       color: primaryColor.default,
@@ -42,11 +41,7 @@ export const previewExtensions: AnyExtension[] = [
 
   // Mark
   ExtensionUnderline,
-]
 
-export const extensions: AnyExtension[] = [
-  ...previewExtensions,
-  ExtensionCharacterCount,
   ExtensionDraggable,
   ExtensionDrop,
   ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),

@@ -33,12 +33,12 @@ export const useCopilotStore = defineStore('copilot', {
   },
   actions: {
     open(type: Type, block?: BlockModel) {
-      this.type = type
-      this.show = true
       if (type === 'update') {
         this.value = block?.content ?? ''
         this.editingBlock = block
       }
+      this.type = type
+      this.show = true
     },
     close() {
       this.show = false

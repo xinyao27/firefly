@@ -39,9 +39,7 @@ async function handleSave() {
     p-4 pb-2 bg-white flex flex-col gap-2
     :class="props.class"
   >
-    <TextEditor
-      v-model:value="copilotStore.value"
-    />
+    <TextEditor />
 
     <div flex justify-between>
       <div />
