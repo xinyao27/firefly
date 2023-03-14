@@ -35,6 +35,7 @@ function handleSelect(_: string, option: DropdownOption) {
             <NButton
               size="small"
               secondary
+              :type="props.editor.isActive(item.key) ? 'primary' : 'default'"
               @click="item.onClick?.(props.editor)"
             >
               <template
@@ -54,6 +55,7 @@ function handleSelect(_: string, option: DropdownOption) {
               <NButton
                 size="small"
                 secondary
+                :type="props.editor.isActive(item.key) ? 'primary' : 'default'"
                 @click="item.onClick?.(props.editor)"
               >
                 <template

@@ -12,7 +12,7 @@ const editor = useEditor({
   extensions,
   editorProps: {
     attributes: {
-      class: 'w-full max-w-full min-h-18 max-h-60 overflow-auto relative focus:outline-none prose prose-black',
+      class: 'w-full max-w-full min-h-32 max-h-60 overflow-auto relative focus:outline-none prose prose-black',
       suppressContentEditableWarning: 'true',
     },
   },

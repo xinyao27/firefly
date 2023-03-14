@@ -25,7 +25,7 @@ export const maskActions: Action[] = [
     },
   },
   {
-    key: 'italicize',
+    key: 'italic',
     shortcut: ['ctrl', 'i'],
     prefix: () => h('i', { class: 'i-ri-italic' }),
     description: '斜体',
@@ -43,7 +43,7 @@ export const maskActions: Action[] = [
     },
   },
   {
-    key: 'strike through',
+    key: 'strike',
     shortcut: ['ctrl', 'shift', 'x'],
     prefix: () => h('i', { class: 'i-ri-strikethrough' }),
     description: '中划线',
@@ -52,7 +52,7 @@ export const maskActions: Action[] = [
     },
   },
   {
-    key: 'mark as code',
+    key: 'code',
     shortcut: ['ctrl', 'e'],
     prefix: () => h('i', { class: 'i-ri-code-line' }),
     description: '代码',
