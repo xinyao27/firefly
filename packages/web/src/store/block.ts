@@ -6,9 +6,35 @@ export const useBlockStore = defineStore('block', {
   state: () => {
     return {
       blocks: [] as BlockModel[],
+      syncing: false,
     }
   },
   actions: {
+    async sync({ lastUpdatedAt, lastBlockId }: { lastUpdatedAt?: Date; lastBlockId?: BlockId }) {
+      try {
+        this.syncing = true
+        const lastBlock = this.blocks[0]
+        const response = await supabase
+          .from('blocks')
+          .select()
+          .order('updatedAt', { ascending: false })
+          .gt('updatedAt', lastUpdatedAt ?? lastBlock?.updatedAt)
+          .neq('id', lastBlockId ?? lastBlock?.id)
+        if (response.error)
+          throw new Error(response.error.message)
+
+        if (response.data.length)
+          this.blocks = [...response.data, ...this.blocks]
+
+        return this.blocks
+      }
+      catch (error) {
+        $message.error(error)
+      }
+      finally {
+        this.syncing = false
+      }
+    },
     async find() {
       try {
         const response = await supabase.from('blocks').select().order('updatedAt', { ascending: false })

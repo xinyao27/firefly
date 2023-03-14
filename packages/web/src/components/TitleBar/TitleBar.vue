@@ -7,6 +7,7 @@ function handleMouseDown(e: MouseEvent) {
 
 const route = useRoute()
 const configStore = useConfigStore()
+const blockStore = useBlockStore()
 </script>
 
 <template>
@@ -42,5 +43,16 @@ const configStore = useConfigStore()
       style="-webkit-app-region: drag"
       @mousedown="handleMouseDown"
     />
+    <NButton
+      size="small"
+      quaternary
+      :loading="blockStore.syncing"
+      @click="blockStore.sync"
+    >
+      <template #icon>
+        <i i-ri-refresh-line />
+      </template>
+      同步
+    </NButton>
   </div>
 </template>
