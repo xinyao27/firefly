@@ -9,8 +9,8 @@ export const useBlockStore = defineStore('block', {
     const ready = ref(false)
     const blocks = ref<BlockModel[]>([])
     db.then((_db) => {
-      _db.getAll('blocks').then((v) => {
-        blocks.value = v
+      _db.getAllFromIndex('blocks', 'updatedAt').then((v) => {
+        blocks.value = v.reverse()
         ready.value = true
       })
     })
@@ -22,7 +22,7 @@ export const useBlockStore = defineStore('block', {
   },
   actions: {
     async refresh() {
-      this.blocks = await (await db).getAll('blocks')
+      this.blocks = (await (await db).getAllFromIndex('blocks', 'updatedAt')).reverse()
     },
     async sync({ lastUpdatedAt, lastBlockId }: { lastUpdatedAt?: Date; lastBlockId?: BlockId } = {}) {
       if (!this.ready)
