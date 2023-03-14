@@ -3,7 +3,7 @@ import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import type { DropdownOption } from 'naive-ui'
 import type { EditorState } from 'prosemirror-state'
-import { maskActions } from './actions'
+import { actions } from './actions'
 
 const props = defineProps<{
   editor?: Editor
@@ -30,8 +30,8 @@ function handleSelect(_: string, option: DropdownOption) {
   >
     <div bg-white shadow-lg rounded>
       <NButtonGroup>
-        <template v-for="item in maskActions" :key="item.key">
-          <NDropdown v-if="item.options" :options="item.options" @select="handleSelect">
+        <template v-for="item in actions" :key="item.key">
+          <NDropdown v-if="item.children" :options="item.children" @select="handleSelect">
             <NButton
               size="small"
               secondary
@@ -39,18 +39,15 @@ function handleSelect(_: string, option: DropdownOption) {
               @click="item.onClick?.(props.editor)"
             >
               <template
-                v-if="item.prefix"
+                v-if="item.icon"
                 #icon
               >
-                <component :is="item.prefix" />
+                <component :is="item.icon" />
               </template>
-              <component
-                :is="item.title"
-                v-if="item.title"
-              />
+              {{ item.label }}
             </NButton>
           </NDropdown>
-          <NTooltip v-if="item.description" trigger="hover" :disabled="item.type === 'divider'">
+          <NTooltip v-else trigger="hover" :disabled="item.type === 'divider'">
             <template #trigger>
               <NButton
                 size="small"
@@ -59,18 +56,14 @@ function handleSelect(_: string, option: DropdownOption) {
                 @click="item.onClick?.(props.editor)"
               >
                 <template
-                  v-if="item.prefix"
+                  v-if="item.icon"
                   #icon
                 >
-                  <component :is="item.prefix" />
+                  <component :is="item.icon" />
                 </template>
-                <component
-                  :is="item.title"
-                  v-if="item.title"
-                />
               </NButton>
             </template>
-            <div>{{ item.description }}</div>
+            <div>{{ item.label }}</div>
             <div text-gray-400 text-xs flex gap-1>
               <KBD
                 v-if="item.shortcut"

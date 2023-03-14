@@ -40,6 +40,15 @@ export const commands: CommandItem[] = [
     shortcut: '###',
   },
   {
+    title: 'TodoList',
+    description: '待办列表',
+    type: 'ol',
+    icon: 'i-ri-list-check-2',
+    command: ({ editor, range }) => {
+      editor?.chain().focus().deleteRange(range).toggleTaskList().run()
+    },
+  },
+  {
     title: 'Ordered List',
     description: 'Create a list with numbering.',
     type: 'ol',

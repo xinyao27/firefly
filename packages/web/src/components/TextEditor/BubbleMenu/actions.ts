@@ -1,27 +1,14 @@
-import type { Editor } from '@tiptap/core'
-import type { DropdownOption } from 'naive-ui'
-import type { VNodeChild } from 'vue'
+import type { Action } from '../types'
 
-interface Action {
-  type?: 'divider'
-  key: string
-  title?: () => VNodeChild
-  prefix?: () => VNodeChild
-  description?: string
-  options?: (DropdownOption & Action)[]
-  shortcut?: string[]
-  onClick?: (editor?: Editor) => void
-}
-
-export const maskActions: Action[] = [
+export const actions: Action[] = [
   {
     key: 'type',
-    title: () => '类型',
-    options: [
+    label: '类型',
+    children: [
       {
         key: 'Text',
         label: '正文',
-        icon: () => h('i', { class: 'i-ri-bold' }),
+        icon: () => h('i', { class: 'i-ri-text' }),
         onClick(editor) {
           editor?.chain().focus().setMark('text').run()
         },
@@ -88,8 +75,8 @@ export const maskActions: Action[] = [
   {
     key: 'bold',
     shortcut: ['ctrl', 'b'],
-    prefix: () => h('i', { class: 'i-ri-bold' }),
-    description: '加粗',
+    icon: () => h('i', { class: 'i-ri-bold' }),
+    label: '加粗',
     onClick(editor) {
       editor?.chain().focus().toggleBold().run()
     },
@@ -97,8 +84,8 @@ export const maskActions: Action[] = [
   {
     key: 'italic',
     shortcut: ['ctrl', 'i'],
-    prefix: () => h('i', { class: 'i-ri-italic' }),
-    description: '斜体',
+    icon: () => h('i', { class: 'i-ri-italic' }),
+    label: '斜体',
     onClick(editor) {
       editor?.chain().focus().toggleItalic().run()
     },
@@ -106,8 +93,8 @@ export const maskActions: Action[] = [
   {
     key: 'underline',
     shortcut: ['ctrl', 'u'],
-    prefix: () => h('i', { class: 'i-ri-underline' }),
-    description: '下划线',
+    icon: () => h('i', { class: 'i-ri-underline' }),
+    label: '下划线',
     onClick(editor) {
       editor?.chain().focus().toggleUnderline().run()
     },
@@ -115,8 +102,8 @@ export const maskActions: Action[] = [
   {
     key: 'strike',
     shortcut: ['ctrl', 'shift', 'x'],
-    prefix: () => h('i', { class: 'i-ri-strikethrough' }),
-    description: '中划线',
+    icon: () => h('i', { class: 'i-ri-strikethrough' }),
+    label: '中划线',
     onClick(editor) {
       editor?.chain().focus().toggleStrike().run()
     },
@@ -124,8 +111,8 @@ export const maskActions: Action[] = [
   {
     key: 'code',
     shortcut: ['ctrl', 'e'],
-    prefix: () => h('i', { class: 'i-ri-code-line' }),
-    description: '代码',
+    icon: () => h('i', { class: 'i-ri-code-line' }),
+    label: '代码',
     onClick(editor) {
       editor?.chain().focus().toggleCode().run()
     },

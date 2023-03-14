@@ -3,6 +3,7 @@ import 'highlight.js/scss/github.scss'
 import './style.sass'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import BubbleMenu from './BubbleMenu'
+import FloatingMenu from './FloatingMenu'
 import { extensions } from './extensions/starter-kit'
 
 const copilotStore = useCopilotStore()
@@ -35,5 +36,6 @@ onMounted(() => {
       class="relative"
     />
     <BubbleMenu :editor="editor" />
+    <FloatingMenu :editor="editor" />
   </div>
 </template>
