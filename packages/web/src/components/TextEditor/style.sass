@@ -6,7 +6,7 @@
   p,ul,ol,pre,h1,h2,h3,h4
     @apply m-0
   pre
-    @apply w-full text-black bg-neutral-200 p-0
+    @apply w-full text-black bg-neutral-100 p-0
     border-radius: 0.5em
     code
       @apply inline-block w-full text-black p-0 bg-transparent overflow-x-auto
@@ -17,13 +17,22 @@
       font-size: 0.875em
       line-height: 1.25em
   code
-    @apply font-mono bg-dark-200 text-red-400 rounded before:content-[""] after:content-[""]
+    @apply font-mono bg-neutral-200 rounded before:content-[""] after:content-[""]
     font-size: 0.75em
     line-height: 1em
     padding-left: 0.375em
     padding-right: 0.375em
     padding-top: 0.25em
     padding-bottom: 0.25em
+  ul[data-type=taskList]
+    @apply pl-0
+    li
+      @apply flex items-center
+      > label
+        @apply flex-[0_0_auto] flex items-center mr-1 select-none
+      > div
+        @apply flex-auto
+
   .color
     &::before
       @apply inline-block rounded v-middle

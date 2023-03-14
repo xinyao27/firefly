@@ -91,7 +91,7 @@ importers:
         version: 4.0.0(vite@4.1.4)(vue@3.2.47)
       '@vue-macros/volar':
         specifier: ^0.8.4
-        version: 0.8.4(@vue-macros/reactivity-transform@0.2.4)(vue-tsc@1.2.0)(vue@3.2.47)
+        version: 0.8.4(vue-tsc@1.2.0)(vue@3.2.47)
       '@vue/devtools':
         specifier: ^6.5.0
         version: 6.5.0
@@ -160,7 +160,7 @@ importers:
         version: 4.9.5
       unocss:
         specifier: ^0.50.3
-        version: 0.50.3(postcss@8.4.21)(vite@4.1.4)
+        version: 0.50.3(vite@4.1.4)
       unplugin-auto-import:
         specifier: ^0.15.0
         version: 0.15.0(@vueuse/core@9.13.0)
@@ -218,6 +218,12 @@ importers:
       '@tiptap/extension-placeholder':
         specifier: ^2.0.0-beta.215
         version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-task-item':
+        specifier: 2.0.0-beta.220
+        version: 2.0.0-beta.220(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/extension-task-list':
+        specifier: 2.0.0-beta.220
+        version: 2.0.0-beta.220(@tiptap/core@2.0.0-beta.215)
       '@tiptap/extension-typography':
         specifier: ^2.0.0-beta.215
         version: 2.0.0-beta.215(@tiptap/core@2.0.0-beta.215)
@@ -2003,6 +2009,24 @@ packages:
       '@tiptap/core': 2.0.0-beta.215(@tiptap/pm@2.0.0-beta.217)
     dev: false
 
+  /@tiptap/extension-task-item@2.0.0-beta.220(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.217):
+    resolution: {integrity: sha512-dta4V3GkL3C+gYUUkv26gxvCD11JYE7XYp4GSED/1X/3aHOdV9HcYRtIVnHqb4YwfuX/AJyIDfjhxc2tNGevkQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.209
+      '@tiptap/pm': ^2.0.0-beta.209
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.215(@tiptap/pm@2.0.0-beta.217)
+      '@tiptap/pm': 2.0.0-beta.217(@tiptap/core@2.0.0-beta.215)
+    dev: false
+
+  /@tiptap/extension-task-list@2.0.0-beta.220(@tiptap/core@2.0.0-beta.215):
+    resolution: {integrity: sha512-Hix7/Er4T4xKz4uLTxniJaDtcctmooaxoHiHv4yDUOXZYiK5BZypr8cbCcUaoD3qpfGe8O5JBzY2sbwk0PkNwA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.209
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.215(@tiptap/pm@2.0.0-beta.217)
+    dev: false
+
   /@tiptap/extension-text@2.0.0-beta.215(@tiptap/core@2.0.0-beta.215):
     resolution: {integrity: sha512-0m6S9fUJI/tTb9GHB2WvVKEMxoqQi7VLqd5thynjd0rvfZ9Bk0lNaksmIQt+xsmIlCHVR0AHWabu44Wr+NbfCw==}
     peerDependencies:
@@ -2513,7 +2537,7 @@ packages:
       sirv: 2.0.2
     dev: true
 
-  /@unocss/postcss@0.50.3(postcss@8.4.21):
+  /@unocss/postcss@0.50.3:
     resolution: {integrity: sha512-8XLwWyy2aC0pgoIzsaasrTy0rv8SVGqmlN2y9jYUAAXHPkSoTVuELXcvWf9WKVuSR1Qa1AIzm9kN0K29CLx92Q==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -2524,7 +2548,6 @@ packages:
       css-tree: 2.3.1
       fast-glob: 3.2.12
       magic-string: 0.30.0
-      postcss: 8.4.21
     dev: true
 
   /@unocss/preset-attributify@0.50.3:
@@ -2977,7 +3000,7 @@ packages:
       - vue
     dev: true
 
-  /@vue-macros/volar@0.8.4(@vue-macros/reactivity-transform@0.2.4)(vue-tsc@1.2.0)(vue@3.2.47):
+  /@vue-macros/volar@0.8.4(vue-tsc@1.2.0)(vue@3.2.47):
     resolution: {integrity: sha512-zShxUN5Pceuqo0X+hzk1/HGghp1UuJmUZHNxqxSqYz1zfjQsb9QVB9RZq0NKeXqVaQ5+ALY3uPwnW4zAIDHFjA==}
     engines: {node: '>=14.19.0'}
     peerDependencies:
@@ -11742,7 +11765,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unocss@0.50.3(postcss@8.4.21)(vite@4.1.4):
+  /unocss@0.50.3(vite@4.1.4):
     resolution: {integrity: sha512-6quL19+WPJeuQmVdDIbSSXARHUhIvJSyJQYzHVlZRX4tv9fb+ZeZ2o8upRWodlIT2ulmDRnhXcUQyVdSRnRDDA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -11754,7 +11777,7 @@ packages:
       '@unocss/astro': 0.50.3(vite@4.1.4)
       '@unocss/cli': 0.50.3
       '@unocss/core': 0.50.3
-      '@unocss/postcss': 0.50.3(postcss@8.4.21)
+      '@unocss/postcss': 0.50.3
       '@unocss/preset-attributify': 0.50.3
       '@unocss/preset-icons': 0.50.3
       '@unocss/preset-mini': 0.50.3

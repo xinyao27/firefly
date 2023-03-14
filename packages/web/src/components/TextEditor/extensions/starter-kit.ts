@@ -6,6 +6,8 @@ import { CodeBlockLowlight as ExtensionCodeBlockLowLight } from '@tiptap/extensi
 import { ListItem as ExtensionListItem } from '@tiptap/extension-list-item'
 import { Typography as ExtensionTypography } from '@tiptap/extension-typography'
 import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placeholder'
+import ExtensionTaskItem from '@tiptap/extension-task-item'
+import ExtensionTaskList from '@tiptap/extension-task-list'
 import { lowlight } from 'lowlight'
 import { primaryColor } from '@firefly/theme'
 import { ExtensionDraggable } from './draggable'
@@ -37,6 +39,10 @@ export const extensions: AnyExtension[] = [
   ExtensionBlockText,
   ExtensionImage.configure({ allowBase64: true }),
   ExtensionListItem,
+  ExtensionTaskList,
+  ExtensionTaskItem.configure({
+    nested: true,
+  }),
   ExtensionCodeBlockLowLight.configure({ lowlight }),
 
   // Mark
