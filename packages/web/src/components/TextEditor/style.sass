@@ -34,15 +34,8 @@
       > div
         @apply flex-auto
 
-  .color
-    &::before
-      @apply inline-block rounded v-middle
-      content: ' '
-      width: 1em
-      height: 1em
-      margin-right: 0.15em
-      margin-bottom: 0.15em
-      background-color: var(--color)
+  .tag
+    @apply bg-neutral-200 p-1 rounded text-xs font-semibold
   .is-empty
     @apply before:(content-[attr(data-placeholder)] pointer-events-none h-0 float-left text-neutral-300 capitalize)
   &.ProseMirror-hideselection > .ProseMirror-gapcursor:last-child

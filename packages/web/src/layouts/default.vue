@@ -36,7 +36,7 @@ onMounted(async () => {
         </NDrawer>
       </template>
       <template v-else>
-        <NLayoutSider bordered>
+        <NLayoutSider>
           <LeftBar />
         </NLayoutSider>
       </template>

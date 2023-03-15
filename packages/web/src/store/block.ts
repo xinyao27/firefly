@@ -72,7 +72,10 @@ export const useBlockStore = defineStore('block', {
     },
     async save(data: BlockModel) {
       try {
-        const response = await supabase.from('blocks').insert(data)
+        const response = await supabase.functions.invoke('blocks', {
+          method: 'POST',
+          body: data,
+        })
         if (response.error)
           throw new Error(response.error.message)
 
@@ -86,7 +89,10 @@ export const useBlockStore = defineStore('block', {
     },
     async update(data: BlockModel) {
       try {
-        const response = await supabase.from('blocks').update(data).eq('id', data.id)
+        const response = await supabase.functions.invoke('blocks', {
+          method: 'PUT',
+          body: data,
+        })
         if (response.error)
           throw new Error(response.error.message)
 

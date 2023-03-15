@@ -5,8 +5,8 @@ import { PluginKey } from 'prosemirror-state'
 import tippy, { sticky } from 'tippy.js'
 import { Suggestion } from '@tiptap/suggestion'
 import type { SuggestionOptions } from '@tiptap/suggestion'
-import SlashMenuList from './SlashMenuList.vue'
-import { commands } from './commands'
+import PopMenu from '../../PopMenu.vue'
+import { actions } from './actions'
 
 export interface SlashMenuOptions {
   HTMLAttributes: Record<string, any>
@@ -69,16 +69,16 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
         },
         items: ({ query }) => {
           if (query)
-            return commands.filter(item => item.title.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+            return actions.filter(item => item.label.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
 
-          return commands
+          return actions
         },
         render: () => {
           return {
             onStart: (props) => {
               localProps = { ...props, event: '' }
 
-              component = new VueRenderer(SlashMenuList, {
+              component = new VueRenderer(PopMenu, {
                 props,
                 editor: props.editor,
               })

@@ -8,7 +8,7 @@ import { extensions } from './extensions/starter-kit'
 const copilotStore = useCopilotStore()
 const configStore = useConfigStore()
 
-const className = ref('w-full max-w-full max-h-80 overflow-auto relative focus:outline-none prose prose-black')
+const className = ref('w-full max-w-full max-h-80 overflow-auto relative transition focus:outline-none prose prose-black')
 const editor = useEditor({
   content: copilotStore.value,
   extensions,
@@ -22,39 +22,34 @@ const editor = useEditor({
     const content = editor.getHTML()
     copilotStore.value = content
   },
-  onFocus({ editor }) {
-    editor.setOptions({
-      editorProps: {
-        attributes: {
-          style: 'min-height: 6rem',
-        },
-      },
-    })
+  onFocus() {
+    copilotStore.toggleFocus(true)
   },
-  onBlur({ editor }) {
-    editor.setOptions({
-      editorProps: {
-        attributes: {
-          style: 'min-height: 1.5rem',
-        },
-      },
-    })
+  onBlur() {
+    copilotStore.toggleFocus(false)
   },
 })
 
+watch(() => copilotStore.focus, (focus) => {
+  editor.value?.setOptions({
+    editorProps: {
+      attributes: {
+        style: `min-height: ${focus ? 6 : 1.5}rem`,
+      },
+    },
+  })
+})
 onMounted(() => {
+  copilotStore.editor = editor.value!
   if (!configStore.isMobileScreen) {
     editor.value?.commands.focus()
     editor.value?.commands.selectAll()
   }
 })
-watch(() => copilotStore.value, (value) => {
-  editor.value?.commands.setContent(value)
-})
 </script>
 
 <template>
-  <div p-4 rounded-2 bg-neutral-50 transition>
+  <div>
     <EditorContent
       :editor="editor"
       class="relative"

@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import type { Editor } from '@tiptap/core'
 import type { SuggestionKeyDownProps } from '@tiptap/suggestion'
 import type { ScrollbarInst } from 'naive-ui'
-import type { CommandItem } from './commands'
+import type { Action } from './types'
 
 const props = defineProps<{
-  items: CommandItem[]
-  command: (params: any) => void
+  editor: Editor
+  items: Action[]
+  command: (action: Action) => void
 }>()
 
 const selectedIndex = ref(0)
@@ -69,7 +71,8 @@ function downHandler() {
 }
 
 function enterHandler() {
-  handleSelectItem(selectedIndex.value)
+  if (props.items.length)
+    handleSelectItem(selectedIndex.value)
 }
 
 function handleSelectItem(index: number) {
@@ -85,9 +88,9 @@ defineExpose({ onKeyDown })
 <template>
   <div bg-white rounded p-2 shadow-lg>
     <NScrollbar ref="scrollBarRef" max-h-50>
-      <template v-if="items.length">
+      <template v-if="props.items.length">
         <div
-          v-for="(item, index) in items"
+          v-for="(item, index) in props.items"
           :key="index"
           :ref="el => setButtonRef(el)"
           w-full p-1 rounded transition flex items-center gap-2 cursor-pointer
@@ -95,14 +98,20 @@ defineExpose({ onKeyDown })
           @click="handleSelectItem(index)"
           @mouseenter="selectedIndex = index"
         >
-          <div w-10 h-10 bg-white rounded flex items-center justify-center>
-            <i :class="item.icon" text-black block />
+          <div
+            v-if="item.icon"
+            w-10 h-10 bg-white rounded flex items-center justify-center
+          >
+            <component :is="item.icon" />
           </div>
           <div flex flex-col text-left>
             <div truncate>
-              {{ item.title }}
+              {{ item.label }}
             </div>
-            <div text-neutral text-xs truncate>
+            <div
+              v-if="item.description"
+              text-neutral text-xs truncate
+            >
               {{ item.description }}
             </div>
           </div>

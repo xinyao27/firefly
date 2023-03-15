@@ -10,6 +10,7 @@ import ExtensionTaskItem from '@tiptap/extension-task-item'
 import ExtensionTaskList from '@tiptap/extension-task-list'
 import { lowlight } from 'lowlight'
 import { primaryColor } from '@firefly/theme'
+import { ExtensionTag } from './tag'
 import { ExtensionBlockImage } from './block-image'
 import { ExtensionBlockLink } from './block-link'
 import { ExtensionBlockOther } from './block-other'
@@ -17,7 +18,6 @@ import { ExtensionBlockText } from './block-text'
 import { ExtensionDrop } from './drop'
 import { ExtensionSlashMenu } from './slash-menu'
 import { ExtensionCommands } from './commands'
-import { ExtensionBlockID } from './block-id'
 
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
@@ -27,7 +27,6 @@ export const extensions: AnyExtension[] = [
     },
   }),
   ExtensionTypography,
-  ExtensionBlockID.configure({ types: ['heading', 'paragraph'] }),
 
   // Node
   ExtensionBlockImage,
@@ -49,4 +48,5 @@ export const extensions: AnyExtension[] = [
   ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
   ExtensionSlashMenu,
   ExtensionCommands,
+  ExtensionTag,
 ]

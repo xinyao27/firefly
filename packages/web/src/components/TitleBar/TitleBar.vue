@@ -8,6 +8,7 @@ function handleMouseDown(e: MouseEvent) {
 const route = useRoute()
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
+const tagStore = useTagStore()
 </script>
 
 <template>
@@ -47,7 +48,10 @@ const blockStore = useBlockStore()
       size="small"
       quaternary
       :loading="blockStore.syncing"
-      @click="blockStore.sync"
+      @click="() => {
+        blockStore.sync()
+        tagStore.sync()
+      }"
     >
       <template #icon>
         <i i-ri-refresh-line />

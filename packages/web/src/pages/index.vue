@@ -3,12 +3,14 @@ defineOptions({ name: 'IndexPage' })
 
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
+const tagStore = useTagStore()
 
 onBeforeMount(() => {
   configStore.setTitle('')
 })
 onMounted(() => {
   blockStore.sync()
+  tagStore.sync()
 })
 </script>
 
