@@ -25,6 +25,9 @@ export const useBlockStore = defineStore('block', {
       this.blocks = (await (await db).getAllFromIndex('blocks', 'updatedAt')).reverse()
     },
     async sync({ lastUpdatedAt, lastBlockId }: { lastUpdatedAt?: Date; lastBlockId?: BlockId } = {}) {
+      const tagStore = useTagStore()
+      await tagStore.sync()
+
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastBlockId }), 200)
       try {
