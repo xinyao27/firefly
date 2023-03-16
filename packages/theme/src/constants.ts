@@ -30,4 +30,7 @@ export const themeOverrides: GlobalThemeOverrides = {
   Drawer: {
     bodyPadding: '0',
   },
+  Breadcrumb: {
+    separatorColor: colors.neutral[300],
+  },
 }

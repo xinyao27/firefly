@@ -7,7 +7,7 @@ export const useConfigStore = defineStore('config', {
   state: () => {
     return {
       rootPaddingTop: 40,
-      rootPaddingLeft: 44,
+      rootPaddingLeft: 270,
       title: '',
 
       isMobileScreen,

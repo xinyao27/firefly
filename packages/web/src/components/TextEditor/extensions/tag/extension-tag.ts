@@ -1,4 +1,4 @@
-import { Node, mergeAttributes } from '@tiptap/core'
+import { Node } from '@tiptap/core'
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 import Suggestion from '@tiptap/suggestion'
@@ -181,23 +181,11 @@ export const ExtensionTag = Node.create<TagOptions>({
     }
   },
 
-  parseHTML() {
-    return [
-      {
-        tag: `span[data-type="${this.name}"]`,
-      },
-    ]
-  },
-
-  renderHTML({ node, HTMLAttributes }) {
-    return [
-      'span',
-      mergeAttributes({ 'data-type': this.name }, this.options.HTMLAttributes, HTMLAttributes),
-      this.options.renderLabel({
-        options: this.options,
-        node,
-      }),
-    ]
+  renderHTML({ node }) {
+    return this.options.renderLabel({
+      options: this.options,
+      node,
+    })
   },
 
   renderText({ node }) {

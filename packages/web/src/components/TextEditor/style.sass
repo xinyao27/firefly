@@ -1,7 +1,5 @@
 .ProseMirror
   @apply outline-none
-  > *
-    @apply relative overflow-x-visible after:(content-empty block w-20 h-full absolute -left-20 top-0 z-99 cursor-default)
   > * + *
     margin-top: 0.75em
   p,ul,ol,pre,h1,h2,h3,h4
@@ -35,7 +33,7 @@
         @apply flex-auto
 
   .tag
-    @apply bg-neutral-200 p-1 rounded text-xs font-semibold
+    @apply p-1 rounded text-xs font-semibold transition bg-neutral-100 hover:bg-neutral-200 cursor-pointer
   .is-empty
     @apply before:(content-[attr(data-placeholder)] pointer-events-none h-0 float-left text-neutral-300 capitalize)
   &.ProseMirror-hideselection > .ProseMirror-gapcursor:last-child

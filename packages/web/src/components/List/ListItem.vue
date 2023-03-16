@@ -30,6 +30,32 @@ const options: DropdownOption[] = [
 function handleSelect(_: string, option: DropdownOption) {
   (option.onClick as () => void)?.()
 }
+
+const parsedContent = computed(() => {
+  const content = props.data.content
+  if (!content)
+    return ''
+
+  const result = content.replace(/#\S+/g, '<span class="tag">$&</span>')
+  return result
+})
+const el = ref<HTMLDivElement>()
+const router = useRouter()
+onMounted(() => {
+  const tags = el.value?.querySelectorAll('.tag')
+  tags?.forEach((tag) => {
+    tag.addEventListener('click', () => {
+      if (tag.textContent?.length && tag.textContent.length > 1) {
+        router.push({
+          name: 'index',
+          query: {
+            tag: tag.textContent?.slice(1),
+          },
+        })
+      }
+    })
+  })
+})
 </script>
 
 <template>
@@ -54,8 +80,9 @@ function handleSelect(_: string, option: DropdownOption) {
       </NDropdown>
     </template>
     <div
+      ref="el"
       class="ProseMirror prose prose-black"
-      v-html="props.data.content"
+      v-html="parsedContent"
     />
   </NCard>
 </template>

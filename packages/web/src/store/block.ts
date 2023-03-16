@@ -4,6 +4,10 @@ import { supabase } from '~/api'
 import type { BlockId, BlockModel } from '~/models/Block'
 import { db } from '~/db'
 
+interface SearchParams {
+  tag?: string
+}
+
 export const useBlockStore = defineStore('block', {
   state: () => {
     const ready = ref(false)
@@ -17,23 +21,26 @@ export const useBlockStore = defineStore('block', {
     return {
       ready,
       blocks,
-      syncing: false,
+      loading: false,
     }
   },
   actions: {
-    async refresh() {
-      this.blocks = (await (await db).getAllFromIndex('blocks', 'updatedAt')).reverse()
+    async find() {
+      return (await (await db).getAllFromIndex('blocks', 'updatedAt')).reverse()
     },
-    async sync({ lastUpdatedAt, lastBlockId }: { lastUpdatedAt?: Date; lastBlockId?: BlockId } = {}) {
-      const tagStore = useTagStore()
-      await tagStore.sync()
-
+    async refresh() {
+      this.blocks = await this.find()
+    },
+    async sync({ lastUpdatedAt, lastBlockId }: { lastUpdatedAt?: Date; lastBlockId?: BlockId } = {}, refresh = true) {
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastBlockId }), 200)
       try {
-        this.syncing = true
+        this.loading = true
+        const tagStore = useTagStore()
+        await tagStore.sync()
+
         let response: PostgrestSingleResponse<BlockModel[]>
-        const lastBlock = this.blocks[0]
+        const lastBlock = (await this.find())[0]
         if (lastBlock || (lastUpdatedAt && lastBlockId)) {
           // @ts-expect-error noop
           response = await supabase
@@ -54,15 +61,22 @@ export const useBlockStore = defineStore('block', {
           throw new Error(response.error.message)
 
         if (response.data.length) {
-          const _db = await db
-          const tx = _db.transaction('blocks', 'readwrite')
+          const tx = (await db).transaction('blocks', 'readwrite')
           await Promise.all([
             ...response.data.map(block => tx.store.add(block)),
             tx.done,
           ])
-          await this.refresh()
+          if (refresh)
+            await this.refresh()
+
           $message.success(`同步了 ${response.data.length} 条数据`)
         }
+
+        const params = new URLSearchParams(document.location.search)
+        const tag = params.get('tag')
+        if (tag)
+          await this.search({ tag })
+
         return this.blocks
       }
       catch (error) {
@@ -70,7 +84,7 @@ export const useBlockStore = defineStore('block', {
         $message.error(error)
       }
       finally {
-        this.syncing = false
+        this.loading = false
       }
     },
     async save(data: BlockModel) {
@@ -123,6 +137,33 @@ export const useBlockStore = defineStore('block', {
       catch (error) {
         console.error(error)
         $message.error(error)
+      }
+    },
+    async search({ tag }: SearchParams) {
+      try {
+        this.loading = true
+        if (tag) {
+          const result = []
+
+          const tx = (await db).transaction('blocks', 'readwrite')
+          let cursor = await tx.store.index('tags').openCursor()
+          while (cursor) {
+            if (cursor.key.includes(tag))
+              result.push(cursor.value)
+
+            cursor = await cursor.continue()
+          }
+          await tx.done
+
+          this.blocks = result
+        }
+        else {
+          this.blocks = []
+        }
+        return this.blocks
+      }
+      finally {
+        this.loading = false
       }
     },
   },

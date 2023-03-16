@@ -17,20 +17,23 @@ export const useTagStore = defineStore('tag', {
     return {
       ready,
       tags,
-      syncing: false,
+      loading: false,
     }
   },
   actions: {
+    async find() {
+      return (await (await db).getAllFromIndex('tags', 'updatedAt')).reverse()
+    },
     async refresh() {
-      this.tags = (await (await db).getAllFromIndex('tags', 'updatedAt')).reverse()
+      this.tags = await this.find()
     },
     async sync({ lastUpdatedAt, lastTagId }: { lastUpdatedAt?: Date; lastTagId?: TagId } = {}) {
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastTagId }), 200)
       try {
-        this.syncing = true
+        this.loading = true
         let response: PostgrestSingleResponse<TagModel[]>
-        const lastTag = this.tags[0]
+        const lastTag = (await this.find())[0]
         if (lastTag || (lastUpdatedAt && lastTagId)) {
           // @ts-expect-error noop
           response = await supabase
@@ -66,7 +69,7 @@ export const useTagStore = defineStore('tag', {
         $message.error(error)
       }
       finally {
-        this.syncing = false
+        this.loading = false
       }
     },
     async update(data: TagModel) {

@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import MasonryWall from '@yeger/vue-masonry-wall'
 import ListItem from './ListItem.vue'
+import type { BlockModel } from '~/models/Block'
 
-const blockStore = useBlockStore()
+const props = defineProps<{
+  data: BlockModel[]
+}>()
 </script>
 
 <template>
   <div flex-1 p-4 overflow-x-hidden overflow-y-auto>
-    <MasonryWall :items="blockStore.blocks" :ssr-columns="1" :column-width="300" :gap="16">
+    <MasonryWall :items="props.data" :ssr-columns="1" :column-width="300" :gap="16">
       <template #default="{ item }">
         <ListItem
           :key="item.id"
