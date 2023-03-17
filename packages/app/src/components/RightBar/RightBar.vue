@@ -37,7 +37,7 @@ const result = computed(() => {
 </script>
 
 <template>
-  <aside h-full flex flex-col gap-4 p-4 bg-neutral-100 select-none>
+  <aside h-full flex flex-col gap-4 p-4 select-none>
     <pre p-4 bg-white rounded max-h-100 whitespace-pre-line overflow-x-hidden overflow-y-auto>
       {{ textSelection || '选择一段文字看看...' }}
     </pre>
