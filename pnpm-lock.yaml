@@ -189,13 +189,7 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(typescript@4.9.5)
 
-  packages/plugin: {}
-
-  packages/theme: {}
-
-  packages/utils: {}
-
-  packages/web:
+  packages/app:
     dependencies:
       '@firefly/theme':
         specifier: workspace:*
@@ -303,6 +297,12 @@ importers:
       vite-plugin-pages:
         specifier: ^0.28.0
         version: 0.28.0(vite@4.1.4)
+
+  packages/plugin: {}
+
+  packages/theme: {}
+
+  packages/utils: {}
 
   packages/webext:
     dependencies:
@@ -10840,7 +10840,7 @@ packages:
     engines: {node: '>=0.8'}
     dependencies:
       psl: 1.9.0
-      punycode: 2.2.0
+      punycode: 2.3.0
     dev: true
 
   /tough-cookie@4.1.2:

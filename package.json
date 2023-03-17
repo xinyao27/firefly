@@ -9,7 +9,7 @@
     "lint": "eslint . --fix",
     "build": "turbo run build",
     "devtools": "npx vue-devtools",
-    "dev": "turbo run dev --filter=firefly-web",
+    "dev": "turbo run dev --filter=firefly",
     "dev:webext": "turbo run dev --filter=firefly-webext",
     "test": "turbo run test"
   },
