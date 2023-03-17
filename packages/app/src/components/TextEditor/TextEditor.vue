@@ -1,59 +1,42 @@
 <script setup lang="ts">
-import 'highlight.js/scss/github.scss'
-import './style.sass'
-import { EditorContent, useEditor } from '@tiptap/vue-3'
-import BubbleMenu from './BubbleMenu'
-import { extensions } from './extensions/starter-kit'
+const props = defineProps<{
+  class?: string
+}>()
 
-const copilotStore = useCopilotStore()
-const configStore = useConfigStore()
-
-const className = ref('w-full max-w-full max-h-80 overflow-auto relative transition focus:outline-none prose prose-black')
-const editor = useEditor({
-  content: copilotStore.value,
-  extensions,
-  editorProps: {
-    attributes: {
-      class: className.value,
-      suppressContentEditableWarning: 'true',
-    },
-  },
-  onUpdate({ editor }) {
-    const content = editor.getHTML()
-    copilotStore.value = content
-  },
-  onFocus() {
-    copilotStore.toggleFocus(true)
-  },
-  onBlur() {
-    copilotStore.toggleFocus(false)
-  },
-})
-
-watch(() => copilotStore.focus, (focus) => {
-  editor.value?.setOptions({
-    editorProps: {
-      attributes: {
-        style: `min-height: ${focus ? 6 : 1.5}rem`,
-      },
-    },
-  })
-})
-onMounted(() => {
-  copilotStore.editor = editor.value!
-  if (!configStore.isMobileScreen) {
-    editor.value?.commands.focus()
-    editor.value?.commands.selectAll()
-  }
-})
+const textEditorStore = useTextEditorStore()
 </script>
 
 <template>
-  <div>
-    <EditorContent
-      :editor="editor"
-      class="relative"
-    />
-    <BubbleMenu :editor="editor" />
+  <div
+    m-4 p-4 pb-2 flex flex-col gap-2 bg-white rounded-2 transition
+    :border="textEditorStore.focus ? '1px primary' : '1px neutral-200'"
+    :class="props.class"
+  >
+    <TextEditorCore />
+
+    <div flex justify-between>
+      <div />
+      <div flex items-center gap-2>
+        <NButton
+          v-if="textEditorStore.editingBlock"
+          text
+          size="small"
+          :disabled="!textEditorStore.value || textEditorStore.loading"
+          @click="textEditorStore.cancel"
+        >
+          取消
+        </NButton>
+        <NButton
+          secondary
+          type="primary"
+          size="small"
+          :loading="textEditorStore.loading"
+          :disabled="!textEditorStore.value || textEditorStore.loading"
+          @click="textEditorStore.save"
+        >
+          <i i-ri-send-plane-fill />
+        </NButton>
+      </div>
+    </div>
   </div>
 </template>

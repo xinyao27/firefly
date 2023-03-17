@@ -47,7 +47,7 @@ function handleSelect(_: string, option: DropdownOption) {
               {{ item.label }}
             </NButton>
           </NDropdown>
-          <NTooltip v-else trigger="hover" :disabled="item.type === 'divider'">
+          <NTooltip v-else :disabled="item.type === 'divider'">
             <template #trigger>
               <NButton
                 size="small"

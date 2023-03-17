@@ -16,8 +16,8 @@ export const selectedOptions: ActionOption[] = [
     label: '翻译',
     key: 'translate',
     action() {
-      // const copilotStore = useCopilotStore()
-      // copilotStore.translate()
+      // const textEditorStore = useTextEditorStore()
+      // textEditorStore.translate()
     },
   },
 ]
@@ -31,8 +31,8 @@ export const answeredOptions: ActionOption[] = [
     label: '继续写',
     key: 'continue',
     action() {
-      const copilotStore = useCopilotStore()
-      copilotStore.continue()
+      const textEditorStore = useTextEditorStore()
+      textEditorStore.continue()
     },
   },
   {
@@ -40,8 +40,8 @@ export const answeredOptions: ActionOption[] = [
     label: '重新写',
     key: 'rewrite',
     action() {
-      const copilotStore = useCopilotStore()
-      copilotStore.rewrite()
+      const textEditorStore = useTextEditorStore()
+      textEditorStore.rewrite()
     },
   },
   {
@@ -49,8 +49,8 @@ export const answeredOptions: ActionOption[] = [
     label: '重置',
     key: 'reset',
     action() {
-      const copilotStore = useCopilotStore()
-      copilotStore.reset()
+      const textEditorStore = useTextEditorStore()
+      textEditorStore.reset()
     },
   },
 ]

@@ -25,7 +25,7 @@ onMounted(() => {
 <template>
   <main h-full flex flex-col overflow-hidden>
     <List :data="blockStore.blocks" />
-    <Copilot />
+    <TextEditor />
   </main>
 </template>
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useRouteQuery } from '@vueuse/router'
-import RouterTools from './RouterTools.vue'
 
 function handleMouseDown(e: MouseEvent) {
   e.preventDefault()
@@ -15,34 +14,20 @@ const tags = computed(() => tag.value?.split('/'))
 </script>
 
 <template>
-  <div flex items-center gap-1 z-99 w-full h-full px-2 select-none>
+  <div flex items-center justify-between gap-1 z-99 w-full h-full px-2 select-none>
     <!-- LeftBar Area -->
     <div :style="`width: ${configStore.rootPaddingLeft}px`">
       <!-- leftBarShow -->
-      <NTooltip
+      <NButton
         v-if="configStore.isMobileScreen"
-        trigger="hover"
+        size="small"
+        quaternary
+        :opacity="configStore.leftBarShow ? 100 : 40"
+        @click="configStore.toggleLeftBarShow"
       >
-        <template #trigger>
-          <NButton
-            size="small"
-            quaternary
-            :opacity="configStore.leftBarShow ? 100 : 40"
-            @click="configStore.toggleLeftBarShow"
-          >
-            <i v-if="!configStore.leftBarShow" i-ri-layout-left-line />
-            <i v-else i-ri-layout-left-fill />
-          </NButton>
-        </template>
-        <template v-if="!configStore.leftBarShow">
-          展开
-        </template>
-        <template v-else>
-          收起
-        </template>
-      </NTooltip>
-      <!-- Router Tools  -->
-      <RouterTools />
+        <i v-if="!configStore.leftBarShow" i-ri-layout-left-line />
+        <i v-else i-ri-layout-left-fill />
+      </NButton>
     </div>
     <!-- Title Area -->
     <div flex items-center gap-2>
@@ -84,8 +69,23 @@ const tags = computed(() => tag.value?.split('/'))
         立即同步
       </NTooltip>
     </div>
+    <!-- RightBar Area -->
+    <div>
+      <!-- rightBarShow -->
+      <NButton
+        v-if="configStore.isMobileScreen"
+        size="small"
+        quaternary
+        :opacity="configStore.rightBarShow ? 100 : 40"
+        @click="configStore.toggleRightBarShow"
+      >
+        <i v-if="!configStore.rightBarShow" i-ri-layout-right-line />
+        <i v-else i-ri-layout-right-fill />
+      </NButton>
+    </div>
     <!-- Drag Area -->
     <div
+      v-if="!configStore.isMobileScreen"
       flex-auto h-full select-none
       style="-webkit-app-region: drag"
       @mousedown="handleMouseDown"

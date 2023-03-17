@@ -1,4 +1,4 @@
-export function useCopilotRecently() {
-  const recently = useStorage<string[]>('copilot-recently-question', [])
+export function useTextEditorRecently() {
+  const recently = useStorage<string[]>('textEditor-recently-question', [])
   return recently
 }

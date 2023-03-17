@@ -7,15 +7,17 @@ const props = defineProps<{
   data: BlockModel
 }>()
 
-const copilotStore = useCopilotStore()
+const textEditorStore = useTextEditorStore()
 const blockStore = useBlockStore()
+const router = useRouter()
+const el = ref<HTMLDivElement>()
 
 const options: DropdownOption[] = [
   {
     label: '编辑',
     key: 'edit',
     onClick() {
-      copilotStore.open('update', props.data)
+      textEditorStore.open('update', props.data)
     },
   },
   {
@@ -30,6 +32,16 @@ const options: DropdownOption[] = [
 function handleSelect(_: string, option: DropdownOption) {
   (option.onClick as () => void)?.()
 }
+function handleCopilot() {
+  // 目前就是选择当前 block 的内容
+  if (el.value) {
+    const selection = window.getSelection()
+    const range = document.createRange()
+    range.selectNodeContents(el.value)
+    selection?.removeAllRanges()
+    selection?.addRange(range)
+  }
+}
 
 const parsedContent = computed(() => {
   const content = props.data.content
@@ -39,8 +51,7 @@ const parsedContent = computed(() => {
   const result = content.replace(/#\S+/g, '<span class="tag">$&</span>')
   return result
 })
-const el = ref<HTMLDivElement>()
-const router = useRouter()
+
 onMounted(() => {
   const tags = el.value?.querySelectorAll('.tag')
   tags?.forEach((tag) => {
@@ -65,19 +76,33 @@ onMounted(() => {
     :title="dayjs(props.data.updatedAt).format('YYYY-MM-DD HH:mm:ss')"
   >
     <template #header-extra>
-      <NDropdown
-        size="small"
-        trigger="hover"
-        :options="options"
-        @select="handleSelect"
-      >
-        <NButton
-          quaternary
+      <div>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              quaternary
+              size="tiny"
+              @click="handleCopilot"
+            >
+              <i i-tabler-brain />
+            </NButton>
+          </template>
+          AI 分析
+        </NTooltip>
+        <NDropdown
           size="small"
+          trigger="hover"
+          :options="options"
+          @select="handleSelect"
         >
-          <i i-ri-more-line />
-        </NButton>
-      </NDropdown>
+          <NButton
+            quaternary
+            size="tiny"
+          >
+            <i i-ri-more-line />
+          </NButton>
+        </NDropdown>
+      </div>
     </template>
     <div
       ref="el"

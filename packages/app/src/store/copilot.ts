@@ -1,125 +1,84 @@
-import type { Editor } from '@tiptap/core'
-import type { CreateChatCompletionResponse } from 'openai'
 import { defineStore } from 'pinia'
-import { SSE } from 'sse.js'
-import type { BlockModel } from '~/models/Block'
+
+function getEdgeFunctionUrl() {
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_FUNCTIONS_URL
+
+  return supabaseUrl
+}
 
 interface Context {
-  type?: 'default' | 'translate' | 'continue' | 'summarize' | 'improveWriting' | 'fixSpellingAndGrammar'
+  type?: 'custom'
+  | 'translate'
+  | 'polishing'
+  | 'summarize'
+  | 'extractionTags'
+  prompt?: string
   text?: string
   language?: string
 }
-type Type = 'update' | 'create'
-
-function getEdgeFunctionUrl() {
-  const supabaseUrl = (
-    import.meta.env.DEV
-      ? 'http://localhost:54321'
-      : import.meta.env.RENDERER_VITE_SUPABASE_URL
-  )
-    ?.replace(/\/$/, '')
-
-  return `${supabaseUrl}/functions/v1`
-}
-
 export const useCopilotStore = defineStore('copilot', {
   state: () => {
     return {
-      editor: null as Editor | null,
-      value: '',
-      tags: [] as string[],
-      type: 'create' as Type,
-      editingBlock: null as BlockModel | null,
-      focus: false,
       loading: false,
+      result: '',
+      types: [
+        {
+          label: '自定义 Prompt',
+          value: 'custom',
+        },
+        {
+          label: '翻译',
+          value: 'translate',
+        },
+        {
+          label: '润色',
+          value: 'polishing',
+        },
+        {
+          label: '文本总结',
+          value: 'summarize',
+        },
+        {
+          label: '提取标签',
+          value: 'extractionTags',
+        },
+      ],
+      prompt: '',
+      language: 'zh-Hans',
+      type: 'extractionTags' as Context['type'],
     }
   },
   actions: {
-    open(type: Type, block?: BlockModel) {
-      if (type === 'update') {
-        this.value = block?.content ?? ''
-        this.tags = block?.tags ?? []
-        this.editor?.commands.setContent(this.value)
-        this.editingBlock = block
-      }
-      this.type = type
+    reset() {
+      this.result = ''
     },
-    cancel() {
-      this.editor?.commands.clearContent()
-      this.value = ''
-      this.tags = []
-      this.type = 'create'
-      this.editingBlock = null
-    },
-    async save() {
-      const blockStore = useBlockStore()
+    async chat(context?: Context) {
+      this.reset()
       this.loading = true
-
-      const content = this.value as string
-
-      if (this.type === 'create') {
-        const block: BlockModel = {
-          content,
-        }
-        await blockStore.save(block)
-      }
-      else if (this.type === 'update') {
-        const block = this.editingBlock
-        await blockStore.update({
-          ...block,
-          content,
-        })
-      }
-
-      this.cancel()
-      this.loading = false
-    },
-    toggleFocus(focus?: boolean) {
-      if (focus !== undefined)
-        this.focus = focus
-      else
-        this.focus = !this.focus
-    },
-    getCompletion(context?: Context) {
-      const { type = 'default', text = '', language } = context || {}
-      this.inputRef?.blur?.()
-      this.loading = true
-      const eventSource = new SSE(`${getEdgeFunctionUrl()}/completion`, {
+      const response = await fetch(`${getEdgeFunctionUrl()}/completions`, {
+        method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
           'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
         },
-        payload: JSON.stringify({ prompt: this.question, type, text, language }),
+        body: JSON.stringify(context),
       })
-      const handleError = <T>(err: T) => {
-        this.loading = false
-        this.status = 'error'
-        this.results = err as string
-        console.error(err)
+      const data = response.body
+      if (!data)
+        return
+
+      const reader = data.getReader()
+      const decoder = new TextDecoder()
+      let done = false
+      while (!done) {
+        const { value, done: doneReading } = await reader.read()
+        done = doneReading
+        const chunkValue = decoder.decode(value)
+        this.result += chunkValue
       }
-      eventSource.addEventListener('error', handleError)
-      eventSource.addEventListener('message', (e) => {
-        try {
-          this.loading = true
 
-          if (e.data === '[DONE]') {
-            this.loading = false
-            this.status = 'answered'
-            this.inputRef?.blur?.()
-            return
-          }
-
-          const completionResponse = JSON.parse(e.data) as CreateChatCompletionResponse
-          // @ts-expect-error noop
-          const content = completionResponse.choices[0]?.delta?.content ?? ''
-          this.results = (this.results ?? '') + content
-        }
-        catch (err) {
-          handleError(err)
-        }
-      })
-      eventSource.stream()
+      this.loading = false
     },
   },
 })

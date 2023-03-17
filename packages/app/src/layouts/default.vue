@@ -44,6 +44,23 @@ onMounted(async () => {
       <NLayoutContent content-style="height: 100%">
         <RouterView />
       </NLayoutContent>
+
+      <template v-if="configStore.isMobileScreen">
+        <NDrawer
+          v-model:show="configStore.rightBarShow"
+          :width="320"
+          placement="right"
+        >
+          <NDrawerContent>
+            <RightBar />
+          </NDrawerContent>
+        </NDrawer>
+      </template>
+      <template v-else>
+        <NLayoutSider :width="configStore.rootPaddingRight">
+          <RightBar />
+        </NLayoutSider>
+      </template>
     </NLayout>
   </NLayout>
 </template>
