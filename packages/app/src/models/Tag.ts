@@ -1,5 +1,3 @@
-import type { BlockId } from './Block'
-
 export type TagId = number
 export interface TagModel {
   id: TagId
@@ -7,16 +5,6 @@ export interface TagModel {
    * 标签名
    */
   name: string
-  /**
-   * 标签使用次数
-   * client
-   */
-  count?: number
-  /**
-   * 最后使用的 block(id)
-   * client
-   */
-  lastUsedAt?: BlockId
   /**
    * 置顶
    */

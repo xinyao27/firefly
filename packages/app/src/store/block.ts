@@ -42,19 +42,17 @@ export const useBlockStore = defineStore('block', {
         let response: PostgrestSingleResponse<BlockModel[]>
         const lastBlock = (await this.find())[0]
         if (lastBlock || (lastUpdatedAt && lastBlockId)) {
-          // @ts-expect-error noop
           response = await supabase
             .from('blocks')
-            .select()
+            .select('id,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
             .order('updatedAt', { ascending: false })
             .gt('updatedAt', lastUpdatedAt ?? lastBlock?.updatedAt)
             .neq('id', lastBlockId ?? lastBlock?.id)
         }
         else {
-          // @ts-expect-error noop
           response = await supabase
             .from('blocks')
-            .select()
+            .select('id,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
             .order('updatedAt', { ascending: false })
         }
         if (response.error)

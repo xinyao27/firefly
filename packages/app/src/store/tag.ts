@@ -35,19 +35,17 @@ export const useTagStore = defineStore('tag', {
         let response: PostgrestSingleResponse<TagModel[]>
         const lastTag = (await this.find())[0]
         if (lastTag || (lastUpdatedAt && lastTagId)) {
-          // @ts-expect-error noop
           response = await supabase
             .from('tags')
-            .select()
+            .select('id,name,pinned,icon,createdAt,updatedAt')
             .order('updatedAt', { ascending: false })
             .gt('updatedAt', lastUpdatedAt ?? lastTag?.updatedAt)
             .neq('id', lastTagId ?? lastTag?.id)
         }
         else {
-          // @ts-expect-error noop
           response = await supabase
             .from('tags')
-            .select()
+            .select('id,name,pinned,icon,createdAt,updatedAt')
             .order('updatedAt', { ascending: false })
         }
         if (response.error)

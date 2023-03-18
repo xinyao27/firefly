@@ -9,9 +9,9 @@ interface FireflyDB extends DBSchema {
     key: string
     indexes: {
       id: string
+      tags: string[]
       createdAt: string
       updatedAt: string
-      tags: string[]
     }
   }
   tags: {
@@ -20,8 +20,6 @@ interface FireflyDB extends DBSchema {
     indexes: {
       id: number
       name: string
-      count: number
-      lastUsedAt: string
       pinned: number
       icon: string
       createdAt: string
@@ -37,14 +35,12 @@ export async function initDB() {
   db = openDB<FireflyDB>('firefly', 1, {
     upgrade(db) {
       const blockStore = db.createObjectStore('blocks', { keyPath: 'id' })
+      blockStore.createIndex('tags', 'tags')
       blockStore.createIndex('createdAt', 'createdAt')
       blockStore.createIndex('updatedAt', 'updatedAt')
-      blockStore.createIndex('tags', 'tags')
 
       const tagStore = db.createObjectStore('tags', { keyPath: 'id' })
       tagStore.createIndex('name', 'name')
-      tagStore.createIndex('count', 'count')
-      tagStore.createIndex('lastUsedAt', 'lastUsedAt')
       tagStore.createIndex('pinned', 'pinned')
       tagStore.createIndex('icon', 'icon')
       tagStore.createIndex('createdAt', 'createdAt')
