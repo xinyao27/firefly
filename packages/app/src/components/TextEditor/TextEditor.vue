@@ -4,6 +4,12 @@ const props = defineProps<{
 }>()
 
 const textEditorStore = useTextEditorStore()
+
+onKeyStroke(['ctrl', 'l'], (e) => {
+  e.preventDefault()
+
+  textEditorStore.toggleFocus(true)
+})
 </script>
 
 <template>
