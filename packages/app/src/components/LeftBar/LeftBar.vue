@@ -66,12 +66,10 @@ function handleSelect([key]: string[]) {
 </script>
 
 <template>
-  <aside h-full flex flex-col justify-between>
-    <section flex-1 p-4>
-      <div flex items-center gap-2 text-primary text-xs font-semibold pl-2 mb-2>
-        <i i-ri-bookmark-fill />
-        全部标签
-      </div>
+  <aside h-full flex flex-col gap-4>
+    <User />
+
+    <section flex-1>
       <NTree
         :data="data"
         block-line
@@ -80,7 +78,5 @@ function handleSelect([key]: string[]) {
         @update-selected-keys="handleSelect"
       />
     </section>
-
-    <section />
   </aside>
 </template>

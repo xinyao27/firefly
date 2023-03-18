@@ -36,7 +36,7 @@ onMounted(async () => {
         </NDrawer>
       </template>
       <template v-else>
-        <NLayoutSider :width="configStore.rootPaddingLeft">
+        <NLayoutSider :width="configStore.rootPaddingLeft" bordered>
           <LeftBar />
         </NLayoutSider>
       </template>
