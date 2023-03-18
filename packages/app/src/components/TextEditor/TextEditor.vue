@@ -8,9 +8,9 @@ const textEditorStore = useTextEditorStore()
 
 <template>
   <div
-    m-4 p-4 pb-2 flex flex-col gap-2 bg-white rounded-2 transition
-    :border="textEditorStore.focus ? '1px primary' : '1px neutral-200'"
-    :class="props.class"
+    m-4 p-4 pb-2 flex flex-col gap-2 bg-white rounded transition cursor-pointer
+    :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary' : '']"
+    @click="textEditorStore.toggleFocus"
   >
     <TextEditorCore />
 

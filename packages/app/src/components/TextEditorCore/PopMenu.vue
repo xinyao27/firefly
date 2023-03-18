@@ -86,7 +86,7 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div bg-white rounded p-2 shadow-lg>
+  <div bg-white bg-opacity-60 rounded p-2 shadow-lg backdrop-filter backdrop-blur-sm>
     <NScrollbar ref="scrollBarRef" max-h-50>
       <template v-if="props.items.length">
         <div

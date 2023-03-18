@@ -31,6 +31,7 @@ const editor = useEditor({
 })
 
 watch(() => textEditorStore.focus, (focus) => {
+  focus ? editor.value?.commands.focus() : editor.value?.commands.blur()
   editor.value?.setOptions({
     editorProps: {
       attributes: {

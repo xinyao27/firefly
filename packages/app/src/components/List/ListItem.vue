@@ -73,6 +73,7 @@ onMounted(() => {
   <NCard
     size="small"
     hoverable
+    :bordered="false"
     :title="dayjs(props.data.updatedAt).format('YYYY-MM-DD HH:mm:ss')"
   >
     <template #header-extra>
