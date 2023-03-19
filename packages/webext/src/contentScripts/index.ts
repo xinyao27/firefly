@@ -1,8 +1,4 @@
 import { onMessage } from 'webext-bridge'
-import { createApp } from 'vue'
-import App from './views/App.vue'
-import { setupApp } from '~/logic/common-setup'
-import '~/styles'
 // Firefox `browser.tabs.executeScript()` requires scripts return a primitive value
 (() => {
   // communication example: send previous tab title from background page
@@ -11,16 +7,17 @@ import '~/styles'
   })
 
   // mount component to context window
-  const container = document.createElement('div')
-  const root = document.createElement('div')
-  const styleEl = document.createElement('link')
-  const shadowDOM = container.attachShadow?.({ mode: __DEV__ ? 'open' : 'closed' }) || container
-  styleEl.setAttribute('rel', 'stylesheet')
-  styleEl.setAttribute('href', browser.runtime.getURL('dist/contentScripts/style.css'))
-  shadowDOM.appendChild(styleEl)
-  shadowDOM.appendChild(root)
+  const container = document.createElement('iframe')
+  container.src = browser.runtime.getURL('dist/contentScripts/index.html')
+  container.style.position = 'fixed'
+  container.style.top = '20px'
+  container.style.left = '20px'
+  container.style.minWidth = '330px'
+  container.style.minHeight = '180px'
+  container.style.zIndex = '2147483647'
+  container.style.border = 'none'
+  container.style.borderRadius = '8px'
+  container.style.pointerEvents = 'initial'
+  container.setAttribute('allowtransparency', 'true')
   document.body.appendChild(container)
-  const app = createApp(App)
-  setupApp(app)
-  app.mount(root)
 })()

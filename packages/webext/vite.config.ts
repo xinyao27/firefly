@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { dirname, relative } from 'path'
+import { dirname, relative } from 'node:path'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -110,10 +110,22 @@ export default defineConfig(({ command }) => ({
     port,
     hmr: { host: 'localhost' },
   },
+  watch: isDev
+    ? {}
+    : undefined,
+  // https://developer.chrome.com/docs/webstore/program_policies/#:~:text=Code%20Readability%20Requirements
+  terserOptions: {
+    mangle: false,
+  },
   build: {
     outDir: r('extension/dist'),
     emptyOutDir: false,
     sourcemap: isDev ? 'inline' : false,
-    rollupOptions: { input: { background: r('src/background/index.html') } },
+    rollupOptions: {
+      input: {
+        background: r('src/background/index.html'),
+        contentScripts: r('src/contentScripts/index.html'),
+      },
+    },
   },
 }))
