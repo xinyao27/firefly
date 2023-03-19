@@ -1,7 +1,6 @@
 import type { DBSchema, IDBPDatabase } from 'idb'
 import { openDB } from 'idb'
-import type { BlockModel } from './models/Block'
-import type { TagModel } from './models/Tag'
+import type { BlockModel, TagModel } from '@firefly/common'
 
 interface FireflyDB extends DBSchema {
   blocks: {

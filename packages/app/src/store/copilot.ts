@@ -14,6 +14,7 @@ export const useCopilotStore = defineStore('copilot', {
   state: () => {
     return {
       loading: false,
+      selection: '',
       result: '',
       types: [
         {
@@ -73,6 +74,13 @@ export const useCopilotStore = defineStore('copilot', {
       }
 
       this.loading = false
+    },
+    open(selection: string) {
+      const configStore = useConfigStore()
+      if (configStore.isMobileScreen) {
+        this.selection = selection || window.getSelection()?.toString()
+        configStore.rightBarShow = true
+      }
     },
   },
 })

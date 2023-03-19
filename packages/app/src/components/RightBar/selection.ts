@@ -4,8 +4,9 @@ export function useSelection() {
   function onSelectionChange() {
     if (window) {
       const _text = window.getSelection()?.toString()
-      if (_text?.length)
-        text.value = _text
+      const configStore = useConfigStore()
+      const copilotStore = useCopilotStore()
+      text.value = configStore.isMobileScreen ? (_text || copilotStore.selection) : _text ?? ''
     }
   }
 

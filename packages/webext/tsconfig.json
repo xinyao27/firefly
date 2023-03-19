@@ -4,14 +4,17 @@
     "baseUrl": ".",
     "types": [
       "vite/client",
-      "naive-ui/volar"
+      "naive-ui/volar",
+      "unplugin-vue-macros/macros-global"
     ],
     "paths": {
       "~/*": ["src/*"]
     }
   },
   "vueCompilerOptions": {
+    "target": 3,
     "plugins": [
+      "@vue-macros/volar/define-options",
       "@vue-macros/volar/define-model",
       "@vue-macros/volar/define-props",
       "@vue-macros/volar/define-props-refs",

@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
-import { NAvatar, NText } from 'naive-ui'
+import { NAvatar, NButton, NText, NTooltip } from 'naive-ui'
+import Copyable from '../Copyable.vue'
 import { supabase } from '~/api'
 
 const router = useRouter()
+const userStore = useUserStore()
+const blockStore = useBlockStore()
+const tagStore = useTagStore()
 
-const user = computedAsync(async () => {
-  const { data } = await supabase.auth.getUser()
-  return data.user
+onMounted(() => {
+  userStore.getUserProfiles()
 })
 
 function renderUserInfo() {
@@ -17,7 +20,7 @@ function renderUserInfo() {
     [
       h('div', {
         class: 'text-xs text-neutral font-medium',
-      }, { default: () => user.value?.user_metadata.email }),
+      }, { default: () => userStore.profiles?.email }),
       h(
         'div',
         {
@@ -27,17 +30,19 @@ function renderUserInfo() {
           h(NAvatar, {
             round: true,
             class: 'mr-4',
-            src: user.value?.user_metadata.avatar_url,
+            src: userStore.profiles?.avatarUrl,
           }),
           h('div', null, [
-            h('div', null, [h(NText, { depth: 2 }, { default: () => user.value?.user_metadata.name })]),
-            h('div', { class: 'text-xs' }, [
-              h(
-                NText,
-                { depth: 3 },
-                { default: () => '毫无疑问，你是办公室里最亮的星' },
-              ),
-            ]),
+            h('div', null, [h(NText, { depth: 2 }, { default: () => userStore.profiles?.fullName })]),
+            userStore.profiles?.token
+              ? h('div', { class: 'flex items-center gap-1' }, [
+                h(Copyable, { type: 'text', text: userStore.profiles?.token }, () => userStore.profiles?.token),
+                h(NTooltip, null, {
+                  trigger: () => h(NButton, { size: 'small', text: true, onClick: userStore.generateToken, loading: userStore.loading }, () => h('i', { class: 'i-ri-refresh-line text-neutral' })),
+                  default: () => '生成新的 Token',
+                }),
+              ])
+              : h(NButton, { size: 'tiny', onClick: userStore.generateToken, loading: userStore.loading }, () => '生成 Token'),
           ]),
         ],
       ),
@@ -62,6 +67,8 @@ async function handleSelect(key: string) {
   switch (key) {
     case 'logout':
       await supabase.auth.signOut()
+      await blockStore.clear()
+      await tagStore.clear()
       router.replace('/login')
       break
   }
@@ -77,10 +84,10 @@ async function handleSelect(key: string) {
     <section flex items-center gap-2 px-4 py-2 transition cursor-pointer hover:bg-neutral-200>
       <NAvatar
         size="small"
-        :src="user?.user_metadata.avatar_url"
+        :src="userStore.profiles?.avatarUrl"
       />
       <div flex items-center>
-        {{ user?.user_metadata.name }}
+        {{ userStore.profiles?.fullName }}
         <i i-tabler-chevrons-down text-neutral />
       </div>
     </section>

@@ -21,6 +21,7 @@ import { ExtensionCommands } from './commands'
 
 export const extensions: AnyExtension[] = [
   StarterKit.configure({
+    heading: false,
     dropcursor: {
       color: primaryColor.default,
       width: 4,

@@ -9,6 +9,8 @@ const props = defineProps<{
 
 const textEditorStore = useTextEditorStore()
 const blockStore = useBlockStore()
+const configStore = useConfigStore()
+const copilotStore = useCopilotStore()
 const router = useRouter()
 const el = ref<HTMLDivElement>()
 
@@ -40,6 +42,9 @@ function handleCopilot() {
     range.selectNodeContents(el.value)
     selection?.removeAllRanges()
     selection?.addRange(range)
+
+    if (configStore.isMobileScreen)
+      copilotStore.open(selection?.toString() || '')
   }
 }
 
@@ -48,12 +53,12 @@ const parsedContent = computed(() => {
   if (!content)
     return ''
 
-  const result = content.replace(/#\S+/g, '<span class="tag">$&</span>')
+  const result = content.replace(/#\S+/g, '<span data-type="tag">$&</span>')
   return result
 })
 
 onMounted(() => {
-  const tags = el.value?.querySelectorAll('.tag')
+  const tags = el.value?.querySelectorAll('span[data-type="tag"]')
   tags?.forEach((tag) => {
     tag.addEventListener('click', () => {
       if (tag.textContent?.length && tag.textContent.length > 1) {

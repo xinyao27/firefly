@@ -1,4 +1,4 @@
-import { Node } from '@tiptap/core'
+import { Node, mergeAttributes } from '@tiptap/core'
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 import Suggestion from '@tiptap/suggestion'
@@ -7,14 +7,6 @@ import { VueRenderer } from '@tiptap/vue-3'
 import type { Instance } from 'tippy.js'
 import tippy from 'tippy.js'
 import PopMenu from '../../PopMenu.vue'
-import type { Action } from '../../types'
-
-const initialTags: Action[] = [
-  {
-    key: 'inbox',
-    label: 'Inbox',
-  },
-]
 
 const TagPluginKey = new PluginKey('tag')
 
@@ -29,9 +21,7 @@ export const ExtensionTag = Node.create<TagOptions>({
 
   addOptions() {
     return {
-      HTMLAttributes: {
-        class: 'tag',
-      },
+      HTMLAttributes: {},
       renderLabel({ options, node }) {
         return `${options.suggestion.char}${node.attrs.label ?? node.attrs.id}`
       },
@@ -74,10 +64,15 @@ export const ExtensionTag = Node.create<TagOptions>({
         },
 
         items: ({ query }) => {
+          const tagStore = useTagStore()
+          const tags = tagStore.tags.map(v => ({
+            label: v.name,
+            icon: v.icon,
+          }))
           if (query)
-            return initialTags.filter(item => item.label.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
+            return tags.filter(item => item.label.toLowerCase().startsWith(query.toLowerCase())).slice(0, 5)
 
-          return initialTags
+          return tags
         },
 
         render: () => {
@@ -181,11 +176,23 @@ export const ExtensionTag = Node.create<TagOptions>({
     }
   },
 
-  renderHTML({ node }) {
-    return this.options.renderLabel({
-      options: this.options,
-      node,
-    })
+  parseHTML() {
+    return [
+      {
+        tag: `span[data-type="${this.name}"]`,
+      },
+    ]
+  },
+
+  renderHTML({ node, HTMLAttributes }) {
+    return [
+      'span',
+      mergeAttributes({ 'data-type': this.name }, this.options.HTMLAttributes, HTMLAttributes),
+      this.options.renderLabel({
+        options: this.options,
+        node,
+      }),
+    ]
   },
 
   renderText({ node }) {

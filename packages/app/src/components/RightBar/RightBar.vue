@@ -17,14 +17,7 @@ function handleAskCopilot() {
     language: copilotStore.language,
   })
 }
-const copied = ref(false)
-async function handleCopyResult() {
-  await navigator.clipboard.writeText(copilotStore.result)
-  copied.value = true
-  setTimeout(() => {
-    copied.value = false
-  }, 2000)
-}
+
 const result = computed(() => {
   if (copilotStore.result) {
     if (copilotStore.type !== 'extractionTags')
@@ -72,36 +65,16 @@ const result = computed(() => {
       Ask Copilot
     </NButton>
 
-    <div class="result" relative>
+    <Copyable
+      class="copy"
+      type="area"
+      :text="copilotStore.result"
+    >
       <div
         v-if="copilotStore.result"
         class="ProseMirror prose prose-black p-4 bg-white rounded"
         v-html="result"
       />
-      <!-- 复制 -->
-      <NTooltip>
-        <template #trigger>
-          <NButton
-            class="copy"
-            hidden absolute top-2 right-2
-            text
-            size="small"
-            @click="handleCopyResult"
-          >
-            <i v-if="!copied" i-ri-file-copy-fill />
-            <i v-else i-ri-check-fill />
-          </NButton>
-        </template>
-        <span v-if="!copied">复制</span>
-        <span v-else>已复制</span>
-      </NTooltip>
-    </div>
+    </Copyable>
   </aside>
 </template>
-
-<style scoped lang="sass">
-.result
-  &:hover
-    .copy
-      display: block !important
-</style>
