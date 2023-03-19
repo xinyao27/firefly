@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
-import { NAvatar, NButton, NText } from 'naive-ui'
+import { NAvatar, NButton, NText, NTooltip } from 'naive-ui'
 import Copyable from '../Copyable.vue'
 import { supabase } from '~/api'
 
@@ -35,8 +35,14 @@ function renderUserInfo() {
           h('div', null, [
             h('div', null, [h(NText, { depth: 2 }, { default: () => userStore.profiles?.fullName })]),
             userStore.profiles?.token
-              ? h(Copyable, { type: 'text', text: userStore.profiles?.token }, () => userStore.profiles?.token)
-              : h(NButton, { size: 'tiny', onClick: userStore.generateToken }, () => '生成 Token'),
+              ? h('div', { class: 'flex items-center gap-1' }, [
+                h(Copyable, { type: 'text', text: userStore.profiles?.token }, () => userStore.profiles?.token),
+                h(NTooltip, null, {
+                  trigger: () => h(NButton, { size: 'small', text: true, onClick: userStore.generateToken, loading: userStore.loading }, () => h('i', { class: 'i-ri-refresh-line text-neutral' })),
+                  default: () => '生成新的 Token',
+                }),
+              ])
+              : h(NButton, { size: 'tiny', onClick: userStore.generateToken, loading: userStore.loading }, () => '生成 Token'),
           ]),
         ],
       ),
