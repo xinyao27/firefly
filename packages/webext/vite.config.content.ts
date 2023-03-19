@@ -12,6 +12,7 @@ export default defineConfig({
     // https://github.com/vitejs/vite/issues/9186
     'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production'),
   },
+  envDir: r(),
   build: {
     watch: isDev
       ? {}

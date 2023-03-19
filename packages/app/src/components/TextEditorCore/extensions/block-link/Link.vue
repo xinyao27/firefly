@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
-import type { BlockModel } from '~/models/Block'
+import type { BlockModel } from '@firefly/common'
 
 const props = defineProps(nodeViewProps)
 const block = props.node.attrs.block as BlockModel
 
 async function getWebsiteMetadata(link: string) {
   // TODO
+  console.warn(link)
 }
 
 const metadata = computedAsync(async () => {

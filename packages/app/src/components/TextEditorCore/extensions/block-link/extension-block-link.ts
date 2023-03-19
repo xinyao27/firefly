@@ -1,8 +1,8 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import type { MetaData } from 'metadata-scraper'
+import type { BlockModel } from '@firefly/common'
 import Link from './Link.vue'
-import type { BlockModel } from '~/models/Block'
 
 export interface BlockLinkAttrs {
   position: number

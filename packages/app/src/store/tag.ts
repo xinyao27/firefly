@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
+import type { TagId, TagModel } from '@firefly/common'
 import { supabase } from '~/api'
-import type { TagId, TagModel } from '~/models/Tag'
 import { db } from '~/db'
 
 export const useTagStore = defineStore('tag', {

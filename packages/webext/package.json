@@ -23,8 +23,8 @@
     "test": "vitest test"
   },
   "dependencies": {
-    "@firefly/theme": "workspace:*",
-    "@firefly/utils": "workspace:*"
+    "@firefly/common": "workspace:*",
+    "@firefly/theme": "workspace:*"
   },
   "devDependencies": {
     "@ffflorian/jszip-cli": "^3.1.6",

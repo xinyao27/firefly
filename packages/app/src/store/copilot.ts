@@ -1,11 +1,5 @@
 import { defineStore } from 'pinia'
 
-function getEdgeFunctionUrl() {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_FUNCTIONS_URL
-
-  return supabaseUrl
-}
-
 interface Context {
   type?: 'custom'
   | 'translate'
@@ -55,7 +49,7 @@ export const useCopilotStore = defineStore('copilot', {
     async chat(context?: Context) {
       this.reset()
       this.loading = true
-      const response = await fetch(`${getEdgeFunctionUrl()}/completions`, {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/completions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import type { BlockModel } from '@firefly/common'
 import Image from './Image.vue'
-import type { BlockModel } from '~/models/Block'
 
 export interface BlockImageAttrs {
   position: number

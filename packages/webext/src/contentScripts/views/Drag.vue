@@ -1,16 +1,15 @@
 <script setup lang="ts">
+import type { BlockModel } from '@firefly/common'
 import { useToggle } from '@vueuse/core'
-import { useFilesStore } from '~/store/files'
 
-const [show, toggleShow] = useToggle(false)
+const [show, toggleShow] = useToggle(__DEV__)
 const [dragIn, toggleDragIn] = useToggle(false)
 const [uploaded, toggleUploaded] = useToggle(false)
 const [uploading, toggleUploading] = useToggle(false)
 const errorMessage = ref('')
 let counter = 0
 
-const filesStore = useFilesStore()
-
+const blockStore = useBlockStore()
 useEventListener('drag', (e) => {
   e.preventDefault()
   if (counter < 0)
@@ -40,11 +39,10 @@ function handleDrop(e: DragEvent) {
   toggleDragIn(false)
   if (counter) {
     toggleUploading(true)
-    const files = Array.from(e.dataTransfer?.files ?? [])
-    filesStore.upload({
-      files: files.length === 0 ? undefined : files,
-      text: e.dataTransfer?.getData('text'),
-    })
+    const block: BlockModel = {
+      content: e.dataTransfer?.getData('text') ?? '',
+    }
+    blockStore.save(block, 'VTJGc2RHVmtYMS9nOW42TjA4S3VFVU1FbElUSTB3cTBPcCtnaEpYNzlPTVN4c2xrWmR1ZlhLdnk1OEdFVStDeU9iUm1oUHZrVUl0K1FJSC9ySXRyazhheE52dkZScHlZdGw4MTh3aVZ5bG5yaHhpME85bDRDdnV2VHEwbHErTXpvbndtUmhDVmFpZWdodncrL2Z5d0RxTm9TWlBrd2kyMGVzaWg0SVRCd1YzQWl5UnJOZktFRFNma2tqQTk0MWhD')
       .then(() => {
         toggleUploaded(true)
         toggleUploading(false)
@@ -54,8 +52,8 @@ function handleDrop(e: DragEvent) {
           counter = 0
         }, 2000)
       })
-      .catch(() => {
-        errorMessage.value = '需要打开 Firefly 应用程序才能使用插件, 若已经打开仍然无法使用, 建议关闭代理工具后重试'
+      .catch((error) => {
+        errorMessage.value = error.message || error || '保存失败 请检查网络后重试'
         toggleUploaded(true)
         toggleUploading(false)
         setTimeout(() => {

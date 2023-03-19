@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
+import type { BlockId, BlockModel } from '@firefly/common'
 import { supabase } from '~/api'
-import type { BlockId, BlockModel } from '~/models/Block'
 import { db } from '~/db'
 
 interface SearchParams {

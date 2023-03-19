@@ -1,5 +1,5 @@
 import type { Content } from '@tiptap/core'
-import type { BlockModel } from '~/models/Block'
+import type { BlockModel } from '@firefly/common'
 
 export const convertBase64 = (file: File) => {
   return new Promise<string>((resolve, reject) => {
