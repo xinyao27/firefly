@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import type { DropdownOption } from 'naive-ui'
-import type { BlockModel } from '~/models/Block'
+import type { BlockModel } from '@firefly/common'
 
 const props = defineProps<{
   data: BlockModel

@@ -1,8 +1,8 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import { byteSize } from '@firefly/utils'
+import { byteSize } from '@firefly/common'
+import type { BlockModel } from '@firefly/common'
 import Other from './Other.vue'
-import type { BlockModel } from '~/models/Block'
 
 export interface BlockOtherAttrs {
   position: number

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { upload } from '@firefly/utils'
+import { upload } from '@firefly/common'
 import { useMessage } from 'naive-ui'
 
 export function useFileDropZone(target: Ref<HTMLDivElement | undefined>) {

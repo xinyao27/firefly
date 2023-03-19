@@ -1,8 +1,8 @@
 import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from 'prosemirror-state'
+import type { BlockModel } from '@firefly/common'
 import { convertBase64 } from '../../utils'
-import type { BlockModel } from '~/models/Block'
 
 function isUrl(string: string) {
   const protocolAndDomainRE = /^(?:\w+:)?\/\/(\S+)$/

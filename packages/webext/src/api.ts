@@ -1,4 +1,6 @@
-import { createTRPCProxyClient, httpLink } from '@trpc/client'
-import type { AppRouter } from '../../app/electron/router'
+import { createClient } from '@supabase/supabase-js'
 
-export const trpc = createTRPCProxyClient<AppRouter>({ links: [httpLink({ url: 'http://localhost:5487' })] })
+export const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY,
+)

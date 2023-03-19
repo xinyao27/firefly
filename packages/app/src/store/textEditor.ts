@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core'
 import { defineStore } from 'pinia'
-import type { BlockModel } from '~/models/Block'
+import type { BlockModel } from '@firefly/common'
 
 type Type = 'update' | 'create'
 

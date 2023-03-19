@@ -188,12 +188,12 @@ importers:
 
   packages/app:
     dependencies:
+      '@firefly/common':
+        specifier: workspace:*
+        version: link:../common
       '@firefly/theme':
         specifier: workspace:*
         version: link:../theme
-      '@firefly/utils':
-        specifier: workspace:*
-        version: link:../utils
       '@tiptap/core':
         specifier: ^2.0.0-beta.215
         version: 2.0.0-beta.215(@tiptap/pm@2.0.0-beta.217)
@@ -289,20 +289,20 @@ importers:
         specifier: ^0.28.0
         version: 0.28.0(vite@4.2.0)
 
+  packages/common: {}
+
   packages/plugin: {}
 
   packages/theme: {}
 
-  packages/utils: {}
-
   packages/webext:
     dependencies:
+      '@firefly/common':
+        specifier: workspace:*
+        version: link:../common
       '@firefly/theme':
         specifier: workspace:*
         version: link:../theme
-      '@firefly/utils':
-        specifier: workspace:*
-        version: link:../utils
     devDependencies:
       '@ffflorian/jszip-cli':
         specifier: ^3.1.6

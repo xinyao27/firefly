@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TreeOption } from 'naive-ui'
 import { NButton } from 'naive-ui'
-import type { TagModel } from '~/models/Tag'
+import type { TagModel } from '@firefly/common'
 
 const tagStore = useTagStore()
 

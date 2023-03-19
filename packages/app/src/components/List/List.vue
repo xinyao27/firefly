@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MasonryWall from '@yeger/vue-masonry-wall'
+import type { BlockModel } from '@firefly/common'
 import ListItem from './ListItem.vue'
-import type { BlockModel } from '~/models/Block'
 
 const props = defineProps<{
   data: BlockModel[]

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { BlockModel } from '@firefly/common'
 import { useToggle } from '@vueuse/core'
 import { MESSAGE_API } from '~/constants'
-import { useFilesStore } from '~/store/files'
 import { getPageMetadata } from '~/utils'
 import type { MetaData } from '~/utils/getPageMetadata/types'
 
@@ -10,9 +10,8 @@ const [uploaded, toggleUploaded] = useToggle(false)
 const [uploading, toggleUploading] = useToggle(false)
 const [editing, toggleEditing] = useToggle(false)
 const errorMessage = ref('')
-const metadata = ref<MetaData | null>(null)
-
-const filesStore = useFilesStore()
+const metadata = ref<MetaData>()
+const blockStore = useBlockStore()
 
 async function handleBlockCreateLink() {
   toggleShow(true)
@@ -21,14 +20,16 @@ async function handleBlockCreateLink() {
   metadata.value = result
   toggleEditing(true)
 }
-function handleUpload() {
+function handleUpload(e: DragEvent) {
   toggleEditing(false)
   toggleUploading(true)
   const url = window.location.href
-  filesStore.upload({
-    text: url,
+  const block: BlockModel = {
+    content: e.dataTransfer?.getData('text') ?? '',
+    link: url,
     metadata: metadata.value,
-  })
+  }
+  blockStore.save(block, 'VTJGc2RHVmtYMS9nOW42TjA4S3VFVU1FbElUSTB3cTBPcCtnaEpYNzlPTVN4c2xrWmR1ZlhLdnk1OEdFVStDeU9iUm1oUHZrVUl0K1FJSC9ySXRyazhheE52dkZScHlZdGw4MTh3aVZ5bG5yaHhpME85bDRDdnV2VHEwbHErTXpvbndtUmhDVmFpZWdodncrL2Z5d0RxTm9TWlBrd2kyMGVzaWg0SVRCd1YzQWl5UnJOZktFRFNma2tqQTk0MWhD')
     .then(() => {
       toggleUploaded(true)
       toggleUploading(false)
@@ -36,18 +37,18 @@ function handleUpload() {
         toggleShow(false)
         toggleUploaded(false)
         errorMessage.value = ''
-        metadata.value = null
+        metadata.value = undefined
       }, 2000)
     })
-    .catch(() => {
-      errorMessage.value = '需要打开 Firefly 应用程序才能使用插件, 若已经打开仍然无法使用, 建议关闭代理工具后重试'
+    .catch((error) => {
+      errorMessage.value = error.message || error || '保存失败 请检查网络后重试'
       toggleUploaded(true)
       toggleUploading(false)
       setTimeout(() => {
         toggleShow(false)
         toggleUploaded(false)
         errorMessage.value = ''
-        metadata.value = null
+        metadata.value = undefined
       }, 8000)
     })
 }
@@ -57,7 +58,7 @@ function handleClose() {
   toggleUploading(false)
   toggleEditing(false)
   errorMessage.value = ''
-  metadata.value = null
+  metadata.value = undefined
 }
 
 onBeforeMount(() => {

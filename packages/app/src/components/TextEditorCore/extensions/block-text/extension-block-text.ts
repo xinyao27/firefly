@@ -1,7 +1,7 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import type { BlockModel } from '@firefly/common'
 import Text from './Text.vue'
-import type { BlockModel } from '~/models/Block'
 
 export interface BlockTextAttrs {
   position: number
