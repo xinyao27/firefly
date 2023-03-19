@@ -9,6 +9,8 @@ const props = defineProps<{
 
 const textEditorStore = useTextEditorStore()
 const blockStore = useBlockStore()
+const configStore = useConfigStore()
+const copilotStore = useCopilotStore()
 const router = useRouter()
 const el = ref<HTMLDivElement>()
 
@@ -40,6 +42,9 @@ function handleCopilot() {
     range.selectNodeContents(el.value)
     selection?.removeAllRanges()
     selection?.addRange(range)
+
+    if (configStore.isMobileScreen)
+      copilotStore.open(selection?.toString() || '')
   }
 }
 
