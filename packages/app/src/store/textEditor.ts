@@ -37,7 +37,7 @@ export const useTextEditorStore = defineStore('textEditor', {
       const blockStore = useBlockStore()
       this.loading = true
 
-      const content = this.value as string
+      const content = (this.value as string).replace(/<span[^>]*data-type="tag"[^>]*>([^<]*)<\/span>/g, '$1')
 
       if (this.type === 'create') {
         const block: BlockModel = {

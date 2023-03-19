@@ -94,8 +94,7 @@ export const useBlockStore = defineStore('block', {
         if (response.error)
           throw new Error(response.error.message)
 
-        await (await db).add('blocks', response.data.data)
-        await this.refresh()
+        await this.sync()
         $message.success('保存成功')
       }
       catch (error: any) {
@@ -113,7 +112,7 @@ export const useBlockStore = defineStore('block', {
           throw new Error(response.error.message)
 
         await (await db).put('blocks', response.data.data)
-        await this.refresh()
+        await this.sync()
         $message.success('更新成功')
       }
       catch (error: any) {

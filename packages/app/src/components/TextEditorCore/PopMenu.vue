@@ -35,44 +35,32 @@ function onKeyDown({ event }: SuggestionKeyDownProps) {
   if (event.key === 'ArrowUp') {
     event.stopPropagation()
     event.preventDefault()
-    upHandler()
+    selectedIndex.value = ((selectedIndex.value + props.items.length) - 1) % props.items.length
+    nextTick(() => {
+      handleScrollToSelectItem()
+    })
     return true
   }
 
   if (event.key === 'ArrowDown') {
     event.stopPropagation()
     event.preventDefault()
-    downHandler()
+    selectedIndex.value = (selectedIndex.value + 1) % props.items.length
+    nextTick(() => {
+      handleScrollToSelectItem()
+    })
     return true
   }
 
   if (event.key === 'Enter') {
     event.stopPropagation()
     event.preventDefault()
-    enterHandler()
+    if (props.items.length)
+      handleSelectItem(selectedIndex.value)
     return true
   }
 
   return false
-}
-
-function upHandler() {
-  selectedIndex.value = ((selectedIndex.value + props.items.length) - 1) % props.items.length
-  nextTick(() => {
-    handleScrollToSelectItem()
-  })
-}
-
-function downHandler() {
-  selectedIndex.value = (selectedIndex.value + 1) % props.items.length
-  nextTick(() => {
-    handleScrollToSelectItem()
-  })
-}
-
-function enterHandler() {
-  if (props.items.length)
-    handleSelectItem(selectedIndex.value)
 }
 
 function handleSelectItem(index: number) {
