@@ -137,6 +137,16 @@ export const useBlockStore = defineStore('block', {
         $message.error(error)
       }
     },
+    async clear() {
+      try {
+        await (await db).clear('blocks')
+        await this.refresh()
+      }
+      catch (error) {
+        console.error(error)
+        $message.error(error)
+      }
+    },
     async search({ tag }: SearchParams) {
       try {
         this.loading = true

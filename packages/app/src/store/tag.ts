@@ -98,5 +98,15 @@ export const useTagStore = defineStore('tag', {
         $message.error(error)
       }
     },
+    async clear() {
+      try {
+        await (await db).clear('tags')
+        await this.refresh()
+      }
+      catch (error) {
+        console.error(error)
+        $message.error(error)
+      }
+    },
   },
 })
