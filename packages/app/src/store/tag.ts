@@ -52,8 +52,7 @@ export const useTagStore = defineStore('tag', {
           throw new Error(response.error.message)
 
         if (response.data.length) {
-          const _db = await db
-          const tx = _db.transaction('tags', 'readwrite')
+          const tx = (await db).transaction('tags', 'readwrite')
           await Promise.all([
             ...response.data.map(tag => tx.store.add(tag)),
             tx.done,

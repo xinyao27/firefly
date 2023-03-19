@@ -77,9 +77,9 @@ export const useBlockStore = defineStore('block', {
 
         return this.blocks
       }
-      catch (error) {
+      catch (error: any) {
         console.error(error)
-        $message.error(error)
+        $message.error(error.message || error)
       }
       finally {
         this.loading = false
@@ -94,12 +94,13 @@ export const useBlockStore = defineStore('block', {
         if (response.error)
           throw new Error(response.error.message)
 
+        await (await db).add('blocks', response.data.data)
+        await this.refresh()
         $message.success('保存成功')
-        await this.sync()
       }
-      catch (error) {
+      catch (error: any) {
         console.error(error)
-        $message.error(error)
+        $message.error(error.message || error)
       }
     },
     async update(data: BlockModel) {
@@ -111,14 +112,13 @@ export const useBlockStore = defineStore('block', {
         if (response.error)
           throw new Error(response.error.message)
 
-        $message.success('保存成功')
-
-        await (await db).put('blocks', data)
+        await (await db).put('blocks', response.data.data)
         await this.refresh()
+        $message.success('更新成功')
       }
-      catch (error) {
+      catch (error: any) {
         console.error(error)
-        $message.error(error)
+        $message.error(error.message || error)
       }
     },
     async delete(id: BlockId) {
@@ -132,9 +132,9 @@ export const useBlockStore = defineStore('block', {
         await (await db).delete('blocks', id)
         await this.refresh()
       }
-      catch (error) {
+      catch (error: any) {
         console.error(error)
-        $message.error(error)
+        $message.error(error.message || error)
       }
     },
     async clear() {
@@ -142,9 +142,9 @@ export const useBlockStore = defineStore('block', {
         await (await db).clear('blocks')
         await this.refresh()
       }
-      catch (error) {
+      catch (error: any) {
         console.error(error)
-        $message.error(error)
+        $message.error(error.message || error)
       }
     },
     async search({ tag }: SearchParams) {
