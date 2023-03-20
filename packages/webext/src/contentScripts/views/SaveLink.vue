@@ -29,7 +29,7 @@ function handleUpload(e: DragEvent) {
     link: url,
     metadata: metadata.value,
   }
-  blockStore.save(block, 'VTJGc2RHVmtYMStHaXZGOG85OE1yOGs4Zm1FZWxscXNSVWtJbWpJTGJGNG91dEtxNWJobVp2Z1FTbm5NcUcwRW8zTlBkUWphWThYbkU3Nmo1UFJlenVQa2ovaFVhNUZ6cWFQU2xEWkR5YmtoTWd4aG11S0VCTm5RM0p6K2NXSG1RM2RucU5zekI4TE5xbHprRGRxLzlZZmt3a2FUczN6WXBGNzUvN0FZSyt6NnBPSTlqbXB4aGJ1Nm5vWjl6RW5h')
+  blockStore.save(block, 'VTJGc2RHVmtYMS9nOW42TjA4S3VFVU1FbElUSTB3cTBPcCtnaEpYNzlPTVN4c2xrWmR1ZlhLdnk1OEdFVStDeU9iUm1oUHZrVUl0K1FJSC9ySXRyazhheE52dkZScHlZdGw4MTh3aVZ5bG5yaHhpME85bDRDdnV2VHEwbHErTXpvbndtUmhDVmFpZWdodncrL2Z5d0RxTm9TWlBrd2kyMGVzaWg0SVRCd1YzQWl5UnJOZktFRFNma2tqQTk0MWhD')
     .then(() => {
       toggleUploaded(true)
       toggleUploading(false)
@@ -78,9 +78,9 @@ onBeforeMount(() => {
 <template>
   <div
     v-if="show"
-    flex items-end font-sans select-none leading-1em
+    fixed left-0 top-0 m-5 z-1000 flex items-end font-sans select-none leading-1em
   >
-    <div w-full p-3 rounded-2 bg-dark-500>
+    <div w-72 p-3 rounded-2 bg-dark-500>
       <div>
         <!-- title -->
         <div text-center text-lg text-white font-bold mb-3>
@@ -110,7 +110,7 @@ onBeforeMount(() => {
           v-else-if="uploading"
           p-6 rounded-2 border border-dashed border-primary transition leading-1em bg-opacity-30 bg-primary
         >
-          <div h-8 flex items-center justify-center gap-3 pointer-events-none>
+          <div h-8 flex items-center justify-center gap-3 pointer-events-none bg-primary>
             <i
               i-ri-loader-2-line
               text-lg block animate-spin
