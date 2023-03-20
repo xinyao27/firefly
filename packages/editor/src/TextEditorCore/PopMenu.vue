@@ -2,6 +2,7 @@
 import type { Editor } from '@tiptap/core'
 import type { SuggestionKeyDownProps } from '@tiptap/suggestion'
 import type { ScrollbarInst } from 'naive-ui'
+import { nextTick, ref } from 'vue'
 import type { Action } from './types'
 
 const props = defineProps<{
@@ -20,11 +21,10 @@ function setButtonRef(el: any) {
 }
 
 function handleScrollToSelectItem() {
-  const el = buttonRefs.value[selectedIndex.value]
+  const el = buttonRefs.value[selectedIndex.value] as HTMLElement
   if (el) {
     scrollBarRef.value?.scrollTo({
       left: 0,
-      // @ts-expect-error noop
       top: el.offsetTop - 48,
       behavior: 'smooth',
     })

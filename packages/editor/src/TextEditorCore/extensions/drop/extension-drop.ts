@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
-import { Plugin, PluginKey } from 'prosemirror-state'
+import { Plugin, PluginKey } from '@tiptap/pm/state'
 import type { BlockModel } from '@firefly/common'
 import { convertBase64 } from '../../utils'
 

@@ -2,7 +2,7 @@
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import type { DropdownOption } from 'naive-ui'
-import type { EditorState } from 'prosemirror-state'
+import type { EditorState } from '@tiptap/pm/state'
 import { actions } from './actions'
 
 const props = defineProps<{

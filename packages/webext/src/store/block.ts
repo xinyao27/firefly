@@ -1,22 +1,33 @@
 import { defineStore } from 'pinia'
 import type { BlockModel } from '@firefly/common'
+import { supabase } from '~/api'
 
 export const useBlockStore = defineStore('block', {
   actions: {
     async save(block: BlockModel, token: string) {
       try {
-        const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/api/${token}`, {
+        const { data, error } = await supabase.functions.invoke(`api/${token}`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify(block),
+          body: block,
         })
-        const data = await response.json()
-        if (!data)
-          return
+        if (error)
+          throw error
+        return data.data
+      }
+      catch (error) {
+        console.error(error)
+        throw error
+      }
+    },
+    async update(block: BlockModel, token: string) {
+      try {
+        const { data, error } = await supabase.functions.invoke(`api/${token}`, {
+          method: 'PUT',
+          body: block,
+        })
+        if (error)
+          throw error
+        return data.data
       }
       catch (error) {
         console.error(error)

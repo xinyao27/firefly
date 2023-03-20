@@ -2,12 +2,15 @@
 import type { BlockModel } from '@firefly/common'
 import { useToggle } from '@vueuse/core'
 
-const [show, toggleShow] = useToggle(__DEV__)
+const [show, toggleShow] = useToggle(true)
 const [dragIn, toggleDragIn] = useToggle(false)
-const [uploaded, toggleUploaded] = useToggle(false)
 const [uploading, toggleUploading] = useToggle(false)
+const [uploaded, toggleUploaded] = useToggle(false)
+const block = ref<BlockModel | null>(null)
 const errorMessage = ref('')
 let counter = 0
+
+const TOKEN = 'VTJGc2RHVmtYMStHaXZGOG85OE1yOGs4Zm1FZWxscXNSVWtJbWpJTGJGNG91dEtxNWJobVp2Z1FTbm5NcUcwRW8zTlBkUWphWThYbkU3Nmo1UFJlenVQa2ovaFVhNUZ6cWFQU2xEWkR5YmtoTWd4aG11S0VCTm5RM0p6K2NXSG1RM2RucU5zekI4TE5xbHprRGRxLzlZZmt3a2FUczN6WXBGNzUvN0FZSyt6NnBPSTlqbXB4aGJ1Nm5vWjl6RW5h'
 
 const blockStore = useBlockStore()
 useEventListener('drag', (e) => {
@@ -39,20 +42,23 @@ function handleDrop(e: DragEvent) {
   toggleDragIn(false)
   if (counter) {
     toggleUploading(true)
-    const block: BlockModel = {
+    const body: BlockModel = {
       content: e.dataTransfer?.getData('text') ?? '',
     }
-    blockStore.save(block, 'VTJGc2RHVmtYMS9nOW42TjA4S3VFVU1FbElUSTB3cTBPcCtnaEpYNzlPTVN4c2xrWmR1ZlhLdnk1OEdFVStDeU9iUm1oUHZrVUl0K1FJSC9ySXRyazhheE52dkZScHlZdGw4MTh3aVZ5bG5yaHhpME85bDRDdnV2VHEwbHErTXpvbndtUmhDVmFpZWdodncrL2Z5d0RxTm9TWlBrd2kyMGVzaWg0SVRCd1YzQWl5UnJOZktFRFNma2tqQTk0MWhD')
-      .then(() => {
+    blockStore.save(body, TOKEN)
+      .then((data) => {
         toggleUploaded(true)
         toggleUploading(false)
-        setTimeout(() => {
-          toggleShow(false)
-          toggleUploaded(false)
-          counter = 0
-        }, 2000)
+        if (data)
+          block.value = data
+        // setTimeout(() => {
+        //   toggleShow(false)
+        //   toggleUploaded(false)
+        //   counter = 0
+        // }, 2000)
       })
       .catch((error) => {
+        console.error(error)
         errorMessage.value = error.message || error || '保存失败 请检查网络后重试'
         toggleUploaded(true)
         toggleUploading(false)
@@ -65,17 +71,32 @@ function handleDrop(e: DragEvent) {
       })
   }
 }
+function handleClose() {
+  toggleShow(false)
+  toggleUploaded(false)
+  counter = 0
+  block.value = null
+}
+async function handleDelete() {
+  handleClose()
+}
+async function handleUpdate() {
+  if (block.value) {
+    await blockStore.update(block.value, TOKEN)
+    handleClose()
+  }
+}
 </script>
 
 <template>
   <div
     v-if="show"
-    fixed left-0 top-0 m-5 z-1000 flex items-end font-sans select-none leading-1em
+    class="flex font-sans m-5 top-0 left-0 leading-1em z-[2147483647] fixed items-end select-none"
   >
-    <div w-72 p-3 rounded-2 bg-dark-500>
-      <div>
+    <div w-72 p-3 rounded-2 bg-neutral-800 bg-opacity-60 backdrop-blur-lg>
+      <div v-if="!uploaded">
         <!-- title -->
-        <div text-center text-lg text-white font-bold mb-3>
+        <div text-center text-lg text-white font-semibold mb-3>
           收集到 Firefly
         </div>
         <!-- status -->
@@ -87,32 +108,23 @@ function handleDrop(e: DragEvent) {
             {{ errorMessage }}
           </div>
         </div>
-        <div
-          v-else-if="uploaded"
-          p-6 rounded-2 border border-dashed border-green-500 transition leading-1em bg-opacity-30 bg-green-500
-        >
-          <div h-8 flex items-center justify-center gap-3 pointer-events-none text-green-500>
-            <i
-              i-ri-check-line
-              text-lg block
-            />
-          </div>
-        </div>
+
         <div
           v-else-if="uploading"
           p-6 rounded-2 border border-dashed border-primary transition leading-1em bg-opacity-30 bg-primary
         >
-          <div h-8 flex items-center justify-center gap-3 pointer-events-none bg-primary>
+          <div h-8 flex items-center justify-center gap-3 pointer-events-none text-primary>
             <i
               i-ri-loader-2-line
               text-lg block animate-spin
             />
           </div>
         </div>
+
         <div
           v-else
           p-6 rounded-2 border border-dashed transition leading-1em bg-opacity-30
-          :border-color="`${dragIn ? 'primary' : 'gray-500'}`"
+          :border-color="`${dragIn ? 'primary' : 'neutral-300'}`"
           :bg="`${dragIn ? 'primary' : 'dark-300'}`"
           @dragenter.prevent="handleDragEnter"
           @dragover.prevent="handleDragOver"
@@ -121,7 +133,7 @@ function handleDrop(e: DragEvent) {
         >
           <div
             h-8 flex items-center justify-center gap-3 pointer-events-none
-            :text="`${dragIn ? 'primary' : 'gray-500'}`"
+            :text="`${dragIn ? 'primary' : 'neutral-300'}`"
           >
             <i
               v-show="!dragIn"
@@ -130,6 +142,60 @@ function handleDrop(e: DragEvent) {
             />
             {{ dragIn ? '松开以完成收藏' : '拖放到这里' }}
           </div>
+        </div>
+      </div>
+      <div v-if="uploaded || block">
+        <div text-center text-lg text-white font-bold mb-3>
+          已收藏
+        </div>
+        <!-- content -->
+        <div
+          v-if="block?.content"
+        >
+          <textarea
+            v-model="block.content"
+            w-full h-26 max-h-26 p-1 rounded leading-tight resize-none bg-neutral bg-opacity-30 text-white border-none outline-none
+          />
+        </div>
+        <!-- metadata -->
+        <div
+          v-if="block?.metadata"
+          flex flex-col gap-3
+        >
+          <div v-if="block?.metadata?.title">
+            <textarea
+              v-model="block.metadata.title"
+              w-full h-16 max-h-16
+              leading-normal resize-none bg-transparent text-neutral-300 border-none outline-none text-lg
+            />
+          </div>
+          <div v-if="block?.metadata?.description">
+            <textarea
+              v-model="block.metadata.description"
+              w-full h-26 max-h-26 leading-tight resize-none bg-transparent text-neutral-300 border-none outline-none
+            />
+          </div>
+          <div v-if="block?.metadata?.image">
+            <img
+              w-24
+              :src="block.metadata.image"
+            >
+          </div>
+        </div>
+        <!-- action -->
+        <div flex items-center justify-between gap-3 mt-3>
+          <button
+            w-10 h-10
+            @click="handleDelete"
+          >
+            <i i-ri-delete-bin-line text-neutral />
+          </button>
+          <button
+            w-full h-10 bg-primary text-white rounded-full
+            @click="handleUpdate"
+          >
+            完成
+          </button>
         </div>
       </div>
     </div>

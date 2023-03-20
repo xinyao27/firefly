@@ -1,6 +1,6 @@
-import type { Transaction } from 'prosemirror-state'
-import type { Node, ResolvedPos, Slice } from 'prosemirror-model'
-import type { EditorView } from 'prosemirror-view'
+import type { Transaction } from '@tiptap/pm/state'
+import type { Node, ResolvedPos, Slice } from '@tiptap/pm/model'
+import type { EditorView } from '@tiptap/pm/view'
 
 function dropPoint(doc: Node, pos: number, slice: Slice) {
   const $pos = doc.resolve(pos)

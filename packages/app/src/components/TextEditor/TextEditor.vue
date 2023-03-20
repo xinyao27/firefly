@@ -1,14 +1,28 @@
 <script setup lang="ts">
+import Editor from '@firefly/editor'
+
 const props = defineProps<{
   class?: string
 }>()
 
 const textEditorStore = useTextEditorStore()
+const tagStore = useTagStore()
 
 onKeyStroke(['ctrl', 'l'], (e) => {
   e.preventDefault()
 
   textEditorStore.toggleFocus(true)
+})
+
+watch(() => textEditorStore.focus, (focus) => {
+  focus ? textEditorStore.editor?.commands.focus() : textEditorStore.editor?.commands.blur()
+  textEditorStore.editor?.setOptions({
+    editorProps: {
+      attributes: {
+        style: `min-height: ${focus ? 6 : 1.5}rem`,
+      },
+    },
+  })
 })
 </script>
 
@@ -18,7 +32,14 @@ onKeyStroke(['ctrl', 'l'], (e) => {
     :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary' : '']"
     @click="textEditorStore.toggleFocus"
   >
-    <TextEditorCore />
+    <Editor
+      :value="textEditorStore.value"
+      :tags="tagStore.tags"
+      :on-change="v => textEditorStore.value = v"
+      :on-focus="() => textEditorStore.toggleFocus(true)"
+      :on-blur="() => textEditorStore.toggleFocus(false)"
+      :on-created="editor => textEditorStore.editor = editor"
+    />
 
     <div flex justify-between>
       <div />

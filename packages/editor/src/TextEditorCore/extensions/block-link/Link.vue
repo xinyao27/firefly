@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import type { BlockModel } from '@firefly/common'
+import { computedAsync } from '@vueuse/core'
 
 const props = defineProps(nodeViewProps)
 const block = props.node.attrs.block as BlockModel
@@ -17,10 +18,10 @@ const metadata = computedAsync(async () => {
 
 <template>
   <NodeViewWrapper
-    class="my-1 border border-neutral-50 rounded cursor-pointer"
+    class="border rounded cursor-pointer border-neutral-50 my-1"
   >
-    <div class="overflow-hidden grid grid-cols-12 gap-2 transition hover:bg-neutral-200">
-      <div class="flex flex-col justify-between gap-2 p-4 col-span-7">
+    <div class="grid transition gap-2 grid-cols-12 overflow-hidden hover:bg-neutral-200">
+      <div class="flex flex-col p-4 gap-2 col-span-7 justify-between">
         <div class="flex flex-col gap-2">
           <NSkeleton
             v-if="!metadata"
@@ -40,7 +41,7 @@ const metadata = computedAsync(async () => {
           />
           <div
             v-else
-            class="line-clamp-2 text-neutral text-xs"
+            class="text-neutral text-xs line-clamp-2"
           >
             {{ metadata?.description }}
           </div>
@@ -53,10 +54,10 @@ const metadata = computedAsync(async () => {
         />
         <div
           v-else
-          class="flex items-center gap-2 text-xs"
+          class="flex text-xs gap-2 items-center"
         >
           <img
-            class="w-4 h-4"
+            class="h-4 w-4"
             :src="metadata.icon"
             :alt="metadata.title"
           >
@@ -65,14 +66,14 @@ const metadata = computedAsync(async () => {
           </div>
         </div>
       </div>
-      <div class="col-span-5 h-120px">
+      <div class="h-120px col-span-5">
         <NSkeleton
           v-if="!metadata"
           h-full
         />
         <img
           v-else
-          class="w-full h-full"
+          class="h-full w-full"
           :src="metadata?.image"
           :alt="metadata?.title"
         >

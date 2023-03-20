@@ -45,6 +45,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/lodash-es": "^4.17.7",
     "@types/nprogress": "^0.2.0",
+    "@unocss/preset-rem-to-px": "^0.50.6",
     "@vitejs/plugin-vue": "^4.1.0",
     "@vue-macros/volar": "^0.9.0",
     "@vue/devtools": "^6.5.0",

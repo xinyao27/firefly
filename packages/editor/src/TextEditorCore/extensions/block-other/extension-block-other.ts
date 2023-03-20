@@ -1,6 +1,5 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import { byteSize } from '@firefly/common'
 import type { BlockModel } from '@firefly/common'
 import Other from './Other.vue'
 
@@ -45,7 +44,6 @@ export const ExtensionBlockOther = Node.create({
   renderHTML({ HTMLAttributes, node }) {
     const block = node.attrs.block as BlockModel
     const title = block.title ?? ''
-    const size = byteSize(block.size)?.text ?? ''
     const path = block.path ?? ''
     return [
       'div',
@@ -70,11 +68,6 @@ export const ExtensionBlockOther = Node.create({
               'div',
               {},
               title,
-            ],
-            [
-              'div',
-              { class: 'text-neutral text-xs' },
-              size,
             ],
           ],
           [

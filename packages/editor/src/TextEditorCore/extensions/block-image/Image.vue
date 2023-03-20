@@ -2,6 +2,7 @@
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import { isBase64 } from '@firefly/common'
 import type { BlockModel } from '@firefly/common'
+import { computed } from 'vue'
 
 const props = defineProps(nodeViewProps)
 const block = props.node.attrs.block as BlockModel
@@ -13,7 +14,7 @@ const path = computed(() => {
 
 <template>
   <NodeViewWrapper
-    class="my-1 border border-neutral-700 rounded cursor-pointer"
+    class="border rounded cursor-pointer border-neutral-700 my-1"
   >
     <img :src="path" :alt="block.title">
   </NodeViewWrapper>

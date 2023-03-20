@@ -8,19 +8,19 @@ const block = props.node.attrs.block as BlockModel
 async function handleOpen() {
   const path = block.path
   if (path)
-    $api.shellOpenPath(path)
+    console.warn(path)
 }
 </script>
 
 <template>
   <NodeViewWrapper
-    class="my-1 border border-neutral-200 rounded cursor-pointer"
+    class="border rounded cursor-pointer border-neutral-200 my-1"
   >
-    <div class="flex items-center justify-between p-2 transition hover:bg-neutral-200">
-      <div class="flex items-center gap-2 select-none pointer-events-none">
-        <i class="i-ri-file-3-line block text-lg" />
+    <div class="flex p-2 transition items-center justify-between hover:bg-neutral-200">
+      <div class="flex gap-2 items-center select-none pointer-events-none">
+        <i class="text-lg block i-ri-file-3-line" />
         <div class="flex flex-col">
-          <div class="flex items-center gap-2">
+          <div class="flex gap-2 items-center">
             {{ block.title }}
           </div>
           <div class="text-xs">

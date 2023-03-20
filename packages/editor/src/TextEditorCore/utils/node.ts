@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core'
-import type { EditorState, NodeSelection } from 'prosemirror-state'
-import type { Node } from 'prosemirror-model'
+import type { EditorState, NodeSelection } from '@tiptap/pm/state'
+import type { Node } from '@tiptap/pm/model'
 
 export function getCurrentNode(state: EditorState): Node | null {
   const $head = state.selection.$head

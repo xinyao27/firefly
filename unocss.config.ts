@@ -8,6 +8,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import presetRemToPx from '@unocss/preset-rem-to-px'
 import { primaryColor } from './packages/theme/src/constants'
 
 export default defineConfig({
@@ -26,6 +27,7 @@ export default defineConfig({
         mono: 'DM Mono',
       },
     }),
+    presetRemToPx(),
   ],
   transformers: [
     transformerDirectives(),

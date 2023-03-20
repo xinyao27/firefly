@@ -7,6 +7,7 @@ import { VueRenderer } from '@tiptap/vue-3'
 import type { Instance } from 'tippy.js'
 import tippy from 'tippy.js'
 import PopMenu from '../../PopMenu.vue'
+import { useTextEditorState } from '../../state'
 
 const TagPluginKey = new PluginKey('tag')
 
@@ -64,8 +65,9 @@ export const ExtensionTag = Node.create<TagOptions>({
         },
 
         items: ({ query }) => {
-          const tagStore = useTagStore()
-          const tags = tagStore.tags.map(v => ({
+          const state = useTextEditorState()
+
+          const tags = state.tags.value.map(v => ({
             label: v.name,
             icon: v.icon,
           }))
