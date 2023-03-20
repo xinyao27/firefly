@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@firefly/common": "workspace:*",
+    "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*"
   },
   "devDependencies": {

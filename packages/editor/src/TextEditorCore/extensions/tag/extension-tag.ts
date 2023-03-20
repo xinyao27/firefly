@@ -66,7 +66,6 @@ export const ExtensionTag = Node.create<TagOptions>({
 
         items: ({ query }) => {
           const state = useTextEditorState()
-
           const tags = state.tags.value.map(v => ({
             label: v.name,
             icon: v.icon,
@@ -81,6 +80,7 @@ export const ExtensionTag = Node.create<TagOptions>({
           let component: VueRenderer
           let popup: Instance[]
           let localProps: Record<string, any> | undefined
+          const state = useTextEditorState()
 
           return {
             onStart: (props) => {
@@ -96,7 +96,7 @@ export const ExtensionTag = Node.create<TagOptions>({
 
               popup = tippy('body', {
                 getReferenceClientRect: props.clientRect as () => DOMRect,
-                appendTo: () => document.body,
+                appendTo: state.root.value,
                 content: component.element,
                 showOnCreate: true,
                 interactive: true,

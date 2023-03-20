@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import type { Action } from '../types'
 
 export const actions: Action[] = [
@@ -11,30 +12,6 @@ export const actions: Action[] = [
         icon: () => h('i', { class: 'i-ri-text' }),
         onClick(editor) {
           editor?.chain().focus().setMark('text').run()
-        },
-      },
-      {
-        key: 'Heading 1',
-        label: '标题 1',
-        icon: () => h('i', { class: 'i-ri-h-1' }),
-        onClick(editor) {
-          editor?.chain().focus().toggleHeading({ level: 1 }).run()
-        },
-      },
-      {
-        key: 'Heading 2',
-        label: '标题 2',
-        icon: () => h('i', { class: 'i-ri-h-1' }),
-        onClick(editor) {
-          editor?.chain().focus().toggleHeading({ level: 2 }).run()
-        },
-      },
-      {
-        key: 'Heading 3',
-        label: '标题 3',
-        icon: () => h('i', { class: 'i-ri-h-1' }),
-        onClick(editor) {
-          editor?.chain().focus().toggleHeading({ level: 3 }).run()
         },
       },
       {
@@ -71,7 +48,7 @@ export const actions: Action[] = [
       },
     ],
   },
-  { type: 'divider', key: 'd1' },
+  { type: 'divider', key: 'd1', label: '' },
   {
     key: 'bold',
     shortcut: ['ctrl', 'b'],

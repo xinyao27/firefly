@@ -2,12 +2,15 @@
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import type { DropdownOption } from 'naive-ui'
+import { NButton, NButtonGroup, NDropdown, NTooltip } from 'naive-ui'
 import type { EditorState } from '@tiptap/pm/state'
+import { useTextEditorState } from '../state'
 import { actions } from './actions'
 
 const props = defineProps<{
   editor?: Editor
 }>()
+const state = useTextEditorState()
 
 const shouldShow = (props: {
   state: EditorState
@@ -25,7 +28,7 @@ function handleSelect(_: string, option: DropdownOption) {
   <BubbleMenu
     v-if="props.editor"
     :editor="props.editor"
-    :tippy-options="{ duration: 100 }"
+    :tippy-options="{ duration: 100, appendTo: state.root.value }"
     :should-show="shouldShow"
   >
     <div bg-white shadow-lg rounded>

@@ -6,6 +6,7 @@ import tippy, { sticky } from 'tippy.js'
 import { Suggestion } from '@tiptap/suggestion'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 import PopMenu from '../../PopMenu.vue'
+import { useTextEditorState } from '../../state'
 import { actions } from './actions'
 
 export interface SlashMenuOptions {
@@ -74,6 +75,8 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
           return actions
         },
         render: () => {
+          const state = useTextEditorState()
+
           return {
             onStart: (props) => {
               localProps = { ...props, event: '' }
@@ -88,7 +91,7 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
 
               popup = tippy('body', {
                 getReferenceClientRect: props.clientRect as any,
-                appendTo: () => document.body,
+                appendTo: state.root.value,
                 content: component.element,
                 showOnCreate: true,
                 interactive: true,

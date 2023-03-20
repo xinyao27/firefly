@@ -10,17 +10,21 @@ import BubbleMenu from './BubbleMenu'
 import { extensions } from './extensions/starter-kit'
 import { useTextEditorState } from './state'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
+  class?: string
   value: string
   tags: TagModel[]
   onChange: (value: string) => void
-  onFocus: () => void
-  onBlur: () => void
-  onCreated: (editor: Editor) => void
-}>()
+  onFocus?: () => void
+  onBlur?: () => void
+  onCreated?: (editor: Editor) => void
+  bubbleMenu?: boolean
+}>(), {
+  bubbleMenu: true,
+})
 
 const state = useTextEditorState()
-const className = ref('w-full max-w-full max-h-80 overflow-auto relative transition focus:outline-none prose prose-black')
+const className = ref(`w-full max-w-full max-h-80 overflow-auto relative transition focus:outline-none ${props.class}`)
 const editor = useEditor({
   content: props.value,
   extensions,
@@ -35,21 +39,23 @@ const editor = useEditor({
     props.onChange(content)
   },
   onFocus() {
-    props.onFocus()
+    props.onFocus?.()
   },
   onBlur() {
-    props.onBlur()
+    props.onBlur?.()
   },
 })
 
 onMounted(() => {
-  props.onCreated(editor.value!)
+  props.onCreated?.(editor.value!)
   const isMobileScreen = useMediaQuery('(max-width: 640px)')
 
   if (!isMobileScreen) {
     editor.value?.commands.focus()
     editor.value?.commands.selectAll()
   }
+
+  state.tags.value = props.tags
 })
 watch(() => props.tags, (tags) => {
   state.tags.value = tags
@@ -57,11 +63,14 @@ watch(() => props.tags, (tags) => {
 </script>
 
 <template>
-  <div>
+  <div :ref="state.root">
     <EditorContent
       :editor="editor"
       class="relative"
     />
-    <BubbleMenu :editor="editor" />
+    <BubbleMenu
+      v-if="props.bubbleMenu"
+      :editor="editor"
+    />
   </div>
 </template>

@@ -33,6 +33,7 @@ watch(() => textEditorStore.focus, (focus) => {
     @click="textEditorStore.toggleFocus"
   >
     <Editor
+      class="prose prose-black"
       :value="textEditorStore.value"
       :tags="tagStore.tags"
       :on-change="v => textEditorStore.value = v"

@@ -3,15 +3,17 @@ body,
 #app
   @apply m-0 p-0
 
-
 i
   @apply inline-block
 
 *::-webkit-scrollbar
-  @apply bg-transparent w-1 h-1
+  @apply bg-transparent w-2.5 h-2.5
   &-thumb
-    @apply delay-300 bg-dark-300 rounded-full
+    @apply bg-neutral-600 bg-opacity-30
     &:hover
-      @apply bg-dark-50
+      @apply bg-neutral-600 bg-opacity-60
   &-corner
     @apply bg-transparent
+
+::selection
+  @apply bg-primary bg-opacity-30

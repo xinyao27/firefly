@@ -4,8 +4,9 @@ import { ref } from 'vue'
 
 export const useTextEditorState = createGlobalState(
   () => {
+    const root = ref()
     const tags = ref<TagModel[]>([])
 
-    return { tags }
+    return { root, tags }
   },
 )

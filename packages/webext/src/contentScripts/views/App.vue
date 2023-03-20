@@ -4,6 +4,8 @@ import SaveLink from './SaveLink.vue'
 </script>
 
 <template>
-  <Drag />
-  <SaveLink />
+  <CustomProvider>
+    <Drag />
+    <SaveLink />
+  </CustomProvider>
 </template>

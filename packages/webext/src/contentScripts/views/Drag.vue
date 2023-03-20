@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
+import Editor from '@firefly/editor'
 import { useToggle } from '@vueuse/core'
 
-const [show, toggleShow] = useToggle(true)
+const [show, toggleShow] = useToggle(false)
 const [dragIn, toggleDragIn] = useToggle(false)
 const [uploading, toggleUploading] = useToggle(false)
 const [uploaded, toggleUploaded] = useToggle(false)
@@ -51,11 +52,6 @@ function handleDrop(e: DragEvent) {
         toggleUploading(false)
         if (data)
           block.value = data
-        // setTimeout(() => {
-        //   toggleShow(false)
-        //   toggleUploaded(false)
-        //   counter = 0
-        // }, 2000)
       })
       .catch((error) => {
         console.error(error)
@@ -91,10 +87,67 @@ async function handleUpdate() {
 <template>
   <div
     v-if="show"
-    class="flex font-sans m-5 top-0 left-0 leading-1em z-[2147483647] fixed items-end select-none"
+    class="flex font-sans m-5 top-0 left-0 leading-1em z-[2147483646] fixed items-end select-none"
   >
-    <div w-72 p-3 rounded-2 bg-neutral-800 bg-opacity-60 backdrop-blur-lg>
-      <div v-if="!uploaded">
+    <div w-72 p-3 rounded-2 bg-white bg-opacity-10 backdrop-blur-xl shadow-lg>
+      <div v-if="uploaded || block">
+        <div text-center text-lg font-bold mb-3>
+          已收藏
+        </div>
+        <!-- content -->
+        <div
+          v-if="block?.content"
+        >
+          <Editor
+            class="prose min-h-24"
+            :tags="[{ id: 2, name: '哈哈哈' }, { id: 2, name: 'asd' }]"
+            :value="block.content"
+            :on-change="value => block!.content = value"
+            :bubble-menu="false"
+          />
+        </div>
+        <!-- metadata -->
+        <div
+          v-if="block?.metadata"
+          flex flex-col gap-3
+        >
+          <div v-if="block?.metadata?.title">
+            <textarea
+              v-model="block.metadata.title"
+              w-full h-16 max-h-16
+              leading-normal resize-none bg-transparent border-none outline-none text-lg
+            />
+          </div>
+          <div v-if="block?.metadata?.description">
+            <textarea
+              v-model="block.metadata.description"
+              w-full h-26 max-h-26 leading-tight resize-none bg-transparent border-none outline-none
+            />
+          </div>
+          <div v-if="block?.metadata?.image">
+            <img
+              w-24
+              :src="block.metadata.image"
+            >
+          </div>
+        </div>
+        <!-- action -->
+        <div flex items-center justify-between gap-3 mt-3>
+          <button
+            w-10 h-10
+            @click="handleDelete"
+          >
+            <i i-ri-delete-bin-line text-neutral />
+          </button>
+          <button
+            w-full h-10 bg-primary text-white rounded-full
+            @click="handleUpdate"
+          >
+            完成
+          </button>
+        </div>
+      </div>
+      <div v-else-if="!uploaded">
         <!-- title -->
         <div text-center text-lg text-white font-semibold mb-3>
           收集到 Firefly
@@ -142,60 +195,6 @@ async function handleUpdate() {
             />
             {{ dragIn ? '松开以完成收藏' : '拖放到这里' }}
           </div>
-        </div>
-      </div>
-      <div v-if="uploaded || block">
-        <div text-center text-lg text-white font-bold mb-3>
-          已收藏
-        </div>
-        <!-- content -->
-        <div
-          v-if="block?.content"
-        >
-          <textarea
-            v-model="block.content"
-            w-full h-26 max-h-26 p-1 rounded leading-tight resize-none bg-neutral bg-opacity-30 text-white border-none outline-none
-          />
-        </div>
-        <!-- metadata -->
-        <div
-          v-if="block?.metadata"
-          flex flex-col gap-3
-        >
-          <div v-if="block?.metadata?.title">
-            <textarea
-              v-model="block.metadata.title"
-              w-full h-16 max-h-16
-              leading-normal resize-none bg-transparent text-neutral-300 border-none outline-none text-lg
-            />
-          </div>
-          <div v-if="block?.metadata?.description">
-            <textarea
-              v-model="block.metadata.description"
-              w-full h-26 max-h-26 leading-tight resize-none bg-transparent text-neutral-300 border-none outline-none
-            />
-          </div>
-          <div v-if="block?.metadata?.image">
-            <img
-              w-24
-              :src="block.metadata.image"
-            >
-          </div>
-        </div>
-        <!-- action -->
-        <div flex items-center justify-between gap-3 mt-3>
-          <button
-            w-10 h-10
-            @click="handleDelete"
-          >
-            <i i-ri-delete-bin-line text-neutral />
-          </button>
-          <button
-            w-full h-10 bg-primary text-white rounded-full
-            @click="handleUpdate"
-          >
-            完成
-          </button>
         </div>
       </div>
     </div>

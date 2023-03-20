@@ -285,6 +285,9 @@ importers:
       '@firefly/common':
         specifier: workspace:*
         version: link:../common
+      '@firefly/editor':
+        specifier: workspace:*
+        version: link:../editor
       '@firefly/theme':
         specifier: workspace:*
         version: link:../theme

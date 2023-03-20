@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/core'
 import type { SuggestionKeyDownProps } from '@tiptap/suggestion'
-import type { ScrollbarInst } from 'naive-ui'
 import { nextTick, ref } from 'vue'
 import type { Action } from './types'
 
@@ -13,7 +12,7 @@ const props = defineProps<{
 
 const selectedIndex = ref(0)
 const buttonRefs = ref<Element[]>([])
-const scrollBarRef = ref<ScrollbarInst>()
+const scrollBarRef = ref<HTMLElement>()
 
 function setButtonRef(el: any) {
   if (el)
@@ -74,8 +73,8 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div bg-white bg-opacity-60 rounded p-2 shadow-lg backdrop-filter backdrop-blur-sm>
-    <NScrollbar ref="scrollBarRef" max-h-50>
+  <div bg-white bg-opacity-90 backdrop-blur shadow-lg rounded p-2>
+    <div ref="scrollBarRef" max-h-50 overflow-x-hidden overflow-y-auto>
       <template v-if="props.items.length">
         <div
           v-for="(item, index) in props.items"
@@ -93,7 +92,7 @@ defineExpose({ onKeyDown })
             <component :is="item.icon" />
           </div>
           <div flex flex-col text-left>
-            <div truncate>
+            <div text-neutral-800 truncate>
               {{ item.label }}
             </div>
             <div
@@ -111,6 +110,6 @@ defineExpose({ onKeyDown })
       >
         No result
       </div>
-    </NScrollbar>
+    </div>
   </div>
 </template>
