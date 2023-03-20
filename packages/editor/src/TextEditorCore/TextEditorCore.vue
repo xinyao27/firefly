@@ -24,7 +24,7 @@ const props = withDefaults(defineProps<{
 })
 
 const state = useTextEditorState()
-const className = ref(`w-full max-w-full max-h-80 overflow-auto relative transition focus:outline-none ${props.class}`)
+const className = ref(`w-full max-w-full max-h-80 overflow-auto relative text-left transition focus:outline-none ${props.class}`)
 const editor = useEditor({
   content: props.value,
   extensions,

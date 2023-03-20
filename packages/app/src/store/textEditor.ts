@@ -1,6 +1,7 @@
 import type { Editor } from '@tiptap/core'
 import { defineStore } from 'pinia'
 import type { BlockModel } from '@firefly/common'
+import { clearContent } from '@firefly/common'
 
 type Type = 'update' | 'create'
 
@@ -37,7 +38,7 @@ export const useTextEditorStore = defineStore('textEditor', {
       const blockStore = useBlockStore()
       this.loading = true
 
-      const content = (this.value as string).replace(/<span[^>]*data-type="tag"[^>]*>([^<]*)<\/span>/g, '$1')
+      const content = clearContent(this.value as string)
 
       if (this.type === 'create') {
         const block: BlockModel = {
