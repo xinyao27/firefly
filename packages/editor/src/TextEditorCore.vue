@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import 'highlight.js/scss/github.scss'
 import './style.sass'
-import { onMounted, ref, watch } from 'vue'
-import { useMediaQuery } from '@vueuse/core'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useMediaQuery, useVModel } from '@vueuse/core'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import type { Editor } from '@tiptap/core'
 import type { TagModel } from '@firefly/common'
@@ -12,9 +12,8 @@ import { useTextEditorState } from './state'
 
 const props = withDefaults(defineProps<{
   class?: string
-  value: string
+  modelValue: string
   tags: TagModel[]
-  onChange: (value: string) => void
   onFocus?: () => void
   onBlur?: () => void
   onCreated?: (editor: Editor) => void
@@ -22,11 +21,13 @@ const props = withDefaults(defineProps<{
 }>(), {
   bubbleMenu: true,
 })
+const emit = defineEmits(['update:modelValue'])
+const data = useVModel(props, 'modelValue', emit)
 
 const state = useTextEditorState()
 const className = ref(`w-full max-w-full max-h-80 overflow-auto relative text-left transition focus:outline-none ${props.class}`)
 const editor = useEditor({
-  content: props.value,
+  content: data.value,
   extensions,
   editorProps: {
     attributes: {
@@ -36,7 +37,7 @@ const editor = useEditor({
   },
   onUpdate({ editor }) {
     const content = editor.getHTML()
-    props.onChange(content)
+    data.value = content
   },
   onFocus() {
     props.onFocus?.()
@@ -56,6 +57,12 @@ onMounted(() => {
   }
 
   state.tags.value = props.tags
+})
+onBeforeUnmount(() => {
+  editor.value?.destroy()
+})
+watch(() => props.modelValue, (value) => {
+  editor.value?.commands.setContent(value)
 })
 watch(() => props.tags, (tags) => {
   state.tags.value = tags

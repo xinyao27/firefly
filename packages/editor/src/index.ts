@@ -1,1 +1,1 @@
-export { default } from './TextEditorCore'
+export { default } from './TextEditorCore.vue'
