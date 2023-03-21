@@ -132,98 +132,98 @@ onBeforeMount(() => {
     v-if="show"
     class="flex font-sans m-5 top-0 left-0 leading-1em z-[2147483646] pointer-events-initial fixed items-end select-none"
   >
-    <div w-72 p-3 rounded-2 bg-neutral-800 bg-opacity-80 backdrop-blur-lg shadow-xl>
+    <div w-72 p-3 rounded-sm bg-neutral-800 bg-opacity-80 backdrop-blur-lg shadow-xl>
       <div v-if="block">
         <div v-if="token">
           <!-- title -->
-          <div text-center text-lg text-white font-semibold mb-3>
-            收集到 Firefly
+          <div mb-3>
+            <span text-2xl font-extrabold>Send to</span>
+            <span class="text-(2xl transparent) font-extrabold bg-(clip-text gradient-to-r) from-blue to-emerald-500">
+              Firefly
+            </span>
           </div>
           <!-- content -->
           <Editor
             v-model="block.content"
-            class="prose prose-white min-h-24"
-            :tags="[{ id: 2, name: '哈哈哈' }, { id: 2, name: 'asd' }]"
+            class="prose textarea-slate"
+            :tags="[]"
             :bubble-menu="false"
           />
           <!-- metadata -->
           <div
             v-if="block?.metadata"
-            flex flex-col gap-3
+            flex flex-col gap-3 mt-3
           >
             <div v-if="block?.metadata?.title">
               <textarea
                 v-model="block.metadata.title"
-                w-full h-8 max-h-16 text-white
-                leading-normal resize-none bg-transparent border-none outline-none text-lg
+                textarea-slate
               />
             </div>
             <div v-if="block?.metadata?.description">
               <textarea
                 v-model="block.metadata.description"
-                w-full h-20 max-h-26 text-neutral leading-tight resize-none bg-transparent border-none outline-none
+                textarea-slate
               />
             </div>
             <div v-if="block?.metadata?.image">
               <img
-                w-24
+                w-24 rounded-sm
                 :src="block.metadata.image"
               >
             </div>
           </div>
           <!-- action -->
           <div flex items-center justify-between gap-3 mt-3>
-            <div flex items-center>
-              <button
-                w-10 h-10
-                @click="handleClose"
-              >
-                <i i-ri-delete-bin-line text-neutral />
-              </button>
-              <button
-                w-10 h-10
-                :disabled="copilotLoading"
-                @click="handleCopilot"
-              >
-                <i
-                  v-if="copilotLoading"
-                  i-ri-loader-2-line
-                  text-lg inline-block animate-spin text-primary
-                />
-                <i
-                  v-else
-                  i-tabler-brain text-primary
-                />
-              </button>
-            </div>
             <button
-              w-full h-10 bg-primary text-white rounded-full
+              btn-slate
+              @click="handleClose"
+            >
+              <i i-ri-delete-bin-line text-neutral />
+            </button>
+            <button
+              btn-slate
+              :disabled="copilotLoading"
+              @click="handleCopilot"
+            >
+              <i
+                v-if="copilotLoading"
+                i-ri-loader-2-line
+                inline-block animate-spin text-primary
+              />
+              <i
+                v-else
+                i-tabler-brain text-primary
+              />
+            </button>
+            <button
+              btn-slate w-full
               :disabled="loading"
               @click="handleUpdate"
             >
               <i
                 v-if="loading"
                 i-ri-loader-2-line
-                text-lg inline-block animate-spin
+                inline-block animate-spin
               />
               <span v-else>保存</span>
             </button>
           </div>
         </div>
         <div v-else>
-          <div text-center text-lg text-white font-semibold mb-3>
+          <div text-2xl font-extrabold mb-3>
             请先输入 Token
           </div>
           <div flex flex-col gap-3>
             <input
               v-model="tokenInput"
               type="password"
-              w-full h-10 pl-2 text-white leading-normal border-none outline-none text-lg
+              textarea-slate w-full
             >
           </div>
           <div flex items-center justify-center mt-3>
             <button
-              w-full h-10 bg-primary text-white rounded-full
+              btn-slate w-full
               @click="token = tokenInput"
             >
               保存
@@ -237,7 +237,7 @@ onBeforeMount(() => {
           收集到 Firefly
         </div>
         <div
-          p-6 rounded-2 border border-dashed transition leading-1em bg-opacity-30
+          p-6 rounded-sm border border-dashed transition leading-1em bg-opacity-30
           :border-color="`${dragIn ? 'primary' : 'neutral-300'}`"
           :bg="`${dragIn ? 'primary' : 'dark-300'}`"
           @dragenter.prevent="handleDragEnter"

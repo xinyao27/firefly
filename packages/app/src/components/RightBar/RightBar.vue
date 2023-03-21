@@ -31,7 +31,7 @@ const result = computed(() => {
 
 <template>
   <aside h-full flex flex-col gap-4 p-4 select-none>
-    <pre p-4 bg-white rounded max-h-100 whitespace-pre-line overflow-x-hidden overflow-y-auto>
+    <pre p-4 bg-white rounded-sm max-h-100 whitespace-pre-line overflow-x-hidden overflow-y-auto>
       {{ textSelection || '选择一段文字看看...' }}
     </pre>
 
@@ -72,7 +72,7 @@ const result = computed(() => {
     >
       <div
         v-if="copilotStore.result"
-        class="ProseMirror prose prose-black p-4 bg-white rounded"
+        class="ProseMirror prose prose-black p-4 bg-white rounded-sm"
         v-html="result"
       />
     </Copyable>

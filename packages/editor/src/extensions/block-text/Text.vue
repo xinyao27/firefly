@@ -8,7 +8,7 @@ const block = props.node.attrs.block as BlockModel
 
 <template>
   <NodeViewWrapper
-    class="my-1 border border-neutral-700 rounded cursor-pointer"
+    class="my-1 border border-neutral-700 rounded-sm cursor-pointer"
   >
     <div
       class="whitespace-pre-line p-2 transition hover:bg-neutral-800"

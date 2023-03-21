@@ -14,7 +14,7 @@ const path = computed(() => {
 
 <template>
   <NodeViewWrapper
-    class="border rounded cursor-pointer border-neutral-700 my-1"
+    class="border rounded-sm cursor-pointer border-neutral-700 my-1"
   >
     <img :src="path" :alt="block.title">
   </NodeViewWrapper>

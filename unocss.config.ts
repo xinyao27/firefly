@@ -4,7 +4,6 @@ import {
   presetIcons,
   presetTypography,
   presetUno,
-  presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
@@ -18,15 +17,9 @@ export default defineConfig({
     presetIcons({
       scale: 1.2,
       warn: true,
+      cdn: 'https://esm.sh/',
     }),
     presetTypography(),
-    presetWebFonts({
-      fonts: {
-        sans: 'DM Sans',
-        serif: 'DM Serif Display',
-        mono: 'DM Mono',
-      },
-    }),
     presetRemToPx(),
   ],
   transformers: [
@@ -38,4 +31,10 @@ export default defineConfig({
       primary: primaryColor.default,
     },
   },
+  shortcuts: [{
+    'base-focus': 'focus:(bg-op-20 ring-0 outline-none)',
+    'b-slate-link': 'border-b border-(slate none) hover:border-dashed',
+    'btn-slate': 'h-12 px-4 py-2 bg-(slate op-15) hover:bg-op-20 rounded-sm',
+    'textarea-slate': 'w-full px-3 py-3 min-h-12 max-h-36 leading-4 rounded-sm bg-(slate op-15) base-focus placeholder:op-50 dark:(placeholder:op-30) scroll-pa-8px',
+  }],
 })

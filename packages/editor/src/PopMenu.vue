@@ -72,21 +72,21 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div bg-white bg-opacity-90 backdrop-blur shadow-lg rounded p-2>
+  <div bg-white bg-opacity-90 backdrop-blur shadow-lg rounded-sm p-2>
     <div ref="scrollBarRef" max-h-50 overflow-x-hidden overflow-y-auto>
       <template v-if="props.items.length">
         <div
           v-for="(item, index) in props.items"
           :key="index"
           :ref="el => setButtonRef(el)"
-          w-full p-1 rounded transition flex items-center gap-2 cursor-pointer
+          w-full p-1 rounded-sm transition flex items-center gap-2 cursor-pointer
           :class="{ 'bg-neutral-200': index === selectedIndex }"
           @click="handleSelectItem(index)"
           @mouseenter="selectedIndex = index"
         >
           <div
             v-if="item.icon"
-            w-10 h-10 bg-white rounded flex items-center justify-center
+            w-10 h-10 bg-white rounded-sm flex items-center justify-center
           >
             <component :is="item.icon" />
           </div>
@@ -105,7 +105,7 @@ defineExpose({ onKeyDown })
       </template>
       <div
         v-else
-        p-1 rounded flex items-center gap-2
+        p-1 rounded-sm flex items-center gap-2
       >
         No result
       </div>

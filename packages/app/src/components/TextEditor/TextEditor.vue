@@ -28,13 +28,13 @@ watch(() => textEditorStore.focus, (focus) => {
 
 <template>
   <div
-    m-4 p-4 pb-2 flex flex-col gap-2 bg-white rounded transition cursor-pointer
+    m-4 p-4 pb-2 flex flex-col gap-2 bg-white rounded-sm transition cursor-pointer
     :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary' : '']"
     @click="textEditorStore.toggleFocus"
   >
     <Editor
       v-model="textEditorStore.value"
-      class="prose prose-black"
+      class="prose prose-black textarea-slate"
       :tags="tagStore.tags"
       :on-focus="() => textEditorStore.toggleFocus(true)"
       :on-blur="() => textEditorStore.toggleFocus(false)"

@@ -16,7 +16,7 @@
       font-size: 0.875em
       line-height: 1.25em
   code
-    @apply font-mono bg-neutral-200 rounded before:content-[""] after:content-[""]
+    @apply font-mono bg-neutral-200 rounded-sm before:content-[""] after:content-[""]
     font-size: 0.75em
     line-height: 1em
     padding-left: 0.375em
@@ -33,7 +33,7 @@
         @apply flex-auto
 
   span[data-type="tag"]
-    @apply p-1 rounded text-xs font-semibold transition text-white bg-primary bg-opacity-60 hover:bg-opacity-90 cursor-pointer
+    @apply p-1 rounded-sm text-xs font-semibold transition text-white bg-primary bg-opacity-60 hover:bg-opacity-90 cursor-pointer
   .is-empty
     @apply before:(content-[attr(data-placeholder)] pointer-events-none h-0 float-left text-neutral-300 capitalize)
   &.ProseMirror-hideselection > .ProseMirror-gapcursor:last-child
@@ -43,7 +43,7 @@
       content: "输入 `/` 调用命令..."
 
 .drag-handle
-  @apply absolute z-100 w-6 h-6 rounded flex items-center justify-center cursor-grab transition hover:bg-neutral-200
+  @apply absolute z-100 w-6 h-6 rounded-sm flex items-center justify-center cursor-grab transition hover:bg-neutral-200
   &.show
     @apply opacity-30 visible
   &.hide

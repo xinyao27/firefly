@@ -49,7 +49,7 @@ export const ExtensionBlockOther = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, {
         'data-type': 'blockOther',
-        'class': 'my-1 border border-neutral-700 rounded cursor-pointer transition',
+        'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer transition',
       }),
       [
         'div',

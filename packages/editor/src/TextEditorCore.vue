@@ -72,7 +72,7 @@ watch(() => props.tags, (tags) => {
   <div :ref="state.root">
     <EditorContent
       :editor="editor"
-      class="relative"
+      class="relative overflow-x-hidden overflow-y-auto"
       :class="[props.class]"
     />
     <BubbleMenu

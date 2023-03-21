@@ -18,7 +18,7 @@ const metadata = computedAsync(async () => {
 
 <template>
   <NodeViewWrapper
-    class="border rounded cursor-pointer border-neutral-50 my-1"
+    class="border rounded-sm cursor-pointer border-neutral-50 my-1"
   >
     <div class="grid transition gap-2 grid-cols-12 overflow-hidden hover:bg-neutral-200">
       <div class="flex flex-col p-4 gap-2 col-span-7 justify-between">

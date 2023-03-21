@@ -14,7 +14,7 @@ async function handleOpen() {
 
 <template>
   <NodeViewWrapper
-    class="border rounded cursor-pointer border-neutral-200 my-1"
+    class="border rounded-sm cursor-pointer border-neutral-200 my-1"
   >
     <div class="flex p-2 transition items-center justify-between hover:bg-neutral-200">
       <div class="flex gap-2 items-center select-none pointer-events-none">
