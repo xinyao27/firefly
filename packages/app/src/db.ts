@@ -30,7 +30,7 @@ interface FireflyDB extends DBSchema {
 // eslint-disable-next-line import/no-mutable-exports
 export let db: Promise<IDBPDatabase<FireflyDB>>
 
-export async function initDB() {
+export function initDB() {
   db = openDB<FireflyDB>('firefly', 1, {
     upgrade(db) {
       const blockStore = db.createObjectStore('blocks', { keyPath: 'id' })

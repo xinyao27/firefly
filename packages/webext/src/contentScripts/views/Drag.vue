@@ -130,7 +130,7 @@ onBeforeMount(() => {
 <template>
   <div
     v-if="show"
-    class="flex font-sans m-5 top-0 left-0 leading-1em z-[2147483646] pointer-events-initial fixed items-end select-none"
+    class="flex font-sans m-5 top-0 left-0 leading-1em z-[2147483647] pointer-events-initial fixed items-end select-none"
   >
     <div w-72 p-3 rounded-sm bg-neutral-800 bg-opacity-80 backdrop-blur-lg shadow-xl>
       <div v-if="block">
@@ -211,7 +211,7 @@ onBeforeMount(() => {
           </div>
         </div>
         <div v-else>
-          <div text-2xl font-extrabold mb-3>
+          <div text-lg font-semibold mb-3>
             请先输入 Token
           </div>
           <div flex flex-col gap-3>

@@ -4,10 +4,8 @@ import { ThemeProvider } from '@firefly/theme'
 
 <template>
   <ThemeProvider>
-    <ContextMenuProvider>
-      <CustomProvider>
-        <RouterView />
-      </CustomProvider>
-    </ContextMenuProvider>
+    <CustomProvider>
+      <RouterView />
+    </CustomProvider>
   </ThemeProvider>
 </template>

@@ -18,10 +18,10 @@ import './styles/normalize.css'
 import './styles/main.sass'
 
 initDB()
-// const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-// const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
-// if (setting === 'dark' || (prefersDark && setting !== 'light'))
-//   document.documentElement.classList.toggle('dark', true)
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
+if (setting === 'dark' || (prefersDark && setting !== 'light'))
+  document.documentElement.classList.toggle('dark', true)
 
 dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
