@@ -7,6 +7,7 @@ import { Suggestion } from '@tiptap/suggestion'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 import PopMenu from '../../PopMenu.vue'
 import { useTextEditorState } from '../../state'
+import type { Action } from '../../types'
 import { actions } from './actions'
 
 export interface SlashMenuOptions {
@@ -65,7 +66,7 @@ export const ExtensionSlashMenu = Node.create<SlashMenuOptions>({
             .run()
 
           window.getSelection()?.collapseToEnd()
-          props.command?.({ editor, range })
+          ;(props.onClick as Action['onClick'])?.(editor, range)
           destroy()
         },
         items: ({ query }) => {

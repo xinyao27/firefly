@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import 'highlight.js/scss/github.scss'
 import './style.sass'
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, watch } from 'vue'
 import { useMediaQuery, useVModel } from '@vueuse/core'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import type { Editor } from '@tiptap/core'
@@ -25,13 +25,12 @@ const emit = defineEmits(['update:modelValue'])
 const data = useVModel(props, 'modelValue', emit)
 
 const state = useTextEditorState()
-const className = ref(`w-full max-w-full max-h-80 overflow-auto relative text-left transition focus:outline-none ${props.class}`)
 const editor = useEditor({
   content: data.value,
   extensions,
   editorProps: {
     attributes: {
-      class: className.value,
+      class: 'w-full max-w-full max-h-80 overflow-auto relative text-left transition focus:outline-none',
       suppressContentEditableWarning: 'true',
     },
   },
@@ -74,6 +73,7 @@ watch(() => props.tags, (tags) => {
     <EditorContent
       :editor="editor"
       class="relative"
+      :class="[props.class]"
     />
     <BubbleMenu
       v-if="props.bubbleMenu"

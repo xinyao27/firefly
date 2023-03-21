@@ -33,10 +33,9 @@ watch(() => textEditorStore.focus, (focus) => {
     @click="textEditorStore.toggleFocus"
   >
     <Editor
+      v-model="textEditorStore.value"
       class="prose prose-black"
-      :value="textEditorStore.value"
       :tags="tagStore.tags"
-      :on-change="v => textEditorStore.value = v"
       :on-focus="() => textEditorStore.toggleFocus(true)"
       :on-blur="() => textEditorStore.toggleFocus(false)"
       :on-created="editor => textEditorStore.editor = editor"

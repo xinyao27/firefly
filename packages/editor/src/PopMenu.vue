@@ -64,7 +64,6 @@ function onKeyDown({ event }: SuggestionKeyDownProps) {
 
 function handleSelectItem(index: number) {
   const item = props.items[index]
-
   if (item)
     setTimeout(() => props.command(item))
 }
