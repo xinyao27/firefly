@@ -8,6 +8,7 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 import presetRemToPx from '@unocss/preset-rem-to-px'
+import presetAutoprefixer from 'unocss-preset-autoprefixer'
 import { colorPrimary } from './packages/theme/src/constants'
 
 export default defineConfig({
@@ -21,6 +22,7 @@ export default defineConfig({
     }),
     presetTypography(),
     presetRemToPx(),
+    presetAutoprefixer(),
   ],
   transformers: [
     transformerDirectives(),

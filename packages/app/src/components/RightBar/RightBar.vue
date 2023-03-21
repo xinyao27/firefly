@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { InputInst } from 'naive-ui'
 import { useSelection } from './selection'
 import { supportLanguages } from './lang'
 
 const copilotStore = useCopilotStore()
-const textSelection = useSelection()
+const promptRef = ref<InputInst>()
+const textSelection = useSelection(() => promptRef.value?.textareaElRef)
 
 const languageOptions = supportLanguages.map(([value, label]) => ({
   value,
@@ -23,7 +25,7 @@ const result = computed(() => {
     if (copilotStore.type !== 'extractionTags')
       return copilotStore.result
     else
-      return copilotStore.result.replace(/#\S+/g, '<span class="tag">$&</span>')
+      return copilotStore.result.replace(/#\S+/g, '<span data-type="tag">$&</span>')
   }
   return ''
 })
@@ -31,7 +33,7 @@ const result = computed(() => {
 
 <template>
   <aside h-full flex flex-col gap-4 p-4 select-none>
-    <pre class="p-4 bg-(slate opacity-15) rounded-sm max-h-100 whitespace-pre-line overflow-x-hidden overflow-y-auto">
+    <pre class="p-4 bg-(slate opacity-15) rounded-sm max-h-100 whitespace-pre-line overflow-x-hidden overflow-y-auto select-none">
       {{ textSelection || '选择一段文字看看...' }}
     </pre>
 
@@ -47,6 +49,7 @@ const result = computed(() => {
     />
     <NInput
       v-if="copilotStore.type === 'custom'"
+      ref="promptRef"
       v-model:value="copilotStore.prompt"
       type="textarea"
       placeholder="输入自定义 prompt, 例如: 你是一个诗人, 你将总结这段文本并写出一首诗"

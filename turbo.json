@@ -12,6 +12,9 @@
     },
     "dev": {
       "outputs": []
+    },
+    "dev:desktop": {
+      "outputs": []
     }
   }
 }

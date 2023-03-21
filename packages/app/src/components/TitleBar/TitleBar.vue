@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { useRouteQuery } from '@vueuse/router'
-
-function handleMouseDown(e: MouseEvent) {
-  e.preventDefault()
-}
+import { Logo, is } from '@firefly/common'
 
 const router = useRouter()
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
 const tag = useRouteQuery<string>('tag')
-
 const tags = computed(() => tag.value?.split('/'))
 </script>
 
 <template>
   <div flex items-center justify-between gap-1 z-99 w-full h-full px-2 select-none>
     <!-- LeftBar Area -->
-    <div :style="`width: ${configStore.rootPaddingLeft}px`">
+    <div
+      h-full flex items-center
+      :style="`width: ${configStore.rootPaddingLeft}px`"
+      data-tauri-drag-region
+    >
+      <!-- placeholder -->
+      <div v-if="is.isDesktop() && is.isMacOS()" w-16 h-full />
       <!-- leftBarShow -->
       <NButton
         v-if="configStore.isMobileScreen"
@@ -28,6 +30,8 @@ const tags = computed(() => tag.value?.split('/'))
         <i v-if="!configStore.leftBarShow" i-ri-layout-left-line />
         <i v-else i-ri-layout-left-fill />
       </NButton>
+
+      <Logo />
     </div>
     <!-- Title Area -->
     <div flex items-center gap-2>
@@ -87,8 +91,9 @@ const tags = computed(() => tag.value?.split('/'))
     <div
       v-if="!configStore.isMobileScreen"
       flex-auto h-full select-none
-      style="-webkit-app-region: drag"
-      @mousedown="handleMouseDown"
+      data-tauri-drag-region
     />
+    <!-- windows tools -->
+    <WindowsTools v-if="is.isDesktop() && is.isWindows()" />
   </div>
 </template>

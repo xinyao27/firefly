@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
-import { clearContent } from '@firefly/common'
+import { Logo, clearContent } from '@firefly/common'
 import Editor from '@firefly/editor'
 import { useToggle } from '@vueuse/core'
 import { MESSAGE_API } from '~/constants'
@@ -138,9 +138,7 @@ onBeforeMount(() => {
           <!-- title -->
           <div mb-3>
             <span text-2xl font-extrabold>Send to</span>
-            <span class="text-(2xl transparent) font-extrabold bg-(clip-text gradient-to-r) from-blue to-emerald-500">
-              Firefly
-            </span>
+            <Logo />
           </div>
           <!-- content -->
           <Editor

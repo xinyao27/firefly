@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { appWindow } from '@tauri-apps/api/window'
+
 function handleMinimize() {
-  $electron.ipcRenderer.invoke('win:minimize')
+  appWindow.minimize()
 }
 const maximize = ref(false)
-function handleToggleMaximize() {
-  $electron.ipcRenderer.invoke('win:toggleMaximize')
+async function handleMaximize() {
   maximize.value = !maximize.value
+  if (await appWindow.isMaximized())
+    await appWindow.unmaximize()
+  else
+    await appWindow.maximize()
 }
 function handleClose() {
-  $electron.ipcRenderer.invoke('win:close')
+  appWindow.hide()
 }
 </script>
 
@@ -24,7 +29,7 @@ function handleClose() {
     <NButton
       size="small"
       quaternary
-      @click="handleToggleMaximize"
+      @click="handleMaximize"
     >
       <i
         v-if="maximize"
