@@ -8,7 +8,7 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 import presetRemToPx from '@unocss/preset-rem-to-px'
-import { primaryColor } from './packages/theme/src/constants'
+import { colorPrimary } from './packages/theme/src/constants'
 
 export default defineConfig({
   presets: [
@@ -28,13 +28,13 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      primary: primaryColor.default,
+      primary: colorPrimary.default,
     },
   },
   shortcuts: [{
-    'base-focus': 'focus:(bg-op-20 ring-0 outline-none)',
+    'base-focus': 'focus:(bg-opacity-20 ring-0 outline-none)',
     'b-slate-link': 'border-b border-(slate none) hover:border-dashed',
-    'btn-slate': 'h-12 px-4 py-2 bg-(slate op-15) hover:bg-op-20 rounded-sm',
-    'textarea-slate': 'w-full px-3 py-3 min-h-12 max-h-36 leading-4 rounded-sm bg-(slate op-15) base-focus placeholder:op-50 dark:(placeholder:op-30) scroll-pa-8px',
+    'btn-slate': 'h-12 px-4 py-2 bg-(slate opacity-15) hover:bg-opacity-20 rounded-sm',
+    'textarea-slate': 'w-full max-w-full px-3 py-3 min-h-12 max-h-36 leading-4 rounded-sm bg-(slate opacity-15) base-focus placeholder:opacity-50 dark:(placeholder:opacity-30) scroll-pa-8px',
   }],
 })

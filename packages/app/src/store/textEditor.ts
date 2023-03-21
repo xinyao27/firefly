@@ -22,6 +22,7 @@ export const useTextEditorStore = defineStore('textEditor', {
       if (type === 'update') {
         this.value = block?.content ?? ''
         this.tags = block?.tags ?? []
+        this.toggleFocus(true)
         this.editor?.commands.setContent(this.value)
         this.editingBlock = block
       }
@@ -33,6 +34,9 @@ export const useTextEditorStore = defineStore('textEditor', {
       this.tags = []
       this.type = 'create'
       this.editingBlock = null
+      nextTick(() => {
+        this.toggleFocus(false)
+      })
     },
     async save() {
       const blockStore = useBlockStore()

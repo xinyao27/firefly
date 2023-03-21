@@ -76,6 +76,7 @@ onMounted(() => {
 
 <template>
   <NCard
+    class="bg-(slate opacity-3) hover:bg-(slate opacity-6)"
     size="small"
     hoverable
     :bordered="false"
@@ -112,7 +113,7 @@ onMounted(() => {
     </template>
     <div
       ref="el"
-      class="ProseMirror prose prose-black"
+      class="ProseMirror prose prose-white"
       v-html="parsedContent"
     />
   </NCard>

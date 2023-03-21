@@ -28,13 +28,13 @@ watch(() => textEditorStore.focus, (focus) => {
 
 <template>
   <div
-    m-4 p-4 pb-2 flex flex-col gap-2 bg-white rounded-sm transition cursor-pointer
+    class="m-4 p-4 pb-2 flex flex-col gap-2 bg-(slate opacity-15) rounded-sm transition cursor-pointer"
     :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary' : '']"
     @click="textEditorStore.toggleFocus"
   >
     <Editor
       v-model="textEditorStore.value"
-      class="prose prose-black textarea-slate"
+      class="prose prose-white"
       :tags="tagStore.tags"
       :on-focus="() => textEditorStore.toggleFocus(true)"
       :on-blur="() => textEditorStore.toggleFocus(false)"
@@ -49,7 +49,10 @@ watch(() => textEditorStore.focus, (focus) => {
           text
           size="small"
           :disabled="!textEditorStore.value || textEditorStore.loading"
-          @click="textEditorStore.cancel"
+          @click="e => {
+            e.stopPropagation()
+            textEditorStore.cancel()
+          }"
         >
           取消
         </NButton>

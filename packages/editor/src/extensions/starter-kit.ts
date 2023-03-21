@@ -9,7 +9,7 @@ import { Placeholder as ExtensionPlaceholder } from '@tiptap/extension-placehold
 import ExtensionTaskItem from '@tiptap/extension-task-item'
 import ExtensionTaskList from '@tiptap/extension-task-list'
 import { lowlight } from 'lowlight'
-import { primaryColor } from '@firefly/theme'
+import { colorPrimary } from '@firefly/theme'
 import { ExtensionTag } from './tag'
 import { ExtensionBlockImage } from './block-image'
 import { ExtensionBlockLink } from './block-link'
@@ -23,7 +23,7 @@ export const extensions: AnyExtension[] = [
   StarterKit.configure({
     heading: false,
     dropcursor: {
-      color: primaryColor.default,
+      color: colorPrimary.default,
       width: 4,
     },
   }),

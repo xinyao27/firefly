@@ -81,7 +81,7 @@ async function handleSelect(key: string) {
     trigger="click"
     @select="handleSelect"
   >
-    <section flex items-center gap-2 px-4 py-2 transition cursor-pointer hover:bg-neutral-200>
+    <section class="flex items-center gap-2 px-4 py-2 transition cursor-pointer hover:bg-(slate opacity-15)">
       <NAvatar
         size="small"
         :src="userStore.profiles?.avatarUrl"
