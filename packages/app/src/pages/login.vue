@@ -57,7 +57,7 @@ function signInWithOtp() {
 </script>
 
 <template>
-  <main w-screen h-screen flex items-center justify-center>
+  <main w-full h-full flex items-center justify-center>
     <section class="w-80 bg-(slate opacity-15) p-4 rounded-sm shadow-lg">
       <NH1 strong text-center>
         Log in

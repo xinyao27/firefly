@@ -13,17 +13,24 @@
   "tauri": {
     "allowlist": {
       "all": false,
-      "shell": {
+      "clipboard": {
+        "all": true
+      },
+      "dialog": {
         "all": false,
-        "open": true
+        "message": true
+      },
+      "fs": {
+        "all": false,
+        "readDir": true,
+        "readFile": true,
+        "scope": [
+          "$APPCONFIG/*",
+          "$RESOURCE/*"
+        ],
+        "writeFile": true
       },
       "globalShortcut": {
-        "all": true
-      },
-      "window": {
-        "all": true
-      },
-      "clipboard": {
         "all": true
       },
       "http": {
@@ -35,19 +42,12 @@
       "notification": {
         "all": true
       },
-      "fs": {
+      "shell": {
         "all": false,
-        "scope": [
-          "$APPCONFIG/*",
-          "$RESOURCE/*"
-        ],
-        "writeFile": true,
-        "readFile": true,
-        "readDir": true
+        "open": true
       },
-      "dialog": {
-        "all": false,
-        "message": true
+      "window": {
+        "all": true
       }
     },
     "bundle": {
@@ -55,7 +55,9 @@
       "category": "DeveloperTool",
       "copyright": "",
       "deb": {
-        "depends": []
+        "depends": [
+          "xdotool"
+        ]
       },
       "externalBin": [],
       "icon": [
@@ -65,7 +67,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.firefly.best",
+      "identifier": "apps.firefly.best",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -74,13 +76,18 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": [
+        "resources/*"
+      ],
       "shortDescription": "",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
-        "timestampUrl": ""
+        "timestampUrl": "",
+        "webviewInstallMode": {
+          "type": "embedBootstrapper"
+        }
       }
     },
     "security": {
@@ -91,14 +98,22 @@
     },
     "windows": [
       {
+        "decorations": false,
         "fullscreen": false,
         "height": 900,
+        "hiddenTitle": true,
+        "minHeight": 600,
+        "minWidth": 800,
         "resizable": true,
         "title": "Firefly",
         "titleBarStyle": "Overlay",
-        "hiddenTitle": true,
-        "width": 1080
+        "width": 1080,
+        "center": true
       }
-    ]
+    ],
+    "systemTray": {
+      "iconPath": "icons/icon.ico",
+      "iconAsTemplate": true
+    }
   }
 }

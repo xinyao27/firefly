@@ -8,18 +8,19 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "dev:desktop": "tauri dev"
+    "dev:desktop": "tauri dev",
+    "build:desktop": "tauri build"
   },
   "dependencies": {
     "@firefly/common": "workspace:*",
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
-    "@tauri-apps/api": "2.0.0-alpha.1",
+    "@tauri-apps/api": "^1.2.0",
     "@yeger/vue-masonry-wall": "^3.4.4",
     "openai": "^3.2.1"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "2.0.0-alpha.3",
+    "@tauri-apps/cli": "^1.2.3",
     "vite-plugin-pages": "^0.28.0"
   }
 }
