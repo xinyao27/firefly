@@ -203,6 +203,9 @@ importers:
 
   packages/app:
     dependencies:
+      '@firefly/assistant':
+        specifier: workspace:*
+        version: link:../assistant
       '@firefly/common':
         specifier: workspace:*
         version: link:../common

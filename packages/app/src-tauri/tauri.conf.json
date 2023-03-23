@@ -118,17 +118,15 @@
         "decorations": false,
         "focus": false,
         "fullscreen": false,
-        "height": 600,
+        "height": 284,
         "hiddenTitle": true,
-        "minHeight": 600,
-        "minWidth": 560,
         "resizable": false,
-        "title": "Firefly Copilot",
+        "title": "Firefly Assistant",
         "titleBarStyle": "Overlay",
-        "label": "copilot",
-        "url": "copilot.html",
+        "label": "assistant",
+        "url": "assistant.html",
         "visible": false,
-        "width": 560
+        "width": 600
       }
     ]
   }

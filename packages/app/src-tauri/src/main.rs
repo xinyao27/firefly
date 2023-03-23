@@ -17,8 +17,8 @@ use sysinfo::{CpuExt, System, SystemExt};
 use crate::config::get_config_content;
 use crate::ocr::ocr;
 use crate::windows::{
-    set_copilot_window_always_on_top, show_copilot_window_with_selected_text, COPILOT_WIN_NAME,
-    MAIN_WIN_NAME,
+    hide_assistant_window, set_assistant_window_always_on_top,
+    show_assistant_window_with_selected_text, ASSISTANT_WIN_NAME, MAIN_WIN_NAME,
 };
 
 use once_cell::sync::OnceCell;
@@ -79,9 +79,9 @@ fn main() {
                 let window = app.get_window(MAIN_WIN_NAME).unwrap();
                 window.set_decorations(false).unwrap();
                 set_shadow(&window, true).unwrap_or_default();
-                let copilot_window = app.get_window(COPILOT_WIN_NAME).unwrap();
-                copilot_window.set_decorations(false).unwrap();
-                set_shadow(&copilot_window, true).unwrap_or_default();
+                let assistant_window = app.get_window(ASSISTANT_WIN_NAME).unwrap();
+                assistant_window.set_decorations(false).unwrap();
+                set_shadow(&assistant_window, true).unwrap_or_default();
             }
             if !query_accessibility_permissions() {
                 let window = app.get_window(MAIN_WIN_NAME).unwrap();
@@ -97,8 +97,9 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             get_config_content,
-            show_copilot_window_with_selected_text,
-            set_copilot_window_always_on_top,
+            show_assistant_window_with_selected_text,
+            hide_assistant_window,
+            set_assistant_window_always_on_top,
             ocr,
         ])
         .system_tray(tray::menu())

@@ -11,7 +11,7 @@ use window_shadows::set_shadow;
 use window_shadows::set_shadow;
 
 pub const MAIN_WIN_NAME: &str = "main";
-pub const COPILOT_WIN_NAME: &str = "copilot";
+pub const ASSISTANT_WIN_NAME: &str = "assistant";
 
 fn get_mouse_location() -> Result<(i32, i32), String> {
     let position = Mouse::get_mouse_position();
@@ -22,9 +22,9 @@ fn get_mouse_location() -> Result<(i32, i32), String> {
 }
 
 #[tauri::command]
-pub fn set_copilot_window_always_on_top() -> bool {
+pub fn set_assistant_window_always_on_top() -> bool {
     let handle = APP_HANDLE.get().unwrap();
-    let window = handle.get_window(COPILOT_WIN_NAME).unwrap();
+    let window = handle.get_window(ASSISTANT_WIN_NAME).unwrap();
 
     let always_on_top = ALWAYS_ON_TOP.load(Ordering::Acquire);
 
@@ -39,7 +39,7 @@ pub fn set_copilot_window_always_on_top() -> bool {
 }
 
 #[tauri::command]
-pub fn show_copilot_window_with_selected_text() {
+pub fn show_assistant_window_with_selected_text() {
     let selected_text = match utils::get_selected_text() {
         Ok(text) => text,
         Err(e) => {
@@ -48,16 +48,27 @@ pub fn show_copilot_window_with_selected_text() {
         }
     };
     if !selected_text.is_empty() {
-        show_copilot_window(false);
+        show_assistant_window(false);
         utils::send_text(selected_text);
     } else {
-        show_copilot_window(true);
+        show_assistant_window(true);
     }
 }
 
-pub fn show_copilot_window(center: bool) {
+#[tauri::command]
+pub fn hide_assistant_window() {
     let handle = APP_HANDLE.get().unwrap();
-    match handle.get_window(COPILOT_WIN_NAME) {
+    match handle.get_window(ASSISTANT_WIN_NAME) {
+        Some(window) => {
+            window.hide().unwrap();
+        }
+        None => {}
+    }
+}
+
+pub fn show_assistant_window(center: bool) {
+    let handle = APP_HANDLE.get().unwrap();
+    match handle.get_window(ASSISTANT_WIN_NAME) {
         Some(window) => {
             let restore_previous_position = match config::get_config() {
                 Ok(config) => config.restore_previous_position.unwrap_or(false),
@@ -98,17 +109,16 @@ pub fn show_copilot_window(center: bool) {
         None => {
             let builder = tauri::WindowBuilder::new(
                 handle,
-                COPILOT_WIN_NAME,
-                tauri::WindowUrl::App("copilot.html".into()),
+                ASSISTANT_WIN_NAME,
+                tauri::WindowUrl::App("assistant.html".into()),
             )
             .fullscreen(false)
-            .inner_size(600.0, 700.0)
-            .min_inner_size(560.0, 600.0)
+            .inner_size(600.0, 284.0)
             .resizable(false)
             .skip_taskbar(true)
             .center()
             .focused(true)
-            .title("Firefly Copilot");
+            .title("Firefly Assistant");
 
             #[cfg(target_os = "macos")]
             {

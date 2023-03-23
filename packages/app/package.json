@@ -12,6 +12,7 @@
     "build:desktop": "tauri build"
   },
   "dependencies": {
+    "@firefly/assistant": "workspace:*",
     "@firefly/common": "workspace:*",
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",

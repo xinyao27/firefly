@@ -84,6 +84,7 @@ function handleBeforeMount() {
       v-if="show"
       v-model:token="token"
       v-model:block="block"
+      class="w-72 m-5 top-0 left-0 z-[2147483647] fixed shadow-xl rounded-sm bg-neutral-800 bg-opacity-80 backdrop-blur-lg"
       :on-vnode-before-mount="handleBeforeMount"
       :supabase-url="supabaseUrl"
       :supabase-functions-url="supabaseFunctionsUrl"

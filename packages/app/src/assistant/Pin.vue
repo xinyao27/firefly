@@ -3,7 +3,7 @@ import { invoke } from '@tauri-apps/api'
 
 const pinned = ref(false)
 async function handleTogglePin() {
-  const value = await invoke<boolean>('set_copilot_window_always_on_top')
+  const value = await invoke<boolean>('set_assistant_window_always_on_top')
   pinned.value = value
 }
 </script>

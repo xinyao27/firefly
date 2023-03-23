@@ -27,7 +27,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve('index.html'),
-        copilot: resolve('copilot.html'),
+        assistant: resolve('assistant.html'),
       },
     },
   },

@@ -1,6 +1,6 @@
 use crate::config::get_config;
 use crate::ocr::ocr;
-use crate::windows::show_copilot_window_with_selected_text;
+use crate::windows::show_assistant_window_with_selected_text;
 use crate::APP_HANDLE;
 use tauri::GlobalShortcutManager;
 
@@ -14,7 +14,7 @@ pub fn do_bind_hotkey() -> Result<(), Box<dyn std::error::Error>> {
         }
         handle
             .global_shortcut_manager()
-            .register(hotkey.as_str(), show_copilot_window_with_selected_text)?;
+            .register(hotkey.as_str(), show_assistant_window_with_selected_text)?;
     }
     if let Some(ocr_hotkey) = config.ocr_hotkey {
         if !handle
