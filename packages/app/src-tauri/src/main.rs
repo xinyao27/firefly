@@ -17,8 +17,8 @@ use sysinfo::{CpuExt, System, SystemExt};
 use crate::config::get_config_content;
 use crate::ocr::ocr;
 use crate::windows::{
-    set_copilot_window_always_on_top, set_main_window_always_on_top,
-    show_copilot_window_with_selected_text, MAIN_WIN_NAME,
+    set_copilot_window_always_on_top, show_copilot_window_with_selected_text, COPILOT_WIN_NAME,
+    MAIN_WIN_NAME,
 };
 
 use once_cell::sync::OnceCell;
@@ -77,8 +77,11 @@ fn main() {
             APP_HANDLE.get_or_init(|| app.handle());
             if cfg!(target_os = "windows") || cfg!(target_os = "linux") {
                 let window = app.get_window(MAIN_WIN_NAME).unwrap();
-                // Try set shadow and ignore errors if it failed.
+                window.set_decorations(false).unwrap();
                 set_shadow(&window, true).unwrap_or_default();
+                let copilot_window = app.get_window(COPILOT_WIN_NAME).unwrap();
+                copilot_window.set_decorations(false).unwrap();
+                set_shadow(&copilot_window, true).unwrap_or_default();
             }
             if !query_accessibility_permissions() {
                 let window = app.get_window(MAIN_WIN_NAME).unwrap();
@@ -96,7 +99,6 @@ fn main() {
             get_config_content,
             show_copilot_window_with_selected_text,
             set_copilot_window_always_on_top,
-            set_main_window_always_on_top,
             ocr,
         ])
         .system_tray(tray::menu())

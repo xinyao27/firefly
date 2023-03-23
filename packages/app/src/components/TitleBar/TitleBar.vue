@@ -103,8 +103,6 @@ const isIndexPage = computed(() => route.path === '/')
       data-tauri-drag-region
     />
 
-    <!-- Pin -->
-    <Pin v-if="is.isDesktop()" />
     <!-- windows tools -->
     <WindowsTools v-if="is.isDesktop() && is.isWindows()" />
   </div>

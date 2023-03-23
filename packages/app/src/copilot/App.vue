@@ -5,6 +5,7 @@ import Editor from '@firefly/editor'
 import { ref } from 'vue'
 import type { Event } from '@tauri-apps/api/event'
 import { listen } from '@tauri-apps/api/event'
+import Pin from './Pin.vue'
 
 const value = ref('')
 
@@ -25,8 +26,12 @@ onMounted(() => {
   <ThemeProvider>
     <CustomProvider>
       <main>
-        <header data-tauri-drag-region>
+        <header
+          data-tauri-drag-region
+          flex justify-between items-center
+        >
           <Logo />
+          <Pin />
         </header>
         <Editor
           v-model="value"

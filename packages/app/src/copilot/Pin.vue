@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { is } from '@firefly/common'
 import { invoke } from '@tauri-apps/api'
 
 const pinned = ref(false)
 async function handleTogglePin() {
-  const value = await invoke<boolean>('set_main_window_always_on_top')
+  const value = await invoke<boolean>('set_copilot_window_always_on_top')
   pinned.value = value
 }
 </script>
@@ -29,8 +28,4 @@ async function handleTogglePin() {
       窗口总是在最上方
     </template>
   </NTooltip>
-  <NDivider
-    v-if="is.isWindows()"
-    vertical
-  />
 </template>

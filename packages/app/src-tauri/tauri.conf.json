@@ -93,12 +93,16 @@
     "security": {
       "csp": null
     },
+    "systemTray": {
+      "iconAsTemplate": true,
+      "iconPath": "icons/icon.ico"
+    },
     "updater": {
       "active": false
     },
     "windows": [
       {
-        "decorations": false,
+        "center": true,
         "fullscreen": false,
         "height": 900,
         "hiddenTitle": true,
@@ -107,13 +111,25 @@
         "resizable": true,
         "title": "Firefly",
         "titleBarStyle": "Overlay",
-        "width": 1080,
-        "center": true
+        "width": 1080
+      },
+      {
+        "center": true,
+        "decorations": false,
+        "focus": false,
+        "fullscreen": false,
+        "height": 600,
+        "hiddenTitle": true,
+        "minHeight": 600,
+        "minWidth": 560,
+        "resizable": false,
+        "title": "Firefly Copilot",
+        "titleBarStyle": "Overlay",
+        "label": "copilot",
+        "url": "copilot.html",
+        "visible": false,
+        "width": 560
       }
-    ],
-    "systemTray": {
-      "iconPath": "icons/icon.ico",
-      "iconAsTemplate": true
-    }
+    ]
   }
 }
