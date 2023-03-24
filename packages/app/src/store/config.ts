@@ -8,9 +8,8 @@ export const useConfigStore = defineStore('config', {
   state: () => {
     return {
       rootPaddingTop: 40,
-      rootPaddingLeft: 270,
-      rootPaddingRight: 270,
-      title: '',
+      rootPaddingLeft: 240,
+      rootPaddingRight: 300,
 
       isMobileScreen,
       leftBarShow,
@@ -18,9 +17,6 @@ export const useConfigStore = defineStore('config', {
     }
   },
   actions: {
-    setTitle(title: string) {
-      this.title = title
-    },
     toggleLeftBarShow() {
       this.leftBarShow = !this.leftBarShow
     },

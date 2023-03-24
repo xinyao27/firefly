@@ -1,13 +1,7 @@
 <script setup lang="ts">
 defineOptions({ name: 'IndexPage' })
 
-const configStore = useConfigStore()
 const blockStore = useBlockStore()
-
-onBeforeMount(() => {
-  configStore.setTitle('')
-})
-
 const router = useRouter()
 
 onMounted(() => {

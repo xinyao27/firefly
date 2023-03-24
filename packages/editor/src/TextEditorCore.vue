@@ -75,7 +75,7 @@ watch(() => props.tags, (tags) => {
   >
     <EditorContent
       :editor="editor"
-      class="relative overflow-x-hidden overflow-y-auto cursor-text"
+      class="relative overflow-x-hidden overflow-y-auto cursor-text w-full max-w-full"
       :class="[props.class]"
     />
     <BubbleMenu

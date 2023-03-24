@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
+import { is } from '@firefly/common'
 import { bindOCRHotkey, bindSelectedTextHotkey, unBindAll } from './utils'
 
 onMounted(() => {
-  bindSelectedTextHotkey()
-  bindOCRHotkey()
+  if (is.isDesktop()) {
+    bindSelectedTextHotkey()
+    bindOCRHotkey()
+  }
 })
 onUnmounted(() => {
-  unBindAll()
+  if (is.isDesktop())
+    unBindAll()
 })
 </script>
 
