@@ -5,15 +5,13 @@ use crate::APP_HANDLE;
 use mouse_position::mouse_position::Mouse;
 use std::sync::atomic::Ordering;
 use tauri::{LogicalPosition, Manager, PhysicalPosition};
-#[cfg(target_os = "windows")]
-use window_shadows::set_shadow;
-#[cfg(target_os = "linux")]
 use window_shadows::set_shadow;
 
 pub const MAIN_WIN_NAME: &str = "main";
 pub const ASSISTANT_WIN_NAME: &str = "assistant";
+pub const THUMB_WIN_NAME: &str = "thumb";
 
-fn get_mouse_location() -> Result<(i32, i32), String> {
+pub fn get_mouse_location() -> Result<(i32, i32), String> {
     let position = Mouse::get_mouse_position();
     match position {
         Mouse::Position { x, y } => Ok((x, y)),
@@ -40,6 +38,7 @@ pub fn set_assistant_window_always_on_top() -> bool {
 
 #[tauri::command]
 pub fn show_assistant_window_with_selected_text() {
+    let window = show_assistant_window(false);
     let selected_text = match utils::get_selected_text() {
         Ok(text) => text,
         Err(e) => {
@@ -48,10 +47,99 @@ pub fn show_assistant_window_with_selected_text() {
         }
     };
     if !selected_text.is_empty() {
-        show_assistant_window(false);
         utils::send_text(selected_text);
     } else {
         show_assistant_window(true);
+    }
+
+    window.set_focus().unwrap();
+}
+
+pub fn close_thumb() {
+    let handle = APP_HANDLE.get().unwrap();
+    match handle.get_window(THUMB_WIN_NAME) {
+        Some(window) => {
+            window
+                .set_position(LogicalPosition::new(-100.0, -100.0))
+                .unwrap();
+        }
+        None => {}
+    }
+}
+
+pub fn show_thumb(x: i32, y: i32) {
+    let handle = APP_HANDLE.get().unwrap();
+    let position_offset = 7.0 as f64;
+    match handle.get_window(THUMB_WIN_NAME) {
+        Some(window) => {
+            println!("Thumb window already exists");
+            if cfg!(target_os = "macos") {
+                window
+                    .set_position(LogicalPosition::new(
+                        x as f64 + position_offset,
+                        y as f64 + position_offset,
+                    ))
+                    .unwrap();
+            } else {
+                window.unminimize().unwrap();
+                window
+                    .set_position(PhysicalPosition::new(
+                        x as f64 + position_offset,
+                        y as f64 + position_offset,
+                    ))
+                    .unwrap();
+            }
+            window.unminimize().unwrap();
+            window.show().unwrap();
+            window.set_always_on_top(true).unwrap();
+        }
+        None => {
+            println!("Thumb window does not exist");
+            let builder = tauri::WindowBuilder::new(
+                handle,
+                THUMB_WIN_NAME,
+                tauri::WindowUrl::App("thumb.html".into()),
+            )
+            .fullscreen(false)
+            .focused(false)
+            .inner_size(20.0, 20.0)
+            .min_inner_size(20.0, 20.0)
+            .max_inner_size(20.0, 20.0)
+            .visible(true)
+            .resizable(false)
+            .skip_taskbar(true)
+            .decorations(false);
+
+            #[cfg(target_os = "macos")]
+            let window = builder.hidden_title(true).build().unwrap();
+
+            #[cfg(not(target_os = "macos"))]
+            let window = builder.transparent(true).build().unwrap();
+
+            window.unminimize().unwrap();
+            window.show().unwrap();
+            window.set_always_on_top(true).unwrap();
+
+            if cfg!(target_os = "macos") {
+                window
+                    .set_position(LogicalPosition::new(
+                        x as f64 + position_offset,
+                        y as f64 + position_offset,
+                    ))
+                    .unwrap();
+            } else {
+                window.unminimize().unwrap();
+                window
+                    .set_position(PhysicalPosition::new(
+                        x as f64 + position_offset,
+                        y as f64 + position_offset,
+                    ))
+                    .unwrap();
+            }
+
+            #[cfg(target_os = "macos")]
+            set_shadow(&window, true).unwrap();
+        }
     }
 }
 
@@ -66,7 +154,7 @@ pub fn hide_assistant_window() {
     }
 }
 
-pub fn show_assistant_window(center: bool) {
+pub fn show_assistant_window(center: bool) -> tauri::Window {
     let handle = APP_HANDLE.get().unwrap();
     match handle.get_window(ASSISTANT_WIN_NAME) {
         Some(window) => {
@@ -103,8 +191,8 @@ pub fn show_assistant_window(center: bool) {
                 }
             }
             window.unminimize().unwrap();
-            window.set_focus().unwrap();
             window.show().unwrap();
+            window
         }
         None => {
             let builder = tauri::WindowBuilder::new(
@@ -117,7 +205,7 @@ pub fn show_assistant_window(center: bool) {
             .resizable(false)
             .skip_taskbar(true)
             .center()
-            .focused(true)
+            .focused(false)
             .title("Firefly Assistant");
 
             #[cfg(target_os = "macos")]
@@ -126,7 +214,7 @@ pub fn show_assistant_window(center: bool) {
                     .title_bar_style(tauri::TitleBarStyle::Overlay)
                     .hidden_title(true)
                     .build()
-                    .unwrap();
+                    .unwrap()
             }
 
             #[cfg(target_os = "windows")]
@@ -134,6 +222,8 @@ pub fn show_assistant_window(center: bool) {
                 let window = builder.decorations(false).build().unwrap();
 
                 set_shadow(&window, true).unwrap();
+
+                window
             }
 
             #[cfg(target_os = "linux")]
@@ -141,6 +231,8 @@ pub fn show_assistant_window(center: bool) {
                 let window = builder.decorations(false).build().unwrap();
 
                 set_shadow(&window, true).unwrap();
+
+                window
             }
         }
     }
