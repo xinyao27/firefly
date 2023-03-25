@@ -1,7 +1,7 @@
 assistant:
   capture: Recorte
-  drag-tip: arraste e solte aqui
-  drop-tip: Liberar para completar a coleção
+  dragTip: arraste e solte aqui
+  dropTip: Liberar para completar a coleção
   inputToken: Insira o token primeiro
   pin: janela está sempre no topo
   title: Clipe para Firefly
@@ -17,7 +17,8 @@ common:
   delete: excluir
   deleted: excluído com sucesso
   edit: editar
-  not-found: não consigo encontrar
+  noResult: nenhum resultado
+  notFound: não consigo encontrar
   save: salvar
   saved: Salvo com sucesso
   updated: atualização completa
@@ -30,6 +31,18 @@ copilot:
   retry: Tentar novamente
   summarize: resumo de texto
   translate: traduzir
+editor:
+  blockquote: texto de citação
+  bold: audacioso
+  bulletList: lista de projetos
+  code: o código
+  italic: itálico
+  orderedList: lista numerada
+  strike: linha tracejada
+  text: texto
+  todoList: lista de afazeres
+  type: tipo
+  underline: sublinhado
 login:
   continueWithEmail: Login de e-mail
   continueWithGithub: Entrar no Github

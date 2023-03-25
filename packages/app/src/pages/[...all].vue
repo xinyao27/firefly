@@ -4,7 +4,7 @@ const { t } = useI18n()
 
 <template>
   <div>
-    {{ t('common.not-found') }}
+    {{ t('common.notFound') }}
   </div>
 </template>
 

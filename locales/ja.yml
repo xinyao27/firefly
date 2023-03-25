@@ -1,7 +1,7 @@
 assistant:
   capture: クリッピング
-  drag-tip: ここにドラッグ＆ドロップ
-  drop-tip: リリースしてコレクションを完成させる
+  dragTip: ここにドラッグ＆ドロップ
+  dropTip: リリースしてコレクションを完成させる
   inputToken: 最初にトークンを入力してください
   pin: ウィンドウは常に上にあります
   title: ホタルにクリップ
@@ -17,7 +17,8 @@ common:
   delete: 消去
   deleted: 正常に削除されました
   edit: 編集
-  not-found: 見つからない
+  noResult: 検索結果はありません
+  notFound: 見つからない
   save: 保存
   saved: 正常に保存
   updated: アップデート完了
@@ -30,6 +31,18 @@ copilot:
   retry: リトライ
   summarize: テキストの要約
   translate: 翻訳
+editor:
+  blockquote: 引用文
+  bold: 大胆な
+  bulletList: プロジェクト一覧
+  code: コード
+  italic: 斜体
+  orderedList: 番号付きリスト
+  strike: 破線
+  text: 文章
+  todoList: やることリスト
+  type: タイプ
+  underline: 下線
 login:
   continueWithEmail: メールログイン
   continueWithGithub: GitHub ログイン

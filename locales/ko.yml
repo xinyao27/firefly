@@ -1,7 +1,7 @@
 assistant:
   capture: 깎는
-  drag-tip: 여기로 드래그 앤 드롭
-  drop-tip: 출시하여 컬렉션 완료
+  dragTip: 여기로 드래그 앤 드롭
+  dropTip: 출시하여 컬렉션 완료
   inputToken: 먼저 토큰을 입력하세요
   pin: 창은 항상 위에 있습니다
   title: 클립 투 파이어플라이
@@ -17,7 +17,8 @@ common:
   delete: 삭제
   deleted: 성공적으로 삭제
   edit: 편집하다
-  not-found: 찾을 수 없습니다
+  noResult: 결과가 없다
+  notFound: 찾을 수 없습니다
   save: 구하다
   saved: 성공적으로 저장 되었음
   updated: 업데이트 완료
@@ -30,6 +31,18 @@ copilot:
   retry: 다시 해 보다
   summarize: 텍스트 요약
   translate: 번역하다
+editor:
+  blockquote: 인용 텍스트
+  bold: 용감한
+  bulletList: 프로젝트 목록
+  code: 코드
+  italic: 이탤릭체
+  orderedList: 번호 매기기 목록
+  strike: 파선
+  text: 텍스트
+  todoList: 할 일 목록
+  type: 유형
+  underline: 밑줄
 login:
   continueWithEmail: 이메일 로그인
   continueWithGithub: Github 로그인

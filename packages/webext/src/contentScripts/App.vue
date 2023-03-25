@@ -116,7 +116,7 @@ function handleBeforeMount() {
               i-ri-upload-cloud-2-line
               text-lg block
             />
-            {{ dragIn ? t('assistant.drop-tip') : t('assistant.drag-tip') }}
+            {{ dragIn ? t('assistant.dropTip') : t('assistant.dragTip') }}
           </div>
         </div>
       </template>

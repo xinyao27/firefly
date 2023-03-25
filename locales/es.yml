@@ -1,7 +1,7 @@
 assistant:
   capture: Recorte
-  drag-tip: arrastra y suelta aquí
-  drop-tip: Liberar para completar la colección
+  dragTip: arrastra y suelta aquí
+  dropTip: Liberar para completar la colección
   inputToken: Por favor ingrese el token primero
   pin: la ventana siempre está arriba
   title: Clip a luciérnaga
@@ -17,7 +17,8 @@ common:
   delete: borrar
   deleted: eliminado con éxito
   edit: editar
-  not-found: no puedo encontrar
+  noResult: sin resultados
+  notFound: no puedo encontrar
   save: ahorrar
   saved: Guardado exitosamente
   updated: actualización completada
@@ -30,6 +31,18 @@ copilot:
   retry: Rever
   summarize: resumen de texto
   translate: traducir
+editor:
+  blockquote: texto de cita
+  bold: atrevido
+  bulletList: lista de proyectos
+  code: el código
+  italic: cursiva
+  orderedList: lista numerada
+  strike: Linea discontinua
+  text: texto
+  todoList: lista de quehaceres
+  type: tipo
+  underline: subrayar
 login:
   continueWithEmail: Correo electrónico de inicio de sesión
   continueWithGithub: Inicio de sesión en Github

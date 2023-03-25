@@ -1,7 +1,7 @@
 assistant:
   capture: Coupure
-  drag-tip: glisser-déposer ici
-  drop-tip: Libération pour compléter la collection
+  dragTip: glisser-déposer ici
+  dropTip: Libération pour compléter la collection
   inputToken: Veuillez d'abord entrer le jeton
   pin: la fenêtre est toujours en haut
   title: Clip sur luciole
@@ -17,7 +17,8 @@ common:
   delete: supprimer
   deleted: supprimé avec succès
   edit: modifier
-  not-found: ne trouve pas
+  noResult: pas de résultat
+  notFound: ne trouve pas
   save: sauvegarder
   saved: Enregistré avec succès
   updated: Mise à jour terminée
@@ -30,6 +31,18 @@ copilot:
   retry: Recommencez
   summarize: résumé du texte
   translate: traduire
+editor:
+  blockquote: citer le texte
+  bold: gras
+  bulletList: liste de projets
+  code: le code
+  italic: italique
+  orderedList: liste numérotée
+  strike: ligne pointillée
+  text: texte
+  todoList: liste de choses à faire
+  type: taper
+  underline: souligner
 login:
   continueWithEmail: Connexion par e-mail
   continueWithGithub: Connexion Github

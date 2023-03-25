@@ -1,7 +1,7 @@
 assistant:
   capture: Obrzynek
-  drag-tip: przeciągnij i upuść tutaj
-  drop-tip: Zwolnij, aby zakończyć kolekcję
+  dragTip: przeciągnij i upuść tutaj
+  dropTip: Zwolnij, aby zakończyć kolekcję
   inputToken: Najpierw wprowadź token
   pin: okno jest zawsze na górze
   title: Klip do Firefly
@@ -17,7 +17,8 @@ common:
   delete: usuwać
   deleted: pomyślnie usunięte
   edit: edytować
-  not-found: nie mogę znaleźć
+  noResult: brak wyników
+  notFound: nie mogę znaleźć
   save: ratować
   saved: Zapisano pomyślnie
   updated: aktualizacja zakończona
@@ -30,6 +31,18 @@ copilot:
   retry: Spróbować ponownie
   summarize: streszczenie tekstu
   translate: Tłumaczyć
+editor:
+  blockquote: cytuj tekst
+  bold: pogrubiony
+  bulletList: lista projektów
+  code: kod
+  italic: kursywa
+  orderedList: lista numerowana
+  strike: linia przerywana
+  text: tekst
+  todoList: Lista rzeczy do zrobienia
+  type: typ
+  underline: podkreślać
 login:
   continueWithEmail: Zaloguj się e-mailem
   continueWithGithub: Logowanie do Githuba

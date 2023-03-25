@@ -1,7 +1,7 @@
 assistant:
   capture: Вирізка
-  drag-tip: перетягніть сюди
-  drop-tip: Відпустіть для завершення збору
+  dragTip: перетягніть сюди
+  dropTip: Відпустіть для завершення збору
   inputToken: Спочатку введіть маркер
   pin: вікно завжди зверху
   title: Кліп до Firefly
@@ -17,7 +17,8 @@ common:
   delete: видалити
   deleted: успішно видалено
   edit: редагувати
-  not-found: не можу знайти
+  noResult: ніякого результату
+  notFound: не можу знайти
   save: зберегти
   saved: Успішно збережено
   updated: оновлення завершено
@@ -30,6 +31,18 @@ copilot:
   retry: Повторіть спробу
   summarize: текстове резюме
   translate: перекладати
+editor:
+  blockquote: процитувати текст
+  bold: жирний
+  bulletList: список проектів
+  code: код
+  italic: курсив
+  orderedList: нумерований список
+  strike: пунктирна лінія
+  text: текст
+  todoList: список справ
+  type: типу
+  underline: підкреслити
 login:
   continueWithEmail: Вхід електронною поштою
   continueWithGithub: Вхід на Github

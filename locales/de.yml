@@ -1,7 +1,7 @@
 assistant:
   capture: Ausschnitt
-  drag-tip: per Drag-and-Drop hierher ziehen
-  drop-tip: Freigabe zur Vervollständigung der Sammlung
+  dragTip: per Drag-and-Drop hierher ziehen
+  dropTip: Freigabe zur Vervollständigung der Sammlung
   inputToken: Bitte geben Sie zuerst den Token ein
   pin: Fenster ist immer oben
   title: Clip zu Firefly
@@ -17,7 +17,8 @@ common:
   delete: löschen
   deleted: erfolgreich gelöscht
   edit: bearbeiten
-  not-found: kann nicht finden
+  noResult: kein Ergebnis
+  notFound: kann nicht finden
   save: speichern
   saved: Erfolgreich gespeichert
   updated: Update abgeschlossen
@@ -30,6 +31,18 @@ copilot:
   retry: Wiederholen
   summarize: Textzusammenfassung
   translate: übersetzen
+editor:
+  blockquote: Text zitieren
+  bold: deutlich
+  bulletList: Projektliste
+  code: der Code
+  italic: Kursivschrift
+  orderedList: nummerierte Liste
+  strike: gestrichelte Linie
+  text: Text
+  todoList: Aufgabenliste
+  type: Typ
+  underline: unterstreichen
 login:
   continueWithEmail: E-Mail-Anmeldung
   continueWithGithub: Github-Anmeldung

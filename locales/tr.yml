@@ -1,7 +1,7 @@
 assistant:
   capture: Kırpma
-  drag-tip: buraya sürükleyip bırakın
-  drop-tip: Koleksiyonu tamamlamak için bırakın
+  dragTip: buraya sürükleyip bırakın
+  dropTip: Koleksiyonu tamamlamak için bırakın
   inputToken: Lütfen önce belirteci girin
   pin: pencere her zaman üstte
   title: Firefly'a Klip
@@ -17,7 +17,8 @@ common:
   delete: silmek
   deleted: başarıyla silindi
   edit: düzenlemek
-  not-found: bulamıyorum
+  noResult: sonuç yok
+  notFound: bulamıyorum
   save: kaydetmek
   saved: Başarıyla kaydedildi
   updated: Güncelleme tamamlandı
@@ -30,6 +31,18 @@ copilot:
   retry: yeniden dene
   summarize: metin özeti
   translate: Çevirmek
+editor:
+  blockquote: alıntı metni
+  bold: gözü pek
+  bulletList: proje listesi
+  code: kod
+  italic: italik
+  orderedList: numaralı liste
+  strike: kesik çizgi
+  text: metin
+  todoList: yapılacaklar listesi
+  type: tip
+  underline: altını çizmek
 login:
   continueWithEmail: E-posta Girişi
   continueWithGithub: Github girişi

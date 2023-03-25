@@ -1,7 +1,7 @@
 assistant:
   capture: 剪藏
-  drag-tip: 拖放到这里
-  drop-tip: 松开以完成收藏
+  dragTip: 拖放到这里
+  dropTip: 松开以完成收藏
   inputToken: 请先输入 Token
   pin: 窗口总是在最上方
   title: 剪藏到 Firefly
@@ -17,8 +17,8 @@ common:
   delete: 删除
   deleted: 删除成功
   edit: 编辑
-  no-result: 没有结果
-  not-found: 找不到
+  noResult: 没有结果
+  notFound: 找不到
   save: 保存
   saved: 保存成功
   updated: 更新成功

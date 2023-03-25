@@ -1,7 +1,7 @@
 assistant:
   capture: Clipping
-  drag-tip: Drag and drop here
-  drop-tip: Release to complete the capture
+  dragTip: Drag and drop here
+  dropTip: Release to complete the capture
   inputToken: Please enter the token first
   pin: window is always on top
   title: Capture To Firefly
@@ -17,7 +17,8 @@ common:
   delete: delete
   deleted: successfully deleted
   edit: edit
-  not-found: can't find
+  noResult: no result
+  notFound: can't find
   save: save
   saved: Saved successfully
   updated: update completed
@@ -30,6 +31,18 @@ copilot:
   retry: Retry
   summarize: text summary
   translate: translate
+editor:
+  blockquote: quote text
+  bold: bold
+  bulletList: project list
+  code: the code
+  italic: italics
+  orderedList: numbered list
+  strike: dashed line
+  text: text
+  todoList: to do list
+  type: type
+  underline: underline
 login:
   continueWithEmail: Email Login
   continueWithGithub: Github login

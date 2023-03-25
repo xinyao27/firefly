@@ -110,7 +110,7 @@ defineExpose({ onKeyDown })
         v-else
         p-1 rounded-sm flex items-center gap-2
       >
-        {{ t('common.no-result') }}
+        {{ t('common.noResult') }}
       </div>
     </div>
   </div>

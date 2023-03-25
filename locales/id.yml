@@ -1,7 +1,7 @@
 assistant:
   capture: Guntingan
-  drag-tip: seret dan lepas di sini
-  drop-tip: Rilis untuk melengkapi koleksi
+  dragTip: seret dan lepas di sini
+  dropTip: Rilis untuk melengkapi koleksi
   inputToken: Masukkan token terlebih dahulu
   pin: jendela selalu di atas
   title: Klip ke Firefly
@@ -17,7 +17,8 @@ common:
   delete: menghapus
   deleted: berhasil dihapus
   edit: sunting
-  not-found: tidak dapat menemukan
+  noResult: tidak ada hasil
+  notFound: tidak dapat menemukan
   save: menyimpan
   saved: Berhasil disimpan
   updated: pembaruan selesai
@@ -30,6 +31,18 @@ copilot:
   retry: Mencoba kembali
   summarize: ringkasan teks
   translate: menerjemahkan
+editor:
+  blockquote: teks kutipan
+  bold: berani
+  bulletList: daftar proyek
+  code: Kode
+  italic: huruf miring
+  orderedList: daftar bernomor
+  strike: garis putus-putus
+  text: teks
+  todoList: untuk melakukan daftar
+  type: jenis
+  underline: menggarisbawahi
 login:
   continueWithEmail: Masuk Email
   continueWithGithub: Login Github

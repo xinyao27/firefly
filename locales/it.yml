@@ -1,7 +1,7 @@
 assistant:
   capture: Ritaglio
-  drag-tip: trascina e rilascia qui
-  drop-tip: Rilascio per completare la raccolta
+  dragTip: trascina e rilascia qui
+  dropTip: Rilascio per completare la raccolta
   inputToken: Inserisci prima il token
   pin: la finestra è sempre in primo piano
   title: Aggancia a Firefly
@@ -17,7 +17,8 @@ common:
   delete: eliminare
   deleted: eliminato con successo
   edit: modificare
-  not-found: non riesco a trovare
+  noResult: nessun risultato
+  notFound: non riesco a trovare
   save: salva
   saved: Salvato con successo
   updated: aggiornamento completato
@@ -30,6 +31,18 @@ copilot:
   retry: Riprova
   summarize: sintesi testuale
   translate: tradurre
+editor:
+  blockquote: testo di citazione
+  bold: grassetto
+  bulletList: elenco progetti
+  code: il codice
+  italic: corsivo
+  orderedList: elenco numerato
+  strike: linea tratteggiata
+  text: testo
+  todoList: lista di cose da fare
+  type: tipo
+  underline: sottolineare
 login:
   continueWithEmail: E-mail di accesso
   continueWithGithub: Accesso Github

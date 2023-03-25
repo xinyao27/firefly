@@ -1,7 +1,7 @@
 assistant:
   capture: Отсечение
-  drag-tip: перетащите сюда
-  drop-tip: Выпустить для полной коллекции
+  dragTip: перетащите сюда
+  dropTip: Выпустить для полной коллекции
   inputToken: Сначала введите токен
   pin: окно всегда сверху
   title: Клип к Светлячку
@@ -17,7 +17,8 @@ common:
   delete: удалить
   deleted: успешно удален
   edit: редактировать
-  not-found: не могу найти
+  noResult: безрезультатно
+  notFound: не могу найти
   save: сохранять
   saved: Успешно сохранено
   updated: обновление завершено
@@ -30,6 +31,18 @@ copilot:
   retry: Повторить попытку
   summarize: текстовое резюме
   translate: переводить
+editor:
+  blockquote: текст цитаты
+  bold: смелый
+  bulletList: список проектов
+  code: код
+  italic: курсив
+  orderedList: нумерованный список
+  strike: пунктир
+  text: текст
+  todoList: список дел
+  type: тип
+  underline: подчеркнуть
 login:
   continueWithEmail: Электронная почта Войти
   continueWithGithub: Вход на гитхаб

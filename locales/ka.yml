@@ -1,7 +1,7 @@
 assistant:
   capture: ამოჭრა
-  drag-tip: გადაათრიეთ და ჩამოაგდეთ აქ
-  drop-tip: გამოშვება კოლექციის დასასრულებლად
+  dragTip: გადაათრიეთ და ჩამოაგდეთ აქ
+  dropTip: გამოშვება კოლექციის დასასრულებლად
   inputToken: გთხოვთ, ჯერ შეიყვანოთ ჟეტონი
   pin: ფანჯარა ყოველთვის თავზეა
   title: კლიპი Firefly-ზე
@@ -17,7 +17,8 @@ common:
   delete: წაშლა
   deleted: წარმატებით წაიშალა
   edit: რედაქტირება
-  not-found: ვერ პოულობს
+  noResult: უშედეგო
+  notFound: ვერ პოულობს
   save: გადარჩენა
   saved: შენახულია წარმატებით
   updated: განახლება დასრულდა
@@ -30,6 +31,18 @@ copilot:
   retry: ხელახლა სცადეთ
   summarize: ტექსტის შეჯამება
   translate: თარგმნა
+editor:
+  blockquote: ციტატის ტექსტი
+  bold: გაბედული
+  bulletList: პროექტის სია
+  code: კოდი
+  italic: დახრილი
+  orderedList: დანომრილი სია
+  strike: წყვეტილი ხაზი
+  text: ტექსტი
+  todoList: გასაკეთებელი სია
+  type: ტიპი
+  underline: ხაზი გაუსვით
 login:
   continueWithEmail: ელ.ფოსტის შესვლა
   continueWithGithub: Github შესვლა

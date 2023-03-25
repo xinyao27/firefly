@@ -1,7 +1,7 @@
 assistant:
   capture: لقطة
-  drag-tip: السحب والإفلات هنا
-  drop-tip: حرر لإكمال المجموعة
+  dragTip: السحب والإفلات هنا
+  dropTip: حرر لإكمال المجموعة
   inputToken: الرجاء إدخال الرمز المميز أولاً
   pin: النافذة دائمًا في المقدمة
   title: مقطع إلى اليراع
@@ -17,7 +17,8 @@ common:
   delete: يمسح
   deleted: تم الحذف بنجاح
   edit: يحرر
-  not-found: لا أجد
+  noResult: لا نتيجة
+  notFound: لا أجد
   save: يحفظ
   saved: حفظ بنجاح
   updated: تحديث الانتهاء
@@ -30,6 +31,18 @@ copilot:
   retry: أعد المحاولة
   summarize: ملخص نصي
   translate: يترجم
+editor:
+  blockquote: نص اقتباس
+  bold: عريض
+  bulletList: قائمة المشروع
+  code: الرمز
+  italic: مائل
+  orderedList: قائمة مرقمة
+  strike: خط متقطع
+  text: نص
+  todoList: عمل قائمة
+  type: يكتب
+  underline: تسطير
 login:
   continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
   continueWithGithub: تسجيل الدخول إلى جيثب

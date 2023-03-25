@@ -1,7 +1,7 @@
 assistant:
   capture: cắt
-  drag-tip: kéo và thả ở đây
-  drop-tip: Phát hành để hoàn thành bộ sưu tập
+  dragTip: kéo và thả ở đây
+  dropTip: Phát hành để hoàn thành bộ sưu tập
   inputToken: Vui lòng nhập mã thông báo trước
   pin: cửa sổ luôn ở trên cùng
   title: Đoạn phim đom đóm
@@ -17,7 +17,8 @@ common:
   delete: xóa bỏ
   deleted: xóa thành công
   edit: biên tập
-  not-found: không thể tìm thấy
+  noResult: không kết quả
+  notFound: không thể tìm thấy
   save: cứu
   saved: đã lưu thành công
   updated: hoàn thành cập nhật
@@ -30,6 +31,18 @@ copilot:
   retry: Thử lại
   summarize: tóm tắt văn bản
   translate: dịch
+editor:
+  blockquote: văn bản trích dẫn
+  bold: in đậm
+  bulletList: danh sách dự án
+  code: mật mã
+  italic: chữ in nghiêng
+  orderedList: danh sách đánh số
+  strike: vạch đứt
+  text: chữ
+  todoList: những việc cần làm
+  type: kiểu
+  underline: gạch dưới
 login:
   continueWithEmail: Email đăng nhập
   continueWithGithub: đăng nhập Github
