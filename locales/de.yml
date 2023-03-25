@@ -1,0 +1,48 @@
+assistant:
+  capture: Ausschnitt
+  drag-tip: per Drag-and-Drop hierher ziehen
+  drop-tip: Freigabe zur Vervollständigung der Sammlung
+  inputToken: Bitte geben Sie zuerst den Token ein
+  pin: Fenster ist immer oben
+  title: Clip zu Firefly
+  unpin: Fenster schließen ist immer oben
+block:
+  blocks: Artikeldaten
+  synced: Synchronisierung abgeschlossen
+common:
+  back: zurückkehren
+  cancel: Stornieren
+  copied: kopiert
+  copy: Kopieren
+  delete: löschen
+  deleted: erfolgreich gelöscht
+  edit: bearbeiten
+  not-found: kann nicht finden
+  save: speichern
+  saved: Erfolgreich gespeichert
+  updated: Update abgeschlossen
+copilot:
+  customPrompt: Benutzerdefinierte Eingabeaufforderungen
+  extractionTags: Tags extrahieren
+  hi: Hallo, wie kann ich Ihnen helfen
+  polishing: Polieren
+  ref: Copilot-Referenz
+  retry: Wiederholen
+  summarize: Textzusammenfassung
+  translate: übersetzen
+login:
+  continueWithEmail: E-Mail-Anmeldung
+  continueWithGithub: Github-Anmeldung
+  continueWithNotion: Begriff anmelden
+  emailPlaceholder: Geben sie ihre E-Mailadresse ein...
+  emailRequired: Bitte E-Mail eingeben
+  emailSended: >-
+    Wir haben Ihnen gerade eine E-Mail gesendet, bitte überprüfen Sie Ihren
+    Posteingang.
+  title: Anmeldung
+titleBar:
+  sync: jetzt synchronisieren
+user:
+  generateNewToken: Generieren Sie ein neues Token
+  generateToken: Token generieren
+  logout: austragen

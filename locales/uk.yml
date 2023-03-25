@@ -1,0 +1,46 @@
+assistant:
+  capture: Вирізка
+  drag-tip: перетягніть сюди
+  drop-tip: Відпустіть для завершення збору
+  inputToken: Спочатку введіть маркер
+  pin: вікно завжди зверху
+  title: Кліп до Firefly
+  unpin: закрите вікно завжди зверху
+block:
+  blocks: Дані статті
+  synced: синхронізація завершена
+common:
+  back: повернення
+  cancel: Скасувати
+  copied: скопійовано
+  copy: копія
+  delete: видалити
+  deleted: успішно видалено
+  edit: редагувати
+  not-found: не можу знайти
+  save: зберегти
+  saved: Успішно збережено
+  updated: оновлення завершено
+copilot:
+  customPrompt: Спеціальні підказки
+  extractionTags: витягти теги
+  hi: Привіт, чим я можу тобі допомогти
+  polishing: полірувати
+  ref: Довідка другого пілота
+  retry: Повторіть спробу
+  summarize: текстове резюме
+  translate: перекладати
+login:
+  continueWithEmail: Вхід електронною поштою
+  continueWithGithub: Вхід на Github
+  continueWithNotion: Поняття входу
+  emailPlaceholder: Введіть адресу вашої електронної пошти...
+  emailRequired: Введіть адресу електронної пошти
+  emailSended: Ми щойно надіслали вам електронний лист, перевірте свою поштову скриньку.
+  title: авторизуватися
+titleBar:
+  sync: синхронізувати зараз
+user:
+  generateNewToken: Згенеруйте новий маркер
+  generateToken: Згенерувати маркер
+  logout: вийти з аккаунта

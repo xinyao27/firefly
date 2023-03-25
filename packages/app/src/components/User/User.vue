@@ -4,6 +4,7 @@ import { NAvatar, NButton, NText, NTooltip } from 'naive-ui'
 import Copyable from '../Copyable.vue'
 import { supabase } from '~/api'
 
+const { t } = useI18n()
 const router = useRouter()
 const userStore = useUserStore()
 const blockStore = useBlockStore()
@@ -39,10 +40,10 @@ function renderUserInfo() {
                 h(Copyable, { type: 'text', text: userStore.profiles?.token }, () => userStore.profiles?.token),
                 h(NTooltip, null, {
                   trigger: () => h(NButton, { size: 'small', text: true, onClick: userStore.generateToken, loading: userStore.loading }, () => h('i', { class: 'i-ri-refresh-line text-neutral' })),
-                  default: () => '生成新的 Token',
+                  default: () => t('user.generateNewToken'),
                 }),
               ])
-              : h(NButton, { size: 'tiny', onClick: userStore.generateToken, loading: userStore.loading }, () => '生成 Token'),
+              : h(NButton, { size: 'tiny', onClick: userStore.generateToken, loading: userStore.loading }, () => t('user.generateToken')),
           ]),
         ],
       ),
@@ -60,7 +61,7 @@ const options: DropdownOption[] = [
   },
   {
     key: 'logout',
-    label: '退出登录',
+    label: t('user.logout'),
   },
 ]
 async function handleSelect(key: string) {

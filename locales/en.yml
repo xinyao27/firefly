@@ -1,0 +1,46 @@
+assistant:
+  capture: Clipping
+  drag-tip: Drag and drop here
+  drop-tip: Release to complete the capture
+  inputToken: Please enter the token first
+  pin: window is always on top
+  title: Capture To Firefly
+  unpin: close window is always on top
+block:
+  blocks: Article data
+  synced: sync complete
+common:
+  back: return
+  cancel: Cancel
+  copied: copied
+  copy: copy
+  delete: delete
+  deleted: successfully deleted
+  edit: edit
+  not-found: can't find
+  save: save
+  saved: Saved successfully
+  updated: update completed
+copilot:
+  customPrompt: Custom Prompts
+  extractionTags: extract tags
+  hi: Hi, how can I help you
+  polishing: polish
+  ref: Copilot reference
+  retry: Retry
+  summarize: text summary
+  translate: translate
+login:
+  continueWithEmail: Email Login
+  continueWithGithub: Github login
+  continueWithNotion: Notion login
+  emailPlaceholder: Enter your email address...
+  emailRequired: Please enter Email
+  emailSended: We just sent you an email, please check your inbox.
+  title: Log in
+titleBar:
+  sync: sync now
+user:
+  generateNewToken: Generate a new token
+  generateToken: Generate Token
+  logout: sign out

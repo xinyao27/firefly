@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js'
 import type { Editor } from '@tiptap/core'
 import { useToggle, useVModel } from '@vueuse/core'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   class?: string
@@ -22,6 +23,7 @@ const emit = defineEmits(['update:token', 'update:block', 'update:editor'])
 const token = useVModel(props, 'token', emit)
 const block = useVModel(props, 'block', emit)
 const editor = useVModel(props, 'editor', emit)
+const { t } = useI18n()
 
 const supabase = createClient(
   props.supabaseUrl,
@@ -175,13 +177,13 @@ async function handleSave() {
             @click="handleSave"
           >
             <Spin v-if="loading" />
-            <span v-else>保存</span>
+            <span v-else>{{ t('common.save') }}</span>
           </button>
         </div>
       </div>
       <div v-else>
         <div text-lg font-semibold mb-3>
-          请先输入 Token
+          {{ t('assistant.inputToken') }}
         </div>
         <div flex flex-col gap-3>
           <input
@@ -195,7 +197,7 @@ async function handleSave() {
             btn-slate w-full
             @click="token = tokenInput"
           >
-            保存
+            {{ t('common.save') }}
           </button>
         </div>
       </div>

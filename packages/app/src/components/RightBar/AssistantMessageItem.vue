@@ -5,6 +5,7 @@ const props = defineProps<{
   message: string
 }>()
 
+const { t } = useI18n()
 const blockStore = useBlockStore()
 
 const capturing = ref(false)
@@ -47,7 +48,7 @@ async function handleCapture() {
             <i v-else i-ri-check-fill text-green />
           </NButton>
         </template>
-        剪藏
+        {{ t('assistant.capture') }}
       </NTooltip>
       <Copyable
         type="button"

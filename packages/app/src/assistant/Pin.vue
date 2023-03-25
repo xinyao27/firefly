@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api'
 
+const { t } = useI18n()
+
 const pinned = ref(false)
 async function handleTogglePin() {
   const value = await invoke<boolean>('set_assistant_window_always_on_top')
@@ -22,10 +24,10 @@ async function handleTogglePin() {
       </NButton>
     </template>
     <template v-if="pinned">
-      关闭窗口总是在最上方
+      {{ t('assistant.unpin') }}
     </template>
     <template v-else>
-      窗口总是在最上方
+      {{ t('assistant.pin') }}
     </template>
   </NTooltip>
 </template>

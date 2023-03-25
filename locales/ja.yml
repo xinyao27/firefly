@@ -1,0 +1,46 @@
+assistant:
+  capture: クリッピング
+  drag-tip: ここにドラッグ＆ドロップ
+  drop-tip: リリースしてコレクションを完成させる
+  inputToken: 最初にトークンを入力してください
+  pin: ウィンドウは常に上にあります
+  title: ホタルにクリップ
+  unpin: 閉じるウィンドウは常に上にあります
+block:
+  blocks: 記事データ
+  synced: 同期完了
+common:
+  back: 戻る
+  cancel: キャンセル
+  copied: コピーした
+  copy: コピー
+  delete: 消去
+  deleted: 正常に削除されました
+  edit: 編集
+  not-found: 見つからない
+  save: 保存
+  saved: 正常に保存
+  updated: アップデート完了
+copilot:
+  customPrompt: カスタム プロンプト
+  extractionTags: タグを抽出する
+  hi: こんにちは、どうすればいいですか
+  polishing: 研磨
+  ref: 副操縦士のリファレンス
+  retry: リトライ
+  summarize: テキストの要約
+  translate: 翻訳
+login:
+  continueWithEmail: メールログイン
+  continueWithGithub: GitHub ログイン
+  continueWithNotion: 概念ログイン
+  emailPlaceholder: メールアドレスを入力してください...
+  emailRequired: メールアドレスを入力してください
+  emailSended: メールを送信しました。受信トレイを確認してください。
+  title: ログイン
+titleBar:
+  sync: 今すぐ同期
+user:
+  generateNewToken: 新しいトークンを生成する
+  generateToken: トークンを生成
+  logout: サインアウト

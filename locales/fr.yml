@@ -1,0 +1,48 @@
+assistant:
+  capture: Coupure
+  drag-tip: glisser-déposer ici
+  drop-tip: Libération pour compléter la collection
+  inputToken: Veuillez d'abord entrer le jeton
+  pin: la fenêtre est toujours en haut
+  title: Clip sur luciole
+  unpin: fermer la fenêtre est toujours en haut
+block:
+  blocks: Données d'articles
+  synced: synchronisation terminée
+common:
+  back: retour
+  cancel: Annuler
+  copied: copié
+  copy: copie
+  delete: supprimer
+  deleted: supprimé avec succès
+  edit: modifier
+  not-found: ne trouve pas
+  save: sauvegarder
+  saved: Enregistré avec succès
+  updated: Mise à jour terminée
+copilot:
+  customPrompt: Invites personnalisées
+  extractionTags: extraire les balises
+  hi: Salut, comment est-ce que je peux t'aider
+  polishing: polonais
+  ref: Référence copilote
+  retry: Recommencez
+  summarize: résumé du texte
+  translate: traduire
+login:
+  continueWithEmail: Connexion par e-mail
+  continueWithGithub: Connexion Github
+  continueWithNotion: Connexion notionnelle
+  emailPlaceholder: Entrez votre adresse email...
+  emailRequired: Veuillez saisir un e-mail
+  emailSended: >-
+    Nous venons de vous envoyer un e-mail, veuillez vérifier votre boîte de
+    réception.
+  title: Connexion
+titleBar:
+  sync: synchroniser maintenant
+user:
+  generateNewToken: Générer un nouveau jeton
+  generateToken: Générer un jeton
+  logout: se déconnecter

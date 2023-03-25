@@ -2,6 +2,7 @@
 import type { Editor } from '@tiptap/core'
 import type { SuggestionKeyDownProps } from '@tiptap/suggestion'
 import { nextTick, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Action } from './types'
 
 const props = defineProps<{
@@ -9,6 +10,8 @@ const props = defineProps<{
   items: Action[]
   command: (action: Action) => void
 }>()
+
+const { t } = useI18n()
 
 const selectedIndex = ref(0)
 const buttonRefs = ref<Element[]>([])
@@ -107,7 +110,7 @@ defineExpose({ onKeyDown })
         v-else
         p-1 rounded-sm flex items-center gap-2
       >
-        No result
+        {{ t('common.no-result') }}
       </div>
     </div>
   </div>

@@ -1,0 +1,46 @@
+assistant:
+  capture: لقطة
+  drag-tip: السحب والإفلات هنا
+  drop-tip: حرر لإكمال المجموعة
+  inputToken: الرجاء إدخال الرمز المميز أولاً
+  pin: النافذة دائمًا في المقدمة
+  title: مقطع إلى اليراع
+  unpin: إغلاق النافذة دائمًا في المقدمة
+block:
+  blocks: بيانات المادة
+  synced: المزامنة كاملة
+common:
+  back: يعود
+  cancel: يلغي
+  copied: نسخ
+  copy: ينسخ
+  delete: يمسح
+  deleted: تم الحذف بنجاح
+  edit: يحرر
+  not-found: لا أجد
+  save: يحفظ
+  saved: حفظ بنجاح
+  updated: تحديث الانتهاء
+copilot:
+  customPrompt: موجهات مخصصة
+  extractionTags: استخراج العلامات
+  hi: مرحبا كيف يمكنني مساعدتك
+  polishing: تلميع
+  ref: مرجع مساعد الطيار
+  retry: أعد المحاولة
+  summarize: ملخص نصي
+  translate: يترجم
+login:
+  continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
+  continueWithGithub: تسجيل الدخول إلى جيثب
+  continueWithNotion: فكرة تسجيل الدخول
+  emailPlaceholder: أدخل عنوان بريدك الالكتروني...
+  emailRequired: الرجاء إدخال البريد الإلكتروني
+  emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.
+  title: تسجيل الدخول
+titleBar:
+  sync: زامن الآن "لنقل البيانات
+user:
+  generateNewToken: إنشاء رمز جديد
+  generateToken: توليد رمز
+  logout: خروج

@@ -2,6 +2,7 @@
 import { useRouteQuery } from '@vueuse/router'
 import { Logo, is } from '@firefly/common'
 
+const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const configStore = useConfigStore()
@@ -75,7 +76,7 @@ const isIndexPage = computed(() => route.path === '/')
               <i i-ri-refresh-line />
             </NButton>
           </template>
-          立即同步
+          {{ t('titleBar.sync') }}
         </NTooltip>
       </div>
     </template>

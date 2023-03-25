@@ -1,0 +1,46 @@
+assistant:
+  capture: Kırpma
+  drag-tip: buraya sürükleyip bırakın
+  drop-tip: Koleksiyonu tamamlamak için bırakın
+  inputToken: Lütfen önce belirteci girin
+  pin: pencere her zaman üstte
+  title: Firefly'a Klip
+  unpin: pencereyi kapat her zaman üstte
+block:
+  blocks: Makale verileri
+  synced: senkronizasyon tamamlandı
+common:
+  back: geri dönmek
+  cancel: İptal etmek
+  copied: kopyalanmış
+  copy: kopyalamak
+  delete: silmek
+  deleted: başarıyla silindi
+  edit: düzenlemek
+  not-found: bulamıyorum
+  save: kaydetmek
+  saved: Başarıyla kaydedildi
+  updated: Güncelleme tamamlandı
+copilot:
+  customPrompt: Özel İstemler
+  extractionTags: etiketleri ayıkla
+  hi: Merhaba, Size nasıl yardımcı olabilirim
+  polishing: Lehçe
+  ref: yardımcı pilot referansı
+  retry: yeniden dene
+  summarize: metin özeti
+  translate: Çevirmek
+login:
+  continueWithEmail: E-posta Girişi
+  continueWithGithub: Github girişi
+  continueWithNotion: kavram girişi
+  emailPlaceholder: E-posta adresinizi giriniz...
+  emailRequired: Lütfen e-posta giriniz
+  emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.
+  title: Giriş yapmak
+titleBar:
+  sync: şimdi senkronize et
+user:
+  generateNewToken: Yeni bir belirteç oluştur
+  generateToken: Belirteç Oluştur
+  logout: oturumu Kapat

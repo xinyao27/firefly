@@ -5,7 +5,7 @@ export const actions: Action[] = [
   {
     key: 'todoList',
     label: 'TodoList',
-    description: '待办列表',
+    description: 'Create a todo list',
     icon: () => h('i', { class: 'i-ri-list-check-2' }),
     onClick: (editor, range) => {
       editor?.chain().focus().deleteRange(range!).toggleTaskList().run()

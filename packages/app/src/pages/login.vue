@@ -3,6 +3,7 @@ import type { FormInst } from 'naive-ui'
 import { useMessage } from 'naive-ui'
 import { supabase } from '~/api'
 
+const { t } = useI18n()
 const message = useMessage()
 const formRef = ref<FormInst | null>(null)
 const formValue = ref({
@@ -11,7 +12,7 @@ const formValue = ref({
 const rules = {
   email: {
     required: true,
-    message: '请输入 Email',
+    message: t('login.emailRequired'),
     trigger: 'blur',
   },
 }
@@ -50,7 +51,7 @@ function signInWithOtp() {
         })
     }
     else {
-      message.error(errors[0]?.[0]?.message ?? '请输入 Email')
+      message.error(errors[0]?.[0]?.message ?? t('login.emailRequired'))
     }
   })
 }
@@ -60,7 +61,7 @@ function signInWithOtp() {
   <main w-full h-full flex items-center justify-center>
     <section class="w-80 bg-(slate opacity-15) p-4 rounded-sm shadow-lg">
       <NH1 strong text-center>
-        Log in
+        {{ t('login.title') }}
       </NH1>
 
       <section flex flex-col gap-2>
@@ -71,7 +72,7 @@ function signInWithOtp() {
           <template #icon>
             <i i-ri-github-fill />
           </template>
-          Continue with Github
+          {{ t('login.continueWithGithub') }}
         </NButton>
         <NButton
           :loading="loading"
@@ -80,7 +81,7 @@ function signInWithOtp() {
           <template #icon>
             <i i-tabler-brand-notion />
           </template>
-          Continue with Notion
+          {{ t('login.continueWithNotion') }}
         </NButton>
       </section>
 
@@ -100,7 +101,7 @@ function signInWithOtp() {
         >
           <NInput
             v-model:value="formValue.email"
-            placeholder="Enter your email address..."
+            :placeholder="t('login.emailPlaceholder')"
             clearable
           />
         </NFormItem>
@@ -110,7 +111,7 @@ function signInWithOtp() {
           class="mb-2"
         >
           <div text-center>
-            我们刚刚向您发送了一个登录邮件，请检查您的收件箱。
+            {{ t('login.emailSended') }}
           </div>
         </NFormItem>
 
@@ -121,7 +122,7 @@ function signInWithOtp() {
           :loading="loading"
           @click="signInWithOtp"
         >
-          Continue with email
+          {{ t('login.continueWithEmail') }}
         </NButton>
       </NForm>
     </section>

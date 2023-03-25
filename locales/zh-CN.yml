@@ -1,0 +1,59 @@
+assistant:
+  capture: 剪藏
+  drag-tip: 拖放到这里
+  drop-tip: 松开以完成收藏
+  inputToken: 请先输入 Token
+  pin: 窗口总是在最上方
+  title: 剪藏到 Firefly
+  unpin: 关闭窗口总是在最上方
+block:
+  blocks: 条数据
+  synced: 同步完成
+common:
+  back: 返回
+  cancel: 取消
+  copied: 已复制
+  copy: 复制
+  delete: 删除
+  deleted: 删除成功
+  edit: 编辑
+  no-result: 没有结果
+  not-found: 找不到
+  save: 保存
+  saved: 保存成功
+  updated: 更新成功
+copilot:
+  customPrompt: 自定义 Prompt
+  extractionTags: 提取标签
+  hi: Hi, 请问有什么可以帮到您
+  polishing: 润色
+  ref: Copilot 引用
+  retry: 重试
+  summarize: 文本总结
+  translate: 翻译
+editor:
+  blockquote: 引述文字
+  bold: 加粗
+  bulletList: 项目列表
+  code: 代码
+  italic: 斜体
+  orderedList: 编号列表
+  strike: 中划线
+  text: 正文
+  todoList: 待办列表
+  type: 类型
+  underline: 下划线
+login:
+  continueWithEmail: 邮箱登录
+  continueWithGithub: Github 登录
+  continueWithNotion: Notion 登录
+  emailPlaceholder: 输入你的电子邮箱地址...
+  emailRequired: 请输入 Email
+  emailSended: 我们刚刚向您发送了一个邮件，请检查您的收件箱。
+  title: 登录
+titleBar:
+  sync: 立即同步
+user:
+  generateNewToken: 生成新的 Token
+  generateToken: 生成 Token
+  logout: 退出登录

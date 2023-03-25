@@ -7,6 +7,8 @@ const props = defineProps<{
   placement?: PopoverPlacement
 }>()
 
+const { t } = useI18n()
+
 const copied = ref(false)
 async function handleCopyResult() {
   await navigator.clipboard.writeText(props.text)
@@ -33,8 +35,8 @@ async function handleCopyResult() {
             <i v-else i-ri-check-fill text-green />
           </NButton>
         </template>
-        <span v-if="!copied">复制</span>
-        <span v-else>已复制</span>
+        <span v-if="!copied">{{ t('common.copy') }}</span>
+        <span v-else>{{ t('common.copied') }}</span>
       </NTooltip>
     </div>
   </template>
@@ -55,8 +57,8 @@ async function handleCopyResult() {
             <i v-else i-ri-check-fill text-green />
           </NButton>
         </template>
-        <span v-if="!copied">复制</span>
-        <span v-else>已复制</span>
+        <span v-if="!copied">{{ t('common.copy') }}</span>
+        <span v-else>{{ t('common.copied') }}</span>
       </NTooltip>
     </div>
   </template>
@@ -73,8 +75,8 @@ async function handleCopyResult() {
           <i v-else i-ri-check-fill text-green />
         </NButton>
       </template>
-      <span v-if="!copied">复制</span>
-      <span v-else>已复制</span>
+      <span v-if="!copied">{{ t('common.copy') }}</span>
+      <span v-else>{{ t('common.copied') }}</span>
     </NTooltip>
   </template>
 </template>

@@ -5,6 +5,7 @@ const props = defineProps<{
   class?: string
 }>()
 
+const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
 
@@ -54,7 +55,7 @@ watch(() => textEditorStore.focus, (focus) => {
             textEditorStore.cancel()
           }"
         >
-          取消
+          {{ t('common.cancel') }}
         </NButton>
         <NButton
           secondary

@@ -84,6 +84,7 @@ const initialMessages: ChatMessage[] = [
 ]
 export const useCopilotStore = defineStore('copilot', {
   state: () => {
+    const { t } = useI18n()
     return {
       inputRef: null as InputInst | null,
       currentInput: '',
@@ -94,23 +95,23 @@ export const useCopilotStore = defineStore('copilot', {
       messages: initialMessages,
       types: [
         {
-          label: '自定义 Prompt',
+          label: t('copilot.customPrompt'),
           value: 'custom',
         },
         {
-          label: '翻译',
+          label: t('copilot.translate'),
           value: 'translate',
         },
         {
-          label: '润色',
+          label: t('copilot.polishing'),
           value: 'polishing',
         },
         {
-          label: '文本总结',
+          label: t('copilot.summarize'),
           value: 'summarize',
         },
         {
-          label: '提取标签',
+          label: t('copilot.extractionTags'),
           value: 'extractionTags',
         },
       ],

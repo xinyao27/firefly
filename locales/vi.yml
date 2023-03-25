@@ -1,0 +1,46 @@
+assistant:
+  capture: cắt
+  drag-tip: kéo và thả ở đây
+  drop-tip: Phát hành để hoàn thành bộ sưu tập
+  inputToken: Vui lòng nhập mã thông báo trước
+  pin: cửa sổ luôn ở trên cùng
+  title: Đoạn phim đom đóm
+  unpin: cửa sổ đóng luôn ở trên cùng
+block:
+  blocks: Dữ liệu bài viết
+  synced: đồng bộ hóa hoàn tất
+common:
+  back: trở lại
+  cancel: Hủy bỏ
+  copied: sao chép
+  copy: sao chép
+  delete: xóa bỏ
+  deleted: xóa thành công
+  edit: biên tập
+  not-found: không thể tìm thấy
+  save: cứu
+  saved: đã lưu thành công
+  updated: hoàn thành cập nhật
+copilot:
+  customPrompt: Lời nhắc tùy chỉnh
+  extractionTags: trích xuất thẻ
+  hi: Xin chào, tôi có thể giúp gì cho bạn
+  polishing: đánh bóng
+  ref: tài liệu tham khảo phi công phụ
+  retry: Thử lại
+  summarize: tóm tắt văn bản
+  translate: dịch
+login:
+  continueWithEmail: Email đăng nhập
+  continueWithGithub: đăng nhập Github
+  continueWithNotion: đăng nhập khái niệm
+  emailPlaceholder: Nhập địa chỉ email của bạn...
+  emailRequired: Vui lòng nhập Email
+  emailSended: Chúng tôi vừa gửi cho bạn một email, vui lòng kiểm tra hộp thư đến của bạn.
+  title: Đăng nhập
+titleBar:
+  sync: đồng bộ hóa ngay bây giờ
+user:
+  generateNewToken: Tạo mã thông báo mới
+  generateToken: Tạo mã thông báo
+  logout: đăng xuất

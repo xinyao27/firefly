@@ -25,7 +25,7 @@ const { t } = useI18n()
           <RouterView />
           <div>
             <NButton btn text-sm m="3 t8" @click="router.replace('/')">
-              {{ t('button.back') }}
+              {{ t('common.back') }}
             </NButton>
           </div>
         </main>

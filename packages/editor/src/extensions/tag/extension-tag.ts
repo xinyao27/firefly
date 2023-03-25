@@ -221,6 +221,7 @@ export const ExtensionTag = Node.create<TagOptions>({
 
             return false
           }
+          return undefined
         })
 
         return isTag

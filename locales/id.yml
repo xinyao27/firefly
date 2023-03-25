@@ -1,0 +1,46 @@
+assistant:
+  capture: Guntingan
+  drag-tip: seret dan lepas di sini
+  drop-tip: Rilis untuk melengkapi koleksi
+  inputToken: Masukkan token terlebih dahulu
+  pin: jendela selalu di atas
+  title: Klip ke Firefly
+  unpin: tutup jendela selalu di atas
+block:
+  blocks: Data artikel
+  synced: sinkronisasi selesai
+common:
+  back: kembali
+  cancel: Membatalkan
+  copied: disalin
+  copy: menyalin
+  delete: menghapus
+  deleted: berhasil dihapus
+  edit: sunting
+  not-found: tidak dapat menemukan
+  save: menyimpan
+  saved: Berhasil disimpan
+  updated: pembaruan selesai
+copilot:
+  customPrompt: Permintaan Kustom
+  extractionTags: ekstrak tag
+  hi: Hai, apa yang bisa saya bantu
+  polishing: Polandia
+  ref: Referensi kopilot
+  retry: Mencoba kembali
+  summarize: ringkasan teks
+  translate: menerjemahkan
+login:
+  continueWithEmail: Masuk Email
+  continueWithGithub: Login Github
+  continueWithNotion: Login pengertian
+  emailPlaceholder: Masukkan alamat email Anda...
+  emailRequired: Silakan masukkan Email
+  emailSended: Kami baru saja mengirimi Anda email, silakan periksa kotak masuk Anda.
+  title: Gabung
+titleBar:
+  sync: sinkronkan sekarang
+user:
+  generateNewToken: Hasilkan token baru
+  generateToken: Hasilkan Token
+  logout: keluar

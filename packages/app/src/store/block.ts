@@ -32,6 +32,7 @@ export const useBlockStore = defineStore('block', {
       this.blocks = await this.find()
     },
     async sync({ lastUpdatedAt, lastBlockId }: { lastUpdatedAt?: Date; lastBlockId?: BlockId } = {}, refresh = true) {
+      const { t } = useI18n()
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastBlockId }), 200)
       try {
@@ -67,7 +68,7 @@ export const useBlockStore = defineStore('block', {
           if (refresh)
             await this.refresh()
 
-          $message.success(`同步了 ${response.data.length} 条数据`)
+          $message.success(`${t('block.synced')} ${response.data.length} ${t('block.blocks')}`)
         }
 
         const params = new URLSearchParams(document.location.search)
@@ -87,6 +88,7 @@ export const useBlockStore = defineStore('block', {
     },
     async save(data: BlockModel) {
       try {
+        const { t } = useI18n()
         const response = await supabase.functions.invoke('blocks', {
           method: 'POST',
           body: data,
@@ -95,7 +97,7 @@ export const useBlockStore = defineStore('block', {
           throw new Error(response.error.message)
 
         await this.sync()
-        $message.success('保存成功')
+        $message.success(t('common.saved'))
       }
       catch (error: any) {
         console.error(error)
@@ -104,6 +106,7 @@ export const useBlockStore = defineStore('block', {
     },
     async update(data: BlockModel) {
       try {
+        const { t } = useI18n()
         const response = await supabase.functions.invoke('blocks', {
           method: 'PUT',
           body: data,
@@ -113,7 +116,7 @@ export const useBlockStore = defineStore('block', {
 
         await (await db).put('blocks', response.data.data)
         await this.sync()
-        $message.success('更新成功')
+        $message.success(t('common.updated'))
       }
       catch (error: any) {
         console.error(error)
@@ -122,11 +125,12 @@ export const useBlockStore = defineStore('block', {
     },
     async delete(id: BlockId) {
       try {
+        const { t } = useI18n()
         const response = await supabase.from('blocks').delete().eq('id', id)
         if (response.error)
           throw new Error(response.error.message)
 
-        $message.success('删除成功')
+        $message.success(t('common.deleted'))
 
         await (await db).delete('blocks', id)
         await this.refresh()

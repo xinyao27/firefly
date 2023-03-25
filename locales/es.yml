@@ -1,0 +1,48 @@
+assistant:
+  capture: Recorte
+  drag-tip: arrastra y suelta aquí
+  drop-tip: Liberar para completar la colección
+  inputToken: Por favor ingrese el token primero
+  pin: la ventana siempre está arriba
+  title: Clip a luciérnaga
+  unpin: cerrar la ventana siempre está en la parte superior
+block:
+  blocks: Datos del artículo
+  synced: sincronización completa
+common:
+  back: devolver
+  cancel: Cancelar
+  copied: copiado
+  copy: Copiar
+  delete: borrar
+  deleted: eliminado con éxito
+  edit: editar
+  not-found: no puedo encontrar
+  save: ahorrar
+  saved: Guardado exitosamente
+  updated: actualización completada
+copilot:
+  customPrompt: Avisos personalizados
+  extractionTags: extraer etiquetas
+  hi: Hola, como puedo ayudarte
+  polishing: polaco
+  ref: Referencia copiloto
+  retry: Rever
+  summarize: resumen de texto
+  translate: traducir
+login:
+  continueWithEmail: Correo electrónico de inicio de sesión
+  continueWithGithub: Inicio de sesión en Github
+  continueWithNotion: Noción de inicio de sesión
+  emailPlaceholder: Introduzca su dirección de correo electrónico...
+  emailRequired: Por favor ingrese correo electrónico
+  emailSended: >-
+    Te acabamos de enviar un correo electrónico, por favor revisa tu bandeja de
+    entrada.
+  title: Acceso
+titleBar:
+  sync: sincronizar ahora
+user:
+  generateNewToken: Generar un nuevo token
+  generateToken: Generar token
+  logout: desconectar

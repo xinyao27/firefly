@@ -1,0 +1,46 @@
+assistant:
+  capture: Obrzynek
+  drag-tip: przeciągnij i upuść tutaj
+  drop-tip: Zwolnij, aby zakończyć kolekcję
+  inputToken: Najpierw wprowadź token
+  pin: okno jest zawsze na górze
+  title: Klip do Firefly
+  unpin: zamknij okno jest zawsze na górze
+block:
+  blocks: Dane artykułu
+  synced: synchronizacja zakończona
+common:
+  back: powrót
+  cancel: Anulować
+  copied: skopiowane
+  copy: Kopiuj
+  delete: usuwać
+  deleted: pomyślnie usunięte
+  edit: edytować
+  not-found: nie mogę znaleźć
+  save: ratować
+  saved: Zapisano pomyślnie
+  updated: aktualizacja zakończona
+copilot:
+  customPrompt: Niestandardowe podpowiedzi
+  extractionTags: wyodrębnij tagi
+  hi: Cześc, jak mogę Ci pomóc
+  polishing: polski
+  ref: Odniesienie do drugiego pilota
+  retry: Spróbować ponownie
+  summarize: streszczenie tekstu
+  translate: Tłumaczyć
+login:
+  continueWithEmail: Zaloguj się e-mailem
+  continueWithGithub: Logowanie do Githuba
+  continueWithNotion: Logowanie do pojęcia
+  emailPlaceholder: Wpisz swój adres e-mail...
+  emailRequired: Wprowadź adres e-mail
+  emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.
+  title: Zaloguj sie
+titleBar:
+  sync: Synchronizuj teraz
+user:
+  generateNewToken: Wygeneruj nowy token
+  generateToken: Wygeneruj token
+  logout: Wyloguj się

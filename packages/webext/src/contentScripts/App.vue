@@ -5,6 +5,8 @@ import { clearContent } from '@firefly/common'
 import { MESSAGE_API } from '~/constants'
 import { getPageMetadata } from '~/utils'
 
+const { t } = useI18n()
+
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseFunctionsUrl = import.meta.env.VITE_SUPABASE_FUNCTIONS_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -94,7 +96,7 @@ function handleBeforeMount() {
       <template #empty>
         <!-- title -->
         <div text-center text-lg text-white font-semibold mb-3>
-          剪藏到 Firefly
+          {{ t('assistant.title') }}
         </div>
         <div
           p-6 rounded-sm border border-dashed transition leading-1em bg-opacity-30
@@ -114,7 +116,7 @@ function handleBeforeMount() {
               i-ri-upload-cloud-2-line
               text-lg block
             />
-            {{ dragIn ? '松开以完成收藏' : '拖放到这里' }}
+            {{ dragIn ? t('assistant.drop-tip') : t('assistant.drag-tip') }}
           </div>
         </div>
       </template>

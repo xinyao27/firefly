@@ -1,0 +1,46 @@
+assistant:
+  capture: ამოჭრა
+  drag-tip: გადაათრიეთ და ჩამოაგდეთ აქ
+  drop-tip: გამოშვება კოლექციის დასასრულებლად
+  inputToken: გთხოვთ, ჯერ შეიყვანოთ ჟეტონი
+  pin: ფანჯარა ყოველთვის თავზეა
+  title: კლიპი Firefly-ზე
+  unpin: ფანჯრის დახურვა ყოველთვის თავზეა
+block:
+  blocks: სტატიის მონაცემები
+  synced: სინქრონიზაცია დასრულებულია
+common:
+  back: დაბრუნების
+  cancel: გაუქმება
+  copied: გადაწერა
+  copy: კოპირება
+  delete: წაშლა
+  deleted: წარმატებით წაიშალა
+  edit: რედაქტირება
+  not-found: ვერ პოულობს
+  save: გადარჩენა
+  saved: შენახულია წარმატებით
+  updated: განახლება დასრულდა
+copilot:
+  customPrompt: მორგებული მოთხოვნა
+  extractionTags: ამონაწერი ტეგები
+  hi: Გამარჯობა, რით შემიძლია დაგეხმაროთ
+  polishing: პოლონური
+  ref: კოპილოტის მითითება
+  retry: ხელახლა სცადეთ
+  summarize: ტექსტის შეჯამება
+  translate: თარგმნა
+login:
+  continueWithEmail: ელ.ფოსტის შესვლა
+  continueWithGithub: Github შესვლა
+  continueWithNotion: ცნება შესვლა
+  emailPlaceholder: შეიყვანეთ თქვენი ელფოსტის მისამართი...
+  emailRequired: გთხოვთ შეიყვანოთ ელფოსტა
+  emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.
+  title: Შესვლა
+titleBar:
+  sync: სინქრონიზაცია ახლა
+user:
+  generateNewToken: შექმენით ახალი ჟეტონი
+  generateToken: ტოკენის გენერირება
+  logout: სისტემიდან გამოსვლა

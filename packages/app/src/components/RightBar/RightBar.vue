@@ -2,6 +2,7 @@
 import type { InputInst, MentionOption, ScrollbarInst } from 'naive-ui'
 import { clearHTMLTags } from '@firefly/common'
 
+const { t } = useI18n()
 const copilotStore = useCopilotStore()
 const blockStore = useBlockStore()
 const promptRef = ref<InputInst>()
@@ -87,7 +88,7 @@ watch(() => copilotStore.currentError, (currentError) => {
     >
       <div flex justify-start overflow-hidden break-words mb-4>
         <section class="p-3 border border-(slate opacity-15) rounded">
-          Hi, 请问有什么可以帮到您
+          {{ t('copilot.hi') }}
         </section>
       </div>
       <div
@@ -120,7 +121,7 @@ watch(() => copilotStore.currentError, (currentError) => {
           size="small"
           @click="handleRetry"
         >
-          重试
+          {{ t('copilot.retry') }}
         </NButton>
       </section>
     </NScrollbar>

@@ -7,23 +7,23 @@ const props = defineProps<{
   data: BlockModel
 }>()
 
+const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const blockStore = useBlockStore()
-const configStore = useConfigStore()
 const copilotStore = useCopilotStore()
 const router = useRouter()
 const el = ref<HTMLDivElement>()
 
 const options: DropdownOption[] = [
   {
-    label: '编辑',
+    label: t('common.edit'),
     key: 'edit',
     onClick() {
       textEditorStore.open('update', props.data)
     },
   },
   {
-    label: '删除',
+    label: t('common.delete'),
     key: 'delete',
     onClick() {
       if (props.data.id)
@@ -92,7 +92,7 @@ onMounted(() => {
               <i i-tabler-brain />
             </NButton>
           </template>
-          Copilot 引用
+          {{ t('copilot.ref') }}
         </NTooltip>
         <NDropdown
           size="small"

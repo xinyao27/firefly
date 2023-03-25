@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { dirname, relative } from 'path'
+import { dirname, relative } from 'node:path'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
@@ -72,7 +72,8 @@ export const sharedConfig: UserConfig = {
     VueI18n({
       runtimeOnly: true,
       compositionOnly: true,
-      include: [r('locales/**')],
+      fullInstall: true,
+      include: [r('../..', 'locales/**')],
     }),
 
     // https://github.com/antfu/vite-plugin-inspect

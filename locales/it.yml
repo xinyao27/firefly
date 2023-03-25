@@ -1,0 +1,46 @@
+assistant:
+  capture: Ritaglio
+  drag-tip: trascina e rilascia qui
+  drop-tip: Rilascio per completare la raccolta
+  inputToken: Inserisci prima il token
+  pin: la finestra è sempre in primo piano
+  title: Aggancia a Firefly
+  unpin: la finestra chiusa è sempre in primo piano
+block:
+  blocks: Dati articolo
+  synced: sincronizzazione completata
+common:
+  back: ritorno
+  cancel: Annulla
+  copied: copiato
+  copy: copia
+  delete: eliminare
+  deleted: eliminato con successo
+  edit: modificare
+  not-found: non riesco a trovare
+  save: salva
+  saved: Salvato con successo
+  updated: aggiornamento completato
+copilot:
+  customPrompt: Prompt personalizzati
+  extractionTags: estrarre i tag
+  hi: Ciao come posso aiutarti
+  polishing: polacco
+  ref: Riferimento copilota
+  retry: Riprova
+  summarize: sintesi testuale
+  translate: tradurre
+login:
+  continueWithEmail: E-mail di accesso
+  continueWithGithub: Accesso Github
+  continueWithNotion: Accesso alla nozione
+  emailPlaceholder: Inserisci il tuo indirizzo email...
+  emailRequired: Inserisci l'e-mail
+  emailSended: Ti abbiamo appena inviato un'email, controlla la tua casella di posta.
+  title: Login
+titleBar:
+  sync: sincronizza ora
+user:
+  generateNewToken: Genera un nuovo token
+  generateToken: Genera token
+  logout: disconnessione

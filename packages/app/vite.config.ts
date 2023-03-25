@@ -79,7 +79,8 @@ export default defineConfig({
     VueI18n({
       runtimeOnly: true,
       compositionOnly: true,
-      include: [resolve('locales/**')],
+      fullInstall: true,
+      include: [resolve('../..', 'locales/**')],
     }),
 
     // https://github.com/antfu/vite-plugin-inspect

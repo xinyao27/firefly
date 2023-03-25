@@ -1,0 +1,46 @@
+assistant:
+  capture: 깎는
+  drag-tip: 여기로 드래그 앤 드롭
+  drop-tip: 출시하여 컬렉션 완료
+  inputToken: 먼저 토큰을 입력하세요
+  pin: 창은 항상 위에 있습니다
+  title: 클립 투 파이어플라이
+  unpin: 닫기 창은 항상 맨 위에 있습니다.
+block:
+  blocks: 기사 데이터
+  synced: 동기화 완료
+common:
+  back: 반품
+  cancel: 취소
+  copied: 복사
+  copy: 복사
+  delete: 삭제
+  deleted: 성공적으로 삭제
+  edit: 편집하다
+  not-found: 찾을 수 없습니다
+  save: 구하다
+  saved: 성공적으로 저장 되었음
+  updated: 업데이트 완료
+copilot:
+  customPrompt: 사용자 정의 프롬프트
+  extractionTags: 태그 추출
+  hi: 안녕하세요 어떻게 도와 드릴까요
+  polishing: 광택
+  ref: 부조종사 참조
+  retry: 다시 해 보다
+  summarize: 텍스트 요약
+  translate: 번역하다
+login:
+  continueWithEmail: 이메일 로그인
+  continueWithGithub: Github 로그인
+  continueWithNotion: 노션 로그인
+  emailPlaceholder: 당신의 이메일 주소를 입력 해주세요...
+  emailRequired: 이메일을 입력하세요
+  emailSended: 방금 이메일을 보냈습니다. 받은 편지함을 확인하십시오.
+  title: 로그인
+titleBar:
+  sync: 지금 동기화
+user:
+  generateNewToken: 새 토큰 생성
+  generateToken: 토큰 생성
+  logout: 로그아웃
