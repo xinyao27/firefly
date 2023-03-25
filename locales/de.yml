@@ -46,12 +46,14 @@ editor:
 login:
   continueWithEmail: E-Mail-Anmeldung
   continueWithGithub: Github-Anmeldung
+  continueWithLoginCode: Login-Code Login
   continueWithNotion: Begriff anmelden
   emailPlaceholder: Geben sie ihre E-Mailadresse ein...
   emailRequired: Bitte E-Mail eingeben
   emailSended: >-
     Wir haben Ihnen gerade eine E-Mail gesendet, bitte überprüfen Sie Ihren
     Posteingang.
+  loginCodePlaceholder: Fügen Sie den Anmeldecode ein
   title: Anmeldung
 titleBar:
   sync: jetzt synchronisieren

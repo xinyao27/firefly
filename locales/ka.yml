@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: ელ.ფოსტის შესვლა
   continueWithGithub: Github შესვლა
+  continueWithLoginCode: შესვლის კოდი შესვლა
   continueWithNotion: ცნება შესვლა
   emailPlaceholder: შეიყვანეთ თქვენი ელფოსტის მისამართი...
   emailRequired: გთხოვთ შეიყვანოთ ელფოსტა
   emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.
+  loginCodePlaceholder: ჩასვით შესვლის კოდი
   title: Შესვლა
 titleBar:
   sync: სინქრონიზაცია ახლა

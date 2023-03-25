@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: Email đăng nhập
   continueWithGithub: đăng nhập Github
+  continueWithLoginCode: Mã đăng nhập Đăng nhập
   continueWithNotion: đăng nhập khái niệm
   emailPlaceholder: Nhập địa chỉ email của bạn...
   emailRequired: Vui lòng nhập Email
   emailSended: Chúng tôi vừa gửi cho bạn một email, vui lòng kiểm tra hộp thư đến của bạn.
+  loginCodePlaceholder: Dán mã đăng nhập
   title: Đăng nhập
 titleBar:
   sync: đồng bộ hóa ngay bây giờ

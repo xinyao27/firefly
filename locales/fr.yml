@@ -46,12 +46,14 @@ editor:
 login:
   continueWithEmail: Connexion par e-mail
   continueWithGithub: Connexion Github
+  continueWithLoginCode: Connexion par code de connexion
   continueWithNotion: Connexion notionnelle
   emailPlaceholder: Entrez votre adresse email...
   emailRequired: Veuillez saisir un e-mail
   emailSended: >-
     Nous venons de vous envoyer un e-mail, veuillez vérifier votre boîte de
     réception.
+  loginCodePlaceholder: Collez le code de connexion
   title: Connexion
 titleBar:
   sync: synchroniser maintenant

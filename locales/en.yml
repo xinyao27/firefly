@@ -44,12 +44,14 @@ editor:
   type: type
   underline: underline
 login:
-  continueWithEmail: Email Login
-  continueWithGithub: Github login
-  continueWithNotion: Notion login
+  continueWithEmail: Continue with Email
+  continueWithGithub: Continue with Github
+  continueWithLoginCode: Continue with Login Code
+  continueWithNotion: Continue with Notion
   emailPlaceholder: Enter your email address...
   emailRequired: Please enter Email
-  emailSended: We just sent you an email, please check your inbox.
+  emailSended: We just sent you a temporary login code. Please check your inbox.
+  loginCodePlaceholder: Paste the login code
   title: Log in
 titleBar:
   sync: sync now

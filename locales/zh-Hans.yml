@@ -44,8 +44,10 @@ editor:
   type: 类型
   underline: 下划线
 login:
+  loginCodePlaceholder: 粘贴 login code
   continueWithEmail: 邮箱登录
   continueWithGithub: Github 登录
+  continueWithLoginCode: Login Code 登录
   continueWithNotion: Notion 登录
   emailPlaceholder: 输入你的电子邮箱地址...
   emailRequired: 请输入 Email

@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: 이메일 로그인
   continueWithGithub: Github 로그인
+  continueWithLoginCode: 로그인 코드 로그인
   continueWithNotion: 노션 로그인
   emailPlaceholder: 당신의 이메일 주소를 입력 해주세요...
   emailRequired: 이메일을 입력하세요
   emailSended: 방금 이메일을 보냈습니다. 받은 편지함을 확인하십시오.
+  loginCodePlaceholder: 로그인 코드 붙여넣기
   title: 로그인
 titleBar:
   sync: 지금 동기화

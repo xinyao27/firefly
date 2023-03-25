@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: E-mail di accesso
   continueWithGithub: Accesso Github
+  continueWithLoginCode: Codice di accesso Accedi
   continueWithNotion: Accesso alla nozione
   emailPlaceholder: Inserisci il tuo indirizzo email...
   emailRequired: Inserisci l'e-mail
   emailSended: Ti abbiamo appena inviato un'email, controlla la tua casella di posta.
+  loginCodePlaceholder: Incolla il codice di accesso
   title: Login
 titleBar:
   sync: sincronizza ora

@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: Zaloguj się e-mailem
   continueWithGithub: Logowanie do Githuba
+  continueWithLoginCode: Kod logowania Zaloguj się
   continueWithNotion: Logowanie do pojęcia
   emailPlaceholder: Wpisz swój adres e-mail...
   emailRequired: Wprowadź adres e-mail
   emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.
+  loginCodePlaceholder: Wklej kod logowania
   title: Zaloguj sie
 titleBar:
   sync: Synchronizuj teraz

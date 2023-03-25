@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: E-posta Girişi
   continueWithGithub: Github girişi
+  continueWithLoginCode: Giriş Kodu Giriş
   continueWithNotion: kavram girişi
   emailPlaceholder: E-posta adresinizi giriniz...
   emailRequired: Lütfen e-posta giriniz
   emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.
+  loginCodePlaceholder: Giriş kodunu yapıştırın
   title: Giriş yapmak
 titleBar:
   sync: şimdi senkronize et

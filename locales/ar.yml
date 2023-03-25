@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
   continueWithGithub: تسجيل الدخول إلى جيثب
+  continueWithLoginCode: رمز تسجيل الدخول تسجيل الدخول
   continueWithNotion: فكرة تسجيل الدخول
   emailPlaceholder: أدخل عنوان بريدك الالكتروني...
   emailRequired: الرجاء إدخال البريد الإلكتروني
   emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.
+  loginCodePlaceholder: الصق رمز تسجيل الدخول
   title: تسجيل الدخول
 titleBar:
   sync: زامن الآن "لنقل البيانات

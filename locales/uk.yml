@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: Вхід електронною поштою
   continueWithGithub: Вхід на Github
+  continueWithLoginCode: Код входу Логін
   continueWithNotion: Поняття входу
   emailPlaceholder: Введіть адресу вашої електронної пошти...
   emailRequired: Введіть адресу електронної пошти
   emailSended: Ми щойно надіслали вам електронний лист, перевірте свою поштову скриньку.
+  loginCodePlaceholder: Вставте код входу
   title: авторизуватися
 titleBar:
   sync: синхронізувати зараз

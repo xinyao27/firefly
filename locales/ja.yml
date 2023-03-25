@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: メールログイン
   continueWithGithub: GitHub ログイン
+  continueWithLoginCode: ログインコードログイン
   continueWithNotion: 概念ログイン
   emailPlaceholder: メールアドレスを入力してください...
   emailRequired: メールアドレスを入力してください
   emailSended: メールを送信しました。受信トレイを確認してください。
+  loginCodePlaceholder: ログインコードを貼り付けます
   title: ログイン
 titleBar:
   sync: 今すぐ同期

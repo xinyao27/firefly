@@ -46,10 +46,12 @@ editor:
 login:
   continueWithEmail: Masuk Email
   continueWithGithub: Login Github
+  continueWithLoginCode: Masuk Kode Masuk
   continueWithNotion: Login pengertian
   emailPlaceholder: Masukkan alamat email Anda...
   emailRequired: Silakan masukkan Email
   emailSended: Kami baru saja mengirimi Anda email, silakan periksa kotak masuk Anda.
+  loginCodePlaceholder: Tempel kode login
   title: Gabung
 titleBar:
   sync: sinkronkan sekarang
