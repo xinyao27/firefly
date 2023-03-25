@@ -58,4 +58,5 @@ titleBar:
 user:
   generateNewToken: Generieren Sie ein neues Token
   generateToken: Token generieren
+  language: Sprache
   logout: austragen

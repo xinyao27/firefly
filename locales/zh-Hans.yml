@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: 生成新的 Token
   generateToken: 生成 Token
+  language: 语言
   logout: 退出登录

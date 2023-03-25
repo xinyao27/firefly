@@ -58,4 +58,5 @@ titleBar:
 user:
   generateNewToken: Générer un nouveau jeton
   generateToken: Générer un jeton
+  language: langue
   logout: se déconnecter

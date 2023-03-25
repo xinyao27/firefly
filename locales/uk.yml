@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: Згенеруйте новий маркер
   generateToken: Згенерувати маркер
+  language: мова
   logout: вийти з аккаунта

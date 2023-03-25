@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: إنشاء رمز جديد
   generateToken: توليد رمز
+  language: لغة
   logout: خروج

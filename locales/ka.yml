@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: შექმენით ახალი ჟეტონი
   generateToken: ტოკენის გენერირება
+  language: ენა
   logout: სისტემიდან გამოსვლა

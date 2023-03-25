@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: Tạo mã thông báo mới
   generateToken: Tạo mã thông báo
+  language: ngôn ngữ
   logout: đăng xuất

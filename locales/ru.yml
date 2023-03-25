@@ -58,4 +58,5 @@ titleBar:
 user:
   generateNewToken: Создать новый токен
   generateToken: Создать токен
+  language: язык
   logout: выход

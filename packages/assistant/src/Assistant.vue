@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
-import { Logo, clearContent } from '@firefly/common'
+import { Logo, Spin, clearContent } from '@firefly/common'
 import EditorCore from '@firefly/editor'
 import { createClient } from '@supabase/supabase-js'
 import type { Editor } from '@tiptap/core'
@@ -101,7 +101,7 @@ async function handleSave() {
 
 <template>
   <div
-    flex font-sans leading-1em pointer-events-initial items-end select-none p-3
+    font-sans leading-1em pointer-events-initial items-end select-none p-3
     :class="props.class"
   >
     <div

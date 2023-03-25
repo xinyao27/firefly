@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: 新しいトークンを生成する
   generateToken: トークンを生成
+  language: 言語
   logout: サインアウト

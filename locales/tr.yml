@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: Yeni bir belirteç oluştur
   generateToken: Belirteç Oluştur
+  language: dil
   logout: oturumu Kapat

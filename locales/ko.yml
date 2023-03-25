@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: 새 토큰 생성
   generateToken: 토큰 생성
+  language: 언어
   logout: 로그아웃

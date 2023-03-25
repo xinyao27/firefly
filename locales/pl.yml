@@ -56,4 +56,5 @@ titleBar:
 user:
   generateNewToken: Wygeneruj nowy token
   generateToken: Wygeneruj token
+  language: język
   logout: Wyloguj się

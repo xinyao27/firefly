@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createPinia } from 'pinia'
-import { createI18n } from 'vue-i18n'
 import type { RouteLocationNormalized } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
@@ -12,6 +11,7 @@ import App from './App.vue'
 import generatedRoutes from '~pages'
 import '@total-typescript/ts-reset'
 import { initDB } from '~/db'
+import i18nInstance from '~/i18n'
 
 import 'uno.css'
 import './styles/normalize.css'
@@ -33,22 +33,11 @@ const routes = setupLayouts(generatedRoutes)
 const router = createRouter({ history, routes })
 const routeHistory: RouteLocationNormalized[] = []
 const pinia = createPinia()
-const blocks = Object.fromEntries(Object.entries(import.meta.glob<{ default: any }>('../../../locales/*.y(a)?ml', { eager: true }))
-  .map(([key, value]) => {
-    const yaml = key.endsWith('.yaml')
-    return [key.slice(14, yaml ? -5 : -4), value.default]
-  }))
-
-const i18n = createI18n({
-  legacy: false,
-  locale: 'en',
-  blocks,
-})
 
 const app = createApp(App)
 app.use(router)
 app.use(pinia)
-app.use(i18n)
+app.use(i18nInstance)
 
 router.beforeEach((to, from) => {
   if (to.path !== from.path)

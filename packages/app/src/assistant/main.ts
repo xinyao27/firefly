@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
-import { createI18n } from 'vue-i18n'
 import App from './App.vue'
+import i18nInstance from './i18n'
 
 import 'uno.css'
 import '../styles/normalize.css'
@@ -13,12 +13,7 @@ if (setting === 'dark' || (prefersDark && setting !== 'light'))
 
 document.oncontextmenu = () => false
 
-const i18n = createI18n({
-  legacy: false,
-  locale: 'en',
-})
-
 const app = createApp(App)
-app.use(i18n)
+app.use(i18nInstance)
 
 app.mount('#app')

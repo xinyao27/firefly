@@ -1,7 +1,6 @@
 {
   "extends": "@chenyueban/tsconfig",
   "compilerOptions": {
-    "moduleResolution": "bundler",
     "baseUrl": "./packages",
     "paths": {
       "@firefly/*": ["packages/*/src"]
