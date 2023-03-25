@@ -35,7 +35,6 @@ function handleSelect(_: string, option: DropdownOption) {
   (option.onClick as () => void)?.()
 }
 function handleCopilot() {
-  // 目前就是选择当前 block 的内容
   if (el.value) {
     const selection = window.getSelection()
     const range = document.createRange()
@@ -43,8 +42,7 @@ function handleCopilot() {
     selection?.removeAllRanges()
     selection?.addRange(range)
 
-    if (configStore.isMobileScreen)
-      copilotStore.open(selection?.toString() || '')
+    copilotStore.open(selection?.toString() || '')
   }
 }
 
@@ -94,7 +92,7 @@ onMounted(() => {
               <i i-tabler-brain />
             </NButton>
           </template>
-          AI 分析
+          Copilot 引用
         </NTooltip>
         <NDropdown
           size="small"

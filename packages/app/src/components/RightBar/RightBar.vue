@@ -55,6 +55,10 @@ function handleRetry() {
     copilotStore.chat()
   }
 }
+function handleEnter(e: KeyboardEvent) {
+  if (e.ctrlKey || e.metaKey)
+    handleAskCopilot()
+}
 const handleSmoothToBottom = useThrottleFn(() => {
   nextTick(() => {
     // @ts-expect-error noop
@@ -145,9 +149,7 @@ watch(() => copilotStore.currentError, (currentError) => {
           :options="referenceOptions"
           :render-label="handleRenderLabel"
           @search="handleSearchReference"
-          @keydown.enter="e => {
-            if (e.ctrlKey) handleAskCopilot()
-          }"
+          @keydown.enter="handleEnter"
         />
         <NTooltip v-if="!copilotStore.loading">
           <template #trigger>

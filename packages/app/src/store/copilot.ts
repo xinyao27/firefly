@@ -17,70 +17,70 @@ interface Context {
   messages: ChatMessage[]
 }
 const initialMessages: ChatMessage[] = [
-  {
-    role: 'system',
-    content: '欢迎使用 Copilot',
-  },
-  {
-    role: 'system',
-    content: '请在下方输入框输入您的问题',
-  },
-  {
-    role: 'system',
-    content: 'Copilot 将为您提供最佳的解决方案',
-  },
-  {
-    role: 'system',
-    content: '您可以通过点击右下角的按钮来切换 Copilot 的模式',
-  },
-  {
-    role: 'user',
-    content: '你好',
-  },
-  {
-    role: 'assistant',
-    content: '你好，我是 Copilot',
-  },
-  {
-    role: 'user',
-    content: '我想问一下，你是谁？',
-  },
-  {
-    role: 'assistant',
-    content: '我是 Copilot，你可以通过我来解决你的问题',
-  },
-  {
-    role: 'user',
-    content: '你能解决什么问题',
-  },
-  {
-    role: 'assistant',
-    content: '我可以解决你的任何问题',
-  },
-  {
-    role: 'user',
-    content: '宇宙有多大',
-  },
-  {
-    role: 'assistant',
-    content: '宇宙的大小是无穷的',
-  },
-  {
-    role: 'user',
-    content: '你是怎么知道的',
-  },
-  {
-    role: 'assistant',
-    content: '我是通过 Google 搜索得到的',
-  },
-  {
-    role: 'user',
-    content: '你可真能啊',
-  },
-  {
-    role: 'assistant',
-    content: '谢谢夸奖',
-  },
+  // {
+  //   role: 'system',
+  //   content: '欢迎使用 Copilot',
+  // },
+  // {
+  //   role: 'system',
+  //   content: '请在下方输入框输入您的问题',
+  // },
+  // {
+  //   role: 'system',
+  //   content: 'Copilot 将为您提供最佳的解决方案',
+  // },
+  // {
+  //   role: 'system',
+  //   content: '您可以通过点击右下角的按钮来切换 Copilot 的模式',
+  // },
+  // {
+  //   role: 'user',
+  //   content: '你好',
+  // },
+  // {
+  //   role: 'assistant',
+  //   content: '你好，我是 Copilot',
+  // },
+  // {
+  //   role: 'user',
+  //   content: '我想问一下，你是谁？',
+  // },
+  // {
+  //   role: 'assistant',
+  //   content: '我是 Copilot，你可以通过我来解决你的问题',
+  // },
+  // {
+  //   role: 'user',
+  //   content: '你能解决什么问题',
+  // },
+  // {
+  //   role: 'assistant',
+  //   content: '我可以解决你的任何问题',
+  // },
+  // {
+  //   role: 'user',
+  //   content: '宇宙有多大',
+  // },
+  // {
+  //   role: 'assistant',
+  //   content: '宇宙的大小是无穷的',
+  // },
+  // {
+  //   role: 'user',
+  //   content: '你是怎么知道的',
+  // },
+  // {
+  //   role: 'assistant',
+  //   content: '我是通过 Google 搜索得到的',
+  // },
+  // {
+  //   role: 'user',
+  //   content: '你可真能啊',
+  // },
+  // {
+  //   role: 'assistant',
+  //   content: '谢谢夸奖',
+  // },
 ]
 export const useCopilotStore = defineStore('copilot', {
   state: () => {
@@ -120,10 +120,12 @@ export const useCopilotStore = defineStore('copilot', {
     }
   },
   actions: {
-    open() {
+    open(content: string) {
       const configStore = useConfigStore()
       if (configStore.isMobileScreen)
         configStore.rightBarShow = true
+      this.currentInput = `"${content}" `
+      this.inputRef?.focus()
     },
     archiveCurrentMessage() {
       if (this.currentAssistantMessage) {
@@ -192,7 +194,7 @@ export const useCopilotStore = defineStore('copilot', {
       }
       this.archiveCurrentMessage()
     },
-    async abort() {
+    abort() {
       this.controller?.abort()
     },
   },
