@@ -28,7 +28,7 @@ watch(() => textEditorStore.focus, (focus) => {
 
 <template>
   <div
-    class="m-4 p-4 pb-2 flex flex-col gap-2 bg-(slate opacity-15) rounded-sm transition cursor-text"
+    class="m-4 p-4 pb-2 flex flex-col gap-2 bg-(slate opacity-15) hover:bg-opacity-20 rounded-sm transition cursor-text"
     :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary' : '']"
     @click="textEditorStore.toggleFocus"
   >
@@ -64,7 +64,7 @@ watch(() => textEditorStore.focus, (focus) => {
           :disabled="!textEditorStore.value || textEditorStore.loading"
           @click="textEditorStore.save"
         >
-          <i i-ri-send-plane-fill />
+          <i i-ri-send-plane-2-fill />
         </NButton>
       </div>
     </div>
