@@ -94,7 +94,7 @@ function handleBeforeMount() {
       <template #empty>
         <!-- title -->
         <div text-center text-lg text-white font-semibold mb-3>
-          收集到 Firefly
+          剪藏到 Firefly
         </div>
         <div
           p-6 rounded-sm border border-dashed transition leading-1em bg-opacity-30

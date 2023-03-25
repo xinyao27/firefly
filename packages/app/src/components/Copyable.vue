@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import type { PopoverPlacement } from 'naive-ui'
+
 const props = defineProps<{
-  type: 'text' | 'area'
+  type: 'text' | 'area' | 'button'
   text: string
+  placement?: PopoverPlacement
 }>()
 
 const copied = ref(false)
@@ -18,12 +21,12 @@ async function handleCopyResult() {
   <template v-if="props.type === 'area'">
     <div class="area" relative>
       <slot />
-      <NTooltip>
+      <NTooltip :placement="props.placement">
         <template #trigger>
           <NButton
             class="copy hidden absolute top-2 right-2"
-            text
-            size="small"
+            quaternary
+            size="tiny"
             @click="handleCopyResult"
           >
             <i v-if="!copied" i-ri-file-copy-line text-neutral />
@@ -40,12 +43,12 @@ async function handleCopyResult() {
       <span max-w-50 truncate>
         <slot />
       </span>
-      <NTooltip>
+      <NTooltip :placement="props.placement">
         <template #trigger>
           <NButton
             class="copy"
-            text
-            size="small"
+            quaternary
+            size="tiny"
             @click="handleCopyResult"
           >
             <i v-if="!copied" i-ri-file-copy-line text-neutral />
@@ -56,6 +59,23 @@ async function handleCopyResult() {
         <span v-else>已复制</span>
       </NTooltip>
     </div>
+  </template>
+  <template v-if="props.type === 'button'">
+    <NTooltip :placement="props.placement">
+      <template #trigger>
+        <NButton
+          class="copy"
+          quaternary
+          size="tiny"
+          @click="handleCopyResult"
+        >
+          <i v-if="!copied" i-ri-file-copy-line text-neutral />
+          <i v-else i-ri-check-fill text-green />
+        </NButton>
+      </template>
+      <span v-if="!copied">复制</span>
+      <span v-else>已复制</span>
+    </NTooltip>
   </template>
 </template>
 

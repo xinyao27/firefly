@@ -20,10 +20,19 @@ export const themeOverrides: GlobalThemeOverrides = {
     headerColor: '#212121',
     siderColor: '#212121',
   },
+  Popover: {
+    color: 'transparent',
+    boxShadow: 'none',
+    padding: '0',
+  },
   Tooltip: {
-    color: '#000',
-    padding: '4px 6px',
-    peers: { Popover: { arrowHeight: '0' } },
+    peers: {
+      Popover: {
+        arrowHeight: '0',
+        color: '#000',
+        padding: '4px 6px',
+      },
+    },
   },
   Card: {
     titleFontSizeSmall: '14px',

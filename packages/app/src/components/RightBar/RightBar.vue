@@ -91,16 +91,19 @@ watch(() => copilotStore.currentError, (currentError) => {
         flex overflow-hidden break-words mb-4
         :justify="item.role === 'user' ? 'end' : 'start'"
       >
-        <UserMessageItem v-if="item.role === 'user'">
-          {{ item.content }}
-        </UserMessageItem>
-        <AssistantMessageItem v-else>
-          {{ item.content }}
-        </AssistantMessageItem>
+        <UserMessageItem
+          v-if="item.role === 'user'"
+          :message="item.content"
+        />
+        <AssistantMessageItem
+          v-else
+          :message="item.content"
+        />
       </div>
-      <AssistantMessageItem v-if="copilotStore.currentAssistantMessage">
-        {{ copilotStore.currentAssistantMessage }}
-      </AssistantMessageItem>
+      <AssistantMessageItem
+        v-if="copilotStore.currentAssistantMessage"
+        :message="copilotStore.currentAssistantMessage"
+      />
       <section
         v-if="copilotStore.currentError"
         class="p-3 bg-(red opacity-5) rounded"

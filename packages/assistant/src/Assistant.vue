@@ -160,10 +160,9 @@ async function handleSave() {
             :disabled="copilotLoading"
             @click="handleCopilot"
           >
-            <i
+            <Spin
               v-if="copilotLoading"
-              i-ri-loader-2-line
-              inline-block animate-spin text-primary
+              class="text-primary"
             />
             <i
               v-else
@@ -175,11 +174,7 @@ async function handleSave() {
             :disabled="loading"
             @click="handleSave"
           >
-            <i
-              v-if="loading"
-              i-ri-loader-2-line
-              inline-block animate-spin
-            />
+            <Spin v-if="loading" />
             <span v-else>保存</span>
           </button>
         </div>
