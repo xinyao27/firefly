@@ -6,7 +6,7 @@ import { computedAsync } from '@vueuse/core'
 import { computed } from 'vue'
 
 const props = defineProps(nodeViewProps)
-const block = computed(() => JSON.parse(props.node.attrs.block) as BlockModel)
+const block = computed(() => (typeof props.node.attrs.block === 'string' ? JSON.parse(props.node.attrs.block) : props.node.attrs.block) as BlockModel)
 
 async function getWebsiteMetadata(link: string) {
   try {

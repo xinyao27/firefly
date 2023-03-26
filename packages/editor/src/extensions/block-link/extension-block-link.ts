@@ -49,15 +49,15 @@ export const ExtensionBlockLink = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockLink',
-        'class': 'my-1 border border-neutral-500 rounded-sm cursor-pointer transition',
+        'class': 'border rounded-sm cursor-pointer border-neutral-500 my-1',
         'block': JSON.stringify(block),
       }),
       [
         'a',
-        { class: 'overflow-hidden grid grid-cols-12 gap-2 transition hover:bg-neutral-500 no-underline', href: block.link ?? '', target: '_blank' },
+        { class: 'grid transition gap-2 grid-cols-12 overflow-hidden hover:bg-neutral-500 no-underline', href: block.link ?? '', target: '_blank' },
         [
           'div',
-          { class: 'flex flex-col justify-between gap-2 p-4 col-span-7' },
+          { class: 'flex flex-col p-4 gap-2 col-span-7 justify-between' },
           [
             'div',
             { class: 'flex flex-col gap-2' },
@@ -68,7 +68,7 @@ export const ExtensionBlockLink = Node.create({
             ],
             [
               'div',
-              { class: 'line-clamp-2 text-neutral text-xs' },
+              { class: 'text-neutral text-xs line-clamp-2' },
               metadata?.description || metadata?.['og:description'] || metadata?.['twitter:description'] || '',
             ],
           ],
@@ -84,7 +84,7 @@ export const ExtensionBlockLink = Node.create({
         ],
         [
           'div',
-          { class: 'col-span-5 h-120px' },
+          { class: 'h-120px col-span-5' },
           [
             'img',
             {

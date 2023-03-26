@@ -2,6 +2,7 @@ import type { Editor } from '@tiptap/core'
 import { Extension } from '@tiptap/core'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import type { BlockModel } from '@firefly/common'
+import { createSupabaseClient, getFileExt, getUser, uuid } from '@firefly/common'
 import { convertBase64 } from '../../utils'
 
 function isUrl(string: string) {
@@ -63,7 +64,6 @@ export const ExtensionDrop = Extension.create({
                     position: pos.pos,
                     from: 'block',
                     block: {
-                      id: new Date().getTime().toString(),
                       category: 'link',
                       link: text,
                       content: '',
@@ -80,13 +80,26 @@ export const ExtensionDrop = Extension.create({
                     const base64 = await convertBase64(file)
                     if (base64) {
                       if (pos) {
+                        const ext = getFileExt(file.name) || 'jpg'
+                        const user = await getUser()
+                        const filename = `${user?.id}/${uuid()}.${ext}`
+                        const supabase = createSupabaseClient()
+                        const { data: { publicUrl } } = supabase
+                          .storage
+                          .from('images')
+                          .getPublicUrl(filename)
+                        const { error } = await supabase.storage
+                          .from('images')
+                          .upload(filename, file)
+                        if (error)
+                          throw error
+
                         getBlockCommand('image', editor)({
                           position: pos.pos,
                           from: 'file',
                           block: {
-                            id: new Date().getTime().toString(),
                             category: 'image',
-                            path: base64,
+                            path: publicUrl,
                             content: '',
                           },
                         })
@@ -99,7 +112,6 @@ export const ExtensionDrop = Extension.create({
                         position: pos.pos,
                         from: 'file',
                         block: {
-                          id: new Date().getTime().toString(),
                           category: 'other',
                           title: file.name,
                           content: '',

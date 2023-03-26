@@ -47,7 +47,8 @@ export const ExtensionBlockImage = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockImage',
-        'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer',
+        'class': 'border rounded-sm cursor-pointer border-neutral-500 my-1',
+        'block': JSON.stringify(block),
       }),
       [
         'img',

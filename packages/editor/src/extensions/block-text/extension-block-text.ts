@@ -47,11 +47,12 @@ export const ExtensionBlockText = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockText',
-        'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer transition',
+        'class': 'my-1 border border-neutral-500 rounded-sm cursor-pointer',
+        'block': JSON.stringify(block),
       }),
       [
         'div',
-        { class: 'whitespace-pre-line p-2' },
+        { class: 'whitespace-pre-line p-2 transition hover:bg-neutral-500' },
         block.content,
       ],
     ]

@@ -9,3 +9,13 @@ export function createSupabaseClient() {
   )
   return supabase
 }
+
+export async function getSession() {
+  const supabase = createSupabaseClient()
+  return (await supabase.auth.getSession()).data.session
+}
+
+export async function getUser() {
+  const supabase = createSupabaseClient()
+  return (await supabase.auth.getUser()).data.user
+}

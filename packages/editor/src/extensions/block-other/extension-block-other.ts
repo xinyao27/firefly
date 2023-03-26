@@ -49,32 +49,37 @@ export const ExtensionBlockOther = Node.create({
       'div',
       mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockOther',
-        'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer transition',
+        'class': 'border rounded-sm cursor-pointer border-neutral-500 my-1',
+        'block': JSON.stringify(block),
       }),
       [
         'div',
-        { class: 'p-2 flex items-center gap-2 select-none pointer-events-none' },
+        { class: 'flex p-2 transition items-center justify-between hover:bg-neutral-500' },
         [
           'div',
-          { class: 'i-ri-file-3-line block text-lg' },
-        ],
-        [
-          'div',
-          { class: 'flex flex-col' },
+          { class: 'flex gap-2 items-center select-none pointer-events-none' },
           [
             'div',
-            { class: 'flex items-center gap-2' },
+            { class: 'i-ri-attachment-line' },
+          ],
+          [
+            'div',
+            { class: 'flex flex-col' },
             [
               'div',
-              {},
+              { class: 'flex gap-2 items-center' },
               title,
             ],
+            [
+              'div',
+              { class: 'text-neutral text-xs' },
+              path,
+            ],
           ],
-          [
-            'div',
-            { class: 'text-neutral text-xs' },
-            path,
-          ],
+        ],
+        [
+          'i',
+          { class: 'i-ri-external-link-line' },
         ],
       ],
     ]
