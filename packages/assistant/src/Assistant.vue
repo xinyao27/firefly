@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
-import { Logo, Spin, clearContent } from '@firefly/common'
+import { Logo, Spin, clearContent, createSupabaseClient } from '@firefly/common'
 import EditorCore from '@firefly/editor'
-import { createClient } from '@supabase/supabase-js'
 import type { Editor } from '@tiptap/core'
 import { useToggle, useVModel } from '@vueuse/core'
 import { ref } from 'vue'
@@ -25,13 +24,9 @@ const block = useVModel(props, 'block', emit)
 const editor = useVModel(props, 'editor', emit)
 const { t } = useI18n()
 
-const supabase = createClient(
-  props.supabaseUrl,
-  props.supabaseAnonKey,
-)
-
 async function save(block: BlockModel, token: string) {
   try {
+    const supabase = createSupabaseClient()
     const { data, error } = await supabase.functions.invoke(`api/${token}`, {
       method: 'POST',
       body: block,

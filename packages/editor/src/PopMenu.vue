@@ -75,7 +75,7 @@ defineExpose({ onKeyDown })
 </script>
 
 <template>
-  <div bg-white bg-opacity-90 backdrop-blur shadow-lg rounded-sm p-2>
+  <div bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm p-2>
     <div ref="scrollBarRef" max-h-50 overflow-x-hidden overflow-y-auto>
       <template v-if="props.items.length">
         <div
@@ -83,18 +83,18 @@ defineExpose({ onKeyDown })
           :key="index"
           :ref="el => setButtonRef(el)"
           w-full p-1 rounded-sm transition flex items-center gap-2 cursor-pointer
-          :class="{ 'bg-neutral-200': index === selectedIndex }"
+          :class="{ 'bg-neutral-700': index === selectedIndex }"
           @click="handleSelectItem(index)"
           @mouseenter="selectedIndex = index"
         >
           <div
             v-if="item.icon"
-            w-10 h-10 bg-white rounded-sm flex items-center justify-center
+            w-10 h-10 bg-white text-black rounded-sm flex items-center justify-center
           >
             <component :is="item.icon" />
           </div>
           <div flex flex-col text-left>
-            <div text-neutral-800 truncate>
+            <div text-white truncate>
               {{ item.label }}
             </div>
             <div

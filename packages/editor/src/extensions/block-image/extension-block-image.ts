@@ -45,7 +45,7 @@ export const ExtensionBlockImage = Node.create({
     const block = node.attrs.block as BlockModel
     return [
       'div',
-      mergeAttributes(HTMLAttributes, {
+      mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockImage',
         'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer',
       }),

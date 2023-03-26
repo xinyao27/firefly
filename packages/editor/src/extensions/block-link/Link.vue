@@ -1,34 +1,61 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import type { BlockModel } from '@firefly/common'
+import { createSupabaseClient } from '@firefly/common'
 import { computedAsync } from '@vueuse/core'
+import { computed } from 'vue'
 
 const props = defineProps(nodeViewProps)
-const block = props.node.attrs.block as BlockModel
+const block = computed(() => JSON.parse(props.node.attrs.block) as BlockModel)
 
 async function getWebsiteMetadata(link: string) {
-  // TODO
-  console.warn(link)
+  try {
+    const supabase = createSupabaseClient()
+    const { data, error } = await supabase.functions.invoke(`metadata?url=${link}`, {
+      method: 'GET',
+    })
+    if (error)
+      throw error
+
+    props.updateAttributes({
+      block: {
+        ...block.value,
+        metadata: data.data,
+      },
+    })
+    return data.data
+  }
+  catch (error) {
+    console.error(error)
+    throw error
+  }
 }
 
 const metadata = computedAsync(async () => {
-  return props.node.attrs.metadata || await getWebsiteMetadata(block.link!)
+  return block.value.metadata || await getWebsiteMetadata(block.value.link!)
 })
 </script>
 
 <template>
   <NodeViewWrapper
-    class="border rounded-sm cursor-pointer border-neutral-50 my-1"
+    class="border rounded-sm cursor-pointer border-neutral-500 my-1"
   >
-    <div class="grid transition gap-2 grid-cols-12 overflow-hidden hover:bg-neutral-200">
+    <a
+      class="grid transition gap-2 grid-cols-12 overflow-hidden hover:bg-neutral-500 no-underline"
+      :href="block?.link"
+      target="_blank"
+    >
       <div class="flex flex-col p-4 gap-2 col-span-7 justify-between">
         <div class="flex flex-col gap-2">
           <NSkeleton
             v-if="!metadata"
             text
           />
-          <div v-else>
-            {{ metadata?.title }}
+          <div
+            v-else
+            truncate
+          >
+            {{ metadata?.title || metadata?.['og:title'] || metadata?.['twitter:title'] }}
           </div>
           <NSkeleton
             v-if="!metadata"
@@ -43,7 +70,7 @@ const metadata = computedAsync(async () => {
             v-else
             class="text-neutral text-xs line-clamp-2"
           >
-            {{ metadata?.description }}
+            {{ metadata?.description || metadata?.['og:description'] }}
           </div>
         </div>
 
@@ -54,13 +81,8 @@ const metadata = computedAsync(async () => {
         />
         <div
           v-else
-          class="flex text-xs gap-2 items-center"
+          class="flex text-xs items-center"
         >
-          <img
-            class="h-4 w-4"
-            :src="metadata.icon"
-            :alt="metadata.title"
-          >
           <div class="truncate">
             {{ block.link }}
           </div>
@@ -74,10 +96,10 @@ const metadata = computedAsync(async () => {
         <img
           v-else
           class="h-full w-full"
-          :src="metadata?.image"
-          :alt="metadata?.title"
+          :src="metadata?.image || metadata?.['og:image'] || metadata?.['twitter:image'] || 'https://via.placeholder.com/300x300.png?text=No+Image'"
+          :alt="metadata?.['twitter:image:alt'] || metadata?.title || metadata?.['og:title'] || metadata?.['twitter:title']"
         >
       </div>
-    </div>
+    </a>
   </NodeViewWrapper>
 </template>

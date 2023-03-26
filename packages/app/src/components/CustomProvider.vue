@@ -32,6 +32,6 @@ window.$router = useRouter()
     <i i-ri-check-line />
     <i i-ri-list-check-2 />
     <i i-ri-text />
-    <div class="!w-300px text-neutral-800 bg-neutral-200" />
+    <div class="!w-300px text-neutral-800 bg-neutral-500" />
   </div>
 </template>

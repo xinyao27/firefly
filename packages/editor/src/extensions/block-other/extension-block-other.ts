@@ -47,7 +47,7 @@ export const ExtensionBlockOther = Node.create({
     const path = block.path ?? ''
     return [
       'div',
-      mergeAttributes(HTMLAttributes, {
+      mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockOther',
         'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer transition',
       }),

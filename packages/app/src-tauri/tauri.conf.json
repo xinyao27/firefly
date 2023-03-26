@@ -34,10 +34,7 @@
         "all": true
       },
       "http": {
-        "all": false,
-        "scope": [
-          "https://api.openapi.com/*"
-        ]
+        "all": true
       },
       "notification": {
         "all": true

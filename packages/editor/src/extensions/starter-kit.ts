@@ -46,7 +46,7 @@ export const extensions: AnyExtension[] = [
   ExtensionUnderline,
 
   ExtensionDrop,
-  ExtensionPlaceholder.configure({ placeholder: '输入 `/` 调用命令...' }),
+  ExtensionPlaceholder.configure({ placeholder: 'Press `/` for commands...' }),
   ExtensionSlashMenu,
   ExtensionCommands,
   ExtensionTag,

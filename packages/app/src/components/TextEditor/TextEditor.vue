@@ -30,7 +30,7 @@ watch(() => textEditorStore.focus, (focus) => {
 <template>
   <div
     class="m-4 p-4 pb-2 flex flex-col gap-2 bg-(slate opacity-15) hover:bg-opacity-20 rounded-sm transition cursor-text"
-    :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary' : '']"
+    :class="[props.class, textEditorStore.focus ? 'border-b-2 border-primary bg-opacity-20' : '']"
     @click="textEditorStore.toggleFocus"
   >
     <Editor

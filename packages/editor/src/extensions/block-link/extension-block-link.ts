@@ -1,6 +1,5 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import type { MetaData } from 'metadata-scraper'
 import type { BlockModel } from '@firefly/common'
 import Link from './Link.vue'
 
@@ -8,7 +7,7 @@ export interface BlockLinkAttrs {
   position: number
   from: 'file' | 'block'
   block?: BlockModel
-  metadata?: MetaData
+  metadata?: any
 }
 
 declare module '@tiptap/core' {
@@ -36,7 +35,6 @@ export const ExtensionBlockLink = Node.create({
     return {
       from: { default: null },
       block: { default: null },
-      metadata: { default: null },
     }
   },
 
@@ -46,16 +44,17 @@ export const ExtensionBlockLink = Node.create({
 
   renderHTML({ HTMLAttributes, node }) {
     const block = node.attrs.block as BlockModel
-    const metadata = node.attrs.metadata as MetaData
+    const metadata = block.metadata
     return [
       'div',
-      mergeAttributes(HTMLAttributes, {
+      mergeAttributes(HTMLAttributes, node.attrs, {
         'data-type': 'blockLink',
-        'class': 'my-1 border border-neutral-700 rounded-sm cursor-pointer transition',
+        'class': 'my-1 border border-neutral-500 rounded-sm cursor-pointer transition',
+        'block': JSON.stringify(block),
       }),
       [
-        'div',
-        { class: 'overflow-hidden grid grid-cols-12 gap-2' },
+        'a',
+        { class: 'overflow-hidden grid grid-cols-12 gap-2 transition hover:bg-neutral-500 no-underline', href: block.link ?? '', target: '_blank' },
         [
           'div',
           { class: 'flex flex-col justify-between gap-2 p-4 col-span-7' },
@@ -64,26 +63,18 @@ export const ExtensionBlockLink = Node.create({
             { class: 'flex flex-col gap-2' },
             [
               'div',
-              {},
-              metadata.title ?? '',
+              { class: 'truncate' },
+              metadata?.title || metadata?.['og:title'] || metadata?.['twitter:title'] || '',
             ],
             [
               'div',
               { class: 'line-clamp-2 text-neutral text-xs' },
-              metadata.description ?? '',
+              metadata?.description || metadata?.['og:description'] || metadata?.['twitter:description'] || '',
             ],
           ],
           [
             'div',
-            { class: 'flex items-center gap-2 text-xs' },
-            [
-              'img',
-              {
-                class: 'w-4 h-4',
-                src: metadata.icon ?? '',
-                alt: metadata.title ?? '',
-              },
-            ],
+            { class: 'flex text-xs items-center' },
             [
               'div',
               { class: 'truncate' },
@@ -98,8 +89,8 @@ export const ExtensionBlockLink = Node.create({
             'img',
             {
               class: 'w-full h-full',
-              src: metadata.image ?? '',
-              alt: metadata.title ?? '',
+              src: metadata?.image || metadata?.['og:image'] || metadata?.['twitter:image'] || 'https://via.placeholder.com/300x300.png?text=No+Image' || '',
+              alt: metadata?.['og:image:alt'] || metadata?.['twitter:image:alt'] || metadata?.title || metadata?.['og:title'] || metadata?.['twitter:title'] || '',
             },
           ],
         ],

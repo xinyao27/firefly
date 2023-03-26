@@ -17,8 +17,7 @@
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
     "@tauri-apps/api": "^1.2.0",
-    "@yeger/vue-masonry-wall": "^3.4.4",
-    "openai": "^3.2.1"
+    "@yeger/vue-masonry-wall": "^3.4.4"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.3",

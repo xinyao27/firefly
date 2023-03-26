@@ -2,7 +2,7 @@
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import type { DropdownOption } from 'naive-ui'
-import { NButton, NButtonGroup, NDropdown, NTooltip } from 'naive-ui'
+import { NButton, NDropdown, NTooltip } from 'naive-ui'
 import type { EditorState } from '@tiptap/pm/state'
 import { h } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -129,13 +129,34 @@ function handleSelect(_: string, option: DropdownOption) {
     :tippy-options="{ duration: 100, appendTo: state.root.value }"
     :should-show="shouldShow"
   >
-    <div bg-white shadow-lg rounded-sm>
-      <NButtonGroup>
-        <template v-for="item in actions" :key="item.key">
-          <NDropdown v-if="item.children" :options="item.children" @select="handleSelect">
+    <div class="bg-neutral-800 border border-(slate opacity-5) shadow-lg rounded-sm overflow-hidden flex items-center">
+      <template v-for="item in actions" :key="item.key">
+        <NDropdown v-if="item.children" :options="item.children" @select="handleSelect">
+          <NButton
+            class="rounded-0"
+            size="small"
+            quaternary
+            :type="props.editor.isActive(item.key) ? 'primary' : 'default'"
+            @click="item.onClick?.(props.editor)"
+          >
+            <template
+              v-if="item.icon"
+              #icon
+            >
+              <component :is="item.icon" />
+            </template>
+            {{ item.label }}
+          </NButton>
+        </NDropdown>
+        <template v-else-if="item.type === 'divider'">
+          <NDivider vertical />
+        </template>
+        <NTooltip v-else>
+          <template #trigger>
             <NButton
+              class="rounded-0"
               size="small"
-              secondary
+              quaternary
               :type="props.editor.isActive(item.key) ? 'primary' : 'default'"
               @click="item.onClick?.(props.editor)"
             >
@@ -145,35 +166,17 @@ function handleSelect(_: string, option: DropdownOption) {
               >
                 <component :is="item.icon" />
               </template>
-              {{ item.label }}
             </NButton>
-          </NDropdown>
-          <NTooltip v-else :disabled="item.type === 'divider'">
-            <template #trigger>
-              <NButton
-                size="small"
-                secondary
-                :type="props.editor.isActive(item.key) ? 'primary' : 'default'"
-                @click="item.onClick?.(props.editor)"
-              >
-                <template
-                  v-if="item.icon"
-                  #icon
-                >
-                  <component :is="item.icon" />
-                </template>
-              </NButton>
-            </template>
-            <div>{{ item.label }}</div>
-            <div text-gray-400 text-xs flex gap-1>
-              <KBD
-                v-if="item.shortcut"
-                :shortcut="item.shortcut"
-              />
-            </div>
-          </NTooltip>
-        </template>
-      </NButtonGroup>
+          </template>
+          <div>{{ item.label }}</div>
+          <div text-gray-400 text-xs flex gap-1>
+            <KBD
+              v-if="item.shortcut"
+              :shortcut="item.shortcut"
+            />
+          </div>
+        </NTooltip>
+      </template>
     </div>
   </BubbleMenu>
 </template>
