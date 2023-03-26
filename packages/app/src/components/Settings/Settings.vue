@@ -27,7 +27,7 @@ const settings = useSettings()
           </NH2>
         </template>
 
-        <NListItem>
+        <!-- <NListItem v-if="is.desktop()">
           <NThing
             :title="t('settings.proxy')"
             :description="t('settings.proxyDescription')"
@@ -42,7 +42,7 @@ const settings = useSettings()
               />
             </div>
           </template>
-        </NListItem>
+        </NListItem> -->
         <NListItem>
           <NThing
             :title="t('settings.i18n')"
@@ -86,7 +86,7 @@ const settings = useSettings()
             </div>
           </template>
         </NListItem>
-        <NListItem>
+        <NListItem v-if="is.desktop()">
           <NThing
             :title="t('settings.alwaysShowIcons')"
             :description="t('settings.alwaysShowIconsDescription')"

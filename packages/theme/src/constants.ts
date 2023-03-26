@@ -6,6 +6,7 @@ export const colorPrimary = {
   hover: '#87CEEBaa',
   active: '#87CEEB7f',
 }
+export const colorDark = '#212121'
 const colorSlate15 = 'rgba(148,163,184,.15)'
 
 export const themeOverrides: GlobalThemeOverrides = {
@@ -14,15 +15,12 @@ export const themeOverrides: GlobalThemeOverrides = {
     primaryColorHover: colorPrimary.hover,
     primaryColorPressed: colorPrimary.active,
     primaryColorSuppl: colorPrimary.default,
-  },
-  Layout: {
-    color: '#212121',
-    headerColor: '#212121',
-    siderColor: '#212121',
+    modalColor: colorDark,
+    bodyColor: colorDark,
+    cardColor: colorDark,
+    popoverColor: colors.dark[800],
   },
   Popover: {
-    color: 'transparent',
-    boxShadow: 'none',
     padding: '0',
   },
   Tooltip: {
