@@ -53,6 +53,19 @@ login:
   emailSended: Kami baru saja mengirimi Anda email, silakan periksa kotak masuk Anda.
   loginCodePlaceholder: Tempel kode login
   title: Gabung
+settings:
+  alwaysShowIcons: ikon pemilihan teks
+  alwaysShowIconsDescription: Apakah akan mengaktifkan ikon pemilihan teks
+  hotKeyRecorderTip: Tekan kombinasi tombol yang diinginkan
+  hotkey: jalan pintas singkat
+  hotkeyDescription: Tombol pintas memanggil asisten steno
+  i18n: bahasa
+  i18nDescription: bahasa untuk digunakan
+  ocrHotkey: Tombol pintas pengenalan teks OCR
+  ocrHotkeyDescription: Tombol pintas memanggil pengenalan teks OCR
+  proxy: akting
+  proxyDescription: Pengaturan proxy yang akan digunakan
+  title: mempersiapkan
 titleBar:
   sync: sinkronkan sekarang
 user:

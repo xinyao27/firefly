@@ -53,6 +53,19 @@ login:
   emailSended: We just sent you a temporary login code. Please check your inbox.
   loginCodePlaceholder: Paste the login code
   title: Log in
+settings:
+  alwaysShowIcons: text selection icon
+  alwaysShowIconsDescription: Whether to enable the text selection icon
+  hotKeyRecorderTip: Press the desired key combination
+  hotkey: shorthand shortcut
+  hotkeyDescription: Shortcut keys call out the shorthand assistant
+  i18n: language
+  i18nDescription: language to use
+  ocrHotkey: OCR text recognition shortcut key
+  ocrHotkeyDescription: Shortcut keys call out OCR text recognition
+  proxy: proxy
+  proxyDescription: The proxy settings to use
+  title: set up
 titleBar:
   sync: sync now
 user:

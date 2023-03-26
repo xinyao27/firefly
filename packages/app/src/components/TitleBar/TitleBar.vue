@@ -104,6 +104,9 @@ const isIndexPage = computed(() => route.path === '/')
       data-tauri-drag-region
     />
 
+    <!-- Settings -->
+    <Settings />
+
     <!-- windows tools -->
     <WindowsTools v-if="is.isDesktop() && is.isWindows()" />
   </div>

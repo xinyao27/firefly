@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
 import { is } from '@firefly/common'
-import { bindOCRHotkey, bindSelectedTextHotkey, unBindAll } from './utils'
+import { bindHotkey, bindOCRHotkey, unBindAll } from './utils'
+import { $i18n } from './i18n'
 
+const settings = useSettings()
+watch(() => settings.value.i18n, (locale) => {
+  $i18n.locale.value = locale ?? 'en'
+})
 onMounted(() => {
   if (is.isDesktop()) {
-    bindSelectedTextHotkey()
+    bindHotkey()
     bindOCRHotkey()
   }
 })

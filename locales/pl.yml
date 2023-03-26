@@ -53,6 +53,19 @@ login:
   emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.
   loginCodePlaceholder: Wklej kod logowania
   title: Zaloguj sie
+settings:
+  alwaysShowIcons: ikona zaznaczenia tekstu
+  alwaysShowIconsDescription: Czy włączyć ikonę zaznaczania tekstu
+  hotKeyRecorderTip: Naciśnij żądaną kombinację klawiszy
+  hotkey: skrót myślowy
+  hotkeyDescription: Klawisze skrótów przywołują asystenta skrótów
+  i18n: język
+  i18nDescription: język do użycia
+  ocrHotkey: Klawisz skrótu rozpoznawania tekstu OCR
+  ocrHotkeyDescription: Klawisze skrótów przywołują rozpoznawanie tekstu OCR
+  proxy: gra aktorska
+  proxyDescription: Ustawienia serwera proxy do użycia
+  title: organizować coś
 titleBar:
   sync: Synchronizuj teraz
 user:

@@ -53,6 +53,19 @@ login:
   emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.
   loginCodePlaceholder: الصق رمز تسجيل الدخول
   title: تسجيل الدخول
+settings:
+  alwaysShowIcons: رمز اختيار النص
+  alwaysShowIconsDescription: ما إذا كان سيتم تمكين رمز تحديد النص
+  hotKeyRecorderTip: اضغط على مجموعة المفاتيح المطلوبة
+  hotkey: اختصار الاختصار
+  hotkeyDescription: تستدعي مفاتيح الاختصار مساعد الاختصار
+  i18n: لغة
+  i18nDescription: لغة لاستخدامها
+  ocrHotkey: مفتاح اختصار التعرف على النص OCR
+  ocrHotkeyDescription: مفاتيح الاختصار تستدعي التعرف على النص OCR
+  proxy: التمثيل
+  proxyDescription: إعدادات الوكيل المراد استخدامها
+  title: يثبت
 titleBar:
   sync: زامن الآن "لنقل البيانات
 user:

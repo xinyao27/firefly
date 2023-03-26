@@ -1,7 +1,7 @@
 import { register, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { invoke } from '@tauri-apps/api/tauri'
 
-export async function bindSelectedTextHotkey() {
+export async function bindHotkey() {
   await register('CommandOrControl+Shift+C', () => {
     invoke('show_assistant_window_with_selected_text')
   })

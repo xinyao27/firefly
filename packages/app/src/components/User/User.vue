@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
 import { NAvatar, NButton, NText, NTooltip } from 'naive-ui'
-import { langMap } from '@firefly/common'
 import Copyable from '../Copyable.vue'
 import { supabase } from '~/api'
-import { $i18n } from '~/i18n'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -62,17 +60,6 @@ const options: DropdownOption[] = [
     type: 'divider',
   },
   {
-    key: 'language',
-    label: t('user.language'),
-    children: $i18n.availableLocales.map(locale => ({
-      key: `language_${locale}`,
-      label: langMap.get(locale),
-    })),
-  },
-  {
-    type: 'divider',
-  },
-  {
     key: 'logout',
     label: t('user.logout'),
   },
@@ -84,9 +71,6 @@ async function handleSelect(key: string) {
     await tagStore.clear()
     router.replace('/login')
   }
-  const [, locale] = key.split('_')
-  if (locale)
-    $i18n.locale.value = locale
 }
 </script>
 

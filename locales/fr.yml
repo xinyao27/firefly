@@ -55,6 +55,19 @@ login:
     réception.
   loginCodePlaceholder: Collez le code de connexion
   title: Connexion
+settings:
+  alwaysShowIcons: icône de sélection de texte
+  alwaysShowIconsDescription: Activer ou non l'icône de sélection de texte
+  hotKeyRecorderTip: Appuyez sur la combinaison de touches souhaitée
+  hotkey: raccourci abrégé
+  hotkeyDescription: Les touches de raccourci appellent l'assistant de sténographie
+  i18n: langue
+  i18nDescription: langue à utiliser
+  ocrHotkey: Touche de raccourci de reconnaissance de texte OCR
+  ocrHotkeyDescription: Les touches de raccourci appellent la reconnaissance de texte OCR
+  proxy: agissant
+  proxyDescription: paramètres de proxy à utiliser
+  title: installation
 titleBar:
   sync: synchroniser maintenant
 user:

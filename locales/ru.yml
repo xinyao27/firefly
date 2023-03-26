@@ -55,6 +55,19 @@ login:
     почтовый ящик.
   loginCodePlaceholder: Вставьте код входа
   title: Авторизоваться
+settings:
+  alwaysShowIcons: значок выбора текста
+  alwaysShowIconsDescription: Включить ли значок выбора текста
+  hotKeyRecorderTip: Нажмите нужную комбинацию клавиш
+  hotkey: сокращенное сокращение
+  hotkeyDescription: Клавиши быстрого вызова вызывают стенографического помощника
+  i18n: язык
+  i18nDescription: язык для использования
+  ocrHotkey: Горячая клавиша распознавания текста OCR
+  ocrHotkeyDescription: Горячие клавиши вызывают распознавание текста OCR
+  proxy: действующий
+  proxyDescription: Настройки прокси для использования
+  title: настраивать
 titleBar:
   sync: синхронизировать сейчас
 user:

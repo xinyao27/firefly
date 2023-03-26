@@ -44,7 +44,6 @@ editor:
   type: 类型
   underline: 下划线
 login:
-  loginCodePlaceholder: 粘贴 login code
   continueWithEmail: 邮箱登录
   continueWithGithub: Github 登录
   continueWithLoginCode: Login Code 登录
@@ -52,7 +51,21 @@ login:
   emailPlaceholder: 输入你的电子邮箱地址...
   emailRequired: 请输入 Email
   emailSended: 我们刚刚向您发送了一个邮件，请检查您的收件箱。
+  loginCodePlaceholder: 粘贴 login code
   title: 登录
+settings:
+  alwaysShowIcons: 文字选择图标
+  alwaysShowIconsDescription: 是否启用文字选择图标
+  hotKeyRecorderTip: 聚焦后按下所需组合键
+  hotkey: 速记快捷键
+  hotkeyDescription: 快捷键呼出速记助手
+  i18n: 语言
+  i18nDescription: 要使用的语言
+  ocrHotkey: OCR 文字识别快捷键
+  ocrHotkeyDescription: 快捷键呼出 OCR 文字识别
+  proxy: 代理
+  proxyDescription: 要使用的代理设置
+  title: 设置
 titleBar:
   sync: 立即同步
 user:

@@ -53,6 +53,19 @@ login:
   emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.
   loginCodePlaceholder: ჩასვით შესვლის კოდი
   title: Შესვლა
+settings:
+  alwaysShowIcons: ტექსტის შერჩევის ხატულა
+  alwaysShowIconsDescription: ჩართოთ თუ არა ტექსტის შერჩევის ხატულა
+  hotKeyRecorderTip: დააჭირეთ კლავიშების სასურველ კომბინაციას
+  hotkey: სტენოკარდიის მალსახმობი
+  hotkeyDescription: მალსახმობების ღილაკები იძახიან სტენოგრამის ასისტენტს
+  i18n: ენა
+  i18nDescription: გამოსაყენებელი ენა
+  ocrHotkey: OCR ტექსტის ამოცნობის მალსახმობი ღილაკი
+  ocrHotkeyDescription: მალსახმობების ღილაკები იძახიან OCR ტექსტის ამოცნობას
+  proxy: მოქმედი
+  proxyDescription: პროქსი პარამეტრების გამოყენება
+  title: აწყობა
 titleBar:
   sync: სინქრონიზაცია ახლა
 user:

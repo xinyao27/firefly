@@ -53,6 +53,19 @@ login:
   emailSended: Chúng tôi vừa gửi cho bạn một email, vui lòng kiểm tra hộp thư đến của bạn.
   loginCodePlaceholder: Dán mã đăng nhập
   title: Đăng nhập
+settings:
+  alwaysShowIcons: biểu tượng chọn văn bản
+  alwaysShowIconsDescription: Có bật biểu tượng chọn văn bản hay không
+  hotKeyRecorderTip: Nhấn tổ hợp phím mong muốn
+  hotkey: lối tắt tốc ký
+  hotkeyDescription: Phím tắt gọi trợ lý tốc ký
+  i18n: ngôn ngữ
+  i18nDescription: ngôn ngữ để sử dụng
+  ocrHotkey: Phím tắt nhận dạng văn bản OCR
+  ocrHotkeyDescription: Phím tắt gọi nhận dạng văn bản OCR
+  proxy: diễn xuất
+  proxyDescription: Cài đặt proxy để sử dụng
+  title: cài đặt
 titleBar:
   sync: đồng bộ hóa ngay bây giờ
 user:

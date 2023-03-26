@@ -53,6 +53,19 @@ login:
   emailSended: Ti abbiamo appena inviato un'email, controlla la tua casella di posta.
   loginCodePlaceholder: Incolla il codice di accesso
   title: Login
+settings:
+  alwaysShowIcons: icona di selezione del testo
+  alwaysShowIconsDescription: Se abilitare l'icona di selezione del testo
+  hotKeyRecorderTip: Premere la combinazione di tasti desiderata
+  hotkey: scorciatoia abbreviata
+  hotkeyDescription: I tasti di scelta rapida richiamano l'assistente stenografico
+  i18n: lingua
+  i18nDescription: lingua da usare
+  ocrHotkey: Tasto di scelta rapida per il riconoscimento del testo OCR
+  ocrHotkeyDescription: I tasti di scelta rapida richiamano il riconoscimento del testo OCR
+  proxy: recitazione
+  proxyDescription: Le impostazioni del proxy da utilizzare
+  title: impostare
 titleBar:
   sync: sincronizza ora
 user:

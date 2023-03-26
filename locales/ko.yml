@@ -53,6 +53,19 @@ login:
   emailSended: 방금 이메일을 보냈습니다. 받은 편지함을 확인하십시오.
   loginCodePlaceholder: 로그인 코드 붙여넣기
   title: 로그인
+settings:
+  alwaysShowIcons: 텍스트 선택 아이콘
+  alwaysShowIconsDescription: 텍스트 선택 아이콘 활성화 여부
+  hotKeyRecorderTip: 원하는 키 조합을 누르십시오
+  hotkey: 속기 단축키
+  hotkeyDescription: 바로 가기 키는 속기 도우미를 호출합니다.
+  i18n: 언어
+  i18nDescription: 사용할 언어
+  ocrHotkey: OCR 텍스트 인식 단축키
+  ocrHotkeyDescription: 바로 가기 키는 OCR 텍스트 인식을 호출합니다.
+  proxy: 연기
+  proxyDescription: 사용할 프록시 설정
+  title: 설정
 titleBar:
   sync: 지금 동기화
 user:

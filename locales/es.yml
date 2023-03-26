@@ -55,6 +55,19 @@ login:
     entrada.
   loginCodePlaceholder: Pegue el código de inicio de sesión
   title: Acceso
+settings:
+  alwaysShowIcons: icono de selección de texto
+  alwaysShowIconsDescription: Ya sea para habilitar el icono de selección de texto
+  hotKeyRecorderTip: Pulse la combinación de teclas deseada
+  hotkey: atajo abreviado
+  hotkeyDescription: Las teclas de acceso directo llaman al asistente de taquigrafía
+  i18n: idioma
+  i18nDescription: lenguaje a usar
+  ocrHotkey: Tecla de método abreviado de reconocimiento de texto OCR
+  ocrHotkeyDescription: Las teclas de acceso directo indican el reconocimiento de texto OCR
+  proxy: interino
+  proxyDescription: La configuración del proxy a utilizar
+  title: configuración
 titleBar:
   sync: sincronizar ahora
 user:

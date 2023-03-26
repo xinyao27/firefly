@@ -53,6 +53,19 @@ login:
   emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.
   loginCodePlaceholder: Giriş kodunu yapıştırın
   title: Giriş yapmak
+settings:
+  alwaysShowIcons: metin seçimi simgesi
+  alwaysShowIconsDescription: Metin seçimi simgesinin etkinleştirilip etkinleştirilmeyeceği
+  hotKeyRecorderTip: İstenen tuş kombinasyonuna basın
+  hotkey: kestirme kısayol
+  hotkeyDescription: Kısayol tuşları, kısayol yardımcısını çağırır
+  i18n: dil
+  i18nDescription: kullanılacak dil
+  ocrHotkey: OCR metin tanıma kısayol tuşu
+  ocrHotkeyDescription: Kısayol tuşları, OCR metin tanımayı çağırır
+  proxy: oyunculuk
+  proxyDescription: Kullanılacak proxy ayarları
+  title: kurmak
 titleBar:
   sync: şimdi senkronize et
 user:

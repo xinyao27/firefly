@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   shortcut?: string[]
-}>()
+  showIcon?: boolean
+}>(), {
+  showIcon: true,
+})
 </script>
 
 <template>
@@ -10,7 +13,7 @@ const props = defineProps<{
     text-neutral-600 bg-neutral-300 px-1 font-mono font-bold leading-normal tracking-wide
     uppercase rounded-sm inline-flex items-center align-middle gap-1
   >
-    <i i-ri-keyboard-box-fill />
+    <i v-if="props.showIcon" i-ri-keyboard-box-fill />
     <kbd>{{ props.shortcut.join('+') }}</kbd>
   </div>
 </template>

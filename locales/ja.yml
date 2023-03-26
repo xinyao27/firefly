@@ -53,6 +53,19 @@ login:
   emailSended: メールを送信しました。受信トレイを確認してください。
   loginCodePlaceholder: ログインコードを貼り付けます
   title: ログイン
+settings:
+  alwaysShowIcons: テキスト選択アイコン
+  alwaysShowIconsDescription: テキスト選択アイコンを有効にするかどうか
+  hotKeyRecorderTip: 希望のキーの組み合わせを押します
+  hotkey: 省略形のショートカット
+  hotkeyDescription: ショートハンド アシスタントを呼び出すショートカット キー
+  i18n: 言語
+  i18nDescription: 使用する言語
+  ocrHotkey: OCR テキスト認識のショートカット キー
+  ocrHotkeyDescription: ショートカット キーは OCR テキスト認識を呼び出します
+  proxy: 演技
+  proxyDescription: 使用するプロキシ設定
+  title: 設定
 titleBar:
   sync: 今すぐ同期
 user:

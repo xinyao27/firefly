@@ -55,6 +55,19 @@ login:
     Posteingang.
   loginCodePlaceholder: Fügen Sie den Anmeldecode ein
   title: Anmeldung
+settings:
+  alwaysShowIcons: Textauswahlsymbol
+  alwaysShowIconsDescription: Ob das Textauswahlsymbol aktiviert werden soll
+  hotKeyRecorderTip: Drücken Sie die gewünschte Tastenkombination
+  hotkey: Abkürzung
+  hotkeyDescription: Tastenkombinationen rufen den Kurzschrift-Assistenten auf
+  i18n: Sprache
+  i18nDescription: Sprache zu verwenden
+  ocrHotkey: Tastenkürzel für OCR-Texterkennung
+  ocrHotkeyDescription: Tastenkombinationen rufen die OCR-Texterkennung auf
+  proxy: Schauspielkunst
+  proxyDescription: Proxy-Einstellungen zu verwenden
+  title: aufstellen
 titleBar:
   sync: jetzt synchronisieren
 user:

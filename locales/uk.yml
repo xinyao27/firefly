@@ -53,6 +53,19 @@ login:
   emailSended: Ми щойно надіслали вам електронний лист, перевірте свою поштову скриньку.
   loginCodePlaceholder: Вставте код входу
   title: авторизуватися
+settings:
+  alwaysShowIcons: значок виділення тексту
+  alwaysShowIconsDescription: Чи вмикати піктограму виділення тексту
+  hotKeyRecorderTip: Натисніть потрібну комбінацію клавіш
+  hotkey: стенографічний ярлик
+  hotkeyDescription: Комбінації клавіш викликають помічника зі стенографії
+  i18n: мова
+  i18nDescription: мова для використання
+  ocrHotkey: Клавіша швидкого доступу для розпізнавання тексту OCR
+  ocrHotkeyDescription: Клавіші швидкого доступу викликають розпізнавання тексту OCR
+  proxy: діючий
+  proxyDescription: Налаштування проксі для використання
+  title: налаштувати
 titleBar:
   sync: синхронізувати зараз
 user:
