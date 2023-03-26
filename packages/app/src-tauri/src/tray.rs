@@ -9,19 +9,12 @@ use crate::windows::{show_assistant_window, MAIN_WIN_NAME};
 
 pub fn menu() -> SystemTray {
     let config = get_config().unwrap();
-    let mut ocr_text = String::from("OCR");
-    if let Some(ocr_hotkey) = config.ocr_hotkey {
-        ocr_text = format!("OCR ({})", ocr_hotkey);
-    }
     let assistant: CustomMenuItem = CustomMenuItem::new("assistant".to_string(), "Assistant");
-    let ocr: CustomMenuItem = CustomMenuItem::new("ocr".to_string(), ocr_text);
     let show: CustomMenuItem = CustomMenuItem::new("show".to_string(), "Show");
     let hide = CustomMenuItem::new("hide".to_string(), "Hide");
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let tray_menu = SystemTrayMenu::new()
         .add_item(assistant)
-        .add_native_item(SystemTrayMenuItem::Separator)
-        .add_item(ocr)
         .add_native_item(SystemTrayMenuItem::Separator)
         .add_item(show)
         .add_item(hide)

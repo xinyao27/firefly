@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "firefly",
+    "productName": "Firefly",
     "version": "0.1.0"
   },
   "tauri": {

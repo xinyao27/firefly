@@ -74,7 +74,7 @@ const settings = useSettings()
             </div>
           </template>
         </NListItem>
-        <NListItem v-if="is.desktop()">
+        <NListItem v-if="is.desktop() && is.macOS()">
           <NThing
             :title="t('settings.ocrHotkey')"
             :description="t('settings.ocrHotkeyDescription')"

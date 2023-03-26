@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { is } from '@firefly/common'
+import { unregister } from '@tauri-apps/api/globalShortcut'
 import { uniq } from 'lodash-es'
 
 const props = defineProps<{
@@ -24,10 +26,11 @@ useMagicKeys({
 
       if (e.type === 'keydown') {
         done.value = false
+        const key = (e.key === 'Meta') ? 'Command' : e.key
         if (Array.isArray(keys.value))
-          keys.value = uniq([...keys.value, e.key])
+          keys.value = uniq([...keys.value, key])
         else
-          keys.value = [e.key]
+          keys.value = [key]
       }
       else if (e.type === 'keyup') {
         done.value = true
@@ -46,6 +49,12 @@ watchDebounced(
   },
   { debounce: 300, maxWait: 600 },
 )
+async function handleClear() {
+  if (is.desktop())
+    await unregister(keys.value.join('+'))
+  keys.value = []
+  data.value = undefined
+}
 </script>
 
 <template>
@@ -53,7 +62,7 @@ watchDebounced(
     ref="targetRef"
     tabindex="0"
     :bg-opacity="focused ? '60' : '15'"
-    class="px-2 py-1.5 rounded-sm outline-none cursor-pointer bg-(slate opacity-15) hover:bg-opacity-60 transition"
+    class="flex justify-between items-center px-2 py-1.5 rounded-sm outline-none cursor-pointer bg-(slate opacity-15) hover:bg-opacity-60 transition"
   >
     <span
       v-if="!keys.length"
@@ -66,5 +75,12 @@ watchDebounced(
       :shortcut="keys"
       :show-icon="false"
     />
+    <NButton
+      size="tiny"
+      text
+      @click="handleClear"
+    >
+      <i i-ri-close-line />
+    </NButton>
   </div>
 </template>

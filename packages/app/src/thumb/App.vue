@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div flex justify-center items-center>
     <i
-      block i-ri-screenshot-line text-black
+      block i-ri-screenshot-line text-white
     />
   </div>
 </template>
