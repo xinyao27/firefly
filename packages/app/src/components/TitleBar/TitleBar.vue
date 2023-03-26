@@ -21,7 +21,7 @@ const isIndexPage = computed(() => route.path === '/')
       data-tauri-drag-region
     >
       <!-- placeholder -->
-      <div v-if="is.isDesktop() && is.isMacOS()" w-16 h-full />
+      <div v-if="is.desktop() && is.macOS()" w-16 h-full />
       <template v-if="isIndexPage">
         <!-- leftBarShow -->
         <NButton
@@ -108,6 +108,6 @@ const isIndexPage = computed(() => route.path === '/')
     <Settings />
 
     <!-- windows tools -->
-    <WindowsTools v-if="is.isDesktop() && is.isWindows()" />
+    <WindowsTools v-if="is.desktop() && is.windows()" />
   </div>
 </template>

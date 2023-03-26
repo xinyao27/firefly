@@ -1,4 +1,5 @@
-import { defaultSettings, getSettings, setSettings } from '@firefly/common'
+import { defaultSettings, getSettings, is, setSettings } from '@firefly/common'
+import { bindHotkey, bindOCRHotkey, unBindAll } from '~/utils'
 
 export function useSettings() {
   const isMounted = ref(false)
@@ -6,10 +7,25 @@ export function useSettings() {
   onMounted(async () => {
     settings.value = await getSettings()
     isMounted.value = true
+
+    if (is.desktop()) {
+      bindHotkey()
+      bindOCRHotkey()
+    }
   })
-  watch(settings, (value) => {
-    if (isMounted.value)
+  onUnmounted(() => {
+    if (is.desktop())
+      unBindAll()
+  })
+  watch(settings, (value, oldValue) => {
+    if (isMounted.value) {
       setSettings(value)
+
+      if (is.desktop()) {
+        bindHotkey(oldValue.hotkey)
+        bindOCRHotkey(oldValue.ocrHotkey)
+      }
+    }
   }, { deep: true })
 
   return settings

@@ -1,6 +1,6 @@
 export const is = {
-  isDesktop: () => window['__TAURI__' as any] !== undefined,
-  isMacOS: () => navigator.userAgent.includes('Mac OS X'),
-  isLinux: () => navigator.userAgent.includes('Linux'),
-  isWindows: () => navigator.userAgent.includes('Windows'),
+  desktop: () => window['__TAURI__' as any] !== undefined,
+  macOS: () => navigator.userAgent.includes('Mac OS X'),
+  linux: () => navigator.userAgent.includes('Linux'),
+  windows: () => navigator.userAgent.includes('Windows'),
 }

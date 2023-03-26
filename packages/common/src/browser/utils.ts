@@ -34,7 +34,7 @@ export async function setSettings(settings: Partial<ISettings>) {
 }
 
 export async function getBrowser(): Promise<IBrowser> {
-  if (is.isDesktop())
+  if (is.desktop())
     return (await import('./tauri-polyfill')).tauriBrowser
 
   return (await import('./web-polyfill')).webBrowser

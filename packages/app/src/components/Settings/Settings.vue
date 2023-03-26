@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { langMap } from '@firefly/common'
+import { is, langMap } from '@firefly/common'
 
 const { t } = useI18n()
 
@@ -15,7 +15,10 @@ const settings = useSettings()
   >
     <i i-ri-settings-3-line />
   </NButton>
-  <NModal v-model:show="show">
+  <NModal
+    v-model:show="show"
+    :trap-focus="false"
+  >
     <NCard class="max-w-160">
       <NList>
         <template #header>
@@ -35,6 +38,7 @@ const settings = useSettings()
               <NInput
                 v-model:value="settings.proxy"
                 placeholder=""
+                :autofocus="false"
               />
             </div>
           </template>
@@ -58,7 +62,7 @@ const settings = useSettings()
             </div>
           </template>
         </NListItem>
-        <NListItem>
+        <NListItem v-if="is.desktop()">
           <NThing
             :title="t('settings.hotkey')"
             :description="t('settings.hotkeyDescription')"
@@ -70,7 +74,7 @@ const settings = useSettings()
             </div>
           </template>
         </NListItem>
-        <NListItem>
+        <NListItem v-if="is.desktop()">
           <NThing
             :title="t('settings.ocrHotkey')"
             :description="t('settings.ocrHotkeyDescription')"
