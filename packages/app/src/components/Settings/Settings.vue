@@ -3,7 +3,7 @@ import {
   disable as autostartDisable,
   enable as autostartEnable,
 } from 'tauri-plugin-autostart-api'
-import { getSettings, is, langMap, setSettings } from '@firefly/common'
+import { defaultSettings, getSettings, is, langMap, setSettings } from '@firefly/common'
 import { invoke } from '@tauri-apps/api'
 import { useMessage } from 'naive-ui'
 import { bindHotkey, bindOCRHotkey } from '~/utils'
@@ -12,7 +12,10 @@ import { $i18n } from '~/i18n'
 const { t } = useI18n()
 
 const show = ref(false)
-const settings = useSettings()
+const settings = ref(defaultSettings)
+onMounted(async () => {
+  settings.value = await getSettings()
+})
 const message = useMessage()
 const loading = ref(false)
 
@@ -46,6 +49,10 @@ async function handleSave() {
     loading.value = false
   }
 }
+watch(show, async (value) => {
+  if (!value)
+    settings.value = await getSettings()
+})
 </script>
 
 <template>
