@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: Tombol pintas memanggil pengenalan teks OCR
   proxy: akting
   proxyDescription: Pengaturan proxy yang akan digunakan
+  runAtStartup: boot
+  runAtStartupDescription: Mulai Firefly saat boot
+  save: menyimpan
+  saveSuccess: Berhasil disimpan
   title: mempersiapkan
 titleBar:
   sync: sinkronkan sekarang

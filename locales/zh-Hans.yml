@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: 快捷键呼出 OCR 文字识别
   proxy: 代理
   proxyDescription: 要使用的代理设置
+  runAtStartup: 开机启动
+  runAtStartupDescription: 开机启动 Firefly
+  save: 保存
+  saveSuccess: 保存成功
   title: 设置
 titleBar:
   sync: 立即同步

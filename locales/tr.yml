@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: Kısayol tuşları, OCR metin tanımayı çağırır
   proxy: oyunculuk
   proxyDescription: Kullanılacak proxy ayarları
+  runAtStartup: bot
+  runAtStartupDescription: Firefly'ı açılışta başlat
+  save: kaydetmek
+  saveSuccess: Başarıyla kaydedildi
   title: kurmak
 titleBar:
   sync: şimdi senkronize et

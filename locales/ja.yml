@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: ショートカット キーは OCR テキスト認識を呼び出します
   proxy: 演技
   proxyDescription: 使用するプロキシ設定
+  runAtStartup: ブート
+  runAtStartupDescription: 起動時に Firefly を起動する
+  save: 保存
+  saveSuccess: 正常に保存
   title: 設定
 titleBar:
   sync: 今すぐ同期

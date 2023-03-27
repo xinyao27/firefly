@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: 바로 가기 키는 OCR 텍스트 인식을 호출합니다.
   proxy: 연기
   proxyDescription: 사용할 프록시 설정
+  runAtStartup: 신병
+  runAtStartupDescription: 부팅 시 Firefly 시작
+  save: 구하다
+  saveSuccess: 성공적으로 저장 되었음
   title: 설정
 titleBar:
   sync: 지금 동기화

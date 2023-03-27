@@ -67,6 +67,10 @@ settings:
   ocrHotkeyDescription: Горячие клавиши вызывают распознавание текста OCR
   proxy: действующий
   proxyDescription: Настройки прокси для использования
+  runAtStartup: ботинок
+  runAtStartupDescription: Запустите Firefly при загрузке
+  save: сохранять
+  saveSuccess: Успешно сохранено
   title: настраивать
 titleBar:
   sync: синхронизировать сейчас

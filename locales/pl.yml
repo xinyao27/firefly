@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: Klawisze skrótów przywołują rozpoznawanie tekstu OCR
   proxy: gra aktorska
   proxyDescription: Ustawienia serwera proxy do użycia
+  runAtStartup: uruchomić
+  runAtStartupDescription: Uruchom Firefly podczas rozruchu
+  save: ratować
+  saveSuccess: Zapisano pomyślnie
   title: organizować coś
 titleBar:
   sync: Synchronizuj teraz

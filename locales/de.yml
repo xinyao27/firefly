@@ -67,6 +67,10 @@ settings:
   ocrHotkeyDescription: Tastenkombinationen rufen die OCR-Texterkennung auf
   proxy: Schauspielkunst
   proxyDescription: Proxy-Einstellungen zu verwenden
+  runAtStartup: Stiefel
+  runAtStartupDescription: Starten Sie Firefly beim Booten
+  save: speichern
+  saveSuccess: Erfolgreich gespeichert
   title: aufstellen
 titleBar:
   sync: jetzt synchronisieren

@@ -34,4 +34,5 @@ export interface ISettings {
   hotkey?: string
   ocrHotkey?: string
   alwaysShowIcons: boolean
+  runAtStartup?: boolean
 }

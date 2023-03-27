@@ -13,6 +13,7 @@ const settingKeys: Record<keyof ISettings, number> = {
   hotkey: 1,
   ocrHotkey: 1,
   alwaysShowIcons: 1,
+  runAtStartup: 1,
 }
 
 export async function getSettings(): Promise<ISettings> {

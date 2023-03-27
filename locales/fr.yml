@@ -67,6 +67,10 @@ settings:
   ocrHotkeyDescription: Les touches de raccourci appellent la reconnaissance de texte OCR
   proxy: agissant
   proxyDescription: paramètres de proxy à utiliser
+  runAtStartup: botte
+  runAtStartupDescription: Démarrer Firefly au démarrage
+  save: sauvegarder
+  saveSuccess: Enregistré avec succès
   title: installation
 titleBar:
   sync: synchroniser maintenant

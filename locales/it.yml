@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: I tasti di scelta rapida richiamano il riconoscimento del testo OCR
   proxy: recitazione
   proxyDescription: Le impostazioni del proxy da utilizzare
+  runAtStartup: stivale
+  runAtStartupDescription: Avvia Firefly all'avvio
+  save: salva
+  saveSuccess: Salvato con successo
   title: impostare
 titleBar:
   sync: sincronizza ora

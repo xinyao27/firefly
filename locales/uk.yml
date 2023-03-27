@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: Клавіші швидкого доступу викликають розпізнавання тексту OCR
   proxy: діючий
   proxyDescription: Налаштування проксі для використання
+  runAtStartup: завантаження
+  runAtStartupDescription: Запустіть Firefly під час завантаження
+  save: зберегти
+  saveSuccess: Успішно збережено
   title: налаштувати
 titleBar:
   sync: синхронізувати зараз

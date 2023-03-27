@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: مفاتيح الاختصار تستدعي التعرف على النص OCR
   proxy: التمثيل
   proxyDescription: إعدادات الوكيل المراد استخدامها
+  runAtStartup: حذاء طويل
+  runAtStartupDescription: ابدأ Firefly عند التمهيد
+  save: يحفظ
+  saveSuccess: حفظ بنجاح
   title: يثبت
 titleBar:
   sync: زامن الآن "لنقل البيانات

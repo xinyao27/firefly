@@ -17,7 +17,8 @@
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
     "@tauri-apps/api": "^1.2.0",
-    "@yeger/vue-masonry-wall": "^3.4.4"
+    "@yeger/vue-masonry-wall": "^3.4.4",
+    "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.3",

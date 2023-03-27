@@ -1,5 +1,4 @@
-import { defaultSettings, getSettings, is, setSettings } from '@firefly/common'
-import { invoke } from '@tauri-apps/api'
+import { defaultSettings, getSettings, is } from '@firefly/common'
 import { bindHotkey, bindOCRHotkey, unBindAll } from '~/utils'
 
 export function useSettings() {
@@ -18,17 +17,6 @@ export function useSettings() {
   onUnmounted(() => {
     if (is.desktop())
       unBindAll()
-  })
-  watch(settings, (value, oldValue) => {
-    if (isMounted.value) {
-      setSettings(value)
-      if (is.desktop()) {
-        invoke('clear_config_cache')
-        bindHotkey(oldValue.hotkey)
-        if (is.macOS())
-          bindOCRHotkey(oldValue.ocrHotkey)
-      }
-    }
   })
 
   return settings

@@ -67,6 +67,10 @@ settings:
   ocrHotkeyDescription: Las teclas de acceso directo indican el reconocimiento de texto OCR
   proxy: interino
   proxyDescription: La configuración del proxy a utilizar
+  runAtStartup: bota
+  runAtStartupDescription: Inicie Firefly en el arranque
+  save: ahorrar
+  saveSuccess: Guardado exitosamente
   title: configuración
 titleBar:
   sync: sincronizar ahora

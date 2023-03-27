@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: მალსახმობების ღილაკები იძახიან OCR ტექსტის ამოცნობას
   proxy: მოქმედი
   proxyDescription: პროქსი პარამეტრების გამოყენება
+  runAtStartup: ჩექმა
+  runAtStartupDescription: დაიწყეთ Firefly ჩატვირთვისას
+  save: გადარჩენა
+  saveSuccess: შენახულია წარმატებით
   title: აწყობა
 titleBar:
   sync: სინქრონიზაცია ახლა

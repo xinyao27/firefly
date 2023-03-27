@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: Shortcut keys call out OCR text recognition
   proxy: proxy
   proxyDescription: The proxy settings to use
+  runAtStartup: boot
+  runAtStartupDescription: Start Firefly at boot
+  save: save
+  saveSuccess: Saved successfully
   title: set up
 titleBar:
   sync: sync now

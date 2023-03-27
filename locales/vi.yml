@@ -65,6 +65,10 @@ settings:
   ocrHotkeyDescription: Phím tắt gọi nhận dạng văn bản OCR
   proxy: diễn xuất
   proxyDescription: Cài đặt proxy để sử dụng
+  runAtStartup: khởi động
+  runAtStartupDescription: Bắt đầu Firefly khi khởi động
+  save: cứu
+  saveSuccess: đã lưu thành công
   title: cài đặt
 titleBar:
   sync: đồng bộ hóa ngay bây giờ
