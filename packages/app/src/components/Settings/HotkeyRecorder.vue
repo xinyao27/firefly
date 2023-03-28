@@ -1,12 +1,41 @@
 <script setup lang="ts">
 import { is } from '@firefly/common'
-import { unregister } from '@tauri-apps/api/globalShortcut'
 import { uniq } from 'lodash-es'
 
 const props = defineProps<{
   hotkey?: string
 }>()
+
 const emit = defineEmits(['update:hotkey'])
+
+const mappedKeys: Record<string, string> = {
+  'esc': 'escape',
+  'return': 'enter',
+  '.': 'period',
+  ',': 'comma',
+  '-': 'slash',
+  ' ': 'space',
+  '`': 'backquote',
+  '#': 'backslash',
+  '+': 'bracketright',
+  'ShiftLeft': 'shift',
+  'ShiftRight': 'shift',
+  'AltLeft': is.macOS() ? 'option' : 'alt',
+  'AltRight': is.macOS() ? 'option' : 'alt',
+  'MetaLeft': is.macOS() ? 'command' : 'meta',
+  'MetaRight': is.macOS() ? 'command' : 'meta',
+  'OSLeft': 'meta',
+  'OSRight': 'meta',
+  'ControlLeft': is.macOS() ? 'control' : 'ctrl',
+  'ControlRight': is.macOS() ? 'control' : 'ctrl',
+}
+function mapKey(key: string): string {
+  return (mappedKeys[key] || key)
+    .trim()
+    .toLowerCase()
+    .replace(/key|digit|numpad|arrow/, '')
+}
+
 const data = useVModel(props, 'hotkey', emit)
 
 const { t } = useI18n()
@@ -15,32 +44,27 @@ const { focused } = useFocus(targetRef)
 const keys = ref<string[]>(props.hotkey?.split('+') ?? [])
 const done = ref(true)
 
-useMagicKeys({
-  target: targetRef,
-  passive: false,
-  onEventFired(e) {
-    e.preventDefault()
-    if (focused.value) {
-      if (done.value && e.type === 'keydown')
-        keys.value = []
+onKeyStroke((e) => {
+  e.preventDefault()
+  if (focused.value) {
+    if (done.value && e.type === 'keydown')
+      keys.value = []
 
-      if (e.type === 'keydown') {
-        done.value = false
-        const key = (e.key === 'Meta') ? 'Command' : e.key
-        if (Array.isArray(keys.value))
-          keys.value = uniq([...keys.value, key])
-        else
-          keys.value = [key]
-      }
-      else if (e.type === 'keyup') {
-        done.value = true
-        return false
-      }
+    if (e.type === 'keydown') {
+      done.value = false
+      const key = mapKey(e.code).toLowerCase()
 
-      return true
+      if (Array.isArray(keys.value))
+        keys.value = uniq([...keys.value, key])
+      else
+        keys.value = [key]
     }
-    return false
-  },
+    else if (e.type === 'keyup') {
+      done.value = true
+    }
+  }
+}, {
+  target: targetRef,
 })
 watchDebounced(
   keys,
@@ -50,8 +74,6 @@ watchDebounced(
   { debounce: 300, maxWait: 600 },
 )
 async function handleClear() {
-  if (is.desktop())
-    await unregister(keys.value.join('+'))
   keys.value = []
   data.value = undefined
 }
