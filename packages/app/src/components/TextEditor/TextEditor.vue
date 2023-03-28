@@ -9,12 +9,6 @@ const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
 
-onKeyStroke(['ctrl', 'l'], (e) => {
-  e.preventDefault()
-
-  textEditorStore.toggleFocus(true)
-})
-
 watch(() => textEditorStore.focus, (focus) => {
   focus ? textEditorStore.editor?.commands.focus() : textEditorStore.editor?.commands.blur()
   textEditorStore.editor?.setOptions({
