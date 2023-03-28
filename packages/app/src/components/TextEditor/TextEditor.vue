@@ -63,7 +63,7 @@ watch(() => textEditorStore.focus, (focus) => {
           size="small"
           :loading="textEditorStore.loading"
           :disabled="!textEditorStore.value || textEditorStore.loading"
-          @click="textEditorStore.save"
+          @click.stop="textEditorStore.save"
         >
           <i i-ri-send-plane-2-fill />
         </NButton>
