@@ -68,6 +68,9 @@ function signInWithOtp() {
       loading.value = true
       supabase.auth.signInWithOtp({
         email: formValue.value.email,
+        options: {
+          shouldCreateUser: false,
+        },
       })
         .then(({ error }) => {
           if (error)

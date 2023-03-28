@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 import type { TagId, TagModel } from '@firefly/common'
+import { getUser } from '@firefly/common'
 import { supabase } from '~/api'
 import { db } from '~/db'
 
@@ -22,7 +23,8 @@ export const useTagStore = defineStore('tag', {
   },
   actions: {
     async find() {
-      return (await (await db).getAllFromIndex('tags', 'updatedAt')).reverse()
+      const uid = (await getUser())?.id
+      return (await (await db).getAllFromIndex('tags', 'updatedAt')).filter(v => v.uid === uid).reverse()
     },
     async refresh() {
       this.tags = await this.find()
@@ -37,7 +39,7 @@ export const useTagStore = defineStore('tag', {
         if (lastTag || (lastUpdatedAt && lastTagId)) {
           response = await supabase
             .from('tags')
-            .select('id,name,pinned,icon,createdAt,updatedAt')
+            .select('id,uid,name,pinned,icon,createdAt,updatedAt')
             .order('updatedAt', { ascending: false })
             .gt('updatedAt', lastUpdatedAt ?? lastTag?.updatedAt)
             .neq('id', lastTagId ?? lastTag?.id)
@@ -45,7 +47,7 @@ export const useTagStore = defineStore('tag', {
         else {
           response = await supabase
             .from('tags')
-            .select('id,name,pinned,icon,createdAt,updatedAt')
+            .select('id,uid,name,pinned,icon,createdAt,updatedAt')
             .order('updatedAt', { ascending: false })
         }
         if (response.error)

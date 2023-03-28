@@ -1,6 +1,7 @@
 export type TagId = number
 export interface TagModel {
   id: TagId
+  uid?: string
   /**
    * 标签名
    */

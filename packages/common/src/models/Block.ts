@@ -44,6 +44,7 @@ export type BlockWhere = 'default' | 'trash'
 
 export interface BlockModel {
   id?: BlockId
+  uid?: string
   /**
    * 标题
    */

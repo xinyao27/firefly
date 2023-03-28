@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 import type { BlockId, BlockModel } from '@firefly/common'
+import { getUser } from '@firefly/common'
 import { supabase } from '~/api'
 import { db } from '~/db'
 import { $t } from '~/i18n'
@@ -27,7 +28,8 @@ export const useBlockStore = defineStore('block', {
   },
   actions: {
     async find() {
-      return (await (await db).getAllFromIndex('blocks', 'updatedAt')).reverse()
+      const uid = (await getUser())?.id
+      return (await (await db).getAllFromIndex('blocks', 'updatedAt')).filter(v => v.uid === uid).reverse()
     },
     async refresh() {
       this.blocks = await this.find()
@@ -45,7 +47,7 @@ export const useBlockStore = defineStore('block', {
         if (lastBlock || (lastUpdatedAt && lastBlockId)) {
           response = await supabase
             .from('blocks')
-            .select('id,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
+            .select('id,uid,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
             .order('updatedAt', { ascending: false })
             .gt('updatedAt', lastUpdatedAt ?? lastBlock?.updatedAt)
             .neq('id', lastBlockId ?? lastBlock?.id)
@@ -53,7 +55,7 @@ export const useBlockStore = defineStore('block', {
         else {
           response = await supabase
             .from('blocks')
-            .select('id,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
+            .select('id,uid,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
             .order('updatedAt', { ascending: false })
         }
         if (response.error)
