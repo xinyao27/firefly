@@ -140,7 +140,9 @@ export const useCopilotStore = defineStore('copilot', {
         this.currentAssistantMessage = ''
         this.loading = false
         this.controller = null
-        this.inputRef?.focus()
+        nextTick(() => {
+          this.inputRef?.focus()
+        })
       }
     },
     async chat() {
