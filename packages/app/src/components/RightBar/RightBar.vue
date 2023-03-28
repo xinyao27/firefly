@@ -165,6 +165,9 @@ watch(() => copilotStore.currentError, (currentError) => {
             </NButton>
           </template>
           Fly !
+          <div>
+            <KBD :shortcut="['ctrl', 'enter']" />
+          </div>
         </NTooltip>
         <NTooltip v-else>
           <template #trigger>
