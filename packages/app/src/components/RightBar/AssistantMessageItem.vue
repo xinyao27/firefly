@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
+import { Spin } from '@firefly/common'
 
 const props = defineProps<{
   message: string
