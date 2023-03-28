@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { useMessage } from 'naive-ui'
+import { is } from '@firefly/common'
 import { supabase } from '~/api'
 
 const { t } = useI18n()
@@ -125,7 +126,10 @@ function signInWithLoginCode() {
         {{ t('login.title') }}
       </NH1>
 
-      <section flex flex-col gap-2>
+      <section
+        v-if="is.development()"
+        flex flex-col gap-2
+      >
         <NButton
           :loading="loading"
           @click="signInWithGithub"
@@ -146,7 +150,7 @@ function signInWithLoginCode() {
         </NButton>
       </section>
 
-      <NDivider />
+      <NDivider v-if="is.development()" />
 
       <NForm
         ref="formRef"
