@@ -95,15 +95,12 @@
       "iconPath": "icons/icon.ico"
     },
     "updater": {
-      "active": true,
+      "active": false,
       "endpoints": [
-        "https://github.com/chenyueban/firefly/releases/download/updater/update.json"
+        "https://github.com/chenyueban/firefly/releases/download/latest/latest.json"
       ],
       "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDFDNjBDODU4MTM5NjE2RTUKUldUbEZwWVRXTWhnSEtEM1lQY2k3TGtTUytoaVF0TXJVRnpoNDlCYWxYb3hPcjlFMkRWZXZ5ZVgK%",
-      "windows": {
-        "installMode": "passive"
-      }
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDFDNjBDODU4MTM5NjE2RTUKUldUbEZwWVRXTWhnSEtEM1lQY2k3TGtTUytoaVF0TXJVRnpoNDlCYWxYb3hPcjlFMkRWZXZ5ZVgK%"
     },
     "windows": [
       {
