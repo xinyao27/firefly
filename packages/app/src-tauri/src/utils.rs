@@ -1,4 +1,3 @@
-use arboard::Clipboard;
 use tauri::Manager;
 
 use crate::APP_HANDLE;
@@ -53,24 +52,73 @@ pub fn copy() {
 
 #[cfg(not(target_os = "macos"))]
 pub fn get_selected_text() -> Result<String, Box<dyn std::error::Error>> {
-    let mut clipboard = Clipboard::new()?;
-    let current_text = clipboard.get_text()?;
+    use clipboard::ClipboardContext;
+    use clipboard::ClipboardProvider;
+    let mut ctx: ClipboardContext = ClipboardProvider::new()?;
+    let current_text = ctx.get_contents().unwrap_or_default();
     copy();
-    let selected_text = clipboard.get_text()?;
+    let selected_text = ctx.get_contents().unwrap_or_default();
     // creat a new thread to restore the clipboard
     let current_text_cloned = current_text.clone();
     std::thread::spawn(move || {
         std::thread::sleep(std::time::Duration::from_millis(100));
-        clipboard.set_text(&current_text_cloned).unwrap();
+        ctx.set_contents(current_text_cloned).unwrap();
     });
     if selected_text.trim() == current_text.trim() {
         return Ok(String::new());
     }
-    Ok(selected_text)
+    Ok(selected_text.trim().to_string())
 }
 
 #[cfg(target_os = "macos")]
 pub fn get_selected_text() -> Result<String, Box<dyn std::error::Error>> {
+    match get_selected_text_by_ax() {
+        Ok(text) => Ok(text),
+        Err(err) => {
+            println!("get_selected_text_by_ax error: {}", err);
+            get_selected_text_by_clipboard()
+        }
+    }
+}
+
+#[cfg(target_os = "macos")]
+pub fn get_selected_text_by_ax() -> Result<String, Box<dyn std::error::Error>> {
+    let apple_script = APP_HANDLE
+        .get()
+        .unwrap()
+        .path_resolver()
+        .resolve_resource("resources/get-selected-text-by-ax.applescript")
+        .expect("failed to resolve ocr binary resource");
+
+    match std::process::Command::new("osascript")
+        .arg(apple_script)
+        .output()
+    {
+        Ok(output) => {
+            // check exit code
+            if output.status.success() {
+                // get output content
+                let content = String::from_utf8(output.stdout)
+                    .expect("failed to parse get-selected-text-by-ax.applescript output");
+                // trim content
+                let content = content.trim();
+                Ok(content.to_string())
+            } else {
+                let err = output
+                    .stderr
+                    .into_iter()
+                    .map(|c| c as char)
+                    .collect::<String>()
+                    .into();
+                Err(err)
+            }
+        }
+        Err(e) => Err(Box::new(e)),
+    }
+}
+
+#[cfg(target_os = "macos")]
+pub fn get_selected_text_by_clipboard() -> Result<String, Box<dyn std::error::Error>> {
     let apple_script = APP_HANDLE
         .get()
         .unwrap()
