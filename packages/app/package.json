@@ -1,6 +1,5 @@
 {
   "name": "firefly",
-  "version": "0.0.0",
   "private": true,
   "scripts": {
     "typecheck": "vue-tsc --noEmit",

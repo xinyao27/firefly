@@ -1,7 +1,6 @@
 {
   "name": "@firefly/assistant",
   "type": "module",
-  "version": "0.0.0",
   "private": true,
   "exports": {
     ".": {
