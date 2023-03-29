@@ -2,8 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import 'uno.css'
-import '../styles/normalize.css'
-import '../styles/main.sass'
+import './main.sass'
 
 document.oncontextmenu = () => false
 
