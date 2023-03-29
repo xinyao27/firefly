@@ -64,7 +64,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "apps.firefly.best",
+      "identifier": "com.firefly.best",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -84,6 +84,9 @@
         "timestampUrl": "",
         "webviewInstallMode": {
           "type": "embedBootstrapper"
+        },
+        "wix": {
+          "language": ["zh-CN", "en-US"]
         }
       }
     },
@@ -95,12 +98,12 @@
       "iconPath": "icons/icon.ico"
     },
     "updater": {
-      "active": false,
+      "active": true,
       "endpoints": [
         "https://github.com/chenyueban/firefly/releases/download/latest/latest.json"
       ],
       "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDFDNjBDODU4MTM5NjE2RTUKUldUbEZwWVRXTWhnSEtEM1lQY2k3TGtTUytoaVF0TXJVRnpoNDlCYWxYb3hPcjlFMkRWZXZ5ZVgK%"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc5QTE2QTlENTQ2NTdEQTAKUldTZ2ZXVlVuV3FoZVFDalBqS0ZjRWxwSTZOakxsSUlUUFVkck1JdTF4Y0hFWWN4U21scks5cnIK"
     },
     "windows": [
       {
