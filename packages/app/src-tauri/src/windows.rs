@@ -38,7 +38,7 @@ pub fn set_assistant_window_always_on_top() -> bool {
 
 #[tauri::command]
 pub fn show_assistant_window_with_selected_text() {
-    let window = show_assistant_window(false);
+    let window = show_assistant_window(false, false);
     let selected_text = match utils::get_selected_text() {
         Ok(text) => text,
         Err(e) => {
@@ -49,7 +49,7 @@ pub fn show_assistant_window_with_selected_text() {
     if !selected_text.is_empty() {
         utils::send_text(selected_text);
     } else {
-        show_assistant_window(true);
+        show_assistant_window(true, false);
     }
 
     window.set_focus().unwrap();
@@ -154,7 +154,7 @@ pub fn hide_assistant_window() {
     }
 }
 
-pub fn show_assistant_window(center: bool) -> tauri::Window {
+pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
     let handle = APP_HANDLE.get().unwrap();
     match handle.get_window(ASSISTANT_WIN_NAME) {
         Some(window) => {

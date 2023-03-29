@@ -182,7 +182,7 @@ fn main() {
                     windows::close_thumb();
                     let selected_text = (*SELECTED_TEXT.lock()).to_string();
                     if !selected_text.is_empty() {
-                        let window = windows::show_main_window(false, false);
+                        let window = windows::show_assistant_window(false, false);
                         utils::send_text(selected_text);
                         if cfg!(target_os = "windows") {
                             window.set_always_on_top(true).unwrap();

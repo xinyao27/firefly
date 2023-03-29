@@ -20,7 +20,7 @@ pub fn do_ocr() -> Result<(), Box<dyn std::error::Error>> {
         .expect("failed to resolve ocr binary resource");
 
     let output = std::process::Command::new(bin_path)
-        .args(&["-l", "zh"])
+        .args(["-l", "zh"])
         .output()
         .expect("failed to execute ocr binary");
 
@@ -29,9 +29,7 @@ pub fn do_ocr() -> Result<(), Box<dyn std::error::Error>> {
         // get output content
         let content = String::from_utf8(output.stdout).expect("failed to parse ocr binary output");
         crate::utils::send_text(content);
-        crate::windows::show_assistant_window(false)
-            .set_focus()
-            .unwrap();
+        crate::windows::show_assistant_window(false, true);
         Ok(())
     } else {
         Err("ocr binary failed".into())

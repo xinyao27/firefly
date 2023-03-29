@@ -48,7 +48,7 @@ pub fn handler(app: &AppHandle, event: SystemTrayEvent) {
         }
         SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
             "assistant" => {
-                show_assistant_window(true);
+                show_assistant_window(true, false);
             }
             "ocr" => {
                 ocr();
