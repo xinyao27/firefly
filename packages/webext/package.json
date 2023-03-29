@@ -1,7 +1,7 @@
 {
   "name": "firefly-webext",
   "displayName": "firefly",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "此扩展程序可以轻松保存图像到 Firefly App。",
   "scripts": {
