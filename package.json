@@ -1,7 +1,7 @@
 {
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@7.30.5",
+  "packageManager": "pnpm@8.0.0",
   "scripts": {
     "up": "taze major -I",
     "preinstall": "npx only-allow pnpm",
@@ -38,7 +38,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.37.0",
     "@chenyueban/tsconfig": "^2.1.0",
-    "@commitlint/cli": "^17.5.0",
+    "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
     "@iconify-json/ri": "^1.1.5",
     "@iconify-json/tabler": "^1.1.68",
@@ -58,7 +58,7 @@
     "commitizen": "^4.3.0",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.36.0",
+    "eslint": "^8.37.0",
     "fs-extra": "^11.1.1",
     "husky": "^8.0.3",
     "jsdom": "^21.1.1",
@@ -81,7 +81,7 @@
     "vite": "^4.2.1",
     "vite-plugin-inspect": "^0.7.18",
     "vite-plugin-vue-layouts": "^0.8.0",
-    "vitest": "^0.29.7",
+    "vitest": "^0.29.8",
     "vue-tsc": "^1.2.0"
   }
 }
