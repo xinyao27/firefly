@@ -10,10 +10,6 @@ const userStore = useUserStore()
 const blockStore = useBlockStore()
 const tagStore = useTagStore()
 
-onMounted(() => {
-  userStore.getUserProfiles()
-})
-
 function renderUserInfo() {
   return h(
     'div',

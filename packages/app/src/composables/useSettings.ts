@@ -1,4 +1,4 @@
-import { defaultSettings, getSettings, is } from '@firefly/common'
+import { defaultSettings, getSettings, getUser, is } from '@firefly/common'
 import { bindHotkey, bindOCRHotkey, unBindAll } from '~/utils'
 
 export function useSettings() {
@@ -9,9 +9,12 @@ export function useSettings() {
     isMounted.value = true
 
     if (is.desktop()) {
-      bindHotkey()
-      if (is.macOS())
-        bindOCRHotkey()
+      const user = await getUser()
+      if (user) {
+        bindHotkey()
+        if (is.macOS())
+          bindOCRHotkey()
+      }
     }
   })
   onUnmounted(() => {
