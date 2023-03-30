@@ -14,6 +14,7 @@ mod windows;
 #[cfg(target_os = "macos")]
 use cocoa::appkit::NSWindow;
 use parking_lot::Mutex;
+use sentry;
 use std::env;
 use std::sync::atomic::{AtomicBool, Ordering};
 use sysinfo::{CpuExt, System, SystemExt};
@@ -24,7 +25,7 @@ use crate::lang::detect_lang;
 use crate::ocr::ocr;
 use crate::windows::{
     hide_assistant_window, set_assistant_window_always_on_top,
-    show_assistant_window_with_selected_text, ASSISTANT_WIN_NAME, MAIN_WIN_NAME,
+    show_assistant_window_with_selected_text, MAIN_WIN_NAME,
 };
 
 use mouce::Mouse;
@@ -123,7 +124,7 @@ fn main() {
                 let is_pressed = previous_release_time < previous_press_time;
                 let pressed_time = current_release_time - previous_press_time;
                 let is_double_click =
-                    current_release_time - previous_release_time < 700 && mouse_distance < 100.0;
+                    current_release_time - previous_release_time < 700 && mouse_distance < 10.0;
                 if is_pressed && pressed_time > 300 && mouse_distance > 20.0 {
                     is_text_selected_event = true;
                 }
@@ -252,9 +253,6 @@ fn main() {
                 let window = app.get_window(MAIN_WIN_NAME).unwrap();
                 window.set_decorations(false).unwrap();
                 set_shadow(&window, true).unwrap_or_default();
-                let assistant_window = app.get_window(ASSISTANT_WIN_NAME).unwrap();
-                assistant_window.set_decorations(false).unwrap();
-                set_shadow(&assistant_window, true).unwrap_or_default();
             }
             if !query_accessibility_permissions() {
                 let window = app.get_window(MAIN_WIN_NAME).unwrap();

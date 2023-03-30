@@ -3,12 +3,10 @@ use tauri::{
     AppHandle, CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem,
 };
 
-use crate::config::get_config;
 use crate::ocr::ocr;
 use crate::windows::{show_assistant_window, MAIN_WIN_NAME};
 
 pub fn menu() -> SystemTray {
-    let config = get_config().unwrap();
     let assistant: CustomMenuItem = CustomMenuItem::new("assistant".to_string(), "Assistant");
     let show: CustomMenuItem = CustomMenuItem::new("show".to_string(), "Show");
     let hide = CustomMenuItem::new("hide".to_string(), "Hide");
