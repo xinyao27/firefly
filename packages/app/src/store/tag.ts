@@ -5,6 +5,11 @@ import { getUser } from '@firefly/common'
 import { supabase } from '~/api'
 import { db } from '~/db'
 
+interface SyncParams {
+  lastUpdatedAt?: Date
+  lastTagId?: TagId
+}
+
 export const useTagStore = defineStore('tag', {
   state: () => {
     const ready = ref(false)
@@ -19,6 +24,7 @@ export const useTagStore = defineStore('tag', {
       ready,
       tags,
       loading: false,
+      size: 20,
     }
   },
   actions: {
@@ -29,38 +35,69 @@ export const useTagStore = defineStore('tag', {
     async refresh() {
       this.tags = await this.find()
     },
-    async sync({ lastUpdatedAt, lastTagId }: { lastUpdatedAt?: Date; lastTagId?: TagId } = {}) {
+    async count({ lastUpdatedAt, lastTagId }: SyncParams) {
+      const lastTag = (await this.find())[0]
+      let response
+      if (lastTag || (lastUpdatedAt && lastTagId)) {
+        response = await supabase
+          .from('tags')
+          .select('*', { count: 'exact', head: true })
+          .gt('updatedAt', lastUpdatedAt ?? lastTag?.updatedAt)
+          .neq('id', lastTagId ?? lastTag?.id)
+      }
+      else {
+        response = await supabase
+          .from('tags')
+          .select('*', { count: 'exact', head: true })
+      }
+      if (response.error)
+        throw new Error(response.error.message)
+
+      return response.count || 0
+    },
+    async sync({ lastUpdatedAt, lastTagId }: SyncParams = {}, refresh = true) {
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastTagId }), 200)
       try {
         this.loading = true
-        let response: PostgrestSingleResponse<TagModel[]>
-        const lastTag = (await this.find())[0]
-        if (lastTag || (lastUpdatedAt && lastTagId)) {
-          response = await supabase
-            .from('tags')
-            .select('id,uid,name,pinned,icon,createdAt,updatedAt')
-            .order('updatedAt', { ascending: false })
-            .gt('updatedAt', lastUpdatedAt ?? lastTag?.updatedAt)
-            .neq('id', lastTagId ?? lastTag?.id)
-        }
-        else {
-          response = await supabase
-            .from('tags')
-            .select('id,uid,name,pinned,icon,createdAt,updatedAt')
-            .order('updatedAt', { ascending: false })
-        }
-        if (response.error)
-          throw new Error(response.error.message)
 
-        if (response.data.length) {
-          const tx = (await db).transaction('tags', 'readwrite')
-          await Promise.all([
-            ...response.data.map(tag => tx.store.add(tag)),
-            tx.done,
-          ])
-          await this.refresh()
+        const count = await this.count({ lastUpdatedAt, lastTagId })
+        const result = []
+        let cursor = 0
+        const lastTag = (await this.find())[0]
+        while (cursor < count) {
+          let response: PostgrestSingleResponse<TagModel[]>
+          if (lastTag || (lastUpdatedAt && lastTagId)) {
+            response = await supabase
+              .from('tags')
+              .select('id,uid,name,pinned,icon,createdAt,updatedAt')
+              .order('updatedAt', { ascending: false })
+              .gt('updatedAt', lastUpdatedAt ?? lastTag?.updatedAt)
+              .neq('id', lastTagId ?? lastTag?.id)
+              .range(cursor, cursor + this.size - 1)
+          }
+          else {
+            response = await supabase
+              .from('tags')
+              .select('id,uid,name,pinned,icon,createdAt,updatedAt')
+              .order('updatedAt', { ascending: false })
+              .range(cursor, cursor + this.size - 1)
+          }
+          if (response.error)
+            throw new Error(response.error.message)
+          if (response.data.length) {
+            const tx = (await db).transaction('tags', 'readwrite')
+            await Promise.all([
+              ...response.data.map(tag => tx.store.add(tag)),
+              tx.done,
+            ])
+            if (refresh)
+              await this.refresh()
+          }
+          cursor += this.size
+          result.push(...response.data)
         }
+
         return this.tags
       }
       catch (error) {
