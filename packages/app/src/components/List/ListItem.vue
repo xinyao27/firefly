@@ -109,10 +109,16 @@ onMounted(() => {
         </NDropdown>
       </div>
     </template>
-    <div
-      ref="el"
-      class="ProseMirror prose prose-white"
-      v-html="parsedContent"
-    />
+    <NEllipsis
+      expand-trigger="click"
+      line-clamp="10"
+      :tooltip="false"
+    >
+      <div
+        ref="el"
+        class="ProseMirror prose prose-white"
+        v-html="parsedContent"
+      />
+    </NEllipsis>
   </NCard>
 </template>
