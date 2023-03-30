@@ -18,6 +18,8 @@
     "test": "turbo run test"
   },
   "dependencies": {
+    "@sentry/tracing": "^7.45.0",
+    "@sentry/vue": "^7.45.0",
     "@supabase/supabase-js": "^2.12.1",
     "@unocss/reset": "^0.50.6",
     "@vueuse/components": "^9.13.0",
@@ -47,6 +49,7 @@
     "@intlify/unplugin-vue-i18n": "^0.10.0",
     "@release-it/bumper": "^4.0.2",
     "@release-it/conventional-changelog": "^5.1.1",
+    "@sentry/vite-plugin": "^0.4.0",
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/fs-extra": "^11.0.1",
     "@types/lodash-es": "^4.17.7",

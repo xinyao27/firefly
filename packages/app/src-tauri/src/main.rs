@@ -66,6 +66,13 @@ fn query_accessibility_permissions() -> bool {
 }
 
 fn main() {
+    // sentry
+    let _guard = sentry::init(("https://636feb99e0294038b69c8f2ba6750d1d@o4504924957769728.ingest.sentry.io/4504924960063488",
+    sentry::ClientOptions {
+        release: sentry::release_name!(),
+        ..Default::default()
+    }));
+
     let silently = env::args().any(|arg| arg == "--silently");
 
     let mut mouse_manager = Mouse::new();

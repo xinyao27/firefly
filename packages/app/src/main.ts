@@ -7,6 +7,8 @@ import NProgress from 'nprogress'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import * as Sentry from '@sentry/vue'
+import { BrowserTracing } from '@sentry/tracing'
 import App from './App.vue'
 import generatedRoutes from '~pages'
 import '@total-typescript/ts-reset'
@@ -61,5 +63,20 @@ router.afterEach((to) => {
 })
 // @ts-expect-error noop
 router.routeHistory = routeHistory
+
+Sentry.init({
+  app,
+  dsn: 'https://636feb99e0294038b69c8f2ba6750d1d@o4504924957769728.ingest.sentry.io/4504924960063488',
+  integrations: [
+    new BrowserTracing({
+      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+      tracePropagationTargets: ['localhost', 'firefly.best', /^\//],
+    }),
+  ],
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+})
 
 app.mount('#app')
