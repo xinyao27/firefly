@@ -102,7 +102,7 @@ export default defineConfig(({ mode }) => {
 
       // https://docs.sentry.io/platforms/javascript/sourcemaps/uploading/vite/
       sentryVitePlugin({
-        org: 'Firefly',
+        org: 'fireflybest',
         project: 'app',
 
         // Specify the directory containing build artifacts
