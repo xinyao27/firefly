@@ -8,6 +8,7 @@ assistant:
   unpin: tutup jendela selalu di atas
 block:
   blocks: Data artikel
+  create: membuat blok
   synced: sinkronisasi selesai
 common:
   back: kembali

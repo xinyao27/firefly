@@ -8,6 +8,7 @@ assistant:
   unpin: close window is always on top
 block:
   blocks: Article data
+  create: create blocks
   synced: sync complete
 common:
   back: return

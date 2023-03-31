@@ -8,6 +8,7 @@ assistant:
   unpin: cửa sổ đóng luôn ở trên cùng
 block:
   blocks: Dữ liệu bài viết
+  create: tạo khối
   synced: đồng bộ hóa hoàn tất
 common:
   back: trở lại

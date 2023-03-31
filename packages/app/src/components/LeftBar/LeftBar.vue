@@ -3,6 +3,8 @@ import type { TreeOption } from 'naive-ui'
 import { NButton } from 'naive-ui'
 import type { TagModel } from '@firefly/common'
 
+const { t } = useI18n()
+const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
 
 function toTree(data: TagModel[]) {
@@ -78,5 +80,29 @@ function handleSelect([key]: string[]) {
         @update-selected-keys="handleSelect"
       />
     </section>
+    <section>
+      <NButton
+        block
+        secondary
+        type="primary"
+        @click="textEditorStore.open('create')"
+      >
+        <template #icon>
+          <i i-ri-add-line />
+        </template>
+        <span>{{ t('block.create') }}</span>
+      </NButton>
+      <NModal
+        v-model:show="textEditorStore.show"
+        transform-origin="center"
+      >
+        <TextEditor />
+      </NModal>
+    </section>
   </aside>
 </template>
+
+<style lang="sass">
+.n-card > .n-card__footer
+  @apply border-t border-(slate opacity-15) p-3
+</style>

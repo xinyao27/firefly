@@ -27,10 +27,11 @@ const data = useVModel(props, 'modelValue', emit)
 const state = useTextEditorState()
 const editor = useEditor({
   content: data.value,
+  autofocus: true,
   extensions,
   editorProps: {
     attributes: {
-      class: 'w-full max-w-full max-h-80 relative text-left transition focus:outline-none',
+      class: 'w-full max-w-full max-h-80 min-h-20 relative text-left transition focus:outline-none',
       suppressContentEditableWarning: 'true',
     },
   },
@@ -71,11 +72,10 @@ watch(() => props.tags, (tags) => {
 <template>
   <div
     :ref="state.root"
-    @click="editor?.commands.focus()"
   >
     <EditorContent
       :editor="editor"
-      class="relative overflow-x-hidden overflow-y-auto cursor-text w-full max-w-full"
+      class="relative overflow-x-hidden overflow-y-auto w-full max-w-full"
       :class="[props.class]"
     />
     <BubbleMenu

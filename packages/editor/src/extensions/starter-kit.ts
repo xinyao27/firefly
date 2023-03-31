@@ -10,7 +10,6 @@ import ExtensionTaskItem from '@tiptap/extension-task-item'
 import ExtensionTaskList from '@tiptap/extension-task-list'
 import { lowlight } from 'lowlight'
 import { colorPrimary } from '@firefly/theme'
-import { ExtensionTag } from './tag'
 import { ExtensionBlockImage } from './block-image'
 import { ExtensionBlockLink } from './block-link'
 import { ExtensionBlockOther } from './block-other'
@@ -34,7 +33,7 @@ export const extensions: AnyExtension[] = [
   ExtensionBlockLink,
   ExtensionBlockOther,
   ExtensionBlockText,
-  ExtensionImage.configure({ allowBase64: true }),
+  ExtensionImage,
   ExtensionListItem,
   ExtensionTaskList,
   ExtensionTaskItem.configure({
@@ -49,5 +48,4 @@ export const extensions: AnyExtension[] = [
   ExtensionPlaceholder.configure({ placeholder: 'Press `/` for commands...' }),
   ExtensionSlashMenu,
   ExtensionCommands,
-  ExtensionTag,
 ]

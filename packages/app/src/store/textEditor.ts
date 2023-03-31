@@ -8,6 +8,7 @@ type Type = 'update' | 'create'
 export const useTextEditorStore = defineStore('textEditor', {
   state: () => {
     return {
+      show: false,
       editor: null as Editor | null,
       value: '',
       tags: [] as string[],
@@ -27,6 +28,7 @@ export const useTextEditorStore = defineStore('textEditor', {
         this.editingBlock = block
       }
       this.type = type
+      this.show = true
     },
     cancel() {
       this.editor?.commands.clearContent()
@@ -34,9 +36,7 @@ export const useTextEditorStore = defineStore('textEditor', {
       this.tags = []
       this.type = 'create'
       this.editingBlock = null
-      nextTick(() => {
-        this.toggleFocus(false)
-      })
+      this.show = false
     },
     async save() {
       const blockStore = useBlockStore()

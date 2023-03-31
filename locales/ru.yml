@@ -8,6 +8,7 @@ assistant:
   unpin: закрыть окно всегда сверху
 block:
   blocks: Данные статьи
+  create: создавать блоки
   synced: синхронизация завершена
 common:
   back: возвращаться

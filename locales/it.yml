@@ -8,6 +8,7 @@ assistant:
   unpin: la finestra chiusa è sempre in primo piano
 block:
   blocks: Dati articolo
+  create: creare blocchi
   synced: sincronizzazione completata
 common:
   back: ritorno

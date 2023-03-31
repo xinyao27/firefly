@@ -8,6 +8,7 @@ assistant:
   unpin: закрите вікно завжди зверху
 block:
   blocks: Дані статті
+  create: створювати блоки
   synced: синхронізація завершена
 common:
   back: повернення

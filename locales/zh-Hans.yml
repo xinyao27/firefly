@@ -8,6 +8,7 @@ assistant:
   unpin: 关闭窗口总是在最上方
 block:
   blocks: 条数据
+  create: 创建 Block
   synced: 同步完成
 common:
   back: 返回

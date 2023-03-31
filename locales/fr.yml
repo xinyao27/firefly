@@ -8,6 +8,7 @@ assistant:
   unpin: fermer la fenêtre est toujours en haut
 block:
   blocks: Données d'articles
+  create: créer des blocs
   synced: synchronisation terminée
 common:
   back: retour

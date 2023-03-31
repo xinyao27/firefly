@@ -8,6 +8,7 @@ assistant:
   unpin: pencereyi kapat her zaman üstte
 block:
   blocks: Makale verileri
+  create: bloklar oluştur
   synced: senkronizasyon tamamlandı
 common:
   back: geri dönmek
