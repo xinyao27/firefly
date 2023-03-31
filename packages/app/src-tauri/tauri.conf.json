@@ -12,7 +12,6 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
       "clipboard": {
         "all": true
       },
@@ -21,13 +20,13 @@
         "message": true
       },
       "fs": {
-        "all": false,
-        "readDir": true,
-        "readFile": true,
         "scope": [
           "$APPCONFIG/*",
           "$RESOURCE/*"
         ],
+        "all": false,
+        "readDir": true,
+        "readFile": true,
         "writeFile": true
       },
       "globalShortcut": {
@@ -45,12 +44,16 @@
       },
       "window": {
         "all": true
-      }
+      },
+      "all": false
     },
     "bundle": {
-      "active": true,
       "category": "DeveloperTool",
       "copyright": "",
+      "identifier": "com.firefly.best",
+      "longDescription": "",
+      "shortDescription": "",
+      "targets": "all",
       "deb": {
         "depends": [
           "xdotool"
@@ -64,74 +67,59 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.firefly.best",
-      "longDescription": "",
       "macOS": {
-        "entitlements": null,
         "exceptionDomain": "",
         "frameworks": [],
+        "entitlements": null,
         "providerShortName": null,
         "signingIdentity": null
       },
       "resources": [
         "resources/*"
       ],
-      "shortDescription": "",
-      "targets": "all",
       "windows": {
-        "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
         "timestampUrl": "",
         "webviewInstallMode": {
           "type": "embedBootstrapper"
         },
         "wix": {
-          "language": ["zh-CN", "en-US"]
-        }
-      }
+          "language": [
+            "zh-CN",
+            "en-US"
+          ]
+        },
+        "certificateThumbprint": null
+      },
+      "active": true
     },
     "security": {
       "csp": null
     },
     "systemTray": {
-      "iconAsTemplate": true,
-      "iconPath": "icons/icon.ico"
+      "iconPath": "icons/icon.ico",
+      "iconAsTemplate": true
     },
     "updater": {
-      "active": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc5QTE2QTlENTQ2NTdEQTAKUldTZ2ZXVlVuV3FoZVFDalBqS0ZjRWxwSTZOakxsSUlUUFVkck1JdTF4Y0hFWWN4U21scks5cnIK",
       "endpoints": [
         "https://github.com/chenyueban/firefly/releases/latest/download/latest.json"
       ],
-      "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc5QTE2QTlENTQ2NTdEQTAKUldTZ2ZXVlVuV3FoZVFDalBqS0ZjRWxwSTZOakxsSUlUUFVkck1JdTF4Y0hFWWN4U21scks5cnIK"
+      "active": true,
+      "dialog": true
     },
     "windows": [
       {
-        "center": true,
-        "fullscreen": false,
         "height": 900,
-        "hiddenTitle": true,
         "minHeight": 600,
         "minWidth": 800,
-        "resizable": true,
+        "width": 1080,
         "title": "Firefly",
         "titleBarStyle": "Overlay",
-        "width": 1080
-      },
-      {
         "center": true,
-        "decorations": false,
-        "focus": false,
         "fullscreen": false,
-        "height": 284,
         "hiddenTitle": true,
-        "resizable": false,
-        "title": "Firefly Assistant",
-        "titleBarStyle": "Overlay",
-        "label": "assistant",
-        "url": "assistant.html",
-        "visible": false,
-        "width": 600
+        "resizable": true
       }
     ]
   }
