@@ -9,7 +9,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div flex-1 p-4 overflow-x-hidden overflow-y-auto>
+  <div h-full p-4 overflow-x-hidden overflow-y-auto>
     <MasonryWall :items="props.data" :ssr-columns="1" :column-width="300" :gap="16">
       <template #default="{ item }">
         <ListItem

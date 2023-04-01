@@ -32,6 +32,9 @@ export const useTagStore = defineStore('tag', {
       const uid = (await getUser())?.id
       return (await (await db).getAllFromIndex('tags', 'updatedAt')).filter(v => v.uid === uid).reverse()
     },
+    findOne(name: string) {
+      return (this.tags as TagModel[]).find(v => v.name === name)
+    },
     async refresh() {
       this.tags = await this.find()
     },
@@ -70,7 +73,7 @@ export const useTagStore = defineStore('tag', {
           if (lastTag || (lastUpdatedAt && lastTagId)) {
             response = await supabase
               .from('tags')
-              .select('id,uid,name,pinned,icon,createdAt,updatedAt')
+              .select('id,uid,name,pinned,color,createdAt,updatedAt')
               .order('updatedAt', { ascending: false })
               .gt('updatedAt', lastUpdatedAt ?? lastTag?.updatedAt)
               .neq('id', lastTagId ?? lastTag?.id)
@@ -79,7 +82,7 @@ export const useTagStore = defineStore('tag', {
           else {
             response = await supabase
               .from('tags')
-              .select('id,uid,name,pinned,icon,createdAt,updatedAt')
+              .select('id,uid,name,pinned,color,createdAt,updatedAt')
               .order('updatedAt', { ascending: false })
               .range(cursor, cursor + this.size - 1)
           }

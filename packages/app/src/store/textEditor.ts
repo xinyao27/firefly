@@ -1,13 +1,13 @@
 import type { Editor } from '@tiptap/core'
 import { defineStore } from 'pinia'
 import type { BlockModel } from '@firefly/common'
-import { clearContent } from '@firefly/common'
 
 type Type = 'update' | 'create'
 
 export const useTextEditorStore = defineStore('textEditor', {
   state: () => {
     return {
+      show: false,
       editor: null as Editor | null,
       value: '',
       tags: [] as string[],
@@ -22,11 +22,11 @@ export const useTextEditorStore = defineStore('textEditor', {
       if (type === 'update') {
         this.value = block?.content ?? ''
         this.tags = block?.tags ?? []
-        this.toggleFocus(true)
         this.editor?.commands.setContent(this.value)
         this.editingBlock = block
       }
       this.type = type
+      this.show = true
     },
     cancel() {
       this.editor?.commands.clearContent()
@@ -34,19 +34,16 @@ export const useTextEditorStore = defineStore('textEditor', {
       this.tags = []
       this.type = 'create'
       this.editingBlock = null
-      nextTick(() => {
-        this.toggleFocus(false)
-      })
+      this.show = false
     },
     async save() {
       const blockStore = useBlockStore()
       this.loading = true
 
-      const content = clearContent(this.value as string)
-
       if (this.type === 'create') {
         const block: BlockModel = {
-          content,
+          content: this.value,
+          tags: this.tags,
         }
         await blockStore.save(block)
       }
@@ -54,18 +51,13 @@ export const useTextEditorStore = defineStore('textEditor', {
         const block = this.editingBlock
         await blockStore.update({
           ...block,
-          content,
+          content: this.value,
+          tags: this.tags,
         })
       }
 
       this.cancel()
       this.loading = false
-    },
-    toggleFocus(focus?: boolean) {
-      if (focus !== undefined)
-        this.focus = focus
-      else
-        this.focus = !this.focus
     },
   },
 })

@@ -24,9 +24,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main h-full flex flex-col overflow-hidden>
+  <main h-full overflow-hidden>
     <List :data="blockStore.blocks" />
-    <TextEditor />
   </main>
 </template>
 

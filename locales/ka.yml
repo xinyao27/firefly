@@ -8,7 +8,9 @@ assistant:
   unpin: ფანჯრის დახურვა ყოველთვის თავზეა
 block:
   blocks: სტატიის მონაცემები
+  create: ბლოკების შექმნა
   synced: სინქრონიზაცია დასრულებულია
+  tagsPlaceholder: ტეგის დამატება...
 common:
   back: დაბრუნების
   cancel: გაუქმება

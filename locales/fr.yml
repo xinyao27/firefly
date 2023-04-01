@@ -8,7 +8,9 @@ assistant:
   unpin: fermer la fenêtre est toujours en haut
 block:
   blocks: Données d'articles
+  create: créer des blocs
   synced: synchronisation terminée
+  tagsPlaceholder: ajouter une étiquette...
 common:
   back: retour
   cancel: Annuler

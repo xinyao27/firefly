@@ -8,7 +8,9 @@ assistant:
   unpin: إغلاق النافذة دائمًا في المقدمة
 block:
   blocks: بيانات المادة
+  create: إنشاء الكتل
   synced: المزامنة كاملة
+  tagsPlaceholder: إضافة علامة...
 common:
   back: يعود
   cancel: يلغي
