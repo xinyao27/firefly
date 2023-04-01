@@ -10,6 +10,7 @@ block:
   blocks: Данные статьи
   create: создавать блоки
   synced: синхронизация завершена
+  tagsPlaceholder: добавить метку...
 common:
   back: возвращаться
   cancel: Отмена

@@ -10,6 +10,7 @@ block:
   blocks: 条数据
   create: 创建 Block
   synced: 同步完成
+  tagsPlaceholder: 添加标签...
 common:
   back: 返回
   cancel: 取消

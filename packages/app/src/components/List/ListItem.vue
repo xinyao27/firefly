@@ -10,9 +10,11 @@ const props = defineProps<{
 const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const blockStore = useBlockStore()
+const tagStore = useTagStore()
 const copilotStore = useCopilotStore()
 const router = useRouter()
 const el = ref<HTMLDivElement>()
+const expanded = ref(false)
 
 const options: DropdownOption[] = [
   {
@@ -45,31 +47,14 @@ function handleCopilot() {
     copilotStore.open(selection?.toString() || '')
   }
 }
-
-const parsedContent = computed(() => {
-  const content = props.data.content
-  if (!content)
-    return ''
-
-  const result = content.replace(/#\S+/g, '<span data-type="tag">$&</span>')
-  return result
-})
-
-onMounted(() => {
-  const tags = el.value?.querySelectorAll('span[data-type="tag"]')
-  tags?.forEach((tag) => {
-    tag.addEventListener('click', () => {
-      if (tag.textContent?.length && tag.textContent.length > 1) {
-        router.push({
-          name: 'index',
-          query: {
-            tag: tag.textContent?.slice(1),
-          },
-        })
-      }
-    })
+function handleTagClick(tag: string) {
+  router.push({
+    name: 'index',
+    query: {
+      tag,
+    },
   })
-})
+}
 </script>
 
 <template>
@@ -109,16 +94,37 @@ onMounted(() => {
         </NDropdown>
       </div>
     </template>
-    <NEllipsis
-      expand-trigger="click"
-      line-clamp="10"
-      :tooltip="false"
+    <div
+      cursor-pointer
+      :class="expanded ? '' : 'line-clamp-10'"
+      @click="expanded === false && (expanded = true)"
     >
       <div
         ref="el"
         class="ProseMirror prose prose-white"
-        v-html="parsedContent"
+        v-html="props.data.content"
       />
-    </NEllipsis>
+    </div>
+
+    <div
+      v-if="props.data.tags"
+      flex flex-wrap gap-2 pt-2
+    >
+      <NTag
+        v-for="tag in props.data.tags"
+        :key="tag"
+        class="cursor-pointer hover:bg-(slate opacity-30)"
+        :bordered="false"
+        size="small"
+        @click="handleTagClick(tag)"
+      >
+        <template #avatar>
+          <Bubble
+            :color="tagStore.findOne(tag)?.color"
+          />
+        </template>
+        {{ tag }}
+      </NTag>
+    </div>
   </NCard>
 </template>

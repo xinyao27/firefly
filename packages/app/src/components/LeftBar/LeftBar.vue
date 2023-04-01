@@ -1,61 +1,30 @@
 <script setup lang="ts">
+import type { colors } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
 import { NButton } from 'naive-ui'
-import type { TagModel } from '@firefly/common'
+import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
 
-function toTree(data: TagModel[]) {
-  const tree: TreeOption[] = []
-  data.forEach((item) => {
-    const arr = item.name.split('/')
-    let parent = ''
-    let children = tree
-    let obj: TreeOption = {}
-    arr.forEach((v) => {
-      const key = parent + v
-      let has = false
-      for (let j = 0; j < children.length; j++) {
-        if (children[j].label === v) {
-          obj = children[j]
-          has = true
-        }
+const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
+  key: v.name,
+  label: v.name,
+  prefix: () => h(BubbleSelector, {
+    color: v.color,
+    onSelect(color: keyof typeof colors) {
+      const tag = tagStore.findOne(v.name)
+      if (tag) {
+        tagStore.update({
+          ...tag,
+          color,
+        })
       }
-      if (!has) {
-        obj = {
-          label: v,
-          key,
-          prefix: () => item.icon ?? '#',
-        }
-        children.push(obj)
-      }
-      parent = `${key}/`
-      children = obj.children || (obj.children = [])
-    })
-  })
-  cleanData(tree)
-  return tree
-}
-function cleanData(data: TreeOption[]) {
-  data?.forEach((item) => {
-    if (item.children?.length === 0)
-      delete item.children
-    else
-      cleanData(item.children!)
-  })
-  return data
-}
-const data = computed<TreeOption[]>(() => toTree(tagStore.tags))
+    },
+  }),
+})))
 
-function renderPrefix({ option }: { option: TreeOption }) {
-  return h(
-    NButton,
-    { text: true },
-    { default: option.prefix },
-  )
-}
 const router = useRouter()
 function handleSelect([key]: string[]) {
   router.push({
@@ -76,7 +45,7 @@ function handleSelect([key]: string[]) {
         :data="data"
         block-line
         selectable
-        :render-prefix="renderPrefix"
+        :keyboard="false"
         @update-selected-keys="handleSelect"
       />
     </section>
@@ -88,13 +57,14 @@ function handleSelect([key]: string[]) {
         @click="textEditorStore.open('create')"
       >
         <template #icon>
-          <i i-ri-add-line />
+          <i i-ri-pencil-line />
         </template>
         <span>{{ t('block.create') }}</span>
       </NButton>
       <NModal
         v-model:show="textEditorStore.show"
         transform-origin="center"
+        :mask-closable="false"
       >
         <TextEditor />
       </NModal>

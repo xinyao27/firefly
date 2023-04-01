@@ -1,9 +1,52 @@
 <script setup lang="ts">
 import Editor from '@firefly/editor'
+import type { SelectOption, SelectRenderTag } from 'naive-ui'
+import { NTag } from 'naive-ui'
+import type { VNodeChild } from 'vue'
+import Bubble from '~/components/Bubble'
 
 const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
+const tags = computed(() => tagStore.tags.map(tag => ({
+  label: tag.name,
+  value: tag.name,
+})))
+function renderLabel(option: SelectOption): VNodeChild {
+  if (option.type === 'group')
+    return `${option.label}(Cool!)`
+  return [
+    h(
+      Bubble,
+      {
+        class: 'mr-2',
+        color: tagStore.findOne(option.label as string)?.color,
+      },
+    ),
+    option.label as string,
+  ]
+}
+const renderTag: SelectRenderTag = ({ option, handleClose }) => {
+  return h(
+    NTag,
+    {
+      closable: true,
+      bordered: false,
+      size: 'small',
+      onMousedown: (e: FocusEvent) => {
+        e.preventDefault()
+      },
+      onClose: (e: MouseEvent) => {
+        e.stopPropagation()
+        handleClose()
+      },
+    },
+    {
+      avatar: h(Bubble, { color: tagStore.findOne(option.label as string)?.color }),
+      default: () => option.label,
+    },
+  )
+}
 </script>
 
 <template>
@@ -30,10 +73,22 @@ const tagStore = useTagStore()
         v-model="textEditorStore.value"
         class="prose prose-white"
         :tags="tagStore.tags"
-        :on-focus="() => textEditorStore.toggleFocus(true)"
-        :on-blur="() => textEditorStore.toggleFocus(false)"
         :on-created="editor => textEditorStore.editor = editor"
       />
+      <div pt-1>
+        <NSelect
+          v-model:value="textEditorStore.tags"
+          size="small"
+          multiple
+          filterable
+          tag
+          :options="tags"
+          :render-label="renderLabel"
+          :render-tag="renderTag"
+          :max-tag-count="6"
+          :placeholder="t('block.tagsPlaceholder')"
+        />
+      </div>
       <template #footer>
         <div flex justify-between items-center>
           <div>
@@ -78,3 +133,8 @@ const tagStore = useTagStore()
     </NCard>
   </div>
 </template>
+
+<style lang="sass">
+.n-base-selection .n-base-selection-tags
+  @apply bg-transparent pl-0
+</style>

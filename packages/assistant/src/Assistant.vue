@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
-import { Logo, Spin, clearContent, createSupabaseClient } from '@firefly/common'
+import { Logo, Spin, createSupabaseClient } from '@firefly/common'
 import EditorCore from '@firefly/editor'
 import type { Editor } from '@tiptap/core'
 import { useToggle, useVModel } from '@vueuse/core'
@@ -83,7 +83,6 @@ async function handleSave() {
   try {
     toggleLoading(true)
     if (block.value) {
-      block.value.content = clearContent(block.value.content)
       await save(block.value, token.value)
       props.onClose?.()
     }

@@ -10,6 +10,7 @@ block:
   blocks: 記事データ
   create: ブロックを作成する
   synced: 同期完了
+  tagsPlaceholder: タグ付けする...
 common:
   back: 戻る
   cancel: キャンセル

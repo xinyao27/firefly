@@ -22,7 +22,7 @@ interface FireflyDB extends DBSchema {
       uid: number
       name: string
       pinned: number
-      icon: string
+      color: string
       createdAt: string
       updatedAt: string
     }
@@ -45,7 +45,7 @@ export function initDB() {
       tagStore.createIndex('uid', 'uid')
       tagStore.createIndex('name', 'name')
       tagStore.createIndex('pinned', 'pinned')
-      tagStore.createIndex('icon', 'icon')
+      tagStore.createIndex('color', 'color')
       tagStore.createIndex('createdAt', 'createdAt')
       tagStore.createIndex('updatedAt', 'updatedAt')
     },

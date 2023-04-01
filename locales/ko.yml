@@ -10,6 +10,7 @@ block:
   blocks: 기사 데이터
   create: 블록 생성
   synced: 동기화 완료
+  tagsPlaceholder: 태그 추가...
 common:
   back: 반품
   cancel: 취소

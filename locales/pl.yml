@@ -10,6 +10,7 @@ block:
   blocks: Dane artykułu
   create: tworzyć bloki
   synced: synchronizacja zakończona
+  tagsPlaceholder: dodaj tag...
 common:
   back: powrót
   cancel: Anulować

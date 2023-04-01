@@ -1,3 +1,5 @@
+import type { colors } from '../colors'
+
 export type TagId = number
 export interface TagModel {
   id: TagId
@@ -11,9 +13,9 @@ export interface TagModel {
    */
   pinned?: boolean
   /**
-   * 标签图标
+   * 标签颜色
    */
-  icon?: string
+  color?: keyof typeof colors
   /**
    * 创建时间
    */

@@ -14,8 +14,6 @@ const props = withDefaults(defineProps<{
   class?: string
   modelValue: string
   tags: TagModel[]
-  onFocus?: () => void
-  onBlur?: () => void
   onCreated?: (editor: Editor) => void
   bubbleMenu?: boolean
 }>(), {
@@ -38,12 +36,6 @@ const editor = useEditor({
   onUpdate({ editor }) {
     const content = editor.getHTML()
     data.value = content
-  },
-  onFocus() {
-    props.onFocus?.()
-  },
-  onBlur() {
-    props.onBlur?.()
   },
 })
 

@@ -10,6 +10,7 @@ block:
   blocks: Дані статті
   create: створювати блоки
   synced: синхронізація завершена
+  tagsPlaceholder: додати тег...
 common:
   back: повернення
   cancel: Скасувати
