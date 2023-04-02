@@ -17,6 +17,7 @@ block:
 common:
   back: geri dönmek
   cancel: İptal etmek
+  confirm: Elbette
   copied: kopyalanmış
   copy: kopyalamak
   delete: silmek
@@ -28,6 +29,8 @@ common:
   save: kaydetmek
   saved: Başarıyla kaydedildi
   updated: Güncelleme tamamlandı
+  warningContent: Silmek istediğinizden emin misiniz?
+  warningTitle: uyarmak
 copilot:
   customPrompt: Özel İstemler
   extractionTags: etiketleri ayıkla

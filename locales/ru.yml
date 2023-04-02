@@ -17,6 +17,7 @@ block:
 common:
   back: возвращаться
   cancel: Отмена
+  confirm: Конечно
   copied: скопировано
   copy: копировать
   delete: удалить
@@ -28,6 +29,8 @@ common:
   save: сохранять
   saved: Успешно сохранено
   updated: обновление завершено
+  warningContent: Вы уверены, что хотите удалить его
+  warningTitle: предупреждать
 copilot:
   customPrompt: Пользовательские подсказки
   extractionTags: извлечь теги

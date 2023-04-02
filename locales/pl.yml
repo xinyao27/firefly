@@ -17,6 +17,7 @@ block:
 common:
   back: powrót
   cancel: Anulować
+  confirm: Jasne
   copied: skopiowane
   copy: Kopiuj
   delete: usuwać
@@ -28,6 +29,8 @@ common:
   save: ratować
   saved: Zapisano pomyślnie
   updated: aktualizacja zakończona
+  warningContent: Na pewno chcesz go usunąć
+  warningTitle: ostrzegać
 copilot:
   customPrompt: Niestandardowe podpowiedzi
   extractionTags: wyodrębnij tagi

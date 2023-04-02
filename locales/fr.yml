@@ -17,6 +17,7 @@ block:
 common:
   back: retour
   cancel: Annuler
+  confirm: Bien sûr
   copied: copié
   copy: copie
   delete: supprimer
@@ -28,6 +29,8 @@ common:
   save: sauvegarder
   saved: Enregistré avec succès
   updated: Mise à jour terminée
+  warningContent: Vous êtes sûr de vouloir le supprimer
+  warningTitle: avertir
 copilot:
   customPrompt: Invites personnalisées
   extractionTags: extraire les balises

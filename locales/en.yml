@@ -17,6 +17,7 @@ block:
 common:
   back: return
   cancel: Cancel
+  confirm: Sure
   copied: copied
   copy: copy
   delete: delete
@@ -28,6 +29,8 @@ common:
   save: save
   saved: Saved successfully
   updated: update completed
+  warningContent: You sure you want to delete it
+  warningTitle: warn
 copilot:
   customPrompt: Custom Prompts
   extractionTags: extract tags

@@ -17,6 +17,7 @@ block:
 common:
   back: დაბრუნების
   cancel: გაუქმება
+  confirm: რა თქმა უნდა
   copied: გადაწერა
   copy: კოპირება
   delete: წაშლა
@@ -28,6 +29,8 @@ common:
   save: გადარჩენა
   saved: შენახულია წარმატებით
   updated: განახლება დასრულდა
+  warningContent: დარწმუნებული ხართ, რომ გსურთ მისი წაშლა
+  warningTitle: გაფრთხილება
 copilot:
   customPrompt: მორგებული მოთხოვნა
   extractionTags: ამონაწერი ტეგები

@@ -17,6 +17,7 @@ block:
 common:
   back: يعود
   cancel: يلغي
+  confirm: بالتأكيد
   copied: نسخ
   copy: ينسخ
   delete: يمسح
@@ -28,6 +29,8 @@ common:
   save: يحفظ
   saved: حفظ بنجاح
   updated: تحديث الانتهاء
+  warningContent: أنت متأكد أنك تريد حذفه
+  warningTitle: تحذير
 copilot:
   customPrompt: موجهات مخصصة
   extractionTags: استخراج العلامات

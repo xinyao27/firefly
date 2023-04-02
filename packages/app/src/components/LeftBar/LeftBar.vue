@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { colors } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
-import { NButton, NDropdown } from 'naive-ui'
+import { NButton, NDropdown, useDialog } from 'naive-ui'
 import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
+const dialog = useDialog()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
 
@@ -35,8 +36,17 @@ const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
         },
       ],
       onSelect(key: string) {
-        if (key === 'delete')
-          tagStore.delete(v.id)
+        if (key === 'delete') {
+          dialog.warning({
+            title: t('common.warningTitle'),
+            content: t('common.warningContent'),
+            positiveText: t('common.confirm'),
+            negativeText: t('common.cancel'),
+            onPositiveClick: () => {
+              tagStore.delete(v.id)
+            },
+          })
+        }
       },
     },
     {

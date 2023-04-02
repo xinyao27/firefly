@@ -17,6 +17,7 @@ block:
 common:
   back: 반품
   cancel: 취소
+  confirm: 확신하는
   copied: 복사
   copy: 복사
   delete: 삭제
@@ -28,6 +29,8 @@ common:
   save: 구하다
   saved: 성공적으로 저장 되었음
   updated: 업데이트 완료
+  warningContent: 삭제하시겠습니까?
+  warningTitle: 경고하다
 copilot:
   customPrompt: 사용자 정의 프롬프트
   extractionTags: 태그 추출

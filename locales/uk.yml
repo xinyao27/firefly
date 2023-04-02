@@ -17,6 +17,7 @@ block:
 common:
   back: повернення
   cancel: Скасувати
+  confirm: звичайно
   copied: скопійовано
   copy: копія
   delete: видалити
@@ -28,6 +29,8 @@ common:
   save: зберегти
   saved: Успішно збережено
   updated: оновлення завершено
+  warningContent: Ви впевнені, що хочете його видалити
+  warningTitle: попередити
 copilot:
   customPrompt: Спеціальні підказки
   extractionTags: витягти теги

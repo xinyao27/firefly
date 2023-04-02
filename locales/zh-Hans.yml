@@ -17,6 +17,7 @@ block:
 common:
   back: 返回
   cancel: 取消
+  confirm: 确定
   copied: 已复制
   copy: 复制
   delete: 删除
@@ -28,6 +29,8 @@ common:
   save: 保存
   saved: 保存成功
   updated: 更新成功
+  warningContent: 确定要删除吗
+  warningTitle: 警告
 copilot:
   customPrompt: 自定义 Prompt
   extractionTags: 提取标签

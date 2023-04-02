@@ -17,6 +17,7 @@ block:
 common:
   back: trở lại
   cancel: Hủy bỏ
+  confirm: Chắc chắn
   copied: sao chép
   copy: sao chép
   delete: xóa bỏ
@@ -28,6 +29,8 @@ common:
   save: cứu
   saved: đã lưu thành công
   updated: hoàn thành cập nhật
+  warningContent: Bạn chắc chắn muốn xóa nó
+  warningTitle: cảnh báo
 copilot:
   customPrompt: Lời nhắc tùy chỉnh
   extractionTags: trích xuất thẻ

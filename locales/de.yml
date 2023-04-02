@@ -17,6 +17,7 @@ block:
 common:
   back: zurückkehren
   cancel: Stornieren
+  confirm: Sicher
   copied: kopiert
   copy: Kopieren
   delete: löschen
@@ -28,6 +29,8 @@ common:
   save: speichern
   saved: Erfolgreich gespeichert
   updated: Update abgeschlossen
+  warningContent: Sie möchten es wirklich löschen
+  warningTitle: warnen
 copilot:
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
   extractionTags: Tags extrahieren

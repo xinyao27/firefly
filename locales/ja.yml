@@ -17,6 +17,7 @@ block:
 common:
   back: 戻る
   cancel: キャンセル
+  confirm: もちろん
   copied: コピーした
   copy: コピー
   delete: 消去
@@ -28,6 +29,8 @@ common:
   save: 保存
   saved: 正常に保存
   updated: アップデート完了
+  warningContent: 削除してもよろしいですか
+  warningTitle: 警告する
 copilot:
   customPrompt: カスタム プロンプト
   extractionTags: タグを抽出する

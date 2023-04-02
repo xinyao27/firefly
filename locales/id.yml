@@ -17,6 +17,7 @@ block:
 common:
   back: kembali
   cancel: Membatalkan
+  confirm: Tentu
   copied: disalin
   copy: menyalin
   delete: menghapus
@@ -28,6 +29,8 @@ common:
   save: menyimpan
   saved: Berhasil disimpan
   updated: pembaruan selesai
+  warningContent: Anda yakin ingin menghapusnya
+  warningTitle: memperingatkan
 copilot:
   customPrompt: Permintaan Kustom
   extractionTags: ekstrak tag
