@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import 'highlight.js/scss/github.scss'
 import './style.sass'
-import { onBeforeUnmount, onMounted, watch } from 'vue'
-import { useMediaQuery, useVModel } from '@vueuse/core'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useVModel } from '@vueuse/core'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import type { Editor } from '@tiptap/core'
 import type { TagModel } from '@firefly/common'
@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<{
 })
 const emit = defineEmits(['update:modelValue'])
 const data = useVModel(props, 'modelValue', emit)
+const emitAfterOnUpdate = ref(false)
 
 const state = useTextEditorState()
 const editor = useEditor({
@@ -34,6 +35,7 @@ const editor = useEditor({
     },
   },
   onUpdate({ editor }) {
+    emitAfterOnUpdate.value = true
     const content = editor.getHTML()
     data.value = content
   },
@@ -41,19 +43,16 @@ const editor = useEditor({
 
 onMounted(() => {
   props.onCreated?.(editor.value!)
-  const isMobileScreen = useMediaQuery('(max-width: 640px)')
-
-  if (!isMobileScreen) {
-    editor.value?.commands.focus()
-    editor.value?.commands.selectAll()
-  }
-
   state.tags.value = props.tags
 })
 onBeforeUnmount(() => {
   editor.value?.destroy()
 })
 watch(() => props.modelValue, (value) => {
+  if (emitAfterOnUpdate.value) {
+    emitAfterOnUpdate.value = false
+    return
+  }
   editor.value?.commands.setContent(value)
 })
 watch(() => props.tags, (tags) => {
