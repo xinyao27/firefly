@@ -30,7 +30,7 @@ const editor = useEditor({
   extensions,
   editorProps: {
     attributes: {
-      class: 'w-full max-w-full max-h-80 min-h-20 relative text-left transition focus:outline-none',
+      class: 'w-full max-w-full min-h-20 relative text-left transition focus:outline-none',
       suppressContentEditableWarning: 'true',
     },
   },

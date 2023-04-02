@@ -5,6 +5,14 @@ import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import Bubble from '~/components/Bubble'
 
+const props = defineProps<{
+  modelValue: string
+  class?: string
+  onClose?: () => void
+}>()
+const emit = defineEmits(['update:modelValue'])
+const data = useVModel(props, 'modelValue', emit)
+
 const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
@@ -48,22 +56,30 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
     },
   )
 }
+function handleClose() {
+  textEditorStore.cancel()
+  props.onClose?.()
+}
 </script>
 
 <template>
-  <div w-2xl m-auto px-2>
+  <div w-2xl m-auto h-full>
     <NCard
-      class="bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm"
+      class="h-full bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm overflow-hidden"
       size="small"
       role="dialog"
       aria-modal="true"
-      :title="textEditorStore.type === 'update' ? t('block.update') : t('block.create')"
     >
+      <template #header>
+        <div data-tauri-drag-region>
+          {{ textEditorStore.type === 'update' ? t('block.update') : t('block.create') }}
+        </div>
+      </template>
       <template #header-extra>
         <NButton
           quaternary
           size="tiny"
-          @click="textEditorStore.cancel"
+          @click="handleClose"
         >
           <template #icon>
             <i i-ri-close-line />
@@ -71,8 +87,9 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
         </NButton>
       </template>
       <Editor
-        v-model="textEditorStore.value"
-        class="prose prose-white max-h-xl"
+        v-model="data"
+        class="prose prose-white"
+        :class="props.class"
         :tags="tagStore.tags"
         :on-created="editor => textEditorStore.editor = editor"
       />

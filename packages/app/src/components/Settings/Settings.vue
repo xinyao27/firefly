@@ -27,9 +27,10 @@ async function handleSave() {
     const newSetting = settings.value
     if (is.desktop()) {
       await invoke('clear_config_cache')
-      await bindHotkey(oldSetting.hotkey)
-      if (is.macOS())
-        await bindOCRHotkey(oldSetting.ocrHotkey)
+      if (newSetting.hotkey)
+        await bindHotkey(newSetting.hotkey, oldSetting.hotkey)
+      if (is.macOS() && newSetting.ocrHotkey)
+        await bindOCRHotkey(newSetting.ocrHotkey, oldSetting.ocrHotkey)
       if (newSetting.runAtStartup !== await isAutostartEnabled()) {
         if (newSetting.runAtStartup)
           await autostartEnable()

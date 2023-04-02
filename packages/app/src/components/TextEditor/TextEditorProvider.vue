@@ -6,10 +6,14 @@ const configStore = useConfigStore()
 <template>
   <NModal
     v-model:show="textEditorStore.show"
+    class="px-2"
     transform-origin="center"
     :mask-closable="!configStore.isMobileScreen"
   >
-    <TextEditor />
+    <TextEditor
+      v-model="textEditorStore.value"
+      class="max-h-80 shadow-none"
+    />
   </NModal>
   <slot />
 </template>

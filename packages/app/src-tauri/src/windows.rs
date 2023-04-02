@@ -210,7 +210,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
                 tauri::WindowUrl::App("assistant.html".into()),
             )
             .fullscreen(false)
-            .inner_size(600.0, 284.0)
+            .inner_size(672.0, 212.0)
             .resizable(false)
             .skip_taskbar(true)
             .center()
@@ -230,7 +230,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             {
                 let window = builder.decorations(false).build().unwrap();
 
-                set_shadow(&window, true).unwrap();
+                // set_shadow(&window, true).unwrap();
 
                 window
             }
@@ -239,7 +239,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             {
                 let window = builder.decorations(false).build().unwrap();
 
-                set_shadow(&window, true).unwrap();
+                // set_shadow(&window, true).unwrap();
 
                 window
             }
