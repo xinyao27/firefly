@@ -24,8 +24,9 @@ use crate::config::{clear_config_cache, get_config_content};
 use crate::lang::detect_lang;
 use crate::ocr::ocr;
 use crate::windows::{
-    hide_assistant_window, set_assistant_window_always_on_top,
-    show_assistant_window_with_selected_text, MAIN_WIN_NAME,
+    close_thumb, get_mouse_location, hide_assistant_window, set_assistant_window_always_on_top,
+    show_assistant_window, show_assistant_window_with_selected_text, show_thumb, MAIN_WIN_NAME,
+    THUMB_WIN_NAME,
 };
 
 use mouce::Mouse;
@@ -105,7 +106,7 @@ fn main() {
                     .unwrap()
                     .as_millis();
                 let mut is_text_selected_event = false;
-                let (x, y): (i32, i32) = windows::get_mouse_location().unwrap();
+                let (x, y): (i32, i32) = get_mouse_location().unwrap();
                 let (prev_release_x, prev_release_y) = { *PREVIOUS_RELEASE_POSITION.lock() };
                 {
                     *PREVIOUS_RELEASE_POSITION.lock() = (x, y);
@@ -132,7 +133,7 @@ fn main() {
                     is_text_selected_event = true;
                 }
                 let is_click_on_thumb = match APP_HANDLE.get() {
-                    Some(handle) => match handle.get_window(windows::THUMB_WIN_NAME) {
+                    Some(handle) => match handle.get_window(THUMB_WIN_NAME) {
                         Some(window) => match window.outer_position() {
                             Ok(position) => {
                                 let scale_factor = window.scale_factor().unwrap_or(1.0);
@@ -160,7 +161,7 @@ fn main() {
                     None => false,
                 };
                 if !is_text_selected_event && !is_click_on_thumb {
-                    windows::close_thumb();
+                    close_thumb();
                     // println!("not text selected event");
                     // println!("is_click_on_thumb: {}", is_click_on_thumb);
                     // println!("mouse_distance: {}", mouse_distance);
@@ -181,16 +182,16 @@ fn main() {
                             {
                                 *SELECTED_TEXT.lock() = selected_text;
                             }
-                            windows::show_thumb(x, y);
+                            show_thumb(x, y);
                         } else {
-                            windows::close_thumb();
+                            close_thumb();
                         }
                     });
                 } else {
-                    windows::close_thumb();
+                    close_thumb();
                     let selected_text = (*SELECTED_TEXT.lock()).to_string();
                     if !selected_text.is_empty() {
-                        let window = windows::show_assistant_window(false, false);
+                        let window = show_assistant_window(false, false);
                         utils::send_text(selected_text);
                         if cfg!(target_os = "windows") {
                             window.set_always_on_top(true).unwrap();
@@ -273,7 +274,7 @@ fn main() {
                     NSWindow::setAllowsAutomaticWindowTabbing_(ns_window, cocoa::base::NO);
                 }
             }
-            windows::show_thumb(-100, -100);
+            show_thumb(-100, -100);
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
