@@ -134,6 +134,8 @@ export const useBlockStore = defineStore('block', {
 
         await (await db).add('blocks', response.data.data)
         await this.refresh()
+        const tagStore = useTagStore()
+        await tagStore.sync()
         $message.success($t('common.saved'))
       }
       catch (error: any) {
@@ -156,6 +158,8 @@ export const useBlockStore = defineStore('block', {
 
         await (await db).put('blocks', response.data.data)
         await this.refresh()
+        const tagStore = useTagStore()
+        await tagStore.sync()
         $message.success($t('common.updated'))
       }
       catch (error: any) {
