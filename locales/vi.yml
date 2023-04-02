@@ -9,21 +9,28 @@ assistant:
 block:
   blocks: Dữ liệu bài viết
   create: tạo khối
+  deleteLoading: Xóa Chặn trong...
+  saveLoading: Tạo khối...
   synced: đồng bộ hóa hoàn tất
-  tagsPlaceholder: thêm thẻ...
+  update: khối cập nhật
+  updateLoading: Đang cập nhật Chặn...
 common:
   back: trở lại
   cancel: Hủy bỏ
+  confirm: Chắc chắn
   copied: sao chép
   copy: sao chép
   delete: xóa bỏ
   deleted: xóa thành công
   edit: biên tập
+  loading: Đang tải...
   noResult: không kết quả
   notFound: không thể tìm thấy
   save: cứu
   saved: đã lưu thành công
   updated: hoàn thành cập nhật
+  warningContent: Bạn chắc chắn muốn xóa nó
+  warningTitle: cảnh báo
 copilot:
   customPrompt: Lời nhắc tùy chỉnh
   extractionTags: trích xuất thẻ
@@ -45,6 +52,7 @@ editor:
   todoList: những việc cần làm
   type: kiểu
   underline: gạch dưới
+  uploading: đang tải lên...
 login:
   continueWithEmail: Email đăng nhập
   continueWithGithub: đăng nhập Github
@@ -72,6 +80,11 @@ settings:
   save: cứu
   saveSuccess: đã lưu thành công
   title: cài đặt
+tag:
+  delete: xóa bỏ
+  deleteLoading: Xóa nhãn trong...
+  placeholder: thêm thẻ...
+  updateLoading: Trong tab cập nhật...
 titleBar:
   sync: đồng bộ hóa ngay bây giờ
 user:

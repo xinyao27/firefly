@@ -6,8 +6,10 @@ const { t } = useI18n()
 const copilotStore = useCopilotStore()
 const blockStore = useBlockStore()
 const promptRef = ref<InputInst>()
-// @ts-expect-error noop
-const createInputRef = (ref: Element | ComponentPublicInstance | null) => copilotStore.inputRef = ref
+function createInputRef(ref: Element | ComponentPublicInstance | null) {
+  // @ts-expect-error noop
+  return copilotStore.inputRef = ref
+}
 const scrollBarRef = ref<ScrollbarInst | null>(null)
 const referenceOptions = ref<MentionOption[]>([])
 
@@ -160,7 +162,7 @@ watch(() => copilotStore.currentError, (currentError) => {
               @click="handleAskCopilot"
             >
               <template #icon>
-                <i i-tabler-brain />
+                <i i-ri-openai-line />
               </template>
             </NButton>
           </template>

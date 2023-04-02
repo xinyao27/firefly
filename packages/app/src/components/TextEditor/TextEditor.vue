@@ -5,9 +5,18 @@ import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import Bubble from '~/components/Bubble'
 
+const props = defineProps<{
+  modelValue: string
+  class?: string
+  onClose?: () => void
+}>()
+const emit = defineEmits(['update:modelValue'])
+const data = useVModel(props, 'modelValue', emit)
+
 const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
+const uploadRef = ref()
 const tags = computed(() => tagStore.tags.map(tag => ({
   label: tag.name,
   value: tag.name,
@@ -47,22 +56,30 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
     },
   )
 }
+function handleClose() {
+  textEditorStore.cancel()
+  props.onClose?.()
+}
 </script>
 
 <template>
-  <div w-2xl h-xl m-auto>
+  <div w-2xl m-auto h-full>
     <NCard
-      class="bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm"
+      class="h-full bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm overflow-hidden"
       size="small"
       role="dialog"
       aria-modal="true"
-      :title="t('block.create')"
     >
+      <template #header>
+        <div data-tauri-drag-region>
+          {{ textEditorStore.type === 'update' ? t('block.update') : t('block.create') }}
+        </div>
+      </template>
       <template #header-extra>
         <NButton
           quaternary
           size="tiny"
-          @click="textEditorStore.cancel"
+          @click="handleClose"
         >
           <template #icon>
             <i i-ri-close-line />
@@ -70,8 +87,9 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
         </NButton>
       </template>
       <Editor
-        v-model="textEditorStore.value"
+        v-model="data"
         class="prose prose-white"
+        :class="props.class"
         :tags="tagStore.tags"
         :on-created="editor => textEditorStore.editor = editor"
       />
@@ -85,16 +103,25 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"
-          :max-tag-count="6"
-          :placeholder="t('block.tagsPlaceholder')"
+          :max-tag-count="8"
+          :placeholder="t('tag.placeholder')"
         />
       </div>
       <template #footer>
         <div flex justify-between items-center>
           <div>
+            <input
+              ref="uploadRef"
+              class="hidden"
+              multiple
+              type="file"
+              accept="image/*,.pdf"
+              @change="textEditorStore.upload"
+            >
             <NButton
               quaternary
               size="tiny"
+              @click="uploadRef.click()"
             >
               <template #icon>
                 <i i-ri-attachment-2 />
@@ -125,7 +152,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
               <template #icon>
                 <i i-ri-send-plane-2-fill />
               </template>
-              {{ t('block.create') }}
+              {{ textEditorStore.type === 'update' ? t('block.update') : t('block.create') }}
             </NButton>
           </div>
         </div>

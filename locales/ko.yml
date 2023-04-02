@@ -9,21 +9,28 @@ assistant:
 block:
   blocks: 기사 데이터
   create: 블록 생성
+  deleteLoading: 차단 삭제...
+  saveLoading: 블록 생성 중...
   synced: 동기화 완료
-  tagsPlaceholder: 태그 추가...
+  update: 업데이트 블록
+  updateLoading: 차단 업데이트 진행 중...
 common:
   back: 반품
   cancel: 취소
+  confirm: 확신하는
   copied: 복사
   copy: 복사
   delete: 삭제
   deleted: 성공적으로 삭제
   edit: 편집하다
+  loading: 로드 중...
   noResult: 결과가 없다
   notFound: 찾을 수 없습니다
   save: 구하다
   saved: 성공적으로 저장 되었음
   updated: 업데이트 완료
+  warningContent: 삭제하시겠습니까?
+  warningTitle: 경고하다
 copilot:
   customPrompt: 사용자 정의 프롬프트
   extractionTags: 태그 추출
@@ -45,6 +52,7 @@ editor:
   todoList: 할 일 목록
   type: 유형
   underline: 밑줄
+  uploading: 업로드 중...
 login:
   continueWithEmail: 이메일 로그인
   continueWithGithub: Github 로그인
@@ -72,6 +80,11 @@ settings:
   save: 구하다
   saveSuccess: 성공적으로 저장 되었음
   title: 설정
+tag:
+  delete: 삭제
+  deleteLoading: 라벨 제거 중...
+  placeholder: 태그 추가...
+  updateLoading: 업데이트 탭에서...
 titleBar:
   sync: 지금 동기화
 user:

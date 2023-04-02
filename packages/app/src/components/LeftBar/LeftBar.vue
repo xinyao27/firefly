@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { colors } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
-import { NButton } from 'naive-ui'
+import { NButton, NDropdown, useDialog } from 'naive-ui'
 import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
+const dialog = useDialog()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
 
@@ -23,8 +24,46 @@ const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
       }
     },
   }),
+  suffix: () => h(
+    NDropdown,
+    {
+      size: 'small',
+      trigger: 'click',
+      options: [
+        {
+          label: t('tag.delete'),
+          key: 'delete',
+        },
+      ],
+      onSelect(key: string) {
+        if (key === 'delete') {
+          dialog.warning({
+            title: t('common.warningTitle'),
+            content: t('common.warningContent'),
+            positiveText: t('common.confirm'),
+            negativeText: t('common.cancel'),
+            onPositiveClick: () => {
+              tagStore.delete(v.id)
+            },
+          })
+        }
+      },
+    },
+    {
+      default: () => h(
+        NButton,
+        {
+          size: 'tiny',
+          quaternary: true,
+          onClick: (e: MouseEvent) => e.stopPropagation(),
+        },
+        {
+          default: () => h('i', {
+            class: 'i-ri-more-line',
+          }),
+        }),
+    }),
 })))
-
 const router = useRouter()
 function handleSelect([key]: string[]) {
   router.push({
@@ -50,24 +89,26 @@ function handleSelect([key]: string[]) {
       />
     </section>
     <section>
-      <NButton
-        block
-        secondary
-        type="primary"
-        @click="textEditorStore.open('create')"
-      >
-        <template #icon>
-          <i i-ri-pencil-line />
+      <NTooltip>
+        <template #trigger>
+          <NButton
+            class="capitalize"
+            block
+            secondary
+            type="primary"
+            @click="textEditorStore.open('create')"
+          >
+            <template #icon>
+              <i i-ri-pencil-line />
+            </template>
+            {{ t('block.create') }}
+          </NButton>
         </template>
-        <span>{{ t('block.create') }}</span>
-      </NButton>
-      <NModal
-        v-model:show="textEditorStore.show"
-        transform-origin="center"
-        :mask-closable="false"
-      >
-        <TextEditor />
-      </NModal>
+        <div flex items-center gap-2>
+          {{ t('block.create') }}
+          <KBD :shortcut="['ctrl', 'l']" />
+        </div>
+      </NTooltip>
     </section>
   </aside>
 </template>

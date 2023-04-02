@@ -13,7 +13,6 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@firefly/assistant": "workspace:*",
     "@firefly/common": "workspace:*",
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",

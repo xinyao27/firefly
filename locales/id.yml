@@ -9,21 +9,28 @@ assistant:
 block:
   blocks: Data artikel
   create: membuat blok
+  deleteLoading: Hapus Blokir di...
+  saveLoading: Membuat Blok...
   synced: sinkronisasi selesai
-  tagsPlaceholder: tambahkan tag...
+  update: blok pembaruan
+  updateLoading: Memperbarui Blok sedang berlangsung...
 common:
   back: kembali
   cancel: Membatalkan
+  confirm: Tentu
   copied: disalin
   copy: menyalin
   delete: menghapus
   deleted: berhasil dihapus
   edit: sunting
+  loading: Memuat...
   noResult: tidak ada hasil
   notFound: tidak dapat menemukan
   save: menyimpan
   saved: Berhasil disimpan
   updated: pembaruan selesai
+  warningContent: Anda yakin ingin menghapusnya
+  warningTitle: memperingatkan
 copilot:
   customPrompt: Permintaan Kustom
   extractionTags: ekstrak tag
@@ -45,6 +52,7 @@ editor:
   todoList: untuk melakukan daftar
   type: jenis
   underline: menggarisbawahi
+  uploading: mengunggah...
 login:
   continueWithEmail: Masuk Email
   continueWithGithub: Login Github
@@ -72,6 +80,11 @@ settings:
   save: menyimpan
   saveSuccess: Berhasil disimpan
   title: mempersiapkan
+tag:
+  delete: menghapus
+  deleteLoading: Menghapus label di...
+  placeholder: tambahkan tag...
+  updateLoading: Di tab pembaruan...
 titleBar:
   sync: sinkronkan sekarang
 user:

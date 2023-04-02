@@ -12,7 +12,7 @@ export interface BlockOtherAttrs {
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     blockOther: {
-      setBlockOther: (attr: BlockOtherAttrs) => ReturnType
+      setBlockOtherAt: (attr: BlockOtherAttrs) => ReturnType
     }
   }
 }
@@ -42,7 +42,7 @@ export const ExtensionBlockOther = Node.create({
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const block = node.attrs.block as BlockModel
+    const block = typeof node.attrs.block === 'string' ? JSON.parse(node.attrs.block) : node.attrs.block
     const title = block.title ?? ''
     const path = block.path ?? ''
     return [
@@ -87,7 +87,7 @@ export const ExtensionBlockOther = Node.create({
 
   addCommands() {
     return {
-      setBlockOther: attrs => ({ commands }) => {
+      setBlockOtherAt: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,

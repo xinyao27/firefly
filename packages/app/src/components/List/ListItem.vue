@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import type { DropdownOption } from 'naive-ui'
+import { useDialog } from 'naive-ui'
 import type { BlockModel } from '@firefly/common'
 
 const props = defineProps<{
@@ -8,6 +9,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const dialog = useDialog()
 const textEditorStore = useTextEditorStore()
 const blockStore = useBlockStore()
 const tagStore = useTagStore()
@@ -28,8 +30,17 @@ const options: DropdownOption[] = [
     label: t('common.delete'),
     key: 'delete',
     onClick() {
-      if (props.data.id)
-        blockStore.delete(props.data.id)
+      if (props.data.id) {
+        dialog.warning({
+          title: t('common.warningTitle'),
+          content: t('common.warningContent'),
+          positiveText: t('common.confirm'),
+          negativeText: t('common.cancel'),
+          onPositiveClick: () => {
+            blockStore.delete(props.data.id!)
+          },
+        })
+      }
     },
   },
 ]
@@ -74,7 +85,7 @@ function handleTagClick(tag: string) {
               size="tiny"
               @click="handleCopilot"
             >
-              <i i-tabler-brain />
+              <i i-ri-openai-line />
             </NButton>
           </template>
           {{ t('copilot.ref') }}

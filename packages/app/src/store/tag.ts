@@ -4,6 +4,7 @@ import type { TagId, TagModel } from '@firefly/common'
 import { getUser } from '@firefly/common'
 import { supabase } from '~/api'
 import { db } from '~/db'
+import { $t } from '~/i18n'
 
 interface SyncParams {
   lastUpdatedAt?: Date
@@ -112,6 +113,7 @@ export const useTagStore = defineStore('tag', {
       }
     },
     async update(data: TagModel) {
+      const { destroy } = $message.loading($t('tag.updateLoading'), { duration: 0 })
       try {
         const response = await supabase.from('tags').update(data).eq('id', data.id)
         if (response.error)
@@ -119,24 +121,33 @@ export const useTagStore = defineStore('tag', {
 
         await (await db).put('tags', data)
         await this.refresh()
+        $message.success($t('common.updated'))
       }
       catch (error) {
         console.error(error)
         $message.error(error)
       }
+      finally {
+        destroy()
+      }
     },
     async delete(id: TagId) {
+      const { destroy } = $message.loading($t('tag.deleteLoading'), { duration: 0 })
       try {
         const response = await supabase.from('tags').delete().eq('id', id)
         if (response.error)
           throw new Error(response.error.message)
 
-        await (await db).delete('tags', id.toString())
+        await (await db).delete('tags', id)
         await this.refresh()
+        $message.success($t('common.deleted'))
       }
       catch (error) {
         console.error(error)
         $message.error(error)
+      }
+      finally {
+        destroy()
       }
     },
     async clear() {

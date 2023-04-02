@@ -1,28 +1,12 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
 import type { BlockModel } from '@firefly/common'
-import Assistant from '@firefly/assistant'
 import type { Event } from '@tauri-apps/api/event'
 import { listen } from '@tauri-apps/api/event'
-import { Logo } from '@firefly/common'
 import type { Editor } from '@tiptap/core'
 import { invoke } from '@tauri-apps/api'
-import Pin from './Pin.vue'
-import { supabase } from '~/api'
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseFunctionsUrl = import.meta.env.VITE_SUPABASE_FUNCTIONS_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 const block = ref<BlockModel>({ content: '' })
-const token = asyncComputed(async () => {
-  const { data, error } = await supabase.from('profiles').select().single()
-  if (error) {
-    console.error(error)
-    throw error
-  }
-  return data.token
-})
 const editor = ref<Editor>()
 
 async function handleClose() {
@@ -55,29 +39,11 @@ onMounted(() => {
 <template>
   <ThemeProvider>
     <CustomProvider>
-      <header
-        data-tauri-drag-region
-        flex justify-between items-center p-3
-      >
-        <Logo />
-        <Pin />
-      </header>
-      <main>
-        <Assistant
-          v-model:token="token"
-          v-model:block="block"
-          v-model:editor="editor"
-          editor-class="h-80"
-          :supabase-url="supabaseUrl"
-          :supabase-functions-url="supabaseFunctionsUrl"
-          :supabase-anon-key="supabaseAnonKey"
-          :on-close="handleClose"
-        >
-          <template #header>
-            <div />
-          </template>
-        </Assistant>
-      </main>
+      <TextEditor
+        v-model="block.content"
+        class="max-h-20"
+        :on-close="handleClose"
+      />
     </CustomProvider>
   </ThemeProvider>
 </template>

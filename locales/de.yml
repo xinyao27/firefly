@@ -9,21 +9,28 @@ assistant:
 block:
   blocks: Artikeldaten
   create: Blöcke erstellen
+  deleteLoading: Block löschen in...
+  saveLoading: Blöcke erstellen...
   synced: Synchronisierung abgeschlossen
-  tagsPlaceholder: Tag hinzufügen...
+  update: Update-Block
+  updateLoading: Block wird aktualisiert...
 common:
   back: zurückkehren
   cancel: Stornieren
+  confirm: Sicher
   copied: kopiert
   copy: Kopieren
   delete: löschen
   deleted: erfolgreich gelöscht
   edit: bearbeiten
+  loading: Wird geladen...
   noResult: kein Ergebnis
   notFound: kann nicht finden
   save: speichern
   saved: Erfolgreich gespeichert
   updated: Update abgeschlossen
+  warningContent: Sie möchten es wirklich löschen
+  warningTitle: warnen
 copilot:
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
   extractionTags: Tags extrahieren
@@ -45,6 +52,7 @@ editor:
   todoList: Aufgabenliste
   type: Typ
   underline: unterstreichen
+  uploading: hochladen...
 login:
   continueWithEmail: E-Mail-Anmeldung
   continueWithGithub: Github-Anmeldung
@@ -74,6 +82,11 @@ settings:
   save: speichern
   saveSuccess: Erfolgreich gespeichert
   title: aufstellen
+tag:
+  delete: löschen
+  deleteLoading: Etikett entfernen in...
+  placeholder: Tag hinzufügen...
+  updateLoading: Im Update-Tab...
 titleBar:
   sync: jetzt synchronisieren
 user:

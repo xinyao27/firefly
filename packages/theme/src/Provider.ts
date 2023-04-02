@@ -7,6 +7,7 @@ export const ThemeProvider: FunctionalComponent = (_, { slots }) => {
   return h(
     NConfigProvider,
     {
+      class: 'h-full',
       theme: darkTheme,
       themeOverrides,
     },

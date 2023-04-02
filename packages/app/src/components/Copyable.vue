@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PopoverPlacement } from 'naive-ui'
+import copy from 'copy-to-clipboard'
 
 const props = defineProps<{
   type: 'text' | 'area' | 'button'
@@ -11,7 +12,7 @@ const { t } = useI18n()
 
 const copied = ref(false)
 async function handleCopyResult() {
-  await navigator.clipboard.writeText(props.text)
+  copy(props.text)
   copied.value = true
   setTimeout(() => {
     copied.value = false

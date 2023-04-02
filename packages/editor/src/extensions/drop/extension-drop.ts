@@ -31,15 +31,15 @@ function isUrl(string: string) {
 function getBlockCommand(category: BlockModel['category'], editor: Editor) {
   switch (category) {
     case 'text':
-      return editor.commands.setBlockText
+      return editor.commands.setBlockTextAt
     case 'image':
-      return editor.commands.setBlockImage
+      return editor.commands.setBlockImageAt
     case 'link':
-      return editor.commands.setBlockLink
+      return editor.commands.setBlockLinkAt
     case 'other':
-      return editor.commands.setBlockOther
+      return editor.commands.setBlockOtherAt
     default:
-      return editor.commands.setBlockOther
+      return editor.commands.setBlockOtherAt
   }
 }
 

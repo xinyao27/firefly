@@ -1,6 +1,9 @@
 import type { Editor } from '@tiptap/core'
 import { defineStore } from 'pinia'
 import type { BlockModel } from '@firefly/common'
+import { getFileExt, getUser, uuid } from '@firefly/common'
+import { $t } from '~/i18n'
+import { supabase } from '~/api'
 
 type Type = 'update' | 'create'
 
@@ -22,14 +25,12 @@ export const useTextEditorStore = defineStore('textEditor', {
       if (type === 'update') {
         this.value = block?.content ?? ''
         this.tags = block?.tags ?? []
-        this.editor?.commands.setContent(this.value)
         this.editingBlock = block
       }
       this.type = type
       this.show = true
     },
     cancel() {
-      this.editor?.commands.clearContent()
       this.value = ''
       this.tags = []
       this.type = 'create'
@@ -58,6 +59,43 @@ export const useTextEditorStore = defineStore('textEditor', {
 
       this.cancel()
       this.loading = false
+    },
+    async upload(e: Event) {
+      const { destroy } = $message.loading($t('editor.uploading'), { duration: 0 })
+      try {
+        // @ts-expect-error noop
+        const files = e.target?.files as FileList
+        for (const file of Array.from(files)) {
+          const ext = getFileExt(file.name) || 'jpg'
+          const user = await getUser()
+          const filename = `${user?.id}/${uuid()}.${ext}`
+          const { data: { publicUrl } } = supabase
+            .storage
+            .from('images')
+            .getPublicUrl(filename)
+          const { error } = await supabase.storage
+            .from('images')
+            .upload(filename, file)
+          if (error)
+            throw error
+
+          this.editor.commands.setBlockImage({
+            from: 'file',
+            block: {
+              category: 'image',
+              path: publicUrl,
+              content: '',
+            },
+          })
+        }
+      }
+      catch (err) {
+        console.error(err)
+        $message.error(err as string)
+      }
+      finally {
+        destroy()
+      }
     },
   },
 })

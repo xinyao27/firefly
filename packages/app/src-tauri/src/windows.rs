@@ -4,7 +4,7 @@ use crate::ALWAYS_ON_TOP;
 use crate::APP_HANDLE;
 use mouse_position::mouse_position::Mouse;
 use std::sync::atomic::Ordering;
-use tauri::{LogicalPosition, Manager, PhysicalPosition};
+use tauri::{LogicalPosition, LogicalSize, Manager, PhysicalPosition};
 use window_shadows::set_shadow;
 
 pub const MAIN_WIN_NAME: &str = "main";
@@ -91,6 +91,7 @@ pub fn show_thumb(x: i32, y: i32) {
             }
             window.unminimize().unwrap();
             window.show().unwrap();
+            window.set_size(LogicalSize::new(20.0, 20.0)).unwrap();
             window.set_always_on_top(true).unwrap();
         }
         None => {
@@ -210,7 +211,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
                 tauri::WindowUrl::App("assistant.html".into()),
             )
             .fullscreen(false)
-            .inner_size(600.0, 284.0)
+            .inner_size(672.0, 212.0)
             .resizable(false)
             .skip_taskbar(true)
             .center()
