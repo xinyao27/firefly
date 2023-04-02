@@ -89,18 +89,26 @@ function handleSelect([key]: string[]) {
       />
     </section>
     <section>
-      <NButton
-        class="capitalize"
-        block
-        secondary
-        type="primary"
-        @click="textEditorStore.open('create')"
-      >
-        <template #icon>
-          <i i-ri-pencil-line />
+      <NTooltip>
+        <template #trigger>
+          <NButton
+            class="capitalize"
+            block
+            secondary
+            type="primary"
+            @click="textEditorStore.open('create')"
+          >
+            <template #icon>
+              <i i-ri-pencil-line />
+            </template>
+            {{ t('block.create') }}
+          </NButton>
         </template>
-        {{ t('block.create') }}
-      </NButton>
+        <div flex items-center gap-2>
+          {{ t('block.create') }}
+          <KBD :shortcut="['ctrl', 'l']" />
+        </div>
+      </NTooltip>
     </section>
   </aside>
 </template>
