@@ -42,7 +42,7 @@ export const ExtensionBlockOther = Node.create({
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const block = node.attrs.block as BlockModel
+    const block = typeof node.attrs.block === 'string' ? JSON.parse(node.attrs.block) : node.attrs.block
     const title = block.title ?? ''
     const path = block.path ?? ''
     return [

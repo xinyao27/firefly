@@ -43,7 +43,7 @@ export const ExtensionBlockLink = Node.create({
   },
 
   renderHTML({ HTMLAttributes, node }) {
-    const block = node.attrs.block as BlockModel
+    const block = typeof node.attrs.block === 'string' ? JSON.parse(node.attrs.block) : node.attrs.block
     const metadata = block.metadata
     return [
       'div',
