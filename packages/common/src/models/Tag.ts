@@ -1,6 +1,6 @@
 import type { colors } from '../colors'
 
-export type TagId = number
+export type TagId = string
 export interface TagModel {
   id: TagId
   uid?: string

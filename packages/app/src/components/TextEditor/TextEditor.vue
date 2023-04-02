@@ -56,7 +56,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
       size="small"
       role="dialog"
       aria-modal="true"
-      :title="t('block.create')"
+      :title="textEditorStore.type === 'update' ? t('block.update') : t('block.create')"
     >
       <template #header-extra>
         <NButton
@@ -86,7 +86,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
           :render-label="renderLabel"
           :render-tag="renderTag"
           :max-tag-count="8"
-          :placeholder="t('block.tagsPlaceholder')"
+          :placeholder="t('tag.placeholder')"
         />
       </div>
       <template #footer>
@@ -125,7 +125,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
               <template #icon>
                 <i i-ri-send-plane-2-fill />
               </template>
-              {{ t('block.create') }}
+              {{ textEditorStore.type === 'update' ? t('block.update') : t('block.create') }}
             </NButton>
           </div>
         </div>

@@ -4,6 +4,7 @@ import type { TagId, TagModel } from '@firefly/common'
 import { getUser } from '@firefly/common'
 import { supabase } from '~/api'
 import { db } from '~/db'
+import { $t } from '~/i18n'
 
 interface SyncParams {
   lastUpdatedAt?: Date
@@ -63,6 +64,7 @@ export const useTagStore = defineStore('tag', {
         return setTimeout(() => this.sync({ lastUpdatedAt, lastTagId }), 200)
       try {
         this.loading = true
+        $message.loading($t('common.loading'), { duration: 0 })
 
         const count = await this.count({ lastUpdatedAt, lastTagId })
         const result = []
@@ -101,9 +103,11 @@ export const useTagStore = defineStore('tag', {
           result.push(...response.data)
         }
 
+        $message.destroyAll()
         return this.tags
       }
       catch (error) {
+        $message.destroyAll()
         console.error(error)
         $message.error(error)
       }
@@ -113,28 +117,36 @@ export const useTagStore = defineStore('tag', {
     },
     async update(data: TagModel) {
       try {
+        $message.loading($t('tag.updateLoading'), { duration: 0 })
         const response = await supabase.from('tags').update(data).eq('id', data.id)
         if (response.error)
           throw new Error(response.error.message)
 
         await (await db).put('tags', data)
         await this.refresh()
+        $message.destroyAll()
+        $message.success($t('common.updated'))
       }
       catch (error) {
+        $message.destroyAll()
         console.error(error)
         $message.error(error)
       }
     },
     async delete(id: TagId) {
       try {
+        $message.loading($t('tag.deleteLoading'), { duration: 0 })
         const response = await supabase.from('tags').delete().eq('id', id)
         if (response.error)
           throw new Error(response.error.message)
 
-        await (await db).delete('tags', id.toString())
+        await (await db).delete('tags', id)
         await this.refresh()
+        $message.destroyAll()
+        $message.success($t('common.deleted'))
       }
       catch (error) {
+        $message.destroyAll()
         console.error(error)
         $message.error(error)
       }

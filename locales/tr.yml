@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: Makale verileri
   create: bloklar oluştur
+  deleteLoading: Şuradaki Bloğu Sil...
+  saveLoading: Bloklar Oluşturuluyor...
   synced: senkronizasyon tamamlandı
-  tagsPlaceholder: etiket ekle...
+  update: güncelleme bloğu
+  updateLoading: Blok güncelleniyor...
 common:
   back: geri dönmek
   cancel: İptal etmek
@@ -19,6 +22,7 @@ common:
   delete: silmek
   deleted: başarıyla silindi
   edit: düzenlemek
+  loading: Yükleniyor...
   noResult: sonuç yok
   notFound: bulamıyorum
   save: kaydetmek
@@ -72,6 +76,11 @@ settings:
   save: kaydetmek
   saveSuccess: Başarıyla kaydedildi
   title: kurmak
+tag:
+  delete: silmek
+  deleteLoading: Etiket kaldırılıyor...
+  placeholder: etiket ekle...
+  updateLoading: Güncelleme sekmesinde...
 titleBar:
   sync: şimdi senkronize et
 user:

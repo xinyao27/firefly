@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: სტატიის მონაცემები
   create: ბლოკების შექმნა
+  deleteLoading: ბლოკის წაშლა...
+  saveLoading: ბლოკების შექმნა...
   synced: სინქრონიზაცია დასრულებულია
-  tagsPlaceholder: ტეგის დამატება...
+  update: განახლების ბლოკი
+  updateLoading: მიმდინარეობს ბლოკის განახლება...
 common:
   back: დაბრუნების
   cancel: გაუქმება
@@ -19,6 +22,7 @@ common:
   delete: წაშლა
   deleted: წარმატებით წაიშალა
   edit: რედაქტირება
+  loading: Ჩატვირთვა...
   noResult: უშედეგო
   notFound: ვერ პოულობს
   save: გადარჩენა
@@ -72,6 +76,11 @@ settings:
   save: გადარჩენა
   saveSuccess: შენახულია წარმატებით
   title: აწყობა
+tag:
+  delete: წაშლა
+  deleteLoading: ეტიკეტის ამოღება...
+  placeholder: ტეგის დამატება...
+  updateLoading: განახლების ჩანართში...
 titleBar:
   sync: სინქრონიზაცია ახლა
 user:

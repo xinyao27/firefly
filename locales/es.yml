@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: Datos del artículo
   create: crear bloques
+  deleteLoading: Eliminar bloque en...
+  saveLoading: Creando bloques...
   synced: sincronización completa
-  tagsPlaceholder: añadir etiqueta...
+  update: actualizar bloque
+  updateLoading: Actualizando bloque en curso...
 common:
   back: devolver
   cancel: Cancelar
@@ -19,6 +22,7 @@ common:
   delete: borrar
   deleted: eliminado con éxito
   edit: editar
+  loading: Cargando...
   noResult: sin resultados
   notFound: no puedo encontrar
   save: ahorrar
@@ -74,6 +78,11 @@ settings:
   save: ahorrar
   saveSuccess: Guardado exitosamente
   title: configuración
+tag:
+  delete: borrar
+  deleteLoading: Eliminando etiqueta en...
+  placeholder: añadir etiqueta...
+  updateLoading: En la pestaña de actualización...
 titleBar:
   sync: sincronizar ahora
 user:

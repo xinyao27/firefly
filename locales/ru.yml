@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: Данные статьи
   create: создавать блоки
+  deleteLoading: Удалить блок в...
+  saveLoading: Создание блоков...
   synced: синхронизация завершена
-  tagsPlaceholder: добавить метку...
+  update: блок обновления
+  updateLoading: Выполняется обновление блока...
 common:
   back: возвращаться
   cancel: Отмена
@@ -19,6 +22,7 @@ common:
   delete: удалить
   deleted: успешно удален
   edit: редактировать
+  loading: Загрузка...
   noResult: безрезультатно
   notFound: не могу найти
   save: сохранять
@@ -74,6 +78,11 @@ settings:
   save: сохранять
   saveSuccess: Успешно сохранено
   title: настраивать
+tag:
+  delete: удалить
+  deleteLoading: Удаление ярлыка в...
+  placeholder: добавить метку...
+  updateLoading: Во вкладке обновления...
 titleBar:
   sync: синхронизировать сейчас
 user:

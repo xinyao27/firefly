@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { colors } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
-import { NButton } from 'naive-ui'
+import { NButton, NDropdown } from 'naive-ui'
 import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
@@ -23,8 +23,37 @@ const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
       }
     },
   }),
+  suffix: () => h(
+    NDropdown,
+    {
+      size: 'small',
+      trigger: 'click',
+      options: [
+        {
+          label: t('tag.delete'),
+          key: 'delete',
+        },
+      ],
+      onSelect(key: string) {
+        if (key === 'delete')
+          tagStore.delete(v.id)
+      },
+    },
+    {
+      default: () => h(
+        NButton,
+        {
+          size: 'tiny',
+          quaternary: true,
+          onClick: (e: MouseEvent) => e.stopPropagation(),
+        },
+        {
+          default: () => h('i', {
+            class: 'i-ri-more-line',
+          }),
+        }),
+    }),
 })))
-
 const router = useRouter()
 function handleSelect([key]: string[]) {
   router.push({
@@ -51,6 +80,7 @@ function handleSelect([key]: string[]) {
     </section>
     <section>
       <NButton
+        class="capitalize"
         block
         secondary
         type="primary"
@@ -59,7 +89,7 @@ function handleSelect([key]: string[]) {
         <template #icon>
           <i i-ri-pencil-line />
         </template>
-        <span>{{ t('block.create') }}</span>
+        {{ t('block.create') }}
       </NButton>
     </section>
   </aside>

@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: 記事データ
   create: ブロックを作成する
+  deleteLoading: ブロックを削除...
+  saveLoading: ブロックを作成しています...
   synced: 同期完了
-  tagsPlaceholder: タグ付けする...
+  update: 更新ブロック
+  updateLoading: ブロックを更新中...
 common:
   back: 戻る
   cancel: キャンセル
@@ -19,6 +22,7 @@ common:
   delete: 消去
   deleted: 正常に削除されました
   edit: 編集
+  loading: 読み込んでいます...
   noResult: 検索結果はありません
   notFound: 見つからない
   save: 保存
@@ -72,6 +76,11 @@ settings:
   save: 保存
   saveSuccess: 正常に保存
   title: 設定
+tag:
+  delete: 消去
+  deleteLoading: のラベルを削除しています...
+  placeholder: タグ付けする...
+  updateLoading: 更新タブで...
 titleBar:
   sync: 今すぐ同期
 user:

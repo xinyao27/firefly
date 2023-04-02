@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: بيانات المادة
   create: إنشاء الكتل
+  deleteLoading: حذف الحظر في ...
+  saveLoading: جاري إنشاء الكتل ...
   synced: المزامنة كاملة
-  tagsPlaceholder: إضافة علامة...
+  update: كتلة التحديث
+  updateLoading: جارٍ تحديث الحظر ...
 common:
   back: يعود
   cancel: يلغي
@@ -19,6 +22,7 @@ common:
   delete: يمسح
   deleted: تم الحذف بنجاح
   edit: يحرر
+  loading: تحميل...
   noResult: لا نتيجة
   notFound: لا أجد
   save: يحفظ
@@ -72,6 +76,11 @@ settings:
   save: يحفظ
   saveSuccess: حفظ بنجاح
   title: يثبت
+tag:
+  delete: يمسح
+  deleteLoading: جارٍ إزالة الملصق في ...
+  placeholder: إضافة علامة...
+  updateLoading: في علامة تبويب التحديث ...
 titleBar:
   sync: زامن الآن "لنقل البيانات
 user:

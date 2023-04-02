@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: 条数据
   create: 创建 Block
+  deleteLoading: 删除 Block 中...
+  saveLoading: 创建 Block 中...
   synced: 同步完成
-  tagsPlaceholder: 添加标签...
+  update: 更新 Block
+  updateLoading: 更新 Block 中...
 common:
   back: 返回
   cancel: 取消
@@ -19,6 +22,7 @@ common:
   delete: 删除
   deleted: 删除成功
   edit: 编辑
+  loading: 加载中...
   noResult: 没有结果
   notFound: 找不到
   save: 保存
@@ -72,6 +76,11 @@ settings:
   save: 保存
   saveSuccess: 保存成功
   title: 设置
+tag:
+  delete: 删除
+  deleteLoading: 删除标签中...
+  placeholder: 添加标签...
+  updateLoading: 更新标签中...
 titleBar:
   sync: 立即同步
 user:

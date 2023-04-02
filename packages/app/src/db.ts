@@ -18,7 +18,7 @@ interface FireflyDB extends DBSchema {
     value: TagModel
     key: string
     indexes: {
-      id: number
+      id: string
       uid: number
       name: string
       pinned: number

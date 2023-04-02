@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: Article data
   create: create a block
+  deleteLoading: Delete Block in...
+  saveLoading: Creating Blocks...
   synced: sync complete
-  tagsPlaceholder: add tag...
+  update: update block
+  updateLoading: Updating Block in progress...
 common:
   back: return
   cancel: Cancel
@@ -19,6 +22,7 @@ common:
   delete: delete
   deleted: successfully deleted
   edit: edit
+  loading: Loading...
   noResult: no result
   notFound: can't find
   save: save
@@ -72,6 +76,11 @@ settings:
   save: save
   saveSuccess: Saved successfully
   title: set up
+tag:
+  delete: delete
+  deleteLoading: Removing label in...
+  placeholder: add tag...
+  updateLoading: In the update tab...
 titleBar:
   sync: sync now
 user:

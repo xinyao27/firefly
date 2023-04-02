@@ -9,8 +9,11 @@ assistant:
 block:
   blocks: Dữ liệu bài viết
   create: tạo khối
+  deleteLoading: Xóa Chặn trong...
+  saveLoading: Tạo khối...
   synced: đồng bộ hóa hoàn tất
-  tagsPlaceholder: thêm thẻ...
+  update: khối cập nhật
+  updateLoading: Đang cập nhật Chặn...
 common:
   back: trở lại
   cancel: Hủy bỏ
@@ -19,6 +22,7 @@ common:
   delete: xóa bỏ
   deleted: xóa thành công
   edit: biên tập
+  loading: Đang tải...
   noResult: không kết quả
   notFound: không thể tìm thấy
   save: cứu
@@ -72,6 +76,11 @@ settings:
   save: cứu
   saveSuccess: đã lưu thành công
   title: cài đặt
+tag:
+  delete: xóa bỏ
+  deleteLoading: Xóa nhãn trong...
+  placeholder: thêm thẻ...
+  updateLoading: Trong tab cập nhật...
 titleBar:
   sync: đồng bộ hóa ngay bây giờ
 user:
