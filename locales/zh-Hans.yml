@@ -49,6 +49,7 @@ editor:
   todoList: 待办列表
   type: 类型
   underline: 下划线
+  uploading: 上传中...
 login:
   continueWithEmail: 邮箱登录
   continueWithGithub: Github 登录

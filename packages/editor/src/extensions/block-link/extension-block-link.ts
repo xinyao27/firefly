@@ -13,7 +13,7 @@ export interface BlockLinkAttrs {
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     blockLink: {
-      setBlockLink: (attr: BlockLinkAttrs) => ReturnType
+      setBlockLinkAt: (attr: BlockLinkAttrs) => ReturnType
     }
   }
 }
@@ -100,7 +100,7 @@ export const ExtensionBlockLink = Node.create({
 
   addCommands() {
     return {
-      setBlockLink: attrs => ({ commands }) => {
+      setBlockLinkAt: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,

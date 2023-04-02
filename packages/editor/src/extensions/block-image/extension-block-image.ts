@@ -4,15 +4,18 @@ import type { BlockModel } from '@firefly/common'
 import Image from './Image.vue'
 
 export interface BlockImageAttrs {
-  position: number
   from: 'file' | 'block'
   block?: BlockModel
+}
+export interface BlockImageAtAttrs extends BlockImageAttrs {
+  position: number
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     blockImage: {
       setBlockImage: (attr: BlockImageAttrs) => ReturnType
+      setBlockImageAt: (attr: BlockImageAtAttrs) => ReturnType
     }
   }
 }
@@ -63,6 +66,12 @@ export const ExtensionBlockImage = Node.create({
   addCommands() {
     return {
       setBlockImage: attrs => ({ commands }) => {
+        return commands.insertContent({
+          type: this.name,
+          attrs,
+        })
+      },
+      setBlockImageAt: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,

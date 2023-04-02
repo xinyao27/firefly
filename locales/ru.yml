@@ -49,6 +49,7 @@ editor:
   todoList: список дел
   type: тип
   underline: подчеркнуть
+  uploading: загрузка...
 login:
   continueWithEmail: Электронная почта Войти
   continueWithGithub: Вход на гитхаб

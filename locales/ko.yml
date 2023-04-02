@@ -49,6 +49,7 @@ editor:
   todoList: 할 일 목록
   type: 유형
   underline: 밑줄
+  uploading: 업로드 중...
 login:
   continueWithEmail: 이메일 로그인
   continueWithGithub: Github 로그인

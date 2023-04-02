@@ -49,6 +49,7 @@ editor:
   todoList: lista de quehaceres
   type: tipo
   underline: subrayar
+  uploading: cargando...
 login:
   continueWithEmail: Correo electrónico de inicio de sesión
   continueWithGithub: Inicio de sesión en Github

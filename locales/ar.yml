@@ -49,6 +49,7 @@ editor:
   todoList: عمل قائمة
   type: يكتب
   underline: تسطير
+  uploading: تحميل ...
 login:
   continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
   continueWithGithub: تسجيل الدخول إلى جيثب

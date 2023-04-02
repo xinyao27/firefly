@@ -49,6 +49,7 @@ editor:
   todoList: những việc cần làm
   type: kiểu
   underline: gạch dưới
+  uploading: đang tải lên...
 login:
   continueWithEmail: Email đăng nhập
   continueWithGithub: đăng nhập Github

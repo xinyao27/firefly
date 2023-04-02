@@ -49,6 +49,7 @@ editor:
   todoList: untuk melakukan daftar
   type: jenis
   underline: menggarisbawahi
+  uploading: mengunggah...
 login:
   continueWithEmail: Masuk Email
   continueWithGithub: Login Github

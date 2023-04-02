@@ -49,6 +49,7 @@ editor:
   todoList: Lista rzeczy do zrobienia
   type: typ
   underline: podkreślać
+  uploading: ładowanie...
 login:
   continueWithEmail: Zaloguj się e-mailem
   continueWithGithub: Logowanie do Githuba

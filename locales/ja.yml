@@ -49,6 +49,7 @@ editor:
   todoList: やることリスト
   type: タイプ
   underline: 下線
+  uploading: アップロード中...
 login:
   continueWithEmail: メールログイン
   continueWithGithub: GitHub ログイン

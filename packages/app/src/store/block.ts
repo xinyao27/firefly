@@ -62,9 +62,9 @@ export const useBlockStore = defineStore('block', {
     async sync({ lastUpdatedAt, lastBlockId }: SyncParams = {}, refresh = true) {
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastBlockId }), 200)
+      const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
         this.loading = true
-        $message.loading($t('common.loading'), { duration: 0 })
         const tagStore = useTagStore()
         await tagStore.sync()
 
@@ -111,21 +111,20 @@ export const useBlockStore = defineStore('block', {
         if (tag)
           await this.search({ tag })
 
-        $message.destroyAll()
         return this.blocks
       }
       catch (error: any) {
-        $message.destroyAll()
         console.error(error)
         $message.error(error.message || error)
       }
       finally {
         this.loading = false
+        destroy()
       }
     },
     async save(data: BlockModel) {
+      const { destroy } = $message.loading($t('block.saveLoading'), { duration: 0 })
       try {
-        $message.loading($t('block.saveLoading'), { duration: 0 })
         const response = await supabase.functions.invoke('blocks', {
           method: 'POST',
           body: data,
@@ -134,18 +133,19 @@ export const useBlockStore = defineStore('block', {
           throw new Error(response.error.message)
 
         await this.sync()
-        $message.destroyAll()
         $message.success($t('common.saved'))
       }
       catch (error: any) {
-        $message.destroyAll()
         console.error(error)
         $message.error(error.message || error)
       }
+      finally {
+        destroy()
+      }
     },
     async update(data: BlockModel) {
+      const { destroy } = $message.loading($t('block.updateLoading'), { duration: 0 })
       try {
-        $message.loading($t('block.updateLoading'), { duration: 0 })
         const response = await supabase.functions.invoke('blocks', {
           method: 'PUT',
           body: data,
@@ -155,31 +155,33 @@ export const useBlockStore = defineStore('block', {
 
         await (await db).put('blocks', response.data.data)
         await this.sync()
-        $message.destroyAll()
         $message.success($t('common.updated'))
       }
       catch (error: any) {
-        $message.destroyAll()
         console.error(error)
         $message.error(error.message || error)
       }
+      finally {
+        destroy()
+      }
     },
     async delete(id: BlockId) {
+      const { destroy } = $message.loading($t('block.deleteLoading'), { duration: 0 })
       try {
-        $message.loading($t('block.deleteLoading'), { duration: 0 })
         const response = await supabase.from('blocks').delete().eq('id', id)
         if (response.error)
           throw new Error(response.error.message)
 
         await (await db).delete('blocks', id)
         await this.refresh()
-        $message.destroyAll()
         $message.success($t('common.deleted'))
       }
       catch (error: any) {
-        $message.destroyAll()
         console.error(error)
         $message.error(error.message || error)
+      }
+      finally {
+        destroy()
       }
     },
     async clear() {

@@ -49,6 +49,7 @@ editor:
   todoList: Aufgabenliste
   type: Typ
   underline: unterstreichen
+  uploading: hochladen...
 login:
   continueWithEmail: E-Mail-Anmeldung
   continueWithGithub: Github-Anmeldung

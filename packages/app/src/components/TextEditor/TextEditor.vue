@@ -8,6 +8,7 @@ import Bubble from '~/components/Bubble'
 const { t } = useI18n()
 const textEditorStore = useTextEditorStore()
 const tagStore = useTagStore()
+const uploadRef = ref()
 const tags = computed(() => tagStore.tags.map(tag => ({
   label: tag.name,
   value: tag.name,
@@ -92,9 +93,18 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
       <template #footer>
         <div flex justify-between items-center>
           <div>
+            <input
+              ref="uploadRef"
+              class="hidden"
+              multiple
+              type="file"
+              accept="image/*,.pdf"
+              @change="textEditorStore.upload"
+            >
             <NButton
               quaternary
               size="tiny"
+              @click="uploadRef.click()"
             >
               <template #icon>
                 <i i-ri-attachment-2 />

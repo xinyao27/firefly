@@ -12,7 +12,7 @@ export interface BlockTextAttrs {
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     blockText: {
-      setBlockText: (attr: BlockTextAttrs) => ReturnType
+      setBlockTextAt: (attr: BlockTextAttrs) => ReturnType
     }
   }
 }
@@ -60,7 +60,7 @@ export const ExtensionBlockText = Node.create({
 
   addCommands() {
     return {
-      setBlockText: attrs => ({ commands }) => {
+      setBlockTextAt: attrs => ({ commands }) => {
         return commands.insertContentAt(attrs.position, {
           type: this.name,
           attrs,

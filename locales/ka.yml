@@ -49,6 +49,7 @@ editor:
   todoList: გასაკეთებელი სია
   type: ტიპი
   underline: ხაზი გაუსვით
+  uploading: ატვირთვა...
 login:
   continueWithEmail: ელ.ფოსტის შესვლა
   continueWithGithub: Github შესვლა

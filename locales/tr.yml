@@ -49,6 +49,7 @@ editor:
   todoList: yapılacaklar listesi
   type: tip
   underline: altını çizmek
+  uploading: yükleniyor...
 login:
   continueWithEmail: E-posta Girişi
   continueWithGithub: Github girişi
