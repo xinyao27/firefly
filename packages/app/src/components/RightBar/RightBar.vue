@@ -6,8 +6,8 @@ const { t } = useI18n()
 const copilotStore = useCopilotStore()
 const blockStore = useBlockStore()
 const promptRef = ref<InputInst>()
-// @ts-expect-error noop
 function createInputRef(ref: Element | ComponentPublicInstance | null) {
+  // @ts-expect-error noop
   return copilotStore.inputRef = ref
 }
 const scrollBarRef = ref<ScrollbarInst | null>(null)
