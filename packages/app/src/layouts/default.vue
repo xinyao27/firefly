@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { is } from '@firefly/common'
 import { supabase } from '~/api'
 
 const configStore = useConfigStore()
@@ -11,8 +12,18 @@ onMounted(async () => {
     router.replace('/login')
   }
   else {
-    onKeyStroke(['Ctrl', 'l'], () => {
-      textEditorStore.open('create')
+    const keys = useMagicKeys({
+      passive: false,
+      onEventFired(e) {
+        if ((is.macOS() ? e.metaKey : e.ctrlKey) && e.key === 'l' && e.type === 'keydown')
+          e.preventDefault()
+      },
+    })
+    const CtrlL = keys[is.macOS() ? 'Command+L' : 'Ctrl+L']
+
+    watch(CtrlL, (v) => {
+      if (v)
+        textEditorStore.open('create')
     })
   }
 })
