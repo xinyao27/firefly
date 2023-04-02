@@ -22,14 +22,12 @@ export const useTextEditorStore = defineStore('textEditor', {
       if (type === 'update') {
         this.value = block?.content ?? ''
         this.tags = block?.tags ?? []
-        this.editor?.commands.setContent(this.value)
         this.editingBlock = block
       }
       this.type = type
       this.show = true
     },
     cancel() {
-      this.editor?.commands.clearContent()
       this.value = ''
       this.tags = []
       this.type = 'create'

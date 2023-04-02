@@ -144,7 +144,7 @@ function signInWithLoginCode() {
           @click="signInWithNotion"
         >
           <template #icon>
-            <i i-tabler-brand-notion />
+            <i i-ri-notion-fill />
           </template>
           {{ t('login.continueWithNotion') }}
         </NButton>

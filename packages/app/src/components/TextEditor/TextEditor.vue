@@ -50,7 +50,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
 </script>
 
 <template>
-  <div w-2xl h-xl m-auto>
+  <div w-2xl m-auto px-2>
     <NCard
       class="bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm"
       size="small"
@@ -71,7 +71,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
       </template>
       <Editor
         v-model="textEditorStore.value"
-        class="prose prose-white"
+        class="prose prose-white max-h-xl"
         :tags="tagStore.tags"
         :on-created="editor => textEditorStore.editor = editor"
       />
@@ -85,7 +85,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"
-          :max-tag-count="6"
+          :max-tag-count="8"
           :placeholder="t('block.tagsPlaceholder')"
         />
       </div>

@@ -16,29 +16,27 @@ const isIndexPage = computed(() => route.path === '/')
   <div flex items-center justify-between gap-1 z-99 w-full h-full px-2 select-none>
     <!-- LeftBar Area -->
     <div
+      v-if="!configStore.isMobileScreen"
       h-full flex items-center
       :style="`width: ${configStore.rootPaddingLeft}px`"
       data-tauri-drag-region
     >
       <!-- placeholder -->
       <div v-if="is.desktop() && is.macOS()" w-16 h-full />
-      <template v-if="isIndexPage">
-        <!-- leftBarShow -->
-        <NButton
-          v-if="configStore.isMobileScreen"
-          size="small"
-          quaternary
-          :opacity="configStore.leftBarShow ? 100 : 40"
-          @click="configStore.toggleLeftBarShow"
-        >
-          <i v-if="!configStore.leftBarShow" i-ri-layout-left-line />
-          <i v-else i-ri-layout-left-fill />
-        </NButton>
-      </template>
 
       <Logo />
     </div>
     <template v-if="isIndexPage">
+      <!-- leftBarShow -->
+      <NButton
+        v-if="configStore.isMobileScreen"
+        size="small"
+        quaternary
+        :opacity="configStore.leftBarShow ? 100 : 40"
+        @click="configStore.toggleLeftBarShow"
+      >
+        <i i-ri-layout-left-line />
+      </NButton>
       <!-- Title Area -->
       <div flex items-center gap-2>
         <NBreadcrumb>
@@ -80,6 +78,13 @@ const isIndexPage = computed(() => route.path === '/')
         </NTooltip>
       </div>
     </template>
+
+    <!-- Drag Area -->
+    <div
+      flex-auto h-full select-none
+      data-tauri-drag-region
+    />
+
     <template v-if="isIndexPage">
       <!-- RightBar Area -->
       <div>
@@ -91,19 +96,10 @@ const isIndexPage = computed(() => route.path === '/')
           :opacity="configStore.rightBarShow ? 100 : 40"
           @click="configStore.toggleRightBarShow"
         >
-          <i v-if="!configStore.rightBarShow" i-ri-layout-right-line />
-          <i v-else i-ri-layout-right-fill />
+          <i i-ri-openai-line />
         </NButton>
       </div>
     </template>
-
-    <!-- Drag Area -->
-    <div
-      v-if="!configStore.isMobileScreen"
-      flex-auto h-full select-none
-      data-tauri-drag-region
-    />
-
     <!-- Settings -->
     <Settings />
 

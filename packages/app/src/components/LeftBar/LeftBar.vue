@@ -61,13 +61,6 @@ function handleSelect([key]: string[]) {
         </template>
         <span>{{ t('block.create') }}</span>
       </NButton>
-      <NModal
-        v-model:show="textEditorStore.show"
-        transform-origin="center"
-        :mask-closable="false"
-      >
-        <TextEditor />
-      </NModal>
     </section>
   </aside>
 </template>

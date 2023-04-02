@@ -83,7 +83,7 @@ async function handleSelect(key: string) {
       />
       <div flex items-center>
         {{ userStore.profiles?.fullName }}
-        <i i-tabler-chevrons-down text-neutral />
+        <i i-ri-arrow-down-double-line text-neutral />
       </div>
     </section>
   </NDropdown>

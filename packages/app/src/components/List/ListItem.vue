@@ -74,7 +74,7 @@ function handleTagClick(tag: string) {
               size="tiny"
               @click="handleCopilot"
             >
-              <i i-tabler-brain />
+              <i i-ri-openai-line />
             </NButton>
           </template>
           {{ t('copilot.ref') }}

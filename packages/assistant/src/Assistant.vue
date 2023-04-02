@@ -162,7 +162,7 @@ async function handleSave() {
             />
             <i
               v-else
-              i-tabler-brain text-primary
+              i-ri-openai-line text-primary
             />
           </button>
           <button
