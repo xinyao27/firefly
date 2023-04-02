@@ -132,7 +132,8 @@ export const useBlockStore = defineStore('block', {
         if (response.error)
           throw new Error(response.error.message)
 
-        await this.sync()
+        await (await db).add('blocks', response.data.data)
+        await this.refresh()
         $message.success($t('common.saved'))
       }
       catch (error: any) {
@@ -154,7 +155,7 @@ export const useBlockStore = defineStore('block', {
           throw new Error(response.error.message)
 
         await (await db).put('blocks', response.data.data)
-        await this.sync()
+        await this.refresh()
         $message.success($t('common.updated'))
       }
       catch (error: any) {
