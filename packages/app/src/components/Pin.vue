@@ -14,7 +14,7 @@ async function handleTogglePin() {
   <NTooltip trigger="hover">
     <template #trigger>
       <NButton
-        size="small"
+        size="tiny"
         quaternary
         :opacity="pinned ? 100 : 40 "
         @click="handleTogglePin"

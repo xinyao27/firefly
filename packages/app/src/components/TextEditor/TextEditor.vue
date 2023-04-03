@@ -7,6 +7,7 @@ import Bubble from '~/components/Bubble'
 
 const props = defineProps<{
   modelValue: string
+  pinned?: boolean
   class?: string
   onClose?: () => void
 }>()
@@ -63,28 +64,37 @@ function handleClose() {
 </script>
 
 <template>
-  <div w-2xl m-auto h-full>
+  <div
+    w-2xl m-auto h-full
+  >
     <NCard
+      data-tauri-drag-region
       class="h-full bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm overflow-hidden"
       size="small"
       role="dialog"
       aria-modal="true"
     >
       <template #header>
-        <div data-tauri-drag-region>
+        <div
+          data-tauri-drag-region
+          select-none
+        >
           {{ textEditorStore.type === 'update' ? t('block.update') : t('block.create') }}
         </div>
       </template>
       <template #header-extra>
-        <NButton
-          quaternary
-          size="tiny"
-          @click="handleClose"
-        >
-          <template #icon>
-            <i i-ri-close-line />
-          </template>
-        </NButton>
+        <div flex items-center gap-2>
+          <Pin />
+          <NButton
+            quaternary
+            size="tiny"
+            @click="handleClose"
+          >
+            <template #icon>
+              <i i-ri-close-line />
+            </template>
+          </NButton>
+        </div>
       </template>
       <Editor
         v-model="data"

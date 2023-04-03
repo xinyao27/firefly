@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { colors } from '@firefly/common'
+import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
 import { NButton, NDropdown, useDialog } from 'naive-ui'
 import { BubbleSelector } from '~/components/Bubble'
@@ -106,7 +107,7 @@ function handleSelect([key]: string[]) {
         </template>
         <div flex items-center gap-2>
           {{ t('block.create') }}
-          <KBD :shortcut="['ctrl', 'l']" />
+          <KBD :shortcut="[is.macOS() ? 'command' : 'ctrl', 'l']" />
         </div>
       </NTooltip>
     </section>
