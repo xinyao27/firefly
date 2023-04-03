@@ -215,7 +215,7 @@ export const useBlockStore = defineStore('block', {
           }
           await tx.done
 
-          this.blocks = result
+          this.blocks = result.reverse()
         }
         else {
           this.blocks = []

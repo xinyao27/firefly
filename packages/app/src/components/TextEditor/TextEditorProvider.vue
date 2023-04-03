@@ -13,6 +13,7 @@ const configStore = useConfigStore()
     <TextEditor
       v-model="textEditorStore.value"
       class="max-h-80 shadow-none"
+      :pinned="false"
     />
   </NModal>
   <slot />

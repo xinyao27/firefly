@@ -84,7 +84,7 @@ function handleClose() {
       </template>
       <template #header-extra>
         <div flex items-center gap-2>
-          <Pin />
+          <Pin v-if="pinned" />
           <NButton
             quaternary
             size="tiny"

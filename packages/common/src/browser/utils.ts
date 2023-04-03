@@ -2,6 +2,7 @@ import { is } from '../is'
 import type { IBrowser, ISettings } from './types'
 
 export const defaultSettings: ISettings = {
+  hotkey: is.macOS() ? 'command+shift+l' : 'ctrl+shift+l',
   alwaysShowIcons: true,
   i18n: 'en',
 }

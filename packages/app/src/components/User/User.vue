@@ -33,7 +33,7 @@ function renderUserInfo() {
             h('div', null, [h(NText, { depth: 2 }, { default: () => userStore.profiles?.fullName })]),
             userStore.profiles?.token
               ? h('div', { class: 'flex items-center gap-1' }, [
-                h(Copyable, { type: 'text', text: userStore.profiles?.token }, () => userStore.profiles?.token),
+                h(Copyable, { type: 'text', text: userStore.profiles?.token, class: 'text-neutral' }, () => userStore.profiles?.token),
                 h(NTooltip, null, {
                   trigger: () => h(NButton, { size: 'small', text: true, onClick: userStore.generateToken, loading: userStore.loading }, () => h('i', { class: 'i-ri-refresh-line text-neutral' })),
                   default: () => t('user.generateNewToken'),

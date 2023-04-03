@@ -49,6 +49,7 @@ onMounted(() => {
         v-model="block.content"
         class="max-h-20"
         :on-close="handleClose"
+        pinned
       />
     </CustomProvider>
   </ThemeProvider>

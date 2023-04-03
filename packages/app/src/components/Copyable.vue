@@ -3,6 +3,7 @@ import type { PopoverPlacement } from 'naive-ui'
 import copy from 'copy-to-clipboard'
 
 const props = defineProps<{
+  class?: string
   type: 'text' | 'area' | 'button'
   text: string
   placement?: PopoverPlacement
@@ -22,7 +23,11 @@ async function handleCopyResult() {
 
 <template>
   <template v-if="props.type === 'area'">
-    <div class="area" relative>
+    <div
+      class="area"
+      :class="props.class"
+      relative
+    >
       <slot />
       <NTooltip :placement="props.placement">
         <template #trigger>
@@ -43,7 +48,10 @@ async function handleCopyResult() {
   </template>
   <template v-if="props.type === 'text'">
     <div flex items-center gap-1>
-      <span max-w-50 truncate>
+      <span
+        max-w-50 truncate
+        :class="props.class"
+      >
         <slot />
       </span>
       <NTooltip :placement="props.placement">
@@ -68,6 +76,7 @@ async function handleCopyResult() {
       <template #trigger>
         <NButton
           class="copy"
+          :class="props.class"
           quaternary
           size="tiny"
           @click="handleCopyResult"
