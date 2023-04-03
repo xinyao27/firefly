@@ -216,6 +216,8 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             .skip_taskbar(true)
             .center()
             .focused(false)
+            .hidden_title(true)
+            .decorations(false)
             .title("Firefly Assistant");
 
             #[cfg(target_os = "macos")]

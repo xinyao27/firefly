@@ -5,6 +5,7 @@ import type { Event } from '@tauri-apps/api/event'
 import { listen } from '@tauri-apps/api/event'
 import type { Editor } from '@tiptap/core'
 import { invoke } from '@tauri-apps/api'
+import { $i18n } from '~/i18n'
 
 const block = ref<BlockModel>({ content: '' })
 const editor = ref<Editor>()
@@ -13,6 +14,11 @@ async function handleClose() {
   block.value = { content: '' }
   await invoke('hide_assistant_window')
 }
+
+const settings = useSettings()
+watch(() => settings.value.i18n, (locale) => {
+  $i18n.locale.value = locale ?? 'en'
+})
 
 onMounted(() => {
   let unlisten

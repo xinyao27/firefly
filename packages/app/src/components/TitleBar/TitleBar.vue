@@ -17,7 +17,7 @@ const isIndexPage = computed(() => route.path === '/')
     <!-- LeftBar Area -->
     <div
       v-if="!configStore.isMobileScreen"
-      h-full flex items-center
+      h-full flex items-center select-none
       :style="`width: ${configStore.rootPaddingLeft}px`"
       data-tauri-drag-region
     >
