@@ -97,7 +97,7 @@
       "csp": null
     },
     "systemTray": {
-      "iconPath": "icons/icon.ico",
+      "iconPath": "icons/favicon.ico",
       "iconAsTemplate": true
     },
     "updater": {
