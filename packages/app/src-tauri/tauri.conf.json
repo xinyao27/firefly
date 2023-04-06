@@ -1,0 +1,127 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../dist"
+  },
+  "package": {
+    "productName": "Firefly",
+    "version": "../package.json"
+  },
+  "tauri": {
+    "allowlist": {
+      "clipboard": {
+        "all": true
+      },
+      "dialog": {
+        "all": false,
+        "message": true
+      },
+      "fs": {
+        "scope": [
+          "$APPCONFIG/*",
+          "$RESOURCE/*"
+        ],
+        "all": false,
+        "readDir": true,
+        "readFile": true,
+        "writeFile": true
+      },
+      "globalShortcut": {
+        "all": true
+      },
+      "http": {
+        "all": true
+      },
+      "notification": {
+        "all": true
+      },
+      "shell": {
+        "all": false,
+        "open": true
+      },
+      "window": {
+        "all": true,
+        "create": true
+      },
+      "all": false
+    },
+    "bundle": {
+      "category": "DeveloperTool",
+      "copyright": "",
+      "identifier": "com.firefly.best",
+      "longDescription": "",
+      "shortDescription": "",
+      "targets": "all",
+      "deb": {
+        "depends": [
+          "xdotool"
+        ]
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "macOS": {
+        "exceptionDomain": "",
+        "frameworks": [],
+        "entitlements": null,
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [
+        "resources/*"
+      ],
+      "windows": {
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "",
+        "webviewInstallMode": {
+          "type": "embedBootstrapper"
+        },
+        "wix": {
+          "language": [
+            "zh-CN",
+            "en-US"
+          ]
+        },
+        "certificateThumbprint": null
+      },
+      "active": true
+    },
+    "security": {
+      "csp": null
+    },
+    "systemTray": {
+      "iconPath": "icons/favicon.ico",
+      "iconAsTemplate": true
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc5QTE2QTlENTQ2NTdEQTAKUldTZ2ZXVlVuV3FoZVFDalBqS0ZjRWxwSTZOakxsSUlUUFVkck1JdTF4Y0hFWWN4U21scks5cnIK",
+      "endpoints": [
+        "https://github.com/chenyueban/firefly/releases/latest/download/latest.json"
+      ],
+      "active": true,
+      "dialog": true
+    },
+    "windows": [
+      {
+        "height": 900,
+        "minHeight": 600,
+        "minWidth": 800,
+        "width": 1080,
+        "title": "Firefly",
+        "titleBarStyle": "Overlay",
+        "center": true,
+        "fullscreen": false,
+        "hiddenTitle": true,
+        "resizable": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+assistant:
+  capture: Kırpma
+  dragTip: buraya sürükleyip bırakın
+  dropTip: Koleksiyonu tamamlamak için bırakın
+  inputToken: Lütfen önce belirteci girin
+  pin: pencere her zaman üstte
+  title: Firefly'a Klip
+  unpin: pencereyi kapat her zaman üstte
+block:
+  blocks: Makale verileri
+  create: bloklar oluştur
+  deleteLoading: Şuradaki Bloğu Sil...
+  saveLoading: Bloklar Oluşturuluyor...
+  synced: senkronizasyon tamamlandı
+  update: güncelleme bloğu
+  updateLoading: Blok güncelleniyor...
+common:
+  back: geri dönmek
+  cancel: İptal etmek
+  confirm: Elbette
+  copied: kopyalanmış
+  copy: kopyalamak
+  delete: silmek
+  deleted: başarıyla silindi
+  edit: düzenlemek
+  joinDesc1: Firefly ile fotoğraf çekeceğiniz için heyecanlıyız.
+  joinDesc2: Zaman içinde kademeli olarak davetler göndereceğiz.
+  joinPlaceholder: Bekleme listemize katılmak için e-postanızı kullanın
+  joinus: bize katılın
+  loading: Yükleniyor...
+  login: Giriş yapmak
+  loginError: giriş başarısız oldu
+  noResult: sonuç yok
+  notFound: bulamıyorum
+  openApp: Uygulamayı aç
+  save: kaydetmek
+  saved: Başarıyla kaydedildi
+  signup: kayıt olmak
+  slogan: >-
+    Firefly, bilgi toplamayı çok ilginç hale getirmek için yapay zekanın veri
+    analizi yeteneğini birleştiren bir parça bilgi toplama aracıdır.
+  updated: Güncelleme tamamlandı
+  warningContent: Silmek istediğinizden emin misiniz?
+  warningTitle: uyarmak
+copilot:
+  customPrompt: Özel İstemler
+  extractionTags: etiketleri ayıkla
+  hi: Merhaba, Size nasıl yardımcı olabilirim
+  polishing: Lehçe
+  ref: yardımcı pilot referansı
+  retry: yeniden dene
+  summarize: metin özeti
+  translate: Çevirmek
+editor:
+  blockquote: alıntı metni
+  bold: gözü pek
+  bulletList: proje listesi
+  code: kod
+  italic: italik
+  orderedList: numaralı liste
+  strike: kesik çizgi
+  text: metin
+  todoList: yapılacaklar listesi
+  type: tip
+  underline: altını çizmek
+  uploading: yükleniyor...
+index:
+  featureAI: >-
+    Toplanan bilgileri işlenmesi için AI'ya teslim edin ve AI tarafından işlenen
+    içeriği tek bir tıklama ile toplayın
+  featureAIDesc: >-
+    AI ile konuşun, topladığınız bilgileri tek tıklamayla işlenmesi için AI'ya
+    teslim edin ve AI yanıtının içeriğini tek tıklamayla toplayın
+  featureAISubTitle: AI, bilgileri özetlemenize ve genelleştirmenize yardımcı olur
+  featureCapture: >-
+    OCR görüntü tanıma koleksiyonunu, kısayol tuşu koleksiyonunu, sözcük
+    işaretleme simgesi koleksiyonunu vb. destekler.
+  featureCaptureDesc: >-
+    Güçlü editörümüzle, neredeyse tüm Markdown öğelerini destekleyen Markdown
+    metnini kolayca yazabilirsiniz.
+  featureCaptureSubTitle: işaretleme editörü
+  featureCloudSync: Tüm platformlarda senkronizasyon
+  featureCloudSyncDesc: >-
+    Tam platform senkronizasyonunu destekleyerek bilgilerinizin istediğiniz
+    zaman, istediğiniz yerde birden fazla cihazla senkronize edilmesini
+    sağlayın, istediğiniz zaman görüntülemeniz ve yönetmeniz için uygun
+  featureCloudSyncSubTitle: Bilgilerinizi her zaman, her yerde yönetin
+  getFirefly: Firefly'ı Alın
+  getFireflySlogan: Bugün daha akıllıca çalışmaya başlayın.
+login:
+  continueWithEmail: E-posta Girişi
+  continueWithGithub: Github girişi
+  continueWithGoogle: Google ile devam
+  continueWithLoginCode: Giriş Kodu Giriş
+  continueWithNotion: kavram girişi
+  emailPlaceholder: E-posta adresinizi giriniz...
+  emailRequired: Lütfen e-posta giriniz
+  emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.
+  loginCodePlaceholder: Giriş kodunu yapıştırın
+  redirectToLogin: Zaten bir hesabın var mı? Giriş yap
+  redirectToSignup: Henüz bir hesabınız yok mu? Kaydolun
+  resendEmail: elektronik postayı tekrar gönder
+settings:
+  alwaysShowIcons: metin seçimi simgesi
+  alwaysShowIconsDescription: Metin seçimi simgesinin etkinleştirilip etkinleştirilmeyeceği
+  hotKeyRecorderTip: İstenen tuş kombinasyonuna basın
+  hotkey: kestirme kısayol
+  hotkeyDescription: Kısayol tuşları, kısayol yardımcısını çağırır
+  i18n: dil
+  i18nDescription: kullanılacak dil
+  ocrHotkey: OCR metin tanıma kısayol tuşu
+  ocrHotkeyDescription: Kısayol tuşları, OCR metin tanımayı çağırır
+  proxy: oyunculuk
+  proxyDescription: Kullanılacak proxy ayarları
+  runAtStartup: bot
+  runAtStartupDescription: Firefly'ı açılışta başlat
+  save: kaydetmek
+  saveSuccess: Başarıyla kaydedildi
+  title: kurmak
+signup: {}
+tag:
+  delete: silmek
+  deleteLoading: Etiket kaldırılıyor...
+  placeholder: etiket ekle...
+  updateLoading: Güncelleme sekmesinde...
+titleBar:
+  sync: şimdi senkronize et
+user:
+  generateNewToken: Yeni bir belirteç oluştur
+  generateToken: Belirteç Oluştur
+  language: dil
+  logout: oturumu Kapat

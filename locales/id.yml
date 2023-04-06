@@ -1,0 +1,132 @@
+assistant:
+  capture: Guntingan
+  dragTip: seret dan lepas di sini
+  dropTip: Rilis untuk melengkapi koleksi
+  inputToken: Masukkan token terlebih dahulu
+  pin: jendela selalu di atas
+  title: Klip ke Firefly
+  unpin: tutup jendela selalu di atas
+block:
+  blocks: Data artikel
+  create: membuat blok
+  deleteLoading: Hapus Blokir di...
+  saveLoading: Membuat Blok...
+  synced: sinkronisasi selesai
+  update: blok pembaruan
+  updateLoading: Memperbarui Blok sedang berlangsung...
+common:
+  back: kembali
+  cancel: Membatalkan
+  confirm: Tentu
+  copied: disalin
+  copy: menyalin
+  delete: menghapus
+  deleted: berhasil dihapus
+  edit: sunting
+  joinDesc1: Kami senang Anda memotret dengan Firefly.
+  joinDesc2: Kami akan mengirimkan undangan secara bertahap dari waktu ke waktu.
+  joinPlaceholder: Gunakan email Anda untuk bergabung dengan daftar tunggu kami
+  joinus: Bergabunglah dengan kami
+  loading: Memuat...
+  login: Gabung
+  loginError: Gagal masuk
+  noResult: tidak ada hasil
+  notFound: tidak dapat menemukan
+  openApp: Buka Aplikasi
+  save: menyimpan
+  saved: Berhasil disimpan
+  signup: daftar
+  slogan: >-
+    Firefly adalah alat pengumpulan informasi fragmen, yang menggabungkan
+    kemampuan analisis data AI untuk membuat pengumpulan informasi jadi menarik
+  updated: pembaruan selesai
+  warningContent: Anda yakin ingin menghapusnya
+  warningTitle: memperingatkan
+copilot:
+  customPrompt: Permintaan Kustom
+  extractionTags: ekstrak tag
+  hi: Hai, apa yang bisa saya bantu
+  polishing: Polandia
+  ref: Referensi kopilot
+  retry: Mencoba kembali
+  summarize: ringkasan teks
+  translate: menerjemahkan
+editor:
+  blockquote: teks kutipan
+  bold: berani
+  bulletList: daftar proyek
+  code: Kode
+  italic: huruf miring
+  orderedList: daftar bernomor
+  strike: garis putus-putus
+  text: teks
+  todoList: untuk melakukan daftar
+  type: jenis
+  underline: menggarisbawahi
+  uploading: mengunggah...
+index:
+  featureAI: >-
+    Serahkan informasi yang dikumpulkan ke AI untuk diproses, dan kumpulkan
+    konten yang diproses oleh AI dengan satu klik
+  featureAIDesc: >-
+    Bicaralah dengan AI, serahkan informasi yang Anda kumpulkan ke AI untuk
+    diproses dengan satu klik, dan kumpulkan konten balasan AI dengan satu klik
+  featureAISubTitle: AI membantu Anda meringkas dan menggeneralisasi informasi
+  featureCapture: >-
+    Mendukung koleksi pengenalan gambar OCR, koleksi kunci pintasan, koleksi
+    ikon penandaan kata, dll.
+  featureCaptureDesc: >-
+    Dengan editor kami yang kuat, Anda dapat dengan mudah menulis teks Markdown,
+    mendukung hampir semua elemen Markdown
+  featureCaptureSubTitle: Editor penurunan harga
+  featureCloudSync: Sinkronisasi di semua platform
+  featureCloudSyncDesc: >-
+    Mendukung sinkronisasi platform penuh, memungkinkan informasi Anda
+    disinkronkan ke beberapa perangkat kapan saja, di mana saja, nyaman bagi
+    Anda untuk melihat dan mengelola kapan saja
+  featureCloudSyncSubTitle: Kelola informasi Anda kapan saja, di mana saja
+  getFirefly: Dapatkan Firefly
+  getFireflySlogan: Mulailah bekerja dengan lebih cerdas, hari ini.
+login:
+  continueWithEmail: Masuk Email
+  continueWithGithub: Login Github
+  continueWithGoogle: Lanjutkan dengan Google
+  continueWithLoginCode: Masuk Kode Masuk
+  continueWithNotion: Login pengertian
+  emailPlaceholder: Masukkan alamat email Anda...
+  emailRequired: Silakan masukkan Email
+  emailSended: Kami baru saja mengirimi Anda email, silakan periksa kotak masuk Anda.
+  loginCodePlaceholder: Tempel kode login
+  redirectToLogin: Sudah memiliki akun? Masuk
+  redirectToSignup: Belum punya akun? Daftar
+  resendEmail: kirim ulang email
+settings:
+  alwaysShowIcons: ikon pemilihan teks
+  alwaysShowIconsDescription: Apakah akan mengaktifkan ikon pemilihan teks
+  hotKeyRecorderTip: Tekan kombinasi tombol yang diinginkan
+  hotkey: jalan pintas singkat
+  hotkeyDescription: Tombol pintas memanggil asisten steno
+  i18n: bahasa
+  i18nDescription: bahasa untuk digunakan
+  ocrHotkey: Tombol pintas pengenalan teks OCR
+  ocrHotkeyDescription: Tombol pintas memanggil pengenalan teks OCR
+  proxy: akting
+  proxyDescription: Pengaturan proxy yang akan digunakan
+  runAtStartup: boot
+  runAtStartupDescription: Mulai Firefly saat boot
+  save: menyimpan
+  saveSuccess: Berhasil disimpan
+  title: mempersiapkan
+signup: {}
+tag:
+  delete: menghapus
+  deleteLoading: Menghapus label di...
+  placeholder: tambahkan tag...
+  updateLoading: Di tab pembaruan...
+titleBar:
+  sync: sinkronkan sekarang
+user:
+  generateNewToken: Hasilkan token baru
+  generateToken: Hasilkan Token
+  language: bahasa
+  logout: keluar

@@ -1,0 +1,119 @@
+assistant:
+  capture: 剪藏
+  dragTip: 拖放到这里
+  dropTip: 松开以完成收藏
+  inputToken: 请先输入 Token
+  pin: 窗口总是在最上方
+  title: 剪藏到 Firefly
+  unpin: 关闭窗口总是在最上方
+block:
+  blocks: 条数据
+  create: 创建 Block
+  deleteLoading: 删除 Block 中...
+  saveLoading: 创建 Block 中...
+  synced: 同步完成
+  update: 更新 Block
+  updateLoading: 更新 Block 中...
+common:
+  back: 返回
+  cancel: 取消
+  confirm: 确定
+  copied: 已复制
+  copy: 复制
+  delete: 删除
+  deleted: 删除成功
+  edit: 编辑
+  joinDesc1: 我们很高兴您能使用 Firefly 进行捕捉。
+  joinDesc2: 随着时间的推移，我们将逐渐发送邀请。
+  joinPlaceholder: 使用您的 Email 加入我们的等待名单
+  joinus: 加入我们
+  loading: 加载中...
+  login: 登录
+  loginError: 登录失败
+  noResult: 没有结果
+  notFound: 找不到
+  openApp: 打开应用程序
+  save: 保存
+  saved: 保存成功
+  signup: 注册
+  slogan: Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 使得信息的采集变得如此有趣
+  updated: 更新成功
+  warningContent: 确定要删除吗
+  warningTitle: 警告
+copilot:
+  customPrompt: 自定义 Prompt
+  extractionTags: 提取标签
+  hi: Hi, 请问有什么可以帮到您
+  polishing: 润色
+  ref: Copilot 引用
+  retry: 重试
+  summarize: 文本总结
+  translate: 翻译
+editor:
+  blockquote: 引述文字
+  bold: 加粗
+  bulletList: 项目列表
+  code: 代码
+  italic: 斜体
+  orderedList: 编号列表
+  strike: 中划线
+  text: 正文
+  todoList: 待办列表
+  type: 类型
+  underline: 下划线
+  uploading: 上传中...
+index:
+  featureAI: 将收集的信息交予 AI 处理、将 AI 处理后的内容一键收集
+  featureAIDesc: 与 AI 对话，将您收集到的信息一键交予 AI 处理，并且一键收集 AI 回复的内容
+  featureAISubTitle: AI 帮您总结和归纳信息
+  featureCapture: 支持OCR识图收集、快捷键收集、划词图标收集等
+  featureCaptureDesc: 利用我们强大的编辑器，您可以轻松编写 Markdown 文本，支持几乎所有 Markdown 元素
+  featureCaptureSubTitle: Markdown 编辑器
+  featureCloudSync: 全平台同步
+  featureCloudSyncDesc: 支持全平台同步，让您的信息随时随地同步到多个设备上，方便您随时查看和管理
+  featureCloudSyncSubTitle: 随时随地管理您的信息
+  getFirefly: 获得 Firefly
+  getFireflySlogan: 从今天开始更聪明地工作。
+login:
+  continueWithEmail: 邮箱登录
+  continueWithGithub: Github 登录
+  continueWithGoogle: Google 登录
+  continueWithLoginCode: Login Code 登录
+  continueWithNotion: Notion 登录
+  emailPlaceholder: 输入你的电子邮箱地址...
+  emailRequired: 请输入 Email
+  emailSended: 我们刚刚向您发送了一个邮件，请检查您的收件箱。
+  loginCodePlaceholder: 粘贴 login code
+  redirectToLogin: 已有账号 ? 去登录
+  redirectToSignup: 还没有账号 ? 去注册
+  resendEmail: 重发邮件
+settings:
+  alwaysShowIcons: 文字选择图标
+  alwaysShowIconsDescription: 是否启用文字选择图标
+  hotKeyRecorderTip: 聚焦后按下所需组合键
+  hotkey: 速记快捷键
+  hotkeyDescription: 快捷键呼出速记助手
+  i18n: 语言
+  i18nDescription: 要使用的语言
+  ocrHotkey: OCR 文字识别快捷键
+  ocrHotkeyDescription: 快捷键呼出 OCR 文字识别
+  proxy: 代理
+  proxyDescription: 要使用的代理设置
+  runAtStartup: 开机启动
+  runAtStartupDescription: 开机启动 Firefly
+  save: 保存
+  saveSuccess: 保存成功
+  title: 设置
+signup: {}
+tag:
+  delete: 删除
+  deleteLoading: 删除标签中...
+  placeholder: 添加标签...
+  updateLoading: 更新标签中...
+titleBar:
+  sync: 立即同步
+user:
+  generateNewToken: 生成新的 Token
+  generateToken: 生成 Token
+  language: 语言
+  logout: 退出登录

@@ -1,0 +1,119 @@
+assistant:
+  capture: クリッピング
+  dragTip: ここにドラッグ＆ドロップ
+  dropTip: リリースしてコレクションを完成させる
+  inputToken: 最初にトークンを入力してください
+  pin: ウィンドウは常に上にあります
+  title: ホタルにクリップ
+  unpin: 閉じるウィンドウは常に上にあります
+block:
+  blocks: 記事データ
+  create: ブロックを作成する
+  deleteLoading: ブロックを削除...
+  saveLoading: ブロックを作成しています...
+  synced: 同期完了
+  update: 更新ブロック
+  updateLoading: ブロックを更新中...
+common:
+  back: 戻る
+  cancel: キャンセル
+  confirm: もちろん
+  copied: コピーした
+  copy: コピー
+  delete: 消去
+  deleted: 正常に削除されました
+  edit: 編集
+  joinDesc1: Firefly でのキャプチャをお待ちしております。
+  joinDesc2: 招待状は徐々に送っていきます。
+  joinPlaceholder: メールを使用してウェイティング リストに参加してください
+  joinus: 参加しませんか
+  loading: 読み込んでいます...
+  login: ログイン
+  loginError: ログインに失敗しました
+  noResult: 検索結果はありません
+  notFound: 見つからない
+  openApp: アプリを開く
+  save: 保存
+  saved: 正常に保存
+  signup: 登録
+  slogan: Firefly は、AI のデータ分析機能を組み合わせて情報収集を面白くするフラグメント情報収集ツールです。
+  updated: アップデート完了
+  warningContent: 削除してもよろしいですか
+  warningTitle: 警告する
+copilot:
+  customPrompt: カスタム プロンプト
+  extractionTags: タグを抽出する
+  hi: こんにちは、どうすればいいですか
+  polishing: 研磨
+  ref: 副操縦士のリファレンス
+  retry: リトライ
+  summarize: テキストの要約
+  translate: 翻訳
+editor:
+  blockquote: 引用文
+  bold: 大胆な
+  bulletList: プロジェクト一覧
+  code: コード
+  italic: 斜体
+  orderedList: 番号付きリスト
+  strike: 破線
+  text: 文章
+  todoList: やることリスト
+  type: タイプ
+  underline: 下線
+  uploading: アップロード中...
+index:
+  featureAI: 収集した情報をAIに渡して処理し、AIが処理した内容をワンクリックで収集
+  featureAIDesc: AIに話しかけて、集めた情報をAIに渡してワンクリックで処理、AI返信の内容をワンクリックで収集
+  featureAISubTitle: AI は情報を要約して一般化するのに役立ちます
+  featureCapture: OCR 画像認識コレクション、ショートカット キー コレクション、単語マーキング アイコン コレクションなどをサポートします。
+  featureCaptureDesc: 強力なエディターを使用すると、Markdown テキストを簡単に記述でき、ほぼすべての Markdown 要素をサポートします
+  featureCaptureSubTitle: マークダウン エディタ
+  featureCloudSync: すべてのプラットフォーム間の同期
+  featureCloudSyncDesc: 完全なプラットフォームの同期をサポートし、いつでもどこでも情報を複数のデバイスに同期できるようにし、いつでも表示および管理するのに便利です
+  featureCloudSyncSubTitle: いつでもどこでも情報を管理
+  getFirefly: ホタルをゲット
+  getFireflySlogan: 今日からよりスマートに仕事を始めましょう。
+login:
+  continueWithEmail: メールログイン
+  continueWithGithub: GitHub ログイン
+  continueWithGoogle: Google で続行
+  continueWithLoginCode: ログインコードログイン
+  continueWithNotion: 概念ログイン
+  emailPlaceholder: メールアドレスを入力してください...
+  emailRequired: メールアドレスを入力してください
+  emailSended: メールを送信しました。受信トレイを確認してください。
+  loginCodePlaceholder: ログインコードを貼り付けます
+  redirectToLogin: 既にアカウントを持っていますか？ログイン
+  redirectToSignup: まだアカウントを持っていませんか? サインアップ
+  resendEmail: メールを再送
+settings:
+  alwaysShowIcons: テキスト選択アイコン
+  alwaysShowIconsDescription: テキスト選択アイコンを有効にするかどうか
+  hotKeyRecorderTip: 希望のキーの組み合わせを押します
+  hotkey: 省略形のショートカット
+  hotkeyDescription: ショートハンド アシスタントを呼び出すショートカット キー
+  i18n: 言語
+  i18nDescription: 使用する言語
+  ocrHotkey: OCR テキスト認識のショートカット キー
+  ocrHotkeyDescription: ショートカット キーは OCR テキスト認識を呼び出します
+  proxy: 演技
+  proxyDescription: 使用するプロキシ設定
+  runAtStartup: ブート
+  runAtStartupDescription: 起動時に Firefly を起動する
+  save: 保存
+  saveSuccess: 正常に保存
+  title: 設定
+signup: {}
+tag:
+  delete: 消去
+  deleteLoading: のラベルを削除しています...
+  placeholder: タグ付けする...
+  updateLoading: 更新タブで...
+titleBar:
+  sync: 今すぐ同期
+user:
+  generateNewToken: 新しいトークンを生成する
+  generateToken: トークンを生成
+  language: 言語
+  logout: サインアウト

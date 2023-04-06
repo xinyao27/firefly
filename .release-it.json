@@ -1,0 +1,19 @@
+{
+  "git": {
+    "tagName": "v${version}",
+    "commitMessage": "chore: release ${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "infile": "CHANGELOG.md"
+    },
+    "@release-it/bumper": {
+      "in": "package.json",
+      "out": "packages/*/package.json"
+    }
+  }
+}

@@ -1,0 +1,131 @@
+assistant:
+  capture: لقطة
+  dragTip: السحب والإفلات هنا
+  dropTip: حرر لإكمال المجموعة
+  inputToken: الرجاء إدخال الرمز المميز أولاً
+  pin: النافذة دائمًا في المقدمة
+  title: مقطع إلى اليراع
+  unpin: إغلاق النافذة دائمًا في المقدمة
+block:
+  blocks: بيانات المادة
+  create: إنشاء الكتل
+  deleteLoading: حذف الحظر في ...
+  saveLoading: جاري إنشاء الكتل ...
+  synced: المزامنة كاملة
+  update: كتلة التحديث
+  updateLoading: جارٍ تحديث الحظر ...
+common:
+  back: يعود
+  cancel: يلغي
+  confirm: بالتأكيد
+  copied: نسخ
+  copy: ينسخ
+  delete: يمسح
+  deleted: تم الحذف بنجاح
+  edit: يحرر
+  joinDesc1: نحن متحمسون لالتقاط الصور مع Firefly.
+  joinDesc2: سنرسل الدعوات تدريجيًا بمرور الوقت.
+  joinPlaceholder: استخدم بريدك الإلكتروني للانضمام إلى قائمة الانتظار لدينا
+  joinus: انضم إلينا
+  loading: تحميل...
+  login: تسجيل الدخول
+  loginError: فشل تسجيل الدخول
+  noResult: لا نتيجة
+  notFound: لا أجد
+  openApp: افتح التطبيق
+  save: يحفظ
+  saved: حفظ بنجاح
+  signup: يسجل
+  slogan: >-
+    Firefly هي أداة لجمع المعلومات المجزأة ، والتي تجمع بين قدرة تحليل البيانات
+    للذكاء الاصطناعي لجعل جمع المعلومات ممتعًا للغاية
+  updated: تحديث الانتهاء
+  warningContent: أنت متأكد أنك تريد حذفه
+  warningTitle: تحذير
+copilot:
+  customPrompt: موجهات مخصصة
+  extractionTags: استخراج العلامات
+  hi: مرحبا كيف يمكنني مساعدتك
+  polishing: تلميع
+  ref: مرجع مساعد الطيار
+  retry: أعد المحاولة
+  summarize: ملخص نصي
+  translate: يترجم
+editor:
+  blockquote: نص اقتباس
+  bold: عريض
+  bulletList: قائمة المشروع
+  code: الرمز
+  italic: مائل
+  orderedList: قائمة مرقمة
+  strike: خط متقطع
+  text: نص
+  todoList: عمل قائمة
+  type: يكتب
+  underline: تسطير
+  uploading: تحميل ...
+index:
+  featureAI: >-
+    قم بتسليم المعلومات التي تم جمعها إلى AI للمعالجة ، وجمع المحتوى الذي تتم
+    معالجته بواسطة AI بنقرة واحدة
+  featureAIDesc: >-
+    تحدث إلى AI ، وسلم المعلومات التي تجمعها إلى AI لمعالجتها بنقرة واحدة ،
+    واجمع محتوى رد AI بنقرة واحدة
+  featureAISubTitle: يساعدك الذكاء الاصطناعي في تلخيص المعلومات وتعميمها
+  featureCapture: >-
+    دعم مجموعة التعرف على صور OCR ، ومجموعة مفاتيح الاختصار ، ومجموعة أيقونات
+    تمييز الكلمات ، إلخ.
+  featureCaptureDesc: >-
+    باستخدام محررنا القوي ، يمكنك بسهولة كتابة نص Markdown ، مما يدعم جميع عناصر
+    Markdown تقريبًا
+  featureCaptureSubTitle: محرر Markdown
+  featureCloudSync: التزامن عبر جميع المنصات
+  featureCloudSyncDesc: >-
+    دعم مزامنة النظام الأساسي بالكامل ، مما يسمح بمزامنة معلوماتك مع أجهزة
+    متعددة في أي وقت وفي أي مكان ، مما يناسبك لعرضها وإدارتها في أي وقت
+  featureCloudSyncSubTitle: إدارة المعلومات الخاصة بك في أي وقت وفي أي مكان
+  getFirefly: احصل على اليراع
+  getFireflySlogan: ابدأ العمل بذكاء اليوم.
+login:
+  continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
+  continueWithGithub: تسجيل الدخول إلى جيثب
+  continueWithGoogle: تواصل مع جوجل
+  continueWithLoginCode: رمز تسجيل الدخول تسجيل الدخول
+  continueWithNotion: فكرة تسجيل الدخول
+  emailPlaceholder: أدخل عنوان بريدك الالكتروني...
+  emailRequired: الرجاء إدخال البريد الإلكتروني
+  emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.
+  loginCodePlaceholder: الصق رمز تسجيل الدخول
+  redirectToLogin: هل لديك حساب؟ سجل في
+  redirectToSignup: ليس لديك حساب بعد؟
+  resendEmail: إعادة إرسال البريد الإلكتروني
+settings:
+  alwaysShowIcons: رمز اختيار النص
+  alwaysShowIconsDescription: ما إذا كان سيتم تمكين رمز تحديد النص
+  hotKeyRecorderTip: اضغط على مجموعة المفاتيح المطلوبة
+  hotkey: اختصار الاختصار
+  hotkeyDescription: تستدعي مفاتيح الاختصار مساعد الاختصار
+  i18n: لغة
+  i18nDescription: لغة لاستخدامها
+  ocrHotkey: مفتاح اختصار التعرف على النص OCR
+  ocrHotkeyDescription: مفاتيح الاختصار تستدعي التعرف على النص OCR
+  proxy: التمثيل
+  proxyDescription: إعدادات الوكيل المراد استخدامها
+  runAtStartup: حذاء طويل
+  runAtStartupDescription: ابدأ Firefly عند التمهيد
+  save: يحفظ
+  saveSuccess: حفظ بنجاح
+  title: يثبت
+signup: {}
+tag:
+  delete: يمسح
+  deleteLoading: جارٍ إزالة الملصق في ...
+  placeholder: إضافة علامة...
+  updateLoading: في علامة تبويب التحديث ...
+titleBar:
+  sync: زامن الآن "لنقل البيانات
+user:
+  generateNewToken: إنشاء رمز جديد
+  generateToken: توليد رمز
+  language: لغة
+  logout: خروج

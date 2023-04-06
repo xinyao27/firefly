@@ -1,0 +1,135 @@
+assistant:
+  capture: ამოჭრა
+  dragTip: გადაათრიეთ და ჩამოაგდეთ აქ
+  dropTip: გამოშვება კოლექციის დასასრულებლად
+  inputToken: გთხოვთ, ჯერ შეიყვანოთ ჟეტონი
+  pin: ფანჯარა ყოველთვის თავზეა
+  title: კლიპი Firefly-ზე
+  unpin: ფანჯრის დახურვა ყოველთვის თავზეა
+block:
+  blocks: სტატიის მონაცემები
+  create: ბლოკების შექმნა
+  deleteLoading: ბლოკის წაშლა...
+  saveLoading: ბლოკების შექმნა...
+  synced: სინქრონიზაცია დასრულებულია
+  update: განახლების ბლოკი
+  updateLoading: მიმდინარეობს ბლოკის განახლება...
+common:
+  back: დაბრუნების
+  cancel: გაუქმება
+  confirm: რა თქმა უნდა
+  copied: გადაწერა
+  copy: კოპირება
+  delete: წაშლა
+  deleted: წარმატებით წაიშალა
+  edit: რედაქტირება
+  joinDesc1: ჩვენ მოხარული ვართ, რომ თქვენ გადაიღეთ Firefly-ით.
+  joinDesc2: დროთა განმავლობაში ეტაპობრივად გამოგიგზავნით მოწვევებს.
+  joinPlaceholder: გამოიყენეთ თქვენი ელ.წერილი, რომ შეუერთდეთ ჩვენს მოლოდინში
+  joinus: შემოგვიერთდი
+  loading: Ჩატვირთვა...
+  login: Შესვლა
+  loginError: Სისტემაში შესვლა ვერ მოხერხდა
+  noResult: უშედეგო
+  notFound: ვერ პოულობს
+  openApp: გახსენით აპლიკაცია
+  save: გადარჩენა
+  saved: შენახულია წარმატებით
+  signup: რეგისტრაცია
+  slogan: >-
+    Firefly არის ფრაგმენტული ინფორმაციის შეგროვების ინსტრუმენტი, რომელიც
+    აერთიანებს AI-ის მონაცემთა ანალიზის უნარს, რათა ინფორმაციის შეგროვება ასე
+    საინტერესო გახდეს
+  updated: განახლება დასრულდა
+  warningContent: დარწმუნებული ხართ, რომ გსურთ მისი წაშლა
+  warningTitle: გაფრთხილება
+copilot:
+  customPrompt: მორგებული მოთხოვნა
+  extractionTags: ამონაწერი ტეგები
+  hi: Გამარჯობა, რით შემიძლია დაგეხმაროთ
+  polishing: პოლონური
+  ref: კოპილოტის მითითება
+  retry: ხელახლა სცადეთ
+  summarize: ტექსტის შეჯამება
+  translate: თარგმნა
+editor:
+  blockquote: ციტატის ტექსტი
+  bold: გაბედული
+  bulletList: პროექტის სია
+  code: კოდი
+  italic: დახრილი
+  orderedList: დანომრილი სია
+  strike: წყვეტილი ხაზი
+  text: ტექსტი
+  todoList: გასაკეთებელი სია
+  type: ტიპი
+  underline: ხაზი გაუსვით
+  uploading: ატვირთვა...
+index:
+  featureAI: >-
+    გადაეცით შეგროვებული ინფორმაცია AI-ს დასამუშავებლად და შეაგროვეთ ხელოვნური
+    ინტელექტის მიერ დამუშავებული შინაარსი ერთი დაწკაპუნებით
+  featureAIDesc: >-
+    ესაუბრეთ AI-ს, გადაეცით თქვენს მიერ შეგროვებული ინფორმაცია AI-ს
+    დასამუშავებლად ერთი დაწკაპუნებით და შეაგროვეთ AI პასუხის შინაარსი ერთი
+    დაწკაპუნებით
+  featureAISubTitle: AI გეხმარებათ ინფორმაციის შეჯამებასა და განზოგადებაში
+  featureCapture: >-
+    მხარი დაუჭირეთ OCR გამოსახულების ამოცნობის კოლექციას, მალსახმობების კლავიშთა
+    კოლექციას, სიტყვის მარკირების ხატულ კოლექციას და ა.შ.
+  featureCaptureDesc: >-
+    ჩვენი ძლიერი რედაქტორის საშუალებით თქვენ შეგიძლიათ მარტივად დაწეროთ Markdown
+    ტექსტი, რომელიც მხარს უჭერს Markdown-ის თითქმის ყველა ელემენტს
+  featureCaptureSubTitle: Markdown რედაქტორი
+  featureCloudSync: სინქრონიზაცია ყველა პლატფორმაზე
+  featureCloudSyncDesc: >-
+    სრული პლატფორმის სინქრონიზაციის მხარდაჭერა, რაც საშუალებას გაძლევთ
+    სინქრონიზდეს თქვენი ინფორმაცია მრავალ მოწყობილობასთან ნებისმიერ დროს,
+    ნებისმიერ ადგილას, თქვენთვის მოსახერხებელი, რომ ნახოთ და მართოთ ნებისმიერ
+    დროს
+  featureCloudSyncSubTitle: მართეთ თქვენი ინფორმაცია ნებისმიერ დროს, ნებისმიერ ადგილას
+  getFirefly: მიიღეთ Firefly
+  getFireflySlogan: დაიწყეთ მუშაობა უფრო ჭკვიანურად, დღესვე.
+login:
+  continueWithEmail: ელ.ფოსტის შესვლა
+  continueWithGithub: Github შესვლა
+  continueWithGoogle: განაგრძეთ Google-ით
+  continueWithLoginCode: შესვლის კოდი შესვლა
+  continueWithNotion: ცნება შესვლა
+  emailPlaceholder: შეიყვანეთ თქვენი ელფოსტის მისამართი...
+  emailRequired: გთხოვთ შეიყვანოთ ელფოსტა
+  emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.
+  loginCodePlaceholder: ჩასვით შესვლის კოდი
+  redirectToLogin: უკვე გაქვთ ანგარიში? შედით
+  redirectToSignup: ჯერ არ გაქვთ ანგარიში? დარეგისტრირდით
+  resendEmail: ხელახლა გაგზავნა ელ
+settings:
+  alwaysShowIcons: ტექსტის შერჩევის ხატულა
+  alwaysShowIconsDescription: ჩართოთ თუ არა ტექსტის შერჩევის ხატულა
+  hotKeyRecorderTip: დააჭირეთ კლავიშების სასურველ კომბინაციას
+  hotkey: სტენოკარდიის მალსახმობი
+  hotkeyDescription: მალსახმობების ღილაკები იძახიან სტენოგრამის ასისტენტს
+  i18n: ენა
+  i18nDescription: გამოსაყენებელი ენა
+  ocrHotkey: OCR ტექსტის ამოცნობის მალსახმობი ღილაკი
+  ocrHotkeyDescription: მალსახმობების ღილაკები იძახიან OCR ტექსტის ამოცნობას
+  proxy: მოქმედი
+  proxyDescription: პროქსი პარამეტრების გამოყენება
+  runAtStartup: ჩექმა
+  runAtStartupDescription: დაიწყეთ Firefly ჩატვირთვისას
+  save: გადარჩენა
+  saveSuccess: შენახულია წარმატებით
+  title: აწყობა
+signup: {}
+tag:
+  delete: წაშლა
+  deleteLoading: ეტიკეტის ამოღება...
+  placeholder: ტეგის დამატება...
+  updateLoading: განახლების ჩანართში...
+titleBar:
+  sync: სინქრონიზაცია ახლა
+user:
+  generateNewToken: შექმენით ახალი ჟეტონი
+  generateToken: ტოკენის გენერირება
+  language: ენა
+  logout: სისტემიდან გამოსვლა

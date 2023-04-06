@@ -1,0 +1,133 @@
+assistant:
+  capture: cắt
+  dragTip: kéo và thả ở đây
+  dropTip: Phát hành để hoàn thành bộ sưu tập
+  inputToken: Vui lòng nhập mã thông báo trước
+  pin: cửa sổ luôn ở trên cùng
+  title: Đoạn phim đom đóm
+  unpin: cửa sổ đóng luôn ở trên cùng
+block:
+  blocks: Dữ liệu bài viết
+  create: tạo khối
+  deleteLoading: Xóa Chặn trong...
+  saveLoading: Tạo khối...
+  synced: đồng bộ hóa hoàn tất
+  update: khối cập nhật
+  updateLoading: Đang cập nhật Chặn...
+common:
+  back: trở lại
+  cancel: Hủy bỏ
+  confirm: Chắc chắn
+  copied: sao chép
+  copy: sao chép
+  delete: xóa bỏ
+  deleted: xóa thành công
+  edit: biên tập
+  joinDesc1: Chúng tôi rất vui khi bạn chụp ảnh với Firefly.
+  joinDesc2: Chúng tôi sẽ gửi lời mời dần dần theo thời gian.
+  joinPlaceholder: Sử dụng email của bạn để tham gia danh sách chờ của chúng tôi
+  joinus: tham gia với chúng tôi
+  loading: Đang tải...
+  login: Đăng nhập
+  loginError: Đăng nhập thất bại
+  noResult: không kết quả
+  notFound: không thể tìm thấy
+  openApp: Mở chương trình
+  save: cứu
+  saved: đã lưu thành công
+  signup: đăng ký
+  slogan: >-
+    Firefly là một công cụ thu thập thông tin dạng mảnh, kết hợp khả năng phân
+    tích dữ liệu của AI để làm cho việc thu thập thông tin trở nên thú vị
+  updated: hoàn thành cập nhật
+  warningContent: Bạn chắc chắn muốn xóa nó
+  warningTitle: cảnh báo
+copilot:
+  customPrompt: Lời nhắc tùy chỉnh
+  extractionTags: trích xuất thẻ
+  hi: Xin chào, tôi có thể giúp gì cho bạn
+  polishing: đánh bóng
+  ref: tài liệu tham khảo phi công phụ
+  retry: Thử lại
+  summarize: tóm tắt văn bản
+  translate: dịch
+editor:
+  blockquote: văn bản trích dẫn
+  bold: in đậm
+  bulletList: danh sách dự án
+  code: mật mã
+  italic: chữ in nghiêng
+  orderedList: danh sách đánh số
+  strike: vạch đứt
+  text: chữ
+  todoList: những việc cần làm
+  type: kiểu
+  underline: gạch dưới
+  uploading: đang tải lên...
+index:
+  featureAI: >-
+    Bàn giao thông tin thu thập được cho AI xử lý và thu thập nội dung do AI xử
+    lý bằng một cú nhấp chuột
+  featureAIDesc: >-
+    Nói chuyện với AI, bàn giao thông tin bạn thu thập được cho AI để xử lý chỉ
+    bằng một cú nhấp chuột và thu thập nội dung trả lời của AI bằng một cú nhấp
+    chuột
+  featureAISubTitle: AI giúp bạn tóm tắt và khái quát hóa thông tin
+  featureCapture: >-
+    Hỗ trợ bộ sưu tập nhận dạng hình ảnh OCR, bộ sưu tập phím tắt, bộ sưu tập
+    biểu tượng đánh dấu từ, v.v.
+  featureCaptureDesc: >-
+    Với trình chỉnh sửa mạnh mẽ của chúng tôi, bạn có thể dễ dàng viết văn bản
+    Markdown, hỗ trợ hầu hết tất cả các phần tử Markdown
+  featureCaptureSubTitle: trình chỉnh sửa đánh dấu
+  featureCloudSync: Đồng bộ hóa trên tất cả các nền tảng
+  featureCloudSyncDesc: >-
+    Hỗ trợ đồng bộ toàn nền tảng, cho phép thông tin của bạn được đồng bộ lên
+    nhiều thiết bị mọi lúc mọi nơi thuận tiện cho bạn xem và quản lý bất cứ lúc
+    nào
+  featureCloudSyncSubTitle: Quản lý thông tin của bạn mọi lúc, mọi nơi
+  getFirefly: Nhận con đom đóm
+  getFireflySlogan: Bắt đầu làm việc thông minh hơn, ngay hôm nay.
+login:
+  continueWithEmail: Email đăng nhập
+  continueWithGithub: đăng nhập Github
+  continueWithGoogle: Tiếp tục với Google
+  continueWithLoginCode: Mã đăng nhập Đăng nhập
+  continueWithNotion: đăng nhập khái niệm
+  emailPlaceholder: Nhập địa chỉ email của bạn...
+  emailRequired: Vui lòng nhập Email
+  emailSended: Chúng tôi vừa gửi cho bạn một email, vui lòng kiểm tra hộp thư đến của bạn.
+  loginCodePlaceholder: Dán mã đăng nhập
+  redirectToLogin: Đã có tài khoản? Đăng nhập
+  redirectToSignup: Bạn chưa có tài khoản? Hãy đăng ký
+  resendEmail: Gửi lại email
+settings:
+  alwaysShowIcons: biểu tượng chọn văn bản
+  alwaysShowIconsDescription: Có bật biểu tượng chọn văn bản hay không
+  hotKeyRecorderTip: Nhấn tổ hợp phím mong muốn
+  hotkey: lối tắt tốc ký
+  hotkeyDescription: Phím tắt gọi trợ lý tốc ký
+  i18n: ngôn ngữ
+  i18nDescription: ngôn ngữ để sử dụng
+  ocrHotkey: Phím tắt nhận dạng văn bản OCR
+  ocrHotkeyDescription: Phím tắt gọi nhận dạng văn bản OCR
+  proxy: diễn xuất
+  proxyDescription: Cài đặt proxy để sử dụng
+  runAtStartup: khởi động
+  runAtStartupDescription: Bắt đầu Firefly khi khởi động
+  save: cứu
+  saveSuccess: đã lưu thành công
+  title: cài đặt
+signup: {}
+tag:
+  delete: xóa bỏ
+  deleteLoading: Xóa nhãn trong...
+  placeholder: thêm thẻ...
+  updateLoading: Trong tab cập nhật...
+titleBar:
+  sync: đồng bộ hóa ngay bây giờ
+user:
+  generateNewToken: Tạo mã thông báo mới
+  generateToken: Tạo mã thông báo
+  language: ngôn ngữ
+  logout: đăng xuất

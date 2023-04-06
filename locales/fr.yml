@@ -1,0 +1,137 @@
+assistant:
+  capture: Coupure
+  dragTip: glisser-déposer ici
+  dropTip: Libération pour compléter la collection
+  inputToken: Veuillez d'abord entrer le jeton
+  pin: la fenêtre est toujours en haut
+  title: Clip sur luciole
+  unpin: fermer la fenêtre est toujours en haut
+block:
+  blocks: Données d'articles
+  create: créer des blocs
+  deleteLoading: Supprimer le bloc dans...
+  saveLoading: Création de blocs...
+  synced: synchronisation terminée
+  update: bloc de mise à jour
+  updateLoading: Mise à jour du bloc en cours...
+common:
+  back: retour
+  cancel: Annuler
+  confirm: Bien sûr
+  copied: copié
+  copy: copie
+  delete: supprimer
+  deleted: supprimé avec succès
+  edit: modifier
+  joinDesc1: Nous sommes ravis que vous capturiez avec Firefly.
+  joinDesc2: Nous enverrons des invitations progressivement au fil du temps.
+  joinPlaceholder: Utilisez votre email pour rejoindre notre liste d'attente
+  joinus: Rejoignez-nous
+  loading: Chargement...
+  login: Connexion
+  loginError: échec de la connexion
+  noResult: pas de résultat
+  notFound: ne trouve pas
+  openApp: Ouvrir application
+  save: sauvegarder
+  saved: Enregistré avec succès
+  signup: enregistrer
+  slogan: >-
+    Firefly est un outil de collecte d'informations sur les fragments, qui
+    combine la capacité d'analyse de données de l'IA pour rendre la collecte
+    d'informations si intéressante
+  updated: Mise à jour terminée
+  warningContent: Vous êtes sûr de vouloir le supprimer
+  warningTitle: avertir
+copilot:
+  customPrompt: Invites personnalisées
+  extractionTags: extraire les balises
+  hi: Salut, comment est-ce que je peux t'aider
+  polishing: polonais
+  ref: Référence copilote
+  retry: Recommencez
+  summarize: résumé du texte
+  translate: traduire
+editor:
+  blockquote: citer le texte
+  bold: gras
+  bulletList: liste de projets
+  code: le code
+  italic: italique
+  orderedList: liste numérotée
+  strike: ligne pointillée
+  text: texte
+  todoList: liste de choses à faire
+  type: taper
+  underline: souligner
+  uploading: Téléchargement...
+index:
+  featureAI: >-
+    Transmettez les informations collectées à l'IA pour traitement et collectez
+    le contenu traité par l'IA en un clic
+  featureAIDesc: >-
+    Parlez à l'IA, transmettez les informations que vous collectez à l'IA pour
+    traitement en un clic et collectez le contenu de la réponse de l'IA en un
+    clic
+  featureAISubTitle: L'IA vous aide à résumer et à généraliser les informations
+  featureCapture: >-
+    Prend en charge la collecte de reconnaissance d'images OCR, la collecte de
+    touches de raccourci, la collecte d'icônes de marquage de mots, etc.
+  featureCaptureDesc: >-
+    Avec notre puissant éditeur, vous pouvez facilement écrire du texte
+    Markdown, prenant en charge presque tous les éléments Markdown
+  featureCaptureSubTitle: Éditeur Markdown
+  featureCloudSync: Synchronisation sur toutes les plateformes
+  featureCloudSyncDesc: >-
+    Prise en charge de la synchronisation complète de la plate-forme, permettant
+    à vos informations d'être synchronisées sur plusieurs appareils à tout
+    moment, n'importe où, pratique pour vous de visualiser et de gérer à tout
+    moment
+  featureCloudSyncSubTitle: Gérez vos informations à tout moment, n'importe où
+  getFirefly: Obtenez Firefly
+  getFireflySlogan: Commencez à travailler plus intelligemment, dès aujourd'hui.
+login:
+  continueWithEmail: Connexion par e-mail
+  continueWithGithub: Connexion Github
+  continueWithGoogle: Continuer avec Google
+  continueWithLoginCode: Connexion par code de connexion
+  continueWithNotion: Connexion notionnelle
+  emailPlaceholder: Entrez votre adresse email...
+  emailRequired: Veuillez saisir un e-mail
+  emailSended: >-
+    Nous venons de vous envoyer un e-mail, veuillez vérifier votre boîte de
+    réception.
+  loginCodePlaceholder: Collez le code de connexion
+  redirectToLogin: Vous avez déjà un compte? S'identifier
+  redirectToSignup: Vous n'avez pas encore de compte ?
+  resendEmail: ré-envoyer l'email
+settings:
+  alwaysShowIcons: icône de sélection de texte
+  alwaysShowIconsDescription: Activer ou non l'icône de sélection de texte
+  hotKeyRecorderTip: Appuyez sur la combinaison de touches souhaitée
+  hotkey: raccourci abrégé
+  hotkeyDescription: Les touches de raccourci appellent l'assistant de sténographie
+  i18n: langue
+  i18nDescription: langue à utiliser
+  ocrHotkey: Touche de raccourci de reconnaissance de texte OCR
+  ocrHotkeyDescription: Les touches de raccourci appellent la reconnaissance de texte OCR
+  proxy: agissant
+  proxyDescription: paramètres de proxy à utiliser
+  runAtStartup: botte
+  runAtStartupDescription: Démarrer Firefly au démarrage
+  save: sauvegarder
+  saveSuccess: Enregistré avec succès
+  title: installation
+signup: {}
+tag:
+  delete: supprimer
+  deleteLoading: Retrait de l'étiquette dans...
+  placeholder: ajouter une étiquette...
+  updateLoading: Dans l'onglet mise à jour...
+titleBar:
+  sync: synchroniser maintenant
+user:
+  generateNewToken: Générer un nouveau jeton
+  generateToken: Générer un jeton
+  language: langue
+  logout: se déconnecter

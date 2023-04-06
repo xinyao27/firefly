@@ -1,0 +1,132 @@
+assistant:
+  capture: Clipping
+  dragTip: Drag and drop here
+  dropTip: Release to complete the capture
+  inputToken: Please enter the token first
+  pin: window is always on top
+  title: Capture To Firefly
+  unpin: close window is always on top
+block:
+  blocks: Article data
+  create: create a block
+  deleteLoading: Delete Block in...
+  saveLoading: Creating Blocks...
+  synced: sync complete
+  update: update block
+  updateLoading: Updating Block in progress...
+common:
+  back: return
+  cancel: Cancel
+  confirm: Sure
+  copied: copied
+  copy: copy
+  delete: delete
+  deleted: successfully deleted
+  edit: edit
+  joinDesc1: We're excited for you to capture with Firefly.
+  joinDesc2: We'll be sending invites gradually over time.
+  joinPlaceholder: Use your email to join our waiting list
+  joinus: join us
+  loading: Loading...
+  login: Login
+  loginError: Login failed
+  noResult: no result
+  notFound: can't find
+  openApp: Open App
+  save: save
+  saved: Saved successfully
+  signup: Signup
+  slogan: >-
+    Firefly is a fragment information collection tool, which combines the data
+    analysis ability of AI to make information collection so interesting
+  updated: update completed
+  warningContent: You sure you want to delete it
+  warningTitle: warn
+copilot:
+  customPrompt: Custom Prompts
+  extractionTags: extract tags
+  hi: Hi, how can I help you
+  polishing: polish
+  ref: Copilot reference
+  retry: Retry
+  summarize: text summary
+  translate: translate
+editor:
+  blockquote: quote text
+  bold: bold
+  bulletList: project list
+  code: the code
+  italic: italics
+  orderedList: numbered list
+  strike: dashed line
+  text: text
+  todoList: to do list
+  type: type
+  underline: underline
+  uploading: uploading...
+index:
+  featureAI: >-
+    Hand over the collected information to AI for processing, and collect the
+    content processed by AI with one click
+  featureAIDesc: >-
+    Talk to AI, hand over the information you collect to AI for processing with
+    one click, and collect the content of AI reply with one click
+  featureAISubTitle: AI helps you summarize and generalize information
+  featureCapture: >-
+    Support OCR image recognition collection, shortcut key collection, word
+    marking icon collection, etc.
+  featureCaptureDesc: >-
+    With our powerful editor, you can easily write Markdown text, supporting
+    almost all Markdown elements
+  featureCaptureSubTitle: Markdown editor
+  featureCloudSync: Synchronization across all platforms
+  featureCloudSyncDesc: >-
+    Support full-platform synchronization, allowing your information to be
+    synchronized to multiple devices anytime, anywhere, convenient for you to
+    view and manage at any time
+  featureCloudSyncSubTitle: Manage your information anytime, anywhere
+  getFirefly: Get Firefly
+  getFireflySlogan: Start work smarter, today.
+login:
+  continueWithEmail: Continue with Email
+  continueWithGithub: Continue with Github
+  continueWithGoogle: Continue with Google
+  continueWithLoginCode: Continue with Login Code
+  continueWithNotion: Continue with Notion
+  emailPlaceholder: Enter your email address...
+  emailRequired: Please enter Email
+  emailSended: We just sent you a temporary login code. Please check your inbox.
+  loginCodePlaceholder: Paste the login code
+  redirectToLogin: Already have an account? Log in
+  redirectToSignup: Don't have an account yet? Sign up
+  resendEmail: resend email
+settings:
+  alwaysShowIcons: text selection icon
+  alwaysShowIconsDescription: Whether to enable the text selection icon
+  hotKeyRecorderTip: Press the desired key combination
+  hotkey: shorthand shortcut
+  hotkeyDescription: Shortcut keys call out the shorthand assistant
+  i18n: language
+  i18nDescription: language to use
+  ocrHotkey: OCR text recognition shortcut key
+  ocrHotkeyDescription: Shortcut keys call out OCR text recognition
+  proxy: proxy
+  proxyDescription: The proxy settings to use
+  runAtStartup: boot
+  runAtStartupDescription: Start Firefly at boot
+  save: save
+  saveSuccess: Saved successfully
+  title: set up
+signup: {}
+tag:
+  delete: delete
+  deleteLoading: Removing label in...
+  placeholder: add tag...
+  updateLoading: In the update tab...
+titleBar:
+  sync: sync now
+user:
+  generateNewToken: Generate a new token
+  generateToken: Generate Token
+  language: language
+  logout: sign out

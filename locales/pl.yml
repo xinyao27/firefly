@@ -1,0 +1,133 @@
+assistant:
+  capture: Obrzynek
+  dragTip: przeciągnij i upuść tutaj
+  dropTip: Zwolnij, aby zakończyć kolekcję
+  inputToken: Najpierw wprowadź token
+  pin: okno jest zawsze na górze
+  title: Klip do Firefly
+  unpin: zamknij okno jest zawsze na górze
+block:
+  blocks: Dane artykułu
+  create: tworzyć bloki
+  deleteLoading: Usuń blok w...
+  saveLoading: Tworzenie bloków...
+  synced: synchronizacja zakończona
+  update: blok aktualizacji
+  updateLoading: Aktualizowanie bloku w toku...
+common:
+  back: powrót
+  cancel: Anulować
+  confirm: Jasne
+  copied: skopiowane
+  copy: Kopiuj
+  delete: usuwać
+  deleted: pomyślnie usunięte
+  edit: edytować
+  joinDesc1: Cieszymy się, że możesz nagrywać za pomocą Firefly.
+  joinDesc2: Zaproszenia będziemy wysyłać stopniowo.
+  joinPlaceholder: Użyj swojego adresu e-mail, aby dołączyć do naszej listy oczekujących
+  joinus: Dołącz do nas
+  loading: Ładowanie...
+  login: Zaloguj sie
+  loginError: Logowanie nie powiodło się
+  noResult: brak wyników
+  notFound: nie mogę znaleźć
+  openApp: Otworzyć aplikację
+  save: ratować
+  saved: Zapisano pomyślnie
+  signup: rejestr
+  slogan: >-
+    Firefly to narzędzie do zbierania fragmentów informacji, które łączy w sobie
+    zdolność sztucznej inteligencji do analizy danych, aby gromadzenie
+    informacji było tak interesujące
+  updated: aktualizacja zakończona
+  warningContent: Na pewno chcesz go usunąć
+  warningTitle: ostrzegać
+copilot:
+  customPrompt: Niestandardowe podpowiedzi
+  extractionTags: wyodrębnij tagi
+  hi: Cześc, jak mogę Ci pomóc
+  polishing: polski
+  ref: Odniesienie do drugiego pilota
+  retry: Spróbować ponownie
+  summarize: streszczenie tekstu
+  translate: Tłumaczyć
+editor:
+  blockquote: cytuj tekst
+  bold: pogrubiony
+  bulletList: lista projektów
+  code: kod
+  italic: kursywa
+  orderedList: lista numerowana
+  strike: linia przerywana
+  text: tekst
+  todoList: Lista rzeczy do zrobienia
+  type: typ
+  underline: podkreślać
+  uploading: ładowanie...
+index:
+  featureAI: >-
+    Przekaż zebrane informacje AI do przetworzenia i jednym kliknięciem odbierz
+    treści przetwarzane przez AI
+  featureAIDesc: >-
+    Porozmawiaj z AI, jednym kliknięciem przekaż zebrane informacje AI do
+    przetworzenia i jednym kliknięciem zbierz treść odpowiedzi AI
+  featureAISubTitle: Sztuczna inteligencja pomaga podsumowywać i uogólniać informacje
+  featureCapture: >-
+    Obsługa kolekcji rozpoznawania obrazów OCR, kolekcji klawiszy skrótów,
+    kolekcji ikon oznaczania słów itp.
+  featureCaptureDesc: >-
+    Dzięki naszemu potężnemu edytorowi możesz łatwo pisać tekst Markdown,
+    obsługujący prawie wszystkie elementy Markdown
+  featureCaptureSubTitle: Edytor Markdowna
+  featureCloudSync: Synchronizacja na wszystkich platformach
+  featureCloudSyncDesc: >-
+    Obsługuje synchronizację na całej platformie, umożliwiając synchronizację
+    informacji z wieloma urządzeniami w dowolnym czasie i miejscu, wygodny do
+    przeglądania i zarządzania w dowolnym momencie
+  featureCloudSyncSubTitle: Zarządzaj swoimi informacjami zawsze i wszędzie
+  getFirefly: Zdobądź Firefly'a
+  getFireflySlogan: Zacznij pracować mądrzej już dziś.
+login:
+  continueWithEmail: Zaloguj się e-mailem
+  continueWithGithub: Logowanie do Githuba
+  continueWithGoogle: Kontynuuj z Google
+  continueWithLoginCode: Kod logowania Zaloguj się
+  continueWithNotion: Logowanie do pojęcia
+  emailPlaceholder: Wpisz swój adres e-mail...
+  emailRequired: Wprowadź adres e-mail
+  emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.
+  loginCodePlaceholder: Wklej kod logowania
+  redirectToLogin: Masz już konto? Zaloguj się
+  redirectToSignup: Nie masz jeszcze konta? Zarejestruj się
+  resendEmail: Wyślij email ponownie
+settings:
+  alwaysShowIcons: ikona zaznaczenia tekstu
+  alwaysShowIconsDescription: Czy włączyć ikonę zaznaczania tekstu
+  hotKeyRecorderTip: Naciśnij żądaną kombinację klawiszy
+  hotkey: skrót myślowy
+  hotkeyDescription: Klawisze skrótów przywołują asystenta skrótów
+  i18n: język
+  i18nDescription: język do użycia
+  ocrHotkey: Klawisz skrótu rozpoznawania tekstu OCR
+  ocrHotkeyDescription: Klawisze skrótów przywołują rozpoznawanie tekstu OCR
+  proxy: gra aktorska
+  proxyDescription: Ustawienia serwera proxy do użycia
+  runAtStartup: uruchomić
+  runAtStartupDescription: Uruchom Firefly podczas rozruchu
+  save: ratować
+  saveSuccess: Zapisano pomyślnie
+  title: organizować coś
+signup: {}
+tag:
+  delete: usuwać
+  deleteLoading: Usuwanie etykiety w...
+  placeholder: dodaj tag...
+  updateLoading: W zakładce aktualizacja...
+titleBar:
+  sync: Synchronizuj teraz
+user:
+  generateNewToken: Wygeneruj nowy token
+  generateToken: Wygeneruj token
+  language: język
+  logout: Wyloguj się
