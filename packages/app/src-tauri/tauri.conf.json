@@ -84,12 +84,6 @@
         "webviewInstallMode": {
           "type": "embedBootstrapper"
         },
-        "wix": {
-          "language": [
-            "zh-CN",
-            "en-US"
-          ]
-        },
         "certificateThumbprint": null
       },
       "active": true
