@@ -18,7 +18,7 @@ function resolve(...p: string[]) {
   return path.resolve(__dirname, ...p)
 }
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   const plugins = [
     VueMacros({
       plugins: {
@@ -130,17 +130,21 @@ export default defineConfig(() => {
       }),
     )
   }
+  const define = mode === 'production'
+    ? {
+        'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(process.env.VITE_SUPABASE_URL),
+        'import.meta.env.VITE_SUPABASE_FUNCTIONS_URL': JSON.stringify(process.env.VITE_SUPABASE_FUNCTIONS_URL),
+        'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(process.env.VITE_SUPABASE_ANON_KEY),
+      }
+    : {}
+
   return {
     clearScreen: false,
     server: {
       strictPort: true,
     },
     envPrefix: ['VITE_', 'TAURI_'],
-    define: {
-      'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(process.env.VITE_SUPABASE_URL),
-      'import.meta.env.VITE_SUPABASE_FUNCTIONS_URL': JSON.stringify(process.env.VITE_SUPABASE_FUNCTIONS_URL),
-      'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(process.env.VITE_SUPABASE_ANON_KEY),
-    },
+    define,
     build: {
       sourcemap: true,
       target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
