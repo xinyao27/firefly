@@ -18,10 +18,12 @@
     "@firefly/theme": "workspace:*",
     "@tauri-apps/api": "^1.2.0",
     "@yeger/vue-masonry-wall": "^3.4.4",
-    "tauri-plugin-autostart-api": "https://github.com/tauri-apps/tauri-plugin-autostart"
+    "tauri-plugin-autostart-api": "https://github.com/tauri-apps/tauri-plugin-autostart",
+    "vue-virtual-scroller": "2.0.0-beta.8"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.3",
+    "@types/vue-virtual-scroller": "npm:@vsme/vue-virtual-scroller@^1.0.1",
     "vite-plugin-pages": "^0.28.0",
     "vite-plugin-pwa": "^0.14.7"
   }

@@ -112,7 +112,7 @@ function handleTagClick(tag: string) {
     >
       <div
         ref="el"
-        class="ProseMirror prose prose-white"
+        class="ProseMirror prose prose-white max-w-full"
         v-html="props.data.content"
       />
     </div>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import MasonryWall from '@yeger/vue-masonry-wall'
 import type { BlockModel } from '@firefly/common'
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import ListItem from './ListItem.vue'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 const props = defineProps<{
   data: BlockModel[]
@@ -19,14 +20,27 @@ const containerRef = ref<HTMLElement>()
     ref="containerRef"
     h-full p-4 overflow-x-hidden overflow-y-auto
   >
-    <MasonryWall :items="props.data" :ssr-columns="1" :column-width="300" :gap="16">
-      <template #default="{ item }">
-        <ListItem
-          :key="item.id"
-          :data="item"
-        />
+    <DynamicScroller
+      :items="props.data"
+      :min-item-size="80"
+    >
+      <template #default="{ item, index, active }">
+        <DynamicScrollerItem
+          :item="item"
+          :active="active"
+          :size-dependencies="[
+            item.content,
+          ]"
+          :data-index="index"
+        >
+          <div pb-4>
+            <ListItem
+              :data="item"
+            />
+          </div>
+        </DynamicScrollerItem>
       </template>
-    </MasonryWall>
+    </DynamicScroller>
     <NButton
       v-if="configStore.isMobileScreen"
       class="w-[calc(100vw-42px)] round fixed bottom-40px shadow-lg capitalize"

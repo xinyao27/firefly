@@ -3,6 +3,7 @@ import path from 'node:path'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Vue from '@vitejs/plugin-vue'
+import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
@@ -25,6 +26,8 @@ export default defineConfig(({ mode }) => {
         vue: Vue(),
       },
     }),
+
+    VueJsx(),
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({

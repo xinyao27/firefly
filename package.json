@@ -63,6 +63,7 @@
     "@unocss/core": "^0.50.6",
     "@unocss/preset-rem-to-px": "^0.50.6",
     "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue-macros/volar": "^0.9.5",
     "@vue/devtools": "^6.5.0",
     "@vue/test-utils": "^2.3.2",
