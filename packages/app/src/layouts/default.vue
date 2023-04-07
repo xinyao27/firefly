@@ -3,7 +3,7 @@ import { is } from '@firefly/common'
 import { supabase } from '~/api'
 
 const configStore = useConfigStore()
-const textEditorStore = useTextEditorStore()
+const assistantStore = useAssistantStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -24,7 +24,7 @@ onMounted(async () => {
 
     watch(CtrlL, (v) => {
       if (v)
-        textEditorStore.open('create')
+        assistantStore.open('create')
     })
   }
 })

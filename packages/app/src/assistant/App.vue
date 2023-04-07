@@ -45,7 +45,7 @@ onMounted(() => {
 <template>
   <ThemeProvider>
     <CustomProvider>
-      <TextEditor
+      <Assistant
         v-model="block.content"
         class="max-h-20"
         :on-close="handleClose"

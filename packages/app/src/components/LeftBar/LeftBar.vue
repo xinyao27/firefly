@@ -7,7 +7,7 @@ import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
 const dialog = useDialog()
-const textEditorStore = useTextEditorStore()
+const assistantStore = useAssistantStore()
 const tagStore = useTagStore()
 
 const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
@@ -98,7 +98,7 @@ function handleSelect([key]: string[]) {
             block
             secondary
             type="primary"
-            @click="textEditorStore.open('create')"
+            @click="assistantStore.open('create')"
           >
             <template #icon>
               <i i-ri-pencil-line />

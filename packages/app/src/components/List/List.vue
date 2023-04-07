@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const configStore = useConfigStore()
-const textEditorStore = useTextEditorStore()
+const assistantStore = useAssistantStore()
 
 const containerRef = ref<HTMLElement>()
 </script>
@@ -33,7 +33,7 @@ const containerRef = ref<HTMLElement>()
       size="large"
       color="rgb(135, 206, 235)"
       round
-      @click="textEditorStore.open('create')"
+      @click="assistantStore.open('create')"
     >
       <template #icon>
         <i i-ri-pencil-fill />
