@@ -1,0 +1,21 @@
+{
+  "lint": {
+    "files": {
+      "include": ["supabase/"],
+      "exclude": ["packages/"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["supabase/"],
+      "exclude": ["packages/"]
+    },
+    "options": {
+      "useTabs": false,
+      "lineWidth": 120,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "semiColons": false
+    }
+  }
+}

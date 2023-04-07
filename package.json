@@ -12,10 +12,12 @@
     "build": "turbo run build",
     "build:desktop": "turbo run build:desktop",
     "devtools": "npx vue-devtools",
+    "test": "turbo run test",
     "dev": "turbo run dev --filter=firefly",
     "dev:desktop": "turbo run dev:desktop --filter=firefly",
     "dev:webext": "turbo run dev --filter=firefly-webext",
-    "test": "turbo run test"
+    "dev:server": "supabase functions serve --env-file ./supabase/.env --no-verify-jwt",
+    "deploy": "supabase functions deploy"
   },
   "dependencies": {
     "@sentry/tracing": "^7.46.0",
