@@ -16,7 +16,7 @@ const error = ref<{ type: string; description: string } | null>(null)
 onMounted(async () => {
   const hash = search.value.slice(1)
   const searchParams = new URLSearchParams(hash)
-  if (bc.name === 'firefly_auth' && bc.onmessage) {
+  if (bc.name === 'firefly_auth') {
     bc.postMessage(hash)
   }
   else if (window.opener?.postMessage) {

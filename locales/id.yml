@@ -23,6 +23,7 @@ common:
   delete: menghapus
   deleted: berhasil dihapus
   edit: sunting
+  hotkeyAlreadyRegistered: Hotkey sudah terdaftar
   joinDesc1: Kami senang Anda memotret dengan Firefly.
   joinDesc2: Kami akan mengirimkan undangan secara bertahap dari waktu ke waktu.
   joinPlaceholder: Gunakan email Anda untuk bergabung dengan daftar tunggu kami
@@ -32,6 +33,7 @@ common:
   loginError: Gagal masuk
   noResult: tidak ada hasil
   notFound: tidak dapat menemukan
+  ocrHotkeyAlreadyRegistered: OCRHotkey sudah terdaftar
   openApp: Buka Aplikasi
   save: menyimpan
   saved: Berhasil disimpan

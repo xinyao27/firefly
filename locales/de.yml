@@ -23,6 +23,7 @@ common:
   delete: löschen
   deleted: erfolgreich gelöscht
   edit: bearbeiten
+  hotkeyAlreadyRegistered: Hotkey bereits registriert
   joinDesc1: Wir freuen uns, dass Sie mit Firefly aufnehmen.
   joinDesc2: Wir werden im Laufe der Zeit nach und nach Einladungen versenden.
   joinPlaceholder: Tragen Sie sich mit Ihrer E-Mail-Adresse in unsere Warteliste ein
@@ -32,6 +33,7 @@ common:
   loginError: Fehler bei der Anmeldung
   noResult: kein Ergebnis
   notFound: kann nicht finden
+  ocrHotkeyAlreadyRegistered: OCRHotkey bereits registriert
   openApp: Öffne App
   save: speichern
   saved: Erfolgreich gespeichert

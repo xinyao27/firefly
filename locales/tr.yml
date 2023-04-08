@@ -23,6 +23,7 @@ common:
   delete: silmek
   deleted: başarıyla silindi
   edit: düzenlemek
+  hotkeyAlreadyRegistered: Kısayol zaten kayıtlı
   joinDesc1: Firefly ile fotoğraf çekeceğiniz için heyecanlıyız.
   joinDesc2: Zaman içinde kademeli olarak davetler göndereceğiz.
   joinPlaceholder: Bekleme listemize katılmak için e-postanızı kullanın
@@ -32,6 +33,7 @@ common:
   loginError: giriş başarısız oldu
   noResult: sonuç yok
   notFound: bulamıyorum
+  ocrHotkeyAlreadyRegistered: OCRHotkey zaten kayıtlı
   openApp: Uygulamayı aç
   save: kaydetmek
   saved: Başarıyla kaydedildi

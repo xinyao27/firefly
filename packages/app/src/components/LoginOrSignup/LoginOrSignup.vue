@@ -38,14 +38,7 @@ const rules = {
 const loading = ref(false)
 async function signInWithToken(name: string, url: string) {
   if (is.desktop()) {
-    const authWindow = new WebviewWindow(name, {
-      url,
-      center: true,
-      width: 600,
-      height: 600,
-      title: 'Firefly SignIn',
-    })
-    authWindow.show()
+    let authWindow = WebviewWindow.getByLabel(name)
     bc.onmessage = async (event) => {
       if (event.data) {
         const hash = event.data as string
@@ -70,6 +63,18 @@ async function signInWithToken(name: string, url: string) {
           authWindow?.close()
         }
       }
+    }
+    if (authWindow) {
+      authWindow.show()
+    }
+    else {
+      authWindow = new WebviewWindow(name, {
+        url,
+        center: true,
+        width: 600,
+        height: 600,
+        title: 'Firefly SignIn',
+      })
     }
   }
   else {

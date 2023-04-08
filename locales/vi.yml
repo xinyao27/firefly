@@ -23,6 +23,7 @@ common:
   delete: xóa bỏ
   deleted: xóa thành công
   edit: biên tập
+  hotkeyAlreadyRegistered: Phím nóng đã được đăng ký
   joinDesc1: Chúng tôi rất vui khi bạn chụp ảnh với Firefly.
   joinDesc2: Chúng tôi sẽ gửi lời mời dần dần theo thời gian.
   joinPlaceholder: Sử dụng email của bạn để tham gia danh sách chờ của chúng tôi
@@ -32,6 +33,7 @@ common:
   loginError: Đăng nhập thất bại
   noResult: không kết quả
   notFound: không thể tìm thấy
+  ocrHotkeyAlreadyRegistered: OCRHotkey đã được đăng ký
   openApp: Mở chương trình
   save: cứu
   saved: đã lưu thành công

@@ -23,6 +23,7 @@ common:
   delete: eliminare
   deleted: eliminato con successo
   edit: modificare
+  hotkeyAlreadyRegistered: Tasto di scelta rapida già registrato
   joinDesc1: Non vediamo l'ora che tu catturi con Firefly.
   joinDesc2: Invieremo gli inviti gradualmente nel tempo.
   joinPlaceholder: Usa la tua email per iscriverti alla nostra lista d'attesa
@@ -32,6 +33,7 @@ common:
   loginError: Accesso non riuscito
   noResult: nessun risultato
   notFound: non riesco a trovare
+  ocrHotkeyAlreadyRegistered: OCRHotkey già registrato
   openApp: Apri l'app
   save: salva
   saved: Salvato con successo

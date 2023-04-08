@@ -23,6 +23,7 @@ common:
   delete: წაშლა
   deleted: წარმატებით წაიშალა
   edit: რედაქტირება
+  hotkeyAlreadyRegistered: Hotkey უკვე დარეგისტრირებულია
   joinDesc1: ჩვენ მოხარული ვართ, რომ თქვენ გადაიღეთ Firefly-ით.
   joinDesc2: დროთა განმავლობაში ეტაპობრივად გამოგიგზავნით მოწვევებს.
   joinPlaceholder: გამოიყენეთ თქვენი ელ.წერილი, რომ შეუერთდეთ ჩვენს მოლოდინში
@@ -32,6 +33,7 @@ common:
   loginError: Სისტემაში შესვლა ვერ მოხერხდა
   noResult: უშედეგო
   notFound: ვერ პოულობს
+  ocrHotkeyAlreadyRegistered: OCRHotkey უკვე დარეგისტრირებულია
   openApp: გახსენით აპლიკაცია
   save: გადარჩენა
   saved: შენახულია წარმატებით

@@ -23,6 +23,7 @@ common:
   delete: 删除
   deleted: 删除成功
   edit: 编辑
+  hotkeyAlreadyRegistered: 热键已注册
   joinDesc1: 我们很高兴您能使用 Firefly 进行捕捉。
   joinDesc2: 随着时间的推移，我们将逐渐发送邀请。
   joinPlaceholder: 使用您的 Email 加入我们的等待名单
@@ -32,6 +33,7 @@ common:
   loginError: 登录失败
   noResult: 没有结果
   notFound: 找不到
+  ocrHotkeyAlreadyRegistered: OCRHotkey 已经注册
   openApp: 打开应用程序
   save: 保存
   saved: 保存成功

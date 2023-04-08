@@ -23,6 +23,7 @@ common:
   delete: 消去
   deleted: 正常に削除されました
   edit: 編集
+  hotkeyAlreadyRegistered: ホットキーはすでに登録されています
   joinDesc1: Firefly でのキャプチャをお待ちしております。
   joinDesc2: 招待状は徐々に送っていきます。
   joinPlaceholder: メールを使用してウェイティング リストに参加してください
@@ -32,6 +33,7 @@ common:
   loginError: ログインに失敗しました
   noResult: 検索結果はありません
   notFound: 見つからない
+  ocrHotkeyAlreadyRegistered: OCRHotkey は既に登録されています
   openApp: アプリを開く
   save: 保存
   saved: 正常に保存

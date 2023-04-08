@@ -23,6 +23,7 @@ common:
   delete: يمسح
   deleted: تم الحذف بنجاح
   edit: يحرر
+  hotkeyAlreadyRegistered: مفتاح التشغيل السريع مسجل بالفعل
   joinDesc1: نحن متحمسون لالتقاط الصور مع Firefly.
   joinDesc2: سنرسل الدعوات تدريجيًا بمرور الوقت.
   joinPlaceholder: استخدم بريدك الإلكتروني للانضمام إلى قائمة الانتظار لدينا
@@ -32,6 +33,7 @@ common:
   loginError: فشل تسجيل الدخول
   noResult: لا نتيجة
   notFound: لا أجد
+  ocrHotkeyAlreadyRegistered: OCRHotkey مسجل بالفعل
   openApp: افتح التطبيق
   save: يحفظ
   saved: حفظ بنجاح

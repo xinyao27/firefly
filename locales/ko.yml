@@ -23,6 +23,7 @@ common:
   delete: 삭제
   deleted: 성공적으로 삭제
   edit: 편집하다
+  hotkeyAlreadyRegistered: 단축키가 이미 등록됨
   joinDesc1: Firefly로 촬영하게 되어 기쁩니다.
   joinDesc2: 시간이 지남에 따라 점차적으로 초대장을 보낼 예정입니다.
   joinPlaceholder: 이메일을 사용하여 대기자 명단에 가입하세요.
@@ -32,6 +33,7 @@ common:
   loginError: 로그인 실패
   noResult: 결과가 없다
   notFound: 찾을 수 없습니다
+  ocrHotkeyAlreadyRegistered: OCRHotkey가 이미 등록되었습니다.
   openApp: 앱 열기
   save: 구하다
   saved: 성공적으로 저장 되었음

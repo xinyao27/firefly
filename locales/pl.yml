@@ -23,6 +23,7 @@ common:
   delete: usuwać
   deleted: pomyślnie usunięte
   edit: edytować
+  hotkeyAlreadyRegistered: Klawisz skrótu jest już zarejestrowany
   joinDesc1: Cieszymy się, że możesz nagrywać za pomocą Firefly.
   joinDesc2: Zaproszenia będziemy wysyłać stopniowo.
   joinPlaceholder: Użyj swojego adresu e-mail, aby dołączyć do naszej listy oczekujących
@@ -32,6 +33,7 @@ common:
   loginError: Logowanie nie powiodło się
   noResult: brak wyników
   notFound: nie mogę znaleźć
+  ocrHotkeyAlreadyRegistered: OCRHotkey już zarejestrowany
   openApp: Otworzyć aplikację
   save: ratować
   saved: Zapisano pomyślnie

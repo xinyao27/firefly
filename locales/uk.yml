@@ -23,6 +23,7 @@ common:
   delete: видалити
   deleted: успішно видалено
   edit: редагувати
+  hotkeyAlreadyRegistered: Гаряча клавіша вже зареєстрована
   joinDesc1: Ми раді, що ви можете знімати за допомогою Firefly.
   joinDesc2: Ми надсилатимемо запрошення поступово.
   joinPlaceholder: >-
@@ -34,6 +35,7 @@ common:
   loginError: Помилка логіну
   noResult: ніякого результату
   notFound: не можу знайти
+  ocrHotkeyAlreadyRegistered: OCRHotkey уже зареєстровано
   openApp: Відкрийте додаток
   save: зберегти
   saved: Успішно збережено
