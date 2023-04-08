@@ -20,7 +20,10 @@ common:
   confirm: Chắc chắn
   copied: sao chép
   copy: sao chép
+  delete: Xóa bỏ
   deleted: xóa thành công
+  downloadDesktopApp: Tải xuống ứng dụng máy tính để bàn
+  edit: Biên tập
   hotkeyAlreadyRegistered: Phím nóng đã được đăng ký
   loading: Đang tải...
   login: Đăng nhập
@@ -38,6 +41,7 @@ common:
   updated: hoàn thành cập nhật
   warningContent: Bạn chắc chắn muốn xóa nó
   warningTitle: cảnh báo
+  yourTags: thẻ của bạn
 copilot:
   customPrompt: Lời nhắc tùy chỉnh
   extractionTags: trích xuất thẻ

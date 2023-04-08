@@ -20,7 +20,10 @@ common:
   confirm: Tentu
   copied: disalin
   copy: menyalin
+  delete: Menghapus
   deleted: berhasil dihapus
+  downloadDesktopApp: Unduh aplikasi desktop
+  edit: Sunting
   hotkeyAlreadyRegistered: Hotkey sudah terdaftar
   loading: Memuat...
   login: Gabung
@@ -38,6 +41,7 @@ common:
   updated: pembaruan selesai
   warningContent: Anda yakin ingin menghapusnya
   warningTitle: memperingatkan
+  yourTags: Tag Anda
 copilot:
   customPrompt: Permintaan Kustom
   extractionTags: ekstrak tag

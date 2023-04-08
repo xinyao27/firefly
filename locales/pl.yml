@@ -20,7 +20,10 @@ common:
   confirm: Jasne
   copied: skopiowane
   copy: Kopiuj
+  delete: Usuwać
   deleted: pomyślnie usunięte
+  downloadDesktopApp: Pobierz aplikację komputerową
+  edit: Edytować
   hotkeyAlreadyRegistered: Klawisz skrótu jest już zarejestrowany
   loading: Ładowanie...
   login: Zaloguj sie
@@ -39,6 +42,7 @@ common:
   updated: aktualizacja zakończona
   warningContent: Na pewno chcesz go usunąć
   warningTitle: ostrzegać
+  yourTags: Twoje tagi
 copilot:
   customPrompt: Niestandardowe podpowiedzi
   extractionTags: wyodrębnij tagi

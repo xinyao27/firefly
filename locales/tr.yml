@@ -20,7 +20,10 @@ common:
   confirm: Elbette
   copied: kopyalanmış
   copy: kopyalamak
+  delete: Silmek
   deleted: başarıyla silindi
+  downloadDesktopApp: Masaüstü uygulamasını indirin
+  edit: Düzenlemek
   hotkeyAlreadyRegistered: Kısayol zaten kayıtlı
   loading: Yükleniyor...
   login: Giriş yapmak
@@ -38,6 +41,7 @@ common:
   updated: Güncelleme tamamlandı
   warningContent: Silmek istediğinizden emin misiniz?
   warningTitle: uyarmak
+  yourTags: Etiketleriniz
 copilot:
   customPrompt: Özel İstemler
   extractionTags: etiketleri ayıkla

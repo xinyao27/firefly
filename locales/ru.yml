@@ -20,7 +20,10 @@ common:
   confirm: Конечно
   copied: скопировано
   copy: копировать
+  delete: Удалить
   deleted: успешно удален
+  downloadDesktopApp: Скачать настольное приложение
+  edit: Редактировать
   hotkeyAlreadyRegistered: Горячая клавиша уже зарегистрирована
   loading: Загрузка...
   login: Авторизоваться
@@ -39,6 +42,7 @@ common:
   updated: обновление завершено
   warningContent: Вы уверены, что хотите удалить его
   warningTitle: предупреждать
+  yourTags: Ваши теги
 copilot:
   customPrompt: Пользовательские подсказки
   extractionTags: извлечь теги

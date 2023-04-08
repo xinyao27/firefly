@@ -20,7 +20,10 @@ common:
   confirm: 확신하는
   copied: 복사
   copy: 복사
+  delete: 삭제
   deleted: 성공적으로 삭제
+  downloadDesktopApp: 데스크톱 앱 다운로드
+  edit: 편집하다
   hotkeyAlreadyRegistered: 단축키가 이미 등록됨
   loading: 로드 중...
   login: 로그인
@@ -36,6 +39,7 @@ common:
   updated: 업데이트 완료
   warningContent: 삭제하시겠습니까?
   warningTitle: 경고하다
+  yourTags: 내 태그
 copilot:
   customPrompt: 사용자 정의 프롬프트
   extractionTags: 태그 추출

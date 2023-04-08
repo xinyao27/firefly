@@ -53,6 +53,6 @@ watch(y, (value) => {
     @apply absolute content-empty z--1
     inset: -1px 0px -50%
   &::before
-    @apply backdrop-blur-md
+    @apply backdrop-blur
     -webkit-mask-image: linear-gradient(to bottom,black 64px,transparent)
 </style>

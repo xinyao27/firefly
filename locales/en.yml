@@ -22,6 +22,7 @@ common:
   copy: copy
   delete: Delete
   deleted: successfully deleted
+  downloadDesktopApp: Download desktop app
   edit: Edit
   hotkeyAlreadyRegistered: Hotkey already registered
   loading: Loading...
@@ -40,6 +41,7 @@ common:
   updated: update completed
   warningContent: You sure you want to delete it
   warningTitle: warn
+  yourTags: Your tags
 copilot:
   customPrompt: Custom Prompts
   extractionTags: extract tags

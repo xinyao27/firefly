@@ -20,7 +20,10 @@ common:
   confirm: რა თქმა უნდა
   copied: გადაწერა
   copy: კოპირება
+  delete: წაშლა
   deleted: წარმატებით წაიშალა
+  downloadDesktopApp: ჩამოტვირთეთ დესკტოპის აპლიკაცია
+  edit: რედაქტირება
   hotkeyAlreadyRegistered: Hotkey უკვე დარეგისტრირებულია
   loading: Ჩატვირთვა...
   login: Შესვლა
@@ -39,6 +42,7 @@ common:
   updated: განახლება დასრულდა
   warningContent: დარწმუნებული ხართ, რომ გსურთ მისი წაშლა
   warningTitle: გაფრთხილება
+  yourTags: თქვენი ტეგები
 copilot:
   customPrompt: მორგებული მოთხოვნა
   extractionTags: ამონაწერი ტეგები

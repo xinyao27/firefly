@@ -20,7 +20,10 @@ common:
   confirm: もちろん
   copied: コピーした
   copy: コピー
+  delete: 消去
   deleted: 正常に削除されました
+  downloadDesktopApp: デスクトップアプリをダウンロード
+  edit: 編集
   hotkeyAlreadyRegistered: ホットキーはすでに登録されています
   loading: 読み込んでいます...
   login: ログイン
@@ -36,6 +39,7 @@ common:
   updated: アップデート完了
   warningContent: 削除してもよろしいですか
   warningTitle: 警告する
+  yourTags: あなたのタグ
 copilot:
   customPrompt: カスタム プロンプト
   extractionTags: タグを抽出する

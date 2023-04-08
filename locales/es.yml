@@ -20,7 +20,10 @@ common:
   confirm: Seguro
   copied: copiado
   copy: Copiar
+  delete: Borrar
   deleted: eliminado con éxito
+  downloadDesktopApp: Descargar aplicación de escritorio
+  edit: Editar
   hotkeyAlreadyRegistered: Hotkey ya registrado
   loading: Cargando...
   login: Acceso
@@ -39,6 +42,7 @@ common:
   updated: actualización completada
   warningContent: Seguro que quieres eliminarlo
   warningTitle: advertir
+  yourTags: Tus etiquetas
 copilot:
   customPrompt: Avisos personalizados
   extractionTags: extraer etiquetas

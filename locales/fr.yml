@@ -20,7 +20,10 @@ common:
   confirm: Bien sûr
   copied: copié
   copy: copie
+  delete: Supprimer
   deleted: supprimé avec succès
+  downloadDesktopApp: Télécharger l'application de bureau
+  edit: Modifier
   hotkeyAlreadyRegistered: Raccourci déjà enregistré
   loading: Chargement...
   login: Connexion
@@ -39,6 +42,7 @@ common:
   updated: Mise à jour terminée
   warningContent: Vous êtes sûr de vouloir le supprimer
   warningTitle: avertir
+  yourTags: Vos balises
 copilot:
   customPrompt: Invites personnalisées
   extractionTags: extraire les balises

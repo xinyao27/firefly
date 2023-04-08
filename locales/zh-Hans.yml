@@ -20,7 +20,10 @@ common:
   confirm: 确定
   copied: 已复制
   copy: 复制
+  delete: 删除
   deleted: 删除成功
+  downloadDesktopApp: 下载桌面应用程序
+  edit: 编辑
   hotkeyAlreadyRegistered: 热键已注册
   loading: 加载中...
   login: 登录
@@ -36,6 +39,7 @@ common:
   updated: 更新成功
   warningContent: 确定要删除吗
   warningTitle: 警告
+  yourTags: 你的标签
 copilot:
   customPrompt: 自定义 Prompt
   extractionTags: 提取标签

@@ -20,7 +20,10 @@ common:
   confirm: بالتأكيد
   copied: نسخ
   copy: ينسخ
+  delete: يمسح
   deleted: تم الحذف بنجاح
+  downloadDesktopApp: قم بتنزيل تطبيق سطح المكتب
+  edit: يحرر
   hotkeyAlreadyRegistered: مفتاح التشغيل السريع مسجل بالفعل
   loading: تحميل...
   login: تسجيل الدخول
@@ -38,6 +41,7 @@ common:
   updated: تحديث الانتهاء
   warningContent: أنت متأكد أنك تريد حذفه
   warningTitle: تحذير
+  yourTags: العلامات الخاصة بك
 copilot:
   customPrompt: موجهات مخصصة
   extractionTags: استخراج العلامات

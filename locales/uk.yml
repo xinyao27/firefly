@@ -20,7 +20,10 @@ common:
   confirm: звичайно
   copied: скопійовано
   copy: копія
+  delete: Видалити
   deleted: успішно видалено
+  downloadDesktopApp: Завантажте програму для робочого столу
+  edit: Редагувати
   hotkeyAlreadyRegistered: Гаряча клавіша вже зареєстрована
   loading: Завантаження...
   login: Логін
@@ -39,6 +42,7 @@ common:
   updated: оновлення завершено
   warningContent: Ви впевнені, що хочете його видалити
   warningTitle: попередити
+  yourTags: Ваші теги
 copilot:
   customPrompt: Спеціальні підказки
   extractionTags: витягти теги

@@ -58,6 +58,13 @@ const options: DropdownOption[] = [
     type: 'divider',
   },
   {
+    key: 'downloadDesktopApp',
+    label: t('common.downloadDesktopApp'),
+  },
+  {
+    type: 'divider',
+  },
+  {
     key: 'logout',
     label: t('user.logout'),
   },
@@ -71,6 +78,9 @@ async function handleSelect(key: string) {
     if (route.path !== '/')
       router.replace('/login')
   }
+  else if (key === 'downloadDesktopApp') {
+    router.push('/download')
+  }
 }
 </script>
 
@@ -81,7 +91,7 @@ async function handleSelect(key: string) {
     trigger="click"
     @select="handleSelect"
   >
-    <section class="flex items-center gap-2 px-4 py-2 transition cursor-pointer hover:bg-(slate opacity-15)">
+    <section class="flex items-center gap-2 p-1 transition cursor-pointer hover:bg-(slate opacity-15)">
       <NAvatar
         size="small"
         :src="userStore.profiles.avatarUrl"

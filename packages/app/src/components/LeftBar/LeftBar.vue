@@ -2,7 +2,7 @@
 import type { colors } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
-import { NButton, NDropdown, useDialog } from 'naive-ui'
+import { NButton, NCollapseItem, NDropdown, useDialog } from 'naive-ui'
 import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
@@ -78,24 +78,16 @@ function handleSelect([key]: string[]) {
 </script>
 
 <template>
-  <aside h-full flex flex-col gap-2>
+  <aside h-full flex flex-col gap-4 p-4>
     <User />
 
-    <section flex-1 overflow-x-hidden overflow-y-auto>
-      <NTree
-        :data="data"
-        block-line
-        selectable
-        :keyboard="false"
-        @update-selected-keys="handleSelect"
-      />
-    </section>
     <section>
       <NTooltip>
         <template #trigger>
           <NButton
+            size="small"
             block
-            type="primary"
+            tertiary
             @click="assistantStore.open('create')"
           >
             <template #icon>
@@ -109,6 +101,32 @@ function handleSelect([key]: string[]) {
           <KBD :shortcut="[is.macOS() ? 'command' : 'ctrl', 'l']" />
         </div>
       </NTooltip>
+    </section>
+
+    <section flex-1 overflow-x-hidden overflow-y-auto>
+      <NCollapse
+        :default-expanded-names="['tags']"
+        display-directive="show"
+      >
+        <template #arrow>
+          <i i-ri-arrow-right-s-line text-xs />
+        </template>
+
+        <NCollapseItem name="tags">
+          <template #header>
+            <div text-xs text-neutral>
+              {{ t('common.yourTags') }}
+            </div>
+          </template>
+          <NTree
+            :data="data"
+            block-line
+            selectable
+            :keyboard="false"
+            @update-selected-keys="handleSelect"
+          />
+        </NCollapseItem>
+      </NCollapse>
     </section>
   </aside>
 </template>
