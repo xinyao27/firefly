@@ -20,9 +20,7 @@ common:
   confirm: Sicher
   copied: kopiert
   copy: Kopieren
-  delete: löschen
   deleted: erfolgreich gelöscht
-  edit: bearbeiten
   hotkeyAlreadyRegistered: Hotkey bereits registriert
   joinDesc1: Wir freuen uns, dass Sie mit Firefly aufnehmen.
   joinDesc2: Wir werden im Laufe der Zeit nach und nach Einladungen versenden.
@@ -93,16 +91,14 @@ index:
   getFireflySlogan: Fangen Sie noch heute an, intelligenter zu arbeiten.
 login:
   continueWithEmail: E-Mail-Anmeldung
-  continueWithGithub: Github-Anmeldung
-  continueWithGoogle: Weiter mit Google
   continueWithLoginCode: Login-Code Login
-  continueWithNotion: Begriff anmelden
   emailPlaceholder: Geben sie ihre E-Mailadresse ein...
   emailRequired: Bitte E-Mail eingeben
   emailSended: >-
     Wir haben Ihnen gerade eine E-Mail gesendet, bitte überprüfen Sie Ihren
     Posteingang.
   loginCodePlaceholder: Fügen Sie den Anmeldecode ein
+  otherLoginMethods: Andere Anmeldemethoden
   redirectToLogin: Hast du bereits einen Account? Logge dich ein
   redirectToSignup: Sie haben noch kein Konto? Melden Sie sich an
   resendEmail: E-Mail zurücksenden

@@ -20,9 +20,7 @@ common:
   confirm: Chắc chắn
   copied: sao chép
   copy: sao chép
-  delete: xóa bỏ
   deleted: xóa thành công
-  edit: biên tập
   hotkeyAlreadyRegistered: Phím nóng đã được đăng ký
   joinDesc1: Chúng tôi rất vui khi bạn chụp ảnh với Firefly.
   joinDesc2: Chúng tôi sẽ gửi lời mời dần dần theo thời gian.
@@ -92,14 +90,12 @@ index:
   getFireflySlogan: Bắt đầu làm việc thông minh hơn, ngay hôm nay.
 login:
   continueWithEmail: Email đăng nhập
-  continueWithGithub: đăng nhập Github
-  continueWithGoogle: Tiếp tục với Google
   continueWithLoginCode: Mã đăng nhập Đăng nhập
-  continueWithNotion: đăng nhập khái niệm
   emailPlaceholder: Nhập địa chỉ email của bạn...
   emailRequired: Vui lòng nhập Email
   emailSended: Chúng tôi vừa gửi cho bạn một email, vui lòng kiểm tra hộp thư đến của bạn.
   loginCodePlaceholder: Dán mã đăng nhập
+  otherLoginMethods: Các phương thức đăng nhập khác
   redirectToLogin: Đã có tài khoản? Đăng nhập
   redirectToSignup: Bạn chưa có tài khoản? Hãy đăng ký
   resendEmail: Gửi lại email

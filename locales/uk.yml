@@ -20,9 +20,7 @@ common:
   confirm: звичайно
   copied: скопійовано
   copy: копія
-  delete: видалити
   deleted: успішно видалено
-  edit: редагувати
   hotkeyAlreadyRegistered: Гаряча клавіша вже зареєстрована
   joinDesc1: Ми раді, що ви можете знімати за допомогою Firefly.
   joinDesc2: Ми надсилатимемо запрошення поступово.
@@ -95,14 +93,12 @@ index:
   getFireflySlogan: Почніть працювати розумніше вже сьогодні.
 login:
   continueWithEmail: Вхід електронною поштою
-  continueWithGithub: Вхід на Github
-  continueWithGoogle: Продовжуйте з Google
   continueWithLoginCode: Код входу Логін
-  continueWithNotion: Поняття входу
   emailPlaceholder: Введіть адресу вашої електронної пошти...
   emailRequired: Введіть адресу електронної пошти
   emailSended: Ми щойно надіслали вам електронний лист, перевірте свою поштову скриньку.
   loginCodePlaceholder: Вставте код входу
+  otherLoginMethods: Інші методи входу
   redirectToLogin: Вже маєте обліковий запис? Увійдіть
   redirectToSignup: Ще не маєте облікового запису? Зареєструйтеся
   resendEmail: повторно надіслати електронний лист

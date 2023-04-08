@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
-import { useMessage } from 'naive-ui'
+import { NGi, useMessage } from 'naive-ui'
 import { WebviewWindow } from '@tauri-apps/api/window'
 import { is } from '@firefly/common'
 import { supabase } from '~/api'
@@ -236,7 +236,7 @@ function signInWithLoginCode() {
 </script>
 
 <template>
-  <section class="w-80">
+  <section w-80 mt--10vh>
     <div flex justify-center items-center>
       <img
         block w-16 h-16
@@ -247,41 +247,6 @@ function signInWithLoginCode() {
     <NH1 strong text-center>
       {{ props.type === 'login' ? t('common.login') : t('common.signup') }}
     </NH1>
-
-    <section flex flex-col gap-2>
-      <NButton
-        :loading="loading"
-        color="white"
-        @click="signInWithGoogle"
-      >
-        <template #icon>
-          <i i-ri-google-fill />
-        </template>
-        {{ t('login.continueWithGoogle') }}
-      </NButton>
-      <NButton
-        :loading="loading"
-        color="white"
-        @click="signInWithGithub"
-      >
-        <template #icon>
-          <i i-ri-github-fill />
-        </template>
-        {{ t('login.continueWithGithub') }}
-      </NButton>
-      <NButton
-        :loading="loading"
-        color="white"
-        @click="signInWithNotion"
-      >
-        <template #icon>
-          <i i-ri-notion-fill />
-        </template>
-        {{ t('login.continueWithNotion') }}
-      </NButton>
-    </section>
-
-    <NDivider />
 
     <NForm
       ref="formRef"
@@ -308,7 +273,6 @@ function signInWithLoginCode() {
         block
         class="mb-2"
         type="primary"
-        secondary
         :loading="loading"
         @click="signInWithOtp"
       >
@@ -347,7 +311,6 @@ function signInWithLoginCode() {
           v-if="emailSended"
           block
           type="primary"
-          secondary
           :loading="loading"
           @click="signInWithLoginCode"
         >
@@ -378,5 +341,46 @@ function signInWithLoginCode() {
         {{ t('login.redirectToLogin') }}
       </NButton>
     </div>
+
+    <NDivider>{{ t('login.otherLoginMethods') }}</NDivider>
+
+    <NGrid x-gap="12" :cols="3">
+      <NGi>
+        <NButton
+          block
+          tertiary
+          :loading="loading"
+          @click="signInWithGoogle"
+        >
+          <template #icon>
+            <i i-ri-google-fill />
+          </template>
+        </NButton>
+      </NGi>
+      <NGi>
+        <NButton
+          block
+          tertiary
+          :loading="loading"
+          @click="signInWithGithub"
+        >
+          <template #icon>
+            <i i-ri-github-fill />
+          </template>
+        </NButton>
+      </NGi>
+      <NGi>
+        <NButton
+          block
+          tertiary
+          :loading="loading"
+          @click="signInWithNotion"
+        >
+          <template #icon>
+            <i i-ri-notion-fill />
+          </template>
+        </NButton>
+      </NGi>
+    </NGrid>
   </section>
 </template>

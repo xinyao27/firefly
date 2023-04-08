@@ -20,9 +20,7 @@ common:
   confirm: რა თქმა უნდა
   copied: გადაწერა
   copy: კოპირება
-  delete: წაშლა
   deleted: წარმატებით წაიშალა
-  edit: რედაქტირება
   hotkeyAlreadyRegistered: Hotkey უკვე დარეგისტრირებულია
   joinDesc1: ჩვენ მოხარული ვართ, რომ თქვენ გადაიღეთ Firefly-ით.
   joinDesc2: დროთა განმავლობაში ეტაპობრივად გამოგიგზავნით მოწვევებს.
@@ -94,14 +92,12 @@ index:
   getFireflySlogan: დაიწყეთ მუშაობა უფრო ჭკვიანურად, დღესვე.
 login:
   continueWithEmail: ელ.ფოსტის შესვლა
-  continueWithGithub: Github შესვლა
-  continueWithGoogle: განაგრძეთ Google-ით
   continueWithLoginCode: შესვლის კოდი შესვლა
-  continueWithNotion: ცნება შესვლა
   emailPlaceholder: შეიყვანეთ თქვენი ელფოსტის მისამართი...
   emailRequired: გთხოვთ შეიყვანოთ ელფოსტა
   emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.
   loginCodePlaceholder: ჩასვით შესვლის კოდი
+  otherLoginMethods: შესვლის სხვა მეთოდები
   redirectToLogin: უკვე გაქვთ ანგარიში? შედით
   redirectToSignup: ჯერ არ გაქვთ ანგარიში? დარეგისტრირდით
   resendEmail: ხელახლა გაგზავნა ელ

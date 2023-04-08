@@ -20,9 +20,7 @@ common:
   confirm: 确定
   copied: 已复制
   copy: 复制
-  delete: 删除
   deleted: 删除成功
-  edit: 编辑
   hotkeyAlreadyRegistered: 热键已注册
   joinDesc1: 我们很高兴您能使用 Firefly 进行捕捉。
   joinDesc2: 随着时间的推移，我们将逐渐发送邀请。
@@ -78,14 +76,12 @@ index:
   getFireflySlogan: 从今天开始更聪明地工作。
 login:
   continueWithEmail: 邮箱登录
-  continueWithGithub: Github 登录
-  continueWithGoogle: Google 登录
   continueWithLoginCode: Login Code 登录
-  continueWithNotion: Notion 登录
   emailPlaceholder: 输入你的电子邮箱地址...
   emailRequired: 请输入 Email
   emailSended: 我们刚刚向您发送了一个邮件，请检查您的收件箱。
   loginCodePlaceholder: 粘贴 login code
+  otherLoginMethods: 其他登录方式
   redirectToLogin: 已有账号 ? 去登录
   redirectToSignup: 还没有账号 ? 去注册
   resendEmail: 重发邮件

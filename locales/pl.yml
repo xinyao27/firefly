@@ -20,9 +20,7 @@ common:
   confirm: Jasne
   copied: skopiowane
   copy: Kopiuj
-  delete: usuwać
   deleted: pomyślnie usunięte
-  edit: edytować
   hotkeyAlreadyRegistered: Klawisz skrótu jest już zarejestrowany
   joinDesc1: Cieszymy się, że możesz nagrywać za pomocą Firefly.
   joinDesc2: Zaproszenia będziemy wysyłać stopniowo.
@@ -92,14 +90,12 @@ index:
   getFireflySlogan: Zacznij pracować mądrzej już dziś.
 login:
   continueWithEmail: Zaloguj się e-mailem
-  continueWithGithub: Logowanie do Githuba
-  continueWithGoogle: Kontynuuj z Google
   continueWithLoginCode: Kod logowania Zaloguj się
-  continueWithNotion: Logowanie do pojęcia
   emailPlaceholder: Wpisz swój adres e-mail...
   emailRequired: Wprowadź adres e-mail
   emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.
   loginCodePlaceholder: Wklej kod logowania
+  otherLoginMethods: Inne metody logowania
   redirectToLogin: Masz już konto? Zaloguj się
   redirectToSignup: Nie masz jeszcze konta? Zarejestruj się
   resendEmail: Wyślij email ponownie

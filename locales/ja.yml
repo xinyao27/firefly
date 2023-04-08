@@ -20,9 +20,7 @@ common:
   confirm: もちろん
   copied: コピーした
   copy: コピー
-  delete: 消去
   deleted: 正常に削除されました
-  edit: 編集
   hotkeyAlreadyRegistered: ホットキーはすでに登録されています
   joinDesc1: Firefly でのキャプチャをお待ちしております。
   joinDesc2: 招待状は徐々に送っていきます。
@@ -78,14 +76,12 @@ index:
   getFireflySlogan: 今日からよりスマートに仕事を始めましょう。
 login:
   continueWithEmail: メールログイン
-  continueWithGithub: GitHub ログイン
-  continueWithGoogle: Google で続行
   continueWithLoginCode: ログインコードログイン
-  continueWithNotion: 概念ログイン
   emailPlaceholder: メールアドレスを入力してください...
   emailRequired: メールアドレスを入力してください
   emailSended: メールを送信しました。受信トレイを確認してください。
   loginCodePlaceholder: ログインコードを貼り付けます
+  otherLoginMethods: その他のログイン方法
   redirectToLogin: 既にアカウントを持っていますか？ログイン
   redirectToSignup: まだアカウントを持っていませんか? サインアップ
   resendEmail: メールを再送

@@ -20,16 +20,16 @@ common:
   confirm: Sure
   copied: copied
   copy: copy
-  delete: delete
+  delete: Delete
   deleted: successfully deleted
-  edit: edit
+  edit: Edit
   hotkeyAlreadyRegistered: Hotkey already registered
   joinDesc1: We're excited for you to capture with Firefly.
   joinDesc2: We'll be sending invites gradually over time.
   joinPlaceholder: Use your email to join our waiting list
   joinus: join us
   loading: Loading...
-  login: Login
+  login: Log in
   loginError: Login failed
   noResult: no result
   notFound: can't find
@@ -37,7 +37,7 @@ common:
   openApp: Open App
   save: save
   saved: Saved successfully
-  signup: Signup
+  signup: Sign up
   slogan: >-
     Firefly is a fragment information collection tool, which combines the data
     analysis ability of AI to make information collection so interesting
@@ -91,14 +91,12 @@ index:
   getFireflySlogan: Start work smarter, today.
 login:
   continueWithEmail: Continue with Email
-  continueWithGithub: Continue with Github
-  continueWithGoogle: Continue with Google
   continueWithLoginCode: Continue with Login Code
-  continueWithNotion: Continue with Notion
   emailPlaceholder: Enter your email address...
   emailRequired: Please enter Email
   emailSended: We just sent you a temporary login code. Please check your inbox.
   loginCodePlaceholder: Paste the login code
+  otherLoginMethods: Other login methods
   redirectToLogin: Already have an account? Log in
   redirectToSignup: Don't have an account yet? Sign up
   resendEmail: resend email

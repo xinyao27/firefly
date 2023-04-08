@@ -20,9 +20,7 @@ common:
   confirm: بالتأكيد
   copied: نسخ
   copy: ينسخ
-  delete: يمسح
   deleted: تم الحذف بنجاح
-  edit: يحرر
   hotkeyAlreadyRegistered: مفتاح التشغيل السريع مسجل بالفعل
   joinDesc1: نحن متحمسون لالتقاط الصور مع Firefly.
   joinDesc2: سنرسل الدعوات تدريجيًا بمرور الوقت.
@@ -90,14 +88,12 @@ index:
   getFireflySlogan: ابدأ العمل بذكاء اليوم.
 login:
   continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
-  continueWithGithub: تسجيل الدخول إلى جيثب
-  continueWithGoogle: تواصل مع جوجل
   continueWithLoginCode: رمز تسجيل الدخول تسجيل الدخول
-  continueWithNotion: فكرة تسجيل الدخول
   emailPlaceholder: أدخل عنوان بريدك الالكتروني...
   emailRequired: الرجاء إدخال البريد الإلكتروني
   emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.
   loginCodePlaceholder: الصق رمز تسجيل الدخول
+  otherLoginMethods: طرق تسجيل الدخول الأخرى
   redirectToLogin: هل لديك حساب؟ سجل في
   redirectToSignup: ليس لديك حساب بعد؟
   resendEmail: إعادة إرسال البريد الإلكتروني

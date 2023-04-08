@@ -2,9 +2,9 @@ import type { GlobalThemeOverrides } from 'naive-ui'
 import { colors } from 'unocss/preset-mini'
 
 export const colorPrimary = {
-  default: '#87CEEB',
-  hover: '#87CEEBaa',
-  active: '#87CEEB7f',
+  default: '#18C7FE',
+  hover: '#18C7FEaa',
+  active: '#18C7FE7f',
 }
 export const colorDark = '#212121'
 const colorSlate15 = 'rgba(148,163,184,.15)'

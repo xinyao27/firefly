@@ -94,9 +94,7 @@ function handleSelect([key]: string[]) {
       <NTooltip>
         <template #trigger>
           <NButton
-            class="capitalize"
             block
-            secondary
             type="primary"
             @click="assistantStore.open('create')"
           >

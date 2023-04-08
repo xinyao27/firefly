@@ -20,9 +20,7 @@ common:
   confirm: Elbette
   copied: kopyalanmış
   copy: kopyalamak
-  delete: silmek
   deleted: başarıyla silindi
-  edit: düzenlemek
   hotkeyAlreadyRegistered: Kısayol zaten kayıtlı
   joinDesc1: Firefly ile fotoğraf çekeceğiniz için heyecanlıyız.
   joinDesc2: Zaman içinde kademeli olarak davetler göndereceğiz.
@@ -91,14 +89,12 @@ index:
   getFireflySlogan: Bugün daha akıllıca çalışmaya başlayın.
 login:
   continueWithEmail: E-posta Girişi
-  continueWithGithub: Github girişi
-  continueWithGoogle: Google ile devam
   continueWithLoginCode: Giriş Kodu Giriş
-  continueWithNotion: kavram girişi
   emailPlaceholder: E-posta adresinizi giriniz...
   emailRequired: Lütfen e-posta giriniz
   emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.
   loginCodePlaceholder: Giriş kodunu yapıştırın
+  otherLoginMethods: Diğer oturum açma yöntemleri
   redirectToLogin: Zaten bir hesabın var mı? Giriş yap
   redirectToSignup: Henüz bir hesabınız yok mu? Kaydolun
   resendEmail: elektronik postayı tekrar gönder
