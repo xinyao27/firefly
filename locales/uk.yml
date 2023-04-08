@@ -52,6 +52,10 @@ copilot:
   retry: Повторіть спробу
   summarize: текстове резюме
   translate: перекладати
+desktop:
+  downloadForMac: Завантажити для Mac
+  downloadForWindows: Завантажити для Windows
+  title: Firefly для Mac
 editor:
   blockquote: процитувати текст
   bold: жирний

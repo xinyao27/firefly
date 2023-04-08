@@ -52,6 +52,10 @@ copilot:
   retry: Повторить попытку
   summarize: текстовое резюме
   translate: переводить
+desktop:
+  downloadForMac: Скачать для Mac
+  downloadForWindows: Скачать для Windows
+  title: Светлячок для Mac
 editor:
   blockquote: текст цитаты
   bold: смелый

@@ -49,6 +49,10 @@ copilot:
   retry: 重试
   summarize: 文本总结
   translate: 翻译
+desktop:
+  downloadForMac: 下载适用于 Mac
+  downloadForWindows: 下载 Windows
+  title: 适用于 Mac 的萤火虫
 editor:
   blockquote: 引述文字
   bold: 加粗

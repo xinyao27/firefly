@@ -52,6 +52,10 @@ copilot:
   retry: Riprova
   summarize: sintesi testuale
   translate: tradurre
+desktop:
+  downloadForMac: Scarica per Mac
+  downloadForWindows: Scarica per Windows
+  title: Lucciola per Mac
 editor:
   blockquote: testo di citazione
   bold: grassetto

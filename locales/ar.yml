@@ -51,6 +51,10 @@ copilot:
   retry: أعد المحاولة
   summarize: ملخص نصي
   translate: يترجم
+desktop:
+  downloadForMac: تنزيل لأجهزة Mac
+  downloadForWindows: تنزيل لنظام التشغيل Windows
+  title: Firefly لنظام التشغيل Mac
 editor:
   blockquote: نص اقتباس
   bold: عريض

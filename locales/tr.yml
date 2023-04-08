@@ -51,6 +51,10 @@ copilot:
   retry: yeniden dene
   summarize: metin özeti
   translate: Çevirmek
+desktop:
+  downloadForMac: Mac için indir
+  downloadForWindows: Windows için indirin
+  title: Mac için Ateşböceği
 editor:
   blockquote: alıntı metni
   bold: gözü pek

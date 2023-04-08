@@ -51,6 +51,10 @@ copilot:
   retry: Retry
   summarize: text summary
   translate: translate
+desktop:
+  downloadForMac: Download for Mac
+  downloadForWindows: Download for Windows
+  title: Firefly for Mac & Windows
 editor:
   blockquote: quote text
   bold: bold

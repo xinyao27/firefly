@@ -51,6 +51,10 @@ copilot:
   retry: Thử lại
   summarize: tóm tắt văn bản
   translate: dịch
+desktop:
+  downloadForMac: Tải xuống cho Mac
+  downloadForWindows: Tải xuống cho Windows
+  title: Con đom đóm cho Mac
 editor:
   blockquote: văn bản trích dẫn
   bold: in đậm

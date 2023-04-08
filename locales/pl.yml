@@ -52,6 +52,10 @@ copilot:
   retry: Spróbować ponownie
   summarize: streszczenie tekstu
   translate: Tłumaczyć
+desktop:
+  downloadForMac: Pobierz na Maca
+  downloadForWindows: Pobierz dla systemu Windows
+  title: Firefly na Maca
 editor:
   blockquote: cytuj tekst
   bold: pogrubiony
