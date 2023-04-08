@@ -76,6 +76,7 @@ index:
   featureCloudSync: 全平台同步
   featureCloudSyncDesc: 支持全平台同步，让您的信息随时随地同步到多个设备上，方便您随时查看和管理
   featureCloudSyncSubTitle: 随时随地管理您的信息
+  getFireflySlogan: 从今天开始更聪明地工作。
 login:
   continueWithEmail: 邮箱登录
   continueWithGithub: 继续使用 Github

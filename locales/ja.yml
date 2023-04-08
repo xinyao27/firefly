@@ -76,6 +76,7 @@ index:
   featureCloudSync: すべてのプラットフォーム間の同期
   featureCloudSyncDesc: 完全なプラットフォームの同期をサポートし、いつでもどこでも情報を複数のデバイスに同期できるようにし、いつでも表示および管理するのに便利です
   featureCloudSyncSubTitle: いつでもどこでも情報を管理
+  getFireflySlogan: 今日からよりスマートに仕事を始めましょう。
 login:
   continueWithEmail: メールログイン
   continueWithGithub: Github で続行
