@@ -9,6 +9,7 @@ English | [简体中文](./README-zh_CN.md)
 ## Use
 
 - [Web App](https://firefly.best)
+- [Desktop](https://github.com/chenyueban/firefly/releases)
 
 ## Feature
 
