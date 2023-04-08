@@ -14,6 +14,7 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
+import mkcert from 'vite-plugin-mkcert'
 
 function resolve(...p: string[]) {
   return path.resolve(__dirname, ...p)
@@ -21,6 +22,11 @@ function resolve(...p: string[]) {
 
 export default defineConfig(({ mode }) => {
   const plugins = [
+    // https://github.com/liuweiGL/vite-plugin-mkcert
+    mkcert({
+      source: 'coding',
+    }),
+
     VueMacros({
       plugins: {
         vue: Vue(),
@@ -69,7 +75,7 @@ export default defineConfig(({ mode }) => {
     }),
 
     // https://github.com/antfu/vite-plugin-inspect
-    // Visit http://localhost:5173/__inspect/ to see the inspector
+    // Visit https://localhost:5173/__inspect/ to see the inspector
     Inspect(),
 
     // https://github.com/hannoeru/vite-plugin-pages
@@ -144,6 +150,7 @@ export default defineConfig(({ mode }) => {
   return {
     clearScreen: false,
     server: {
+      https: true,
       strictPort: true,
     },
     envPrefix: ['VITE_', 'TAURI_'],
