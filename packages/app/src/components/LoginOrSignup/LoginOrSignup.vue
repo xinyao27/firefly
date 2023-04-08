@@ -36,15 +36,16 @@ const rules = {
 }
 
 const loading = ref(false)
-async function signInWithToken(url: string) {
+async function signInWithToken(name: string, url: string) {
   if (is.desktop()) {
-    const authWindow = new WebviewWindow('auth', {
+    const authWindow = new WebviewWindow(name, {
       url,
       center: true,
-      width: 800,
+      width: 600,
       height: 600,
       title: 'Firefly SignIn',
     })
+    authWindow.show()
     bc.onmessage = async (event) => {
       if (event.data) {
         const hash = event.data as string
@@ -118,7 +119,7 @@ async function signInWithGoogle() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken(data.url)
+      await signInWithToken('auth_google', data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -140,7 +141,7 @@ async function signInWithGithub() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken(data.url)
+      await signInWithToken('auth_github', data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -162,7 +163,7 @@ async function signInWithNotion() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken(data.url)
+      await signInWithToken('auth_notion', data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
