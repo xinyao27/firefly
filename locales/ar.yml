@@ -22,10 +22,6 @@ common:
   copy: ينسخ
   deleted: تم الحذف بنجاح
   hotkeyAlreadyRegistered: مفتاح التشغيل السريع مسجل بالفعل
-  joinDesc1: نحن متحمسون لالتقاط الصور مع Firefly.
-  joinDesc2: سنرسل الدعوات تدريجيًا بمرور الوقت.
-  joinPlaceholder: استخدم بريدك الإلكتروني للانضمام إلى قائمة الانتظار لدينا
-  joinus: انضم إلينا
   loading: تحميل...
   login: تسجيل الدخول
   loginError: فشل تسجيل الدخول
@@ -84,11 +80,12 @@ index:
     دعم مزامنة النظام الأساسي بالكامل ، مما يسمح بمزامنة معلوماتك مع أجهزة
     متعددة في أي وقت وفي أي مكان ، مما يناسبك لعرضها وإدارتها في أي وقت
   featureCloudSyncSubTitle: إدارة المعلومات الخاصة بك في أي وقت وفي أي مكان
-  getFirefly: احصل على اليراع
-  getFireflySlogan: ابدأ العمل بذكاء اليوم.
 login:
   continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
+  continueWithGithub: تواصل مع جيثب
+  continueWithGoogle: تواصل مع جوجل
   continueWithLoginCode: رمز تسجيل الدخول تسجيل الدخول
+  continueWithNotion: تواصل مع Notion
   emailPlaceholder: أدخل عنوان بريدك الالكتروني...
   emailRequired: الرجاء إدخال البريد الإلكتروني
   emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.

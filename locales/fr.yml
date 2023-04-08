@@ -22,10 +22,6 @@ common:
   copy: copie
   deleted: supprimé avec succès
   hotkeyAlreadyRegistered: Raccourci déjà enregistré
-  joinDesc1: Nous sommes ravis que vous capturiez avec Firefly.
-  joinDesc2: Nous enverrons des invitations progressivement au fil du temps.
-  joinPlaceholder: Utilisez votre email pour rejoindre notre liste d'attente
-  joinus: Rejoignez-nous
   loading: Chargement...
   login: Connexion
   loginError: échec de la connexion
@@ -88,11 +84,12 @@ index:
     moment, n'importe où, pratique pour vous de visualiser et de gérer à tout
     moment
   featureCloudSyncSubTitle: Gérez vos informations à tout moment, n'importe où
-  getFirefly: Obtenez Firefly
-  getFireflySlogan: Commencez à travailler plus intelligemment, dès aujourd'hui.
 login:
   continueWithEmail: Connexion par e-mail
+  continueWithGithub: Continuer avec Github
+  continueWithGoogle: Continuer avec Google
   continueWithLoginCode: Connexion par code de connexion
+  continueWithNotion: Continuer avec Notion
   emailPlaceholder: Entrez votre adresse email...
   emailRequired: Veuillez saisir un e-mail
   emailSended: >-

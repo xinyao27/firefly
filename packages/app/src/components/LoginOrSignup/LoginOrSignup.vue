@@ -346,40 +346,55 @@ function signInWithLoginCode() {
 
     <NGrid x-gap="12" :cols="3">
       <NGi>
-        <NButton
-          block
-          tertiary
-          :loading="loading"
-          @click="signInWithGoogle"
-        >
-          <template #icon>
-            <i i-ri-google-fill />
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              block
+              tertiary
+              :loading="loading"
+              @click="signInWithGoogle"
+            >
+              <template #icon>
+                <i i-ri-google-fill />
+              </template>
+            </NButton>
           </template>
-        </NButton>
+          <span>{{ t('login.continueWithGoogle') }}</span>
+        </NTooltip>
       </NGi>
       <NGi>
-        <NButton
-          block
-          tertiary
-          :loading="loading"
-          @click="signInWithGithub"
-        >
-          <template #icon>
-            <i i-ri-github-fill />
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              block
+              tertiary
+              :loading="loading"
+              @click="signInWithGithub"
+            >
+              <template #icon>
+                <i i-ri-github-fill />
+              </template>
+            </NButton>
           </template>
-        </NButton>
+          <span>{{ t('login.continueWithGithub') }}</span>
+        </NTooltip>
       </NGi>
       <NGi>
-        <NButton
-          block
-          tertiary
-          :loading="loading"
-          @click="signInWithNotion"
-        >
-          <template #icon>
-            <i i-ri-notion-fill />
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              block
+              tertiary
+              :loading="loading"
+              @click="signInWithNotion"
+            >
+              <template #icon>
+                <i i-ri-notion-fill />
+              </template>
+            </NButton>
           </template>
-        </NButton>
+          <span>{{ t('login.continueWithNotion') }}</span>
+        </NTooltip>
       </NGi>
     </NGrid>
   </section>

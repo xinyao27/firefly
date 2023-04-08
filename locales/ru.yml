@@ -22,12 +22,6 @@ common:
   copy: копировать
   deleted: успешно удален
   hotkeyAlreadyRegistered: Горячая клавиша уже зарегистрирована
-  joinDesc1: Мы рады, что вы можете снимать с помощью Firefly.
-  joinDesc2: Мы будем рассылать приглашения постепенно.
-  joinPlaceholder: >-
-    Используйте свою электронную почту, чтобы присоединиться к нашему списку
-    ожидания
-  joinus: Присоединяйтесь к нам
   loading: Загрузка...
   login: Авторизоваться
   loginError: Ошибка входа
@@ -89,11 +83,12 @@ index:
     вашу информацию с несколькими устройствами в любое время и в любом месте,
     что удобно для просмотра и управления в любое время.
   featureCloudSyncSubTitle: Управляйте своей информацией в любое время и в любом месте
-  getFirefly: Получить Светлячок
-  getFireflySlogan: Начните работать разумнее уже сегодня.
 login:
   continueWithEmail: Электронная почта Войти
+  continueWithGithub: Продолжить с Гитхаб
+  continueWithGoogle: Продолжить с Google
   continueWithLoginCode: Код входа Войти
+  continueWithNotion: Продолжить с понятием
   emailPlaceholder: Введите ваш адрес электронной почты...
   emailRequired: Пожалуйста, введите адрес электронной почты
   emailSended: >-

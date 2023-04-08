@@ -22,10 +22,6 @@ common:
   copy: კოპირება
   deleted: წარმატებით წაიშალა
   hotkeyAlreadyRegistered: Hotkey უკვე დარეგისტრირებულია
-  joinDesc1: ჩვენ მოხარული ვართ, რომ თქვენ გადაიღეთ Firefly-ით.
-  joinDesc2: დროთა განმავლობაში ეტაპობრივად გამოგიგზავნით მოწვევებს.
-  joinPlaceholder: გამოიყენეთ თქვენი ელ.წერილი, რომ შეუერთდეთ ჩვენს მოლოდინში
-  joinus: შემოგვიერთდი
   loading: Ჩატვირთვა...
   login: Შესვლა
   loginError: Სისტემაში შესვლა ვერ მოხერხდა
@@ -88,11 +84,12 @@ index:
     ნებისმიერ ადგილას, თქვენთვის მოსახერხებელი, რომ ნახოთ და მართოთ ნებისმიერ
     დროს
   featureCloudSyncSubTitle: მართეთ თქვენი ინფორმაცია ნებისმიერ დროს, ნებისმიერ ადგილას
-  getFirefly: მიიღეთ Firefly
-  getFireflySlogan: დაიწყეთ მუშაობა უფრო ჭკვიანურად, დღესვე.
 login:
   continueWithEmail: ელ.ფოსტის შესვლა
+  continueWithGithub: გააგრძელეთ Github-ით
+  continueWithGoogle: განაგრძეთ Google-ით
   continueWithLoginCode: შესვლის კოდი შესვლა
+  continueWithNotion: განაგრძეთ ცნება
   emailPlaceholder: შეიყვანეთ თქვენი ელფოსტის მისამართი...
   emailRequired: გთხოვთ შეიყვანოთ ელფოსტა
   emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.

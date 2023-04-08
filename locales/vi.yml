@@ -22,10 +22,6 @@ common:
   copy: sao chép
   deleted: xóa thành công
   hotkeyAlreadyRegistered: Phím nóng đã được đăng ký
-  joinDesc1: Chúng tôi rất vui khi bạn chụp ảnh với Firefly.
-  joinDesc2: Chúng tôi sẽ gửi lời mời dần dần theo thời gian.
-  joinPlaceholder: Sử dụng email của bạn để tham gia danh sách chờ của chúng tôi
-  joinus: tham gia với chúng tôi
   loading: Đang tải...
   login: Đăng nhập
   loginError: Đăng nhập thất bại
@@ -86,11 +82,12 @@ index:
     nhiều thiết bị mọi lúc mọi nơi thuận tiện cho bạn xem và quản lý bất cứ lúc
     nào
   featureCloudSyncSubTitle: Quản lý thông tin của bạn mọi lúc, mọi nơi
-  getFirefly: Nhận con đom đóm
-  getFireflySlogan: Bắt đầu làm việc thông minh hơn, ngay hôm nay.
 login:
   continueWithEmail: Email đăng nhập
+  continueWithGithub: Tiếp tục với Github
+  continueWithGoogle: Tiếp tục với Google
   continueWithLoginCode: Mã đăng nhập Đăng nhập
+  continueWithNotion: Tiếp tục với Notion
   emailPlaceholder: Nhập địa chỉ email của bạn...
   emailRequired: Vui lòng nhập Email
   emailSended: Chúng tôi vừa gửi cho bạn một email, vui lòng kiểm tra hộp thư đến của bạn.

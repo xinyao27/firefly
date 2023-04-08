@@ -22,10 +22,6 @@ common:
   copy: コピー
   deleted: 正常に削除されました
   hotkeyAlreadyRegistered: ホットキーはすでに登録されています
-  joinDesc1: Firefly でのキャプチャをお待ちしております。
-  joinDesc2: 招待状は徐々に送っていきます。
-  joinPlaceholder: メールを使用してウェイティング リストに参加してください
-  joinus: 参加しませんか
   loading: 読み込んでいます...
   login: ログイン
   loginError: ログインに失敗しました
@@ -72,11 +68,12 @@ index:
   featureCloudSync: すべてのプラットフォーム間の同期
   featureCloudSyncDesc: 完全なプラットフォームの同期をサポートし、いつでもどこでも情報を複数のデバイスに同期できるようにし、いつでも表示および管理するのに便利です
   featureCloudSyncSubTitle: いつでもどこでも情報を管理
-  getFirefly: ホタルをゲット
-  getFireflySlogan: 今日からよりスマートに仕事を始めましょう。
 login:
   continueWithEmail: メールログイン
+  continueWithGithub: Github で続行
+  continueWithGoogle: Google で続行
   continueWithLoginCode: ログインコードログイン
+  continueWithNotion: 概念を続ける
   emailPlaceholder: メールアドレスを入力してください...
   emailRequired: メールアドレスを入力してください
   emailSended: メールを送信しました。受信トレイを確認してください。

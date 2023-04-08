@@ -22,10 +22,6 @@ common:
   copy: Kopiuj
   deleted: pomyślnie usunięte
   hotkeyAlreadyRegistered: Klawisz skrótu jest już zarejestrowany
-  joinDesc1: Cieszymy się, że możesz nagrywać za pomocą Firefly.
-  joinDesc2: Zaproszenia będziemy wysyłać stopniowo.
-  joinPlaceholder: Użyj swojego adresu e-mail, aby dołączyć do naszej listy oczekujących
-  joinus: Dołącz do nas
   loading: Ładowanie...
   login: Zaloguj sie
   loginError: Logowanie nie powiodło się
@@ -86,11 +82,12 @@ index:
     informacji z wieloma urządzeniami w dowolnym czasie i miejscu, wygodny do
     przeglądania i zarządzania w dowolnym momencie
   featureCloudSyncSubTitle: Zarządzaj swoimi informacjami zawsze i wszędzie
-  getFirefly: Zdobądź Firefly'a
-  getFireflySlogan: Zacznij pracować mądrzej już dziś.
 login:
   continueWithEmail: Zaloguj się e-mailem
+  continueWithGithub: Kontynuuj z Githubem
+  continueWithGoogle: Kontynuuj z Google
   continueWithLoginCode: Kod logowania Zaloguj się
+  continueWithNotion: Kontynuuj z Notionem
   emailPlaceholder: Wpisz swój adres e-mail...
   emailRequired: Wprowadź adres e-mail
   emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.

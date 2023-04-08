@@ -24,10 +24,6 @@ common:
   deleted: successfully deleted
   edit: Edit
   hotkeyAlreadyRegistered: Hotkey already registered
-  joinDesc1: We're excited for you to capture with Firefly.
-  joinDesc2: We'll be sending invites gradually over time.
-  joinPlaceholder: Use your email to join our waiting list
-  joinus: join us
   loading: Loading...
   login: Log in
   loginError: Login failed
@@ -87,11 +83,12 @@ index:
     synchronized to multiple devices anytime, anywhere, convenient for you to
     view and manage at any time
   featureCloudSyncSubTitle: Manage your information anytime, anywhere
-  getFirefly: Get Firefly
-  getFireflySlogan: Start work smarter, today.
 login:
   continueWithEmail: Continue with Email
+  continueWithGithub: Continue with Github
+  continueWithGoogle: Continue with Google
   continueWithLoginCode: Continue with Login Code
+  continueWithNotion: Continue with Notion
   emailPlaceholder: Enter your email address...
   emailRequired: Please enter Email
   emailSended: We just sent you a temporary login code. Please check your inbox.

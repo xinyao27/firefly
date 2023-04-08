@@ -1,3 +1,12 @@
+<template>
+  <div
+    v-for="i in 16"
+    :key="i"
+    class="firefly"
+  />
+</template>
+
+<style scoped lang="sass">
 $yellow: #985c02
 
 .firefly
@@ -1304,3 +1313,4 @@ $yellow: #985c02
   5%
     opacity: 1
     box-shadow: 0 0 2vw .4vw $yellow
+</style>

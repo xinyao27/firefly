@@ -22,10 +22,6 @@ common:
   copy: kopyalamak
   deleted: başarıyla silindi
   hotkeyAlreadyRegistered: Kısayol zaten kayıtlı
-  joinDesc1: Firefly ile fotoğraf çekeceğiniz için heyecanlıyız.
-  joinDesc2: Zaman içinde kademeli olarak davetler göndereceğiz.
-  joinPlaceholder: Bekleme listemize katılmak için e-postanızı kullanın
-  joinus: bize katılın
   loading: Yükleniyor...
   login: Giriş yapmak
   loginError: giriş başarısız oldu
@@ -85,11 +81,12 @@ index:
     zaman, istediğiniz yerde birden fazla cihazla senkronize edilmesini
     sağlayın, istediğiniz zaman görüntülemeniz ve yönetmeniz için uygun
   featureCloudSyncSubTitle: Bilgilerinizi her zaman, her yerde yönetin
-  getFirefly: Firefly'ı Alın
-  getFireflySlogan: Bugün daha akıllıca çalışmaya başlayın.
 login:
   continueWithEmail: E-posta Girişi
+  continueWithGithub: Github ile devam et
+  continueWithGoogle: Google ile devam
   continueWithLoginCode: Giriş Kodu Giriş
+  continueWithNotion: Notion ile devam et
   emailPlaceholder: E-posta adresinizi giriniz...
   emailRequired: Lütfen e-posta giriniz
   emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.

@@ -22,10 +22,6 @@ common:
   copy: menyalin
   deleted: berhasil dihapus
   hotkeyAlreadyRegistered: Hotkey sudah terdaftar
-  joinDesc1: Kami senang Anda memotret dengan Firefly.
-  joinDesc2: Kami akan mengirimkan undangan secara bertahap dari waktu ke waktu.
-  joinPlaceholder: Gunakan email Anda untuk bergabung dengan daftar tunggu kami
-  joinus: Bergabunglah dengan kami
   loading: Memuat...
   login: Gabung
   loginError: Gagal masuk
@@ -85,11 +81,12 @@ index:
     disinkronkan ke beberapa perangkat kapan saja, di mana saja, nyaman bagi
     Anda untuk melihat dan mengelola kapan saja
   featureCloudSyncSubTitle: Kelola informasi Anda kapan saja, di mana saja
-  getFirefly: Dapatkan Firefly
-  getFireflySlogan: Mulailah bekerja dengan lebih cerdas, hari ini.
 login:
   continueWithEmail: Masuk Email
+  continueWithGithub: Lanjutkan dengan Github
+  continueWithGoogle: Lanjutkan dengan Google
   continueWithLoginCode: Masuk Kode Masuk
+  continueWithNotion: Lanjutkan dengan Gagasan
   emailPlaceholder: Masukkan alamat email Anda...
   emailRequired: Silakan masukkan Email
   emailSended: Kami baru saja mengirimi Anda email, silakan periksa kotak masuk Anda.
