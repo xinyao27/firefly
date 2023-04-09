@@ -20,6 +20,7 @@ common:
   confirm: もちろん
   copied: コピーした
   copy: コピー
+  create: 作成
   delete: 消去
   deleted: 正常に削除されました
   downloadDesktopApp: デスクトップアプリをダウンロード
@@ -28,10 +29,12 @@ common:
   loading: 読み込んでいます...
   login: ログイン
   loginError: ログインに失敗しました
+  next: 次
   noResult: 検索結果はありません
   notFound: 見つからない
   ocrHotkeyAlreadyRegistered: OCRHotkey は既に登録されています
   openApp: アプリを開く
+  required: 必要
   save: 保存
   saved: 正常に保存
   signup: 登録
@@ -41,14 +44,23 @@ common:
   warningTitle: 警告する
   yourTags: あなたのタグ
 copilot:
+  Config: 設定
+  selectTags: タグを選択
+  selectTagsPlaceholder: 少なくとも 1 つのタグを選択してください。選択したタグに従って、対応するデータ ソースを受信トレイから除外します。
+  createACopilot: コパイロットの作成
   customPrompt: カスタム プロンプト
+  description: 副操縦士の説明
   extractionTags: タグを抽出する
   hi: こんにちは、どうすればいいですか
+  name: 副操縦士名
   polishing: 研磨
+  prompt: 副操縦士のプロンプト
   ref: 副操縦士のリファレンス
   retry: リトライ
   summarize: テキストの要約
   translate: 翻訳
+  uploadData: データのアップロード
+  visibility: 副操縦士の可視性
 desktop:
   downloadForMac: Mac用にダウンロード
   downloadForWindows: Windows 用のダウンロード

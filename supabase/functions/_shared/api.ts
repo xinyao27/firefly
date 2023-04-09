@@ -4,7 +4,7 @@ import { createParser } from 'eventsource-parser'
 import type { CreateChatCompletionRequest } from 'openai'
 import { getOpenAIKey, getUser } from './auth.ts'
 import { ApplicationError } from './errors.ts'
-import type { BlockModel } from './models/Block.ts'
+import type { BlockModel } from '../../../packages/common/src/models/Block.ts'
 import { validateBlock } from './validate.ts'
 
 async function insertTags(supabase: SupabaseClient, tags: string[]) {

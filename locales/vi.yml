@@ -20,6 +20,7 @@ common:
   confirm: Chắc chắn
   copied: sao chép
   copy: sao chép
+  create: Tạo nên
   delete: Xóa bỏ
   deleted: xóa thành công
   downloadDesktopApp: Tải xuống ứng dụng máy tính để bàn
@@ -28,10 +29,12 @@ common:
   loading: Đang tải...
   login: Đăng nhập
   loginError: Đăng nhập thất bại
+  next: Kế tiếp
   noResult: không kết quả
   notFound: không thể tìm thấy
   ocrHotkeyAlreadyRegistered: OCRHotkey đã được đăng ký
   openApp: Mở chương trình
+  required: Yêu cầu
   save: cứu
   saved: đã lưu thành công
   signup: đăng ký
@@ -43,14 +46,25 @@ common:
   warningTitle: cảnh báo
   yourTags: thẻ của bạn
 copilot:
+  Config: cấu hình
+  selectTags: Chọn thẻ
+  selectTagsPlaceholder: >-
+    Vui lòng chọn ít nhất một Thẻ, chúng tôi sẽ lọc ra nguồn dữ liệu tương ứng
+    từ Hộp thư đến theo Thẻ bạn đã chọn, dưới dạng kho dữ liệu Copilot
+  createACopilot: Tạo một phi công phụ
   customPrompt: Lời nhắc tùy chỉnh
+  description: mô tả phi công phụ
   extractionTags: trích xuất thẻ
   hi: Xin chào, tôi có thể giúp gì cho bạn
+  name: Tên phi công phụ
   polishing: đánh bóng
+  prompt: Lời nhắc của phi công phụ
   ref: tài liệu tham khảo phi công phụ
   retry: Thử lại
   summarize: tóm tắt văn bản
   translate: dịch
+  uploadData: Tải dữ liệu lên
+  visibility: Khả năng hiển thị của phi công phụ
 desktop:
   downloadForMac: Tải xuống cho Mac
   downloadForWindows: Tải xuống cho Windows

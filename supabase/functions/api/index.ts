@@ -4,7 +4,7 @@ import crypto from 'crypto-js'
 import { decode } from 'js-base64'
 import { corsHeaders } from '../_shared/cors.ts'
 import { ApplicationError, createErrorHandler, UserError } from '../_shared/errors.ts'
-import { BlockModel } from '../_shared/models/Block.ts'
+import { BlockModel } from '../../../packages/common/src/models/Block.ts'
 import { createBlock, updateBlock } from '../_shared/api.ts'
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')

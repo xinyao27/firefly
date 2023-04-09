@@ -20,6 +20,7 @@ common:
   confirm: Bien sûr
   copied: copié
   copy: copie
+  create: Créer
   delete: Supprimer
   deleted: supprimé avec succès
   downloadDesktopApp: Télécharger l'application de bureau
@@ -28,10 +29,12 @@ common:
   loading: Chargement...
   login: Connexion
   loginError: échec de la connexion
+  next: Suivant
   noResult: pas de résultat
   notFound: ne trouve pas
   ocrHotkeyAlreadyRegistered: OCRHotkey déjà enregistré
   openApp: Ouvrir application
+  required: Requis
   save: sauvegarder
   saved: Enregistré avec succès
   signup: enregistrer
@@ -44,14 +47,26 @@ common:
   warningTitle: avertir
   yourTags: Vos balises
 copilot:
+  Config: Configuration
+  selectTags: Choisissez les balises
+  selectTagsPlaceholder: >-
+    Veuillez sélectionner au moins une balise, nous filtrerons la source de
+    données correspondante de la boîte de réception en fonction de la balise que
+    vous avez sélectionnée, en tant que corpus Copilot
+  createACopilot: Créer un copilote
   customPrompt: Invites personnalisées
+  description: Description du copilote
   extractionTags: extraire les balises
   hi: Salut, comment est-ce que je peux t'aider
+  name: Nom du copilote
   polishing: polonais
+  prompt: Invite du copilote
   ref: Référence copilote
   retry: Recommencez
   summarize: résumé du texte
   translate: traduire
+  uploadData: Télécharger des données
+  visibility: Visibilité du copilote
 desktop:
   downloadForMac: Télécharger pour Mac
   downloadForWindows: Télécharger pour Windows

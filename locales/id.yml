@@ -20,6 +20,7 @@ common:
   confirm: Tentu
   copied: disalin
   copy: menyalin
+  create: Membuat
   delete: Menghapus
   deleted: berhasil dihapus
   downloadDesktopApp: Unduh aplikasi desktop
@@ -28,10 +29,12 @@ common:
   loading: Memuat...
   login: Gabung
   loginError: Gagal masuk
+  next: Berikutnya
   noResult: tidak ada hasil
   notFound: tidak dapat menemukan
   ocrHotkeyAlreadyRegistered: OCRHotkey sudah terdaftar
   openApp: Buka Aplikasi
+  required: Diperlukan
   save: menyimpan
   saved: Berhasil disimpan
   signup: daftar
@@ -43,14 +46,26 @@ common:
   warningTitle: memperingatkan
   yourTags: Tag Anda
 copilot:
+  Config: Konfigurasi
+  selectTags: Pilih Tag
+  selectTagsPlaceholder: >-
+    Silakan pilih setidaknya satu Tag, kami akan memfilter sumber data yang
+    sesuai dari Kotak Masuk sesuai dengan Tag yang Anda pilih, sebagai korpus
+    Copilot
+  createACopilot: Buat Kopilot
   customPrompt: Permintaan Kustom
+  description: Deskripsi kopilot
   extractionTags: ekstrak tag
   hi: Hai, apa yang bisa saya bantu
+  name: Nama kopilot
   polishing: Polandia
+  prompt: Perintah Kopilot
   ref: Referensi kopilot
   retry: Mencoba kembali
   summarize: ringkasan teks
   translate: menerjemahkan
+  uploadData: Unggah Data
+  visibility: Visibilitas kopilot
 desktop:
   downloadForMac: Unduh untuk Mac
   downloadForWindows: Unduh untuk Windows

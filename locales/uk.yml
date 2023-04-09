@@ -20,6 +20,7 @@ common:
   confirm: звичайно
   copied: скопійовано
   copy: копія
+  create: Створити
   delete: Видалити
   deleted: успішно видалено
   downloadDesktopApp: Завантажте програму для робочого столу
@@ -28,10 +29,12 @@ common:
   loading: Завантаження...
   login: Логін
   loginError: Помилка логіну
+  next: Далі
   noResult: ніякого результату
   notFound: не можу знайти
   ocrHotkeyAlreadyRegistered: OCRHotkey уже зареєстровано
   openApp: Відкрийте додаток
+  required: вимагається
   save: зберегти
   saved: Успішно збережено
   signup: зареєструватися
@@ -44,14 +47,25 @@ common:
   warningTitle: попередити
   yourTags: Ваші теги
 copilot:
+  Config: Конфігурація
+  selectTags: Виберіть теги
+  selectTagsPlaceholder: >-
+    Будь ласка, виберіть принаймні один тег, ми відфільтруємо відповідне джерело
+    даних із папки «Вхідні» відповідно до вибраного вами тегу як корпус Copilot
+  createACopilot: Створіть другого пілота
   customPrompt: Спеціальні підказки
+  description: Опис другого пілота
   extractionTags: витягти теги
   hi: Привіт, чим я можу тобі допомогти
+  name: Ім'я другого пілота
   polishing: полірувати
+  prompt: Підказка другого пілота
   ref: Довідка другого пілота
   retry: Повторіть спробу
   summarize: текстове резюме
   translate: перекладати
+  uploadData: Завантажити дані
+  visibility: Видимість другого пілота
 desktop:
   downloadForMac: Завантажити для Mac
   downloadForWindows: Завантажити для Windows

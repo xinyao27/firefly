@@ -20,6 +20,7 @@ common:
   confirm: რა თქმა უნდა
   copied: გადაწერა
   copy: კოპირება
+  create: Შექმნა
   delete: წაშლა
   deleted: წარმატებით წაიშალა
   downloadDesktopApp: ჩამოტვირთეთ დესკტოპის აპლიკაცია
@@ -28,10 +29,12 @@ common:
   loading: Ჩატვირთვა...
   login: Შესვლა
   loginError: Სისტემაში შესვლა ვერ მოხერხდა
+  next: შემდეგი
   noResult: უშედეგო
   notFound: ვერ პოულობს
   ocrHotkeyAlreadyRegistered: OCRHotkey უკვე დარეგისტრირებულია
   openApp: გახსენით აპლიკაცია
+  required: საჭირო
   save: გადარჩენა
   saved: შენახულია წარმატებით
   signup: რეგისტრაცია
@@ -44,14 +47,26 @@ common:
   warningTitle: გაფრთხილება
   yourTags: თქვენი ტეგები
 copilot:
+  Config: კონფიგურაცია
+  selectTags: აირჩიეთ ტეგები
+  selectTagsPlaceholder: >-
+    გთხოვთ, აირჩიოთ მინიმუმ ერთი ტეგი, ჩვენ გავფილტრავთ მონაცემთა შესაბამის
+    წყაროს შემოსულებიდან თქვენს მიერ არჩეული ტეგის მიხედვით, როგორც კოპილოტის
+    კორპუსი
+  createACopilot: შექმენით კოპილოტი
   customPrompt: მორგებული მოთხოვნა
+  description: კოპილოტის აღწერა
   extractionTags: ამონაწერი ტეგები
   hi: Გამარჯობა, რით შემიძლია დაგეხმაროთ
+  name: კოპილოტის სახელი
   polishing: პოლონური
+  prompt: კოპილოტის მოთხოვნა
   ref: კოპილოტის მითითება
   retry: ხელახლა სცადეთ
   summarize: ტექსტის შეჯამება
   translate: თარგმნა
+  uploadData: ატვირთეთ მონაცემები
+  visibility: კოპილოტის ხილვადობა
 desktop:
   downloadForMac: ჩამოტვირთვა Mac-ისთვის
   downloadForWindows: ჩამოტვირთეთ Windows-ისთვის

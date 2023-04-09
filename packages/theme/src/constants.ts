@@ -45,4 +45,7 @@ export const themeOverrides: GlobalThemeOverrides = {
   Breadcrumb: {
     separatorColor: colorSlate15,
   },
+  Menu: {
+    itemHeight: '28px',
+  },
 }

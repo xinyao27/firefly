@@ -1,7 +1,7 @@
 import { serve } from 'std/server'
 import { corsHeaders } from '../_shared/cors.ts'
 import { createErrorHandler, UserError } from '../_shared/errors.ts'
-import { BlockModel } from '../_shared/models/Block.ts'
+import { BlockModel } from '../../../packages/common/src/models/Block.ts'
 import { createBlock, updateBlock } from '../_shared/api.ts'
 import { createSupabaseClient } from '../_shared/auth.ts'
 

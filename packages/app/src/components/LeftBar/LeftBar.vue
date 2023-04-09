@@ -3,14 +3,17 @@ import type { colors } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
 import { NButton, NCollapseItem, NDropdown, useDialog } from 'naive-ui'
+import { menuOptions } from './menuOptions'
 import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 const dialog = useDialog()
 const assistantStore = useAssistantStore()
 const tagStore = useTagStore()
 
-const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
+const tags = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
   key: v.name,
   label: v.name,
   prefix: () => h(BubbleSelector, {
@@ -66,7 +69,6 @@ const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
         }),
     }),
 })))
-const router = useRouter()
 function handleSelect([key]: string[]) {
   router.push({
     name: 'inbox',
@@ -103,7 +105,19 @@ function handleSelect([key]: string[]) {
       </NTooltip>
     </section>
 
-    <section flex-1 overflow-x-hidden overflow-y-auto>
+    <section>
+      <NMenu
+        :value="route.path"
+        :options="menuOptions"
+        :root-indent="0"
+        :icon-size="14"
+      />
+    </section>
+
+    <section
+      v-if="route.path === '/inbox'"
+      flex-1 overflow-x-hidden overflow-y-auto
+    >
       <NCollapse
         :default-expanded-names="['tags']"
         display-directive="show"
@@ -119,7 +133,7 @@ function handleSelect([key]: string[]) {
             </div>
           </template>
           <NTree
-            :data="data"
+            :data="tags"
             block-line
             selectable
             :keyboard="false"

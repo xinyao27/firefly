@@ -20,6 +20,7 @@ common:
   confirm: Elbette
   copied: kopyalanmış
   copy: kopyalamak
+  create: Yaratmak
   delete: Silmek
   deleted: başarıyla silindi
   downloadDesktopApp: Masaüstü uygulamasını indirin
@@ -28,10 +29,12 @@ common:
   loading: Yükleniyor...
   login: Giriş yapmak
   loginError: giriş başarısız oldu
+  next: Sonraki
   noResult: sonuç yok
   notFound: bulamıyorum
   ocrHotkeyAlreadyRegistered: OCRHotkey zaten kayıtlı
   openApp: Uygulamayı aç
+  required: Gerekli
   save: kaydetmek
   saved: Başarıyla kaydedildi
   signup: kayıt olmak
@@ -43,14 +46,25 @@ common:
   warningTitle: uyarmak
   yourTags: Etiketleriniz
 copilot:
+  Config: Yapılandırma
+  selectTags: Etiketleri Seçin
+  selectTagsPlaceholder: >-
+    Lütfen en az bir Etiket seçin, bir Copilot külliyatı olarak seçtiğiniz
+    Etikete göre ilgili veri kaynağını Gelen Kutusundan filtreleyeceğiz
+  createACopilot: Bir Yardımcı Pilot Oluşturun
   customPrompt: Özel İstemler
+  description: Yardımcı Pilot Tanımı
   extractionTags: etiketleri ayıkla
   hi: Merhaba, Size nasıl yardımcı olabilirim
+  name: Yardımcı Pilot Adı
   polishing: Lehçe
+  prompt: Yardımcı Pilot İstemi
   ref: yardımcı pilot referansı
   retry: yeniden dene
   summarize: metin özeti
   translate: Çevirmek
+  uploadData: Veri Yükle
+  visibility: Yardımcı Pilot Görünürlüğü
 desktop:
   downloadForMac: Mac için indir
   downloadForWindows: Windows için indirin

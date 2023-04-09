@@ -20,6 +20,7 @@ common:
   confirm: Seguro
   copied: copiado
   copy: Copiar
+  create: Crear
   delete: Borrar
   deleted: eliminado con éxito
   downloadDesktopApp: Descargar aplicación de escritorio
@@ -28,10 +29,12 @@ common:
   loading: Cargando...
   login: Acceso
   loginError: error de inicio de sesion
+  next: Próximo
   noResult: sin resultados
   notFound: no puedo encontrar
   ocrHotkeyAlreadyRegistered: OCRHotkey ya registrado
   openApp: Abre la app
+  required: Requerido
   save: ahorrar
   saved: Guardado exitosamente
   signup: registro
@@ -44,14 +47,26 @@ common:
   warningTitle: advertir
   yourTags: Tus etiquetas
 copilot:
+  Config: Configuración
+  selectTags: Elija etiquetas
+  selectTagsPlaceholder: >-
+    Seleccione al menos una etiqueta, filtraremos la fuente de datos
+    correspondiente de la bandeja de entrada de acuerdo con la etiqueta que
+    seleccionó, como un corpus de Copilot
+  createACopilot: Crear un copiloto
   customPrompt: Avisos personalizados
+  description: Descripción del copiloto
   extractionTags: extraer etiquetas
   hi: Hola, como puedo ayudarte
+  name: Nombre del copiloto
   polishing: polaco
+  prompt: Indicación del copiloto
   ref: Referencia copiloto
   retry: Rever
   summarize: resumen de texto
   translate: traducir
+  uploadData: Subir datos
+  visibility: Visibilidad del copiloto
 desktop:
   downloadForMac: Descargar para Mac
   downloadForWindows: Descargar para Windows

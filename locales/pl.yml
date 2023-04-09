@@ -20,6 +20,7 @@ common:
   confirm: Jasne
   copied: skopiowane
   copy: Kopiuj
+  create: Tworzyć
   delete: Usuwać
   deleted: pomyślnie usunięte
   downloadDesktopApp: Pobierz aplikację komputerową
@@ -28,10 +29,12 @@ common:
   loading: Ładowanie...
   login: Zaloguj sie
   loginError: Logowanie nie powiodło się
+  next: Następny
   noResult: brak wyników
   notFound: nie mogę znaleźć
   ocrHotkeyAlreadyRegistered: OCRHotkey już zarejestrowany
   openApp: Otworzyć aplikację
+  required: Wymagany
   save: ratować
   saved: Zapisano pomyślnie
   signup: rejestr
@@ -44,14 +47,25 @@ common:
   warningTitle: ostrzegać
   yourTags: Twoje tagi
 copilot:
+  Config: Konfig
+  selectTags: Wybierz Tagi
+  selectTagsPlaceholder: >-
+    Wybierz co najmniej jeden tag, odfiltrujemy odpowiednie źródło danych ze
+    skrzynki odbiorczej zgodnie z wybranym tagiem jako korpus drugiego pilota
+  createACopilot: Stwórz drugiego pilota
   customPrompt: Niestandardowe podpowiedzi
+  description: Opis drugiego pilota
   extractionTags: wyodrębnij tagi
   hi: Cześc, jak mogę Ci pomóc
+  name: Nazwa drugiego pilota
   polishing: polski
+  prompt: Podpowiedź drugiego pilota
   ref: Odniesienie do drugiego pilota
   retry: Spróbować ponownie
   summarize: streszczenie tekstu
   translate: Tłumaczyć
+  uploadData: Prześlij dane
+  visibility: Widoczność drugiego pilota
 desktop:
   downloadForMac: Pobierz na Maca
   downloadForWindows: Pobierz dla systemu Windows

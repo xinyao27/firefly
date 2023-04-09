@@ -2,10 +2,11 @@
 import { is } from '@firefly/common'
 import { supabase } from '~/api'
 
-const configStore = useConfigStore()
-const assistantStore = useAssistantStore()
 const route = useRoute()
 const router = useRouter()
+const configStore = useConfigStore()
+const assistantStore = useAssistantStore()
+const userStore = useUserStore()
 
 onMounted(async () => {
   const session = await supabase.auth.getSession()
@@ -26,6 +27,12 @@ onMounted(async () => {
       if (v)
         assistantStore.open('create')
     })
+  }
+
+  const profiles = await userStore.getUserProfiles()
+  if (!profiles.token) {
+    // 如果没有 token 自动生成一个
+    await userStore.generateToken()
   }
 })
 </script>
@@ -61,7 +68,9 @@ onMounted(async () => {
       </template>
 
       <NLayoutContent content-style="height: 100%">
-        <RouterView />
+        <KeepAlive>
+          <RouterView />
+        </KeepAlive>
       </NLayoutContent>
 
       <template v-if="configStore.isMobileScreen">

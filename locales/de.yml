@@ -20,6 +20,7 @@ common:
   confirm: Sicher
   copied: kopiert
   copy: Kopieren
+  create: Erstellen
   delete: Löschen
   deleted: erfolgreich gelöscht
   downloadDesktopApp: Laden Sie die Desktop-App herunter
@@ -28,10 +29,12 @@ common:
   loading: Wird geladen...
   login: Anmeldung
   loginError: Fehler bei der Anmeldung
+  next: Nächste
   noResult: kein Ergebnis
   notFound: kann nicht finden
   ocrHotkeyAlreadyRegistered: OCRHotkey bereits registriert
   openApp: Öffne App
+  required: Erforderlich
   save: speichern
   saved: Erfolgreich gespeichert
   signup: registrieren
@@ -44,14 +47,26 @@ common:
   warningTitle: warnen
   yourTags: Ihre Tags
 copilot:
+  Config: Konfig
+  selectTags: Wählen Sie Tags
+  selectTagsPlaceholder: >-
+    Bitte wählen Sie mindestens ein Tag aus, wir filtern die entsprechende
+    Datenquelle aus dem Posteingang nach dem von Ihnen ausgewählten Tag als
+    Copilot-Korpus heraus
+  createACopilot: Erstellen Sie einen Copiloten
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
+  description: Copilot-Beschreibung
   extractionTags: Tags extrahieren
   hi: Hallo, wie kann ich Ihnen helfen
+  name: Name des Copiloten
   polishing: Polieren
+  prompt: Copilot-Eingabeaufforderung
   ref: Copilot-Referenz
   retry: Wiederholen
   summarize: Textzusammenfassung
   translate: übersetzen
+  uploadData: Daten hochladen
+  visibility: Copilot-Sichtbarkeit
 desktop:
   downloadForMac: Für Mac herunterladen
   downloadForWindows: Für Windows herunterladen

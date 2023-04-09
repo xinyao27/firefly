@@ -20,6 +20,7 @@ common:
   confirm: بالتأكيد
   copied: نسخ
   copy: ينسخ
+  create: يخلق
   delete: يمسح
   deleted: تم الحذف بنجاح
   downloadDesktopApp: قم بتنزيل تطبيق سطح المكتب
@@ -28,10 +29,12 @@ common:
   loading: تحميل...
   login: تسجيل الدخول
   loginError: فشل تسجيل الدخول
+  next: التالي
   noResult: لا نتيجة
   notFound: لا أجد
   ocrHotkeyAlreadyRegistered: OCRHotkey مسجل بالفعل
   openApp: افتح التطبيق
+  required: مطلوب
   save: يحفظ
   saved: حفظ بنجاح
   signup: يسجل
@@ -43,14 +46,25 @@ common:
   warningTitle: تحذير
   yourTags: العلامات الخاصة بك
 copilot:
+  Config: التكوين
+  selectTags: اختر العلامات
+  selectTagsPlaceholder: >-
+    الرجاء تحديد علامة واحدة على الأقل ، وسنقوم بتصفية مصدر البيانات المقابل من
+    صندوق الوارد وفقًا للعلامة التي حددتها ، كمجموعة مساعد للطيار
+  createACopilot: إنشاء مساعد الطيار
   customPrompt: موجهات مخصصة
+  description: وصف مساعد الطيار
   extractionTags: استخراج العلامات
   hi: مرحبا كيف يمكنني مساعدتك
+  name: اسم مساعد الطيار
   polishing: تلميع
+  prompt: موجه مساعد الطيار
   ref: مرجع مساعد الطيار
   retry: أعد المحاولة
   summarize: ملخص نصي
   translate: يترجم
+  uploadData: تحميل البيانات
+  visibility: رؤية مساعد الطيار
 desktop:
   downloadForMac: تنزيل لأجهزة Mac
   downloadForWindows: تنزيل لنظام التشغيل Windows

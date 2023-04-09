@@ -15,11 +15,12 @@ block:
   update: Update Block
   updateLoading: Updating Block in progress...
 common:
-  back: return
+  back: Back
   cancel: Cancel
   confirm: Sure
   copied: copied
   copy: copy
+  create: Create
   delete: Delete
   deleted: successfully deleted
   downloadDesktopApp: Download desktop app
@@ -28,10 +29,12 @@ common:
   loading: Loading...
   login: Log in
   loginError: Login failed
+  next: Next
   noResult: no result
   notFound: can't find
   ocrHotkeyAlreadyRegistered: OCRHotkey already registered
   openApp: Open App
+  required: Required
   save: save
   saved: Saved successfully
   signup: Sign up
@@ -43,14 +46,25 @@ common:
   warningTitle: warn
   yourTags: Your tags
 copilot:
+  Config: Config
+  selectTags: Choose Tags
+  selectTagsPlaceholder: >-
+    Please select at least one Tag, we will filter out the corresponding data
+    source from the Inbox according to the Tag you selected, as a Copilot corpus
+  createACopilot: Create A Copilot
   customPrompt: Custom Prompts
+  description: Copilot Description
   extractionTags: extract tags
   hi: Hi, how can I help you
+  name: Copilot Name
   polishing: polish
+  prompt: Copilot Prompt
   ref: Copilot reference
   retry: Retry
   summarize: text summary
   translate: translate
+  uploadData: Upload Data
+  visibility: Copilot Visibility
 desktop:
   downloadForMac: Download for Mac
   downloadForWindows: Download for Windows

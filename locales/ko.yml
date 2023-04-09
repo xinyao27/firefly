@@ -20,6 +20,7 @@ common:
   confirm: 확신하는
   copied: 복사
   copy: 복사
+  create: 만들다
   delete: 삭제
   deleted: 성공적으로 삭제
   downloadDesktopApp: 데스크톱 앱 다운로드
@@ -28,10 +29,12 @@ common:
   loading: 로드 중...
   login: 로그인
   loginError: 로그인 실패
+  next: 다음
   noResult: 결과가 없다
   notFound: 찾을 수 없습니다
   ocrHotkeyAlreadyRegistered: OCRHotkey가 이미 등록되었습니다.
   openApp: 앱 열기
+  required: 필수의
   save: 구하다
   saved: 성공적으로 저장 되었음
   signup: 등록하다
@@ -41,14 +44,23 @@ common:
   warningTitle: 경고하다
   yourTags: 내 태그
 copilot:
+  Config: 구성
+  selectTags: 태그 선택
+  selectTagsPlaceholder: 하나 이상의 태그를 선택하십시오. 선택한 태그에 따라 받은 편지함에서 해당 데이터 소스를 Copilot 코퍼스로 필터링합니다.
+  createACopilot: 부조종사 만들기
   customPrompt: 사용자 정의 프롬프트
+  description: 부조종사 설명
   extractionTags: 태그 추출
   hi: 안녕하세요 어떻게 도와 드릴까요
+  name: 부조종사 이름
   polishing: 광택
+  prompt: 부조종사 프롬프트
   ref: 부조종사 참조
   retry: 다시 해 보다
   summarize: 텍스트 요약
   translate: 번역하다
+  uploadData: 데이터 업로드
+  visibility: 부조종사 가시성
 desktop:
   downloadForMac: Mac용 다운로드
   downloadForWindows: Windows용 다운로드

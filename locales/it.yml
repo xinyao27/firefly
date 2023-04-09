@@ -20,6 +20,7 @@ common:
   confirm: Sicuro
   copied: copiato
   copy: copia
+  create: Creare
   delete: Eliminare
   deleted: eliminato con successo
   downloadDesktopApp: Scarica l'applicazione desktop
@@ -28,10 +29,12 @@ common:
   loading: Caricamento...
   login: Login
   loginError: Accesso non riuscito
+  next: Prossimo
   noResult: nessun risultato
   notFound: non riesco a trovare
   ocrHotkeyAlreadyRegistered: OCRHotkey già registrato
   openApp: Apri l'app
+  required: Necessario
   save: salva
   saved: Salvato con successo
   signup: Registrati
@@ -44,14 +47,25 @@ common:
   warningTitle: avvisare
   yourTags: I tuoi tag
 copilot:
+  Config: Configurazione
+  selectTags: Scegli Tag
+  selectTagsPlaceholder: >-
+    Seleziona almeno un tag, filtreremo l'origine dati corrispondente dalla
+    Posta in arrivo in base al tag selezionato, come corpus copilota
+  createACopilot: Crea un copilota
   customPrompt: Prompt personalizzati
+  description: Descrizione del copilota
   extractionTags: estrarre i tag
   hi: Ciao come posso aiutarti
+  name: Nome copilota
   polishing: polacco
+  prompt: Prompt del copilota
   ref: Riferimento copilota
   retry: Riprova
   summarize: sintesi testuale
   translate: tradurre
+  uploadData: Carica dati
+  visibility: Visibilità copilota
 desktop:
   downloadForMac: Scarica per Mac
   downloadForWindows: Scarica per Windows
