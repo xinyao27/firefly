@@ -1,5 +1,5 @@
 import type { CreateChatCompletionRequest } from 'openai'
-import { langMap } from '../../../packages/common/src/lang.ts'
+import { langMap } from '../_shared/lang.ts'
 
 export interface Context {
   type?:

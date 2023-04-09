@@ -1,8 +1,8 @@
 import { serve } from 'std/server'
 import { corsHeaders } from '../_shared/cors.ts'
 import { createErrorHandler, UserError } from '../_shared/errors.ts'
-import { BlockModel } from '../_shared/models/Block.ts'
-import { createBlock, updateBlock } from '../_shared/api.ts'
+import { CopilotModel } from '../_shared/models/Copilot.ts'
+import { createCopilot } from '../_shared/copilot.ts'
 import { createSupabaseClient } from '../_shared/auth.ts'
 
 serve(async (req) => {
@@ -11,7 +11,7 @@ serve(async (req) => {
       return new Response('ok', { headers: corsHeaders })
     }
 
-    const requestData = (await req.json()) as BlockModel
+    const requestData = (await req.json()) as CopilotModel
     if (!requestData) {
       throw new UserError('Missing request data')
     }
@@ -24,17 +24,7 @@ serve(async (req) => {
     let data
     switch (true) {
       case req.method === 'POST':
-        data = await createBlock(supabase, requestData)
-        break
-      case req.method === 'PUT': {
-        if (!requestData.id) {
-          throw new UserError('Missing id in request data')
-        }
-        data = await updateBlock(supabase, requestData.id, requestData)
-        break
-      }
-      default:
-        data = await createBlock(supabase, requestData)
+        data = await createCopilot(supabase, requestData)
         break
     }
     return new Response(JSON.stringify({ data }), {
