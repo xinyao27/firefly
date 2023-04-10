@@ -15,8 +15,9 @@ export interface Context {
   | 'extractionTags'
   prompt?: string
   text?: string
-  name?: string
-  description?: string
+  copilotId?: string
+  copilotName?: string
+  copilotDescription?: string
   language?: string
   messages: ChatMessage[]
 }

@@ -16,8 +16,9 @@ const router = useRouter()
     @click="router.push(`/copilot-hub/${props.data.id}`)"
   >
     <div>{{ props.data.description }}</div>
-    <div mt-2>
-      <span font-semibold mr-1>{{ props.data.interactions }}</span>Interactions
+    <div mt-2 flex items-center text-neutral>
+      <i i-ri-fire-fill mr-1 text-xs />
+      <span font-semibold text-xs leading-normal>{{ props.data.interactions }}</span>
     </div>
   </NCard>
 </template>

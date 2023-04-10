@@ -80,7 +80,7 @@ serve(async (req) => {
       const [{ embedding }] = embeddingResponse.data.data
 
       const { error: matchError, data: blocks } = await supabase
-        .rpc('match_blocks', {
+        .rpc('handle_match_blocks', {
           embedding,
           match_threshold: 0.78,
           min_content_length: 50,
@@ -116,7 +116,7 @@ serve(async (req) => {
               ${systemMessage?.content ?? 'You are in a room with a chatbot.'}
             `}
             ${oneLine`
-              Your name is ${requestData.name}. ${requestData.description}
+              Your name is ${requestData.copilotName}. ${requestData.copilotDescription}
             `}
           `,
         },

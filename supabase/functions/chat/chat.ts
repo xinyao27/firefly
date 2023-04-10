@@ -6,8 +6,9 @@ export interface ChatMessage {
 }
 export interface Context {
   type: 'default' | 'copilot'
-  name?: string
-  description?: string
+  copilotId: string
+  copilotName?: string
+  copilotDescription?: string
   language: string
   messages: ChatMessage[]
 }

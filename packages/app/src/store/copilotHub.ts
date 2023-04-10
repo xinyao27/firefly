@@ -36,10 +36,9 @@ export const useCopilotHubStore = defineStore('copilotHub', {
       }
     },
     async findMy() {
-      const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
         const user = await getUser()
-        const response = await supabase.from('copilots').select('*').eq('uid', user?.id)
+        const response = await supabase.from('copilots').select('*').eq('uid', user?.id).order('updatedAt', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
@@ -49,14 +48,11 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         $message.error(error.message || error)
         throw error
       }
-      finally {
-        destroy()
-      }
     },
     async findAll() {
       const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
-        const response = await supabase.from('copilots').select('*')
+        const response = await supabase.from('copilots').select('*').order('interactions', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
@@ -71,7 +67,6 @@ export const useCopilotHubStore = defineStore('copilotHub', {
       }
     },
     async findOne(id: string) {
-      const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
         const response = await supabase.from('copilots').select('*').eq('id', id).single()
         if (response.error)
@@ -82,9 +77,6 @@ export const useCopilotHubStore = defineStore('copilotHub', {
       catch (error: any) {
         $message.error(error.message || error)
         throw error
-      }
-      finally {
-        destroy()
       }
     },
   },

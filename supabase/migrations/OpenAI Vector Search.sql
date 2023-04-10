@@ -8,7 +8,7 @@ using ivfflat (embedding vector_cosine_ops)
 with (lists = 100);
 
 -- Return a setof blocks so that we can use PostgREST resource embeddings (joins with other tables)
-create or replace function match_blocks(embedding vector(1536), match_threshold float, min_content_length int)
+create or replace function handle_match_blocks(embedding vector(1536), match_threshold float, min_content_length int)
 returns setof blocks
 language plpgsql
 as $$

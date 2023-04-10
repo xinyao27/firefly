@@ -12,7 +12,9 @@ onMounted(async () => {
       await blockStore.refresh()
   })
 
-  await blockStore.sync()
+  setTimeout(async () => {
+    await blockStore.sync()
+  }, 0)
 })
 </script>
 

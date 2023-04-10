@@ -3,6 +3,7 @@ import { useRouteParams } from '@vueuse/router'
 import { Spin } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import type { ChatMessage, Context } from '~/store/copilot'
+import { supabase } from '~/api'
 
 defineOptions({ name: 'CopilotHubChatPage' })
 
@@ -46,8 +47,9 @@ async function chat() {
     controller.value = new AbortController()
     const context: Context = {
       type: 'copilot',
-      name: copilotHubStore.copilot?.name,
-      description: copilotHubStore.copilot?.description,
+      copilotId: copilotHubStore.copilot?.id,
+      copilotName: copilotHubStore.copilot?.name,
+      copilotDescription: copilotHubStore.copilot?.description,
       messages: messages.value,
     }
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
@@ -90,6 +92,9 @@ async function chat() {
     inputRef.value?.focus()
     return
   }
+  finally {
+    handleCopilotInteractionsIncrement()
+  }
   archiveCurrentMessage()
 }
 function handleAbort() {
@@ -129,6 +134,14 @@ function handleRetry() {
 
     chat()
   }
+}
+
+async function handleCopilotInteractionsIncrement() {
+  const { error } = await supabase.rpc('handle_copilot_interactions_increment', {
+    copilot_id: copilotHubStore.copilot?.id,
+  })
+  if (error)
+    console.error('Failed to increment copilot interactions', error)
 }
 </script>
 
