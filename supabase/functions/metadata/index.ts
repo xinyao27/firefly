@@ -16,7 +16,7 @@ serve(async (req) => {
     }
     const Authorization = req.headers.get('Authorization')
     if (!Authorization) {
-      throw new UserError('Missing Authorization')
+      throw new UserError('Missing Authorization, Please log in to use.')
     }
 
     let data

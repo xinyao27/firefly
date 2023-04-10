@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { is } from '@firefly/common'
-import { supabase } from '~/api'
 
 const route = useRoute()
-const router = useRouter()
 const configStore = useConfigStore()
 const assistantStore = useAssistantStore()
 const userStore = useUserStore()
 
 onMounted(async () => {
-  const session = await supabase.auth.getSession()
-  if (!session.data.session && route.path !== '/') {
-    router.replace('/login')
+  const profiles = await userStore.getUserProfiles()
+  if (!profiles.token) {
+    // 如果没有 token 自动生成一个
+    await userStore.generateToken()
   }
   else {
     const keys = useMagicKeys({
@@ -27,12 +26,6 @@ onMounted(async () => {
       if (v)
         assistantStore.open('create')
     })
-  }
-
-  const profiles = await userStore.getUserProfiles()
-  if (!profiles.token) {
-    // 如果没有 token 自动生成一个
-    await userStore.generateToken()
   }
 })
 </script>

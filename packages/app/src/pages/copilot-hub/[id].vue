@@ -54,13 +54,15 @@ async function chat() {
       messages: messages.value,
     }
     const session = await getSession()
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+    }
+    if (session?.access_token)
+      headers.Authorization = `Bearer ${session?.access_token}`
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${session?.access_token ?? import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
+      headers,
       body: JSON.stringify(context),
       signal: controller.value.signal,
     })

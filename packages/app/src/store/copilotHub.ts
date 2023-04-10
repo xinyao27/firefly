@@ -38,6 +38,8 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     async findMy() {
       try {
         const user = await getUser()
+        if (!user)
+          return
         const response = await supabase.from('copilots').select('*').eq('uid', user?.id).order('updatedAt', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)

@@ -13,7 +13,7 @@ export function getOpenAIKey() {
 
 export function createSupabaseClient(Authorization: string | null) {
   if (!Authorization) {
-    throw new UserError('Missing Authorization')
+    throw new UserError('Missing Authorization, Please log in to use.')
   }
 
   const SUPABASE_URL = Deno.env.get('SUPABASE_URL')

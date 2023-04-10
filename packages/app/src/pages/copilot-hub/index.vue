@@ -4,6 +4,7 @@ import { RecycleScroller } from 'vue-virtual-scroller'
 defineOptions({ name: 'CopilotHubPage' })
 
 const { t } = useI18n()
+const userStore = useUserStore()
 const copilotHubStore = useCopilotHubStore()
 const createACopilotShow = ref(false)
 
@@ -20,7 +21,10 @@ function handleCreated() {
 <template>
   <main h-full overflow-hidden>
     <div h-full p-4>
-      <section>
+      <section
+        v-if="userStore.profiles"
+        mb-8
+      >
         <h2 text-2xl font-bold mb-4>
           My Copilots
         </h2>
@@ -49,7 +53,7 @@ function handleCreated() {
         </div>
       </section>
 
-      <section mt-8>
+      <section>
         <h2 text-2xl font-bold mb-4>
           Explorer
         </h2>
