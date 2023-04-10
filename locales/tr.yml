@@ -47,11 +47,8 @@ common:
   yourTags: Etiketleriniz
 copilot:
   Config: Yapılandırma
-  selectTags: Etiketleri Seçin
-  selectTagsPlaceholder: >-
-    Lütfen en az bir Etiket seçin, bir Copilot külliyatı olarak seçtiğiniz
-    Etikete göre ilgili veri kaynağını Gelen Kutusundan filtreleyeceğiz
   createACopilot: Bir Yardımcı Pilot Oluşturun
+  createSuccess: Başarı Yarat
   customPrompt: Özel İstemler
   description: Yardımcı Pilot Tanımı
   extractionTags: etiketleri ayıkla
@@ -61,6 +58,11 @@ copilot:
   prompt: Yardımcı Pilot İstemi
   ref: yardımcı pilot referansı
   retry: yeniden dene
+  selectTags: Etiketleri Seçin
+  selectTagsPlaceholder: >-
+    Lütfen en az bir Etiket seçin, bir Copilot külliyatı olarak seçtiğiniz
+    Etikete göre ilgili veri kaynağını Gelen Kutusundan filtreleyeceğiz
+  selectedTagsRequired: Lütfen en az bir etiket seçin
   summarize: metin özeti
   translate: Çevirmek
   uploadData: Veri Yükle

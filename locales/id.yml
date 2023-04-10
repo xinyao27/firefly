@@ -47,12 +47,8 @@ common:
   yourTags: Tag Anda
 copilot:
   Config: Konfigurasi
-  selectTags: Pilih Tag
-  selectTagsPlaceholder: >-
-    Silakan pilih setidaknya satu Tag, kami akan memfilter sumber data yang
-    sesuai dari Kotak Masuk sesuai dengan Tag yang Anda pilih, sebagai korpus
-    Copilot
   createACopilot: Buat Kopilot
+  createSuccess: Ciptakan Sukses
   customPrompt: Permintaan Kustom
   description: Deskripsi kopilot
   extractionTags: ekstrak tag
@@ -62,6 +58,12 @@ copilot:
   prompt: Perintah Kopilot
   ref: Referensi kopilot
   retry: Mencoba kembali
+  selectTags: Pilih Tag
+  selectTagsPlaceholder: >-
+    Silakan pilih setidaknya satu Tag, kami akan memfilter sumber data yang
+    sesuai dari Kotak Masuk sesuai dengan Tag yang Anda pilih, sebagai korpus
+    Copilot
+  selectedTagsRequired: Harap pilih setidaknya satu label
   summarize: ringkasan teks
   translate: menerjemahkan
   uploadData: Unggah Data

@@ -48,11 +48,8 @@ common:
   yourTags: Twoje tagi
 copilot:
   Config: Konfig
-  selectTags: Wybierz Tagi
-  selectTagsPlaceholder: >-
-    Wybierz co najmniej jeden tag, odfiltrujemy odpowiednie źródło danych ze
-    skrzynki odbiorczej zgodnie z wybranym tagiem jako korpus drugiego pilota
   createACopilot: Stwórz drugiego pilota
+  createSuccess: Twórz sukces
   customPrompt: Niestandardowe podpowiedzi
   description: Opis drugiego pilota
   extractionTags: wyodrębnij tagi
@@ -62,6 +59,11 @@ copilot:
   prompt: Podpowiedź drugiego pilota
   ref: Odniesienie do drugiego pilota
   retry: Spróbować ponownie
+  selectTags: Wybierz Tagi
+  selectTagsPlaceholder: >-
+    Wybierz co najmniej jeden tag, odfiltrujemy odpowiednie źródło danych ze
+    skrzynki odbiorczej zgodnie z wybranym tagiem jako korpus drugiego pilota
+  selectedTagsRequired: Wybierz co najmniej jedną etykietę
   summarize: streszczenie tekstu
   translate: Tłumaczyć
   uploadData: Prześlij dane

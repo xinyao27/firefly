@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
 import { useMessage } from 'naive-ui'
+import type { CopilotModel } from '@firefly/common'
 import { TonyStark } from './tonyStark'
+
+const props = defineProps<{
+  onCreated: () => void
+}>()
 
 const { t } = useI18n()
 const message = useMessage()
-
 const tagStore = useTagStore()
-
+const copilotHubStore = useCopilotHubStore()
 const current = ref(1)
 const currentStatus = ref<StepsProps['status']>('process')
 const selectedTags = ref<string[]>([])
+const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
-const model = ref({
+const model = ref<CopilotModel>({
   name: TonyStark.name,
   description: TonyStark.description,
   prompt: TonyStark.prompt,
@@ -50,32 +55,31 @@ function handleBack() {
   current.value = current.value - 1
 }
 async function handleNext() {
-  if (current.value === 3) {
-    // create
-
-    return
-  }
-  else if (current.value === 2) {
-    // config
-    try {
+  loading.value = true
+  try {
+    if (current.value === 2) {
+      // config
       await formRef.value?.validate()
+
+      await copilotHubStore.create(model.value, selectedTags.value)
+      props.onCreated()
     }
-    catch (err) {
-      console.error(err)
-      currentStatus.value = 'error'
+    else if (current.value === 1) {
+      // select tags
+      if (selectedTags.value.length < 1)
+        throw (t('copilot.selectedTagsRequired'))
     }
-    return
+    currentStatus.value = 'process'
+    current.value = current.value + 1
   }
-  else if (current.value === 1) {
-    // select tags
-    if (selectedTags.value.length < 1) {
-      message.error(t('copilot.selectedTagsRequired'))
-      currentStatus.value = 'error'
-      return
-    }
+  catch (err: any) {
+    console.error(err)
+    message.error(err.message || err)
+    currentStatus.value = 'error'
   }
-  currentStatus.value = 'process'
-  current.value = current.value + 1
+  finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -98,9 +102,6 @@ async function handleNext() {
       <NStep
         :title="t('copilot.Config')"
       />
-      <NStep
-        :title="t('copilot.uploadData')"
-      />
     </NSteps>
     <div mt-8>
       <!-- Choose Tags -->
@@ -116,8 +117,8 @@ async function handleNext() {
             :bordered="false"
             size="small"
             checkable
-            :checked="selectedTags.includes(tag.id)"
-            @update-checked="selectedTags = $event ? [...selectedTags, tag.id] : selectedTags.filter(id => id !== tag.id)"
+            :checked="selectedTags.includes(tag.name)"
+            @update-checked="selectedTags = $event ? [...selectedTags, tag.name] : selectedTags.filter(name => name !== tag.name)"
           >
             <template #avatar>
               <Bubble
@@ -181,7 +182,8 @@ async function handleNext() {
           {{ t('common.back') }}
         </NButton>
         <NButton
-          v-if="current !== 3"
+          v-if="current !== 2"
+          :loading="loading"
           :type="buttonType"
           tertiary
           size="small"
@@ -191,6 +193,7 @@ async function handleNext() {
         </NButton>
         <NButton
           v-else
+          :loading="loading"
           :type="buttonType"
           tertiary
           size="small"

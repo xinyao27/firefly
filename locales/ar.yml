@@ -47,11 +47,8 @@ common:
   yourTags: العلامات الخاصة بك
 copilot:
   Config: التكوين
-  selectTags: اختر العلامات
-  selectTagsPlaceholder: >-
-    الرجاء تحديد علامة واحدة على الأقل ، وسنقوم بتصفية مصدر البيانات المقابل من
-    صندوق الوارد وفقًا للعلامة التي حددتها ، كمجموعة مساعد للطيار
   createACopilot: إنشاء مساعد الطيار
+  createSuccess: تحقيق النجاح
   customPrompt: موجهات مخصصة
   description: وصف مساعد الطيار
   extractionTags: استخراج العلامات
@@ -61,6 +58,11 @@ copilot:
   prompt: موجه مساعد الطيار
   ref: مرجع مساعد الطيار
   retry: أعد المحاولة
+  selectTags: اختر العلامات
+  selectTagsPlaceholder: >-
+    الرجاء تحديد علامة واحدة على الأقل ، وسنقوم بتصفية مصدر البيانات المقابل من
+    صندوق الوارد وفقًا للعلامة التي حددتها ، كمجموعة مساعد للطيار
+  selectedTagsRequired: الرجاء تحديد تسمية واحدة على الأقل
   summarize: ملخص نصي
   translate: يترجم
   uploadData: تحميل البيانات

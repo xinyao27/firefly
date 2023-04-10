@@ -45,9 +45,8 @@ common:
   yourTags: あなたのタグ
 copilot:
   Config: 設定
-  selectTags: タグを選択
-  selectTagsPlaceholder: 少なくとも 1 つのタグを選択してください。選択したタグに従って、対応するデータ ソースを受信トレイから除外します。
   createACopilot: コパイロットの作成
+  createSuccess: 成功を生み出す
   customPrompt: カスタム プロンプト
   description: 副操縦士の説明
   extractionTags: タグを抽出する
@@ -57,6 +56,9 @@ copilot:
   prompt: 副操縦士のプロンプト
   ref: 副操縦士のリファレンス
   retry: リトライ
+  selectTags: タグを選択
+  selectTagsPlaceholder: 少なくとも 1 つのタグを選択してください。選択したタグに従って、対応するデータ ソースを受信トレイから除外します。
+  selectedTagsRequired: 少なくとも 1 つのラベルを選択してください
   summarize: テキストの要約
   translate: 翻訳
   uploadData: データのアップロード

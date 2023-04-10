@@ -2,7 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { Configuration, OpenAIApi } from 'openai'
 import { CopilotModel } from '../_shared/models/Copilot.ts'
 import { getOpenAIKey, getUser } from './auth.ts'
-import { ApplicationError, UserError } from './errors.ts'
+import { ApplicationError } from './errors.ts'
 import { validateCopilot } from './validate.ts'
 import { inspect } from 'https://deno.land/std@0.177.0/node/util.ts'
 
@@ -14,9 +14,16 @@ export async function createCopilot(
 ) {
   validateCopilot(copilot)
 
-  const blocks = await supabase.from('blocks').select('id,content').eq('uid', uid).contains('tags', tags)
-  if (blocks.data?.length === 0 || blocks.error) {
-    throw new UserError('No blocks found for tags: ' + tags.join(', '))
+  const blocks = await supabase
+        .from('blocks')
+        .select('id,content')
+        .eq('uid', uid)
+        .contains('tags', JSON.stringify(tags))
+  if (blocks.error) {
+    throw new ApplicationError(`${blocks.error.message}: ${blocks.error.details}`)
+  }
+  if (blocks.data?.length === 0) {
+    throw new ApplicationError('No blocks found for tags: ' + tags.join(', '))
   }
 
   for (const block of blocks.data) {
@@ -77,12 +84,12 @@ export async function createCopilot(
     throw new ApplicationError(error.message)
   }
   await supabase
-  .from('copilots_blocks')
-  .upsert(blocks.data.map((block) => ({
-    copilotId: data.id,
-    blockId: block.id,
-    uid: _uid,
-  })))
+    .from('copilots_blocks')
+    .upsert(blocks.data.map((block) => ({
+      copilotId: data.id,
+      blockId: block.id,
+      uid: _uid,
+    })))
 
   return data
 }

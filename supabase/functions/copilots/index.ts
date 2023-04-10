@@ -20,6 +20,8 @@ serve(async (req) => {
       throw new UserError('Missing Authorization')
     }
 
+    const { tags, ...copilot } = requestData
+
     const supabase = createSupabaseClient(Authorization)
     const user = await getUser(supabase)
     if (!user) {
@@ -28,7 +30,7 @@ serve(async (req) => {
     let data
     switch (true) {
       case req.method === 'POST':
-        data = await createCopilot(supabase, requestData.tags, requestData, user.id)
+        data = await createCopilot(supabase, tags, copilot, user.id)
         break
     }
     return new Response(JSON.stringify({ data }), {

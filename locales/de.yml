@@ -48,12 +48,8 @@ common:
   yourTags: Ihre Tags
 copilot:
   Config: Konfig
-  selectTags: Wählen Sie Tags
-  selectTagsPlaceholder: >-
-    Bitte wählen Sie mindestens ein Tag aus, wir filtern die entsprechende
-    Datenquelle aus dem Posteingang nach dem von Ihnen ausgewählten Tag als
-    Copilot-Korpus heraus
   createACopilot: Erstellen Sie einen Copiloten
+  createSuccess: Erfolg schaffen
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
   description: Copilot-Beschreibung
   extractionTags: Tags extrahieren
@@ -63,6 +59,12 @@ copilot:
   prompt: Copilot-Eingabeaufforderung
   ref: Copilot-Referenz
   retry: Wiederholen
+  selectTags: Wählen Sie Tags
+  selectTagsPlaceholder: >-
+    Bitte wählen Sie mindestens ein Tag aus, wir filtern die entsprechende
+    Datenquelle aus dem Posteingang nach dem von Ihnen ausgewählten Tag als
+    Copilot-Korpus heraus
+  selectedTagsRequired: Bitte wählen Sie mindestens ein Label aus
   summarize: Textzusammenfassung
   translate: übersetzen
   uploadData: Daten hochladen

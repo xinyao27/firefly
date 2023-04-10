@@ -46,6 +46,7 @@ common:
 copilot:
   Config: 配置
   createACopilot: 创建 Copilot
+  createSuccess: 创造成功
   customPrompt: 自定义 Prompt
   description: Copilot 简介
   extractionTags: 提取标签

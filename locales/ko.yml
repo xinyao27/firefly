@@ -45,9 +45,8 @@ common:
   yourTags: 내 태그
 copilot:
   Config: 구성
-  selectTags: 태그 선택
-  selectTagsPlaceholder: 하나 이상의 태그를 선택하십시오. 선택한 태그에 따라 받은 편지함에서 해당 데이터 소스를 Copilot 코퍼스로 필터링합니다.
   createACopilot: 부조종사 만들기
+  createSuccess: 성공 만들기
   customPrompt: 사용자 정의 프롬프트
   description: 부조종사 설명
   extractionTags: 태그 추출
@@ -57,6 +56,9 @@ copilot:
   prompt: 부조종사 프롬프트
   ref: 부조종사 참조
   retry: 다시 해 보다
+  selectTags: 태그 선택
+  selectTagsPlaceholder: 하나 이상의 태그를 선택하십시오. 선택한 태그에 따라 받은 편지함에서 해당 데이터 소스를 Copilot 코퍼스로 필터링합니다.
+  selectedTagsRequired: 라벨을 하나 이상 선택하세요.
   summarize: 텍스트 요약
   translate: 번역하다
   uploadData: 데이터 업로드

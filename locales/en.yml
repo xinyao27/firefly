@@ -47,11 +47,8 @@ common:
   yourTags: Your tags
 copilot:
   Config: Config
-  selectTags: Choose Tags
-  selectTagsPlaceholder: >-
-    Please select at least one Tag, we will filter out the corresponding data
-    source from the Inbox according to the Tag you selected, as a Copilot corpus
   createACopilot: Create A Copilot
+  createSuccess: Create Success
   customPrompt: Custom Prompts
   description: Copilot Description
   extractionTags: extract tags
@@ -61,6 +58,11 @@ copilot:
   prompt: Copilot Prompt
   ref: Copilot reference
   retry: Retry
+  selectTags: Choose Tags
+  selectTagsPlaceholder: >-
+    Please select at least one Tag, we will filter out the corresponding data
+    source from the Inbox according to the Tag you selected, as a Copilot corpus
+  selectedTagsRequired: Please select at least one label
   summarize: text summary
   translate: translate
   uploadData: Upload Data

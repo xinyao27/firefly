@@ -48,11 +48,8 @@ common:
   yourTags: I tuoi tag
 copilot:
   Config: Configurazione
-  selectTags: Scegli Tag
-  selectTagsPlaceholder: >-
-    Seleziona almeno un tag, filtreremo l'origine dati corrispondente dalla
-    Posta in arrivo in base al tag selezionato, come corpus copilota
   createACopilot: Crea un copilota
+  createSuccess: Crea successo
   customPrompt: Prompt personalizzati
   description: Descrizione del copilota
   extractionTags: estrarre i tag
@@ -62,6 +59,11 @@ copilot:
   prompt: Prompt del copilota
   ref: Riferimento copilota
   retry: Riprova
+  selectTags: Scegli Tag
+  selectTagsPlaceholder: >-
+    Seleziona almeno un tag, filtreremo l'origine dati corrispondente dalla
+    Posta in arrivo in base al tag selezionato, come corpus copilota
+  selectedTagsRequired: Seleziona almeno un'etichetta
   summarize: sintesi testuale
   translate: tradurre
   uploadData: Carica dati

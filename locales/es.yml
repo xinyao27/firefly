@@ -48,12 +48,8 @@ common:
   yourTags: Tus etiquetas
 copilot:
   Config: Configuración
-  selectTags: Elija etiquetas
-  selectTagsPlaceholder: >-
-    Seleccione al menos una etiqueta, filtraremos la fuente de datos
-    correspondiente de la bandeja de entrada de acuerdo con la etiqueta que
-    seleccionó, como un corpus de Copilot
   createACopilot: Crear un copiloto
+  createSuccess: Crear éxito
   customPrompt: Avisos personalizados
   description: Descripción del copiloto
   extractionTags: extraer etiquetas
@@ -63,6 +59,12 @@ copilot:
   prompt: Indicación del copiloto
   ref: Referencia copiloto
   retry: Rever
+  selectTags: Elija etiquetas
+  selectTagsPlaceholder: >-
+    Seleccione al menos una etiqueta, filtraremos la fuente de datos
+    correspondiente de la bandeja de entrada de acuerdo con la etiqueta que
+    seleccionó, como un corpus de Copilot
+  selectedTagsRequired: Seleccione al menos una etiqueta
   summarize: resumen de texto
   translate: traducir
   uploadData: Subir datos

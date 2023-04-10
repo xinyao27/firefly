@@ -48,12 +48,8 @@ common:
   yourTags: Vos balises
 copilot:
   Config: Configuration
-  selectTags: Choisissez les balises
-  selectTagsPlaceholder: >-
-    Veuillez sélectionner au moins une balise, nous filtrerons la source de
-    données correspondante de la boîte de réception en fonction de la balise que
-    vous avez sélectionnée, en tant que corpus Copilot
   createACopilot: Créer un copilote
+  createSuccess: Créer du succès
   customPrompt: Invites personnalisées
   description: Description du copilote
   extractionTags: extraire les balises
@@ -63,6 +59,12 @@ copilot:
   prompt: Invite du copilote
   ref: Référence copilote
   retry: Recommencez
+  selectTags: Choisissez les balises
+  selectTagsPlaceholder: >-
+    Veuillez sélectionner au moins une balise, nous filtrerons la source de
+    données correspondante de la boîte de réception en fonction de la balise que
+    vous avez sélectionnée, en tant que corpus Copilot
+  selectedTagsRequired: Veuillez sélectionner au moins un libellé
   summarize: résumé du texte
   translate: traduire
   uploadData: Télécharger des données

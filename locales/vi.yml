@@ -47,11 +47,8 @@ common:
   yourTags: thẻ của bạn
 copilot:
   Config: cấu hình
-  selectTags: Chọn thẻ
-  selectTagsPlaceholder: >-
-    Vui lòng chọn ít nhất một Thẻ, chúng tôi sẽ lọc ra nguồn dữ liệu tương ứng
-    từ Hộp thư đến theo Thẻ bạn đã chọn, dưới dạng kho dữ liệu Copilot
   createACopilot: Tạo một phi công phụ
+  createSuccess: tạo thành công
   customPrompt: Lời nhắc tùy chỉnh
   description: mô tả phi công phụ
   extractionTags: trích xuất thẻ
@@ -61,6 +58,11 @@ copilot:
   prompt: Lời nhắc của phi công phụ
   ref: tài liệu tham khảo phi công phụ
   retry: Thử lại
+  selectTags: Chọn thẻ
+  selectTagsPlaceholder: >-
+    Vui lòng chọn ít nhất một Thẻ, chúng tôi sẽ lọc ra nguồn dữ liệu tương ứng
+    từ Hộp thư đến theo Thẻ bạn đã chọn, dưới dạng kho dữ liệu Copilot
+  selectedTagsRequired: Vui lòng chọn ít nhất một nhãn
   summarize: tóm tắt văn bản
   translate: dịch
   uploadData: Tải dữ liệu lên
