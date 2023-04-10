@@ -6,6 +6,8 @@
     "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.15.0",
     "crypto-js": "https://esm.sh/crypto-js@4.1.1",
     "js-base64": "https://esm.sh/js-base64@3.7.5",
-    "url-metadata": "https://esm.sh/url-metadata@2.5.0"
+    "url-metadata": "https://esm.sh/url-metadata@2.5.0",
+    "common-tags": "https://esm.sh/common-tags@1.8.2",
+    "tiktoken": "https://esm.sh/@dqbd/tiktoken@1.0.2/lite/init"
   }
 }

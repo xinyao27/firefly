@@ -73,21 +73,23 @@ onMounted(async () => {
         </KeepAlive>
       </NLayoutContent>
 
-      <template v-if="configStore.isMobileScreen">
-        <NDrawer
-          v-model:show="configStore.rightBarShow"
-          :width="320"
-          placement="right"
-        >
-          <NDrawerContent>
+      <template v-if="route.path === '/inbox'">
+        <template v-if="configStore.isMobileScreen">
+          <NDrawer
+            v-model:show="configStore.rightBarShow"
+            :width="320"
+            placement="right"
+          >
+            <NDrawerContent>
+              <RightBar />
+            </NDrawerContent>
+          </NDrawer>
+        </template>
+        <template v-else>
+          <NLayoutSider :width="configStore.rootPaddingRight" class="border-(l slate opacity-15)">
             <RightBar />
-          </NDrawerContent>
-        </NDrawer>
-      </template>
-      <template v-else>
-        <NLayoutSider :width="configStore.rootPaddingRight" class="border-(l slate opacity-15)">
-          <RightBar />
-        </NLayoutSider>
+          </NLayoutSider>
+        </template>
       </template>
     </NLayout>
   </NLayout>

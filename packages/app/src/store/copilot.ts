@@ -5,14 +5,18 @@ export interface ChatMessage {
   role: 'system' | 'user' | 'assistant'
   content: string
 }
-interface Context {
-  type?: 'custom'
+export interface Context {
+  type?: 'default'
+  | 'copilot'
+  | 'custom'
   | 'translate'
   | 'polishing'
   | 'summarize'
   | 'extractionTags'
   prompt?: string
   text?: string
+  name?: string
+  description?: string
   language?: string
   messages: ChatMessage[]
 }

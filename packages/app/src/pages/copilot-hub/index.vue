@@ -56,7 +56,7 @@ function handleCreated() {
 
         <RecycleScroller
           :items="copilotHubStore.copilots"
-          :item-size="128"
+          :min-item-size="163"
           page-mode
         >
           <template #default="{ item }">
