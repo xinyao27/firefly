@@ -172,8 +172,6 @@ export const useCopilotStore = defineStore('copilot', {
           body: JSON.stringify(context),
           signal: controller.signal,
         })
-        if (!response.ok)
-          throw new Error('Request failed')
         const data = response.body
         if (!data)
           throw new Error('No data')
@@ -187,6 +185,10 @@ export const useCopilotStore = defineStore('copilot', {
           const char = decoder.decode(value)
           if (char === '\n' && this.currentAssistantMessage.endsWith('\n'))
             continue
+          if (char.startsWith('{"error":')) {
+            const { error } = JSON.parse(char) as { error: string }
+            throw new Error(error)
+          }
 
           if (char)
             this.currentAssistantMessage += char

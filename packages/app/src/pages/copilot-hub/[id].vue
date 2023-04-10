@@ -64,8 +64,6 @@ async function chat() {
       body: JSON.stringify(context),
       signal: controller.value.signal,
     })
-    if (!response.ok)
-      throw new Error('Request failed')
     const data = response.body
     if (!data)
       throw new Error('No data')
@@ -79,6 +77,10 @@ async function chat() {
       const char = decoder.decode(value)
       if (char === '\n' && currentAssistantMessage.value.endsWith('\n'))
         continue
+      if (char.startsWith('{"error":')) {
+        const { error } = JSON.parse(char) as { error: string }
+        throw new Error(error)
+      }
 
       if (char)
         currentAssistantMessage.value += char
