@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { MentionOption, ScrollbarInst } from 'naive-ui'
+import { Spin } from '@firefly/common'
 import type { ChatMessage } from '~/store/copilot'
 
 const props = defineProps<{
@@ -103,57 +104,65 @@ watch(() => props.currentError, (currentError) => {
     </NScrollbar>
 
     <div flex flex-col gap-2 mt-4>
-      <NInputGroup>
-        <NMention
-          :ref="props.createInputRef"
-          v-model:value="currentInput"
-          type="textarea"
-          :autosize="{
-            minRows: 1,
-            maxRows: 5,
-          }"
-          minlength="2"
-          maxlength="500"
-          :disabled="props.loading"
-          :loading="props.loading"
-          :options="referenceOptions"
-          :render-label="handleRenderLabel"
-          @search="props.onSearchReference"
-          @keydown.enter="handleEnter"
-        />
-        <NTooltip v-if="!props.loading">
-          <template #trigger>
-            <NButton
-              type="primary"
-              quaternary
-              :disabled="currentInput.length === 0"
-              @click="props.onChat"
-            >
-              <template #icon>
-                <i i-ri-openai-line />
+      <NTooltip :show="props.loading">
+        <template #trigger>
+          <NInputGroup>
+            <NMention
+              :ref="props.createInputRef"
+              v-model:value="currentInput"
+              type="textarea"
+              :autosize="{
+                minRows: 1,
+                maxRows: 5,
+              }"
+              minlength="2"
+              maxlength="500"
+              :disabled="props.loading"
+              :loading="props.loading"
+              :options="referenceOptions"
+              :render-label="handleRenderLabel"
+              @search="props.onSearchReference"
+              @keydown.enter="handleEnter"
+            />
+            <NTooltip v-if="!props.loading">
+              <template #trigger>
+                <NButton
+                  type="primary"
+                  quaternary
+                  :disabled="currentInput.length === 0"
+                  @click="props.onChat"
+                >
+                  <template #icon>
+                    <i i-ri-openai-line />
+                  </template>
+                </NButton>
               </template>
-            </NButton>
-          </template>
-          Fly !
-          <div>
-            <KBD :shortcut="['ctrl', 'enter']" />
-          </div>
-        </NTooltip>
-        <NTooltip v-else>
-          <template #trigger>
-            <NButton
-              type="primary"
-              quaternary
-              @click="props.onAbort"
-            >
-              <template #icon>
-                <i i-ri-stop-line />
+              Fly !
+              <div>
+                <KBD :shortcut="['ctrl', 'enter']" />
+              </div>
+            </NTooltip>
+            <NTooltip v-else>
+              <template #trigger>
+                <NButton
+                  type="primary"
+                  quaternary
+                  @click="props.onAbort"
+                >
+                  <template #icon>
+                    <i i-ri-stop-line />
+                  </template>
+                </NButton>
               </template>
-            </NButton>
-          </template>
-          Stop !
-        </NTooltip>
-      </NInputGroup>
+              Stop !
+            </NTooltip>
+          </NInputGroup>
+        </template>
+        <div class="text-xs text-neutral flex items-center gap-1">
+          <Spin />
+          {{ t('common.loading') }}
+        </div>
+      </NTooltip>
     </div>
   </div>
 </template>
