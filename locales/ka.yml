@@ -19,6 +19,7 @@ common:
   cancel: გაუქმება
   confirm: რა თქმა უნდა
   copied: გადაწერა
+  copilotQuota: კოპილოტის კვოტა
   copy: კოპირება
   create: Შექმნა
   delete: წაშლა

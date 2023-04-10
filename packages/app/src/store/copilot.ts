@@ -1,3 +1,4 @@
+import { getSession } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import { defineStore } from 'pinia'
 
@@ -160,12 +161,13 @@ export const useCopilotStore = defineStore('copilot', {
           language: this.language,
           messages: this.messages,
         }
+        const session = await getSession()
         const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            'Authorization': `Bearer ${session?.access_token ?? import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           },
           body: JSON.stringify(context),
           signal: controller.signal,
@@ -201,6 +203,9 @@ export const useCopilotStore = defineStore('copilot', {
         return
       }
       this.archiveCurrentMessage()
+      // refresh user profiles
+      const userStore = useUserStore()
+      userStore.getUserProfiles()
     },
     abort() {
       this.controller?.abort()

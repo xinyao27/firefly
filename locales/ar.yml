@@ -19,6 +19,7 @@ common:
   cancel: يلغي
   confirm: بالتأكيد
   copied: نسخ
+  copilotQuota: حصة مساعد الطيار
   copy: ينسخ
   create: يخلق
   delete: يمسح

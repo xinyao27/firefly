@@ -19,6 +19,7 @@ common:
   cancel: Membatalkan
   confirm: Tentu
   copied: disalin
+  copilotQuota: Kuota Kopilot
   copy: menyalin
   create: Membuat
   delete: Menghapus

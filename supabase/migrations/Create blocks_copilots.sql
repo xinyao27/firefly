@@ -1,4 +1,4 @@
-create table copilots_blocks (
+create table if not exists copilots_blocks (
   "uid" uuid references profiles(id) on delete cascade not null,
   "copilotId" uuid references copilots(id),
   "blockId" uuid references blocks(id),

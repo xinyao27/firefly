@@ -19,6 +19,7 @@ common:
   cancel: Annuler
   confirm: Bien sûr
   copied: copié
+  copilotQuota: Quota de copilote
   copy: copie
   create: Créer
   delete: Supprimer

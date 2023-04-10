@@ -41,5 +41,9 @@ export function createSupabaseClient(Authorization: string | null) {
 }
 
 export async function getUser(supabase: SupabaseClient) {
-  return (await supabase.auth.getUser()).data.user
+  const { data: { user }, error } = await supabase.auth.getUser()
+  if (error) {
+    throw error
+  }
+  return user
 }

@@ -1,5 +1,5 @@
 -- Create a table for public profiles
-create table profiles (
+create table if not exists profiles (
   "id" uuid references auth.users on delete cascade not null primary key,
   "updatedAt" timestamp with time zone default (now() at time zone 'utc'),
   "userName" text,
@@ -7,6 +7,7 @@ create table profiles (
   "avatarUrl" text,
   "email" text unique,
   "token" text unique,
+  "copilotQuota" int8 default 50 not null,
 
   constraint "userName_length" check (char_length("userName") >= 3)
 );

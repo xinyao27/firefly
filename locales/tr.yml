@@ -19,6 +19,7 @@ common:
   cancel: İptal etmek
   confirm: Elbette
   copied: kopyalanmış
+  copilotQuota: Kopilot Kotası
   copy: kopyalamak
   create: Yaratmak
   delete: Silmek

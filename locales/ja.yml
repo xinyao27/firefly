@@ -19,6 +19,7 @@ common:
   cancel: キャンセル
   confirm: もちろん
   copied: コピーした
+  copilotQuota: 副操縦士の割り当て
   copy: コピー
   create: 作成
   delete: 消去

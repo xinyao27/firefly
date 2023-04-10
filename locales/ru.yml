@@ -19,6 +19,7 @@ common:
   cancel: Отмена
   confirm: Конечно
   copied: скопировано
+  copilotQuota: Квота второго пилота
   copy: копировать
   create: Создавать
   delete: Удалить

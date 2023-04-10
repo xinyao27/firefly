@@ -19,6 +19,7 @@ common:
   cancel: 취소
   confirm: 확신하는
   copied: 복사
+  copilotQuota: 부조종사 할당량
   copy: 복사
   create: 만들다
   delete: 삭제

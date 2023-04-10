@@ -19,6 +19,7 @@ common:
   cancel: 取消
   confirm: 确定
   copied: 已复制
+  copilotQuota: Copilot 额度
   copy: 复制
   create: 创造
   delete: 删除

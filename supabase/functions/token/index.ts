@@ -34,7 +34,7 @@ async function generateToken(supabase: SupabaseClient) {
     if (error) throw error
     return base64
   } else {
-    throw new ApplicationError('User not found')
+    throw new UserError('Invalid Authorization')
   }
 }
 
