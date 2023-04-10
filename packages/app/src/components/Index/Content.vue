@@ -137,19 +137,7 @@ const userStore = useUserStore()
               </NButton>
             </template>
             <template v-else>
-              <NButton
-                quaternary
-                @click="router.push('/signup')"
-              >
-                {{ t('common.signup') }}
-              </NButton>
-              <NButton
-                type="primary"
-                color="white"
-                @click="router.push('/login')"
-              >
-                {{ t('common.login') }}
-              </NButton>
+              <LoginGroup />
             </template>
           </div>
         </div>

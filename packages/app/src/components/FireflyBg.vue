@@ -1,11 +1,20 @@
-$yellow: #53380f
+<template>
+  <div
+    v-for="i in 16"
+    :key="i"
+    class="firefly"
+  />
+</template>
+
+<style scoped lang="sass">
+$yellow: #985c02
 
 .firefly
   position: fixed
   left: 50%
   top: 50%
-  width: .4vw
-  height: .4vw
+  width: .6vw
+  height: .6vw
   margin: calc(-2vw / 10) 0 0 calc(.98 * 10)
   animation: ease 200s alternate infinite
   pointer-events: none
@@ -1304,3 +1313,4 @@ $yellow: #53380f
   5%
     opacity: 1
     box-shadow: 0 0 2vw .4vw $yellow
+</style>

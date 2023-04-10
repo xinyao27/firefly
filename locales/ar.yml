@@ -19,20 +19,23 @@ common:
   cancel: يلغي
   confirm: بالتأكيد
   copied: نسخ
+  copilotQuota: حصة مساعد الطيار
   copy: ينسخ
+  create: يخلق
   delete: يمسح
   deleted: تم الحذف بنجاح
+  downloadDesktopApp: قم بتنزيل تطبيق سطح المكتب
   edit: يحرر
-  joinDesc1: نحن متحمسون لالتقاط الصور مع Firefly.
-  joinDesc2: سنرسل الدعوات تدريجيًا بمرور الوقت.
-  joinPlaceholder: استخدم بريدك الإلكتروني للانضمام إلى قائمة الانتظار لدينا
-  joinus: انضم إلينا
+  hotkeyAlreadyRegistered: مفتاح التشغيل السريع مسجل بالفعل
   loading: تحميل...
   login: تسجيل الدخول
   loginError: فشل تسجيل الدخول
+  next: التالي
   noResult: لا نتيجة
   notFound: لا أجد
+  ocrHotkeyAlreadyRegistered: OCRHotkey مسجل بالفعل
   openApp: افتح التطبيق
+  required: مطلوب
   save: يحفظ
   saved: حفظ بنجاح
   signup: يسجل
@@ -42,15 +45,33 @@ common:
   updated: تحديث الانتهاء
   warningContent: أنت متأكد أنك تريد حذفه
   warningTitle: تحذير
+  yourTags: العلامات الخاصة بك
 copilot:
+  Config: التكوين
+  createACopilot: إنشاء مساعد الطيار
+  createSuccess: تحقيق النجاح
   customPrompt: موجهات مخصصة
+  description: وصف مساعد الطيار
   extractionTags: استخراج العلامات
   hi: مرحبا كيف يمكنني مساعدتك
+  name: اسم مساعد الطيار
   polishing: تلميع
+  prompt: موجه مساعد الطيار
   ref: مرجع مساعد الطيار
   retry: أعد المحاولة
+  selectTags: اختر العلامات
+  selectTagsPlaceholder: >-
+    الرجاء تحديد علامة واحدة على الأقل ، وسنقوم بتصفية مصدر البيانات المقابل من
+    صندوق الوارد وفقًا للعلامة التي حددتها ، كمجموعة مساعد للطيار
+  selectedTagsRequired: الرجاء تحديد تسمية واحدة على الأقل
   summarize: ملخص نصي
   translate: يترجم
+  uploadData: تحميل البيانات
+  visibility: رؤية مساعد الطيار
+desktop:
+  downloadForMac: تنزيل لأجهزة Mac
+  downloadForWindows: تنزيل لنظام التشغيل Windows
+  title: Firefly لنظام التشغيل Mac
 editor:
   blockquote: نص اقتباس
   bold: عريض
@@ -84,18 +105,18 @@ index:
     دعم مزامنة النظام الأساسي بالكامل ، مما يسمح بمزامنة معلوماتك مع أجهزة
     متعددة في أي وقت وفي أي مكان ، مما يناسبك لعرضها وإدارتها في أي وقت
   featureCloudSyncSubTitle: إدارة المعلومات الخاصة بك في أي وقت وفي أي مكان
-  getFirefly: احصل على اليراع
   getFireflySlogan: ابدأ العمل بذكاء اليوم.
 login:
   continueWithEmail: تسجيل الدخول بالبريد الإلكتروني
-  continueWithGithub: تسجيل الدخول إلى جيثب
+  continueWithGithub: تواصل مع جيثب
   continueWithGoogle: تواصل مع جوجل
   continueWithLoginCode: رمز تسجيل الدخول تسجيل الدخول
-  continueWithNotion: فكرة تسجيل الدخول
+  continueWithNotion: تواصل مع Notion
   emailPlaceholder: أدخل عنوان بريدك الالكتروني...
   emailRequired: الرجاء إدخال البريد الإلكتروني
   emailSended: لقد أرسلنا لك بريدًا إلكترونيًا للتو ، يرجى التحقق من صندوق الوارد الخاص بك.
   loginCodePlaceholder: الصق رمز تسجيل الدخول
+  otherLoginMethods: طرق تسجيل الدخول الأخرى
   redirectToLogin: هل لديك حساب؟ سجل في
   redirectToSignup: ليس لديك حساب بعد؟
   resendEmail: إعادة إرسال البريد الإلكتروني

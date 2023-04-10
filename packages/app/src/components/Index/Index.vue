@@ -1,14 +1,6 @@
-<script setup lang="ts">
-import './firefly.sass'
-</script>
-
 <template>
   <div class="root" h-full relative>
-    <div
-      v-for="i in 16"
-      :key="i"
-      class="firefly"
-    />
+    <FireflyBg />
     <Header />
     <Content />
     <Footer />

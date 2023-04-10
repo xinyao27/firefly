@@ -1,5 +1,6 @@
 <template>
   <main w-full h-full flex items-center justify-center>
+    <FireflyBg />
     <LoginOrSignup type="login" />
   </main>
 </template>

@@ -19,20 +19,23 @@ common:
   cancel: İptal etmek
   confirm: Elbette
   copied: kopyalanmış
+  copilotQuota: Kopilot Kotası
   copy: kopyalamak
-  delete: silmek
+  create: Yaratmak
+  delete: Silmek
   deleted: başarıyla silindi
-  edit: düzenlemek
-  joinDesc1: Firefly ile fotoğraf çekeceğiniz için heyecanlıyız.
-  joinDesc2: Zaman içinde kademeli olarak davetler göndereceğiz.
-  joinPlaceholder: Bekleme listemize katılmak için e-postanızı kullanın
-  joinus: bize katılın
+  downloadDesktopApp: Masaüstü uygulamasını indirin
+  edit: Düzenlemek
+  hotkeyAlreadyRegistered: Kısayol zaten kayıtlı
   loading: Yükleniyor...
   login: Giriş yapmak
   loginError: giriş başarısız oldu
+  next: Sonraki
   noResult: sonuç yok
   notFound: bulamıyorum
+  ocrHotkeyAlreadyRegistered: OCRHotkey zaten kayıtlı
   openApp: Uygulamayı aç
+  required: Gerekli
   save: kaydetmek
   saved: Başarıyla kaydedildi
   signup: kayıt olmak
@@ -42,15 +45,33 @@ common:
   updated: Güncelleme tamamlandı
   warningContent: Silmek istediğinizden emin misiniz?
   warningTitle: uyarmak
+  yourTags: Etiketleriniz
 copilot:
+  Config: Yapılandırma
+  createACopilot: Bir Yardımcı Pilot Oluşturun
+  createSuccess: Başarı Yarat
   customPrompt: Özel İstemler
+  description: Yardımcı Pilot Tanımı
   extractionTags: etiketleri ayıkla
   hi: Merhaba, Size nasıl yardımcı olabilirim
+  name: Yardımcı Pilot Adı
   polishing: Lehçe
+  prompt: Yardımcı Pilot İstemi
   ref: yardımcı pilot referansı
   retry: yeniden dene
+  selectTags: Etiketleri Seçin
+  selectTagsPlaceholder: >-
+    Lütfen en az bir Etiket seçin, bir Copilot külliyatı olarak seçtiğiniz
+    Etikete göre ilgili veri kaynağını Gelen Kutusundan filtreleyeceğiz
+  selectedTagsRequired: Lütfen en az bir etiket seçin
   summarize: metin özeti
   translate: Çevirmek
+  uploadData: Veri Yükle
+  visibility: Yardımcı Pilot Görünürlüğü
+desktop:
+  downloadForMac: Mac için indir
+  downloadForWindows: Windows için indirin
+  title: Mac için Ateşböceği
 editor:
   blockquote: alıntı metni
   bold: gözü pek
@@ -85,18 +106,18 @@ index:
     zaman, istediğiniz yerde birden fazla cihazla senkronize edilmesini
     sağlayın, istediğiniz zaman görüntülemeniz ve yönetmeniz için uygun
   featureCloudSyncSubTitle: Bilgilerinizi her zaman, her yerde yönetin
-  getFirefly: Firefly'ı Alın
   getFireflySlogan: Bugün daha akıllıca çalışmaya başlayın.
 login:
   continueWithEmail: E-posta Girişi
-  continueWithGithub: Github girişi
+  continueWithGithub: Github ile devam et
   continueWithGoogle: Google ile devam
   continueWithLoginCode: Giriş Kodu Giriş
-  continueWithNotion: kavram girişi
+  continueWithNotion: Notion ile devam et
   emailPlaceholder: E-posta adresinizi giriniz...
   emailRequired: Lütfen e-posta giriniz
   emailSended: Size bir e-posta gönderdik, lütfen gelen kutunuzu kontrol edin.
   loginCodePlaceholder: Giriş kodunu yapıştırın
+  otherLoginMethods: Diğer oturum açma yöntemleri
   redirectToLogin: Zaten bir hesabın var mı? Giriş yap
   redirectToSignup: Henüz bir hesabınız yok mu? Kaydolun
   resendEmail: elektronik postayı tekrar gönder

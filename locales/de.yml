@@ -19,20 +19,23 @@ common:
   cancel: Stornieren
   confirm: Sicher
   copied: kopiert
+  copilotQuota: Copilot-Quote
   copy: Kopieren
-  delete: löschen
+  create: Erstellen
+  delete: Löschen
   deleted: erfolgreich gelöscht
-  edit: bearbeiten
-  joinDesc1: Wir freuen uns, dass Sie mit Firefly aufnehmen.
-  joinDesc2: Wir werden im Laufe der Zeit nach und nach Einladungen versenden.
-  joinPlaceholder: Tragen Sie sich mit Ihrer E-Mail-Adresse in unsere Warteliste ein
-  joinus: begleiten Sie uns
+  downloadDesktopApp: Laden Sie die Desktop-App herunter
+  edit: Bearbeiten
+  hotkeyAlreadyRegistered: Hotkey bereits registriert
   loading: Wird geladen...
   login: Anmeldung
   loginError: Fehler bei der Anmeldung
+  next: Nächste
   noResult: kein Ergebnis
   notFound: kann nicht finden
+  ocrHotkeyAlreadyRegistered: OCRHotkey bereits registriert
   openApp: Öffne App
+  required: Erforderlich
   save: speichern
   saved: Erfolgreich gespeichert
   signup: registrieren
@@ -43,15 +46,34 @@ common:
   updated: Update abgeschlossen
   warningContent: Sie möchten es wirklich löschen
   warningTitle: warnen
+  yourTags: Ihre Tags
 copilot:
+  Config: Konfig
+  createACopilot: Erstellen Sie einen Copiloten
+  createSuccess: Erfolg schaffen
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
+  description: Copilot-Beschreibung
   extractionTags: Tags extrahieren
   hi: Hallo, wie kann ich Ihnen helfen
+  name: Name des Copiloten
   polishing: Polieren
+  prompt: Copilot-Eingabeaufforderung
   ref: Copilot-Referenz
   retry: Wiederholen
+  selectTags: Wählen Sie Tags
+  selectTagsPlaceholder: >-
+    Bitte wählen Sie mindestens ein Tag aus, wir filtern die entsprechende
+    Datenquelle aus dem Posteingang nach dem von Ihnen ausgewählten Tag als
+    Copilot-Korpus heraus
+  selectedTagsRequired: Bitte wählen Sie mindestens ein Label aus
   summarize: Textzusammenfassung
   translate: übersetzen
+  uploadData: Daten hochladen
+  visibility: Copilot-Sichtbarkeit
+desktop:
+  downloadForMac: Für Mac herunterladen
+  downloadForWindows: Für Windows herunterladen
+  title: Glühwürmchen für Mac
 editor:
   blockquote: Text zitieren
   bold: deutlich
@@ -87,20 +109,20 @@ index:
     Informationen jederzeit und überall mit mehreren Geräten synchronisiert
     werden können, sodass Sie sie jederzeit bequem anzeigen und verwalten können
   featureCloudSyncSubTitle: Verwalten Sie Ihre Informationen jederzeit und überall
-  getFirefly: Hol dir Glühwürmchen
   getFireflySlogan: Fangen Sie noch heute an, intelligenter zu arbeiten.
 login:
   continueWithEmail: E-Mail-Anmeldung
-  continueWithGithub: Github-Anmeldung
+  continueWithGithub: Fahren Sie mit Github fort
   continueWithGoogle: Weiter mit Google
   continueWithLoginCode: Login-Code Login
-  continueWithNotion: Begriff anmelden
+  continueWithNotion: Fahren Sie mit Begriff fort
   emailPlaceholder: Geben sie ihre E-Mailadresse ein...
   emailRequired: Bitte E-Mail eingeben
   emailSended: >-
     Wir haben Ihnen gerade eine E-Mail gesendet, bitte überprüfen Sie Ihren
     Posteingang.
   loginCodePlaceholder: Fügen Sie den Anmeldecode ein
+  otherLoginMethods: Andere Anmeldemethoden
   redirectToLogin: Hast du bereits einen Account? Logge dich ein
   redirectToSignup: Sie haben noch kein Konto? Melden Sie sich an
   resendEmail: E-Mail zurücksenden

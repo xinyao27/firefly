@@ -19,20 +19,23 @@ common:
   cancel: キャンセル
   confirm: もちろん
   copied: コピーした
+  copilotQuota: 副操縦士の割り当て
   copy: コピー
+  create: 作成
   delete: 消去
   deleted: 正常に削除されました
+  downloadDesktopApp: デスクトップアプリをダウンロード
   edit: 編集
-  joinDesc1: Firefly でのキャプチャをお待ちしております。
-  joinDesc2: 招待状は徐々に送っていきます。
-  joinPlaceholder: メールを使用してウェイティング リストに参加してください
-  joinus: 参加しませんか
+  hotkeyAlreadyRegistered: ホットキーはすでに登録されています
   loading: 読み込んでいます...
   login: ログイン
   loginError: ログインに失敗しました
+  next: 次
   noResult: 検索結果はありません
   notFound: 見つからない
+  ocrHotkeyAlreadyRegistered: OCRHotkey は既に登録されています
   openApp: アプリを開く
+  required: 必要
   save: 保存
   saved: 正常に保存
   signup: 登録
@@ -40,15 +43,31 @@ common:
   updated: アップデート完了
   warningContent: 削除してもよろしいですか
   warningTitle: 警告する
+  yourTags: あなたのタグ
 copilot:
+  Config: 設定
+  createACopilot: コパイロットの作成
+  createSuccess: 成功を生み出す
   customPrompt: カスタム プロンプト
+  description: 副操縦士の説明
   extractionTags: タグを抽出する
   hi: こんにちは、どうすればいいですか
+  name: 副操縦士名
   polishing: 研磨
+  prompt: 副操縦士のプロンプト
   ref: 副操縦士のリファレンス
   retry: リトライ
+  selectTags: タグを選択
+  selectTagsPlaceholder: 少なくとも 1 つのタグを選択してください。選択したタグに従って、対応するデータ ソースを受信トレイから除外します。
+  selectedTagsRequired: 少なくとも 1 つのラベルを選択してください
   summarize: テキストの要約
   translate: 翻訳
+  uploadData: データのアップロード
+  visibility: 副操縦士の可視性
+desktop:
+  downloadForMac: Mac用にダウンロード
+  downloadForWindows: Windows 用のダウンロード
+  title: ファイアフライ for Mac
 editor:
   blockquote: 引用文
   bold: 大胆な
@@ -72,18 +91,18 @@ index:
   featureCloudSync: すべてのプラットフォーム間の同期
   featureCloudSyncDesc: 完全なプラットフォームの同期をサポートし、いつでもどこでも情報を複数のデバイスに同期できるようにし、いつでも表示および管理するのに便利です
   featureCloudSyncSubTitle: いつでもどこでも情報を管理
-  getFirefly: ホタルをゲット
   getFireflySlogan: 今日からよりスマートに仕事を始めましょう。
 login:
   continueWithEmail: メールログイン
-  continueWithGithub: GitHub ログイン
+  continueWithGithub: Github で続行
   continueWithGoogle: Google で続行
   continueWithLoginCode: ログインコードログイン
-  continueWithNotion: 概念ログイン
+  continueWithNotion: 概念を続ける
   emailPlaceholder: メールアドレスを入力してください...
   emailRequired: メールアドレスを入力してください
   emailSended: メールを送信しました。受信トレイを確認してください。
   loginCodePlaceholder: ログインコードを貼り付けます
+  otherLoginMethods: その他のログイン方法
   redirectToLogin: 既にアカウントを持っていますか？ログイン
   redirectToSignup: まだアカウントを持っていませんか? サインアップ
   resendEmail: メールを再送

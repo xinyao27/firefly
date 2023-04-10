@@ -31,6 +31,8 @@ window.$message = useMessage()
     <i i-ri-check-line />
     <i i-ri-list-check-2 />
     <i i-ri-text />
+    <i i-ri-inbox-fill />
+    <i i-ri-copilot-fill />
     <div class="!w-300px text-neutral-800 bg-neutral-500" />
   </div>
 </template>

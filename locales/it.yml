@@ -19,20 +19,23 @@ common:
   cancel: Annulla
   confirm: Sicuro
   copied: copiato
+  copilotQuota: Quota copilota
   copy: copia
-  delete: eliminare
+  create: Creare
+  delete: Eliminare
   deleted: eliminato con successo
-  edit: modificare
-  joinDesc1: Non vediamo l'ora che tu catturi con Firefly.
-  joinDesc2: Invieremo gli inviti gradualmente nel tempo.
-  joinPlaceholder: Usa la tua email per iscriverti alla nostra lista d'attesa
-  joinus: Unisciti a noi
+  downloadDesktopApp: Scarica l'applicazione desktop
+  edit: Modificare
+  hotkeyAlreadyRegistered: Tasto di scelta rapida già registrato
   loading: Caricamento...
   login: Login
   loginError: Accesso non riuscito
+  next: Prossimo
   noResult: nessun risultato
   notFound: non riesco a trovare
+  ocrHotkeyAlreadyRegistered: OCRHotkey già registrato
   openApp: Apri l'app
+  required: Necessario
   save: salva
   saved: Salvato con successo
   signup: Registrati
@@ -43,15 +46,33 @@ common:
   updated: aggiornamento completato
   warningContent: Sei sicuro di volerlo eliminare
   warningTitle: avvisare
+  yourTags: I tuoi tag
 copilot:
+  Config: Configurazione
+  createACopilot: Crea un copilota
+  createSuccess: Crea successo
   customPrompt: Prompt personalizzati
+  description: Descrizione del copilota
   extractionTags: estrarre i tag
   hi: Ciao come posso aiutarti
+  name: Nome copilota
   polishing: polacco
+  prompt: Prompt del copilota
   ref: Riferimento copilota
   retry: Riprova
+  selectTags: Scegli Tag
+  selectTagsPlaceholder: >-
+    Seleziona almeno un tag, filtreremo l'origine dati corrispondente dalla
+    Posta in arrivo in base al tag selezionato, come corpus copilota
+  selectedTagsRequired: Seleziona almeno un'etichetta
   summarize: sintesi testuale
   translate: tradurre
+  uploadData: Carica dati
+  visibility: Visibilità copilota
+desktop:
+  downloadForMac: Scarica per Mac
+  downloadForWindows: Scarica per Windows
+  title: Lucciola per Mac
 editor:
   blockquote: testo di citazione
   bold: grassetto
@@ -89,18 +110,18 @@ index:
     sincronizzare le tue informazioni su più dispositivi sempre e ovunque,
     comodamente da visualizzare e gestire in qualsiasi momento
   featureCloudSyncSubTitle: Gestisci le tue informazioni sempre e ovunque
-  getFirefly: Ottieni lucciola
   getFireflySlogan: Inizia a lavorare in modo più intelligente, oggi.
 login:
   continueWithEmail: E-mail di accesso
-  continueWithGithub: Accesso Github
+  continueWithGithub: Continua con Github
   continueWithGoogle: Continua con Google
   continueWithLoginCode: Codice di accesso Accedi
-  continueWithNotion: Accesso alla nozione
+  continueWithNotion: Continua con Nozione
   emailPlaceholder: Inserisci il tuo indirizzo email...
   emailRequired: Inserisci l'e-mail
   emailSended: Ti abbiamo appena inviato un'email, controlla la tua casella di posta.
   loginCodePlaceholder: Incolla il codice di accesso
+  otherLoginMethods: Altri metodi di accesso
   redirectToLogin: Hai già un account? Accedi
   redirectToSignup: Non hai ancora un account? Registrati
   resendEmail: Rinvia l'e-mail

@@ -3,6 +3,7 @@ import path from 'node:path'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Vue from '@vitejs/plugin-vue'
+import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
@@ -13,18 +14,26 @@ import VueMacros from 'unplugin-vue-macros/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
+import mkcert from 'vite-plugin-mkcert'
 
 function resolve(...p: string[]) {
   return path.resolve(__dirname, ...p)
 }
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   const plugins = [
+    // https://github.com/liuweiGL/vite-plugin-mkcert
+    mkcert({
+      source: 'coding',
+    }),
+
     VueMacros({
       plugins: {
         vue: Vue(),
       },
     }),
+
+    VueJsx(),
 
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
@@ -66,7 +75,7 @@ export default defineConfig(() => {
     }),
 
     // https://github.com/antfu/vite-plugin-inspect
-    // Visit http://localhost:5173/__inspect/ to see the inspector
+    // Visit https://localhost:5173/__inspect/ to see the inspector
     Inspect(),
 
     // https://github.com/hannoeru/vite-plugin-pages
@@ -130,17 +139,22 @@ export default defineConfig(() => {
       }),
     )
   }
+  const define = mode === 'production'
+    ? {
+        'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(process.env.VITE_SUPABASE_URL),
+        'import.meta.env.VITE_SUPABASE_FUNCTIONS_URL': JSON.stringify(process.env.VITE_SUPABASE_FUNCTIONS_URL),
+        'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(process.env.VITE_SUPABASE_ANON_KEY),
+      }
+    : {}
+
   return {
     clearScreen: false,
     server: {
+      https: true,
       strictPort: true,
     },
     envPrefix: ['VITE_', 'TAURI_'],
-    define: {
-      'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(process.env.VITE_SUPABASE_URL),
-      'import.meta.env.VITE_SUPABASE_FUNCTIONS_URL': JSON.stringify(process.env.VITE_SUPABASE_FUNCTIONS_URL),
-      'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(process.env.VITE_SUPABASE_ANON_KEY),
-    },
+    define,
     build: {
       sourcemap: true,
       target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',

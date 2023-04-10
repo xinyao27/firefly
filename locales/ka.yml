@@ -19,20 +19,23 @@ common:
   cancel: გაუქმება
   confirm: რა თქმა უნდა
   copied: გადაწერა
+  copilotQuota: კოპილოტის კვოტა
   copy: კოპირება
+  create: Შექმნა
   delete: წაშლა
   deleted: წარმატებით წაიშალა
+  downloadDesktopApp: ჩამოტვირთეთ დესკტოპის აპლიკაცია
   edit: რედაქტირება
-  joinDesc1: ჩვენ მოხარული ვართ, რომ თქვენ გადაიღეთ Firefly-ით.
-  joinDesc2: დროთა განმავლობაში ეტაპობრივად გამოგიგზავნით მოწვევებს.
-  joinPlaceholder: გამოიყენეთ თქვენი ელ.წერილი, რომ შეუერთდეთ ჩვენს მოლოდინში
-  joinus: შემოგვიერთდი
+  hotkeyAlreadyRegistered: Hotkey უკვე დარეგისტრირებულია
   loading: Ჩატვირთვა...
   login: Შესვლა
   loginError: Სისტემაში შესვლა ვერ მოხერხდა
+  next: შემდეგი
   noResult: უშედეგო
   notFound: ვერ პოულობს
+  ocrHotkeyAlreadyRegistered: OCRHotkey უკვე დარეგისტრირებულია
   openApp: გახსენით აპლიკაცია
+  required: საჭირო
   save: გადარჩენა
   saved: შენახულია წარმატებით
   signup: რეგისტრაცია
@@ -43,15 +46,34 @@ common:
   updated: განახლება დასრულდა
   warningContent: დარწმუნებული ხართ, რომ გსურთ მისი წაშლა
   warningTitle: გაფრთხილება
+  yourTags: თქვენი ტეგები
 copilot:
+  Config: კონფიგურაცია
+  createACopilot: შექმენით კოპილოტი
+  createSuccess: შექმენით წარმატება
   customPrompt: მორგებული მოთხოვნა
+  description: კოპილოტის აღწერა
   extractionTags: ამონაწერი ტეგები
   hi: Გამარჯობა, რით შემიძლია დაგეხმაროთ
+  name: კოპილოტის სახელი
   polishing: პოლონური
+  prompt: კოპილოტის მოთხოვნა
   ref: კოპილოტის მითითება
   retry: ხელახლა სცადეთ
+  selectTags: აირჩიეთ ტეგები
+  selectTagsPlaceholder: >-
+    გთხოვთ, აირჩიოთ მინიმუმ ერთი ტეგი, ჩვენ გავფილტრავთ მონაცემთა შესაბამის
+    წყაროს შემოსულებიდან თქვენს მიერ არჩეული ტეგის მიხედვით, როგორც კოპილოტის
+    კორპუსი
+  selectedTagsRequired: გთხოვთ, აირჩიოთ მინიმუმ ერთი ეტიკეტი
   summarize: ტექსტის შეჯამება
   translate: თარგმნა
+  uploadData: ატვირთეთ მონაცემები
+  visibility: კოპილოტის ხილვადობა
+desktop:
+  downloadForMac: ჩამოტვირთვა Mac-ისთვის
+  downloadForWindows: ჩამოტვირთეთ Windows-ისთვის
+  title: Firefly Mac-ისთვის
 editor:
   blockquote: ციტატის ტექსტი
   bold: გაბედული
@@ -88,18 +110,18 @@ index:
     ნებისმიერ ადგილას, თქვენთვის მოსახერხებელი, რომ ნახოთ და მართოთ ნებისმიერ
     დროს
   featureCloudSyncSubTitle: მართეთ თქვენი ინფორმაცია ნებისმიერ დროს, ნებისმიერ ადგილას
-  getFirefly: მიიღეთ Firefly
   getFireflySlogan: დაიწყეთ მუშაობა უფრო ჭკვიანურად, დღესვე.
 login:
   continueWithEmail: ელ.ფოსტის შესვლა
-  continueWithGithub: Github შესვლა
+  continueWithGithub: გააგრძელეთ Github-ით
   continueWithGoogle: განაგრძეთ Google-ით
   continueWithLoginCode: შესვლის კოდი შესვლა
-  continueWithNotion: ცნება შესვლა
+  continueWithNotion: განაგრძეთ ცნება
   emailPlaceholder: შეიყვანეთ თქვენი ელფოსტის მისამართი...
   emailRequired: გთხოვთ შეიყვანოთ ელფოსტა
   emailSended: ჩვენ ახლახან გამოგიგზავნეთ ელ.წერილი, გთხოვთ, შეამოწმოთ თქვენი შემომავალი.
   loginCodePlaceholder: ჩასვით შესვლის კოდი
+  otherLoginMethods: შესვლის სხვა მეთოდები
   redirectToLogin: უკვე გაქვთ ანგარიში? შედით
   redirectToSignup: ჯერ არ გაქვთ ანგარიში? დარეგისტრირდით
   resendEmail: ხელახლა გაგზავნა ელ

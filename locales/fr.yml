@@ -19,20 +19,23 @@ common:
   cancel: Annuler
   confirm: Bien sûr
   copied: copié
+  copilotQuota: Quota de copilote
   copy: copie
-  delete: supprimer
+  create: Créer
+  delete: Supprimer
   deleted: supprimé avec succès
-  edit: modifier
-  joinDesc1: Nous sommes ravis que vous capturiez avec Firefly.
-  joinDesc2: Nous enverrons des invitations progressivement au fil du temps.
-  joinPlaceholder: Utilisez votre email pour rejoindre notre liste d'attente
-  joinus: Rejoignez-nous
+  downloadDesktopApp: Télécharger l'application de bureau
+  edit: Modifier
+  hotkeyAlreadyRegistered: Raccourci déjà enregistré
   loading: Chargement...
   login: Connexion
   loginError: échec de la connexion
+  next: Suivant
   noResult: pas de résultat
   notFound: ne trouve pas
+  ocrHotkeyAlreadyRegistered: OCRHotkey déjà enregistré
   openApp: Ouvrir application
+  required: Requis
   save: sauvegarder
   saved: Enregistré avec succès
   signup: enregistrer
@@ -43,15 +46,34 @@ common:
   updated: Mise à jour terminée
   warningContent: Vous êtes sûr de vouloir le supprimer
   warningTitle: avertir
+  yourTags: Vos balises
 copilot:
+  Config: Configuration
+  createACopilot: Créer un copilote
+  createSuccess: Créer du succès
   customPrompt: Invites personnalisées
+  description: Description du copilote
   extractionTags: extraire les balises
   hi: Salut, comment est-ce que je peux t'aider
+  name: Nom du copilote
   polishing: polonais
+  prompt: Invite du copilote
   ref: Référence copilote
   retry: Recommencez
+  selectTags: Choisissez les balises
+  selectTagsPlaceholder: >-
+    Veuillez sélectionner au moins une balise, nous filtrerons la source de
+    données correspondante de la boîte de réception en fonction de la balise que
+    vous avez sélectionnée, en tant que corpus Copilot
+  selectedTagsRequired: Veuillez sélectionner au moins un libellé
   summarize: résumé du texte
   translate: traduire
+  uploadData: Télécharger des données
+  visibility: Visibilité du copilote
+desktop:
+  downloadForMac: Télécharger pour Mac
+  downloadForWindows: Télécharger pour Windows
+  title: Firefly pour Mac
 editor:
   blockquote: citer le texte
   bold: gras
@@ -88,20 +110,20 @@ index:
     moment, n'importe où, pratique pour vous de visualiser et de gérer à tout
     moment
   featureCloudSyncSubTitle: Gérez vos informations à tout moment, n'importe où
-  getFirefly: Obtenez Firefly
   getFireflySlogan: Commencez à travailler plus intelligemment, dès aujourd'hui.
 login:
   continueWithEmail: Connexion par e-mail
-  continueWithGithub: Connexion Github
+  continueWithGithub: Continuer avec Github
   continueWithGoogle: Continuer avec Google
   continueWithLoginCode: Connexion par code de connexion
-  continueWithNotion: Connexion notionnelle
+  continueWithNotion: Continuer avec Notion
   emailPlaceholder: Entrez votre adresse email...
   emailRequired: Veuillez saisir un e-mail
   emailSended: >-
     Nous venons de vous envoyer un e-mail, veuillez vérifier votre boîte de
     réception.
   loginCodePlaceholder: Collez le code de connexion
+  otherLoginMethods: Autres méthodes de connexion
   redirectToLogin: Vous avez déjà un compte? S'identifier
   redirectToSignup: Vous n'avez pas encore de compte ?
   resendEmail: ré-envoyer l'email

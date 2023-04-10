@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { is } from '@firefly/common'
-import { supabase } from '~/api'
 
-const configStore = useConfigStore()
-const textEditorStore = useTextEditorStore()
 const route = useRoute()
-const router = useRouter()
+const configStore = useConfigStore()
+const assistantStore = useAssistantStore()
+const userStore = useUserStore()
 
 onMounted(async () => {
-  const session = await supabase.auth.getSession()
-  if (!session.data.session && route.path !== '/') {
-    router.replace('/login')
+  const profiles = await userStore.getUserProfiles()
+  if (!profiles.token) {
+    // 如果没有 token 自动生成一个
+    await userStore.generateToken()
   }
   else {
     const keys = useMagicKeys({
@@ -24,7 +24,7 @@ onMounted(async () => {
 
     watch(CtrlL, (v) => {
       if (v)
-        textEditorStore.open('create')
+        assistantStore.open('create')
     })
   }
 })
@@ -61,24 +61,28 @@ onMounted(async () => {
       </template>
 
       <NLayoutContent content-style="height: 100%">
-        <RouterView />
+        <KeepAlive>
+          <RouterView />
+        </KeepAlive>
       </NLayoutContent>
 
-      <template v-if="configStore.isMobileScreen">
-        <NDrawer
-          v-model:show="configStore.rightBarShow"
-          :width="320"
-          placement="right"
-        >
-          <NDrawerContent>
+      <template v-if="route.path === '/inbox'">
+        <template v-if="configStore.isMobileScreen">
+          <NDrawer
+            v-model:show="configStore.rightBarShow"
+            :width="320"
+            placement="right"
+          >
+            <NDrawerContent>
+              <RightBar />
+            </NDrawerContent>
+          </NDrawer>
+        </template>
+        <template v-else>
+          <NLayoutSider :width="configStore.rootPaddingRight" class="border-(l slate opacity-15)">
             <RightBar />
-          </NDrawerContent>
-        </NDrawer>
-      </template>
-      <template v-else>
-        <NLayoutSider :width="configStore.rootPaddingRight" class="border-(l slate opacity-15)">
-          <RightBar />
-        </NLayoutSider>
+          </NLayoutSider>
+        </template>
       </template>
     </NLayout>
   </NLayout>

@@ -19,22 +19,23 @@ common:
   cancel: Скасувати
   confirm: звичайно
   copied: скопійовано
+  copilotQuota: Квота другого пілота
   copy: копія
-  delete: видалити
+  create: Створити
+  delete: Видалити
   deleted: успішно видалено
-  edit: редагувати
-  joinDesc1: Ми раді, що ви можете знімати за допомогою Firefly.
-  joinDesc2: Ми надсилатимемо запрошення поступово.
-  joinPlaceholder: >-
-    Використовуйте свою електронну адресу, щоб приєднатися до нашого списку
-    очікування
-  joinus: Приєднайся до нас
+  downloadDesktopApp: Завантажте програму для робочого столу
+  edit: Редагувати
+  hotkeyAlreadyRegistered: Гаряча клавіша вже зареєстрована
   loading: Завантаження...
   login: Логін
   loginError: Помилка логіну
+  next: Далі
   noResult: ніякого результату
   notFound: не можу знайти
+  ocrHotkeyAlreadyRegistered: OCRHotkey уже зареєстровано
   openApp: Відкрийте додаток
+  required: вимагається
   save: зберегти
   saved: Успішно збережено
   signup: зареєструватися
@@ -45,15 +46,33 @@ common:
   updated: оновлення завершено
   warningContent: Ви впевнені, що хочете його видалити
   warningTitle: попередити
+  yourTags: Ваші теги
 copilot:
+  Config: Конфігурація
+  createACopilot: Створіть другого пілота
+  createSuccess: Створіть успіх
   customPrompt: Спеціальні підказки
+  description: Опис другого пілота
   extractionTags: витягти теги
   hi: Привіт, чим я можу тобі допомогти
+  name: Ім'я другого пілота
   polishing: полірувати
+  prompt: Підказка другого пілота
   ref: Довідка другого пілота
   retry: Повторіть спробу
+  selectTags: Виберіть теги
+  selectTagsPlaceholder: >-
+    Будь ласка, виберіть принаймні один тег, ми відфільтруємо відповідне джерело
+    даних із папки «Вхідні» відповідно до вибраного вами тегу як корпус Copilot
+  selectedTagsRequired: Виберіть принаймні одну мітку
   summarize: текстове резюме
   translate: перекладати
+  uploadData: Завантажити дані
+  visibility: Видимість другого пілота
+desktop:
+  downloadForMac: Завантажити для Mac
+  downloadForWindows: Завантажити для Windows
+  title: Firefly для Mac
 editor:
   blockquote: процитувати текст
   bold: жирний
@@ -89,18 +108,18 @@ index:
     інформацію з кількома пристроями в будь-який час і в будь-якому місці, що
     зручно для перегляду та керування в будь-який час
   featureCloudSyncSubTitle: Керуйте своєю інформацією в будь-який час і в будь-якому місці
-  getFirefly: Отримати Firefly
   getFireflySlogan: Почніть працювати розумніше вже сьогодні.
 login:
   continueWithEmail: Вхід електронною поштою
-  continueWithGithub: Вхід на Github
+  continueWithGithub: Продовжуйте з Github
   continueWithGoogle: Продовжуйте з Google
   continueWithLoginCode: Код входу Логін
-  continueWithNotion: Поняття входу
+  continueWithNotion: Продовжити з Notion
   emailPlaceholder: Введіть адресу вашої електронної пошти...
   emailRequired: Введіть адресу електронної пошти
   emailSended: Ми щойно надіслали вам електронний лист, перевірте свою поштову скриньку.
   loginCodePlaceholder: Вставте код входу
+  otherLoginMethods: Інші методи входу
   redirectToLogin: Вже маєте обліковий запис? Увійдіть
   redirectToSignup: Ще не маєте облікового запису? Зареєструйтеся
   resendEmail: повторно надіслати електронний лист

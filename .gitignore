@@ -13,7 +13,7 @@ out
 *.local
 auto-imports.d.ts
 components.d.ts
-
+/target/
 
 # Logs
 logs
@@ -48,6 +48,8 @@ coverage
 !.vscode/.debug.script.mjs
 
 # config
-.env
+.env*
 
-/target/
+# Supabase
+.branches
+.temp

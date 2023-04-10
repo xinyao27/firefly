@@ -12,9 +12,9 @@ watch(() => settings.value.i18n, (locale) => {
 <template>
   <ThemeProvider>
     <CustomProvider>
-      <TextEditorProvider>
+      <AssistantProvider>
         <RouterView />
-      </TextEditorProvider>
+      </AssistantProvider>
     </CustomProvider>
   </ThemeProvider>
 </template>

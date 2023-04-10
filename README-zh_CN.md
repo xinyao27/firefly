@@ -9,6 +9,7 @@ Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 
 ## 使用方式
 
 - [Web App](https://firefly.best)
+- [客户端](https://github.com/chenyueban/firefly/releases)
 
 ## 功能
 

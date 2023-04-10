@@ -19,20 +19,23 @@ common:
   cancel: Membatalkan
   confirm: Tentu
   copied: disalin
+  copilotQuota: Kuota Kopilot
   copy: menyalin
-  delete: menghapus
+  create: Membuat
+  delete: Menghapus
   deleted: berhasil dihapus
-  edit: sunting
-  joinDesc1: Kami senang Anda memotret dengan Firefly.
-  joinDesc2: Kami akan mengirimkan undangan secara bertahap dari waktu ke waktu.
-  joinPlaceholder: Gunakan email Anda untuk bergabung dengan daftar tunggu kami
-  joinus: Bergabunglah dengan kami
+  downloadDesktopApp: Unduh aplikasi desktop
+  edit: Sunting
+  hotkeyAlreadyRegistered: Hotkey sudah terdaftar
   loading: Memuat...
   login: Gabung
   loginError: Gagal masuk
+  next: Berikutnya
   noResult: tidak ada hasil
   notFound: tidak dapat menemukan
+  ocrHotkeyAlreadyRegistered: OCRHotkey sudah terdaftar
   openApp: Buka Aplikasi
+  required: Diperlukan
   save: menyimpan
   saved: Berhasil disimpan
   signup: daftar
@@ -42,15 +45,34 @@ common:
   updated: pembaruan selesai
   warningContent: Anda yakin ingin menghapusnya
   warningTitle: memperingatkan
+  yourTags: Tag Anda
 copilot:
+  Config: Konfigurasi
+  createACopilot: Buat Kopilot
+  createSuccess: Ciptakan Sukses
   customPrompt: Permintaan Kustom
+  description: Deskripsi kopilot
   extractionTags: ekstrak tag
   hi: Hai, apa yang bisa saya bantu
+  name: Nama kopilot
   polishing: Polandia
+  prompt: Perintah Kopilot
   ref: Referensi kopilot
   retry: Mencoba kembali
+  selectTags: Pilih Tag
+  selectTagsPlaceholder: >-
+    Silakan pilih setidaknya satu Tag, kami akan memfilter sumber data yang
+    sesuai dari Kotak Masuk sesuai dengan Tag yang Anda pilih, sebagai korpus
+    Copilot
+  selectedTagsRequired: Harap pilih setidaknya satu label
   summarize: ringkasan teks
   translate: menerjemahkan
+  uploadData: Unggah Data
+  visibility: Visibilitas kopilot
+desktop:
+  downloadForMac: Unduh untuk Mac
+  downloadForWindows: Unduh untuk Windows
+  title: Firefly untuk Mac
 editor:
   blockquote: teks kutipan
   bold: berani
@@ -85,18 +107,18 @@ index:
     disinkronkan ke beberapa perangkat kapan saja, di mana saja, nyaman bagi
     Anda untuk melihat dan mengelola kapan saja
   featureCloudSyncSubTitle: Kelola informasi Anda kapan saja, di mana saja
-  getFirefly: Dapatkan Firefly
   getFireflySlogan: Mulailah bekerja dengan lebih cerdas, hari ini.
 login:
   continueWithEmail: Masuk Email
-  continueWithGithub: Login Github
+  continueWithGithub: Lanjutkan dengan Github
   continueWithGoogle: Lanjutkan dengan Google
   continueWithLoginCode: Masuk Kode Masuk
-  continueWithNotion: Login pengertian
+  continueWithNotion: Lanjutkan dengan Gagasan
   emailPlaceholder: Masukkan alamat email Anda...
   emailRequired: Silakan masukkan Email
   emailSended: Kami baru saja mengirimi Anda email, silakan periksa kotak masuk Anda.
   loginCodePlaceholder: Tempel kode login
+  otherLoginMethods: Metode masuk lainnya
   redirectToLogin: Sudah memiliki akun? Masuk
   redirectToSignup: Belum punya akun? Daftar
   resendEmail: kirim ulang email

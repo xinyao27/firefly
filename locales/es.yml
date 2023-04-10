@@ -19,20 +19,23 @@ common:
   cancel: Cancelar
   confirm: Seguro
   copied: copiado
+  copilotQuota: Cuota de copiloto
   copy: Copiar
-  delete: borrar
+  create: Crear
+  delete: Borrar
   deleted: eliminado con éxito
-  edit: editar
-  joinDesc1: Estamos emocionados de que captures con Firefly.
-  joinDesc2: Estaremos enviando invitaciones gradualmente con el tiempo.
-  joinPlaceholder: Utilice su correo electrónico para unirse a nuestra lista de espera
-  joinus: Únete a nosotros
+  downloadDesktopApp: Descargar aplicación de escritorio
+  edit: Editar
+  hotkeyAlreadyRegistered: Hotkey ya registrado
   loading: Cargando...
   login: Acceso
   loginError: error de inicio de sesion
+  next: Próximo
   noResult: sin resultados
   notFound: no puedo encontrar
+  ocrHotkeyAlreadyRegistered: OCRHotkey ya registrado
   openApp: Abre la app
+  required: Requerido
   save: ahorrar
   saved: Guardado exitosamente
   signup: registro
@@ -43,15 +46,34 @@ common:
   updated: actualización completada
   warningContent: Seguro que quieres eliminarlo
   warningTitle: advertir
+  yourTags: Tus etiquetas
 copilot:
+  Config: Configuración
+  createACopilot: Crear un copiloto
+  createSuccess: Crear éxito
   customPrompt: Avisos personalizados
+  description: Descripción del copiloto
   extractionTags: extraer etiquetas
   hi: Hola, como puedo ayudarte
+  name: Nombre del copiloto
   polishing: polaco
+  prompt: Indicación del copiloto
   ref: Referencia copiloto
   retry: Rever
+  selectTags: Elija etiquetas
+  selectTagsPlaceholder: >-
+    Seleccione al menos una etiqueta, filtraremos la fuente de datos
+    correspondiente de la bandeja de entrada de acuerdo con la etiqueta que
+    seleccionó, como un corpus de Copilot
+  selectedTagsRequired: Seleccione al menos una etiqueta
   summarize: resumen de texto
   translate: traducir
+  uploadData: Subir datos
+  visibility: Visibilidad del copiloto
+desktop:
+  downloadForMac: Descargar para Mac
+  downloadForWindows: Descargar para Windows
+  title: Luciérnaga para Mac
 editor:
   blockquote: texto de cita
   bold: atrevido
@@ -89,20 +111,20 @@ index:
     en cualquier lugar, conveniente para que la vea y administre en cualquier
     momento
   featureCloudSyncSubTitle: Administre su información en cualquier momento y en cualquier lugar
-  getFirefly: obtener luciérnaga
   getFireflySlogan: Comience a trabajar de manera más inteligente, hoy.
 login:
   continueWithEmail: Correo electrónico de inicio de sesión
-  continueWithGithub: Inicio de sesión en Github
+  continueWithGithub: Continuar con Github
   continueWithGoogle: Continuar con Google
   continueWithLoginCode: Código de inicio de sesión
-  continueWithNotion: Noción de inicio de sesión
+  continueWithNotion: Continuar con Noción
   emailPlaceholder: Introduzca su dirección de correo electrónico...
   emailRequired: Por favor ingrese correo electrónico
   emailSended: >-
     Te acabamos de enviar un correo electrónico, por favor revisa tu bandeja de
     entrada.
   loginCodePlaceholder: Pegue el código de inicio de sesión
+  otherLoginMethods: Otros métodos de inicio de sesión
   redirectToLogin: Ya tienes una cuenta? Ingresa
   redirectToSignup: ¿Aún no tienes una cuenta? Regístrate
   resendEmail: reenviar email

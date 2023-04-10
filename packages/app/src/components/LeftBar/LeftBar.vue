@@ -2,15 +2,18 @@
 import type { colors } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
-import { NButton, NDropdown, useDialog } from 'naive-ui'
+import { NButton, NCollapseItem, NDropdown, useDialog } from 'naive-ui'
+import { menuOptions } from './menuOptions'
 import { BubbleSelector } from '~/components/Bubble'
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 const dialog = useDialog()
-const textEditorStore = useTextEditorStore()
+const assistantStore = useAssistantStore()
 const tagStore = useTagStore()
 
-const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
+const tags = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
   key: v.name,
   label: v.name,
   prefix: () => h(BubbleSelector, {
@@ -66,7 +69,6 @@ const data = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
         }),
     }),
 })))
-const router = useRouter()
 function handleSelect([key]: string[]) {
   router.push({
     name: 'inbox',
@@ -78,27 +80,17 @@ function handleSelect([key]: string[]) {
 </script>
 
 <template>
-  <aside h-full flex flex-col gap-2>
+  <aside h-full flex flex-col gap-4 p-4>
     <User />
 
-    <section flex-1 overflow-x-hidden overflow-y-auto>
-      <NTree
-        :data="data"
-        block-line
-        selectable
-        :keyboard="false"
-        @update-selected-keys="handleSelect"
-      />
-    </section>
     <section>
       <NTooltip>
         <template #trigger>
           <NButton
-            class="capitalize"
+            size="small"
             block
-            secondary
-            type="primary"
-            @click="textEditorStore.open('create')"
+            tertiary
+            @click="assistantStore.open('create')"
           >
             <template #icon>
               <i i-ri-pencil-line />
@@ -111,6 +103,44 @@ function handleSelect([key]: string[]) {
           <KBD :shortcut="[is.macOS() ? 'command' : 'ctrl', 'l']" />
         </div>
       </NTooltip>
+    </section>
+
+    <section>
+      <NMenu
+        :value="route.path"
+        :options="menuOptions"
+        :root-indent="0"
+        :icon-size="14"
+      />
+    </section>
+
+    <section
+      v-if="route.path === '/inbox'"
+      flex-1 overflow-x-hidden overflow-y-auto
+    >
+      <NCollapse
+        :default-expanded-names="['tags']"
+        display-directive="show"
+      >
+        <template #arrow>
+          <i i-ri-arrow-right-s-line text-xs />
+        </template>
+
+        <NCollapseItem name="tags">
+          <template #header>
+            <div text-xs text-neutral>
+              {{ t('common.yourTags') }}
+            </div>
+          </template>
+          <NTree
+            :data="tags"
+            block-line
+            selectable
+            :keyboard="false"
+            @update-selected-keys="handleSelect"
+          />
+        </NCollapseItem>
+      </NCollapse>
     </section>
   </aside>
 </template>

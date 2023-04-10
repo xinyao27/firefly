@@ -16,11 +16,11 @@ const error = ref<{ type: string; description: string } | null>(null)
 onMounted(async () => {
   const hash = search.value.slice(1)
   const searchParams = new URLSearchParams(hash)
-  if (bc.name === 'firefly_auth' && bc.onmessage) {
-    bc.postMessage(hash)
-  }
-  else if (window.opener?.postMessage) {
+  if (window.opener?.postMessage) {
     window.opener.postMessage({ type: 'firefly_auth', hash }, window.location.origin)
+  }
+  else if (bc.name === 'firefly_auth') {
+    bc.postMessage(hash)
   }
   else if (searchParams.get('type') === 'signup') {
     const searchParams = new URLSearchParams(hash)

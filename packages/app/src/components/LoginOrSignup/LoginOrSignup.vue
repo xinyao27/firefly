@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
-import { useMessage } from 'naive-ui'
+import { NGi, useMessage } from 'naive-ui'
 import { WebviewWindow } from '@tauri-apps/api/window'
 import { is } from '@firefly/common'
 import { supabase } from '~/api'
@@ -36,15 +36,9 @@ const rules = {
 }
 
 const loading = ref(false)
-async function signInWithToken(url: string) {
+async function signInWithToken(name: string, url: string) {
   if (is.desktop()) {
-    const authWindow = new WebviewWindow('auth', {
-      url,
-      center: true,
-      width: 800,
-      height: 600,
-      title: 'Firefly SignIn',
-    })
+    let authWindow = WebviewWindow.getByLabel(name)
     bc.onmessage = async (event) => {
       if (event.data) {
         const hash = event.data as string
@@ -69,6 +63,18 @@ async function signInWithToken(url: string) {
           authWindow?.close()
         }
       }
+    }
+    if (authWindow) {
+      authWindow.show()
+    }
+    else {
+      authWindow = new WebviewWindow(name, {
+        url,
+        center: true,
+        width: 600,
+        height: 600,
+        title: 'Firefly SignIn',
+      })
     }
   }
   else {
@@ -118,7 +124,7 @@ async function signInWithGoogle() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken(data.url)
+      await signInWithToken('auth_google', data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -140,7 +146,7 @@ async function signInWithGithub() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken(data.url)
+      await signInWithToken('auth_github', data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -162,7 +168,7 @@ async function signInWithNotion() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken(data.url)
+      await signInWithToken('auth_notion', data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -230,7 +236,7 @@ function signInWithLoginCode() {
 </script>
 
 <template>
-  <section class="w-80">
+  <section w-80 mt--10vh>
     <div flex justify-center items-center>
       <img
         block w-16 h-16
@@ -241,41 +247,6 @@ function signInWithLoginCode() {
     <NH1 strong text-center>
       {{ props.type === 'login' ? t('common.login') : t('common.signup') }}
     </NH1>
-
-    <section flex flex-col gap-2>
-      <NButton
-        :loading="loading"
-        color="white"
-        @click="signInWithGoogle"
-      >
-        <template #icon>
-          <i i-ri-google-fill />
-        </template>
-        {{ t('login.continueWithGoogle') }}
-      </NButton>
-      <NButton
-        :loading="loading"
-        color="white"
-        @click="signInWithGithub"
-      >
-        <template #icon>
-          <i i-ri-github-fill />
-        </template>
-        {{ t('login.continueWithGithub') }}
-      </NButton>
-      <NButton
-        :loading="loading"
-        color="white"
-        @click="signInWithNotion"
-      >
-        <template #icon>
-          <i i-ri-notion-fill />
-        </template>
-        {{ t('login.continueWithNotion') }}
-      </NButton>
-    </section>
-
-    <NDivider />
 
     <NForm
       ref="formRef"
@@ -302,7 +273,6 @@ function signInWithLoginCode() {
         block
         class="mb-2"
         type="primary"
-        secondary
         :loading="loading"
         @click="signInWithOtp"
       >
@@ -341,7 +311,6 @@ function signInWithLoginCode() {
           v-if="emailSended"
           block
           type="primary"
-          secondary
           :loading="loading"
           @click="signInWithLoginCode"
         >
@@ -372,5 +341,61 @@ function signInWithLoginCode() {
         {{ t('login.redirectToLogin') }}
       </NButton>
     </div>
+
+    <NDivider>{{ t('login.otherLoginMethods') }}</NDivider>
+
+    <NGrid x-gap="12" :cols="3">
+      <NGi>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              block
+              tertiary
+              :loading="loading"
+              @click="signInWithGoogle"
+            >
+              <template #icon>
+                <i i-ri-google-fill />
+              </template>
+            </NButton>
+          </template>
+          <span>{{ t('login.continueWithGoogle') }}</span>
+        </NTooltip>
+      </NGi>
+      <NGi>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              block
+              tertiary
+              :loading="loading"
+              @click="signInWithGithub"
+            >
+              <template #icon>
+                <i i-ri-github-fill />
+              </template>
+            </NButton>
+          </template>
+          <span>{{ t('login.continueWithGithub') }}</span>
+        </NTooltip>
+      </NGi>
+      <NGi>
+        <NTooltip>
+          <template #trigger>
+            <NButton
+              block
+              tertiary
+              :loading="loading"
+              @click="signInWithNotion"
+            >
+              <template #icon>
+                <i i-ri-notion-fill />
+              </template>
+            </NButton>
+          </template>
+          <span>{{ t('login.continueWithNotion') }}</span>
+        </NTooltip>
+      </NGi>
+    </NGrid>
   </section>
 </template>

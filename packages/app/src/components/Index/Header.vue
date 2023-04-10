@@ -39,19 +39,7 @@ watch(y, (value) => {
           </NButton>
         </template>
         <template v-else>
-          <NButton
-            quaternary
-            @click="router.push('/signup')"
-          >
-            {{ t('common.signup') }}
-          </NButton>
-          <NButton
-            type="primary"
-            color="white"
-            @click="router.push('/login')"
-          >
-            {{ t('common.login') }}
-          </NButton>
+          <LoginGroup />
         </template>
       </div>
     </nav>
@@ -65,6 +53,6 @@ watch(y, (value) => {
     @apply absolute content-empty z--1
     inset: -1px 0px -50%
   &::before
-    @apply backdrop-blur-md
+    @apply backdrop-blur
     -webkit-mask-image: linear-gradient(to bottom,black 64px,transparent)
 </style>

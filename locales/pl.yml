@@ -19,20 +19,23 @@ common:
   cancel: Anulować
   confirm: Jasne
   copied: skopiowane
+  copilotQuota: Kwota drugiego pilota
   copy: Kopiuj
-  delete: usuwać
+  create: Tworzyć
+  delete: Usuwać
   deleted: pomyślnie usunięte
-  edit: edytować
-  joinDesc1: Cieszymy się, że możesz nagrywać za pomocą Firefly.
-  joinDesc2: Zaproszenia będziemy wysyłać stopniowo.
-  joinPlaceholder: Użyj swojego adresu e-mail, aby dołączyć do naszej listy oczekujących
-  joinus: Dołącz do nas
+  downloadDesktopApp: Pobierz aplikację komputerową
+  edit: Edytować
+  hotkeyAlreadyRegistered: Klawisz skrótu jest już zarejestrowany
   loading: Ładowanie...
   login: Zaloguj sie
   loginError: Logowanie nie powiodło się
+  next: Następny
   noResult: brak wyników
   notFound: nie mogę znaleźć
+  ocrHotkeyAlreadyRegistered: OCRHotkey już zarejestrowany
   openApp: Otworzyć aplikację
+  required: Wymagany
   save: ratować
   saved: Zapisano pomyślnie
   signup: rejestr
@@ -43,15 +46,33 @@ common:
   updated: aktualizacja zakończona
   warningContent: Na pewno chcesz go usunąć
   warningTitle: ostrzegać
+  yourTags: Twoje tagi
 copilot:
+  Config: Konfig
+  createACopilot: Stwórz drugiego pilota
+  createSuccess: Twórz sukces
   customPrompt: Niestandardowe podpowiedzi
+  description: Opis drugiego pilota
   extractionTags: wyodrębnij tagi
   hi: Cześc, jak mogę Ci pomóc
+  name: Nazwa drugiego pilota
   polishing: polski
+  prompt: Podpowiedź drugiego pilota
   ref: Odniesienie do drugiego pilota
   retry: Spróbować ponownie
+  selectTags: Wybierz Tagi
+  selectTagsPlaceholder: >-
+    Wybierz co najmniej jeden tag, odfiltrujemy odpowiednie źródło danych ze
+    skrzynki odbiorczej zgodnie z wybranym tagiem jako korpus drugiego pilota
+  selectedTagsRequired: Wybierz co najmniej jedną etykietę
   summarize: streszczenie tekstu
   translate: Tłumaczyć
+  uploadData: Prześlij dane
+  visibility: Widoczność drugiego pilota
+desktop:
+  downloadForMac: Pobierz na Maca
+  downloadForWindows: Pobierz dla systemu Windows
+  title: Firefly na Maca
 editor:
   blockquote: cytuj tekst
   bold: pogrubiony
@@ -86,18 +107,18 @@ index:
     informacji z wieloma urządzeniami w dowolnym czasie i miejscu, wygodny do
     przeglądania i zarządzania w dowolnym momencie
   featureCloudSyncSubTitle: Zarządzaj swoimi informacjami zawsze i wszędzie
-  getFirefly: Zdobądź Firefly'a
   getFireflySlogan: Zacznij pracować mądrzej już dziś.
 login:
   continueWithEmail: Zaloguj się e-mailem
-  continueWithGithub: Logowanie do Githuba
+  continueWithGithub: Kontynuuj z Githubem
   continueWithGoogle: Kontynuuj z Google
   continueWithLoginCode: Kod logowania Zaloguj się
-  continueWithNotion: Logowanie do pojęcia
+  continueWithNotion: Kontynuuj z Notionem
   emailPlaceholder: Wpisz swój adres e-mail...
   emailRequired: Wprowadź adres e-mail
   emailSended: Właśnie wysłaliśmy Ci wiadomość e-mail, sprawdź swoją skrzynkę odbiorczą.
   loginCodePlaceholder: Wklej kod logowania
+  otherLoginMethods: Inne metody logowania
   redirectToLogin: Masz już konto? Zaloguj się
   redirectToSignup: Nie masz jeszcze konta? Zarejestruj się
   resendEmail: Wyślij email ponownie

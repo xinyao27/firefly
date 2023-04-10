@@ -2,7 +2,6 @@
 defineOptions({ name: 'InboxPage' })
 
 const router = useRouter()
-const userStore = useUserStore()
 const blockStore = useBlockStore()
 
 onMounted(async () => {
@@ -13,14 +12,9 @@ onMounted(async () => {
       await blockStore.refresh()
   })
 
-  const profiles = await userStore.getUserProfiles()
-
-  if (!profiles.token) {
-    // 如果没有 token 自动生成一个
-    await userStore.generateToken()
-  }
-
-  await blockStore.sync()
+  setTimeout(async () => {
+    await blockStore.sync()
+  }, 0)
 })
 </script>
 

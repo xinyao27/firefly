@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import type { CopilotModel } from '@firefly/common'
+
+const props = defineProps<{
+  data: CopilotModel
+}>()
+
+const router = useRouter()
+</script>
+
+<template>
+  <NCard
+    class="cursor-pointer"
+    :title="props.data.name"
+    hoverable
+    @click="router.push(`/copilot-hub/${props.data.id}`)"
+  >
+    <div>{{ props.data.description }}</div>
+    <div mt-2 flex items-center text-neutral>
+      <i i-ri-fire-fill mr-1 text-xs />
+      <span font-semibold text-xs leading-normal>{{ props.data.interactions }}</span>
+    </div>
+  </NCard>
+</template>

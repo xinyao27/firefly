@@ -7,7 +7,7 @@ import { supabase } from '~/api'
 
 type Type = 'update' | 'create'
 
-export const useTextEditorStore = defineStore('textEditor', {
+export const useAssistantStore = defineStore('assistant', {
   state: () => {
     return {
       show: false,

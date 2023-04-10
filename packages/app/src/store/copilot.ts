@@ -1,3 +1,4 @@
+import { getSession } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import { defineStore } from 'pinia'
 
@@ -5,14 +6,19 @@ export interface ChatMessage {
   role: 'system' | 'user' | 'assistant'
   content: string
 }
-interface Context {
-  type?: 'custom'
+export interface Context {
+  type?: 'default'
+  | 'copilot'
+  | 'custom'
   | 'translate'
   | 'polishing'
   | 'summarize'
   | 'extractionTags'
   prompt?: string
   text?: string
+  copilotId?: string
+  copilotName?: string
+  copilotDescription?: string
   language?: string
   messages: ChatMessage[]
 }
@@ -155,18 +161,19 @@ export const useCopilotStore = defineStore('copilot', {
           language: this.language,
           messages: this.messages,
         }
+        const session = await getSession()
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        }
+        if (session?.access_token)
+          headers.Authorization = `Bearer ${session?.access_token}`
         const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
+          headers,
           body: JSON.stringify(context),
           signal: controller.signal,
         })
-        if (!response.ok)
-          throw new Error('Request failed')
         const data = response.body
         if (!data)
           throw new Error('No data')
@@ -180,6 +187,10 @@ export const useCopilotStore = defineStore('copilot', {
           const char = decoder.decode(value)
           if (char === '\n' && this.currentAssistantMessage.endsWith('\n'))
             continue
+          if (char.startsWith('{"error":')) {
+            const { error } = JSON.parse(char) as { error: string }
+            throw new Error(error)
+          }
 
           if (char)
             this.currentAssistantMessage += char
@@ -196,6 +207,9 @@ export const useCopilotStore = defineStore('copilot', {
         return
       }
       this.archiveCurrentMessage()
+      // refresh user profiles
+      const userStore = useUserStore()
+      userStore.getUserProfiles()
     },
     abort() {
       this.controller?.abort()

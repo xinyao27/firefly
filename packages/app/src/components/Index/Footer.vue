@@ -21,6 +21,17 @@ watch(() => settings.value.i18n, async (value) => {
           size="small"
           text
           tag="a"
+          href="https://github.com/chenyueban/firefly"
+          target="_blank"
+        >
+          <template #icon>
+            <i i-ri-github-fill />
+          </template>
+        </NButton>
+        <NButton
+          size="small"
+          text
+          tag="a"
           href="https://twitter.com/firefly_best"
           target="_blank"
         >

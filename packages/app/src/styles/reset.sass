@@ -6,5 +6,36 @@
 .n-dropdown-menu
   @apply max-h-80 overflow-x-hidden overflow-y-auto
 
-.n-tree .n-tree-node-content
-  @apply py-0.5
+.n-tree
+  .n-tree-node-content
+    @apply py-0.5
+  .n-tree-node-switcher.n-tree-node-switcher--hide
+    @apply hidden
+
+.n-divider
+  .n-divider__title
+    @apply text-xs text-neutral
+
+.n-collapse
+  .n-collapse-item
+    &:first-child
+      & > .n-collapse-item__header
+        @apply pt-1
+    .n-collapse-item__header
+      @apply p-1 rounded-sm transition hover:bg-(slate opacity-15)
+    .n-collapse-item__content-wrapper
+      .n-collapse-item__content-inner
+        @apply pt-0
+
+.n-popover-shared, .n-card.n-modal
+  @apply backdrop-blur shadow-lg
+
+.n-list
+  @apply bg-transparent
+
+.n-menu
+  .n-menu-item-content
+    &::before
+      @apply left-0 right-0
+    .n-menu-item-content__icon
+      @apply ml-2

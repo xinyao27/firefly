@@ -44,7 +44,7 @@ const isInboxPage = computed(() => route.path === '/inbox')
             :clickable="!!tags?.length"
             @click="router.push({ name: 'inbox' })"
           >
-            Block
+            <i i-ri-home-2-line inline-block vertical-middle />
           </NBreadcrumbItem>
           <template v-if="!!tags?.length">
             <NBreadcrumbItem

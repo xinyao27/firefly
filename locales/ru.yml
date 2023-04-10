@@ -19,22 +19,23 @@ common:
   cancel: Отмена
   confirm: Конечно
   copied: скопировано
+  copilotQuota: Квота второго пилота
   copy: копировать
-  delete: удалить
+  create: Создавать
+  delete: Удалить
   deleted: успешно удален
-  edit: редактировать
-  joinDesc1: Мы рады, что вы можете снимать с помощью Firefly.
-  joinDesc2: Мы будем рассылать приглашения постепенно.
-  joinPlaceholder: >-
-    Используйте свою электронную почту, чтобы присоединиться к нашему списку
-    ожидания
-  joinus: Присоединяйтесь к нам
+  downloadDesktopApp: Скачать настольное приложение
+  edit: Редактировать
+  hotkeyAlreadyRegistered: Горячая клавиша уже зарегистрирована
   loading: Загрузка...
   login: Авторизоваться
   loginError: Ошибка входа
+  next: Следующий
   noResult: безрезультатно
   notFound: не могу найти
+  ocrHotkeyAlreadyRegistered: OCRHotkey уже зарегистрирован
   openApp: Открыть приложение
+  required: Необходимый
   save: сохранять
   saved: Успешно сохранено
   signup: регистр
@@ -45,15 +46,34 @@ common:
   updated: обновление завершено
   warningContent: Вы уверены, что хотите удалить его
   warningTitle: предупреждать
+  yourTags: Ваши теги
 copilot:
+  Config: Конфигурация
+  createACopilot: Создать второго пилота
+  createSuccess: Создайте успех
   customPrompt: Пользовательские подсказки
+  description: Описание второго пилота
   extractionTags: извлечь теги
   hi: Привет, чем я могу тебе помочь
+  name: Имя второго пилота
   polishing: полировать
+  prompt: Подсказка второго пилота
   ref: Справочник второго пилота
   retry: Повторить попытку
+  selectTags: Выберите теги
+  selectTagsPlaceholder: >-
+    Выберите хотя бы один тег, мы отфильтруем соответствующий источник данных из
+    папки «Входящие» в соответствии с выбранным вами тегом в качестве корпуса
+    Copilot.
+  selectedTagsRequired: Выберите хотя бы один ярлык
   summarize: текстовое резюме
   translate: переводить
+  uploadData: Загрузить данные
+  visibility: Видимость второго пилота
+desktop:
+  downloadForMac: Скачать для Mac
+  downloadForWindows: Скачать для Windows
+  title: Светлячок для Mac
 editor:
   blockquote: текст цитаты
   bold: смелый
@@ -89,20 +109,20 @@ index:
     вашу информацию с несколькими устройствами в любое время и в любом месте,
     что удобно для просмотра и управления в любое время.
   featureCloudSyncSubTitle: Управляйте своей информацией в любое время и в любом месте
-  getFirefly: Получить Светлячок
   getFireflySlogan: Начните работать разумнее уже сегодня.
 login:
   continueWithEmail: Электронная почта Войти
-  continueWithGithub: Вход на гитхаб
+  continueWithGithub: Продолжить с Гитхаб
   continueWithGoogle: Продолжить с Google
   continueWithLoginCode: Код входа Войти
-  continueWithNotion: Вход в систему
+  continueWithNotion: Продолжить с понятием
   emailPlaceholder: Введите ваш адрес электронной почты...
   emailRequired: Пожалуйста, введите адрес электронной почты
   emailSended: >-
     Мы только что отправили вам электронное письмо, пожалуйста, проверьте свой
     почтовый ящик.
   loginCodePlaceholder: Вставьте код входа
+  otherLoginMethods: Другие способы входа
   redirectToLogin: Уже есть аккаунт? Авторизоваться
   redirectToSignup: У вас еще нет аккаунта? Зарегистрируйтесь
   resendEmail: отправить электронное письмо повторно

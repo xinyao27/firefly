@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', {
       this.loading = true
       const { data, error } = await supabase.from('profiles').select().single()
       if (error) {
-        if (route.path !== '/')
+        if (route.path !== '/' && !route.path.includes('/copilot-hub'))
           router.replace('/login')
 
         console.error(error)

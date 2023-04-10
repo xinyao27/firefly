@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const dialog = useDialog()
-const textEditorStore = useTextEditorStore()
+const assistantStore = useAssistantStore()
 const blockStore = useBlockStore()
 const tagStore = useTagStore()
 const copilotStore = useCopilotStore()
@@ -23,7 +23,7 @@ const options: DropdownOption[] = [
     label: t('common.edit'),
     key: 'edit',
     onClick() {
-      textEditorStore.open('update', props.data)
+      assistantStore.open('update', props.data)
     },
   },
   {
@@ -112,7 +112,7 @@ function handleTagClick(tag: string) {
     >
       <div
         ref="el"
-        class="ProseMirror prose prose-white"
+        class="ProseMirror prose prose-white max-w-full"
         v-html="props.data.content"
       />
     </div>
