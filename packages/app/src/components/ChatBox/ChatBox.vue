@@ -60,7 +60,7 @@ watch(() => props.currentError, (currentError) => {
   <div h-full flex flex-col gap-4>
     <NScrollbar
       ref="scrollBarRef"
-      flex-1 p-4
+      flex-1
     >
       <div flex justify-start overflow-hidden break-words mb-4>
         <section class="p-3 border border-(slate opacity-15) rounded">
@@ -102,7 +102,7 @@ watch(() => props.currentError, (currentError) => {
       </section>
     </NScrollbar>
 
-    <div p-4 flex flex-col gap-2>
+    <div flex flex-col gap-2 mt-4>
       <NInputGroup>
         <NMention
           :ref="props.createInputRef"

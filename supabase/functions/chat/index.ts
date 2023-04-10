@@ -123,7 +123,7 @@ serve(async (req) => {
         {
           role: ChatCompletionRequestMessageRoleEnum.User,
           content: codeBlock`
-            Here is the Context data:
+            Here is the context data:
             ${contextText}
           `,
         },
@@ -131,15 +131,15 @@ serve(async (req) => {
           role: ChatCompletionRequestMessageRoleEnum.User,
           content: codeBlock`
             ${oneLine`
-              Answer all future questions using only the above documentation.
+              Answer all future questions using only the above context data.
               You must also follow the below rules when answering:
             `}
             ${oneLine`
-              - Do not make up answers that are not provided in the documentation.
+              - Do not make up answers that are not provided in the context data.
             `}
             ${oneLine`
               - If you are unsure and the answer is not explicitly written
-              in the documentation context, say
+              in the context data, say
               "Sorry, I don't know how to help with that."
             `}
             ${oneLine`

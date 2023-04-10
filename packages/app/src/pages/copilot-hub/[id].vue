@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
 import { Spin } from '@firefly/common'
+import type { InputInst } from 'naive-ui'
+import type { ChatMessage, Context } from '~/store/copilot'
 
 defineOptions({ name: 'CopilotHubChatPage' })
 
 const params = useRouteParams('id')
 const copilotHubStore = useCopilotHubStore()
+const inputRef = ref<InputInst | null>(null)
+const currentInput = ref('')
+const loading = ref(false)
+const currentAssistantMessage = ref('')
+const currentError = ref<string | null>(null)
+const controller = ref<AbortController | null>(null)
+const messages = ref<ChatMessage[]>([])
 
 onMounted(async () => {
   if (!params.value)
@@ -13,64 +22,135 @@ onMounted(async () => {
   await copilotHubStore.findOne(params.value as string)
 })
 
+function archiveCurrentMessage() {
+  if (currentAssistantMessage) {
+    messages.value = [
+      ...messages.value,
+      {
+        role: 'assistant',
+        content: currentAssistantMessage.value,
+      },
+    ]
+    currentAssistantMessage.value = ''
+    loading.value = false
+    controller.value = null
+    nextTick(() => {
+      inputRef.value?.focus()
+    })
+  }
+}
+async function chat() {
+  try {
+    loading.value = true
+    currentError.value = null
+    controller.value = new AbortController()
+    const context: Context = {
+      type: 'copilot',
+      name: copilotHubStore.copilot?.name,
+      description: copilotHubStore.copilot?.description,
+      messages: messages.value,
+    }
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify(context),
+      signal: controller.value.signal,
+    })
+    if (!response.ok)
+      throw new Error('Request failed')
+    const data = response.body
+    if (!data)
+      throw new Error('No data')
+
+    const reader = data.getReader()
+    const decoder = new TextDecoder('utf-8')
+    let done = false
+    while (!done) {
+      const { value, done: doneReading } = await reader.read()
+      done = doneReading
+      const char = decoder.decode(value)
+      if (char === '\n' && currentAssistantMessage.value.endsWith('\n'))
+        continue
+
+      if (char)
+        currentAssistantMessage.value += char
+    }
+
+    loading.value = false
+  }
+  catch (e) {
+    console.error(e)
+    loading.value = false
+    currentError.value = e as string
+    controller.value = null
+    inputRef.value?.focus()
+    return
+  }
+  archiveCurrentMessage()
+}
+function handleAbort() {
+  controller.value?.abort()
+}
 function createInputRef(ref: Element | ComponentPublicInstance | null) {
   // @ts-expect-error noop
   return copilotHubStore.inputRef = ref
 }
-
 function handleAskCopilot() {
-  if (!copilotHubStore.currentInput)
+  if (!currentInput.value)
     return
 
-  copilotHubStore.messages = [
-    ...(
-      copilotHubStore.copilot?.prompt
-        ? [
-            {
-              role: 'system' as const,
-              content: copilotHubStore.copilot.prompt,
-            },
-          ]
-        : []
-    ),
-    ...copilotHubStore.messages,
+  messages.value = [
+    ...messages.value,
     {
       role: 'user',
-      content: copilotHubStore.currentInput,
+      content: currentInput.value,
     },
   ]
-  copilotHubStore.currentInput = ''
+  if (!messages.value.some(({ role }) => role === 'system') && copilotHubStore.copilot?.prompt) {
+    messages.value.unshift({
+      role: 'system' as const,
+      content: copilotHubStore.copilot.prompt,
+    })
+  }
+  currentInput.value = ''
   nextTick(() => {
-    copilotHubStore.chat()
+    chat()
   })
 }
 function handleRetry() {
-  if (copilotHubStore.messages.length > 0) {
-    const lastMessage = copilotHubStore.messages[copilotHubStore.messages.length - 1]
+  if (messages.value.length > 0) {
+    const lastMessage = messages.value[messages.value.length - 1]
     if (lastMessage.role === 'assistant')
-      copilotHubStore.messages = copilotHubStore.messages.slice(0, -1)
+      messages.value = messages.value.slice(0, -1)
 
-    copilotHubStore.chat()
+    chat()
   }
 }
 </script>
 
 <template>
   <main h-full overflow-hidden>
-    <div h-full p-4>
+    <div h-full p-4 flex flex-col gap-4>
       <template v-if="copilotHubStore.copilot">
-        <h2>{{ copilotHubStore.copilot?.name }}</h2>
+        <h2 text-lg font-semibold text-center>
+          {{ copilotHubStore.copilot?.name }}
+        </h2>
 
         <ChatBox
-          v-model:currentInput="copilotHubStore.currentInput"
+          v-model:currentInput="currentInput"
           :hi="copilotHubStore.copilot?.description"
           :create-input-ref="createInputRef"
-          :messages="copilotHubStore.messages"
-          :current-assistant-message="copilotHubStore.currentAssistantMessage"
-          :current-error="copilotHubStore.currentError"
-          :loading="copilotHubStore.loading"
+          :messages="messages"
+          :current-assistant-message="currentAssistantMessage"
+          :current-error="currentError"
+          :loading="loading"
           :on-chat="handleAskCopilot"
           :on-retry="handleRetry"
+          :on-abort="handleAbort"
         />
       </template>
       <template v-else>

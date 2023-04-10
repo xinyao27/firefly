@@ -51,15 +51,17 @@ function handleRetry() {
 </script>
 
 <template>
-  <ChatBox
-    v-model:currentInput="copilotStore.currentInput"
-    :create-input-ref="createInputRef"
-    :messages="copilotStore.messages"
-    :current-assistant-message="copilotStore.currentAssistantMessage"
-    :current-error="copilotStore.currentError"
-    :loading="copilotStore.loading"
-    :on-chat="handleAskCopilot"
-    :on-retry="handleRetry"
-    :on-search-reference="handleSearchReference"
-  />
+  <div h-full p-4>
+    <ChatBox
+      v-model:currentInput="copilotStore.currentInput"
+      :create-input-ref="createInputRef"
+      :messages="copilotStore.messages"
+      :current-assistant-message="copilotStore.currentAssistantMessage"
+      :current-error="copilotStore.currentError"
+      :loading="copilotStore.loading"
+      :on-chat="handleAskCopilot"
+      :on-retry="handleRetry"
+      :on-search-reference="handleSearchReference"
+    />
+  </div>
 </template>
