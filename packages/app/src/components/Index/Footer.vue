@@ -17,7 +17,7 @@ watch(() => settings.value.i18n, async (value) => {
     <div class="max-w-7xl mx-auto py-16 flex justify-between items-center">
       <div />
       <div flex gap-2>
-        <NButton
+        <!-- <NButton
           size="small"
           text
           tag="a"
@@ -27,7 +27,7 @@ watch(() => settings.value.i18n, async (value) => {
           <template #icon>
             <i i-ri-github-fill />
           </template>
-        </NButton>
+        </NButton> -->
         <NButton
           size="small"
           text

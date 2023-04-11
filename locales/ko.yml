@@ -88,9 +88,11 @@ index:
   featureCapture: OCR 이미지 인식 수집, 단축키 수집, 워드 마킹 아이콘 수집 등 지원
   featureCaptureDesc: 강력한 편집기를 사용하면 거의 모든 Markdown 요소를 지원하는 Markdown 텍스트를 쉽게 작성할 수 있습니다.
   featureCaptureSubTitle: 마크다운 편집기
-  featureCloudSync: 모든 플랫폼에서 동기화
-  featureCloudSyncDesc: 전체 플랫폼 동기화를 지원하여 정보를 언제 어디서나 여러 장치에 동기화할 수 있으므로 언제든지 보고 관리할 수 있습니다.
-  featureCloudSyncSubTitle: 언제 어디서나 정보 관리
+  featureCopilotHub: |-
+    Copilot Hub는 대규모 모델 기술을 기반으로 한 AI 플랫폼입니다.
+    여기에서 자신의 데이터를 사용하여 모델을 교육하고 개인 지식 기반을 구축할 수 있습니다.
+  featureCopilotHubDesc: 두 단계만 거치면 Copilot을 쉽게 만들 수 있습니다.
+  featureCopilotHubSubTitle: 캡처한 데이터 사용
   getFireflySlogan: 지금부터 더 스마트하게 업무를 시작하세요.
 login:
   continueWithEmail: 이메일 로그인
