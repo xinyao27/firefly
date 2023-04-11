@@ -7,7 +7,7 @@ assistant:
   title: Aggancia a Firefly
   unpin: la finestra chiusa è sempre in primo piano
 block:
-  blocks: Dati articolo
+  blocks: blocchi
   create: creare blocchi
   deleteLoading: Elimina blocco in...
   saveLoading: Creazione di blocchi...

@@ -7,7 +7,7 @@ assistant:
   title: 클립 투 파이어플라이
   unpin: 닫기 창은 항상 맨 위에 있습니다.
 block:
-  blocks: 기사 데이터
+  blocks: 블록
   create: 블록 생성
   deleteLoading: 차단 삭제...
   saveLoading: 블록 생성 중...

@@ -7,7 +7,7 @@ assistant:
   title: Clip zu Firefly
   unpin: Fenster schließen ist immer oben
 block:
-  blocks: Artikeldaten
+  blocks: Blöcke
   create: Blöcke erstellen
   deleteLoading: Block löschen in...
   saveLoading: Blöcke erstellen...

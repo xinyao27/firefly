@@ -7,7 +7,7 @@ assistant:
   title: مقطع إلى اليراع
   unpin: إغلاق النافذة دائمًا في المقدمة
 block:
-  blocks: بيانات المادة
+  blocks: كتل
   create: إنشاء الكتل
   deleteLoading: حذف الحظر في ...
   saveLoading: جاري إنشاء الكتل ...

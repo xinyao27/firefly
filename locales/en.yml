@@ -7,7 +7,7 @@ assistant:
   title: Capture To Firefly
   unpin: close window is always on top
 block:
-  blocks: Article data
+  blocks: blocks
   create: Create a Block
   deleteLoading: Delete Block in...
   saveLoading: Creating Blocks...

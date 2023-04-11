@@ -7,7 +7,7 @@ assistant:
   title: Đoạn phim đom đóm
   unpin: cửa sổ đóng luôn ở trên cùng
 block:
-  blocks: Dữ liệu bài viết
+  blocks: khối
   create: tạo khối
   deleteLoading: Xóa Chặn trong...
   saveLoading: Tạo khối...
@@ -102,9 +102,9 @@ index:
     Markdown, hỗ trợ hầu hết tất cả các phần tử Markdown
   featureCaptureSubTitle: trình chỉnh sửa đánh dấu
   featureCopilotHub: >-
-    Copilot Hub là một nền tảng AI dựa trên công nghệ mô hình quy mô lớn.
-    Tại đây, bạn có thể sử dụng dữ liệu của riêng mình để đào tạo các mô hình và
-    xây dựng cơ sở kiến thức cá nhân.
+    Copilot Hub là một nền tảng AI dựa trên công nghệ mô hình quy mô lớn. Tại
+    đây, bạn có thể sử dụng dữ liệu của riêng mình để đào tạo các mô hình và xây
+    dựng cơ sở kiến thức cá nhân.
   featureCopilotHubDesc: Chỉ cần hai bước để dễ dàng tạo Copilot của bạn.
   featureCopilotHubSubTitle: Sử dụng dữ liệu bạn đã chụp
   getFireflySlogan: Bắt đầu làm việc thông minh hơn, ngay hôm nay.

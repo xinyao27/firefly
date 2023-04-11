@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { is } from '@firefly/common'
+import { getUser, is } from '@firefly/common'
 
 const route = useRoute()
 const configStore = useConfigStore()
@@ -7,6 +7,7 @@ const assistantStore = useAssistantStore()
 const userStore = useUserStore()
 
 onMounted(async () => {
+  await getUser(true)
   const profiles = await userStore.getUserProfiles()
   if (!profiles.token) {
     // 如果没有 token 自动生成一个

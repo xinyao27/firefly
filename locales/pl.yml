@@ -7,7 +7,7 @@ assistant:
   title: Klip do Firefly
   unpin: zamknij okno jest zawsze na górze
 block:
-  blocks: Dane artykułu
+  blocks: Bloki
   create: tworzyć bloki
   deleteLoading: Usuń blok w...
   saveLoading: Tworzenie bloków...

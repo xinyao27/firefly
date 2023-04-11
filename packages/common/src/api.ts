@@ -56,12 +56,13 @@ export async function edgeFunctions<R = any>(name: string, options: EdgeFunction
   return (await response.json())?.data as Promise<R>
 }
 
-export async function getSession() {
+export async function getSession(refresh = false) {
   const key = 'SESSION'
-  const session = cache[key]
-  if (session)
-    return session
-
+  if (!refresh) {
+    const session = cache[key]
+    if (session)
+      return session
+  }
   const supabase = createSupabaseClient()
   const newSession = (await supabase.auth.getSession()).data.session
   if (newSession)
@@ -69,11 +70,13 @@ export async function getSession() {
   return newSession
 }
 
-export async function getUser() {
+export async function getUser(refresh = false) {
   const key = 'USER'
-  const user = cache[key]
-  if (user)
-    return user
+  if (!refresh) {
+    const user = cache[key]
+    if (user)
+      return user
+  }
 
   const supabase = createSupabaseClient()
   const newUser = (await supabase.auth.getUser()).data.user
