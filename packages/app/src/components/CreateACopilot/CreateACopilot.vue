@@ -18,9 +18,9 @@ const selectedTags = ref<string[]>([])
 const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const model = ref<CopilotModel>({
-  name: TonyStark.name,
-  description: TonyStark.description,
-  prompt: TonyStark.prompt,
+  name: '',
+  description: '',
+  prompt: '',
   visibility: 'public',
 })
 const rules: FormRules = {
@@ -37,17 +37,6 @@ const rules: FormRules = {
     },
   ],
 }
-
-const buttonType = computed(() => {
-  switch (currentStatus.value) {
-    case 'error':
-      return 'error'
-    case 'finish':
-      return 'success'
-    default:
-      return 'default'
-  }
-})
 
 function handleBack() {
   if (current.value === 1)
@@ -92,7 +81,7 @@ async function handleNext() {
     aria-modal="true"
   >
     <NSteps
-      v-model:current="current"
+      :current="current"
       :status="currentStatus"
       size="small"
     >
@@ -184,7 +173,6 @@ async function handleNext() {
         <NButton
           v-if="current !== 2"
           :loading="loading"
-          :type="buttonType"
           tertiary
           size="small"
           @click="handleNext"
@@ -194,7 +182,6 @@ async function handleNext() {
         <NButton
           v-else
           :loading="loading"
-          :type="buttonType"
           tertiary
           size="small"
           @click="handleNext"
