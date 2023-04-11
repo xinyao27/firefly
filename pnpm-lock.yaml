@@ -4,9 +4,6 @@ importers:
 
   .:
     dependencies:
-      '@sentry/tracing':
-        specifier: ^7.47.0
-        version: 7.47.0
       '@sentry/vue':
         specifier: ^7.47.0
         version: 7.47.0(vue@3.2.47)
@@ -2910,6 +2907,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@sentry-internal/tracing': 7.47.0
+    dev: true
 
   /@sentry/types@7.45.0:
     resolution: {integrity: sha512-iFt7msfUK8LCodFF3RKUyaxy9tJv/gpWhzxUFyNxtuVwlpmd+q6mtsFGn8Af3pbpm8A+MKyz1ebMwXj0PQqknw==}
@@ -14059,7 +14057,7 @@ packages:
     dev: false
 
   github.com/tauri-apps/tauri-plugin-autostart/0c8e3ad92e00e7b0aed60fc8a639e77407105253:
-    resolution: {commit: 0c8e3ad92e00e7b0aed60fc8a639e77407105253, repo: git+ssh://git@github.com/tauri-apps/tauri-plugin-autostart.git, type: git}
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/0c8e3ad92e00e7b0aed60fc8a639e77407105253}
     name: tauri-plugin-autostart-api
     version: 0.0.0
     dependencies:

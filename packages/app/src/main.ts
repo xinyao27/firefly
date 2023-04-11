@@ -1,7 +1,6 @@
 import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHistory } from 'vue-router'
 import * as Sentry from '@sentry/vue'
-import { BrowserTracing } from '@sentry/tracing'
 import { getUser, is } from '@firefly/common'
 import App from './App.vue'
 import { init } from './init'
@@ -30,17 +29,20 @@ const app = createApp(App)
 app.use(router)
 init(app)
 
-Sentry.init({
-  app,
-  dsn: 'https://636feb99e0294038b69c8f2ba6750d1d@o4504924957769728.ingest.sentry.io/4504924960063488',
-  integrations: [
-    new BrowserTracing({
-      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracePropagationTargets: ['localhost', 'firefly.best', /^\//],
-    }),
-  ],
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-})
+if (import.meta.env.PROD) {
+  Sentry.init({
+    app,
+    dsn: 'https://636feb99e0294038b69c8f2ba6750d1d@o4504924957769728.ingest.sentry.io/4504924960063488',
+    integrations: [
+      new Sentry.BrowserTracing({
+        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+        tracePropagationTargets: ['firefly.best', /^\//],
+      }),
+    ],
+    environment: 'production',
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  })
+}

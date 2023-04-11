@@ -123,7 +123,7 @@ export default defineConfig(({ mode }) => {
       }),
     )
   }
-  if (process.env.SENTRY_AUTH_TOKEN) {
+  if (process.env.SENTRY_AUTH_TOKEN && mode === 'production') {
     plugins.push(
       // https://docs.sentry.io/platforms/javascript/sourcemaps/uploading/vite/
       sentryVitePlugin({

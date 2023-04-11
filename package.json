@@ -20,7 +20,6 @@
     "deploy": "supabase functions deploy"
   },
   "dependencies": {
-    "@sentry/tracing": "^7.47.0",
     "@sentry/vue": "^7.47.0",
     "@supabase/supabase-js": "^2.17.0",
     "@unocss/reset": "^0.51.2",
