@@ -103,13 +103,14 @@ index:
     Avec notre puissant éditeur, vous pouvez facilement écrire du texte
     Markdown, prenant en charge presque tous les éléments Markdown
   featureCaptureSubTitle: Éditeur Markdown
-  featureCloudSync: Synchronisation sur toutes les plateformes
-  featureCloudSyncDesc: >-
-    Prise en charge de la synchronisation complète de la plate-forme, permettant
-    à vos informations d'être synchronisées sur plusieurs appareils à tout
-    moment, n'importe où, pratique pour vous de visualiser et de gérer à tout
-    moment
-  featureCloudSyncSubTitle: Gérez vos informations à tout moment, n'importe où
+  featureCopilotHub: >-
+    Copilot Hub est une plateforme d'IA basée sur la technologie des modèles à
+    grande échelle.
+
+    Ici, vous pouvez utiliser vos propres données pour former des modèles et
+    créer une base de connaissances personnelle.
+  featureCopilotHubDesc: Deux étapes suffisent pour créer facilement votre Copilot.
+  featureCopilotHubSubTitle: Utilisez les données que vous avez capturées
   getFireflySlogan: Commencez à travailler plus intelligemment, dès aujourd'hui.
 login:
   continueWithEmail: Connexion par e-mail

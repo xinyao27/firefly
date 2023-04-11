@@ -26,58 +26,59 @@ const isInboxPage = computed(() => route.path === '/inbox')
 
       <Logo />
     </div>
-    <template v-if="isInboxPage">
-      <!-- leftBarShow -->
-      <NButton
-        v-if="configStore.isMobileScreen"
-        size="small"
-        quaternary
-        :opacity="configStore.leftBarShow ? 100 : 40"
-        @click="configStore.toggleLeftBarShow"
-      >
-        <i i-ri-layout-left-line />
-      </NButton>
-      <!-- Title Area -->
-      <div flex items-center gap-2>
-        <NBreadcrumb>
+    <!-- leftBarShow -->
+    <NButton
+      v-if="configStore.isMobileScreen"
+      size="small"
+      quaternary
+      :opacity="configStore.leftBarShow ? 100 : 40"
+      @click="configStore.toggleLeftBarShow"
+    >
+      <i i-ri-layout-left-line />
+    </NButton>
+    <!-- Title Area -->
+    <div
+      v-if="isInboxPage"
+      flex items-center gap-2
+    >
+      <NBreadcrumb>
+        <NBreadcrumbItem
+          :clickable="!!tags?.length"
+          @click="router.push({ name: 'inbox' })"
+        >
+          <i i-ri-home-2-line inline-block vertical-middle />
+        </NBreadcrumbItem>
+        <template v-if="!!tags?.length">
           <NBreadcrumbItem
-            :clickable="!!tags?.length"
-            @click="router.push({ name: 'inbox' })"
+            v-for="(tag, index) in tags"
+            :key="tag"
+            :clickable="index !== tags.length - 1"
+            @click="router.push({
+              name: 'inbox',
+              query: {
+                tag,
+              },
+            })"
           >
-            <i i-ri-home-2-line inline-block vertical-middle />
+            {{ tag }}
           </NBreadcrumbItem>
-          <template v-if="!!tags?.length">
-            <NBreadcrumbItem
-              v-for="(tag, index) in tags"
-              :key="tag"
-              :clickable="index !== tags.length - 1"
-              @click="router.push({
-                name: 'inbox',
-                query: {
-                  tag,
-                },
-              })"
-            >
-              {{ tag }}
-            </NBreadcrumbItem>
-          </template>
-        </NBreadcrumb>
+        </template>
+      </NBreadcrumb>
 
-        <NTooltip>
-          <template #trigger>
-            <NButton
-              size="tiny"
-              text
-              :loading="blockStore.loading"
-              @click="blockStore.sync"
-            >
-              <i i-ri-refresh-line />
-            </NButton>
-          </template>
-          {{ t('titleBar.sync') }}
-        </NTooltip>
-      </div>
-    </template>
+      <NTooltip>
+        <template #trigger>
+          <NButton
+            size="tiny"
+            text
+            :loading="blockStore.loading"
+            @click="blockStore.sync"
+          >
+            <i i-ri-refresh-line />
+          </NButton>
+        </template>
+        {{ t('titleBar.sync') }}
+      </NTooltip>
+    </div>
 
     <!-- Drag Area -->
     <div

@@ -26,13 +26,13 @@ const options = computed<DropdownOption[]>(() => [
   {
     type: 'divider',
   },
-  {
-    key: 'downloadDesktopApp',
-    label: t('common.downloadDesktopApp'),
-  },
-  {
-    type: 'divider',
-  },
+  // {
+  //   key: 'downloadDesktopApp',
+  //   label: t('common.downloadDesktopApp'),
+  // },
+  // {
+  //   type: 'divider',
+  // },
   {
     key: 'logout',
     label: t('user.logout'),

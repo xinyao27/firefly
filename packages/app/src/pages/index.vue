@@ -3,9 +3,12 @@ import Index from '~/components/Index'
 
 defineOptions({ name: 'IndexPage' })
 
+const router = useRouter()
 const userStore = useUserStore()
-onMounted(() => {
-  userStore.getUserProfiles()
+onMounted(async () => {
+  const profiles = await userStore.getUserProfiles()
+  if (profiles)
+    router.push('/inbox')
 })
 </script>
 

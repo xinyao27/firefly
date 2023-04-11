@@ -104,12 +104,14 @@ index:
     Con il nostro potente editor, puoi scrivere facilmente testo Markdown,
     supportando quasi tutti gli elementi Markdown
   featureCaptureSubTitle: Editor di ribasso
-  featureCloudSync: Sincronizzazione su tutte le piattaforme
-  featureCloudSyncDesc: >-
-    Supporta la sincronizzazione dell'intera piattaforma, consentendo di
-    sincronizzare le tue informazioni su più dispositivi sempre e ovunque,
-    comodamente da visualizzare e gestire in qualsiasi momento
-  featureCloudSyncSubTitle: Gestisci le tue informazioni sempre e ovunque
+  featureCopilotHub: >-
+    Copilot Hub è una piattaforma AI basata sulla tecnologia dei modelli su
+    larga scala.
+
+    Qui puoi utilizzare i tuoi dati per addestrare i modelli e costruire una
+    base di conoscenza personale.
+  featureCopilotHubDesc: Solo due passaggi per creare facilmente il tuo Copilot.
+  featureCopilotHubSubTitle: Usa i dati che hai acquisito
   getFireflySlogan: Inizia a lavorare in modo più intelligente, oggi.
 login:
   continueWithEmail: E-mail di accesso

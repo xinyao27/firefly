@@ -4,9 +4,11 @@ import {
   presetIcons,
   presetTypography,
   presetUno,
+  presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import '@unocss/core'
 import presetRemToPx from '@unocss/preset-rem-to-px'
 import presetAutoprefixer from 'unocss-preset-autoprefixer'
 import { colorPrimary } from './packages/theme/src/constants'
@@ -19,6 +21,13 @@ export default defineConfig({
       scale: 1.2,
       warn: true,
       cdn: 'https://esm.sh/',
+    }),
+    presetWebFonts({
+      provider: 'google',
+      fonts: {
+        sans: 'Lato',
+        mono: ['Fira Code', 'Fira Mono:400,700'],
+      },
     }),
     presetTypography(),
     presetRemToPx(),

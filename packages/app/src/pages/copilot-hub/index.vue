@@ -19,7 +19,7 @@ function handleCreated() {
 </script>
 
 <template>
-  <main h-full overflow-hidden>
+  <main h-full overflow-x-hidden overflow-y-auto>
     <div h-full p-4>
       <section
         v-if="userStore.profiles"
@@ -27,11 +27,13 @@ function handleCreated() {
       >
         <h2 text-2xl font-bold mb-4>
           My Copilots
+          <span>({{ copilotHubStore.myCopilots.length }} / 3)</span>
         </h2>
 
         <NButton
           class="mb-4"
           tertiary
+          :disabled="copilotHubStore.myCopilots.length >= 3"
           @click="createACopilotShow = true"
         >
           <template #icon>
@@ -44,7 +46,7 @@ function handleCreated() {
           <CreateACopilot :on-created="handleCreated" />
         </NModal>
 
-        <div grid grid-cols-2 gap-4>
+        <div grid grid-cols-1 lg:grid-cols-2 gap-4>
           <Copilot
             v-for="copilot in copilotHubStore.myCopilots"
             :key="copilot.id"

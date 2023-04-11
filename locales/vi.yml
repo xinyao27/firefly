@@ -101,12 +101,12 @@ index:
     Với trình chỉnh sửa mạnh mẽ của chúng tôi, bạn có thể dễ dàng viết văn bản
     Markdown, hỗ trợ hầu hết tất cả các phần tử Markdown
   featureCaptureSubTitle: trình chỉnh sửa đánh dấu
-  featureCloudSync: Đồng bộ hóa trên tất cả các nền tảng
-  featureCloudSyncDesc: >-
-    Hỗ trợ đồng bộ toàn nền tảng, cho phép thông tin của bạn được đồng bộ lên
-    nhiều thiết bị mọi lúc mọi nơi thuận tiện cho bạn xem và quản lý bất cứ lúc
-    nào
-  featureCloudSyncSubTitle: Quản lý thông tin của bạn mọi lúc, mọi nơi
+  featureCopilotHub: >-
+    Copilot Hub là một nền tảng AI dựa trên công nghệ mô hình quy mô lớn.
+    Tại đây, bạn có thể sử dụng dữ liệu của riêng mình để đào tạo các mô hình và
+    xây dựng cơ sở kiến thức cá nhân.
+  featureCopilotHubDesc: Chỉ cần hai bước để dễ dàng tạo Copilot của bạn.
+  featureCopilotHubSubTitle: Sử dụng dữ liệu bạn đã chụp
   getFireflySlogan: Bắt đầu làm việc thông minh hơn, ngay hôm nay.
 login:
   continueWithEmail: Email đăng nhập

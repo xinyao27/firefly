@@ -18,9 +18,9 @@ const selectedTags = ref<string[]>([])
 const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const model = ref<CopilotModel>({
-  name: TonyStark.name,
-  description: TonyStark.description,
-  prompt: TonyStark.prompt,
+  name: '',
+  description: '',
+  prompt: '',
   visibility: 'public',
 })
 const rules: FormRules = {
@@ -29,25 +29,34 @@ const rules: FormRules = {
       required: true,
       message: t('common.required'),
     },
+    {
+      max: 20,
+      message: 'Name can\'t be longer than 20 characters',
+    },
   ],
   description: [
     {
       required: true,
       message: t('common.required'),
     },
+    {
+      max: 400,
+      message: 'Description can\'t be longer than 400 characters',
+    },
+  ],
+  prompt: [
+    {
+      max: 400,
+      message: 'Prompt can\'t be longer than 400 characters',
+    },
+  ],
+  visibility: [
+    {
+      required: true,
+      message: t('common.required'),
+    },
   ],
 }
-
-const buttonType = computed(() => {
-  switch (currentStatus.value) {
-    case 'error':
-      return 'error'
-    case 'finish':
-      return 'success'
-    default:
-      return 'default'
-  }
-})
 
 function handleBack() {
   if (current.value === 1)
@@ -92,7 +101,7 @@ async function handleNext() {
     aria-modal="true"
   >
     <NSteps
-      v-model:current="current"
+      :current="current"
       :status="currentStatus"
       size="small"
     >
@@ -140,6 +149,7 @@ async function handleNext() {
             <NInput
               v-model:value="model.name"
               :placeholder="TonyStark.name"
+              :maxlength="20"
             />
           </NFormItem>
           <NFormItem :label="t('copilot.description')" path="description">
@@ -147,6 +157,7 @@ async function handleNext() {
               v-model:value="model.description"
               type="textarea"
               :placeholder="TonyStark.description"
+              :maxlength="400"
             />
           </NFormItem>
           <NFormItem :label="t('copilot.prompt')" path="prompt">
@@ -154,6 +165,7 @@ async function handleNext() {
               v-model:value="model.prompt"
               type="textarea"
               :placeholder="TonyStark.prompt"
+              :maxlength="400"
             />
           </NFormItem>
           <NFormItem :label="t('copilot.visibility')" path="visibility">
@@ -184,7 +196,6 @@ async function handleNext() {
         <NButton
           v-if="current !== 2"
           :loading="loading"
-          :type="buttonType"
           tertiary
           size="small"
           @click="handleNext"
@@ -194,7 +205,6 @@ async function handleNext() {
         <NButton
           v-else
           :loading="loading"
-          :type="buttonType"
           tertiary
           size="small"
           @click="handleNext"

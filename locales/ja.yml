@@ -88,9 +88,11 @@ index:
   featureCapture: OCR 画像認識コレクション、ショートカット キー コレクション、単語マーキング アイコン コレクションなどをサポートします。
   featureCaptureDesc: 強力なエディターを使用すると、Markdown テキストを簡単に記述でき、ほぼすべての Markdown 要素をサポートします
   featureCaptureSubTitle: マークダウン エディタ
-  featureCloudSync: すべてのプラットフォーム間の同期
-  featureCloudSyncDesc: 完全なプラットフォームの同期をサポートし、いつでもどこでも情報を複数のデバイスに同期できるようにし、いつでも表示および管理するのに便利です
-  featureCloudSyncSubTitle: いつでもどこでも情報を管理
+  featureCopilotHub: |-
+    Copilot Hub は、大規模モデル テクノロジに基づく AI プラットフォームです。
+    ここでは、独自のデータを使用してモデルをトレーニングし、個人的なナレッジ ベースを構築できます。
+  featureCopilotHubDesc: コパイロットを簡単に作成するためのわずか 2 つのステップ。
+  featureCopilotHubSubTitle: 取得したデータを使用する
   getFireflySlogan: 今日からよりスマートに仕事を始めましょう。
 login:
   continueWithEmail: メールログイン

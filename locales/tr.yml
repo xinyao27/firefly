@@ -100,12 +100,13 @@ index:
     Güçlü editörümüzle, neredeyse tüm Markdown öğelerini destekleyen Markdown
     metnini kolayca yazabilirsiniz.
   featureCaptureSubTitle: işaretleme editörü
-  featureCloudSync: Tüm platformlarda senkronizasyon
-  featureCloudSyncDesc: >-
-    Tam platform senkronizasyonunu destekleyerek bilgilerinizin istediğiniz
-    zaman, istediğiniz yerde birden fazla cihazla senkronize edilmesini
-    sağlayın, istediğiniz zaman görüntülemeniz ve yönetmeniz için uygun
-  featureCloudSyncSubTitle: Bilgilerinizi her zaman, her yerde yönetin
+  featureCopilotHub: >-
+    Copilot Hub, büyük ölçekli model teknolojisine dayalı bir AI platformudur.
+
+    Burada, modelleri eğitmek ve kişisel bir bilgi tabanı oluşturmak için kendi
+    verilerinizi kullanabilirsiniz.
+  featureCopilotHubDesc: Copilot'unuzu kolayca oluşturmak için sadece iki adım.
+  featureCopilotHubSubTitle: Yakaladığınız verileri kullanın
   getFireflySlogan: Bugün daha akıllıca çalışmaya başlayın.
 login:
   continueWithEmail: E-posta Girişi
