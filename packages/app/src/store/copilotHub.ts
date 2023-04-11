@@ -1,5 +1,5 @@
 import type { CopilotModel } from '@firefly/common'
-import { getUser } from '@firefly/common'
+import { edgeFunctions, getUser } from '@firefly/common'
 import { defineStore } from 'pinia'
 import { supabase } from '~/api'
 import { $t } from '~/i18n'
@@ -16,15 +16,12 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     async create(copilot: CopilotModel, tags: string[]) {
       const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
-        const { error } = await supabase.functions.invoke('copilots', {
-          method: 'POST',
+        await edgeFunctions('copilots', {
           body: {
             ...copilot,
             tags,
           },
         })
-        if (error)
-          throw error
         $message.success($t('copilot.createSuccess'))
       }
       catch (error: any) {

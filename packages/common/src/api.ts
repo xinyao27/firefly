@@ -21,6 +21,41 @@ export function createSupabaseClient() {
   return supabase
 }
 
+interface EdgeFunctionsOptions<T = any> {
+  method?: string
+  body?: T
+  headers?: Record<string, string>
+  signal?: AbortSignal
+}
+interface EdgeFunctionsOriginalOptions<T = any> extends EdgeFunctionsOptions<T> {
+  original?: boolean
+}
+export async function edgeFunctions<R = any, T = any>(name: string, options?: EdgeFunctionsOptions<T>): Promise<R>
+export async function edgeFunctions<_, T = any>(name: string, options?: EdgeFunctionsOriginalOptions<T>): Promise<Response>
+export async function edgeFunctions<R = any>(name: string, options: EdgeFunctionsOriginalOptions = {}): Promise<R | Response> {
+  const session = await getSession()
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+    // @ts-expect-error noop
+    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+  }
+  if (session?.access_token)
+    headers.Authorization = `Bearer ${session?.access_token}`
+  const response = await fetch(
+    // @ts-expect-error noop
+    `${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/${name}`,
+    {
+      method: options.method || 'POST',
+      headers,
+      body: JSON.stringify(options.body),
+      signal: options.signal,
+    })
+  if (options.original)
+    return response
+  return (await response.json())?.data as Promise<R>
+}
+
 export async function getSession() {
   const key = 'SESSION'
   const session = cache[key]

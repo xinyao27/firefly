@@ -1,4 +1,4 @@
-import { getSession } from '@firefly/common'
+import { edgeFunctions } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import { defineStore } from 'pinia'
 
@@ -161,17 +161,9 @@ export const useCopilotStore = defineStore('copilot', {
           language: this.language,
           messages: this.messages,
         }
-        const session = await getSession()
-        const headers: Record<string, string> = {
-          'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-        }
-        if (session?.access_token)
-          headers.Authorization = `Bearer ${session?.access_token}`
-        const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify(context),
+        const response = await edgeFunctions('chat', {
+          original: true,
+          body: context,
           signal: controller.signal,
         })
         const data = response.body
