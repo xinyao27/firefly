@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RecycleScroller } from 'vue-virtual-scroller'
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 
 defineOptions({ name: 'CopilotHubPage' })
 
@@ -60,17 +60,26 @@ function handleCreated() {
           Explorer
         </h2>
 
-        <RecycleScroller
+        <DynamicScroller
           :items="copilotHubStore.copilots"
-          :min-item-size="163"
+          :min-item-size="80"
           page-mode
         >
-          <template #default="{ item }">
-            <div pb-4>
-              <Copilot :data="item" />
-            </div>
+          <template #default="{ item, index, active }">
+            <DynamicScrollerItem
+              :item="item"
+              :active="active"
+              :size-dependencies="[
+                item.content,
+              ]"
+              :data-index="index"
+            >
+              <div pb-4>
+                <Copilot :data="item" />
+              </div>
+            </DynamicScrollerItem>
           </template>
-        </RecycleScroller>
+        </DynamicScroller>
       </section>
     </div>
   </main>

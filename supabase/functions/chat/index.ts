@@ -106,6 +106,7 @@ serve(async (req) => {
 
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i]
+        console.log(`${requestData.copilotId}:`,  block)
         const content = block.content
         const encoded = tokenizer.encode(content)
         tokenCount += encoded.length
@@ -142,6 +143,11 @@ serve(async (req) => {
             ${oneLine`
               Answer all future questions using only the above context data.
               You must also follow the below rules when answering:
+            `}
+            ${oneLine`
+              - What you may be given in the context is content in HTML format.
+              You can choose to ignore the HTML tags and only read the content,
+              or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
             `}
             ${oneLine`
               - Do not make up answers that are not provided in the context data.
