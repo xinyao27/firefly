@@ -31,6 +31,7 @@ common:
   loading: Loading...
   login: Log in
   loginError: Login failed
+  needLogin: Please log in and try again.
   next: Next
   noMore: No More...
   noResult: no result
