@@ -71,7 +71,10 @@ onMounted(async () => {
           <NDrawer
             v-model:show="configStore.rightBarShow"
             :width="320"
-            placement="right"
+            placement="bottom"
+            resizable
+            default-height="600"
+            :z-index="9999"
           >
             <NDrawerContent>
               <RightBar />
