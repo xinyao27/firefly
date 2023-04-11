@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Spin } from '@firefly/common'
+import { Spin, is } from '@firefly/common'
 import { useRouteHash } from '@vueuse/router'
 import { useMessage } from 'naive-ui'
 import { supabase } from '~/api'
@@ -16,13 +16,7 @@ const error = ref<{ type: string; description: string } | null>(null)
 onMounted(async () => {
   const hash = search.value.slice(1)
   const searchParams = new URLSearchParams(hash)
-  if (window.opener?.postMessage) {
-    window.opener.postMessage({ type: 'firefly_auth', hash }, window.location.origin)
-  }
-  else if (bc.name === 'firefly_auth') {
-    bc.postMessage(hash)
-  }
-  else if (searchParams.get('type') === 'signup') {
+  if (searchParams.get('type') === 'signup') {
     const searchParams = new URLSearchParams(hash)
     const access_token = searchParams.get('access_token')
     const refresh_token = searchParams.get('refresh_token')
@@ -39,6 +33,12 @@ onMounted(async () => {
     else {
       message.error(t('common.loginError'))
     }
+  }
+  else if (window.opener?.postMessage) {
+    window.opener.postMessage({ type: 'firefly_auth', hash }, window.location.origin)
+  }
+  else if (is.desktop() && bc.name === 'firefly_auth') {
+    bc.postMessage(hash)
   }
   else if (searchParams.get('error')) {
     error.value = {
