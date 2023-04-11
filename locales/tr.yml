@@ -7,7 +7,7 @@ assistant:
   title: Firefly'a Klip
   unpin: pencereyi kapat her zaman üstte
 block:
-  blocks: Makale verileri
+  blocks: bloklar
   create: bloklar oluştur
   deleteLoading: Şuradaki Bloğu Sil...
   saveLoading: Bloklar Oluşturuluyor...

@@ -7,7 +7,7 @@ assistant:
   title: Clip a luciérnaga
   unpin: cerrar la ventana siempre está en la parte superior
 block:
-  blocks: Datos del artículo
+  blocks: bloques
   create: crear bloques
   deleteLoading: Eliminar bloque en...
   saveLoading: Creando bloques...

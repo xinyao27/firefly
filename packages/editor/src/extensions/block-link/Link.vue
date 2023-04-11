@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
 import type { BlockModel } from '@firefly/common'
-import { createSupabaseClient } from '@firefly/common'
+import { edgeFunctions } from '@firefly/common'
 import { computedAsync } from '@vueuse/core'
 import { computed } from 'vue'
 
@@ -10,17 +10,14 @@ const block = computed(() => (typeof props.node.attrs.block === 'string' ? JSON.
 
 async function getWebsiteMetadata(link: string) {
   try {
-    const supabase = createSupabaseClient()
-    const { data, error } = await supabase.functions.invoke(`metadata?url=${link}`, {
+    const data = await edgeFunctions(`metadata?url=${link}`, {
       method: 'GET',
     })
-    if (error)
-      throw error
 
     props.updateAttributes({
       block: {
         ...block.value,
-        metadata: data.data,
+        metadata: data,
       },
     })
     return data.data

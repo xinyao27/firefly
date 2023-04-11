@@ -7,7 +7,7 @@ assistant:
   title: Клип к Светлячку
   unpin: закрыть окно всегда сверху
 block:
-  blocks: Данные статьи
+  blocks: блоки
   create: создавать блоки
   deleteLoading: Удалить блок в...
   saveLoading: Создание блоков...

@@ -7,7 +7,7 @@ assistant:
   title: 剪藏到 Firefly
   unpin: 关闭窗口总是在最上方
 block:
-  blocks: 条数据
+  blocks: blocks
   create: 创建 Block
   deleteLoading: 删除 Block 中...
   saveLoading: 创建 Block 中...

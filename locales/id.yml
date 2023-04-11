@@ -7,7 +7,7 @@ assistant:
   title: Klip ke Firefly
   unpin: tutup jendela selalu di atas
 block:
-  blocks: Data artikel
+  blocks: blok
   create: membuat blok
   deleteLoading: Hapus Blokir di...
   saveLoading: Membuat Blok...

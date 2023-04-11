@@ -7,7 +7,7 @@ assistant:
   title: ホタルにクリップ
   unpin: 閉じるウィンドウは常に上にあります
 block:
-  blocks: 記事データ
+  blocks: ブロック
   create: ブロックを作成する
   deleteLoading: ブロックを削除...
   saveLoading: ブロックを作成しています...

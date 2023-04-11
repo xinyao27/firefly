@@ -7,7 +7,7 @@ assistant:
   title: Clip sur luciole
   unpin: fermer la fenêtre est toujours en haut
 block:
-  blocks: Données d'articles
+  blocks: blocs
   create: créer des blocs
   deleteLoading: Supprimer le bloc dans...
   saveLoading: Création de blocs...

@@ -7,7 +7,7 @@ assistant:
   title: კლიპი Firefly-ზე
   unpin: ფანჯრის დახურვა ყოველთვის თავზეა
 block:
-  blocks: სტატიის მონაცემები
+  blocks: ბლოკები
   create: ბლოკების შექმნა
   deleteLoading: ბლოკის წაშლა...
   saveLoading: ბლოკების შექმნა...

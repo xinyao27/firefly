@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { ProfileModel } from '@firefly/common'
+import { edgeFunctions } from '@firefly/common'
 import { supabase } from '~/api'
 
 export const useUserStore = defineStore('user', {
@@ -29,9 +30,7 @@ export const useUserStore = defineStore('user', {
     async generateToken() {
       try {
         this.loading = true
-        const { error } = await supabase.functions.invoke('token')
-        if (error)
-          throw error
+        await edgeFunctions('token')
         await this.getUserProfiles()
       }
       catch (error) {

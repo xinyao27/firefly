@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
-import { Spin, getSession } from '@firefly/common'
+import { Spin, edgeFunctions } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import type { ChatMessage, Context } from '~/store/copilot'
 import { supabase } from '~/api'
@@ -53,17 +53,9 @@ async function chat() {
       copilotDescription: copilotHubStore.copilot?.description,
       messages: messages.value,
     }
-    const session = await getSession()
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-      'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-    }
-    if (session?.access_token)
-      headers.Authorization = `Bearer ${session?.access_token}`
-    const response = await fetch(`${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/chat`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(context),
+    const response = await edgeFunctions('chat', {
+      original: true,
+      body: context,
       signal: controller.value.signal,
     })
     const data = response.body

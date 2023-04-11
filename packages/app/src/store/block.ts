@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 import type { BlockId, BlockModel } from '@firefly/common'
-import { getUser } from '@firefly/common'
+import { edgeFunctions, getUser } from '@firefly/common'
 import { supabase } from '~/api'
 import { db } from '~/db'
 import { $t } from '~/i18n'
@@ -125,14 +125,11 @@ export const useBlockStore = defineStore('block', {
     async save(data: BlockModel) {
       const { destroy } = $message.loading($t('block.saveLoading'), { duration: 0 })
       try {
-        const response = await supabase.functions.invoke('blocks', {
-          method: 'POST',
+        const response = await edgeFunctions<BlockModel>('blocks', {
           body: data,
         })
-        if (response.error)
-          throw new Error(response.error.message)
 
-        await (await db).add('blocks', response.data.data)
+        await (await db).add('blocks', response)
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
@@ -149,14 +146,12 @@ export const useBlockStore = defineStore('block', {
     async update(data: BlockModel) {
       const { destroy } = $message.loading($t('block.updateLoading'), { duration: 0 })
       try {
-        const response = await supabase.functions.invoke('blocks', {
+        const response = await edgeFunctions<BlockModel>('blocks', {
           method: 'PUT',
           body: data,
         })
-        if (response.error)
-          throw new Error(response.error.message)
 
-        await (await db).put('blocks', response.data.data)
+        await (await db).put('blocks', response)
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
