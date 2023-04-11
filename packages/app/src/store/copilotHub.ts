@@ -4,11 +4,18 @@ import { defineStore } from 'pinia'
 import { supabase } from '~/api'
 import { $t } from '~/i18n'
 
+export interface CopilotWithProfiles extends CopilotModel {
+  profiles?: {
+    fullName: string
+    avatarUrl: string
+  }
+}
+
 export const useCopilotHubStore = defineStore('copilotHub', {
   state: () => {
     return {
-      myCopilots: [] as CopilotModel[],
-      copilots: [] as CopilotModel[],
+      myCopilots: [] as CopilotWithProfiles[],
+      copilots: [] as CopilotWithProfiles[],
       copilot: null as CopilotModel | null,
     }
   },
@@ -37,7 +44,17 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         const user = await getUser()
         if (!user)
           return
-        const response = await supabase.from('copilots').select('*').eq('uid', user?.id).order('updatedAt', { ascending: false })
+        const response = await supabase
+          .from('copilots')
+          .select(`
+            *,
+            profiles (
+              fullName,
+              avatarUrl
+            )
+          `)
+          .eq('uid', user?.id)
+          .order('updatedAt', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
@@ -51,7 +68,16 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     async findAll() {
       const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
-        const response = await supabase.from('copilots').select('*').order('interactions', { ascending: false })
+        const response = await supabase
+          .from('copilots')
+          .select(`
+            *,
+            profiles (
+              fullName,
+              avatarUrl
+            )
+          `)
+          .order('interactions', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
@@ -67,7 +93,17 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     },
     async findOne(id: string) {
       try {
-        const response = await supabase.from('copilots').select('*').eq('id', id).single()
+        const response = await supabase
+          .from('copilots')
+          .select(`
+            *,
+            profiles (
+              fullName,
+              avatarUrl
+            )
+          `)
+          .eq('id', id)
+          .single()
         if (response.error)
           throw new Error(response.error.message)
 
