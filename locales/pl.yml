@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Pobierz aplikację komputerową
   edit: Edytować
   hotkeyAlreadyRegistered: Klawisz skrótu jest już zarejestrowany
+  loadMore: Załaduj więcej
   loading: Ładowanie...
   login: Zaloguj sie
   loginError: Logowanie nie powiodło się
   next: Następny
+  noMore: Już nie...
   noResult: brak wyników
   notFound: nie mogę znaleźć
   ocrHotkeyAlreadyRegistered: OCRHotkey już zarejestrowany

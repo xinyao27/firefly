@@ -4,12 +4,22 @@ import { defineStore } from 'pinia'
 import { supabase } from '~/api'
 import { $t } from '~/i18n'
 
+export interface CopilotWithProfiles extends CopilotModel {
+  profiles?: {
+    fullName: string
+    avatarUrl: string
+  }
+}
+
 export const useCopilotHubStore = defineStore('copilotHub', {
   state: () => {
     return {
-      myCopilots: [] as CopilotModel[],
-      copilots: [] as CopilotModel[],
+      myCopilots: [] as CopilotWithProfiles[],
+      copilots: [] as CopilotWithProfiles[],
       copilot: null as CopilotModel | null,
+
+      size: 10,
+      hasMore: true,
     }
   },
   actions: {
@@ -37,25 +47,53 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         const user = await getUser()
         if (!user)
           return
-        const response = await supabase.from('copilots').select('*').eq('uid', user?.id).order('updatedAt', { ascending: false })
+        const response = await supabase
+          .from('copilots')
+          .select(`
+            *,
+            profiles (
+              fullName,
+              avatarUrl
+            )
+          `)
+          .eq('uid', user?.id)
+          .order('updatedAt', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
         this.myCopilots = response.data
+        return response.data
       }
       catch (error: any) {
         $message.error(error.message || error)
         throw error
       }
     },
-    async findAll() {
+    async findAll(page: number) {
       const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
-        const response = await supabase.from('copilots').select('*').order('interactions', { ascending: false })
+        const cursor = page * this.size
+        const response = await supabase
+          .from('copilots')
+          .select(`
+            *,
+            profiles (
+              fullName,
+              avatarUrl
+            )
+          `)
+          .range(cursor, cursor + this.size - 1)
+          .order('interactions', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
-        this.copilots = response.data
+        if (response.data.length === 0 || response.data.length < this.size)
+          this.hasMore = false
+        else
+          this.hasMore = true
+
+        this.copilots = [...this.copilots, ...response.data]
+        return response.data
       }
       catch (error: any) {
         $message.error(error.message || error)
@@ -67,11 +105,22 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     },
     async findOne(id: string) {
       try {
-        const response = await supabase.from('copilots').select('*').eq('id', id).single()
+        const response = await supabase
+          .from('copilots')
+          .select(`
+            *,
+            profiles (
+              fullName,
+              avatarUrl
+            )
+          `)
+          .eq('id', id)
+          .single()
         if (response.error)
           throw new Error(response.error.message)
 
         this.copilot = response.data
+        return response.data
       }
       catch (error: any) {
         $message.error(error.message || error)

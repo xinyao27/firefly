@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: ჩამოტვირთეთ დესკტოპის აპლიკაცია
   edit: რედაქტირება
   hotkeyAlreadyRegistered: Hotkey უკვე დარეგისტრირებულია
+  loadMore: Მეტის ჩატვირთვა
   loading: Ჩატვირთვა...
   login: Შესვლა
   loginError: Სისტემაში შესვლა ვერ მოხერხდა
   next: შემდეგი
+  noMore: Მეტი აღარ...
   noResult: უშედეგო
   notFound: ვერ პოულობს
   ocrHotkeyAlreadyRegistered: OCRHotkey უკვე დარეგისტრირებულია

@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
-
 defineOptions({ name: 'CopilotHubPage' })
 
 const { t } = useI18n()
 const userStore = useUserStore()
 const copilotHubStore = useCopilotHubStore()
 const createACopilotShow = ref(false)
+const currentPage = ref(0)
 
 onMounted(() => {
   copilotHubStore.findMy()
-  copilotHubStore.findAll()
+  copilotHubStore.findAll(currentPage.value)
 })
+function handleLoadMore() {
+  currentPage.value += 1
+  nextTick(() => {
+    copilotHubStore.findAll(currentPage.value)
+  })
+}
 function handleCreated() {
   createACopilotShow.value = false
   copilotHubStore.findMy()
@@ -60,26 +65,26 @@ function handleCreated() {
           Explorer
         </h2>
 
-        <DynamicScroller
-          :items="copilotHubStore.copilots"
-          :min-item-size="80"
-          page-mode
+        <div grid grid-cols-1 lg:grid-cols-2 gap-4>
+          <Copilot
+            v-for="copilot in copilotHubStore.copilots"
+            :key="copilot.id"
+            :data="copilot"
+          />
+        </div>
+        <NButton
+          class="mt-8"
+          block
+          quaternary
+          :disabled="!copilotHubStore.hasMore"
+          @click="handleLoadMore"
         >
-          <template #default="{ item, index, active }">
-            <DynamicScrollerItem
-              :item="item"
-              :active="active"
-              :size-dependencies="[
-                item.content,
-              ]"
-              :data-index="index"
-            >
-              <div pb-4>
-                <Copilot :data="item" />
-              </div>
-            </DynamicScrollerItem>
+          <template v-if="copilotHubStore.hasMore" #icon>
+            <i i-ri-arrow-down-s-line />
           </template>
-        </DynamicScroller>
+          <span v-if="copilotHubStore.hasMore">{{ t('common.loadMore') }}</span>
+          <span v-else>{{ t('common.noMore') }}</span>
+        </NButton>
       </section>
     </div>
   </main>

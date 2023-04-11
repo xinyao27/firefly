@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: 下载桌面应用程序
   edit: 编辑
   hotkeyAlreadyRegistered: 热键已注册
+  loadMore: 加载更多
   loading: 加载中...
   login: 登录
   loginError: 登录失败
   next: 下一个
+  noMore: 没有更多了...
   noResult: 没有结果
   notFound: 找不到
   ocrHotkeyAlreadyRegistered: OCRHotkey 已经注册

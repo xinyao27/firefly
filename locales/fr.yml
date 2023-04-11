@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Télécharger l'application de bureau
   edit: Modifier
   hotkeyAlreadyRegistered: Raccourci déjà enregistré
+  loadMore: Charger plus
   loading: Chargement...
   login: Connexion
   loginError: échec de la connexion
   next: Suivant
+  noMore: Pas plus...
   noResult: pas de résultat
   notFound: ne trouve pas
   ocrHotkeyAlreadyRegistered: OCRHotkey déjà enregistré

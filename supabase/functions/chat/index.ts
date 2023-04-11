@@ -106,7 +106,7 @@ serve(async (req) => {
 
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i]
-        console.log(`${requestData.copilotId}:`,  block)
+        console.info(`${requestData.copilotId}:`,  block)
         const content = block.content
         const encoded = tokenizer.encode(content)
         tokenCount += encoded.length

@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Завантажте програму для робочого столу
   edit: Редагувати
   hotkeyAlreadyRegistered: Гаряча клавіша вже зареєстрована
+  loadMore: Завантажити ще
   loading: Завантаження...
   login: Логін
   loginError: Помилка логіну
   next: Далі
+  noMore: Більше немає...
   noResult: ніякого результату
   notFound: не можу знайти
   ocrHotkeyAlreadyRegistered: OCRHotkey уже зареєстровано

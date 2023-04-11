@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Scarica l'applicazione desktop
   edit: Modificare
   hotkeyAlreadyRegistered: Tasto di scelta rapida già registrato
+  loadMore: Carica di più
   loading: Caricamento...
   login: Login
   loginError: Accesso non riuscito
   next: Prossimo
+  noMore: Non più...
   noResult: nessun risultato
   notFound: non riesco a trovare
   ocrHotkeyAlreadyRegistered: OCRHotkey già registrato
