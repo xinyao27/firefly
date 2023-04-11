@@ -18,6 +18,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
       copilots: [] as CopilotWithProfiles[],
       copilot: null as CopilotModel | null,
 
+      page: 0,
       size: 10,
       hasMore: true,
     }
