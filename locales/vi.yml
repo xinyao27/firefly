@@ -31,6 +31,7 @@ common:
   loading: Đang tải...
   login: Đăng nhập
   loginError: Đăng nhập thất bại
+  needLogin: Hãy đăng nhập và thử lại.
   next: Kế tiếp
   noMore: Không còn nữa...
   noResult: không kết quả

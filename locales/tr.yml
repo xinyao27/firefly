@@ -31,6 +31,7 @@ common:
   loading: Yükleniyor...
   login: Giriş yapmak
   loginError: giriş başarısız oldu
+  needLogin: Lütfen giriş yapın ve tekrar deneyin.
   next: Sonraki
   noMore: Daha fazla yok...
   noResult: sonuç yok

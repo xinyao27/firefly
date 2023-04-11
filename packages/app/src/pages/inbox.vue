@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { getUser } from '@firefly/common'
+
 defineOptions({ name: 'InboxPage' })
 
 const router = useRouter()
 const blockStore = useBlockStore()
 
 onMounted(async () => {
+  const user = await getUser()
+  if (!user) {
+    router.push('/login')
+    return
+  }
+
   router.afterEach(async (to, from) => {
     if (to.query.tag)
       await blockStore.search({ tag: to.query.tag as string })

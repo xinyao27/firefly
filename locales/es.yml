@@ -31,6 +31,7 @@ common:
   loading: Cargando...
   login: Acceso
   loginError: error de inicio de sesion
+  needLogin: Por favor inicie sesión e intente de nuevo.
   next: Próximo
   noMore: No más...
   noResult: sin resultados
