@@ -69,7 +69,7 @@ serve(async (req) => {
     for (const moderationResponse of moderationResponses) {
       const [results] = moderationResponse.data.results
       if (results.flagged) {
-        throw new UserError('Flagged content', {
+        throw new UserError('Flagged content, please enter a compliant question.', {
           flagged: true,
           categories: results.categories,
         })

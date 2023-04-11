@@ -31,6 +31,7 @@ common:
   loading: Завантаження...
   login: Логін
   loginError: Помилка логіну
+  needLogin: Увійдіть і повторіть спробу.
   next: Далі
   noMore: Більше немає...
   noResult: ніякого результату

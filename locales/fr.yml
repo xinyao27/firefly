@@ -31,6 +31,7 @@ common:
   loading: Chargement...
   login: Connexion
   loginError: échec de la connexion
+  needLogin: Veuillez vous connecter et réessayer.
   next: Suivant
   noMore: Pas plus...
   noResult: pas de résultat

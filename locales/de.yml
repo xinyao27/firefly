@@ -31,6 +31,7 @@ common:
   loading: Wird geladen...
   login: Anmeldung
   loginError: Fehler bei der Anmeldung
+  needLogin: Bitte melden Sie sich an und versuchen Sie es erneut.
   next: Nächste
   noMore: Nicht mehr...
   noResult: kein Ergebnis

@@ -31,6 +31,7 @@ common:
   loading: 読み込んでいます...
   login: ログイン
   loginError: ログインに失敗しました
+  needLogin: ログインして、もう一度やり直してください。
   next: 次
   noMore: もういや...
   noResult: 検索結果はありません

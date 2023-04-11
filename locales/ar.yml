@@ -31,6 +31,7 @@ common:
   loading: تحميل...
   login: تسجيل الدخول
   loginError: فشل تسجيل الدخول
+  needLogin: يرجى تسجيل الدخول وإعادة المحاولة.
   next: التالي
   noMore: لا أكثر...
   noResult: لا نتيجة

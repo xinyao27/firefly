@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
-import { Spin, edgeFunctions } from '@firefly/common'
+import { Spin, edgeFunctions, getUser } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
+import { useDialog } from 'naive-ui'
 import type { ChatMessage, Context } from '~/store/copilot'
 import { supabase } from '~/api'
 
 defineOptions({ name: 'CopilotHubChatPage' })
 
+const { t } = useI18n()
+const dialog = useDialog()
+const router = useRouter()
 const params = useRouteParams('id')
 const copilotHubStore = useCopilotHubStore()
 const userStore = useUserStore()
@@ -43,6 +47,19 @@ function archiveCurrentMessage() {
 }
 async function chat() {
   try {
+    const user = await getUser()
+    if (!user) {
+      dialog.error({
+        title: t('common.warningTitle'),
+        content: t('common.needLogin'),
+        positiveText: t('common.login'),
+        onPositiveClick: () => {
+          router.push('/login')
+        },
+      })
+      return
+    }
+
     loading.value = true
     currentError.value = null
     controller.value = new AbortController()
@@ -147,9 +164,9 @@ async function handleCopilotInteractionsIncrement() {
 
 <template>
   <main h-full overflow-hidden>
-    <div h-full p-4 flex flex-col gap-4>
+    <div h-full flex flex-col overflow-hidden>
       <template v-if="copilotHubStore.copilot">
-        <h2 text-lg font-semibold text-center>
+        <h2 text-lg font-semibold text-center p-2>
           {{ copilotHubStore.copilot?.name }}
         </h2>
 
