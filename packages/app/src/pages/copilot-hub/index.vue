@@ -7,8 +7,6 @@ const copilotHubStore = useCopilotHubStore()
 const createACopilotShow = ref(false)
 
 onMounted(() => {
-  copilotHubStore.page = 0
-  copilotHubStore.hasMore = true
   nextTick(() => {
     if (!copilotHubStore.myCopilots.length)
       copilotHubStore.findMy()
