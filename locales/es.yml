@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Descargar aplicación de escritorio
   edit: Editar
   hotkeyAlreadyRegistered: Hotkey ya registrado
+  loadMore: Carga más
   loading: Cargando...
   login: Acceso
   loginError: error de inicio de sesion
   next: Próximo
+  noMore: No más...
   noResult: sin resultados
   notFound: no puedo encontrar
   ocrHotkeyAlreadyRegistered: OCRHotkey ya registrado

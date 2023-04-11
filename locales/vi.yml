@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Tải xuống ứng dụng máy tính để bàn
   edit: Biên tập
   hotkeyAlreadyRegistered: Phím nóng đã được đăng ký
+  loadMore: Tải thêm
   loading: Đang tải...
   login: Đăng nhập
   loginError: Đăng nhập thất bại
   next: Kế tiếp
+  noMore: Không còn nữa...
   noResult: không kết quả
   notFound: không thể tìm thấy
   ocrHotkeyAlreadyRegistered: OCRHotkey đã được đăng ký

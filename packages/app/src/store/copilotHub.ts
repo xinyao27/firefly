@@ -17,6 +17,9 @@ export const useCopilotHubStore = defineStore('copilotHub', {
       myCopilots: [] as CopilotWithProfiles[],
       copilots: [] as CopilotWithProfiles[],
       copilot: null as CopilotModel | null,
+
+      size: 10,
+      hasMore: true,
     }
   },
   actions: {
@@ -59,15 +62,17 @@ export const useCopilotHubStore = defineStore('copilotHub', {
           throw new Error(response.error.message)
 
         this.myCopilots = response.data
+        return response.data
       }
       catch (error: any) {
         $message.error(error.message || error)
         throw error
       }
     },
-    async findAll() {
+    async findAll(page: number) {
       const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
       try {
+        const cursor = page * this.size
         const response = await supabase
           .from('copilots')
           .select(`
@@ -77,11 +82,18 @@ export const useCopilotHubStore = defineStore('copilotHub', {
               avatarUrl
             )
           `)
+          .range(cursor, cursor + this.size - 1)
           .order('interactions', { ascending: false })
         if (response.error)
           throw new Error(response.error.message)
 
-        this.copilots = response.data
+        if (response.data.length === 0 || response.data.length < this.size)
+          this.hasMore = false
+        else
+          this.hasMore = true
+
+        this.copilots = [...this.copilots, ...response.data]
+        return response.data
       }
       catch (error: any) {
         $message.error(error.message || error)
@@ -108,6 +120,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
           throw new Error(response.error.message)
 
         this.copilot = response.data
+        return response.data
       }
       catch (error: any) {
         $message.error(error.message || error)

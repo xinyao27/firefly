@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: 데스크톱 앱 다운로드
   edit: 편집하다
   hotkeyAlreadyRegistered: 단축키가 이미 등록됨
+  loadMore: 더 불러오기
   loading: 로드 중...
   login: 로그인
   loginError: 로그인 실패
   next: 다음
+  noMore: 더 이상은 없어...
   noResult: 결과가 없다
   notFound: 찾을 수 없습니다
   ocrHotkeyAlreadyRegistered: OCRHotkey가 이미 등록되었습니다.

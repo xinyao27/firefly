@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Masaüstü uygulamasını indirin
   edit: Düzenlemek
   hotkeyAlreadyRegistered: Kısayol zaten kayıtlı
+  loadMore: Daha fazla yükle
   loading: Yükleniyor...
   login: Giriş yapmak
   loginError: giriş başarısız oldu
   next: Sonraki
+  noMore: Daha fazla yok...
   noResult: sonuç yok
   notFound: bulamıyorum
   ocrHotkeyAlreadyRegistered: OCRHotkey zaten kayıtlı

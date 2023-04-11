@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Unduh aplikasi desktop
   edit: Sunting
   hotkeyAlreadyRegistered: Hotkey sudah terdaftar
+  loadMore: Muat lebih banyak
   loading: Memuat...
   login: Gabung
   loginError: Gagal masuk
   next: Berikutnya
+  noMore: Tidak lagi...
   noResult: tidak ada hasil
   notFound: tidak dapat menemukan
   ocrHotkeyAlreadyRegistered: OCRHotkey sudah terdaftar

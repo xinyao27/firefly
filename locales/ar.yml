@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: قم بتنزيل تطبيق سطح المكتب
   edit: يحرر
   hotkeyAlreadyRegistered: مفتاح التشغيل السريع مسجل بالفعل
+  loadMore: تحميل المزيد
   loading: تحميل...
   login: تسجيل الدخول
   loginError: فشل تسجيل الدخول
   next: التالي
+  noMore: لا أكثر...
   noResult: لا نتيجة
   notFound: لا أجد
   ocrHotkeyAlreadyRegistered: OCRHotkey مسجل بالفعل

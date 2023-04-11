@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Download desktop app
   edit: Edit
   hotkeyAlreadyRegistered: Hotkey already registered
+  loadMore: Load More
   loading: Loading...
   login: Log in
   loginError: Login failed
   next: Next
+  noMore: No More...
   noResult: no result
   notFound: can't find
   ocrHotkeyAlreadyRegistered: OCRHotkey already registered

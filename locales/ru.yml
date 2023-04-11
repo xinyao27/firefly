@@ -27,10 +27,12 @@ common:
   downloadDesktopApp: Скачать настольное приложение
   edit: Редактировать
   hotkeyAlreadyRegistered: Горячая клавиша уже зарегистрирована
+  loadMore: Загрузи больше
   loading: Загрузка...
   login: Авторизоваться
   loginError: Ошибка входа
   next: Следующий
+  noMore: Больше не надо...
   noResult: безрезультатно
   notFound: не могу найти
   ocrHotkeyAlreadyRegistered: OCRHotkey уже зарегистрирован
