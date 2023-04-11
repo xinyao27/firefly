@@ -5,16 +5,19 @@ const { t } = useI18n()
 const userStore = useUserStore()
 const copilotHubStore = useCopilotHubStore()
 const createACopilotShow = ref(false)
-const currentPage = ref(0)
 
 onMounted(() => {
-  copilotHubStore.findMy()
-  copilotHubStore.findAll(currentPage.value)
+  nextTick(() => {
+    if (!copilotHubStore.myCopilots.length)
+      copilotHubStore.findMy()
+    if (!copilotHubStore.copilots.length)
+      copilotHubStore.findAll(copilotHubStore.page)
+  })
 })
 function handleLoadMore() {
-  currentPage.value += 1
+  copilotHubStore.page += 1
   nextTick(() => {
-    copilotHubStore.findAll(currentPage.value)
+    copilotHubStore.findAll(copilotHubStore.page)
   })
 }
 function handleCreated() {
