@@ -217,7 +217,7 @@ function signInWithLoginCode() {
       })
         .then(({ data, error }) => {
           if (data.session)
-            router.push('/inbox')
+            router.replace('/inbox')
           else
             throw error
         })
