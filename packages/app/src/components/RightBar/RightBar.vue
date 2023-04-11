@@ -51,7 +51,7 @@ function handleRetry() {
 </script>
 
 <template>
-  <div h-full p-4>
+  <div h-full flex>
     <ChatBox
       v-model:currentInput="copilotStore.currentInput"
       :create-input-ref="createInputRef"

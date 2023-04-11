@@ -58,10 +58,10 @@ watch(() => props.currentError, (currentError) => {
 </script>
 
 <template>
-  <div h-full flex flex-col gap-4>
+  <div flex-1 flex flex-col overflow-hidden>
     <NScrollbar
       ref="scrollBarRef"
-      flex-1
+      flex-1 p-4
     >
       <div flex justify-start overflow-hidden break-words mb-4>
         <section class="p-3 border border-(slate opacity-15) rounded">
@@ -103,7 +103,7 @@ watch(() => props.currentError, (currentError) => {
       </section>
     </NScrollbar>
 
-    <div flex flex-col gap-2 mt-4>
+    <div flex flex-col gap-2 p-4>
       <NTooltip :show="props.loading">
         <template #trigger>
           <NInputGroup>

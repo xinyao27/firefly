@@ -147,9 +147,9 @@ async function handleCopilotInteractionsIncrement() {
 
 <template>
   <main h-full overflow-hidden>
-    <div h-full p-4 flex flex-col gap-4>
+    <div h-full flex flex-col overflow-hidden>
       <template v-if="copilotHubStore.copilot">
-        <h2 text-lg font-semibold text-center>
+        <h2 text-lg font-semibold text-center p-2>
           {{ copilotHubStore.copilot?.name }}
         </h2>
 
