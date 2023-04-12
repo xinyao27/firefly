@@ -83,6 +83,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
               avatarUrl
             )
           `)
+          .eq('visibility', 'public')
           .range(cursor, cursor + this.size - 1)
           .order('interactions', { ascending: false })
         if (response.error)

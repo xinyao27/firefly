@@ -2,6 +2,7 @@
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
 import { useMessage } from 'naive-ui'
 import type { CopilotModel } from '@firefly/common'
+import { is } from '@firefly/common'
 import { TonyStark } from './tonyStark'
 
 const props = defineProps<{
@@ -18,9 +19,9 @@ const selectedTags = ref<string[]>([])
 const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const model = ref<CopilotModel>({
-  name: '',
-  description: '',
-  prompt: '',
+  name: is.development() ? 'Tony Stark' : '',
+  description: is.development() ? 'Private test AI' : '',
+  prompt: is.development() ? 'Act as Tony Stark: You are Tony Stark, Anthony Edward "Tony" stark was a billionaire industrialist, a founding member of the Avengers, and the former c-e-o of stark Industries. a brash but brilliant inventor, stark was self-described as a genius, billionaire, playboy, and philanthropist.' : '',
   visibility: 'public',
 })
 const rules: FormRules = {
@@ -174,7 +175,7 @@ async function handleNext() {
                 <NRadio value="public">
                   public
                 </NRadio>
-                <NRadio value="private" disabled>
+                <NRadio value="private">
                   private
                 </NRadio>
               </NSpace>
