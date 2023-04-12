@@ -49,5 +49,4 @@ export const install: UserModule = ({ app }) => {
 
 export default i18n
 
-export const $i18n = i18n.global
-export const $t = $i18n.t
+export const $t = i18n.global.t

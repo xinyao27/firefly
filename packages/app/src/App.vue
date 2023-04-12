@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
-import { $i18n } from '~/modules/i18n'
+import { loadLanguageAsync } from '~/modules/i18n'
 
 useHead({
   title: 'Firefly',
@@ -15,7 +15,7 @@ useHead({
 const settings = useSettings()
 
 watch(() => settings.value.i18n, (locale) => {
-  $i18n.locale.value = locale ?? 'en'
+  loadLanguageAsync(locale ?? 'en')
 })
 </script>
 

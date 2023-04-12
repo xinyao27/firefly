@@ -5,7 +5,7 @@ import { is } from '@firefly/common'
 import type { Event } from '@tauri-apps/api/event'
 import type { Editor } from '@tiptap/core'
 import { desktop } from '~/modules/desktop'
-import { $i18n } from '~/modules/i18n'
+import { loadLanguageAsync } from '~/modules/i18n'
 
 const block = ref<BlockModel>({ content: '' })
 const editor = ref<Editor>()
@@ -17,7 +17,7 @@ async function handleClose() {
 
 const settings = useSettings()
 watch(() => settings.value.i18n, (locale) => {
-  $i18n.locale.value = locale ?? 'en'
+  loadLanguageAsync(locale ?? 'en')
 })
 
 onMounted(() => {

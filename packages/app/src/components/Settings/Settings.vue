@@ -8,7 +8,7 @@ import { defaultSettings, getSettings, is, langMap, setSettings } from '@firefly
 import { useMessage } from 'naive-ui'
 import { desktop } from '~/modules/desktop'
 import { bindHotkey, bindOCRHotkey } from '~/utils'
-import { $i18n } from '~/modules/i18n'
+import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 
 const { t } = useI18n()
 
@@ -39,7 +39,7 @@ async function handleSave() {
       }
     }
     if (newSetting.i18n)
-      $i18n.locale.value = newSetting.i18n
+      loadLanguageAsync(newSetting.i18n)
 
     await setSettings(newSetting)
 
@@ -117,7 +117,7 @@ watch(show, async (value) => {
             <div w-50>
               <NSelect
                 v-model:value="settings.i18n"
-                :options="$i18n.availableLocales.map(locale => ({
+                :options="availableLocales.map(locale => ({
                   value: locale,
                   label: langMap.get(locale),
                 }))"
