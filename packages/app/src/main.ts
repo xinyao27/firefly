@@ -2,6 +2,7 @@ import { setupLayouts } from 'virtual:generated-layouts'
 import { createRouter, createWebHistory } from 'vue-router'
 import * as Sentry from '@sentry/vue'
 import { getUser, is } from '@firefly/common'
+import { colorDark, colorPrimary } from '@firefly/theme'
 import App from './App.vue'
 import { init } from './init'
 import generatedRoutes from '~pages'
@@ -46,3 +47,11 @@ if (import.meta.env.PROD) {
     tracesSampleRate: 1.0,
   })
 }
+
+// eslint-disable-next-line no-console
+console.log(
+  `%c Firefly %c v${import.meta.env.APP_VERSION} %c`,
+  `background:${colorDark}; padding: 2px 1px; color: #FFF`,
+  `background:${colorPrimary.default}; padding: 2px 1px; color: #FFF`,
+  'background:transparent',
+)

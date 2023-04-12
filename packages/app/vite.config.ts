@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+import fs from 'node:fs'
 import path from 'node:path'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
@@ -15,6 +16,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import mkcert from 'vite-plugin-mkcert'
+
+const pkg = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }))
 
 function resolve(...p: string[]) {
   return path.resolve(__dirname, ...p)
@@ -154,7 +157,10 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
     },
     envPrefix: ['VITE_', 'TAURI_'],
-    define,
+    define: {
+      ...define,
+      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version.toString()),
+    },
     build: {
       sourcemap: true,
       target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
