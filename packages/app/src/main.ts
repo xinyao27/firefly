@@ -1,6 +1,5 @@
 import { ViteSSG } from 'vite-ssg'
 import { setupLayouts } from 'virtual:generated-layouts'
-import { createRouter, createWebHistory } from 'vue-router'
 import * as Sentry from '@sentry/vue'
 import { getUser, is } from '@firefly/common'
 import { colorDark, colorPrimary } from '@firefly/theme'
@@ -8,39 +7,37 @@ import App from './App.vue'
 import { init } from './init'
 import generatedRoutes from '~pages'
 
-const history = createWebHistory()
 const routes = setupLayouts(generatedRoutes)
-const router = createRouter({ history, routes })
-router.beforeEach(
-  async (to, _, next) => {
-    if (to.path === '/') {
-    // Redirect to inbox if logged in
-      if (await getUser()) {
-        return next({ path: 'inbox' })
-      }
-      // not logged in
-      else {
-      // Redirect to login if on desktop
-        if (is.desktop())
-          return next({ path: 'login' })
-
-        return next()
-      }
-    }
-    else if (to.path === '/inbox') {
-    // Redirect to login if not logged in
-      if (!(await getUser()))
-        return next({ path: 'login' })
-    }
-    next()
-  },
-)
 
 // https://github.com/antfu/vite-ssg
 export const createApp = ViteSSG(
   App,
   { routes, base: import.meta.env.BASE_URL },
   ({ app, router }) => {
+    router.beforeEach(
+      async (to, _, next) => {
+        if (to.path === '/') {
+          // Redirect to inbox if logged in
+          if (await getUser()) {
+            return next({ path: 'inbox' })
+          }
+          // not logged in
+          else {
+          // Redirect to login if on desktop
+            if (is.desktop())
+              return next({ path: 'login' })
+
+            return next()
+          }
+        }
+        else if (to.path === '/inbox') {
+        // Redirect to login if not logged in
+          if (!(await getUser()))
+            return next({ path: 'login' })
+        }
+        next()
+      },
+    )
     init(app)
 
     if (import.meta.env.PROD) {

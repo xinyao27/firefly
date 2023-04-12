@@ -61,7 +61,7 @@ export const useAssistantStore = defineStore('assistant', {
       this.loading = false
     },
     async upload(e: Event) {
-      const { destroy } = $message.loading($t('editor.uploading'), { duration: 0 })
+      const { destroy } = $message?.loading($t('editor.uploading'), { duration: 0 })
       try {
         // @ts-expect-error noop
         const files = e.target?.files as FileList
@@ -91,7 +91,7 @@ export const useAssistantStore = defineStore('assistant', {
       }
       catch (err) {
         console.error(err)
-        $message.error(err as string)
+        $message?.error(err as string)
       }
       finally {
         destroy()

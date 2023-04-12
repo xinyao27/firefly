@@ -20,7 +20,7 @@ export function useSettings() {
       }
     }
     catch (err) {
-      $message.error(err)
+      $message?.error(err)
     }
   })
   onUnmounted(() => {
