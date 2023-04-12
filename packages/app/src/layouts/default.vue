@@ -5,6 +5,7 @@ const route = useRoute()
 const configStore = useConfigStore()
 const assistantStore = useAssistantStore()
 const userStore = useUserStore()
+const isMobileScreen = useMobileScreen()
 
 onMounted(async () => {
   await getUser(true)
@@ -45,7 +46,7 @@ onMounted(async () => {
         position="absolute"
         :style="`top: ${configStore.rootPaddingTop}px`"
       >
-        <template v-if="configStore.isMobileScreen">
+        <template v-if="isMobileScreen">
           <NDrawer
             v-model:show="configStore.leftBarShow"
             :width="320"
@@ -69,7 +70,7 @@ onMounted(async () => {
         </NLayoutContent>
 
         <template v-if="route.path === '/inbox'">
-          <template v-if="configStore.isMobileScreen">
+          <template v-if="isMobileScreen">
             <NDrawer
               v-model:show="configStore.rightBarShow"
               :width="320"

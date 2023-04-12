@@ -7,6 +7,7 @@ const router = useRouter()
 const route = useRoute()
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
+const isMobileScreen = useMobileScreen()
 const tag = useRouteQuery<string>('tag')
 const tags = computed(() => tag.value?.split('/'))
 const isInboxPage = computed(() => route.path === '/inbox')
@@ -16,7 +17,7 @@ const isInboxPage = computed(() => route.path === '/inbox')
   <div flex items-center justify-between gap-1 z-99 w-full h-full px-2 select-none>
     <!-- LeftBar Area -->
     <div
-      v-if="!configStore.isMobileScreen"
+      v-if="!isMobileScreen"
       h-full flex items-center select-none
       :style="`width: ${configStore.rootPaddingLeft}px`"
       data-tauri-drag-region
@@ -28,7 +29,7 @@ const isInboxPage = computed(() => route.path === '/inbox')
     </div>
     <!-- leftBarShow -->
     <NButton
-      v-if="configStore.isMobileScreen"
+      v-if="isMobileScreen"
       size="small"
       quaternary
       :opacity="configStore.leftBarShow ? 100 : 40"
@@ -91,7 +92,7 @@ const isInboxPage = computed(() => route.path === '/inbox')
       <div>
         <!-- rightBarShow -->
         <NButton
-          v-if="configStore.isMobileScreen"
+          v-if="isMobileScreen"
           size="small"
           quaternary
           :opacity="configStore.rightBarShow ? 100 : 40"

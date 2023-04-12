@@ -129,7 +129,8 @@ export const useCopilotStore = defineStore('copilot', {
   actions: {
     open(content: string) {
       const configStore = useConfigStore()
-      if (configStore.isMobileScreen)
+      const isMobileScreen = useMobileScreen()
+      if (isMobileScreen)
         configStore.rightBarShow = true
       this.currentInput = `"${content}" `
       this.inputRef?.focus()

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 const assistantStore = useAssistantStore()
-const configStore = useConfigStore()
+const isMobileScreen = useMobileScreen()
 </script>
 
 <template>
   <NModal
     v-model:show="assistantStore.show"
-    :px="configStore.isMobileScreen ? 2 : 0"
+    :px="isMobileScreen ? 2 : 0"
     transform-origin="center"
-    :mask-closable="!configStore.isMobileScreen"
+    :mask-closable="!isMobileScreen"
   >
     <div w-2xl mx-auto mt-2 lg:mt-13vh h-full>
       <Assistant
