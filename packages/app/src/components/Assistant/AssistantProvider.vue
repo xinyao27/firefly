@@ -6,7 +6,7 @@ const configStore = useConfigStore()
 <template>
   <NModal
     v-model:show="assistantStore.show"
-    class="px-2"
+    :px="configStore.isMobileScreen ? 2 : 0"
     transform-origin="center"
     :mask-closable="!configStore.isMobileScreen"
   >
