@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defaultSettings, getSettings, langMap } from '@firefly/common'
-import { $i18n } from '~/modules/i18n'
+import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 
 const settings = ref(defaultSettings)
 onMounted(async () => {
@@ -8,7 +8,7 @@ onMounted(async () => {
 })
 watch(() => settings.value.i18n, async (value) => {
   if (value)
-    $i18n.locale.value = value
+    loadLanguageAsync(value)
 })
 </script>
 
@@ -54,7 +54,7 @@ watch(() => settings.value.i18n, async (value) => {
       <div>
         <NSelect
           v-model:value="settings.i18n"
-          :options="$i18n.availableLocales.map(locale => ({
+          :options="availableLocales.map(locale => ({
             value: locale,
             label: langMap.get(locale),
           }))"
