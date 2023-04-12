@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 
-const isMobileScreen = useMediaQuery('(max-width: 640px)')
 const leftBarShow = useLocalStorage('leftBarShow', false)
 const rightBarShow = useLocalStorage('rightBarShow', false)
 
@@ -11,7 +10,6 @@ export const useConfigStore = defineStore('config', {
       rootPaddingLeft: 240,
       rootPaddingRight: 360,
 
-      isMobileScreen,
       leftBarShow,
       rightBarShow,
     }

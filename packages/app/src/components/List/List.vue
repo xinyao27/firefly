@@ -9,8 +9,8 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const configStore = useConfigStore()
 const assistantStore = useAssistantStore()
+const isMobileScreen = useMobileScreen()
 
 const containerRef = ref<HTMLElement>()
 </script>
@@ -42,7 +42,7 @@ const containerRef = ref<HTMLElement>()
       </template>
     </DynamicScroller>
     <NButton
-      v-if="configStore.isMobileScreen"
+      v-if="isMobileScreen"
       class="w-[calc(100vw-42px)] round fixed bottom-40px shadow-lg capitalize"
       size="large"
       color="rgb(135, 206, 235)"
@@ -55,7 +55,7 @@ const containerRef = ref<HTMLElement>()
       {{ t('block.create') }}
     </NButton>
     <NBackTop
-      v-if="configStore.isMobileScreen"
+      v-if="isMobileScreen"
       :bottom="100"
       :right="24"
       :listen-to="() => containerRef"
