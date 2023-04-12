@@ -3,7 +3,7 @@ import type { DropdownOption } from 'naive-ui'
 import { NAvatar, NButton } from 'naive-ui'
 import { clearCache } from '@firefly/common'
 import { renderUserInfo } from './render'
-import { supabase } from '~/api'
+import { supabase } from '~/modules/api'
 
 const { t } = useI18n()
 const route = useRoute()

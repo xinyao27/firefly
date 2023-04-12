@@ -2,8 +2,8 @@ import type { Editor } from '@tiptap/core'
 import { defineStore } from 'pinia'
 import type { BlockModel } from '@firefly/common'
 import { getFileExt, getUser, uuid } from '@firefly/common'
-import { $t } from '~/i18n'
-import { supabase } from '~/api'
+import { $t } from '~/modules/i18n'
+import { supabase } from '~/modules/api'
 
 type Type = 'update' | 'create'
 

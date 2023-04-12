@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defaultSettings, getSettings, langMap } from '@firefly/common'
-import { $i18n } from '~/i18n'
+import { $i18n } from '~/modules/i18n'
 
 const settings = ref(defaultSettings)
 onMounted(async () => {

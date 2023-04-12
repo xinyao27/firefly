@@ -1,8 +1,8 @@
 import type { CopilotModel } from '@firefly/common'
 import { edgeFunctions, getUser } from '@firefly/common'
 import { defineStore } from 'pinia'
-import { supabase } from '~/api'
-import { $t } from '~/i18n'
+import { supabase } from '~/modules/api'
+import { $t } from '~/modules/i18n'
 
 export interface CopilotWithProfiles extends CopilotModel {
   profiles?: {

@@ -2,7 +2,7 @@
 import { Spin, is } from '@firefly/common'
 import { useRouteHash } from '@vueuse/router'
 import { useMessage } from 'naive-ui'
-import { supabase } from '~/api'
+import { supabase } from '~/modules/api'
 import { bc } from '~/utils'
 
 defineOptions({ name: 'RedirectPage' })

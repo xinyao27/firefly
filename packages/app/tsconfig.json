@@ -8,6 +8,7 @@
       ]
     },
     "types": [
+      "naive-ui/volar",
       "vitest",
       "electron-vite/node",
       "vite/client",

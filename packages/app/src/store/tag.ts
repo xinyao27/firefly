@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 import type { TagId, TagModel } from '@firefly/common'
 import { getUser } from '@firefly/common'
-import { supabase } from '~/api'
-import { db } from '~/db'
-import { $t } from '~/i18n'
+import { supabase } from '~/modules/api'
+import { db } from '~/modules/db'
+import { $t } from '~/modules/i18n'
 
 interface SyncParams {
   lastUpdatedAt?: Date

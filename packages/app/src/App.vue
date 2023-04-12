@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
-import { $i18n } from './i18n'
+import { $i18n } from '~/modules/i18n'
 
 useHead({
   title: 'Firefly',

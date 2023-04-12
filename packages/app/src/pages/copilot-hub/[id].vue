@@ -4,7 +4,7 @@ import { Spin, edgeFunctions, getUser } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import { useDialog } from 'naive-ui'
 import type { ChatMessage, Context } from '~/store/copilot'
-import { supabase } from '~/api'
+import { supabase } from '~/modules/api'
 
 defineOptions({ name: 'CopilotHubChatPage' })
 

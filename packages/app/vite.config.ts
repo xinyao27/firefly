@@ -6,15 +6,19 @@ import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import Inspect from 'vite-plugin-inspect'
 import Unocss from 'unocss/vite'
+// @ts-expect-error noop
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import mkcert from 'vite-plugin-mkcert'
+import generateSitemap from 'vite-ssg-sitemap'
+import Inspector from 'vite-plugin-vue-inspector'
+import WebfontDownload from 'vite-plugin-webfont-dl'
+
 import pkg from './package.json'
 
 function resolve(...p: string[]) {
@@ -60,7 +64,7 @@ export default defineConfig(({ mode }) => {
       include: [/\.vue$/, /\.vue\?vue/],
       dirs: resolve('src/components'),
       dts: resolve('src/components.d.ts'),
-      resolvers: [NaiveUiResolver()],
+      resolvers: [],
     }),
 
     // https://github.com/antfu/unocss
@@ -79,6 +83,14 @@ export default defineConfig(({ mode }) => {
     // Visit https://localhost:5173/__inspect/ to see the inspector
     Inspect(),
 
+    // https://github.com/webfansplz/vite-plugin-vue-inspector
+    Inspector({
+      toggleButtonVisibility: 'never',
+    }),
+
+    // https://github.com/feat-agency/vite-plugin-webfont-dl
+    WebfontDownload(),
+
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       dirs: resolve('src/pages'),
@@ -87,7 +99,6 @@ export default defineConfig(({ mode }) => {
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
     Layouts({ layoutsDirs: resolve('src/layouts') }),
-
   ]
   if (!process.env.TAURI_PLATFORM) {
     plugins.push(
@@ -178,11 +189,18 @@ export default defineConfig(({ mode }) => {
     },
     plugins,
     ssgOptions: {
+      script: 'async',
+      formatting: 'minify',
       crittersOptions: {
-        // E.g., change the preload strategy
-        preload: 'media',
-        // Other options: https://github.com/GoogleChromeLabs/critters#usage
+        reduceInlineStyles: false,
       },
+      onFinished() {
+        generateSitemap()
+      },
+    },
+    ssr: {
+      // Add libraries containing invalid ESM here
+      noExternal: ['naive-ui', 'date-fns', /vueuc/, 'workbox-window', /vue-i18n/],
     },
     test: {
       environment: 'jsdom',

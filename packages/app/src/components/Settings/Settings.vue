@@ -5,10 +5,10 @@ import {
   isEnabled as isAutostartEnabled,
 } from 'tauri-plugin-autostart-api'
 import { defaultSettings, getSettings, is, langMap, setSettings } from '@firefly/common'
-import { invoke } from '@tauri-apps/api'
 import { useMessage } from 'naive-ui'
+import { desktop } from '~/modules/desktop'
 import { bindHotkey, bindOCRHotkey } from '~/utils'
-import { $i18n } from '~/i18n'
+import { $i18n } from '~/modules/i18n'
 
 const { t } = useI18n()
 
@@ -26,7 +26,7 @@ async function handleSave() {
     const oldSetting = await getSettings()
     const newSetting = settings.value
     if (is.desktop()) {
-      await invoke('clear_config_cache')
+      await desktop.invoke('clear_config_cache')
       if (newSetting.hotkey)
         await bindHotkey(newSetting.hotkey, oldSetting.hotkey)
       if (is.macOS() && newSetting.ocrHotkey)

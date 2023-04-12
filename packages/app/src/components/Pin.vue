@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { invoke } from '@tauri-apps/api'
+import { desktop } from '~/modules/desktop'
 
 const { t } = useI18n()
 
 const pinned = ref(false)
 async function handleTogglePin() {
-  const value = await invoke<boolean>('set_assistant_window_always_on_top')
+  const value = await desktop.invoke<boolean>('set_assistant_window_always_on_top')
   pinned.value = value
 }
 </script>

@@ -1,6 +1,7 @@
 import type { DBSchema, IDBPDatabase } from 'idb'
 import { openDB } from 'idb'
 import type { BlockModel, TagModel } from '@firefly/common'
+import { type UserModule } from '~/types'
 
 interface FireflyDB extends DBSchema {
   blocks: {
@@ -32,7 +33,10 @@ interface FireflyDB extends DBSchema {
 // eslint-disable-next-line import/no-mutable-exports
 export let db: Promise<IDBPDatabase<FireflyDB>>
 
-export function initDB() {
+export const install: UserModule = ({ isClient }) => {
+  if (!isClient)
+    return
+
   db = openDB<FireflyDB>('firefly', 1, {
     upgrade(db) {
       const blockStore = db.createObjectStore('blocks', { keyPath: 'id' })
@@ -50,5 +54,4 @@ export function initDB() {
       tagStore.createIndex('updatedAt', 'updatedAt')
     },
   })
-  return db
 }

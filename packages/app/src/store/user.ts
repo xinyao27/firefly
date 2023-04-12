@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { ProfileModel } from '@firefly/common'
 import { edgeFunctions } from '@firefly/common'
-import { supabase } from '~/api'
+import { supabase } from '~/modules/api'
 
 export const useUserStore = defineStore('user', {
   state: () => {
