@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-import fs from 'node:fs'
 import path from 'node:path'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
@@ -16,8 +15,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import mkcert from 'vite-plugin-mkcert'
-
-const pkg = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }))
+import pkg from './package.json'
 
 function resolve(...p: string[]) {
   return path.resolve(__dirname, ...p)
@@ -179,6 +177,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins,
+    ssgOptions: {
+      crittersOptions: {
+        // E.g., change the preload strategy
+        preload: 'media',
+        // Other options: https://github.com/GoogleChromeLabs/critters#usage
+      },
+    },
     test: {
       environment: 'jsdom',
       deps: { inline: ['@vue', '@vueuse'] },
