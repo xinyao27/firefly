@@ -1,11 +1,40 @@
 <script setup lang="ts">
+import type { DropdownOption } from 'naive-ui'
+import { useDialog } from 'naive-ui'
 import type { CopilotWithProfiles } from '~/store/copilotHub'
 
 const props = defineProps<{
   data: CopilotWithProfiles
+  enableEdit?: boolean
 }>()
 
+const { t } = useI18n()
 const router = useRouter()
+const dialog = useDialog()
+const copilotHubStore = useCopilotHubStore()
+
+const options: DropdownOption[] = [
+  {
+    label: () => h('span', { class: 'text-red' }, t('common.delete')),
+    key: 'delete',
+    onClick() {
+      if (props.data.id) {
+        dialog.warning({
+          title: t('common.warningTitle'),
+          content: t('common.warningContent'),
+          positiveText: t('common.confirm'),
+          negativeText: t('common.cancel'),
+          onPositiveClick: () => {
+            copilotHubStore.delete(props.data.id!)
+          },
+        })
+      }
+    },
+  },
+]
+function handleSelect(_: string, option: DropdownOption) {
+  (option.onClick as () => void)?.()
+}
 </script>
 
 <template>
@@ -16,16 +45,36 @@ const router = useRouter()
     @click="router.push(`/copilot-hub/${props.data.id}`)"
   >
     <template #header-extra>
-      <div
-        v-if="props.data.profiles"
-        inline-flex items-center gap-2 text-xs
-      >
-        <NAvatar
-          round
-          size="small"
-          :src="props.data.profiles?.avatarUrl"
-        />
-        {{ props.data.profiles?.fullName }}
+      <div flex items-center gap-2>
+        <div
+          v-if="props.data.profiles"
+          inline-flex items-center gap-2 text-xs
+        >
+          <NAvatar
+            round
+            size="small"
+            :src="props.data.profiles?.avatarUrl"
+          />
+          {{ props.data.profiles?.fullName }}
+        </div>
+        <div
+          v-if="props.enableEdit"
+        >
+          <NDropdown
+            size="small"
+            trigger="hover"
+            :options="options"
+            @select="handleSelect"
+          >
+            <NButton
+              quaternary
+              size="tiny"
+              @click.stop
+            >
+              <i i-ri-more-line />
+            </NButton>
+          </NDropdown>
+        </div>
       </div>
     </template>
     <div>{{ props.data.description }}</div>

@@ -52,6 +52,7 @@ copilot:
   createACopilot: 부조종사 만들기
   createSuccess: 성공 만들기
   customPrompt: 사용자 정의 프롬프트
+  deleteLoading: Copilot 제거...
   description: 부조종사 설명
   extractionTags: 태그 추출
   hi: 안녕하세요 어떻게 도와 드릴까요

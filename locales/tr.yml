@@ -54,6 +54,7 @@ copilot:
   createACopilot: Bir Yardımcı Pilot Oluşturun
   createSuccess: Başarı Yarat
   customPrompt: Özel İstemler
+  deleteLoading: Şuradaki Copilot'u kaldır...
   description: Yardımcı Pilot Tanımı
   extractionTags: etiketleri ayıkla
   hi: Merhaba, Size nasıl yardımcı olabilirim

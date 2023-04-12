@@ -54,6 +54,7 @@ copilot:
   createACopilot: Tạo một phi công phụ
   createSuccess: tạo thành công
   customPrompt: Lời nhắc tùy chỉnh
+  deleteLoading: Loại bỏ Copilot trong...
   description: mô tả phi công phụ
   extractionTags: trích xuất thẻ
   hi: Xin chào, tôi có thể giúp gì cho bạn

@@ -2,7 +2,8 @@
 import { useMessage } from 'naive-ui'
 
 window.$message = useMessage()
-// window.$router = useRouter()
+window.$router = useRouter()
+window.$route = useRoute()
 </script>
 
 <template>

@@ -12,17 +12,11 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async getUserProfiles() {
-      const route = useRoute()
-      const router = useRouter()
       this.loading = true
       const { data, error } = await supabase.from('profiles').select().single()
-      if (error) {
-        if (route.path !== '/' && !route.path.includes('/copilot-hub'))
-          router.replace('/login')
-
+      if (error)
         console.error(error)
-        throw error
-      }
+
       this.profiles = data
       this.loading = false
       return data
@@ -35,7 +29,7 @@ export const useUserStore = defineStore('user', {
       }
       catch (error) {
         console.error(error)
-        $message.error(error)
+        $message?.error(error)
       }
       finally {
         this.loading = false

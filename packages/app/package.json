@@ -6,7 +6,7 @@
     "typecheck": "vue-tsc --noEmit",
     "prebuild": "rimraf dist",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite-ssg build",
     "preview": "vite preview",
     "dev:desktop": "tauri dev",
     "build:desktop": "tauri build",
@@ -24,7 +24,9 @@
   "devDependencies": {
     "@tauri-apps/cli": "^1.2.3",
     "@types/vue-virtual-scroller": "npm:@vsme/vue-virtual-scroller@^1.0.1",
+    "critters": "^0.0.16",
     "vite-plugin-pages": "^0.28.0",
-    "vite-plugin-pwa": "^0.14.7"
+    "vite-plugin-pwa": "^0.14.7",
+    "vite-ssg": "^0.22.2"
   }
 }

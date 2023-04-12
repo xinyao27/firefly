@@ -55,6 +55,7 @@ copilot:
   createACopilot: Stwórz drugiego pilota
   createSuccess: Twórz sukces
   customPrompt: Niestandardowe podpowiedzi
+  deleteLoading: Usuń Copilota w...
   description: Opis drugiego pilota
   extractionTags: wyodrębnij tagi
   hi: Cześc, jak mogę Ci pomóc

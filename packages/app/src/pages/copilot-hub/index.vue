@@ -59,6 +59,7 @@ function handleCreated() {
             v-for="copilot in copilotHubStore.myCopilots"
             :key="copilot.id"
             :data="copilot"
+            enable-edit
           />
         </div>
       </section>

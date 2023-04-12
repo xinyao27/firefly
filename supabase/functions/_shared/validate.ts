@@ -29,7 +29,4 @@ export function validateCopilot(copilot: CopilotModel) {
   if (copilot.prompt && copilot.prompt.length > 2000) {
     throw new Error('Copilot prompt is too long')
   }
-  if (copilot.visibility && copilot.visibility === 'private') {
-    throw new Error('Private is not currently supported.')
-  }
 }

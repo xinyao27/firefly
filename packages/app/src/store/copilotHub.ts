@@ -25,7 +25,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
   },
   actions: {
     async create(copilot: CopilotModel, tags: string[]) {
-      const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
+      const { destroy } = $message?.loading($t('common.loading'), { duration: 0 })
       try {
         await edgeFunctions('copilots', {
           body: {
@@ -33,10 +33,10 @@ export const useCopilotHubStore = defineStore('copilotHub', {
             tags,
           },
         })
-        $message.success($t('copilot.createSuccess'))
+        $message?.success($t('copilot.createSuccess'))
       }
       catch (error: any) {
-        $message.error(error.message || error)
+        $message?.error(error.message || error)
         throw error
       }
       finally {
@@ -66,12 +66,12 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         return response.data
       }
       catch (error: any) {
-        $message.error(error.message || error)
+        $message?.error(error.message || error)
         throw error
       }
     },
     async findAll(page: number) {
-      const { destroy } = $message.loading($t('common.loading'), { duration: 0 })
+      const { destroy } = $message?.loading($t('common.loading'), { duration: 0 })
       try {
         const cursor = page * this.size
         const response = await supabase
@@ -83,6 +83,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
               avatarUrl
             )
           `)
+          .eq('visibility', 'public')
           .range(cursor, cursor + this.size - 1)
           .order('interactions', { ascending: false })
         if (response.error)
@@ -97,7 +98,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         return response.data
       }
       catch (error: any) {
-        $message.error(error.message || error)
+        $message?.error(error.message || error)
         throw error
       }
       finally {
@@ -124,8 +125,29 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         return response.data
       }
       catch (error: any) {
-        $message.error(error.message || error)
+        $message?.error(error.message || error)
         throw error
+      }
+    },
+    async delete(id: string) {
+      const { destroy } = $message?.loading($t('copilot.deleteLoading'), { duration: 0 })
+      try {
+        const { error } = await supabase
+          .from('copilots')
+          .delete()
+          .eq('id', id)
+        if (error)
+          throw new Error(error.message)
+
+        await this.findMy()
+        $message?.success($t('common.deleted'))
+      }
+      catch (error: any) {
+        $message?.error(error.message || error)
+        throw error
+      }
+      finally {
+        destroy()
       }
     },
   },

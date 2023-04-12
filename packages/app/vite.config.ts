@@ -15,6 +15,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import mkcert from 'vite-plugin-mkcert'
+import pkg from './package.json'
 
 function resolve(...p: string[]) {
   return path.resolve(__dirname, ...p)
@@ -154,7 +155,10 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
     },
     envPrefix: ['VITE_', 'TAURI_'],
-    define,
+    define: {
+      ...define,
+      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version.toString()),
+    },
     build: {
       sourcemap: true,
       target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
@@ -173,6 +177,13 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins,
+    ssgOptions: {
+      crittersOptions: {
+        // E.g., change the preload strategy
+        preload: 'media',
+        // Other options: https://github.com/GoogleChromeLabs/critters#usage
+      },
+    },
     test: {
       environment: 'jsdom',
       deps: { inline: ['@vue', '@vueuse'] },

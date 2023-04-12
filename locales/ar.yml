@@ -54,6 +54,7 @@ copilot:
   createACopilot: إنشاء مساعد الطيار
   createSuccess: تحقيق النجاح
   customPrompt: موجهات مخصصة
+  deleteLoading: إزالة مساعد الطيار في ...
   description: وصف مساعد الطيار
   extractionTags: استخراج العلامات
   hi: مرحبا كيف يمكنني مساعدتك

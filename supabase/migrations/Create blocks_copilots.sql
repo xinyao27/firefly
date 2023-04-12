@@ -1,7 +1,7 @@
 create table if not exists copilots_blocks (
   "uid" uuid references profiles(id) on delete cascade not null,
-  "copilotId" uuid references copilots(id),
-  "blockId" uuid references blocks(id),
+  "copilotId" uuid references copilots(id) on delete cascade not null,
+  "blockId" uuid references blocks(id) not null,
   primary key ("copilotId", "blockId")
 );
 
@@ -21,3 +21,6 @@ create policy "Enable insert for users based on uid." on copilots_blocks
 
 create policy "Enable update for users based on uid." on copilots_blocks
   for update using (auth.uid() = uid);
+
+create policy "Enable delete for users based on uid." on copilots_blocks
+  for delete using (auth.uid() = uid);
