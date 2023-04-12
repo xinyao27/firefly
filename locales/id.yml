@@ -54,6 +54,7 @@ copilot:
   createACopilot: Buat Kopilot
   createSuccess: Ciptakan Sukses
   customPrompt: Permintaan Kustom
+  deleteLoading: Hapus Kopilot di...
   description: Deskripsi kopilot
   extractionTags: ekstrak tag
   hi: Hai, apa yang bisa saya bantu

@@ -55,6 +55,7 @@ copilot:
   createACopilot: Crear un copiloto
   createSuccess: Crear éxito
   customPrompt: Avisos personalizados
+  deleteLoading: Quitar copiloto en...
   description: Descripción del copiloto
   extractionTags: extraer etiquetas
   hi: Hola, como puedo ayudarte

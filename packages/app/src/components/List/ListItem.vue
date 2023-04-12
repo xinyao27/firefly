@@ -27,7 +27,7 @@ const options: DropdownOption[] = [
     },
   },
   {
-    label: t('common.delete'),
+    label: () => h('span', { class: 'text-red' }, t('common.delete')),
     key: 'delete',
     onClick() {
       if (props.data.id) {

@@ -55,6 +55,7 @@ copilot:
   createACopilot: Créer un copilote
   createSuccess: Créer du succès
   customPrompt: Invites personnalisées
+  deleteLoading: Supprimer le copilote dans...
   description: Description du copilote
   extractionTags: extraire les balises
   hi: Salut, comment est-ce que je peux t'aider

@@ -55,6 +55,7 @@ copilot:
   createACopilot: Crea un copilota
   createSuccess: Crea successo
   customPrompt: Prompt personalizzati
+  deleteLoading: Rimuovi copilota in...
   description: Descrizione del copilota
   extractionTags: estrarre i tag
   hi: Ciao come posso aiutarti

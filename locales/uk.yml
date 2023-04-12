@@ -55,6 +55,7 @@ copilot:
   createACopilot: Створіть другого пілота
   createSuccess: Створіть успіх
   customPrompt: Спеціальні підказки
+  deleteLoading: Видалити Copilot у...
   description: Опис другого пілота
   extractionTags: витягти теги
   hi: Привіт, чим я можу тобі допомогти

@@ -26,3 +26,6 @@ create policy "Enable insert for users based on uid." on copilots
 
 create policy "Enable update for users based on uid." on copilots
   for update using (auth.uid() = uid);
+
+create policy "Enable delete for users based on uid." on copilots
+  for delete using (auth.uid() = uid);

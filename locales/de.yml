@@ -55,6 +55,7 @@ copilot:
   createACopilot: Erstellen Sie einen Copiloten
   createSuccess: Erfolg schaffen
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
+  deleteLoading: Copilot entfernen in...
   description: Copilot-Beschreibung
   extractionTags: Tags extrahieren
   hi: Hallo, wie kann ich Ihnen helfen

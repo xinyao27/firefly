@@ -55,6 +55,7 @@ copilot:
   createACopilot: შექმენით კოპილოტი
   createSuccess: შექმენით წარმატება
   customPrompt: მორგებული მოთხოვნა
+  deleteLoading: Copilot-ის ამოღება...
   description: კოპილოტის აღწერა
   extractionTags: ამონაწერი ტეგები
   hi: Გამარჯობა, რით შემიძლია დაგეხმაროთ

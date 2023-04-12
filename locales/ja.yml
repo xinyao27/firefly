@@ -52,6 +52,7 @@ copilot:
   createACopilot: コパイロットの作成
   createSuccess: 成功を生み出す
   customPrompt: カスタム プロンプト
+  deleteLoading: コパイロットを削除...
   description: 副操縦士の説明
   extractionTags: タグを抽出する
   hi: こんにちは、どうすればいいですか

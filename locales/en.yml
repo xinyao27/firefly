@@ -47,13 +47,14 @@ common:
     analysis ability of AI to make information collection so interesting
   updated: update completed
   warningContent: You sure you want to delete it
-  warningTitle: warn
+  warningTitle: Warning
   yourTags: Your tags
 copilot:
   Config: Config
   createACopilot: Create A Copilot
   createSuccess: Create Success
   customPrompt: Custom Prompts
+  deleteLoading: Remove Copilot in...
   description: Copilot Description
   extractionTags: extract tags
   hi: Hi, how can I help you
