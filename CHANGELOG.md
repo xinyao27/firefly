@@ -1,5 +1,15 @@
 
 
+## [0.2.1](https://github.com/chenyueban/firefly/compare/v0.2.0...v0.2.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* fixed vite-ssg problem ([7f54b8c](https://github.com/chenyueban/firefly/commit/7f54b8c2018ac8d0d9e7de0eafbe843bddf70876))
+* Load language asynchronously in i18n modules and components ([f390c23](https://github.com/chenyueban/firefly/commit/f390c237e58b64654b2e584898ebca0b07d1f37d))
+* Refactor app UI for mobile screens using useMobileScreen hook ([8496374](https://github.com/chenyueban/firefly/commit/849637471a927f276f5b4978936160d3b568956b))
+* Refactor AssistantProvider.vue to conditionally set the px prop of NModal based on whether the screen is mobile or not ([6527976](https://github.com/chenyueban/firefly/commit/6527976edbc1b30574adf29f687a81af079772cb))
+
 # [0.2.0](https://github.com/chenyueban/firefly/compare/v0.1.0...v0.2.0) (2023-04-12)
 
 
