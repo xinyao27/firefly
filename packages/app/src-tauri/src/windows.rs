@@ -4,8 +4,7 @@ use crate::ALWAYS_ON_TOP;
 use crate::APP_HANDLE;
 use mouse_position::mouse_position::Mouse;
 use std::sync::atomic::Ordering;
-use tauri::{LogicalPosition, LogicalSize, Manager, PhysicalPosition};
-use window_shadows::set_shadow;
+use tauri::{LogicalPosition, Manager, PhysicalPosition};
 
 pub const MAIN_WIN_NAME: &str = "main";
 pub const ASSISTANT_WIN_NAME: &str = "assistant";
@@ -136,9 +135,6 @@ pub fn show_thumb(x: i32, y: i32) {
                     ))
                     .unwrap();
             }
-
-            #[cfg(target_os = "macos")]
-            set_shadow(&window, true).unwrap();
         }
     }
 }
@@ -215,7 +211,6 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             .skip_taskbar(true)
             .center()
             .focused(false)
-            .decorations(false)
             .title("Firefly Assistant");
 
             #[cfg(target_os = "macos")]

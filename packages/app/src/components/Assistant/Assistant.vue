@@ -5,12 +5,15 @@ import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import Bubble from '~/components/Bubble'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue: string
   pinned?: boolean
   class?: string
+  showClose?: boolean
   onClose?: () => void
-}>()
+}>(), {
+  showClose: true,
+})
 const emit = defineEmits(['update:modelValue'])
 const data = useVModel(props, 'modelValue', emit)
 
@@ -75,6 +78,7 @@ function handleClose() {
       <div
         data-tauri-drag-region
         select-none
+        :pl="!showClose ? 16 : 0"
       >
         {{ assistantStore.type === 'update' ? t('block.update') : t('block.create') }}
       </div>
@@ -83,6 +87,7 @@ function handleClose() {
       <div flex items-center gap-2>
         <Pin v-if="pinned" />
         <NButton
+          v-if="props.showClose"
           quaternary
           size="tiny"
           @click="handleClose"

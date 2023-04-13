@@ -53,6 +53,7 @@ onMounted(() => {
         v-model="block.content"
         class="max-h-20"
         :on-close="handleClose"
+        :show-close="!is.macOS()"
         pinned
       />
     </CustomProvider>
