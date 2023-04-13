@@ -44,7 +44,9 @@ export default defineConfig({
   },
   shortcuts: [{
     'base-focus': 'focus:(bg-opacity-20 ring-0 outline-none)',
-    'btn-slate': 'h-12 px-4 py-2 bg-(slate opacity-15) hover:bg-opacity-20 rounded-sm',
+    'btn-slate': 'px-4 py-2 bg-(slate opacity-15) hover:bg-opacity-20 rounded-sm',
+    'btn-white': 'px-4 py-2 bg-white text-black rounded-sm',
     'textarea-slate': 'w-full max-w-full px-3 py-3 min-h-12 max-h-36 leading-4 rounded-sm bg-(slate opacity-15) base-focus placeholder:opacity-50 dark:(placeholder:opacity-30) scroll-pa-8px',
+    'select-slate': 'px-2 py-1 bg-(slate opacity-15) hover:bg-opacity-20 rounded-sm text-xs cursor-pointer outline-none',
   }],
 })

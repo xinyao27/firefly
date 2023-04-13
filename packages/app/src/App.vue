@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ThemeProvider } from '@firefly/theme'
 import { loadLanguageAsync } from '~/modules/i18n'
 
 useHead({
@@ -20,11 +19,7 @@ watch(() => settings.value.i18n, (locale) => {
 </script>
 
 <template>
-  <ThemeProvider>
-    <CustomProvider>
-      <AssistantProvider>
-        <RouterView />
-      </AssistantProvider>
-    </CustomProvider>
-  </ThemeProvider>
+  <CustomProvider>
+    <RouterView />
+  </CustomProvider>
 </template>

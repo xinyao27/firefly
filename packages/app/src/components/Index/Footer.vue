@@ -15,50 +15,35 @@ watch(() => settings.value.i18n, async (value) => {
 <template>
   <footer class="border-(t slate opacity-15)">
     <div class="max-w-7xl mx-auto py-16 flex justify-between items-center">
-      <div />
       <div flex gap-2>
-        <!-- <NButton
-          size="small"
-          text
-          tag="a"
-          href="https://github.com/chenyueban/firefly"
-          target="_blank"
-        >
-          <template #icon>
-            <i i-ri-github-fill />
-          </template>
-        </NButton> -->
-        <NButton
-          size="small"
-          text
-          tag="a"
+        <a
+          btn-slate
           href="https://twitter.com/firefly_best"
           target="_blank"
         >
-          <template #icon>
-            <i i-ri-twitter-fill />
-          </template>
-        </NButton>
-        <NButton
-          size="small"
-          text
-          tag="a"
+          <i i-ri-twitter-fill />
+        </a>
+        <a
+          btn-slate
           href="https://discord.gg/qxqNEGyH3k"
           target="_blank"
         >
-          <template #icon>
-            <i i-ri-discord-fill />
-          </template>
-        </NButton>
+          <i i-ri-discord-fill />
+        </a>
       </div>
       <div>
-        <NSelect
-          v-model:value="settings.i18n"
-          :options="availableLocales.map(locale => ({
-            value: locale,
-            label: langMap.get(locale),
-          }))"
-        />
+        <select
+          v-model="settings.i18n"
+          select-slate
+        >
+          <option
+            v-for="locale in availableLocales"
+            :key="locale"
+            :value="locale"
+          >
+            {{ langMap.get(locale) }}
+          </option>
+        </select>
       </div>
     </div>
   </footer>

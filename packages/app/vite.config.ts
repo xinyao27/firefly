@@ -197,6 +197,9 @@ export default defineConfig(({ mode }) => {
       onFinished() {
         generateSitemap()
       },
+      includedRoutes(paths) {
+        return paths.filter(i => i === '/')
+      },
     },
     ssr: {
       // Add libraries containing invalid ESM here
