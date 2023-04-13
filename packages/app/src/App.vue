@@ -22,9 +22,7 @@ watch(() => settings.value.i18n, (locale) => {
 <template>
   <ThemeProvider>
     <CustomProvider>
-      <AssistantProvider>
-        <RouterView />
-      </AssistantProvider>
+      <RouterView />
     </CustomProvider>
   </ThemeProvider>
 </template>

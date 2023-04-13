@@ -65,7 +65,9 @@ onMounted(async () => {
 
         <NLayoutContent content-style="height: 100%">
           <KeepAlive>
-            <RouterView />
+            <AssistantProvider>
+              <RouterView />
+            </AssistantProvider>
           </KeepAlive>
         </NLayoutContent>
 
