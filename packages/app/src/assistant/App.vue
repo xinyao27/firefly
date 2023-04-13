@@ -4,7 +4,8 @@ import type { BlockModel } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { Event } from '@tauri-apps/api/event'
 import type { Editor } from '@tiptap/core'
-import { desktop } from '~/modules/desktop'
+import { invoke } from '@tauri-apps/api'
+import { listen } from '@tauri-apps/api/event'
 import { loadLanguageAsync } from '~/modules/i18n'
 
 const block = ref<BlockModel>({ content: '' })
@@ -12,7 +13,7 @@ const editor = ref<Editor>()
 
 async function handleClose() {
   block.value = { content: '' }
-  await desktop.invoke('hide_assistant_window')
+  await invoke('hide_assistant_window')
 }
 
 const settings = useSettings()
@@ -24,7 +25,7 @@ onMounted(() => {
   if (is.desktop()) {
     let unlisten
     ;(async () => {
-      unlisten = await desktop.event.listen('change-text', async (event: Event<string>) => {
+      unlisten = await listen('change-text', async (event: Event<string>) => {
         const selectedText = event.payload
         if (selectedText) {
           editor.value?.commands.focus()

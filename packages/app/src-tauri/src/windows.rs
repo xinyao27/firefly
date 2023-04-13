@@ -91,7 +91,6 @@ pub fn show_thumb(x: i32, y: i32) {
             }
             window.unminimize().unwrap();
             window.show().unwrap();
-            window.set_size(LogicalSize::new(20.0, 20.0)).unwrap();
             window.set_always_on_top(true).unwrap();
         }
         None => {
@@ -174,7 +173,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             } else if !center {
                 let (x, y): (i32, i32) = get_mouse_location().unwrap();
                 let window_size = window.outer_size().unwrap();
-                // get minitor size
+                // get monitor size
                 let monitor = window.current_monitor().unwrap().unwrap();
                 let monitor_size = monitor.size();
                 let scale_factor = window.scale_factor().unwrap_or(1.0);

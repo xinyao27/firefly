@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { is } from '@firefly/common'
-import { desktop } from '~/modules/desktop'
+import { WebviewWindow } from '@tauri-apps/api/window'
 import { supabase } from '~/modules/api'
 import { bc } from '~/utils'
 
@@ -37,7 +37,7 @@ const rules = {
 const loading = ref(false)
 async function signInWithToken(name: string, url: string) {
   if (is.desktop()) {
-    let authWindow = desktop.window.WebviewWindow.getByLabel(name)
+    let authWindow = WebviewWindow.getByLabel(name)
     bc.onmessage = async (event) => {
       if (event.data) {
         const hash = event.data as string
@@ -67,7 +67,7 @@ async function signInWithToken(name: string, url: string) {
       authWindow.show()
     }
     else {
-      authWindow = new desktop.window.WebviewWindow(name, {
+      authWindow = new WebviewWindow(name, {
         url,
         center: true,
         width: 600,
