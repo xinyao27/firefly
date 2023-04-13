@@ -2,7 +2,7 @@
 import type { colors } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
-import { NButton, NCollapseItem, NDropdown, useDialog } from 'naive-ui'
+import { NButton, NCollapseItem, NDropdown } from 'naive-ui'
 import { menuOptions } from './menuOptions'
 import { BubbleSelector } from '~/components/Bubble'
 

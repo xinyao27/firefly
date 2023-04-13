@@ -5,7 +5,7 @@ export const install: UserModule = ({ isClient, app, router }) => {
   if (!isClient)
     return
 
-  if (import.meta.env.PROD) {
+  if (import.meta.env.PROD && router) {
     Sentry.init({
       app,
       dsn: 'https://636feb99e0294038b69c8f2ba6750d1d@o4504924957769728.ingest.sentry.io/4504924960063488',
@@ -33,3 +33,5 @@ export const install: UserModule = ({ isClient, app, router }) => {
     })
   }
 }
+
+export const enable = ['index', 'assistant']

@@ -5,6 +5,7 @@ import Layouts from 'vite-plugin-vue-layouts'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import Inspect from 'vite-plugin-inspect'
@@ -12,10 +13,10 @@ import Unocss from 'unocss/vite'
 // @ts-expect-error noop
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 import mkcert from 'vite-plugin-mkcert'
-import generateSitemap from 'vite-ssg-sitemap'
 import Inspector from 'vite-plugin-vue-inspector'
 import WebfontDownload from 'vite-plugin-webfont-dl'
 
@@ -26,6 +27,14 @@ function resolve(...p: string[]) {
 }
 
 export default defineConfig(({ mode }) => {
+  const isTauri = !!process.env.TAURI_PLATFORM
+  const input: Record<string, string> = {
+    main: resolve('index.html'),
+  }
+  if (isTauri) {
+    input.assistant = resolve('assistant.html')
+    input.thumb = resolve('thumb.html')
+  }
   const plugins = [
     // https://github.com/liuweiGL/vite-plugin-mkcert
     mkcert({
@@ -49,6 +58,14 @@ export default defineConfig(({ mode }) => {
         'vue/macros',
         '@vueuse/head',
         '@vueuse/core',
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+          ],
+        },
       ],
       dts: resolve('src/auto-imports.d.ts'),
       dirs: [
@@ -64,7 +81,7 @@ export default defineConfig(({ mode }) => {
       include: [/\.vue$/, /\.vue\?vue/],
       dirs: resolve('src/components'),
       dts: resolve('src/components.d.ts'),
-      resolvers: [],
+      resolvers: [NaiveUiResolver()],
     }),
 
     // https://github.com/antfu/unocss
@@ -99,42 +116,40 @@ export default defineConfig(({ mode }) => {
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
     Layouts({ layoutsDirs: resolve('src/layouts') }),
+
+    // https://vite-pwa-org.netlify.app/guide/
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+      includeAssets: ['favicon.ico'],
+      manifest: {
+        name: 'Firefly',
+        short_name: 'Firefly',
+        theme_color: '#212121',
+        icons: [
+          {
+            src: '/128x128.png',
+            sizes: '128x128',
+            type: 'image/png',
+          },
+          {
+            src: '/icon.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: '/icon.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+    }),
   ]
-  if (!process.env.TAURI_PLATFORM) {
-    plugins.push(
-      // https://vite-pwa-org.netlify.app/guide/
-      VitePWA({
-        registerType: 'autoUpdate',
-        devOptions: {
-          enabled: true,
-        },
-        includeAssets: ['favicon.ico'],
-        manifest: {
-          name: 'Firefly',
-          short_name: 'Firefly',
-          theme_color: '#212121',
-          icons: [
-            {
-              src: '/128x128.png',
-              sizes: '128x128',
-              type: 'image/png',
-            },
-            {
-              src: '/icon.png',
-              sizes: '512x512',
-              type: 'image/png',
-            },
-            {
-              src: '/icon.png',
-              sizes: '512x512',
-              type: 'image/png',
-              purpose: 'any maskable',
-            },
-          ],
-        },
-      }),
-    )
-  }
+
   if (process.env.SENTRY_AUTH_TOKEN && mode === 'production') {
     plugins.push(
       // https://docs.sentry.io/platforms/javascript/sourcemaps/uploading/vite/
@@ -159,7 +174,7 @@ export default defineConfig(({ mode }) => {
       }
     : {}
 
-  return {
+  const result: UserConfig = {
     clearScreen: false,
     server: {
       https: true,
@@ -175,11 +190,7 @@ export default defineConfig(({ mode }) => {
       target: process.env.TAURI_PLATFORM === 'windows' ? 'chrome105' : 'safari13',
       minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
       rollupOptions: {
-        input: {
-          main: resolve('index.html'),
-          assistant: resolve('assistant.html'),
-          thumb: resolve('thumb.html'),
-        },
+        input,
       },
     },
     resolve: {
@@ -188,26 +199,11 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins,
-    ssgOptions: {
-      script: 'async',
-      formatting: 'minify',
-      crittersOptions: {
-        reduceInlineStyles: false,
-      },
-      onFinished() {
-        generateSitemap()
-      },
-      includedRoutes(paths) {
-        return paths.filter(i => i === '/')
-      },
-    },
-    ssr: {
-      // Add libraries containing invalid ESM here
-      noExternal: ['naive-ui', 'date-fns', /vueuc/, 'workbox-window', /vue-i18n/],
-    },
     test: {
       environment: 'jsdom',
       deps: { inline: ['@vue', '@vueuse'] },
     },
   }
+
+  return result
 })

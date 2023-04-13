@@ -5,11 +5,13 @@ export const install: UserModule = ({ isClient, router }) => {
   if (!isClient)
     return
 
-  router.beforeEach((to, from) => {
+  router?.beforeEach((to, from) => {
     if (to.path !== from.path)
       NProgress.start()
   })
-  router.afterEach(() => {
+  router?.afterEach(() => {
     NProgress.done()
   })
 }
+
+export const enable = ['index', 'assistant']

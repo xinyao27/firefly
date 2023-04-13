@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
-import { useMessage } from 'naive-ui'
 import type { CopilotModel } from '@firefly/common'
 import { is } from '@firefly/common'
 import { TonyStark } from './tonyStark'

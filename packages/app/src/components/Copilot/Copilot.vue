@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
-import { useDialog } from 'naive-ui'
 import type { CopilotWithProfiles } from '~/store/copilotHub'
 
 const props = defineProps<{

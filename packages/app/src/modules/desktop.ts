@@ -11,3 +11,5 @@ export const install: UserModule = async ({ isClient }) => {
   if (is.desktop())
     desktop = await import('@tauri-apps/api')
 }
+
+export const enable = ['index', 'assistant']

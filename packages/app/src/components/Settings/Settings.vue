@@ -5,7 +5,6 @@ import {
   isEnabled as isAutostartEnabled,
 } from 'tauri-plugin-autostart-api'
 import { defaultSettings, getSettings, is, langMap, setSettings } from '@firefly/common'
-import { useMessage } from 'naive-ui'
 import { desktop } from '~/modules/desktop'
 import { bindHotkey, bindOCRHotkey } from '~/utils'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'

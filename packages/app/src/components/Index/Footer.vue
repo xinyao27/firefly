@@ -32,18 +32,13 @@ watch(() => settings.value.i18n, async (value) => {
         </a>
       </div>
       <div>
-        <select
-          v-model="settings.i18n"
-          select-slate
-        >
-          <option
-            v-for="locale in availableLocales"
-            :key="locale"
-            :value="locale"
-          >
-            {{ langMap.get(locale) }}
-          </option>
-        </select>
+        <NSelect
+          v-model:value="settings.i18n"
+          :options="availableLocales.map(locale => ({
+            value: locale,
+            label: langMap.get(locale),
+          }))"
+        />
       </div>
     </div>
   </footer>

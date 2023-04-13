@@ -1,29 +1,9 @@
 export const is = {
-  desktop: () => {
-    if (typeof window !== 'undefined')
-      return window['__TAURI__' as any] !== undefined
-
-    return false
-  },
-  macOS: () => {
-    if (typeof window !== 'undefined')
-      return navigator.userAgent.includes('Mac OS X')
-
-    return false
-  },
-  linux: () => {
-    if (typeof window !== 'undefined')
-      return navigator.userAgent.includes('Linux')
-
-    return false
-  },
-  windows: () => {
-    if (typeof window !== 'undefined')
-      return navigator.userAgent.includes('Windows')
-
-    return false
-  },
-  ssg: () => typeof window === 'undefined',
+  desktop: () => window['__TAURI__' as any] !== undefined,
+  macOS: () => navigator.userAgent.includes('Mac OS X'),
+  linux: () => navigator.userAgent.includes('Linux'),
+  windows: () => navigator.userAgent.includes('Windows'),
+  client: () => typeof window !== 'undefined',
   // @ts-expect-error noop
   development: () => import.meta.env.DEV || import.meta.env.MODE === 'development' || process.env.NODE_ENV === 'development',
   // @ts-expect-error noop

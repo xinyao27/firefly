@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { getUser, is } from '@firefly/common'
-import { ThemeProvider } from '@firefly/theme'
 
 const route = useRoute()
 const configStore = useConfigStore()
@@ -34,70 +33,64 @@ onMounted(async () => {
 </script>
 
 <template>
-  <ClientOnly>
-    <ThemeProvider>
-      <InjectProvider>
-        <NLayout position="absolute">
-          <NLayoutHeader
-            bordered
-            :style="`height: ${configStore.rootPaddingTop}px`"
-          >
-            <TitleBar />
-          </NLayoutHeader>
-          <NLayout
-            has-sider
-            position="absolute"
-            :style="`top: ${configStore.rootPaddingTop}px`"
-          >
-            <template v-if="isMobileScreen">
-              <NDrawer
-                v-model:show="configStore.leftBarShow"
-                :width="320"
-                placement="left"
-              >
-                <NDrawerContent>
-                  <LeftBar />
-                </NDrawerContent>
-              </NDrawer>
-            </template>
-            <template v-else>
-              <NLayoutSider :width="configStore.rootPaddingLeft" class="border-(r slate opacity-15)">
-                <LeftBar />
-              </NLayoutSider>
-            </template>
+  <NLayout position="absolute">
+    <NLayoutHeader
+      bordered
+      :style="`height: ${configStore.rootPaddingTop}px`"
+    >
+      <TitleBar />
+    </NLayoutHeader>
+    <NLayout
+      has-sider
+      position="absolute"
+      :style="`top: ${configStore.rootPaddingTop}px`"
+    >
+      <template v-if="isMobileScreen">
+        <NDrawer
+          v-model:show="configStore.leftBarShow"
+          :width="320"
+          placement="left"
+        >
+          <NDrawerContent>
+            <LeftBar />
+          </NDrawerContent>
+        </NDrawer>
+      </template>
+      <template v-else>
+        <NLayoutSider :width="configStore.rootPaddingLeft" class="border-(r slate opacity-15)">
+          <LeftBar />
+        </NLayoutSider>
+      </template>
 
-            <NLayoutContent content-style="height: 100%">
-              <KeepAlive>
-                <AssistantProvider>
-                  <RouterView />
-                </AssistantProvider>
-              </KeepAlive>
-            </NLayoutContent>
+      <NLayoutContent content-style="height: 100%">
+        <KeepAlive>
+          <AssistantProvider>
+            <RouterView />
+          </AssistantProvider>
+        </KeepAlive>
+      </NLayoutContent>
 
-            <template v-if="route.path === '/inbox'">
-              <template v-if="isMobileScreen">
-                <NDrawer
-                  v-model:show="configStore.rightBarShow"
-                  :width="320"
-                  placement="bottom"
-                  resizable
-                  default-height="600"
-                  :z-index="9999"
-                >
-                  <NDrawerContent>
-                    <RightBar />
-                  </NDrawerContent>
-                </NDrawer>
-              </template>
-              <template v-else>
-                <NLayoutSider :width="configStore.rootPaddingRight" class="border-(l slate opacity-15)">
-                  <RightBar />
-                </NLayoutSider>
-              </template>
-            </template>
-          </NLayout>
-        </NLayout>
-      </InjectProvider>
-    </ThemeProvider>
-  </ClientOnly>
+      <template v-if="route.path === '/inbox'">
+        <template v-if="isMobileScreen">
+          <NDrawer
+            v-model:show="configStore.rightBarShow"
+            :width="320"
+            placement="bottom"
+            resizable
+            default-height="600"
+            :z-index="9999"
+          >
+            <NDrawerContent>
+              <RightBar />
+            </NDrawerContent>
+          </NDrawer>
+        </template>
+        <template v-else>
+          <NLayoutSider :width="configStore.rootPaddingRight" class="border-(l slate opacity-15)">
+            <RightBar />
+          </NLayoutSider>
+        </template>
+      </template>
+    </NLayout>
+  </NLayout>
 </template>
