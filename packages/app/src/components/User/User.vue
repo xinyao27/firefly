@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
-import { NAvatar, NButton } from 'naive-ui'
 import { clearCache } from '@firefly/common'
 import { renderUserInfo } from './render'
 import { supabase } from '~/modules/api'

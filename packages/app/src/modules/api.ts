@@ -11,3 +11,5 @@ export const install: UserModule = ({ isClient }) => {
 
   supabase = createSupabaseClient()
 }
+
+export const enable = ['index', 'assistant']

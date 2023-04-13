@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useLoadingBar } from 'naive-ui'
-
 const uploadStore = useUploadStore()
 const loadingBar = useLoadingBar()
 watchEffect(() => {

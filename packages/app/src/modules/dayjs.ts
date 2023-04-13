@@ -10,3 +10,5 @@ export const install: UserModule = async ({ isClient }) => {
   dayjs.locale('zh-cn')
   dayjs.extend(relativeTime)
 }
+
+export const enable = ['index', 'assistant']

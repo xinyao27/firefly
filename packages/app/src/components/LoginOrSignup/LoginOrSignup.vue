@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
-import { NGi, useMessage } from 'naive-ui'
 import { is } from '@firefly/common'
 import { desktop } from '~/modules/desktop'
 import { supabase } from '~/modules/api'

@@ -2,7 +2,6 @@
 import type { Editor } from '@tiptap/vue-3'
 import { BubbleMenu } from '@tiptap/vue-3'
 import type { DropdownOption } from 'naive-ui'
-import { NButton, NDropdown, NTooltip } from 'naive-ui'
 import type { EditorState } from '@tiptap/pm/state'
 import { h } from 'vue'
 import { useI18n } from 'vue-i18n'

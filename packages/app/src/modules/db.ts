@@ -55,3 +55,5 @@ export const install: UserModule = ({ isClient }) => {
     },
   })
 }
+
+export const enable = ['index', 'assistant']

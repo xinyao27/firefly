@@ -5,7 +5,7 @@ export const install: UserModule = ({ isClient, router }) => {
   if (!isClient)
     return
 
-  router.beforeEach(
+  router?.beforeEach(
     async (to, _, next) => {
       if (to.path === '/') {
         // Redirect to inbox if logged in
@@ -30,3 +30,5 @@ export const install: UserModule = ({ isClient, router }) => {
     },
   )
 }
+
+export const enable = ['index']

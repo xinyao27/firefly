@@ -13,8 +13,6 @@ out
 *.local
 auto-imports.d.ts
 components.d.ts
-.vite-ssg-dist
-.vite-ssg-temp
 /target/
 
 # Logs
