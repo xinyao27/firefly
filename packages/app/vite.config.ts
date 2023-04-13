@@ -203,7 +203,7 @@ export default defineConfig(({ mode }) => {
     },
     ssr: {
       // Add libraries containing invalid ESM here
-      noExternal: ['workbox-window', /vue-i18n/],
+      noExternal: ['naive-ui', 'date-fns', /vueuc/, 'workbox-window', /vue-i18n/],
     },
     test: {
       environment: 'jsdom',
