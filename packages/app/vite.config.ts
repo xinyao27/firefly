@@ -197,10 +197,13 @@ export default defineConfig(({ mode }) => {
       onFinished() {
         generateSitemap()
       },
+      includedRoutes(paths) {
+        return paths.filter(i => i === '/')
+      },
     },
     ssr: {
       // Add libraries containing invalid ESM here
-      noExternal: ['naive-ui', 'date-fns', /vueuc/, 'workbox-window', /vue-i18n/],
+      noExternal: ['workbox-window', /vue-i18n/],
     },
     test: {
       environment: 'jsdom',
