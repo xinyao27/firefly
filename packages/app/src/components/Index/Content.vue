@@ -135,13 +135,12 @@ const userStore = useUserStore()
           </h2>
           <div flex justify-center gap-2>
             <template v-if="userStore.profiles">
-              <NButton
-                type="primary"
-                color="white"
+              <button
+                btn-white
                 @click="router.push('/inbox')"
               >
                 {{ t('common.openApp') }}
-              </NButton>
+              </button>
             </template>
             <template v-else>
               <LoginGroup />

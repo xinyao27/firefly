@@ -4,17 +4,16 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <NButton
-    quaternary
-    @click="router.push('/signup')"
-  >
-    {{ t('common.signup') }}
-  </NButton>
-  <NButton
-    type="primary"
-    color="white"
+  <button
+    btn-slate
     @click="router.push('/login')"
   >
     {{ t('common.login') }}
-  </NButton>
+  </button>
+  <button
+    btn-white
+    @click="router.push('/signup')"
+  >
+    {{ t('common.signup') }}
+  </button>
 </template>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Spin, is } from '@firefly/common'
 import { useRouteHash } from '@vueuse/router'
-import { useMessage } from 'naive-ui'
 import { supabase } from '~/modules/api'
 import { bc } from '~/utils'
 
@@ -10,7 +9,6 @@ defineOptions({ name: 'RedirectPage' })
 const { t } = useI18n()
 const search = useRouteHash()
 const router = useRouter()
-const message = useMessage()
 const error = ref<{ type: string; description: string } | null>(null)
 
 onMounted(async () => {
@@ -21,17 +19,25 @@ onMounted(async () => {
     const access_token = searchParams.get('access_token')
     const refresh_token = searchParams.get('refresh_token')
     if (access_token && refresh_token) {
-      const { error } = await supabase.auth.setSession({
+      const { error: sessionError } = await supabase.auth.setSession({
         access_token,
         refresh_token,
       })
-      if (error)
-        message.error(error.message)
-      else
+      if (sessionError) {
+        error.value = {
+          type: t('common.loginError'),
+          description: 'Set session error',
+        }
+      }
+      else {
         router.replace('/inbox')
+      }
     }
     else {
-      message.error(t('common.loginError'))
+      error.value = {
+        type: t('common.loginError'),
+        description: 'No access_token or refresh_token',
+      }
     }
   }
   else if (window.opener?.postMessage) {
