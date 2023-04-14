@@ -26,6 +26,11 @@ export const install: UserModule = ({ isClient, router }) => {
         if (!(await getUser()))
           return next({ path: 'login' })
       }
+      else if (to.path === '/login' || to.path === '/signup') {
+        // Redirect to inbox if logged in
+        if (await getUser())
+          return next({ path: 'inbox' })
+      }
       next()
     },
   )
