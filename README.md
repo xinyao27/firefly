@@ -19,7 +19,7 @@ English | [简体中文](./README-zh_CN.md)
 
 - 📥 Capture: Support OCR image recognition collection, shortcut key collection, word marking icon collection, etc.
 
-- 🔥 Cloud Sync: Support full-platform synchronization, allowing your information to be synchronized to multiple devices anytime, anywhere, convenient for you to view and manage at any time.
+- 🔥 Copilot Hub !!: You can submit the information you have collected to AI training and generate a customized 'ChatGPT' in a vertical field. Of course, you can share the link of your created Copilot so that others can chat with it.
 
 ### More
 
