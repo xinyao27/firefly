@@ -110,7 +110,7 @@ fn main() {
                     .unwrap()
                     .as_millis();
                 let mut is_text_selected_event = false;
-                let (x, y): (i32, i32) = get_mouse_location().unwrap();
+                let (x, y) = get_mouse_location().unwrap();
                 let (prev_release_x, prev_release_y) = { *PREVIOUS_RELEASE_POSITION.lock() };
                 {
                     *PREVIOUS_RELEASE_POSITION.lock() = (x, y);
