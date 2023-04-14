@@ -17,6 +17,7 @@ block:
 common:
   back: kembali
   cancel: Membatalkan
+  close: Menutup
   confirm: Tentu
   copied: disalin
   copilotQuota: Kuota Kopilot
@@ -38,6 +39,7 @@ common:
   notFound: tidak dapat menemukan
   ocrHotkeyAlreadyRegistered: OCRHotkey sudah terdaftar
   openApp: Buka Aplikasi
+  redirecting: Mengalihkan...
   required: Diperlukan
   save: menyimpan
   saved: Berhasil disimpan
@@ -45,6 +47,7 @@ common:
   slogan: >-
     Firefly adalah alat pengumpulan informasi fragmen, yang menggabungkan
     kemampuan analisis data AI untuk membuat pengumpulan informasi jadi menarik
+  success: Kesuksesan
   updated: pembaruan selesai
   warningContent: Anda yakin ingin menghapusnya
   warningTitle: memperingatkan

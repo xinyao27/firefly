@@ -19,6 +19,7 @@ use std::env;
 use std::sync::atomic::{AtomicBool, Ordering};
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri_plugin_autostart::MacosLauncher;
+use tauri_plugin_deep_link::{prepare, register};
 
 use crate::config::{clear_config_cache, get_config_content};
 use crate::lang::detect_lang;
@@ -75,6 +76,8 @@ fn main() {
         environment: Some("production".into()),
         ..Default::default()
     }));
+
+    prepare("com.firefly.best");
 
     let silently = env::args().any(|arg| arg == "--silently");
 
@@ -276,6 +279,18 @@ fn main() {
                 }
             }
             show_thumb(-100, -100);
+
+            // Register a custom scheme
+            register("firefly", move |request| {
+                app_handle.emit_all("firefly_scheme", request).unwrap();
+            })
+            .unwrap();
+            // If you also need the url when the primary instance was started by the custom scheme, you currently have to read it yourself
+            // #[cfg(not(target_os = "macos"))]
+            // if let Some(url) = std::env::args().nth(1) {
+            //     app.emit_all("scheme-request-received", url).unwrap();
+            // }
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

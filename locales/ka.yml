@@ -17,6 +17,7 @@ block:
 common:
   back: დაბრუნების
   cancel: გაუქმება
+  close: დახურვა
   confirm: რა თქმა უნდა
   copied: გადაწერა
   copilotQuota: კოპილოტის კვოტა
@@ -38,6 +39,7 @@ common:
   notFound: ვერ პოულობს
   ocrHotkeyAlreadyRegistered: OCRHotkey უკვე დარეგისტრირებულია
   openApp: გახსენით აპლიკაცია
+  redirecting: გადამისამართება...
   required: საჭირო
   save: გადარჩენა
   saved: შენახულია წარმატებით
@@ -46,6 +48,7 @@ common:
     Firefly არის ფრაგმენტული ინფორმაციის შეგროვების ინსტრუმენტი, რომელიც
     აერთიანებს AI-ის მონაცემთა ანალიზის უნარს, რათა ინფორმაციის შეგროვება ასე
     საინტერესო გახდეს
+  success: წარმატებები
   updated: განახლება დასრულდა
   warningContent: დარწმუნებული ხართ, რომ გსურთ მისი წაშლა
   warningTitle: გაფრთხილება

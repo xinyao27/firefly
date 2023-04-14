@@ -17,6 +17,7 @@ block:
 common:
   back: Back
   cancel: Cancel
+  close: Close
   confirm: Sure
   copied: copied
   copilotQuota: Copilot Quota
@@ -38,6 +39,7 @@ common:
   notFound: can't find
   ocrHotkeyAlreadyRegistered: OCRHotkey already registered
   openApp: Open App
+  redirecting: Redirecting...
   required: Required
   save: save
   saved: Saved successfully
@@ -45,6 +47,7 @@ common:
   slogan: >-
     Firefly is a fragment information collection tool, which combines the data
     analysis ability of AI to make information collection so interesting
+  success: Success
   updated: update completed
   warningContent: You sure you want to delete it
   warningTitle: Warning

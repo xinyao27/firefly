@@ -17,6 +17,7 @@ block:
 common:
   back: повернення
   cancel: Скасувати
+  close: Закрити
   confirm: звичайно
   copied: скопійовано
   copilotQuota: Квота другого пілота
@@ -38,6 +39,7 @@ common:
   notFound: не можу знайти
   ocrHotkeyAlreadyRegistered: OCRHotkey уже зареєстровано
   openApp: Відкрийте додаток
+  redirecting: Перенаправлення...
   required: вимагається
   save: зберегти
   saved: Успішно збережено
@@ -46,6 +48,7 @@ common:
     Firefly — це інструмент для збору фрагментованої інформації, який поєднує в
     собі здатність штучного інтелекту аналізувати дані, щоб зробити збір
     інформації таким цікавим
+  success: Успіх
   updated: оновлення завершено
   warningContent: Ви впевнені, що хочете його видалити
   warningTitle: попередити

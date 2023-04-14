@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { is } from '@firefly/common'
-import { WebviewWindow } from '@tauri-apps/api/window'
+import type { Event } from '@tauri-apps/api/event'
+import { listen } from '@tauri-apps/api/event'
 import { supabase } from '~/modules/api'
-import { bc } from '~/utils'
+import { parseSchema } from '~/utils'
 
 const props = defineProps<{
   type: 'login' | 'signup'
@@ -35,46 +36,29 @@ const rules = {
 }
 
 const loading = ref(false)
-async function signInWithToken(name: string, url: string) {
+async function signInWithToken(url: string) {
   if (is.desktop()) {
-    let authWindow = WebviewWindow.getByLabel(name)
-    bc.onmessage = async (event) => {
-      if (event.data) {
-        const hash = event.data as string
-        const searchParams = new URLSearchParams(hash)
-        const access_token = searchParams.get('access_token')
-        const refresh_token = searchParams.get('refresh_token')
+    listen('firefly_scheme', async (event: Event<string>) => {
+      if (event.event === 'firefly_scheme') {
+        const parsed = parseSchema(event.payload)
+        const { access_token, refresh_token } = parsed || {}
         if (access_token && refresh_token) {
           const { error } = await supabase.auth.setSession({
             access_token,
             refresh_token,
           })
-          if (error) {
+          if (error)
             message.error(error.message)
-          }
-          else {
+          else
             router.replace('/inbox')
-            authWindow?.close()
-          }
         }
         else {
           message.error(t('common.loginError'))
-          authWindow?.close()
         }
       }
-    }
-    if (authWindow) {
-      authWindow.show()
-    }
-    else {
-      authWindow = new WebviewWindow(name, {
-        url,
-        center: true,
-        width: 600,
-        height: 600,
-        title: 'Firefly SignIn',
-      })
-    }
+    })
+
+    window.open(url)
   }
   else {
     const authWindow = window.open(url, '_blank', 'width=800,height=600')
@@ -113,7 +97,7 @@ async function signInWithGoogle() {
       provider: 'google',
       options: {
         skipBrowserRedirect: true,
-        redirectTo: `${window.location.origin}/redirect`,
+        redirectTo: `${window.location.origin}/redirect?_f=${is.desktop() ? 'desktop' : 'web'}&_t=oauth`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
@@ -123,7 +107,7 @@ async function signInWithGoogle() {
     if (error)
       throw error
     if (data.url)
-      await signInWithToken('auth_google', data.url)
+      await signInWithToken(data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -139,13 +123,13 @@ async function signInWithGithub() {
       provider: 'github',
       options: {
         skipBrowserRedirect: true,
-        redirectTo: `${window.location.origin}/redirect`,
+        redirectTo: `${window.location.origin}/redirect?_f=${is.desktop() ? 'desktop' : 'web'}&_t=oauth`,
       },
     })
     if (error)
       throw error
     if (data.url)
-      await signInWithToken('auth_github', data.url)
+      await signInWithToken(data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -161,13 +145,13 @@ async function signInWithNotion() {
       provider: 'notion',
       options: {
         skipBrowserRedirect: true,
-        redirectTo: `${window.location.origin}/redirect`,
+        redirectTo: `${window.location.origin}/redirect?_f=${is.desktop() ? 'desktop' : 'web'}&_t=oauth`,
       },
     })
     if (error)
       throw error
     if (data.url)
-      await signInWithToken('auth_notion', data.url)
+      await signInWithToken(data.url)
   }
   catch (error: any) {
     message.error(error.message || error.msg || error)
@@ -184,7 +168,7 @@ function signInWithOtp() {
       supabase.auth.signInWithOtp({
         email: formValue.value.email,
         options: {
-          emailRedirectTo: `${window.location.origin}/redirect`,
+          emailRedirectTo: `${window.location.origin}/redirect?_f=${is.desktop() ? 'desktop' : 'web'}&_t=email`,
           shouldCreateUser: props.type === 'signup',
         },
       })

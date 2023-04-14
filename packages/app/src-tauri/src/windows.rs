@@ -5,6 +5,7 @@ use crate::APP_HANDLE;
 use mouse_position::mouse_position::Mouse;
 use std::sync::atomic::Ordering;
 use tauri::{LogicalPosition, Manager, PhysicalPosition};
+use window_shadows::set_shadow;
 
 pub const MAIN_WIN_NAME: &str = "main";
 pub const ASSISTANT_WIN_NAME: &str = "assistant";

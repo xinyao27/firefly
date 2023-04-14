@@ -30,6 +30,7 @@ sysinfo = "0.28.3"
 tauri = { version = "1.2.4", features = ["clipboard-all", "dialog-message", "fs-read-dir", "fs-read-file", "fs-write-file", "global-shortcut-all", "http-all", "notification-all", "shell-open", "system-tray", "updater", "window-all", "windows7-compat"] }
 tauri-plugin-autostart = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 tauri-plugin-single-instance = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev", version = "0.1.0" }
+tauri-plugin-deep-link = { git = "https://github.com/FabianLars/tauri-plugin-deep-link", branch = "main" }
 tauri-plugin-window-state = "0.1.0"
 whatlang = "0.16.2"
 window-shadows = "0.2.1"
