@@ -77,7 +77,7 @@ fn main() {
         ..Default::default()
     }));
 
-    prepare("com.firefly.best");
+    prepare("best.firefly");
 
     let silently = env::args().any(|arg| arg == "--silently");
 
