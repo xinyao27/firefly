@@ -31,9 +31,9 @@ async function handleSave() {
       if (is.macOS() && newSetting.ocrHotkey)
         await bindOCRHotkey(newSetting.ocrHotkey, oldSetting.ocrHotkey)
       if (newSetting.runAtStartup !== await isAutostartEnabled()) {
-        if (newSetting.runAtStartup)
+        if (newSetting.runAtStartup === true)
           await autostartEnable()
-        else
+        else if (newSetting.runAtStartup === false)
           await autostartDisable()
       }
     }

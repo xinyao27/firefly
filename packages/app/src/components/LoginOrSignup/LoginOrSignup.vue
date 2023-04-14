@@ -58,7 +58,7 @@ async function signInWithToken(url: string) {
       }
     })
 
-    window.open(url)
+    window.open(url, '_blank', 'width=800,height=600')
   }
   else {
     const authWindow = window.open(url, '_blank', 'width=800,height=600')
