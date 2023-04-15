@@ -62,7 +62,7 @@ export const useBlockStore = defineStore('block', {
     async sync({ lastUpdatedAt, lastBlockId }: SyncParams = {}, refresh = true) {
       if (!this.ready)
         return setTimeout(() => this.sync({ lastUpdatedAt, lastBlockId }), 200)
-      const { destroy } = $message?.loading($t('common.loading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
         this.loading = true
         const tagStore = useTagStore()
@@ -105,7 +105,7 @@ export const useBlockStore = defineStore('block', {
           result.push(...response.data)
         }
 
-        $message?.success(`${$t('block.synced')} ${result.length} ${$t('block.blocks')}`)
+        window.$message?.success?.(`${$t('block.synced')} ${result.length} ${$t('block.blocks')}`)
         const params = new URLSearchParams(document.location.search)
         const tag = params.get('tag')
         if (tag)
@@ -115,15 +115,15 @@ export const useBlockStore = defineStore('block', {
       }
       catch (error: any) {
         console.error(error)
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
       }
       finally {
         this.loading = false
-        destroy()
+        message.destroy()
       }
     },
     async save(data: BlockModel) {
-      const { destroy } = $message?.loading($t('block.saveLoading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('block.saveLoading'), { duration: 0 })
       try {
         const response = await edgeFunctions<BlockModel>('blocks', {
           body: data,
@@ -133,18 +133,18 @@ export const useBlockStore = defineStore('block', {
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
-        $message?.success($t('common.saved'))
+        window.$message?.success?.($t('common.saved'))
       }
       catch (error: any) {
         console.error(error)
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async update(data: BlockModel) {
-      const { destroy } = $message?.loading($t('block.updateLoading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('block.updateLoading'), { duration: 0 })
       try {
         const response = await edgeFunctions<BlockModel>('blocks', {
           method: 'PUT',
@@ -155,18 +155,18 @@ export const useBlockStore = defineStore('block', {
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
-        $message?.success($t('common.updated'))
+        window.$message?.success?.($t('common.updated'))
       }
       catch (error: any) {
         console.error(error)
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async delete(id: BlockId) {
-      const { destroy } = $message?.loading($t('block.deleteLoading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('block.deleteLoading'), { duration: 0 })
       try {
         const response = await supabase.from('blocks').delete().eq('id', id)
         if (response.error)
@@ -174,14 +174,14 @@ export const useBlockStore = defineStore('block', {
 
         await (await db).delete('blocks', id)
         await this.refresh()
-        $message?.success($t('common.deleted'))
+        window.$message?.success?.($t('common.deleted'))
       }
       catch (error: any) {
         console.error(error)
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async clear() {
@@ -191,7 +191,7 @@ export const useBlockStore = defineStore('block', {
       }
       catch (error: any) {
         console.error(error)
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
       }
     },
     async search({ tag }: SearchParams) {

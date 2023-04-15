@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user', {
       }
       catch (error) {
         console.error(error)
-        $message?.error(error)
+        window.$message?.error?.(error)
       }
       finally {
         this.loading = false

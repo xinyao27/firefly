@@ -64,6 +64,10 @@ function handleClose() {
   assistantStore.cancel()
   props.onClose?.()
 }
+function handleSave() {
+  assistantStore.save()
+  handleClose()
+}
 </script>
 
 <template>
@@ -159,7 +163,7 @@ function handleClose() {
             size="small"
             :loading="assistantStore.loading"
             :disabled="!assistantStore.value || assistantStore.loading"
-            @click.stop="assistantStore.save"
+            @click.stop="handleSave"
           >
             <template #icon>
               <i i-ri-send-plane-2-fill />
