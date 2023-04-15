@@ -42,7 +42,7 @@ onMounted(
     <CustomProvider>
       <Assistant
         v-model="assistantStore.value"
-        class="max-h-20"
+        class="max-h-28"
         :on-close="handleClose"
         :show-close="!is.macOS()"
         pinned

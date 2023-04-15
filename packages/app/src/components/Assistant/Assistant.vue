@@ -109,22 +109,8 @@ function handleSave() {
       :tags="tagStore.tags"
       :on-created="editor => assistantStore.editor = editor"
     />
-    <div pt-1>
-      <NSelect
-        v-model:value="assistantStore.tags"
-        size="small"
-        multiple
-        filterable
-        tag
-        :options="tags"
-        :render-label="renderLabel"
-        :render-tag="renderTag"
-        :max-tag-count="8"
-        :placeholder="t('tag.placeholder')"
-      />
-    </div>
     <template #footer>
-      <div flex justify-between items-center>
+      <div flex justify-between items-center gap-2>
         <div>
           <input
             ref="uploadRef"
@@ -136,7 +122,7 @@ function handleSave() {
           >
           <NButton
             quaternary
-            size="tiny"
+            size="small"
             @click="uploadRef.click()"
           >
             <template #icon>
@@ -144,6 +130,21 @@ function handleSave() {
             </template>
           </NButton>
         </div>
+
+        <NSelect
+          v-model:value="assistantStore.tags"
+          class="flex-1"
+          size="small"
+          multiple
+          filterable
+          tag
+          :options="tags"
+          :render-label="renderLabel"
+          :render-tag="renderTag"
+          :max-tag-count="8"
+          :placeholder="t('tag.placeholder')"
+        />
+
         <div flex items-center gap-2>
           <NButton
             v-if="assistantStore.editingBlock"
@@ -178,5 +179,7 @@ function handleSave() {
 
 <style lang="sass">
 .n-base-selection .n-base-selection-tags
-  @apply bg-transparent pl-0
+  @apply bg-transparent pl-3px
+.n-base-select-menu .n-virtual-list
+  @apply max-h-40
 </style>
