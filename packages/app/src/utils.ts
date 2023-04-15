@@ -1,5 +1,6 @@
 import { isRegistered, register, unregister, unregisterAll } from '@tauri-apps/api/globalShortcut'
 import { invoke } from '@tauri-apps/api'
+import { is } from '@firefly/common'
 import { $t } from '~/modules/i18n'
 
 export async function bindHotkey(hotkey: string, oldHotkey?: string) {
@@ -37,12 +38,12 @@ export function unBindAll() {
 }
 
 export function parseSchema(link: string) {
-  const { protocol, pathname, searchParams } = new URL(link)
+  const { protocol, pathname, hostname, searchParams } = new URL(link)
 
   if (protocol !== 'firefly:')
     return null
 
-  if (pathname.startsWith('//redirect/')) {
+  if (is.macOS() ? hostname === 'redirect' : pathname.startsWith('//redirect')) {
     const access_token = searchParams.get('access_token')
     const refresh_token = searchParams.get('refresh_token')
     return {

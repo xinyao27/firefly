@@ -58,7 +58,18 @@ async function signInWithToken(url: string) {
       }
     })
 
-    window.open(url, '_blank', 'width=800,height=600')
+    if (is.macOS()) {
+      const a = document.createElement('a')
+      a.href = url
+      a.target = '_blank'
+      a.className = 'hidden'
+      document.body.append(a)
+      a.click()
+      document.body.removeChild(a)
+    }
+    else {
+      window.open(url, '_blank', 'width=800,height=600')
+    }
   }
   else {
     const authWindow = window.open(url, '_blank', 'width=800,height=600')

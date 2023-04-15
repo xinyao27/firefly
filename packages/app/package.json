@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "dev:desktop": "tauri dev",
     "build:desktop": "tauri build",
+    "build:desktop:debug": "tauri build --debug",
     "tauri": "tauri"
   },
   "dependencies": {
