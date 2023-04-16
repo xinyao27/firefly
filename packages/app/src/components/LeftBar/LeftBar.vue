@@ -100,7 +100,7 @@ function handleSelect([key]: string[]) {
         </template>
         <div flex items-center gap-2>
           {{ t('block.create') }}
-          <KBD :shortcut="[is.macOS() ? 'command' : 'ctrl', 'l']" />
+          <KBD :shortcut="[is.macOS() ? 'command' : 'ctrl', 't']" />
         </div>
       </NTooltip>
     </section>
