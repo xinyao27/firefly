@@ -98,7 +98,6 @@
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc5QTE2QTlENTQ2NTdEQTAKUldTZ2ZXVlVuV3FoZVFDalBqS0ZjRWxwSTZOakxsSUlUUFVkck1JdTF4Y0hFWWN4U21scks5cnIK",
       "endpoints": [
-        "https://sivmwchwhugiqriksrle.supabase.co/storage/v1/object/public/releases/latest.json",
         "https://github.com/chenyueban/firefly/releases/latest/download/latest.json"
       ],
       "active": true,
