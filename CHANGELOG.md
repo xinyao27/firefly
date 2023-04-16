@@ -1,5 +1,25 @@
 
 
+# [0.3.0](https://github.com/chenyueban/firefly/compare/v0.2.1...v0.3.0) (2023-04-16)
+
+
+### Bug Fixes
+
+* Disable private radio button on CreateACopilot.vue handleNext function ([8e6472f](https://github.com/chenyueban/firefly/commit/8e6472ff069e347ee595e48726b29dc59fbfa4dc))
+* fix desktop assistant save button error ([43c6a7f](https://github.com/chenyueban/firefly/commit/43c6a7fb19f36f25bf5104c66db0193e6b96faf3))
+* Fix homepage height issue ([d0c3893](https://github.com/chenyueban/firefly/commit/d0c389314de512073e4572a119ea96b51d121ea0))
+* fix list item line clamp not work ([77f2fde](https://github.com/chenyueban/firefly/commit/77f2fdee861b9c199480943b30237340fb6c7dcf))
+* fixed macOS custom schema not work ([3f9e7f2](https://github.com/chenyueban/firefly/commit/3f9e7f239accf1dddedc4d8ac60177943b2896ae))
+* Refactor mouse position variables and add comments for better readability ([683483d](https://github.com/chenyueban/firefly/commit/683483dfcac40bfe9c748ad220ab956044ebf021))
+* Refactor RouterView to be wrapped in AssistantProvider for better component organization and functionality ([d904603](https://github.com/chenyueban/firefly/commit/d904603265733198565125ef593b010ea467f375))
+* Refactor sign in and settings functionality to improve user experience ([a3b25e0](https://github.com/chenyueban/firefly/commit/a3b25e08b65de0ed502aa0c48b6f793157c506e2))
+* Refactor window creation and styling in app and assistant components ([08a24a0](https://github.com/chenyueban/firefly/commit/08a24a0b3d6d73b745b7b8b0cc8a2239ee65e0e4))
+
+
+### Features
+
+* remove vite ssg ([403aeee](https://github.com/chenyueban/firefly/commit/403aeee5380e97f751b62aa643a06681e16b1d0d))
+
 ## [0.2.1](https://github.com/chenyueban/firefly/compare/v0.2.0...v0.2.1) (2023-04-12)
 
 
