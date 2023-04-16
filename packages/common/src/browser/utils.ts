@@ -2,10 +2,12 @@ import { is } from '../is'
 import type { IBrowser, ISettings } from './types'
 
 export const defaultSettings: ISettings = {
-  hotkey: is.macOS() ? 'command+shift+l' : 'ctrl+shift+l',
-  alwaysShowIcons: true,
+  hotkey: is.macOS() ? 'option+d' : 'alt+d',
+  alwaysShowIcons: false,
   i18n: 'en',
 }
+if (is.macOS())
+  defaultSettings.ocrHotkey = 'option+s'
 
 // In order to let the type system remind you that all keys have been passed to browser.storage.sync.get(keys)
 const settingKeys: Record<keyof ISettings, number> = {
@@ -22,6 +24,10 @@ export async function getSettings(): Promise<ISettings> {
   const items = await browser.storage.sync.get(Object.keys(settingKeys))
 
   const settings = items as ISettings
+  if (settings.hotkey === undefined || settings.hotkey === null)
+    settings.hotkey = defaultSettings.hotkey
+  if (settings.ocrHotkey === undefined || settings.ocrHotkey === null)
+    settings.ocrHotkey = defaultSettings.ocrHotkey
   if (settings.alwaysShowIcons === undefined || settings.alwaysShowIcons === null)
     settings.alwaysShowIcons = defaultSettings.alwaysShowIcons
   if (!settings.i18n)

@@ -25,7 +25,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
   },
   actions: {
     async create(copilot: CopilotModel, tags: string[]) {
-      const { destroy } = $message?.loading($t('common.loading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
         await edgeFunctions('copilots', {
           body: {
@@ -33,14 +33,14 @@ export const useCopilotHubStore = defineStore('copilotHub', {
             tags,
           },
         })
-        $message?.success($t('copilot.createSuccess'))
+        window.$message?.success?.($t('copilot.createSuccess'))
       }
       catch (error: any) {
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
         throw error
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async findMy() {
@@ -66,12 +66,12 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         return response.data
       }
       catch (error: any) {
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
         throw error
       }
     },
     async findAll(page: number) {
-      const { destroy } = $message?.loading($t('common.loading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
         const cursor = page * this.size
         const response = await supabase
@@ -98,11 +98,11 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         return response.data
       }
       catch (error: any) {
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
         throw error
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async findOne(id: string) {
@@ -125,12 +125,12 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         return response.data
       }
       catch (error: any) {
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
         throw error
       }
     },
     async delete(id: string) {
-      const { destroy } = $message?.loading($t('copilot.deleteLoading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('copilot.deleteLoading'), { duration: 0 })
       try {
         const { error } = await supabase
           .from('copilots')
@@ -140,14 +140,14 @@ export const useCopilotHubStore = defineStore('copilotHub', {
           throw new Error(error.message)
 
         await this.findMy()
-        $message?.success($t('common.deleted'))
+        window.$message?.success?.($t('common.deleted'))
       }
       catch (error: any) {
-        $message?.error(error.message || error)
+        window.$message?.error?.(error.message || error)
         throw error
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
   },

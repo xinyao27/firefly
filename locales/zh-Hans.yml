@@ -17,6 +17,7 @@ block:
 common:
   back: 返回
   cancel: 取消
+  close: Close
   confirm: 确定
   copied: 已复制
   copilotQuota: Copilot 额度
@@ -38,11 +39,13 @@ common:
   notFound: 找不到
   ocrHotkeyAlreadyRegistered: OCRHotkey 已经注册
   openApp: 打开应用程序
+  redirecting: Redirecting...
   required: 必需的
   save: 保存
   saved: 保存成功
   signup: 注册
   slogan: Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 使得信息的采集变得如此有趣
+  success: Success
   updated: 更新成功
   warningContent: 确定要删除吗
   warningTitle: 警告

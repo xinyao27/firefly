@@ -17,6 +17,7 @@ block:
 common:
   back: يعود
   cancel: يلغي
+  close: يغلق
   confirm: بالتأكيد
   copied: نسخ
   copilotQuota: حصة مساعد الطيار
@@ -38,6 +39,7 @@ common:
   notFound: لا أجد
   ocrHotkeyAlreadyRegistered: OCRHotkey مسجل بالفعل
   openApp: افتح التطبيق
+  redirecting: إعادة توجيه...
   required: مطلوب
   save: يحفظ
   saved: حفظ بنجاح
@@ -45,6 +47,7 @@ common:
   slogan: >-
     Firefly هي أداة لجمع المعلومات المجزأة ، والتي تجمع بين قدرة تحليل البيانات
     للذكاء الاصطناعي لجعل جمع المعلومات ممتعًا للغاية
+  success: نجاح
   updated: تحديث الانتهاء
   warningContent: أنت متأكد أنك تريد حذفه
   warningTitle: تحذير

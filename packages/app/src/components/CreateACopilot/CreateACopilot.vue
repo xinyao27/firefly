@@ -174,7 +174,7 @@ async function handleNext() {
                 <NRadio value="public">
                   public
                 </NRadio>
-                <NRadio value="private">
+                <NRadio value="private" disabled>
                   private
                 </NRadio>
               </NSpace>

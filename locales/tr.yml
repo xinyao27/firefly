@@ -17,6 +17,7 @@ block:
 common:
   back: geri dönmek
   cancel: İptal etmek
+  close: Kapalı
   confirm: Elbette
   copied: kopyalanmış
   copilotQuota: Kopilot Kotası
@@ -38,6 +39,7 @@ common:
   notFound: bulamıyorum
   ocrHotkeyAlreadyRegistered: OCRHotkey zaten kayıtlı
   openApp: Uygulamayı aç
+  redirecting: Yönlendiriliyor...
   required: Gerekli
   save: kaydetmek
   saved: Başarıyla kaydedildi
@@ -45,6 +47,7 @@ common:
   slogan: >-
     Firefly, bilgi toplamayı çok ilginç hale getirmek için yapay zekanın veri
     analizi yeteneğini birleştiren bir parça bilgi toplama aracıdır.
+  success: Başarı
   updated: Güncelleme tamamlandı
   warningContent: Silmek istediğinizden emin misiniz?
   warningTitle: uyarmak

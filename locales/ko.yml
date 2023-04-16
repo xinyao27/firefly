@@ -17,6 +17,7 @@ block:
 common:
   back: 반품
   cancel: 취소
+  close: 닫다
   confirm: 확신하는
   copied: 복사
   copilotQuota: 부조종사 할당량
@@ -38,11 +39,13 @@ common:
   notFound: 찾을 수 없습니다
   ocrHotkeyAlreadyRegistered: OCRHotkey가 이미 등록되었습니다.
   openApp: 앱 열기
+  redirecting: 리디렉션 중...
   required: 필수의
   save: 구하다
   saved: 성공적으로 저장 되었음
   signup: 등록하다
   slogan: Firefly는 조각 정보 수집 도구로 AI의 데이터 분석 능력을 결합하여 정보 수집을 흥미롭게 만듭니다.
+  success: 성공
   updated: 업데이트 완료
   warningContent: 삭제하시겠습니까?
   warningTitle: 경고하다

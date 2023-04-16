@@ -18,11 +18,11 @@ onMounted(async () => {
     const keys = useMagicKeys({
       passive: false,
       onEventFired(e) {
-        if ((is.macOS() ? e.metaKey : e.ctrlKey) && e.key === 'l' && e.type === 'keydown')
+        if ((is.macOS() ? e.metaKey : e.ctrlKey) && e.key === 't' && e.type === 'keydown')
           e.preventDefault()
       },
     })
-    const CtrlL = keys[is.macOS() ? 'Command+L' : 'Ctrl+L']
+    const CtrlL = keys[is.macOS() ? 'Command+T' : 'Ctrl+T']
 
     watch(CtrlL, (v) => {
       if (v)

@@ -19,6 +19,7 @@ use std::env;
 use std::sync::atomic::{AtomicBool, Ordering};
 use sysinfo::{CpuExt, System, SystemExt};
 use tauri_plugin_autostart::MacosLauncher;
+use tauri_plugin_deep_link::{prepare, register};
 
 use crate::config::{clear_config_cache, get_config_content};
 use crate::lang::detect_lang;
@@ -76,6 +77,8 @@ fn main() {
         ..Default::default()
     }));
 
+    prepare("best.firefly");
+
     let silently = env::args().any(|arg| arg == "--silently");
 
     let mut mouse_manager = Mouse::new();
@@ -107,7 +110,7 @@ fn main() {
                     .unwrap()
                     .as_millis();
                 let mut is_text_selected_event = false;
-                let (x, y): (i32, i32) = get_mouse_location().unwrap();
+                let (x, y) = get_mouse_location().unwrap();
                 let (prev_release_x, prev_release_y) = { *PREVIOUS_RELEASE_POSITION.lock() };
                 {
                     *PREVIOUS_RELEASE_POSITION.lock() = (x, y);
@@ -276,6 +279,18 @@ fn main() {
                 }
             }
             show_thumb(-100, -100);
+
+            // Register a custom scheme
+            register("firefly", move |request| {
+                app_handle.emit_all("firefly_scheme", request).unwrap();
+            })
+            .unwrap();
+            // If you also need the url when the primary instance was started by the custom scheme, you currently have to read it yourself
+            #[cfg(not(target_os = "macos"))]
+            if let Some(url) = std::env::args().nth(1) {
+                app.emit_all("firefly_scheme", url).unwrap();
+            }
+
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![

@@ -106,14 +106,14 @@ export const useTagStore = defineStore('tag', {
       }
       catch (error) {
         console.error(error)
-        $message?.error(error)
+        window.$message?.error?.(error)
       }
       finally {
         this.loading = false
       }
     },
     async update(data: TagModel) {
-      const { destroy } = $message?.loading($t('tag.updateLoading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('tag.updateLoading'), { duration: 0 })
       try {
         const response = await supabase.from('tags').update(data).eq('id', data.id)
         if (response.error)
@@ -121,18 +121,18 @@ export const useTagStore = defineStore('tag', {
 
         await (await db).put('tags', data)
         await this.refresh()
-        $message?.success($t('common.updated'))
+        window.$message?.success?.($t('common.updated'))
       }
       catch (error) {
         console.error(error)
-        $message?.error(error)
+        window.$message?.error?.(error)
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async delete(id: TagId) {
-      const { destroy } = $message?.loading($t('tag.deleteLoading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('tag.deleteLoading'), { duration: 0 })
       try {
         const response = await supabase.from('tags').delete().eq('id', id)
         if (response.error)
@@ -140,14 +140,14 @@ export const useTagStore = defineStore('tag', {
 
         await (await db).delete('tags', id)
         await this.refresh()
-        $message?.success($t('common.deleted'))
+        window.$message?.success?.($t('common.deleted'))
       }
       catch (error) {
         console.error(error)
-        $message?.error(error)
+        window.$message?.error?.(error)
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
     async clear() {
@@ -157,7 +157,7 @@ export const useTagStore = defineStore('tag', {
       }
       catch (error) {
         console.error(error)
-        $message?.error(error)
+        window.$message?.error?.(error)
       }
     },
   },

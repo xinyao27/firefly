@@ -5,12 +5,15 @@ import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import Bubble from '~/components/Bubble'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue: string
   pinned?: boolean
   class?: string
+  showClose?: boolean
   onClose?: () => void
-}>()
+}>(), {
+  showClose: true,
+})
 const emit = defineEmits(['update:modelValue'])
 const data = useVModel(props, 'modelValue', emit)
 
@@ -61,6 +64,10 @@ function handleClose() {
   assistantStore.cancel()
   props.onClose?.()
 }
+function handleSave() {
+  assistantStore.save()
+  handleClose()
+}
 </script>
 
 <template>
@@ -75,6 +82,7 @@ function handleClose() {
       <div
         data-tauri-drag-region
         select-none
+        :pl="!showClose ? 16 : 0"
       >
         {{ assistantStore.type === 'update' ? t('block.update') : t('block.create') }}
       </div>
@@ -83,6 +91,7 @@ function handleClose() {
       <div flex items-center gap-2>
         <Pin v-if="pinned" />
         <NButton
+          v-if="props.showClose"
           quaternary
           size="tiny"
           @click="handleClose"
@@ -100,22 +109,8 @@ function handleClose() {
       :tags="tagStore.tags"
       :on-created="editor => assistantStore.editor = editor"
     />
-    <div pt-1>
-      <NSelect
-        v-model:value="assistantStore.tags"
-        size="small"
-        multiple
-        filterable
-        tag
-        :options="tags"
-        :render-label="renderLabel"
-        :render-tag="renderTag"
-        :max-tag-count="8"
-        :placeholder="t('tag.placeholder')"
-      />
-    </div>
     <template #footer>
-      <div flex justify-between items-center>
+      <div flex justify-between items-center gap-2>
         <div>
           <input
             ref="uploadRef"
@@ -127,7 +122,7 @@ function handleClose() {
           >
           <NButton
             quaternary
-            size="tiny"
+            size="small"
             @click="uploadRef.click()"
           >
             <template #icon>
@@ -135,6 +130,21 @@ function handleClose() {
             </template>
           </NButton>
         </div>
+
+        <NSelect
+          v-model:value="assistantStore.tags"
+          class="flex-1"
+          size="small"
+          multiple
+          filterable
+          tag
+          :options="tags"
+          :render-label="renderLabel"
+          :render-tag="renderTag"
+          :max-tag-count="8"
+          :placeholder="t('tag.placeholder')"
+        />
+
         <div flex items-center gap-2>
           <NButton
             v-if="assistantStore.editingBlock"
@@ -154,7 +164,7 @@ function handleClose() {
             size="small"
             :loading="assistantStore.loading"
             :disabled="!assistantStore.value || assistantStore.loading"
-            @click.stop="assistantStore.save"
+            @click.stop="handleSave"
           >
             <template #icon>
               <i i-ri-send-plane-2-fill />
@@ -169,5 +179,7 @@ function handleClose() {
 
 <style lang="sass">
 .n-base-selection .n-base-selection-tags
-  @apply bg-transparent pl-0
+  @apply bg-transparent pl-3px
+.n-base-select-menu .n-virtual-list
+  @apply max-h-40
 </style>

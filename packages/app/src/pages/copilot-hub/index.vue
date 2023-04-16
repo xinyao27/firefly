@@ -7,12 +7,10 @@ const copilotHubStore = useCopilotHubStore()
 const createACopilotShow = ref(false)
 
 onMounted(() => {
-  nextTick(() => {
-    if (!copilotHubStore.myCopilots.length)
-      copilotHubStore.findMy()
-    if (!copilotHubStore.copilots.length)
-      copilotHubStore.findAll(copilotHubStore.page)
-  })
+  if (!copilotHubStore.myCopilots.length)
+    copilotHubStore.findMy()
+  if (!copilotHubStore.copilots.length)
+    copilotHubStore.findAll(copilotHubStore.page)
 })
 function handleLoadMore() {
   copilotHubStore.page += 1

@@ -105,7 +105,7 @@ function handleTagClick(tag: string) {
       </div>
     </template>
     <div
-      cursor-pointer
+      :cursor="expanded ? 'text' : 'pointer'"
       :class="expanded ? '' : 'line-clamp-10'"
       @click="expanded === false && (expanded = true)"
     >
@@ -138,3 +138,9 @@ function handleTagClick(tag: string) {
     </div>
   </NCard>
 </template>
+
+<style lang="sass">
+.ProseMirror
+  > *
+    @apply inline
+</style>

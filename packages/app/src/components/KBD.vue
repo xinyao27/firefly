@@ -36,14 +36,17 @@ const shortcut = computed(() => {
   >
     <i v-if="props.showIcon" i-ri-keyboard-box-fill />
     <kbd flex items-center gap-1>
-      <template v-for="item in shortcut" :key="item">
+      <span
+        v-for="item in shortcut"
+        :key="item as string"
+      >
         <template v-if="typeof item === 'function'">
           <component :is="item" />
         </template>
         <template v-else>
           {{ item }}
         </template>
-      </template>
+      </span>
     </kbd>
   </div>
 </template>

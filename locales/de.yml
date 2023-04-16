@@ -17,6 +17,7 @@ block:
 common:
   back: zurückkehren
   cancel: Stornieren
+  close: Schließen
   confirm: Sicher
   copied: kopiert
   copilotQuota: Copilot-Quote
@@ -38,6 +39,7 @@ common:
   notFound: kann nicht finden
   ocrHotkeyAlreadyRegistered: OCRHotkey bereits registriert
   openApp: Öffne App
+  redirecting: Umleitung...
   required: Erforderlich
   save: speichern
   saved: Erfolgreich gespeichert
@@ -46,6 +48,7 @@ common:
     Firefly ist ein Tool zum Sammeln von Fragmentinformationen, das die
     Datenanalysefähigkeit von KI kombiniert, um das Sammeln von Informationen so
     interessant zu machen
+  success: Erfolg
   updated: Update abgeschlossen
   warningContent: Sie möchten es wirklich löschen
   warningTitle: warnen

@@ -17,6 +17,7 @@ block:
 common:
   back: 戻る
   cancel: キャンセル
+  close: 近い
   confirm: もちろん
   copied: コピーした
   copilotQuota: 副操縦士の割り当て
@@ -38,11 +39,13 @@ common:
   notFound: 見つからない
   ocrHotkeyAlreadyRegistered: OCRHotkey は既に登録されています
   openApp: アプリを開く
+  redirecting: リダイレクトしています...
   required: 必要
   save: 保存
   saved: 正常に保存
   signup: 登録
   slogan: Firefly は、AI のデータ分析機能を組み合わせて情報収集を面白くするフラグメント情報収集ツールです。
+  success: 成功
   updated: アップデート完了
   warningContent: 削除してもよろしいですか
   warningTitle: 警告する

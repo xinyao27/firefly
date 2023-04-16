@@ -4,7 +4,7 @@ use crate::ALWAYS_ON_TOP;
 use crate::APP_HANDLE;
 use mouse_position::mouse_position::Mouse;
 use std::sync::atomic::Ordering;
-use tauri::{LogicalPosition, LogicalSize, Manager, PhysicalPosition};
+use tauri::{LogicalPosition, Manager, PhysicalPosition};
 use window_shadows::set_shadow;
 
 pub const MAIN_WIN_NAME: &str = "main";
@@ -69,15 +69,16 @@ pub fn close_thumb() {
 
 pub fn show_thumb(x: i32, y: i32) {
     let handle = APP_HANDLE.get().unwrap();
-    let position_offset = 7.0 as f64;
+    let position_offset = 8.0 as f64;
     match handle.get_window(THUMB_WIN_NAME) {
         Some(window) => {
-            println!("Thumb window already exists");
+            // println!("Thumb window already exists");
+            // println!("Setting thumb window position to: {}, {}", x, y);
             if cfg!(target_os = "macos") {
                 window
                     .set_position(LogicalPosition::new(
                         x as f64 + position_offset,
-                        y as f64 + position_offset,
+                        y as f64 - position_offset,
                     ))
                     .unwrap();
             } else {
@@ -85,13 +86,12 @@ pub fn show_thumb(x: i32, y: i32) {
                 window
                     .set_position(PhysicalPosition::new(
                         x as f64 + position_offset,
-                        y as f64 + position_offset,
+                        y as f64 - position_offset,
                     ))
                     .unwrap();
             }
             window.unminimize().unwrap();
             window.show().unwrap();
-            window.set_size(LogicalSize::new(20.0, 20.0)).unwrap();
             window.set_always_on_top(true).unwrap();
         }
         None => {
@@ -137,9 +137,6 @@ pub fn show_thumb(x: i32, y: i32) {
                     ))
                     .unwrap();
             }
-
-            #[cfg(target_os = "macos")]
-            set_shadow(&window, true).unwrap();
         }
     }
 }
@@ -172,25 +169,30 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
                     window.unminimize().unwrap();
                 }
             } else if !center {
-                let (x, y): (i32, i32) = get_mouse_location().unwrap();
+                let (x, y) = get_mouse_location().unwrap();
                 let window_size = window.outer_size().unwrap();
-                // get minitor size
+                // get monitor size
                 let monitor = window.current_monitor().unwrap().unwrap();
                 let monitor_size = monitor.size();
                 let scale_factor = window.scale_factor().unwrap_or(1.0);
-                let mouse_physical_position =
-                    LogicalPosition::new(x as f64, y as f64).to_physical(scale_factor);
-                let mut window_physical_position = mouse_physical_position;
-                if mouse_physical_position.x + window_size.width > monitor_size.width {
-                    window_physical_position.x = monitor_size.width - window_size.width;
+                let mouse_position =
+                    PhysicalPosition::new(x as u32, y as u32).to_logical(scale_factor);
+                let mut window_position = mouse_position;
+                if mouse_position.x + window_size.width > monitor_size.width {
+                    window_position.x = monitor_size.width - window_size.width;
                 }
-                if mouse_physical_position.y + window_size.height > monitor_size.height {
-                    window_physical_position.y = monitor_size.height - window_size.height;
+                if mouse_position.y + window_size.height > monitor_size.height {
+                    window_position.y = monitor_size.height - window_size.height;
                 }
                 if !cfg!(target_os = "macos") {
                     window.unminimize().unwrap();
                 }
-                window.set_position(window_physical_position).unwrap();
+                // println!("window_size {:?}", window_size);
+                // println!("monitor_size {:?}", monitor_size);
+                // println!("scale_factor {:?}", scale_factor);
+                // println!("mouse_position {:?}", mouse_position);
+                // println!("window_position {:?}", window_position);
+                window.set_position(window_position).unwrap();
             } else {
                 if !cfg!(target_os = "macos") {
                     window.unminimize().unwrap();
@@ -216,7 +218,6 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             .skip_taskbar(true)
             .center()
             .focused(false)
-            .decorations(false)
             .title("Firefly Assistant");
 
             #[cfg(target_os = "macos")]

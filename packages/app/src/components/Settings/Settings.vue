@@ -5,7 +5,7 @@ import {
   isEnabled as isAutostartEnabled,
 } from 'tauri-plugin-autostart-api'
 import { defaultSettings, getSettings, is, langMap, setSettings } from '@firefly/common'
-import { desktop } from '~/modules/desktop'
+import { invoke } from '@tauri-apps/api'
 import { bindHotkey, bindOCRHotkey } from '~/utils'
 import { availableLocales, loadLanguageAsync } from '~/modules/i18n'
 
@@ -25,15 +25,15 @@ async function handleSave() {
     const oldSetting = await getSettings()
     const newSetting = settings.value
     if (is.desktop()) {
-      await desktop.invoke('clear_config_cache')
+      await invoke('clear_config_cache')
       if (newSetting.hotkey)
         await bindHotkey(newSetting.hotkey, oldSetting.hotkey)
       if (is.macOS() && newSetting.ocrHotkey)
         await bindOCRHotkey(newSetting.ocrHotkey, oldSetting.ocrHotkey)
       if (newSetting.runAtStartup !== await isAutostartEnabled()) {
-        if (newSetting.runAtStartup)
+        if (newSetting.runAtStartup === true)
           await autostartEnable()
-        else
+        else if (newSetting.runAtStartup === false)
           await autostartDisable()
       }
     }

@@ -17,6 +17,7 @@ block:
 common:
   back: trở lại
   cancel: Hủy bỏ
+  close: Đóng
   confirm: Chắc chắn
   copied: sao chép
   copilotQuota: Hạn ngạch phi công phụ
@@ -38,6 +39,7 @@ common:
   notFound: không thể tìm thấy
   ocrHotkeyAlreadyRegistered: OCRHotkey đã được đăng ký
   openApp: Mở chương trình
+  redirecting: Đang chuyển hướng...
   required: Yêu cầu
   save: cứu
   saved: đã lưu thành công
@@ -45,6 +47,7 @@ common:
   slogan: >-
     Firefly là một công cụ thu thập thông tin dạng mảnh, kết hợp khả năng phân
     tích dữ liệu của AI để làm cho việc thu thập thông tin trở nên thú vị
+  success: Thành công
   updated: hoàn thành cập nhật
   warningContent: Bạn chắc chắn muốn xóa nó
   warningTitle: cảnh báo

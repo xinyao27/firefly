@@ -57,11 +57,10 @@ export const useAssistantStore = defineStore('assistant', {
         })
       }
 
-      this.cancel()
       this.loading = false
     },
     async upload(e: Event) {
-      const { destroy } = $message?.loading($t('editor.uploading'), { duration: 0 })
+      const message = window.$message?.loading?.($t('editor.uploading'), { duration: 0 })
       try {
         // @ts-expect-error noop
         const files = e.target?.files as FileList
@@ -91,10 +90,10 @@ export const useAssistantStore = defineStore('assistant', {
       }
       catch (err) {
         console.error(err)
-        $message?.error(err as string)
+        window.$message?.error?.(err as string)
       }
       finally {
-        destroy()
+        message?.destroy?.()
       }
     },
   },

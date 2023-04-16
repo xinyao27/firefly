@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ThemeProvider } from '@firefly/theme'
-import type { BlockModel } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { Event } from '@tauri-apps/api/event'
 import type { Editor } from '@tiptap/core'
-import { desktop } from '~/modules/desktop'
+import { invoke } from '@tauri-apps/api'
+import { listen } from '@tauri-apps/api/event'
 import { loadLanguageAsync } from '~/modules/i18n'
 
-const block = ref<BlockModel>({ content: '' })
+const assistantStore = useAssistantStore()
 const editor = ref<Editor>()
 
 async function handleClose() {
-  block.value = { content: '' }
-  await desktop.invoke('hide_assistant_window')
+  assistantStore.value = ''
+  await invoke('hide_assistant_window')
 }
 
 const settings = useSettings()
@@ -20,38 +20,31 @@ watch(() => settings.value.i18n, (locale) => {
   loadLanguageAsync(locale ?? 'en')
 })
 
-onMounted(() => {
-  if (is.desktop()) {
+onMounted(
+  () => {
     let unlisten
     ;(async () => {
-      unlisten = await desktop.event.listen('change-text', async (event: Event<string>) => {
+      unlisten = await listen('change-text', async (event: Event<string>) => {
         const selectedText = event.payload
         if (selectedText) {
           editor.value?.commands.focus()
-          if (block.value) {
-            block.value.content = selectedText
-          }
-          else {
-            block.value = {
-              content: selectedText,
-            }
-          }
+          assistantStore.value = selectedText
         }
       })
     })()
     return unlisten
-  }
-  return () => {}
-})
+  },
+)
 </script>
 
 <template>
   <ThemeProvider>
     <CustomProvider>
       <Assistant
-        v-model="block.content"
-        class="max-h-20"
+        v-model="assistantStore.value"
+        class="max-h-28"
         :on-close="handleClose"
+        :show-close="!is.macOS()"
         pinned
       />
     </CustomProvider>
