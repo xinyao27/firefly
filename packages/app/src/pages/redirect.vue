@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { Spin } from '@firefly/common'
-import { useRouteHash, useRouteQuery } from '@vueuse/router'
+import { useRouteHash } from '@vueuse/router'
 import { supabase } from '~/modules/api'
 
 defineOptions({ name: 'RedirectPage' })
 
 const { t } = useI18n()
-const from = useRouteQuery<'web' | 'desktop'>('_f')
-const type = useRouteQuery<'email' | 'oauth'>('_t')
 const search = useRouteHash()
 const router = useRouter()
 const error = ref<{ type: string; description: string } | null>(null)
@@ -17,34 +15,32 @@ onMounted(async () => {
   const hash = search.value.slice(1)
   const searchParams = new URLSearchParams(hash)
 
-  // web email signup confirm
-  if (type.value === 'email' && searchParams.get('type') === 'signup') {
+  // email signup confirm
+  if (searchParams.get('type') === 'signup') {
     const searchParams = new URLSearchParams(hash)
     const access_token = searchParams.get('access_token')
     const refresh_token = searchParams.get('refresh_token')
     if (access_token && refresh_token) {
-      if (from.value === 'web') {
-        const { error: sessionError } = await supabase.auth.setSession({
-          access_token,
-          refresh_token,
-        })
-        if (sessionError) {
-          success.value = false
-          error.value = {
-            type: t('common.loginError'),
-            description: 'Set session error',
-          }
-        }
-        else {
-          success.value = true
-          router.replace('/inbox')
+      const { error: sessionError } = await supabase.auth.setSession({
+        access_token,
+        refresh_token,
+      })
+      if (sessionError) {
+        success.value = false
+        error.value = {
+          type: t('common.loginError'),
+          description: 'Set session error',
         }
       }
-      else if (from.value === 'desktop') {
-        const link = `firefly://redirect?${hash}`
-        window.open(link, '_self')
+      else {
         success.value = true
+        router.replace('/inbox')
       }
+
+      // desktop
+      const link = `firefly://redirect?${hash}`
+      window.open(link, '_self')
+      success.value = true
     }
     else {
       success.value = false
@@ -54,21 +50,16 @@ onMounted(async () => {
       }
     }
   }
-
-  if (type.value === 'oauth') {
-    // web oauth2
-    if (from.value === 'web') {
-      if (window.opener?.postMessage) {
-        window.opener.postMessage({ type: 'firefly_auth', hash }, window.location.origin)
-        success.value = true
-      }
-    }
-    // desktop oauth2
-    else if (from.value === 'desktop') {
-      const link = `firefly://redirect?${hash}`
-      window.open(link, '_self')
+  else {
+    if (window.opener?.postMessage) {
+      window.opener.postMessage({ type: 'firefly_auth', hash }, window.location.origin)
       success.value = true
     }
+
+    // desktop
+    const link = `firefly://redirect?${hash}`
+    window.open(link, '_self')
+    success.value = true
   }
 
   if (searchParams.get('error')) {
