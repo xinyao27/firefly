@@ -18,6 +18,13 @@ watch(() => settings.value.i18n, async (value) => {
       <div flex gap-2>
         <a
           btn-slate
+          href="https://github.com/chenyueban/firefly"
+          target="_blank"
+        >
+          <i i-ri-github-fill />
+        </a>
+        <a
+          btn-slate
           href="https://twitter.com/firefly_best"
           target="_blank"
         >
