@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { is } from '@firefly/common'
 import { ThemeProvider } from '@firefly/theme'
 import { loadLanguageAsync } from '~/modules/i18n'
 
@@ -16,6 +17,13 @@ const settings = useSettings()
 
 watch(() => settings.value.i18n, (locale) => {
   loadLanguageAsync(locale ?? 'en')
+})
+
+onMounted(() => {
+  if (is.desktop()) {
+    document.body.classList.add('overflow-hidden')
+    document.body.classList.add('overscroll-none')
+  }
 })
 </script>
 
