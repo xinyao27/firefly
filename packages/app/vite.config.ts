@@ -16,7 +16,6 @@ import { VitePWA } from 'vite-plugin-pwa'
 import type { UserConfig } from 'vite'
 import { defineConfig } from 'vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
-import mkcert from 'vite-plugin-mkcert'
 import Inspector from 'vite-plugin-vue-inspector'
 import WebfontDownload from 'vite-plugin-webfont-dl'
 
@@ -36,11 +35,6 @@ export default defineConfig(({ mode }) => {
     input.thumb = resolve('thumb.html')
   }
   const plugins = [
-    // https://github.com/liuweiGL/vite-plugin-mkcert
-    mkcert({
-      source: 'coding',
-    }),
-
     VueMacros({
       plugins: {
         vue: Vue(),
@@ -177,7 +171,6 @@ export default defineConfig(({ mode }) => {
   const result: UserConfig = {
     clearScreen: false,
     server: {
-      https: true,
       strictPort: true,
     },
     envPrefix: ['VITE_', 'TAURI_'],
