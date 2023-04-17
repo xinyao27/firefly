@@ -29,6 +29,12 @@ watch(y, (value) => {
       </a>
 
       <div flex gap-2>
+        <button
+          btn-slate
+          @click="router.push('/desktop')"
+        >
+          {{ t('common.downloadDesktopApp') }}
+        </button>
         <template v-if="userStore.profiles">
           <button
             btn-white

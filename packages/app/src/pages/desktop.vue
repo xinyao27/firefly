@@ -3,7 +3,8 @@ defineOptions({ name: 'DesktopPage' })
 
 const { t } = useI18n()
 
-const macDownloadUrl = ref('')
+const appleMacDownloadUrl = ref('')
+const interMacDownloadUrl = ref('')
 const windowsDownloadUrl = ref('')
 
 onMounted(async () => {
@@ -11,9 +12,16 @@ onMounted(async () => {
   const data = (await response.json()) as any[]
   const latestRelease = data[0]
   const latestVersion = latestRelease?.tag_name?.split('v')?.[1]
-  macDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_x64.dmg`
+  appleMacDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_aarch64.dmg`
+  interMacDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_x64.dmg`
   windowsDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_x64_en-US.msi`
 })
+function handleMacSelect(key: string) {
+  if (key === 'apple')
+    window.open(appleMacDownloadUrl.value, '_blank')
+  else if (key === 'intel')
+    window.open(interMacDownloadUrl.value, '_blank')
+}
 </script>
 
 <template>
@@ -29,22 +37,35 @@ onMounted(async () => {
               src="/icon.png" alt="firefly logo"
             >
             <h2 text-3xl font-bold tracking-tight sm:text-4xl mb-5>
-              {{ t('desktop.title') }}
+              Firefly for Mac & Windows
             </h2>
             <div flex justify-center gap-2>
-              <NButton
-                type="primary"
-                color="white"
-                tag="a"
-                target="_blank"
-                :href="macDownloadUrl"
-                :loading="!macDownloadUrl"
+              <NDropdown
+                trigger="click"
+                :options="
+                  [
+                    {
+                      label: 'Apple Silicon',
+                      key: 'apple',
+                    }, {
+                      label: 'Intel',
+                      key: 'intel',
+                    },
+                  ]
+                "
+                @select="handleMacSelect"
               >
-                <template #icon>
-                  <i i-ri-apple-fill />
-                </template>
-                {{ t('desktop.downloadForMac') }}
-              </NButton>
+                <NButton
+                  type="primary"
+                  color="white"
+                  :loading="!appleMacDownloadUrl || !interMacDownloadUrl"
+                >
+                  <template #icon>
+                    <i i-ri-apple-fill />
+                  </template>
+                  {{ t('desktop.downloadForMac') }}
+                </NButton>
+              </NDropdown>
               <NButton
                 type="primary"
                 color="white"

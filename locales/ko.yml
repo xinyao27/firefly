@@ -74,7 +74,6 @@ copilot:
 desktop:
   downloadForMac: Mac용 다운로드
   downloadForWindows: Windows용 다운로드
-  title: Mac용 반딧불이
 editor:
   blockquote: 인용 텍스트
   bold: 용감한
