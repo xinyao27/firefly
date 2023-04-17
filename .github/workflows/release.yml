@@ -95,6 +95,9 @@ jobs:
           projectPath: ./packages/app
           releaseId: ${{ needs.create-release.outputs.release_id }}
           args: --target aarch64-apple-darwin
+          releaseBody: |
+            Please refer to [CHANGELOG.md](https://github.com/chenyueban/firefly/blob/main/CHANGELOG.md) for details.
+
       - name: Build the app (intel processor macOS only)
         if: matrix.platform == 'macos-latest'
         uses: tauri-apps/tauri-action@dev
@@ -110,6 +113,9 @@ jobs:
           projectPath: ./packages/app
           releaseId: ${{ needs.create-release.outputs.release_id }}
           args: --target x86_64-apple-darwin
+          releaseBody: |
+            Please refer to [CHANGELOG.md](https://github.com/chenyueban/firefly/blob/main/CHANGELOG.md) for details.
+
       - name: Build the app (windows only)
         if: matrix.platform == 'windows-latest'
         uses: tauri-apps/tauri-action@dev
@@ -124,6 +130,8 @@ jobs:
         with:
           projectPath: ./packages/app
           releaseId: ${{ needs.create-release.outputs.release_id }}
+          releaseBody: |
+            Please refer to [CHANGELOG.md](https://github.com/chenyueban/firefly/blob/main/CHANGELOG.md) for details.
 
   publish-release:
     permissions:
