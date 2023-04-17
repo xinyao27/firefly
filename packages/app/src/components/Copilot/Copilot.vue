@@ -11,8 +11,17 @@ const { t } = useI18n()
 const router = useRouter()
 const dialog = useDialog()
 const copilotHubStore = useCopilotHubStore()
+const updateCopilotShow = ref(false)
 
 const options: DropdownOption[] = [
+  {
+    label: t('common.update'),
+    key: 'update',
+    onClick() {
+      if (props.data.id)
+        updateCopilotShow.value = true
+    },
+  },
   {
     label: () => h('span', { class: 'text-red' }, t('common.delete')),
     key: 'delete',
@@ -33,6 +42,10 @@ const options: DropdownOption[] = [
 ]
 function handleSelect(_: string, option: DropdownOption) {
   (option.onClick as () => void)?.()
+}
+function handleUpdated() {
+  updateCopilotShow.value = false
+  copilotHubStore.findMy()
 }
 </script>
 
@@ -82,4 +95,9 @@ function handleSelect(_: string, option: DropdownOption) {
       <span font-semibold text-xs leading-normal>{{ props.data.interactions }}</span>
     </div>
   </NCard>
+  <CreateOrUpdateCopilot
+    v-model:show="updateCopilotShow"
+    :data="props.data"
+    :on-finished="handleUpdated"
+  />
 </template>

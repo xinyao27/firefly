@@ -5,8 +5,12 @@ import { is } from '@firefly/common'
 import { TonyStark } from './tonyStark'
 
 const props = defineProps<{
-  onCreated: () => void
+  show: boolean
+  data?: CopilotModel
+  onFinished: () => void
 }>()
+const emit = defineEmits(['update:show'])
+const show = useVModel(props, 'show', emit)
 
 const { t } = useI18n()
 const message = useMessage()
@@ -58,11 +62,17 @@ const rules: FormRules = {
   ],
 }
 
+onMounted(() => {
+  if (props.data)
+    model.value = props.data
+})
+
 function handleBack() {
   if (current.value === 1)
     return
   current.value = current.value - 1
 }
+
 async function handleNext() {
   loading.value = true
   try {
@@ -70,13 +80,12 @@ async function handleNext() {
       // config
       await formRef.value?.validate()
 
-      await copilotHubStore.create(model.value, selectedTags.value)
-      props.onCreated()
-    }
-    else if (current.value === 1) {
-      // select tags
-      if (selectedTags.value.length < 1)
-        throw (t('copilot.selectedTagsRequired'))
+      if (props.data)
+        await copilotHubStore.update(model.value, selectedTags.value)
+      else
+        await copilotHubStore.create(model.value, selectedTags.value)
+
+      props.onFinished()
     }
     currentStatus.value = 'process'
     current.value = current.value + 1
@@ -93,12 +102,15 @@ async function handleNext() {
 </script>
 
 <template>
-  <NCard
+  <NModal
+    v-model:show="show"
+    :mask-closable="false"
+    :close-on-esc="false"
+    :closable="!loading"
+    preset="card"
     style="width: 800px"
-    :title="t('copilot.createACopilot')"
+    :title="props.data ? t('copilot.updateCopilot') : t('copilot.createCopilot')"
     :bordered="false"
-    role="dialog"
-    aria-modal="true"
   >
     <NSteps
       :current="current"
@@ -188,7 +200,7 @@ async function handleNext() {
           type="error"
           tertiary
           size="small"
-          :disabled="current === 1"
+          :disabled="current === 1 || loading"
           @click="handleBack"
         >
           {{ t('common.back') }}
@@ -213,5 +225,5 @@ async function handleNext() {
         </NButton>
       </div>
     </div>
-  </NCard>
+  </NModal>
 </template>

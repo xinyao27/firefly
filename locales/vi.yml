@@ -48,13 +48,14 @@ common:
     Firefly là một công cụ thu thập thông tin dạng mảnh, kết hợp khả năng phân
     tích dữ liệu của AI để làm cho việc thu thập thông tin trở nên thú vị
   success: Thành công
+  update: thay mới
   updated: hoàn thành cập nhật
   warningContent: Bạn chắc chắn muốn xóa nó
   warningTitle: cảnh báo
   yourTags: thẻ của bạn
 copilot:
   Config: cấu hình
-  createACopilot: Tạo một phi công phụ
+  createCopilot: Tạo phi công phụ
   createSuccess: tạo thành công
   customPrompt: Lời nhắc tùy chỉnh
   deleteLoading: Loại bỏ Copilot trong...
@@ -73,6 +74,7 @@ copilot:
   selectedTagsRequired: Vui lòng chọn ít nhất một nhãn
   summarize: tóm tắt văn bản
   translate: dịch
+  updateCopilot: Cập nhật phi công phụ
   uploadData: Tải dữ liệu lên
   visibility: Khả năng hiển thị của phi công phụ
 desktop:

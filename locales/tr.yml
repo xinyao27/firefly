@@ -48,13 +48,14 @@ common:
     Firefly, bilgi toplamayı çok ilginç hale getirmek için yapay zekanın veri
     analizi yeteneğini birleştiren bir parça bilgi toplama aracıdır.
   success: Başarı
+  update: Yenile
   updated: Güncelleme tamamlandı
   warningContent: Silmek istediğinizden emin misiniz?
   warningTitle: uyarmak
   yourTags: Etiketleriniz
 copilot:
   Config: Yapılandırma
-  createACopilot: Bir Yardımcı Pilot Oluşturun
+  createCopilot: Yardımcı Pilotlar Oluşturun
   createSuccess: Başarı Yarat
   customPrompt: Özel İstemler
   deleteLoading: Şuradaki Copilot'u kaldır...
@@ -73,6 +74,7 @@ copilot:
   selectedTagsRequired: Lütfen en az bir etiket seçin
   summarize: metin özeti
   translate: Çevirmek
+  updateCopilot: Yardımcı Pilotu Güncelle
   uploadData: Veri Yükle
   visibility: Yardımcı Pilot Görünürlüğü
 desktop:

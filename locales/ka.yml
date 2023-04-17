@@ -49,13 +49,14 @@ common:
     აერთიანებს AI-ის მონაცემთა ანალიზის უნარს, რათა ინფორმაციის შეგროვება ასე
     საინტერესო გახდეს
   success: წარმატებები
+  update: განაახლებს
   updated: განახლება დასრულდა
   warningContent: დარწმუნებული ხართ, რომ გსურთ მისი წაშლა
   warningTitle: გაფრთხილება
   yourTags: თქვენი ტეგები
 copilot:
   Config: კონფიგურაცია
-  createACopilot: შექმენით კოპილოტი
+  createCopilot: შექმენით კოპილოტები
   createSuccess: შექმენით წარმატება
   customPrompt: მორგებული მოთხოვნა
   deleteLoading: Copilot-ის ამოღება...
@@ -75,6 +76,7 @@ copilot:
   selectedTagsRequired: გთხოვთ, აირჩიოთ მინიმუმ ერთი ეტიკეტი
   summarize: ტექსტის შეჯამება
   translate: თარგმნა
+  updateCopilot: კოპილოტის განახლება
   uploadData: ატვირთეთ მონაცემები
   visibility: კოპილოტის ხილვადობა
 desktop:

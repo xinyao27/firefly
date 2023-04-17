@@ -49,13 +49,14 @@ common:
     zdolność sztucznej inteligencji do analizy danych, aby gromadzenie
     informacji było tak interesujące
   success: Powodzenie
+  update: odnowić
   updated: aktualizacja zakończona
   warningContent: Na pewno chcesz go usunąć
   warningTitle: ostrzegać
   yourTags: Twoje tagi
 copilot:
   Config: Konfig
-  createACopilot: Stwórz drugiego pilota
+  createCopilot: Twórz pilotów
   createSuccess: Twórz sukces
   customPrompt: Niestandardowe podpowiedzi
   deleteLoading: Usuń Copilota w...
@@ -74,6 +75,7 @@ copilot:
   selectedTagsRequired: Wybierz co najmniej jedną etykietę
   summarize: streszczenie tekstu
   translate: Tłumaczyć
+  updateCopilot: Zaktualizuj drugiego pilota
   uploadData: Prześlij dane
   visibility: Widoczność drugiego pilota
 desktop:

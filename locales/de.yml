@@ -49,13 +49,14 @@ common:
     Datenanalysefähigkeit von KI kombiniert, um das Sammeln von Informationen so
     interessant zu machen
   success: Erfolg
+  update: erneuern
   updated: Update abgeschlossen
   warningContent: Sie möchten es wirklich löschen
   warningTitle: warnen
   yourTags: Ihre Tags
 copilot:
   Config: Konfig
-  createACopilot: Erstellen Sie einen Copiloten
+  createCopilot: Erstellen Sie Kopiloten
   createSuccess: Erfolg schaffen
   customPrompt: Benutzerdefinierte Eingabeaufforderungen
   deleteLoading: Copilot entfernen in...
@@ -75,6 +76,7 @@ copilot:
   selectedTagsRequired: Bitte wählen Sie mindestens ein Label aus
   summarize: Textzusammenfassung
   translate: übersetzen
+  updateCopilot: Copilot aktualisieren
   uploadData: Daten hochladen
   visibility: Copilot-Sichtbarkeit
 desktop:

@@ -48,13 +48,14 @@ common:
     Firefly هي أداة لجمع المعلومات المجزأة ، والتي تجمع بين قدرة تحليل البيانات
     للذكاء الاصطناعي لجعل جمع المعلومات ممتعًا للغاية
   success: نجاح
+  update: تجديد
   updated: تحديث الانتهاء
   warningContent: أنت متأكد أنك تريد حذفه
   warningTitle: تحذير
   yourTags: العلامات الخاصة بك
 copilot:
   Config: التكوين
-  createACopilot: إنشاء مساعد الطيار
+  createCopilot: إنشاء مساعدين
   createSuccess: تحقيق النجاح
   customPrompt: موجهات مخصصة
   deleteLoading: إزالة مساعد الطيار في ...
@@ -73,6 +74,7 @@ copilot:
   selectedTagsRequired: الرجاء تحديد تسمية واحدة على الأقل
   summarize: ملخص نصي
   translate: يترجم
+  updateCopilot: تحديث مساعد الطيار
   uploadData: تحميل البيانات
   visibility: رؤية مساعد الطيار
 desktop:

@@ -43,6 +43,26 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         message?.destroy?.()
       }
     },
+    async update(copilot: CopilotModel, tags: string[]) {
+      const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
+      try {
+        await edgeFunctions('copilots', {
+          method: 'PUT',
+          body: {
+            ...copilot,
+            tags,
+          },
+        })
+        window.$message?.success?.($t('copilot.createSuccess'))
+      }
+      catch (error: any) {
+        window.$message?.error?.(error.message || error)
+        throw error
+      }
+      finally {
+        message?.destroy?.()
+      }
+    },
     async findMy() {
       try {
         const user = await getUser()

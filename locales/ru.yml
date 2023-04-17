@@ -49,13 +49,14 @@ common:
     в себе возможности анализа данных ИИ, чтобы сделать сбор информации таким
     интересным.
   success: Успех
+  update: возобновить
   updated: обновление завершено
   warningContent: Вы уверены, что хотите удалить его
   warningTitle: предупреждать
   yourTags: Ваши теги
 copilot:
   Config: Конфигурация
-  createACopilot: Создать второго пилота
+  createCopilot: Создать второго пилота
   createSuccess: Создайте успех
   customPrompt: Пользовательские подсказки
   deleteLoading: Удалить второго пилота в...
@@ -75,6 +76,7 @@ copilot:
   selectedTagsRequired: Выберите хотя бы один ярлык
   summarize: текстовое резюме
   translate: переводить
+  updateCopilot: Обновить второго пилота
   uploadData: Загрузить данные
   visibility: Видимость второго пилота
 desktop:

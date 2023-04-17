@@ -46,13 +46,14 @@ common:
   signup: 등록하다
   slogan: Firefly는 조각 정보 수집 도구로 AI의 데이터 분석 능력을 결합하여 정보 수집을 흥미롭게 만듭니다.
   success: 성공
+  update: 고쳐 쓰다
   updated: 업데이트 완료
   warningContent: 삭제하시겠습니까?
   warningTitle: 경고하다
   yourTags: 내 태그
 copilot:
   Config: 구성
-  createACopilot: 부조종사 만들기
+  createCopilot: 부조종사 만들기
   createSuccess: 성공 만들기
   customPrompt: 사용자 정의 프롬프트
   deleteLoading: Copilot 제거...
@@ -69,6 +70,7 @@ copilot:
   selectedTagsRequired: 라벨을 하나 이상 선택하세요.
   summarize: 텍스트 요약
   translate: 번역하다
+  updateCopilot: 부조종사 업데이트
   uploadData: 데이터 업로드
   visibility: 부조종사 가시성
 desktop:

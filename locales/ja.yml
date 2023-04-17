@@ -46,13 +46,14 @@ common:
   signup: 登録
   slogan: Firefly は、AI のデータ分析機能を組み合わせて情報収集を面白くするフラグメント情報収集ツールです。
   success: 成功
+  update: 更新する
   updated: アップデート完了
   warningContent: 削除してもよろしいですか
   warningTitle: 警告する
   yourTags: あなたのタグ
 copilot:
   Config: 設定
-  createACopilot: コパイロットの作成
+  createCopilot: コパイロットの作成
   createSuccess: 成功を生み出す
   customPrompt: カスタム プロンプト
   deleteLoading: コパイロットを削除...
@@ -69,6 +70,7 @@ copilot:
   selectedTagsRequired: 少なくとも 1 つのラベルを選択してください
   summarize: テキストの要約
   translate: 翻訳
+  updateCopilot: コパイロットの更新
   uploadData: データのアップロード
   visibility: 副操縦士の可視性
 desktop:

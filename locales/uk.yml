@@ -49,13 +49,14 @@ common:
     собі здатність штучного інтелекту аналізувати дані, щоб зробити збір
     інформації таким цікавим
   success: Успіх
+  update: поновити
   updated: оновлення завершено
   warningContent: Ви впевнені, що хочете його видалити
   warningTitle: попередити
   yourTags: Ваші теги
 copilot:
   Config: Конфігурація
-  createACopilot: Створіть другого пілота
+  createCopilot: Створення копілотів
   createSuccess: Створіть успіх
   customPrompt: Спеціальні підказки
   deleteLoading: Видалити Copilot у...
@@ -74,6 +75,7 @@ copilot:
   selectedTagsRequired: Виберіть принаймні одну мітку
   summarize: текстове резюме
   translate: перекладати
+  updateCopilot: Оновити Copilot
   uploadData: Завантажити дані
   visibility: Видимість другого пілота
 desktop:

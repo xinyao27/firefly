@@ -49,13 +49,14 @@ common:
     combina la capacità di analisi dei dati dell'intelligenza artificiale per
     rendere la raccolta di informazioni così interessante
   success: Successo
+  update: rinnovare
   updated: aggiornamento completato
   warningContent: Sei sicuro di volerlo eliminare
   warningTitle: avvisare
   yourTags: I tuoi tag
 copilot:
   Config: Configurazione
-  createACopilot: Crea un copilota
+  createCopilot: Crea copiloti
   createSuccess: Crea successo
   customPrompt: Prompt personalizzati
   deleteLoading: Rimuovi copilota in...
@@ -74,6 +75,7 @@ copilot:
   selectedTagsRequired: Seleziona almeno un'etichetta
   summarize: sintesi testuale
   translate: tradurre
+  updateCopilot: Aggiorna copilota
   uploadData: Carica dati
   visibility: Visibilità copilota
 desktop:

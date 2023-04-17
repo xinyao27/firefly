@@ -4,7 +4,7 @@ defineOptions({ name: 'CopilotHubPage' })
 const { t } = useI18n()
 const userStore = useUserStore()
 const copilotHubStore = useCopilotHubStore()
-const createACopilotShow = ref(false)
+const createCopilotShow = ref(false)
 
 onMounted(() => {
   if (!copilotHubStore.myCopilots.length)
@@ -19,7 +19,7 @@ function handleLoadMore() {
   })
 }
 function handleCreated() {
-  createACopilotShow.value = false
+  createCopilotShow.value = false
   copilotHubStore.findMy()
 }
 </script>
@@ -40,17 +40,18 @@ function handleCreated() {
           class="mb-4"
           tertiary
           :disabled="copilotHubStore.myCopilots.length >= 3"
-          @click="createACopilotShow = true"
+          @click="createCopilotShow = true"
         >
           <template #icon>
             <i i-ri-add-line />
           </template>
-          {{ t('copilot.createACopilot') }}
+          {{ t('copilot.createCopilot') }}
         </NButton>
 
-        <NModal v-model:show="createACopilotShow">
-          <CreateACopilot :on-created="handleCreated" />
-        </NModal>
+        <CreateOrUpdateCopilot
+          v-model:show="createCopilotShow"
+          :on-finished="handleCreated"
+        />
 
         <div grid grid-cols-1 lg:grid-cols-2 gap-4>
           <Copilot

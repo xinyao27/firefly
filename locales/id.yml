@@ -48,13 +48,14 @@ common:
     Firefly adalah alat pengumpulan informasi fragmen, yang menggabungkan
     kemampuan analisis data AI untuk membuat pengumpulan informasi jadi menarik
   success: Kesuksesan
+  update: memperbarui
   updated: pembaruan selesai
   warningContent: Anda yakin ingin menghapusnya
   warningTitle: memperingatkan
   yourTags: Tag Anda
 copilot:
   Config: Konfigurasi
-  createACopilot: Buat Kopilot
+  createCopilot: Buat Kopilot
   createSuccess: Ciptakan Sukses
   customPrompt: Permintaan Kustom
   deleteLoading: Hapus Kopilot di...
@@ -74,6 +75,7 @@ copilot:
   selectedTagsRequired: Harap pilih setidaknya satu label
   summarize: ringkasan teks
   translate: menerjemahkan
+  updateCopilot: Perbarui Kopilot
   uploadData: Unggah Data
   visibility: Visibilitas kopilot
 desktop:
