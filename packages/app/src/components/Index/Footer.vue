@@ -25,7 +25,7 @@ watch(() => settings.value.i18n, async (value) => {
         </a>
         <a
           btn-slate
-          href="https://twitter.com/firefly_best"
+          href="https://twitter.com/FireflyBest"
           target="_blank"
         >
           <i i-ri-twitter-fill />
