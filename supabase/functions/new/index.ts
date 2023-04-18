@@ -17,10 +17,8 @@ serve(async (req) => {
       return new Response('ok', { headers: corsHeaders })
     }
 
-    const taskPattern = new URLPattern({ pathname: '/new/:token' })
-    const matchingPath = taskPattern.exec(req.url)
-    const token = matchingPath ? matchingPath.pathname.groups.token : null
-    if (!token) {
+    const Authorization = req.headers.get('Authorization')
+    if (!Authorization) {
       throw new UserError('Missing token')
     }
     if (!SUPABASE_URL) {
@@ -55,7 +53,7 @@ serve(async (req) => {
       },
     )
 
-    const decodedToken = decode(token)
+    const decodedToken = decode(Authorization)
     const bytes = crypto.AES.decrypt(decodedToken, SECRET)
     const decryptedData = JSON.parse(bytes.toString(crypto.enc.Utf8))
     if (!decryptedData || !decryptedData.id) {
