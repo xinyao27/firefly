@@ -17,7 +17,7 @@ serve(async (req) => {
       return new Response('ok', { headers: corsHeaders })
     }
 
-    const taskPattern = new URLPattern({ pathname: '/api/:token' })
+    const taskPattern = new URLPattern({ pathname: '/new/:token' })
     const matchingPath = taskPattern.exec(req.url)
     const token = matchingPath ? matchingPath.pathname.groups.token : null
     if (!token) {
