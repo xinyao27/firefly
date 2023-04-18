@@ -2,7 +2,7 @@ import { serve } from 'std/server'
 import { corsHeaders } from '../_shared/cors.ts'
 import { createErrorHandler, UserError } from '../_shared/errors.ts'
 import { CopilotModel } from '../_shared/models/Copilot.ts'
-import { createCopilot } from '../_shared/copilot.ts'
+import { createOrUpdateCopilot } from '../_shared/copilot.ts'
 import { createSupabaseClient, getUser } from '../_shared/auth.ts'
 
 serve(async (req) => {
@@ -28,9 +28,12 @@ serve(async (req) => {
       throw new UserError('Invalid Authorization')
     }
     let data
-    switch (true) {
-      case req.method === 'POST':
-        data = await createCopilot(supabase, tags, copilot, user.id)
+    switch (req.method) {
+      case 'POST':
+        data = await createOrUpdateCopilot(supabase, tags, copilot, user.id)
+        break
+      case 'PUT':
+        data = await createOrUpdateCopilot(supabase, tags, copilot, user.id)
         break
     }
     return new Response(JSON.stringify({ data }), {

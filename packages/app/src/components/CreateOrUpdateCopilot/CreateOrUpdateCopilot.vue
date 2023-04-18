@@ -91,8 +91,6 @@ async function handleNext() {
     current.value = current.value + 1
   }
   catch (err: any) {
-    console.error(err)
-    message.error(err.message || err)
     currentStatus.value = 'error'
   }
   finally {
@@ -221,7 +219,7 @@ async function handleNext() {
           size="small"
           @click="handleNext"
         >
-          {{ t('common.create') }}
+          {{ props.data ? t('common.update') : t('common.create') }}
         </NButton>
       </div>
     </div>

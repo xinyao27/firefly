@@ -71,6 +71,7 @@ copilot:
   summarize: テキストの要約
   translate: 翻訳
   updateCopilot: コパイロットの更新
+  updateSuccess: 更新成功
   uploadData: データのアップロード
   visibility: 副操縦士の可視性
 desktop:

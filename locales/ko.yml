@@ -71,6 +71,7 @@ copilot:
   summarize: 텍스트 요약
   translate: 번역하다
   updateCopilot: 부조종사 업데이트
+  updateSuccess: 업데이트 성공
   uploadData: 데이터 업로드
   visibility: 부조종사 가시성
 desktop:

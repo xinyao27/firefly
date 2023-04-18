@@ -76,6 +76,7 @@ copilot:
   summarize: ringkasan teks
   translate: menerjemahkan
   updateCopilot: Perbarui Kopilot
+  updateSuccess: Perbarui Sukses
   uploadData: Unggah Data
   visibility: Visibilitas kopilot
 desktop:

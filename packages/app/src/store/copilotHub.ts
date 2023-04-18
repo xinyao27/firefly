@@ -46,6 +46,9 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     async update(copilot: CopilotModel, tags: string[]) {
       const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
+        if ('profiles' in copilot)
+          delete copilot.profiles
+
         await edgeFunctions('copilots', {
           method: 'PUT',
           body: {
@@ -53,7 +56,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
             tags,
           },
         })
-        window.$message?.success?.($t('copilot.createSuccess'))
+        window.$message?.success?.($t('copilot.updateSuccess'))
       }
       catch (error: any) {
         window.$message?.error?.(error.message || error)

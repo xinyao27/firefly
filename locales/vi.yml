@@ -75,6 +75,7 @@ copilot:
   summarize: tóm tắt văn bản
   translate: dịch
   updateCopilot: Cập nhật phi công phụ
+  updateSuccess: Cập nhật thành công
   uploadData: Tải dữ liệu lên
   visibility: Khả năng hiển thị của phi công phụ
 desktop:

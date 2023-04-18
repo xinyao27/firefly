@@ -76,6 +76,7 @@ copilot:
   summarize: sintesi testuale
   translate: tradurre
   updateCopilot: Aggiorna copilota
+  updateSuccess: Aggiornamento riuscito
   uploadData: Carica dati
   visibility: Visibilità copilota
 desktop:

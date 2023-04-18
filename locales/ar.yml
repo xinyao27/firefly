@@ -75,6 +75,7 @@ copilot:
   summarize: ملخص نصي
   translate: يترجم
   updateCopilot: تحديث مساعد الطيار
+  updateSuccess: نجاح التحديث
   uploadData: تحميل البيانات
   visibility: رؤية مساعد الطيار
 desktop:

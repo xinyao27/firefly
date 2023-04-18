@@ -76,6 +76,7 @@ copilot:
   summarize: streszczenie tekstu
   translate: Tłumaczyć
   updateCopilot: Zaktualizuj drugiego pilota
+  updateSuccess: Zaktualizuj pomyślnie
   uploadData: Prześlij dane
   visibility: Widoczność drugiego pilota
 desktop:

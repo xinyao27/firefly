@@ -76,6 +76,7 @@ copilot:
   summarize: текстове резюме
   translate: перекладати
   updateCopilot: Оновити Copilot
+  updateSuccess: Успішне оновлення
   uploadData: Завантажити дані
   visibility: Видимість другого пілота
 desktop:

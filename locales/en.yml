@@ -48,7 +48,7 @@ common:
     Firefly is a fragment information collection tool, which combines the data
     analysis ability of AI to make information collection so interesting
   success: Success
-  update: renew
+  update: Update
   updated: update completed
   warningContent: You sure you want to delete it
   warningTitle: Warning
@@ -75,6 +75,7 @@ copilot:
   summarize: text summary
   translate: translate
   updateCopilot: Update Copilot
+  updateSuccess: Update Success
   uploadData: Upload Data
   visibility: Copilot Visibility
 desktop:

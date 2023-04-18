@@ -75,6 +75,7 @@ copilot:
   summarize: metin özeti
   translate: Çevirmek
   updateCopilot: Yardımcı Pilotu Güncelle
+  updateSuccess: Güncelleme Başarısı
   uploadData: Veri Yükle
   visibility: Yardımcı Pilot Görünürlüğü
 desktop:

@@ -22,7 +22,7 @@ common:
   copied: 已复制
   copilotQuota: Copilot 额度
   copy: 复制
-  create: 创造
+  create: 创建
   delete: 删除
   deleted: 删除成功
   downloadDesktopApp: 下载桌面应用程序
@@ -71,6 +71,7 @@ copilot:
   summarize: 文本总结
   translate: 翻译
   updateCopilot: 更新 Copilot
+  updateSuccess: 更新成功
   uploadData: 上传数据
   visibility: Copilot 能见度
 desktop:
