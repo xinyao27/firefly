@@ -1,5 +1,19 @@
 
 
+# [0.4.0](https://github.com/chenyueban/firefly/compare/v0.3.0...v0.4.0) (2023-04-19)
+
+
+### Bug Fixes
+
+* Fix Twitter handle in Footer component link to FireflyBest in present tense ([16285c5](https://github.com/chenyueban/firefly/commit/16285c5f654be35e40586d0ae6d8140c922a8639))
+* Improve and update Copilot logic. ([6762fc5](https://github.com/chenyueban/firefly/commit/6762fc5d11de90e9a4aac8e1569176e1268c32f5))
+* Refactor redirect page to simplify email signup confirmation and handle OAuth2 authentication in a more unified way ([dfa95c7](https://github.com/chenyueban/firefly/commit/dfa95c7216bf20df7da1a205ac0d80c272cf6754))
+
+
+### Features
+
+* Copilot support update ([e35a3ad](https://github.com/chenyueban/firefly/commit/e35a3ad35f0f7e6c4edd7a967019747d718a3864))
+
 # [0.3.0](https://github.com/chenyueban/firefly/compare/v0.2.1...v0.3.0) (2023-04-16)
 
 
