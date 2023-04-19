@@ -10,6 +10,10 @@ import { getOpenAiCompletionsStream } from '../_shared/api.ts'
 import { createSupabaseClient, getOpenAIKey, getUser } from '../_shared/auth.ts'
 import { getChatRequestTokenCount, getMaxTokenCount, tokenizer } from '../_shared/tokenizer.ts'
 
+export function clearHTMLTags(text: string) {
+  return text.replace(/<.*?>/g, '')
+}
+
 serve(async (req) => {
   try {
     if (req.method === 'OPTIONS') {
@@ -63,18 +67,18 @@ serve(async (req) => {
     }
 
     // Moderate the content to comply with OpenAI T&C
-    const moderationResponses = await Promise.all(
-      contextMessages.map((message) => openai.createModeration({ input: message.content })),
-    )
-    for (const moderationResponse of moderationResponses) {
-      const [results] = moderationResponse.data.results
-      if (results.flagged) {
-        throw new UserError('Flagged content, please enter a compliant question.', {
-          flagged: true,
-          categories: results.categories,
-        })
-      }
-    }
+    // const moderationResponses = await Promise.all(
+    //   contextMessages.map((message) => openai.createModeration({ input: message.content })),
+    // )
+    // for (const moderationResponse of moderationResponses) {
+    //   const [results] = moderationResponse.data.results
+    //   if (results.flagged) {
+    //     throw new UserError('Flagged content, please enter a compliant question.', {
+    //       flagged: true,
+    //       categories: results.categories,
+    //     })
+    //   }
+    // }
 
     if (requestData.type === 'copilot') {
       const embeddingResponse = await openai.createEmbedding({
@@ -92,10 +96,12 @@ serve(async (req) => {
         .rpc('handle_match_blocks', {
           embedding,
           match_threshold: 0.78,
-          min_content_length: 50,
+          min_content_length: 10,
+          copilot_id: requestData.copilotId
         })
-        .select('content')
         .limit(10)
+
+      console.log(`copilotId: ${requestData.copilotId} question: ${userMessage.content}`, blocks)
 
       if (matchError) {
         throw new ApplicationError('Failed to match blocks', matchError)
@@ -106,8 +112,8 @@ serve(async (req) => {
 
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i]
-        console.info(`${requestData.copilotId}:`,  block)
-        const content = block.content
+        console.info(`${requestData.copilotId}:`, block)
+        const content = clearHTMLTags(block.content)
         const encoded = tokenizer.encode(content)
         tokenCount += encoded.length
 

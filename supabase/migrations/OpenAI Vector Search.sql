@@ -8,15 +8,23 @@ using ivfflat (embedding vector_cosine_ops)
 with (lists = 100);
 
 -- Return a setof blocks so that we can use PostgREST resource embeddings (joins with other tables)
-create or replace function handle_match_blocks(embedding vector(1536), match_threshold float, min_content_length int)
-returns setof blocks
+create or replace function handle_match_blocks(embedding vector(1536), match_threshold float, min_content_length int, copilot_id uuid)
+returns table (
+  id uuid,
+  content text
+)
 language plpgsql
 as $$
 #variable_conflict use_variable
 begin
   return query
-  select *
+  select
+    blocks.id,
+    blocks.content
   from blocks
+
+  inner join copilots_blocks on blocks.id = copilots_blocks."blockId"
+  and copilot_id = copilots_blocks."copilotId"
 
   -- We only care about sections that have a useful amount of content
   where length(blocks.content) >= min_content_length
