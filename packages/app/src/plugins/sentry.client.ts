@@ -1,9 +1,6 @@
 import * as Sentry from '@sentry/vue'
 
 export default defineNuxtPlugin((nuxt) => {
-  if (process.server)
-    return
-
   if (import.meta.env.PROD) {
     Sentry.init({
       app: nuxt.vueApp,
