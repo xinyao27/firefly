@@ -23,6 +23,7 @@
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
     "@tauri-apps/api": "^1.2.0",
+    "@vercel/analytics": "^1.0.0",
     "@yeger/vue-masonry-wall": "^3.4.4",
     "tauri-plugin-autostart-api": "https://github.com/tauri-apps/tauri-plugin-autostart",
     "vue-virtual-scroller": "2.0.0-beta.8"
