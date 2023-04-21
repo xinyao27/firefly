@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Spin } from '@firefly/common'
 import { useRouteHash } from '@vueuse/router'
-import { supabase } from '~/modules/api'
+import { supabase } from '~/plugins/api'
 
-defineOptions({ name: 'RedirectPage' })
+definePageMeta({
+  layout: 'index',
+})
 
 const { t } = useI18n()
 const search = useRouteHash()
@@ -77,10 +78,10 @@ function handleClose() {
 </script>
 
 <template>
-  <div w-screen h-screen flex justify-center items-center>
+  <div h-screen w-screen flex items-center justify-center>
     <section
       v-if="error"
-      class="p-3 bg-(red opacity-5) rounded"
+      class="rounded bg-(red opacity-5) p-3"
     >
       <h2>{{ error.type }}</h2>
       <p>{{ error.description }}</p>
@@ -100,8 +101,3 @@ function handleClose() {
     <Spin v-else />
   </div>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: index
-</route>

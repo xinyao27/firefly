@@ -1,9 +1,7 @@
-import { BaseDirectory, writeTextFile } from '@tauri-apps/api/fs'
-import { invoke } from '@tauri-apps/api/tauri'
 import type { IBrowser } from './types'
 
 async function getSettings(): Promise<Record<string, any>> {
-  const settings = await invoke<string>('get_config_content')
+  const settings = await $tauri?.invoke<string>('get_config_content')
   return JSON.parse(settings)
 }
 
@@ -27,8 +25,8 @@ class BrowserStorageSync {
     }, {})
     const settings = await getSettings()
     const newSettings = { ...settings, ...newItems }
-    await writeTextFile('config.json', JSON.stringify(newSettings), {
-      dir: BaseDirectory.AppConfig,
+    await $tauri?.fs.writeTextFile('config.json', JSON.stringify(newSettings), {
+      dir: $tauri?.fs.BaseDirectory.AppConfig,
     })
   }
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { MentionOption, ScrollbarInst } from 'naive-ui'
-import { Spin } from '@firefly/common'
-import type { ChatMessage } from '~/store/copilot'
+import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{
   hi?: string
@@ -58,19 +57,19 @@ watch(() => props.currentError, (currentError) => {
 </script>
 
 <template>
-  <div flex-1 flex flex-col overflow-hidden>
+  <div flex flex-1 flex-col overflow-hidden>
     <NScrollbar
       ref="scrollBarRef"
       flex-1 p-4
     >
-      <div flex justify-start overflow-hidden break-words mb-4>
-        <section class="p-3 border border-(slate opacity-15) rounded">
+      <div mb-4 flex justify-start overflow-hidden break-words>
+        <section class="border border-(slate opacity-15) rounded p-3">
           {{ props.hi ?? t('copilot.hi') }}
         </section>
       </div>
       <div
         v-for="item in props.messages" :key="item.content"
-        flex overflow-hidden break-words mb-4
+        mb-4 flex overflow-hidden break-words
         :justify="item.role === 'user' ? 'end' : 'start'"
       >
         <UserMessageItem
@@ -88,13 +87,13 @@ watch(() => props.currentError, (currentError) => {
       />
       <section
         v-if="props.currentError"
-        class="p-3 bg-(red opacity-5) rounded"
+        class="rounded bg-(red opacity-5) p-3"
       >
         {{ props.currentError }}
         <NButton
-          ml-2
+
           type="error"
-          secondary
+          secondary ml-2
           size="small"
           @click="props.onRetry"
         >
@@ -158,7 +157,7 @@ watch(() => props.currentError, (currentError) => {
             </NTooltip>
           </NInputGroup>
         </template>
-        <div class="text-xs text-neutral flex items-center gap-1">
+        <div class="flex items-center gap-1 text-xs text-neutral">
           <Spin />
           {{ t('common.loading') }}
         </div>

@@ -1,33 +1,17 @@
 <script setup lang="ts">
+import '@total-typescript/ts-reset'
 import { is } from '@firefly/common'
-import { ThemeProvider } from '@firefly/theme'
-import { loadLanguageAsync } from '~/modules/i18n'
-
-useHead({
-  title: 'Firefly',
-  meta: [
-    {
-      name: 'Firefly',
-      content: 'Firefly is a fragment information collection tool, which combines the data analysis ability of AI to make information collection so interesting',
-    },
-  ],
-})
-useSeoMeta({
-  title: 'Firefly',
-  description: 'Firefly is a fragment information collection tool, which combines the data analysis ability of AI to make information collection so interesting',
-  ogDescription: 'Firefly is a fragment information collection tool, which combines the data analysis ability of AI to make information collection so interesting',
-  ogTitle: 'Firefly',
-  ogImage: 'https://firefly.best/icon.png',
-  twitterCard: 'summary_large_image',
-})
-
-const settings = useSettings()
-
-watch(() => settings.value.i18n, (locale) => {
-  loadLanguageAsync(locale ?? 'en')
-})
+import { ThemeProvider, colorDark, colorPrimary } from '@firefly/theme'
 
 onMounted(() => {
+  // eslint-disable-next-line no-console
+  console.log(
+    `%c Firefly %c v${import.meta.env.APP_VERSION} %c`,
+    `background:${colorDark}; padding: 2px 1px; color: #FFF`,
+    `background:${colorPrimary.default}; padding: 2px 1px; color: #FFF`,
+    'background:transparent',
+  )
+
   if (is.desktop()) {
     document.body.classList.add('overflow-hidden')
     document.body.classList.add('overscroll-none')
@@ -37,10 +21,9 @@ onMounted(() => {
 
 <template>
   <ThemeProvider>
-    <CustomProvider>
-      <InjectProvider>
-        <RouterView />
-      </InjectProvider>
-    </CustomProvider>
+    <Inject />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </ThemeProvider>
 </template>

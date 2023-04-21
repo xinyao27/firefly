@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import '~/styles/main.sass'
 import { getUser, is } from '@firefly/common'
 
 const route = useRoute()
@@ -65,7 +66,7 @@ onMounted(async () => {
       <NLayoutContent content-style="height: 100%">
         <KeepAlive>
           <AssistantProvider>
-            <RouterView />
+            <slot />
           </AssistantProvider>
         </KeepAlive>
       </NLayoutContent>

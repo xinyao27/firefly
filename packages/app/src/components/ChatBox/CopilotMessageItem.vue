@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
-import { Spin, md } from '@firefly/common'
+import { md } from '@firefly/common'
 
 const props = defineProps<{
   message: string
@@ -33,7 +33,7 @@ async function handleCapture() {
   >
     <template #trigger>
       <section
-        class="message p-3 border border-(slate opacity-15) rounded overflow-hidden break-words"
+        class="message overflow-hidden break-words border border-(slate opacity-15) rounded p-3"
         v-html="md.render(props.message)"
       />
     </template>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { invoke } from '@tauri-apps/api'
-
 const { t } = useI18n()
 
 const pinned = ref(false)

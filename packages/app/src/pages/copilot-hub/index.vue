@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineOptions({ name: 'CopilotHubPage' })
+definePageMeta({
+  layout: 'default',
+})
 
 const { t } = useI18n()
 const userStore = useUserStore()
@@ -31,7 +33,7 @@ function handleCreated() {
         v-if="userStore.profiles"
         mb-8
       >
-        <h2 text-2xl font-bold mb-4>
+        <h2 mb-4 text-2xl font-bold>
           My Copilots
           <span>({{ copilotHubStore.myCopilots.length }} / 3)</span>
         </h2>
@@ -53,7 +55,7 @@ function handleCreated() {
           :on-finished="handleCreated"
         />
 
-        <div grid grid-cols-1 lg:grid-cols-2 gap-4>
+        <div grid grid-cols-1 gap-4 lg:grid-cols-2>
           <Copilot
             v-for="copilot in copilotHubStore.myCopilots"
             :key="copilot.id"
@@ -64,11 +66,11 @@ function handleCreated() {
       </section>
 
       <section>
-        <h2 text-2xl font-bold mb-4>
+        <h2 mb-4 text-2xl font-bold>
           Explorer
         </h2>
 
-        <div grid grid-cols-1 lg:grid-cols-2 gap-4>
+        <div grid grid-cols-1 gap-4 lg:grid-cols-2>
           <Copilot
             v-for="copilot in copilotHubStore.copilots"
             :key="copilot.id"
@@ -77,8 +79,8 @@ function handleCreated() {
         </div>
         <NButton
           class="mt-8"
-          block
-          quaternary
+
+          quaternary block
           :disabled="!copilotHubStore.hasMore"
           @click="handleLoadMore"
         >
@@ -92,8 +94,3 @@ function handleCreated() {
     </div>
   </main>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: default
-</route>

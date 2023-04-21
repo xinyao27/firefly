@@ -3,8 +3,8 @@ import type { colors } from '@firefly/common'
 import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
 import { NButton, NCollapseItem, NDropdown } from 'naive-ui'
-import { menuOptions } from './menuOptions'
-import { BubbleSelector } from '~/components/Bubble'
+import menuOptions from './menuOptions'
+import BubbleSelector from '~/components/Bubble/BubbleSelector.vue'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -88,8 +88,8 @@ function handleSelect([key]: string[]) {
         <template #trigger>
           <NButton
             size="small"
-            block
-            tertiary
+
+            tertiary block
             @click="assistantStore.open('create')"
           >
             <template #icon>
@@ -134,8 +134,8 @@ function handleSelect([key]: string[]) {
           </template>
           <NTree
             :data="tags"
-            block-line
-            selectable
+
+            selectable block-line
             :keyboard="false"
             @update-selected-keys="handleSelect"
           />

@@ -1,9 +1,9 @@
 <template>
-  <div class="root" h-full relative>
+  <div class="root" relative h-full>
     <FireflyBg />
-    <Header />
-    <Content />
-    <Footer />
+    <IndexHeader />
+    <IndexContent />
+    <IndexFooter />
   </div>
 </template>
 

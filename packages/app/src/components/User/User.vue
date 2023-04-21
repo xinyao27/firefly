@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
 import { clearCache } from '@firefly/common'
-import { renderUserInfo } from './render'
-import { supabase } from '~/modules/api'
+import renderUserInfo from './render'
+import { supabase } from '~/plugins/api'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -59,7 +59,7 @@ async function handleSelect(key: string) {
     trigger="click"
     @select="handleSelect"
   >
-    <section class="flex items-center gap-2 p-1 transition cursor-pointer hover:bg-(slate opacity-15)">
+    <section class="flex cursor-pointer items-center gap-2 p-1 transition hover:bg-(slate opacity-15)">
       <NAvatar
         size="small"
         :src="userStore.profiles.avatarUrl"

@@ -2,7 +2,7 @@
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
 import type { CopilotModel } from '@firefly/common'
 import { is } from '@firefly/common'
-import { TonyStark } from './tonyStark'
+import TonyStark from './tonyStark'
 
 const props = defineProps<{
   show: boolean
@@ -128,7 +128,7 @@ async function handleNext() {
         <p text-xs text-neutral>
           {{ t('copilot.selectTagsPlaceholder') }}
         </p>
-        <div flex flex-wrap gap-2 mt-4>
+        <div mt-4 flex flex-wrap gap-2>
           <NTag
             v-for="tag in tagStore.tags"
             :key="tag.id"
@@ -193,7 +193,7 @@ async function handleNext() {
         </NForm>
       </div>
 
-      <div w-full flex justify-end gap-2 mt-6>
+      <div mt-6 w-full flex justify-end gap-2>
         <NButton
           type="error"
           tertiary

@@ -95,11 +95,10 @@ pub fn show_thumb(x: i32, y: i32) {
             window.set_always_on_top(true).unwrap();
         }
         None => {
-            println!("Thumb window does not exist");
             let builder = tauri::WindowBuilder::new(
                 handle,
                 THUMB_WIN_NAME,
-                tauri::WindowUrl::App("thumb.html".into()),
+                tauri::WindowUrl::App("thumb".into()),
             )
             .fullscreen(false)
             .focused(false)
@@ -210,7 +209,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
             let builder = tauri::WindowBuilder::new(
                 handle,
                 ASSISTANT_WIN_NAME,
-                tauri::WindowUrl::App("assistant.html".into()),
+                tauri::WindowUrl::App("assistant".into()),
             )
             .fullscreen(false)
             .inner_size(672.0, 212.0)
