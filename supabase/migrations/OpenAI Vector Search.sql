@@ -7,7 +7,6 @@ create index on blocks
 using ivfflat (embedding vector_cosine_ops)
 with (lists = 100);
 
--- Return a setof blocks so that we can use PostgREST resource embeddings (joins with other tables)
 create or replace function handle_match_blocks(embedding vector(1536), match_threshold float, min_content_length int, copilot_id uuid)
 returns table (
   id uuid,
@@ -19,24 +18,19 @@ as $$
 begin
   return query
   select
+    distinct on (blocks.id)
     blocks.id,
     blocks.content
   from blocks
 
-  inner join copilots_blocks on blocks.id = copilots_blocks."blockId"
-  and copilot_id = copilots_blocks."copilotId"
+  inner join copilots_blocks on copilots_blocks."copilotId" = copilot_id
 
-  -- We only care about sections that have a useful amount of content
   where length(blocks.content) >= min_content_length
 
-  -- The dot product is negative because of a Postgres limitation, so we negate it
   and (blocks.embedding <#> embedding) * -1 > match_threshold
 
-  -- OpenAI embeddings are normalized to length 1, so
-  -- cosine similarity and dot product will produce the same results.
-  -- Using dot product which can be computed slightly faster.
-  --
-  -- For the different syntaxes, see https://github.com/pgvector/pgvector
-  order by blocks.embedding <#> embedding;
+  order by
+    blocks.id,
+    blocks.embedding <#> embedding;
 end;
 $$;
