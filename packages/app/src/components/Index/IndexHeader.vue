@@ -3,6 +3,7 @@ const { t } = useI18n()
 const router = useRouter()
 const userStore = useUserStore()
 const containerRef = ref()
+const isMobileScreen = useMobileScreen()
 
 const { y } = useWindowScroll()
 watch(y, (value) => {
@@ -19,15 +20,11 @@ watch(y, (value) => {
     class="fixed top-0 z-9999999 w-full border-(b slate opacity-0) transition-color"
   >
     <nav mx-auto h-16 max-w-7xl flex items-center justify-between px-4 lg:px-8 sm:px-6>
-      <a
-        relative flex items-center
-        href="/"
-      >
-        <Logo white />
-      </a>
+      <Logo white />
 
       <div flex gap-2>
         <button
+          v-if="!isMobileScreen"
           btn-slate
           @click="router.push('/desktop')"
         >
