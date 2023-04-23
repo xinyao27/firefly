@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '~/styles/main.sass'
+
 const configStore = useConfigStore()
 const router = useRouter()
 const { t } = useI18n()
@@ -22,7 +24,7 @@ const { t } = useI18n()
           <div text-4xl>
             <div i-ri-alarm-warning-fill inline-block />
           </div>
-          <RouterView />
+          <slot />
           <div>
             <NButton btn text-sm m="3 t8" @click="router.replace('/')">
               {{ t('common.back') }}

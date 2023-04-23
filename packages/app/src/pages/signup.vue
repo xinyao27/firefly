@@ -1,11 +1,12 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: 'none',
+})
+</script>
+
 <template>
-  <main w-full h-full flex items-center justify-center>
+  <main h-full w-full flex items-center justify-center>
     <FireflyBg />
     <LoginOrSignup type="signup" />
   </main>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: none
-</route>

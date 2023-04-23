@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { getUser } from '@firefly/common'
 
-defineOptions({ name: 'InboxPage' })
+definePageMeta({
+  layout: 'default',
+})
 
 const router = useRouter()
 const blockStore = useBlockStore()
@@ -31,8 +33,3 @@ onMounted(async () => {
     <List :data="blockStore.blocks" />
   </main>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: default
-</route>

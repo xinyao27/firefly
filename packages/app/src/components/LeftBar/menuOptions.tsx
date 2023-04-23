@@ -1,7 +1,7 @@
 import { RouterLink } from 'vue-router'
 import type { MenuOption } from 'naive-ui'
 
-export const menuOptions: MenuOption[] = [
+const menuOptions: MenuOption[] = [
   {
     label: () => <RouterLink to="/inbox">Inbox</RouterLink>,
     key: '/inbox',
@@ -13,3 +13,5 @@ export const menuOptions: MenuOption[] = [
     icon: () => <i class="i-ri-copilot-fill" />,
   },
 ]
+
+export default menuOptions

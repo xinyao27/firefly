@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineOptions({ name: 'DesktopPage' })
+definePageMeta({
+  layout: 'index',
+})
 
 const { t } = useI18n()
 
@@ -25,18 +27,18 @@ function handleMacSelect(key: string) {
 </script>
 
 <template>
-  <div class="root" h-full relative>
+  <div class="root" relative h-full>
     <FireflyBg />
     <Header />
-    <div h-full flex flex-col mt-16>
+    <div mt-16 h-full flex flex-col>
       <div relative flex-1>
-        <div mx-auto sm:px-6 lg:px-8 px-4 max-w-7xl py-16 lg:py-32>
+        <div mx-auto max-w-7xl px-4 py-16 lg:px-8 lg:py-32 sm:px-6>
           <div relative text-center>
             <img
-              w-20 h-20 mx-auto mb-5
+              mx-auto mb-5 h-20 w-20
               src="/icon.png" alt="firefly logo"
             >
-            <h2 text-3xl font-bold tracking-tight sm:text-4xl mb-5>
+            <h2 mb-5 text-3xl font-bold tracking-tight sm:text-4xl>
               Firefly for Mac & Windows
             </h2>
             <div flex justify-center gap-2>
@@ -87,8 +89,3 @@ function handleMacSelect(key: string) {
     <Footer />
   </div>
 </template>
-
-<route lang="yaml">
-meta:
-  layout: index
-</route>

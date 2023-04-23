@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useRouteParams } from '@vueuse/router'
-import { Spin, edgeFunctions, getUser } from '@firefly/common'
+import { edgeFunctions, getUser } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
-import type { ChatMessage, Context } from '~/store/copilot'
-import { supabase } from '~/modules/api'
-
-defineOptions({ name: 'CopilotHubChatPage' })
+import type { ChatMessage, Context } from '~/stores/copilot'
+import { supabase } from '~/plugins/api'
 
 const { t } = useI18n()
 const dialog = useDialog()
@@ -165,7 +163,7 @@ async function handleCopilotInteractionsIncrement() {
   <main h-full overflow-hidden>
     <div h-full flex flex-col overflow-hidden>
       <template v-if="copilotHubStore.copilot">
-        <h2 text-lg font-semibold text-center p-2>
+        <h2 p-2 text-center text-lg font-semibold>
           {{ copilotHubStore.copilot?.name }}
         </h2>
 
@@ -183,7 +181,7 @@ async function handleCopilotInteractionsIncrement() {
         />
       </template>
       <template v-else>
-        <div w-full h-full flex justify-center items-center>
+        <div h-full w-full flex items-center justify-center>
           <Spin />
         </div>
       </template>

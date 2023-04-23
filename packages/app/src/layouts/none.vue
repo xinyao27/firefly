@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '~/styles/main.sass'
+
 const configStore = useConfigStore()
 </script>
 
@@ -16,7 +18,7 @@ const configStore = useConfigStore()
       :style="`top: ${configStore.rootPaddingTop}px`"
     >
       <NLayoutContent content-style="height: 100%">
-        <RouterView />
+        <slot />
       </NLayoutContent>
     </NLayout>
   </NLayout>

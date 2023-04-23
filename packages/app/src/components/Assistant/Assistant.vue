@@ -3,7 +3,7 @@ import Editor from '@firefly/editor'
 import type { SelectOption, SelectRenderTag } from 'naive-ui'
 import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
-import Bubble from '~/components/Bubble'
+import Bubble from '~/components/Bubble/Bubble.vue'
 
 const props = withDefaults(defineProps<{
   modelValue: string
@@ -73,7 +73,7 @@ function handleSave() {
 <template>
   <NCard
     data-tauri-drag-region
-    class="h-full bg-neutral-800 bg-opacity-90 backdrop-blur shadow-lg rounded-sm overflow-hidden"
+    class="h-full overflow-hidden rounded-sm bg-neutral-800 bg-opacity-90 shadow-lg backdrop-blur"
     size="small"
     role="dialog"
     aria-modal="true"
@@ -110,7 +110,7 @@ function handleSave() {
       :on-created="editor => assistantStore.editor = editor"
     />
     <template #footer>
-      <div flex justify-between items-center gap-2>
+      <div flex items-center justify-between gap-2>
         <div>
           <input
             ref="uploadRef"

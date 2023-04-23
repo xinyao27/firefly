@@ -4,7 +4,7 @@ Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 
 
 [English](./README.md) | 简体中文
 
-![hero](https://firefly.best/images/hero.png)
+![hero](./packages/app/src/assets/images/hero.png)
 
 ## 使用方式
 

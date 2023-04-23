@@ -4,11 +4,15 @@
   "version": "0.4.0",
   "private": true,
   "scripts": {
+    "postinstall": "nuxi prepare",
     "typecheck": "vue-tsc --noEmit",
     "prebuild": "rimraf dist",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "nuxi build",
+    "dev": "nuxi dev --port 5173",
+    "dev:pwa": "VITE_PLUGIN_PWA=true nuxi dev --port 5173",
+    "start": "node .output/server/index.mjs",
+    "start:generate": "npx serve .output/public",
+    "generate": "nuxi generate",
     "dev:desktop": "tauri dev",
     "build:desktop": "tauri build",
     "build:desktop:debug": "tauri build --debug",
@@ -19,16 +23,23 @@
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
     "@tauri-apps/api": "^1.2.0",
+    "@vercel/analytics": "^1.0.0",
     "@yeger/vue-masonry-wall": "^3.4.4",
     "tauri-plugin-autostart-api": "https://github.com/tauri-apps/tauri-plugin-autostart",
     "vue-virtual-scroller": "2.0.0-beta.8"
   },
   "devDependencies": {
+    "@nuxt/devtools": "^0.4.1",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxtjs/i18n": "8.0.0-beta.9",
+    "@pinia/nuxt": "^0.4.8",
     "@tauri-apps/cli": "^1.2.3",
     "@types/vue-virtual-scroller": "npm:@vsme/vue-virtual-scroller@^1.0.1",
-    "vite-plugin-pages": "^0.28.0",
-    "vite-plugin-pwa": "^0.14.7",
-    "vite-plugin-vue-inspector": "^3.4.0",
-    "vite-plugin-webfont-dl": "^3.7.3"
+    "@unocss/nuxt": "^0.51.5",
+    "@vite-pwa/nuxt": "^0.0.7",
+    "@vue-macros/nuxt": "^1.2.8",
+    "@vueuse/nuxt": "^10.0.2",
+    "nuxt": "^3.4.2",
+    "nuxt-gtag": "^0.5.6"
   }
 }

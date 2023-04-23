@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import '~/styles/main.sass'
 import { getUser } from '@firefly/common'
 
 const userStore = useUserStore()
@@ -15,6 +16,6 @@ onMounted(async () => {
 
 <template>
   <main h-full>
-    <RouterView />
+    <slot />
   </main>
 </template>

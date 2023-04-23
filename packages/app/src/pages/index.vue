@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import Index from '~/components/Index'
-
-defineOptions({ name: 'IndexPage' })
+definePageMeta({
+  layout: 'index',
+})
 </script>
 
 <template>
   <Index />
 </template>
-
-<route lang="yaml">
-meta:
-  layout: index
-</route>

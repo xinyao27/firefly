@@ -4,7 +4,7 @@ Firefly is a fragment information collection tool, which combines the data analy
 
 English | [简体中文](./README-zh_CN.md)
 
-![hero](https://firefly.best/images/hero.png)
+![hero](./packages/app/src/assets/images/hero.png)
 
 ## Use
 
