@@ -18,7 +18,6 @@ const isInboxPage = computed(() => route.path === '/inbox')
     <!-- LeftBar Area -->
     <div
       v-if="!isMobileScreen"
-
       :style="`width: ${configStore.rootPaddingLeft}px`"
       data-tauri-drag-region h-full flex select-none items-center
     >
@@ -29,7 +28,7 @@ const isInboxPage = computed(() => route.path === '/inbox')
     </div>
     <!-- leftBarShow -->
     <NButton
-      v-if="isMobileScreen"
+      v-if="isMobileScreen && (route.path !== '/login' && route.path !== '/signup')"
       size="small"
       quaternary
       :opacity="configStore.leftBarShow ? 100 : 40"
