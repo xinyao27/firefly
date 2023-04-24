@@ -12,7 +12,6 @@ import ExtensionTaskList from '@tiptap/extension-task-list'
 
 // import { lowlight } from 'lowlight'
 import { colorPrimary } from '@firefly/theme'
-import { ExtensionBlockImage } from './block-image'
 import { ExtensionBlockLink } from './block-link'
 import { ExtensionBlockOther } from './block-other'
 import { ExtensionBlockText } from './block-text'
@@ -31,7 +30,6 @@ export const extensions: AnyExtension[] = [
   ExtensionTypography,
 
   // Node
-  ExtensionBlockImage,
   ExtensionBlockLink,
   ExtensionBlockOther,
   ExtensionBlockText,

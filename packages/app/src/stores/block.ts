@@ -2,7 +2,7 @@ import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 import type { BlockId, BlockModel } from '@firefly/common'
 import { edgeFunctions, getUser } from '@firefly/common'
 import { supabase } from '~/plugins/api'
-import { db } from '~/plugins/db'
+import { getDB } from '~/plugins/db'
 import { $t } from '~/plugins/i18n'
 
 interface SearchParams {
@@ -15,25 +15,23 @@ interface SyncParams {
 
 export const useBlockStore = defineStore('block', {
   state: () => {
-    const ready = ref(false)
-    const blocks = ref<BlockModel[]>([])
-    db.then((_db) => {
-      _db?.getAllFromIndex('blocks', 'updatedAt').then((v) => {
-        blocks.value = v.reverse()
-        ready.value = true
-      })
-    })
     return {
-      ready,
-      blocks,
+      ready: false,
+      blocks: [] as BlockModel[],
       loading: false,
       size: 20,
     }
   },
   actions: {
+    async init() {
+      const db = await getDB()
+      const data = await db.getAllFromIndex('blocks', 'updatedAt')
+      this.blocks = data.reverse()
+      this.ready = true
+    },
     async find() {
       const uid = (await getUser())?.id
-      return (await (await db).getAllFromIndex('blocks', 'updatedAt')).filter(v => v.uid === uid).reverse()
+      return (await (await getDB()).getAllFromIndex('blocks', 'updatedAt')).filter(v => v.uid === uid).reverse()
     },
     async refresh() {
       this.blocks = await this.find()
@@ -60,9 +58,11 @@ export const useBlockStore = defineStore('block', {
     },
     async sync({ lastUpdatedAt, lastBlockId }: SyncParams = {}, refresh = true) {
       if (!this.ready) {
+        await this.init()
         setTimeout(() => this.sync({ lastUpdatedAt, lastBlockId }), 200)
         return
       }
+
       const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
         this.loading = true
@@ -94,7 +94,7 @@ export const useBlockStore = defineStore('block', {
           if (response.error)
             throw new Error(response.error.message)
           if (response.data.length) {
-            const tx = (await db).transaction('blocks', 'readwrite')
+            const tx = (await getDB()).transaction('blocks', 'readwrite')
             await Promise.all([
               ...response.data.map(block => tx.store.add(block)),
               tx.done,
@@ -130,7 +130,7 @@ export const useBlockStore = defineStore('block', {
           body: data,
         })
 
-        await (await db).add('blocks', response)
+        await (await getDB()).add('blocks', response)
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
@@ -152,7 +152,7 @@ export const useBlockStore = defineStore('block', {
           body: data,
         })
 
-        await (await db).put('blocks', response)
+        await (await getDB()).put('blocks', response)
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
@@ -173,7 +173,7 @@ export const useBlockStore = defineStore('block', {
         if (response.error)
           throw new Error(response.error.message)
 
-        await (await db).delete('blocks', id)
+        await (await getDB()).delete('blocks', id)
         await this.refresh()
         window.$message?.success?.($t('common.deleted'))
       }
@@ -187,7 +187,7 @@ export const useBlockStore = defineStore('block', {
     },
     async clear() {
       try {
-        await (await db).clear('blocks')
+        await (await getDB()).clear('blocks')
         await this.refresh()
       }
       catch (error: any) {
@@ -201,7 +201,7 @@ export const useBlockStore = defineStore('block', {
         if (tag) {
           const result = []
 
-          const tx = (await db).transaction('blocks', 'readwrite')
+          const tx = (await getDB()).transaction('blocks', 'readwrite')
           let cursor = await tx.store.index('tags').openCursor()
           while (cursor) {
             if (cursor.key.includes(tag))

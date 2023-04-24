@@ -32,7 +32,14 @@ interface FireflyDB extends DBSchema {
 // eslint-disable-next-line import/no-mutable-exports
 export let db: Promise<IDBPDatabase<FireflyDB>>
 
-export default defineNuxtPlugin(() => {
+export function getDB() {
+  if (db)
+    return db
+
+  return initDB()
+}
+
+function initDB() {
   if (process.server) {
     // @ts-expect-error noop
     db = Promise.resolve()
@@ -56,4 +63,9 @@ export default defineNuxtPlugin(() => {
       },
     })
   }
+  return db
+}
+
+export default defineNuxtPlugin(() => {
+  initDB()
 })

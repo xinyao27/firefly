@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getUser } from '@firefly/common'
-
 definePageMeta({
   layout: 'default',
 })
@@ -8,23 +6,14 @@ definePageMeta({
 const router = useRouter()
 const blockStore = useBlockStore()
 
+router.afterEach(async (to, from) => {
+  if (to.query.tag)
+    await blockStore.search({ tag: to.query.tag as string })
+  else if (from.query.tag)
+    await blockStore.refresh()
+})
 onMounted(async () => {
-  const user = await getUser()
-  if (!user) {
-    router.push('/login')
-    return
-  }
-
-  router.afterEach(async (to, from) => {
-    if (to.query.tag)
-      await blockStore.search({ tag: to.query.tag as string })
-    else if (from.query.tag)
-      await blockStore.refresh()
-  })
-
-  setTimeout(async () => {
-    await blockStore.sync()
-  }, 0)
+  await blockStore.sync()
 })
 </script>
 

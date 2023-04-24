@@ -1,7 +1,7 @@
 import type { Editor } from '@tiptap/core'
 import type { BlockModel } from '@firefly/common'
 import { getFileExt, getUser, uuid } from '@firefly/common'
-import { $t } from '~/plugins/i18n'
+import type { UploadFileInfo } from 'naive-ui'
 import { supabase } from '~/plugins/api'
 
 type Type = 'update' | 'create'
@@ -13,6 +13,7 @@ export const useAssistantStore = defineStore('assistant', {
       editor: null as Editor | null,
       value: '',
       tags: [] as string[],
+      fileList: [] as UploadFileInfo[],
       type: 'create' as Type,
       editingBlock: null as BlockModel | null,
       focus: false,
@@ -24,26 +25,39 @@ export const useAssistantStore = defineStore('assistant', {
       if (type === 'update') {
         this.value = block?.content ?? ''
         this.tags = block?.tags ?? []
+        this.fileList = block?.images?.map(v => ({
+          id: v,
+          name: v,
+          url: v,
+          status: 'finished',
+        })) ?? []
         this.editingBlock = block || null
       }
       this.type = type
       this.show = true
     },
-    cancel() {
+    close() {
+      this.show = false
+    },
+    clear() {
       this.value = ''
       this.tags = []
+      this.fileList = []
       this.type = 'create'
       this.editingBlock = null
-      this.show = false
     },
     async save() {
       const blockStore = useBlockStore()
       this.loading = true
 
+      if (this.fileList.length)
+        await this.upload()
+
       if (this.type === 'create') {
         const block: BlockModel = {
           content: this.value,
           tags: this.tags,
+          images: this.fileList.map(v => v.url!),
         }
         await blockStore.save(block)
       }
@@ -53,46 +67,33 @@ export const useAssistantStore = defineStore('assistant', {
           ...block,
           content: this.value,
           tags: this.tags,
+          images: this.fileList.map(v => v.url!),
         })
       }
 
       this.loading = false
     },
-    async upload(e: Event) {
-      const message = window.$message?.loading?.($t('editor.uploading'), { duration: 0 })
-      try {
-        // @ts-expect-error noop
-        const files = e.target?.files as FileList
-        for (const file of Array.from(files)) {
-          const ext = getFileExt(file.name) || 'jpg'
-          const user = await getUser()
-          const filename = `${user?.id}/${uuid()}.${ext}`
-          const { data: { publicUrl } } = supabase
-            .storage
-            .from('images')
-            .getPublicUrl(filename)
-          const { error } = await supabase.storage
-            .from('images')
-            .upload(filename, file)
-          if (error)
-            throw error
+    async upload() {
+      const pendingFileList = this.fileList.filter(v => v.status === 'pending')
+      if (pendingFileList.length) {
+        for (const file of pendingFileList) {
+          if (file.file) {
+            const ext = getFileExt(file.name) || 'jpg'
+            const user = await getUser()
+            const filename = `${user?.id}/${uuid()}.${ext}`
+            const { data: { publicUrl } } = supabase
+              .storage
+              .from('images')
+              .getPublicUrl(filename)
+            const { error } = await supabase.storage
+              .from('images')
+              .upload(filename, file.file)
+            if (error)
+              throw error
 
-          this.editor.commands.setBlockImage({
-            from: 'file',
-            block: {
-              category: 'image',
-              path: publicUrl,
-              content: '',
-            },
-          })
+            file.url = publicUrl
+          }
         }
-      }
-      catch (err) {
-        console.error(err)
-        window.$message?.error?.(err as string)
-      }
-      finally {
-        message?.destroy?.()
       }
     },
   },

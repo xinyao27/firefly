@@ -10,7 +10,7 @@ const isMobileScreen = useMobileScreen()
     transform-origin="center"
     :mask-closable="!isMobileScreen"
   >
-    <div w-2xl mx-auto mt-2 lg:mt-13vh h-full>
+    <div mx-auto mt-2 h-full w-2xl lg:mt-13vh>
       <Assistant
         v-model="assistantStore.value"
         class="max-h-80 shadow-none"

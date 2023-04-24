@@ -95,7 +95,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: false,
       routes: ['/', '/redirect'],
-      ignore: [],
+      ignore: ['/inbox'],
     },
   },
 
