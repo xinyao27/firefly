@@ -119,6 +119,9 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
       v-show="assistantStore.fileList.length > 0"
       ref="uploadRef"
       v-model:file-list="assistantStore.fileList"
+      multiple
+      :max="7"
+      accept="image/*"
       list-type="image-card"
       @change="handleUploadChange"
     />
@@ -139,7 +142,7 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
           class="flex-1"
           size="small"
 
-          filterable tag multiple
+          multiple filterable tag
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"
