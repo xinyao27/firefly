@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Editor from '@firefly/editor'
-import type { SelectOption, SelectRenderTag } from 'naive-ui'
+import type { SelectOption, SelectRenderTag, UploadFileInfo, UploadInst } from 'naive-ui'
 import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
 import Bubble from '~/components/Bubble/Bubble.vue'
@@ -20,7 +20,7 @@ const data = useVModel(props, 'modelValue', emit)
 const { t } = useI18n()
 const assistantStore = useAssistantStore()
 const tagStore = useTagStore()
-const uploadRef = ref()
+const uploadRef = ref<UploadInst>()
 const tags = computed(() => tagStore.tags.map(tag => ({
   label: tag.name,
   value: tag.name,
@@ -61,20 +61,26 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
   )
 }
 function handleClose() {
-  assistantStore.cancel()
+  assistantStore.close()
+  assistantStore.clear()
   props.onClose?.()
 }
 function handleSave() {
+  assistantStore.close()
   assistantStore.save()
-  handleClose()
+    .then(assistantStore.clear)
+}
+function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
+  assistantStore.fileList = data.fileList
 }
 </script>
 
 <template>
   <NCard
     data-tauri-drag-region
-    class="h-full overflow-hidden rounded-sm bg-neutral-800 bg-opacity-90 shadow-lg backdrop-blur"
+    class="h-full max-h-431px overflow-hidden rounded-sm bg-neutral-800 bg-opacity-90 shadow-lg backdrop-blur"
     size="small"
+    :bordered="false"
     role="dialog"
     aria-modal="true"
   >
@@ -109,35 +115,35 @@ function handleSave() {
       :tags="tagStore.tags"
       :on-created="editor => assistantStore.editor = editor"
     />
+    <NUpload
+      v-show="assistantStore.fileList.length > 0"
+      ref="uploadRef"
+      v-model:file-list="assistantStore.fileList"
+      class="mt-2"
+      multiple
+      :max="7"
+      accept="image/*"
+      list-type="image-card"
+      @change="handleUploadChange"
+    />
     <template #footer>
       <div flex items-center justify-between gap-2>
-        <div>
-          <input
-            ref="uploadRef"
-            class="hidden"
-            multiple
-            type="file"
-            accept="image/*,.pdf"
-            @change="assistantStore.upload"
-          >
-          <NButton
-            quaternary
-            size="small"
-            @click="uploadRef.click()"
-          >
-            <template #icon>
-              <i i-ri-attachment-2 />
-            </template>
-          </NButton>
-        </div>
+        <NButton
+          quaternary
+          size="small"
+          @click="uploadRef?.openOpenFileDialog"
+        >
+          <template #icon>
+            <i i-ri-image-fill />
+          </template>
+        </NButton>
 
         <NSelect
           v-model:value="assistantStore.tags"
           class="flex-1"
           size="small"
-          multiple
-          filterable
-          tag
+
+          multiple filterable tag
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"
@@ -153,7 +159,7 @@ function handleSave() {
             :disabled="!assistantStore.value || assistantStore.loading"
             @click="e => {
               e.stopPropagation()
-              assistantStore.cancel()
+              handleClose()
             }"
           >
             {{ t('common.cancel') }}
@@ -163,7 +169,7 @@ function handleSave() {
             type="primary"
             size="small"
             :loading="assistantStore.loading"
-            :disabled="!assistantStore.value || assistantStore.loading"
+            :disabled="!(assistantStore.value || assistantStore.fileList.length > 0) || assistantStore.loading"
             @click.stop="handleSave"
           >
             <template #icon>

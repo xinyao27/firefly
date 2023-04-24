@@ -39,3 +39,9 @@
       @apply left-0 right-0
     .n-menu-item-content__icon
       @apply ml-2
+
+.n-upload-file-list
+  &.n-upload-file-list--grid
+    grid-template-columns: repeat(auto-fill, 80px)
+  .n-upload-file.n-upload-file--image-card-type, .n-upload-trigger.n-upload-trigger--image-card
+    @apply w-20 h-20

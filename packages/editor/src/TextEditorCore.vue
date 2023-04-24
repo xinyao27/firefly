@@ -30,7 +30,7 @@ const editor = useEditor({
   extensions,
   editorProps: {
     attributes: {
-      class: 'w-full max-w-full min-h-20 relative text-left transition focus:outline-none',
+      class: 'w-full max-w-full min-h-20 h-full relative text-left transition focus:outline-none',
       suppressContentEditableWarning: 'true',
     },
   },
@@ -66,7 +66,7 @@ watch(() => props.tags, (tags) => {
   >
     <EditorContent
       :editor="editor"
-      class="relative overflow-x-hidden overflow-y-auto w-full max-w-full"
+      class="relative max-w-full w-full overflow-x-hidden overflow-y-auto"
       :class="[props.class]"
     />
     <BubbleMenu

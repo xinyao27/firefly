@@ -212,7 +212,7 @@ pub fn show_assistant_window(center: bool, set_focus: bool) -> tauri::Window {
                 tauri::WindowUrl::App("assistant".into()),
             )
             .fullscreen(false)
-            .inner_size(672.0, 212.0)
+            .inner_size(672.0, 431.0)
             .resizable(false)
             .skip_taskbar(true)
             .center()

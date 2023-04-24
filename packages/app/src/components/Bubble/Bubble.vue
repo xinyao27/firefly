@@ -11,7 +11,7 @@ const color = computed(() => props.color || 'slate')
 
 <template>
   <i
-    inline-block w-2 h-2 rounded-full
+    inline-block h-2 w-2 rounded-full
     :bg="color"
     :class="props.class"
     :style="{

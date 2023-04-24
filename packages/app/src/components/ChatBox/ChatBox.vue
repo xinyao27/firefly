@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { MentionOption, ScrollbarInst } from 'naive-ui'
+import CopilotMessageItem from './CopilotMessageItem.vue'
+import UserMessageItem from './UserMessageItem.vue'
 import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{

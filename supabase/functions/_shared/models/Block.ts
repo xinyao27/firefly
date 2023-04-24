@@ -74,9 +74,13 @@ export interface BlockModel {
    */
   from?: BlockFrom
   /**
-   * 链接/图片 link(url)
+   * 链接 url
    */
   link?: string
+  /**
+   * 图片链接
+   */
+  images?: string[]
   /**
    * 元数据
    */

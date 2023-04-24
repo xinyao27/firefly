@@ -111,13 +111,29 @@ function handleTagClick(tag: string) {
     >
       <div
         ref="el"
-        class="ProseMirror prose prose-white max-w-full"
+        class="ProseMirror max-w-full prose prose-white"
         v-html="props.data.content"
       />
     </div>
 
     <div
-      v-if="props.data.tags"
+      v-if="props.data.images?.length"
+      pt-2
+    >
+      <NImageGroup>
+        <NSpace>
+          <NImage
+            v-for="image in props.data.images"
+            :key="image"
+            width="100"
+            :src="image"
+          />
+        </NSpace>
+      </NImageGroup>
+    </div>
+
+    <div
+      v-if="props.data.tags?.length"
       flex flex-wrap gap-2 pt-2
     >
       <NTag
@@ -138,9 +154,3 @@ function handleTagClick(tag: string) {
     </div>
   </NCard>
 </template>
-
-<style lang="sass">
-.ProseMirror
-  > *
-    @apply inline
-</style>

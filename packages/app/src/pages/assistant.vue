@@ -15,7 +15,7 @@ const assistantStore = useAssistantStore()
 const editor = ref<Editor>()
 
 async function handleClose() {
-  assistantStore.value = ''
+  assistantStore.clear()
   await tauri.invoke('hide_assistant_window')
 }
 
@@ -46,7 +46,7 @@ onMounted(
     <Inject />
     <Assistant
       v-model="assistantStore.value"
-      class="max-h-28"
+      :class="assistantStore.fileList.length > 0 ? 'h-60' : 'h-80'"
       :on-close="handleClose"
       :show-close="!is.macOS()"
       pinned
