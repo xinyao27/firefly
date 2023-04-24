@@ -78,7 +78,7 @@ export const useBlockStore = defineStore('block', {
           if (lastBlock || (lastUpdatedAt && lastBlockId)) {
             response = await supabase
               .from('blocks')
-              .select('id,uid,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
+              .select('id,uid,title,thumb,tags,category,path,from,link,images,metadata,createdAt,updatedAt,content')
               .order('updatedAt', { ascending: false })
               .gt('updatedAt', lastUpdatedAt ?? lastBlock?.updatedAt)
               .neq('id', lastBlockId ?? lastBlock?.id)
@@ -87,7 +87,7 @@ export const useBlockStore = defineStore('block', {
           else {
             response = await supabase
               .from('blocks')
-              .select('id,uid,title,thumb,tags,category,path,from,link,metadata,createdAt,updatedAt,content')
+              .select('id,uid,title,thumb,tags,category,path,from,link,images,metadata,createdAt,updatedAt,content')
               .order('updatedAt', { ascending: false })
               .range(cursor, cursor + this.size - 1)
           }

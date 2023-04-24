@@ -78,7 +78,7 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
 <template>
   <NCard
     data-tauri-drag-region
-    class="h-full overflow-hidden rounded-sm bg-neutral-800 bg-opacity-90 shadow-lg backdrop-blur"
+    class="h-full max-h-431px overflow-hidden rounded-sm bg-neutral-800 bg-opacity-90 shadow-lg backdrop-blur"
     size="small"
     :bordered="false"
     role="dialog"
@@ -119,6 +119,7 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
       v-show="assistantStore.fileList.length > 0"
       ref="uploadRef"
       v-model:file-list="assistantStore.fileList"
+      class="mt-2"
       multiple
       :max="7"
       accept="image/*"

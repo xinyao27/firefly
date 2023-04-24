@@ -154,9 +154,3 @@ function handleTagClick(tag: string) {
     </div>
   </NCard>
 </template>
-
-<style lang="sass">
-.ProseMirror
-  > *
-    @apply inline
-</style>

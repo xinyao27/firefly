@@ -13,7 +13,7 @@ const isMobileScreen = useMobileScreen()
     <div mx-auto mt-2 h-full w-2xl lg:mt-13vh>
       <Assistant
         v-model="assistantStore.value"
-        class="max-h-80 shadow-none"
+        :class="assistantStore.fileList.length > 0 ? 'max-h-60' : 'max-h-80'"
         :pinned="false"
       />
     </div>
