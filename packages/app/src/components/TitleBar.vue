@@ -1,16 +1,47 @@
 <script setup lang="ts">
 import { useRouteQuery } from '@vueuse/router'
 import { is } from '@firefly/common'
+import type { DropdownOption } from 'naive-ui'
+import { NTooltip } from 'naive-ui'
 
 const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
+const assistantStore = useAssistantStore()
 const isMobileScreen = useMobileScreen()
 const tag = useRouteQuery<string>('tag')
 const tags = computed(() => tag.value?.split('/'))
 const isInboxPage = computed(() => route.path === '/inbox')
+
+const creates: DropdownOption[] = [
+  {
+    label: t('block.create'),
+    key: 'text',
+    icon: () => h('i', { class: 'i-ri-pencil-line' }),
+  },
+]
+function renderOption({
+  node,
+  option,
+}: {
+  node: VNode
+  option: DropdownOption
+}) {
+  return h(
+    NTooltip,
+    { keepAliveOnHover: false, style: { width: 'max-content' } },
+    {
+      trigger: () => [node],
+      default: () => option.key,
+    },
+  )
+}
+function handleCreatesSelect(key: string) {
+  if (key === 'text')
+    assistantStore.open('create')
+}
 </script>
 
 <template>
@@ -86,6 +117,21 @@ const isInboxPage = computed(() => route.path === '/inbox')
       h-full flex-auto select-none
     />
 
+    <NDropdown
+      v-if="isInboxPage && !isMobileScreen"
+      trigger="hover"
+      :options="creates"
+      placement="bottom-end"
+      :render-option="renderOption"
+      @select="handleCreatesSelect"
+    >
+      <NButton
+        size="small"
+        quaternary
+      >
+        <i i-ri-add-fill />
+      </NButton>
+    </NDropdown>
     <template v-if="isInboxPage">
       <!-- RightBar Area -->
       <div>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { colors } from '@firefly/common'
-import { is } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
 import { NButton, NCollapseItem, NDropdown } from 'naive-ui'
 import menuOptions from './menuOptions'
@@ -10,7 +9,6 @@ const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const dialog = useDialog()
-const assistantStore = useAssistantStore()
 const tagStore = useTagStore()
 
 const tags = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
@@ -69,7 +67,7 @@ const tags = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
         }),
     }),
 })))
-function handleSelect([key]: string[]) {
+function handleTagSelect([key]: string[]) {
   router.push({
     name: 'inbox',
     query: {
@@ -82,28 +80,6 @@ function handleSelect([key]: string[]) {
 <template>
   <aside h-full flex flex-col gap-4 p-4>
     <User />
-
-    <section>
-      <NTooltip>
-        <template #trigger>
-          <NButton
-            size="small"
-
-            tertiary block
-            @click="assistantStore.open('create')"
-          >
-            <template #icon>
-              <i i-ri-pencil-line />
-            </template>
-            {{ t('block.create') }}
-          </NButton>
-        </template>
-        <div flex items-center gap-2>
-          {{ t('block.create') }}
-          <KBD :shortcut="[is.macOS() ? 'command' : 'ctrl', 't']" />
-        </div>
-      </NTooltip>
-    </section>
 
     <section>
       <NMenu
@@ -134,10 +110,10 @@ function handleSelect([key]: string[]) {
           </template>
           <NTree
             :data="tags"
-
-            selectable block-line
+            selectable
+            block-line
             :keyboard="false"
-            @update-selected-keys="handleSelect"
+            @update-selected-keys="handleTagSelect"
           />
         </NCollapseItem>
       </NCollapse>
