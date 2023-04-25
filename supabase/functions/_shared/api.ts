@@ -10,8 +10,16 @@ import { validateBlock } from './validate.ts'
 
 export async function getMetaDataByLink(link: string) {
   try {
-    const metadata = await getMetaData(link)
-    return metadata as BlockMetadata
+    const metadata = await getMetaData(link) as BlockMetadata
+    const result: BlockMetadata = {}
+    for (const key in metadata) {
+      const value = metadata[key]
+      if (value) {
+        result[key] = value
+      }
+    }
+    if (Object.keys(result).length === 0) return null
+    return result
   } catch (err) {
     console.error(err)
     return null
