@@ -26,6 +26,9 @@
     "https://deno.land/x/eszip@v0.30.0/eszip_wasm.generated.js": "6e79e9954957abfd5ed4fe57e3a568f4368336db7a122c37bd8bf48302ad568d",
     "https://deno.land/x/eszip@v0.30.0/loader.ts": "fea27f6649c0e2965b785715355f415de9369879e8948f51a3b0973dce7807a6",
     "https://deno.land/x/eszip@v0.30.0/mod.ts": "1ab71595e9f0b771987276f96d323c3e03ad7f41fc653b38c44dfd51439c20e1",
+    "https://deno.land/x/eszip@v0.35.0/eszip_wasm.generated.js": "19ec5ee17dba6ec59ddc8f5836f3f2bef332982d9772e7f42d78b89250baffac",
+    "https://deno.land/x/eszip@v0.35.0/loader.ts": "31bae51763d86b8e60df3b3a8d0359e71d2ff32451af5f27ff7854bdd6f1f726",
+    "https://deno.land/x/eszip@v0.35.0/mod.ts": "1ab71595e9f0b771987276f96d323c3e03ad7f41fc653b38c44dfd51439c20e1",
     "https://deno.land/x/lz4@v0.1.2/mod.ts": "4decfc1a3569d03fd1813bd39128b71c8f082850fe98ecfdde20025772916582",
     "https://deno.land/x/lz4@v0.1.2/wasm.js": "b9c65605327ba273f0c76a6dc596ec534d4cda0f0225d7a94ebc606782319e46"
   }

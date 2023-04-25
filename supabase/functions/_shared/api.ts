@@ -1,11 +1,22 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import getMetaData from 'url-metadata'
 import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import { createParser } from 'eventsource-parser'
 import type { CreateChatCompletionRequest } from 'openai'
 import { getOpenAIKey, getUser } from './auth.ts'
 import { ApplicationError } from './errors.ts'
-import type { BlockModel } from '../_shared/models/Block.ts'
+import type { BlockMetadata, BlockModel } from '../_shared/models/Block.ts'
 import { validateBlock } from './validate.ts'
+
+export async function getMetaDataByLink(link: string) {
+  try {
+    const metadata = await getMetaData(link)
+    return metadata as BlockMetadata
+  } catch (err) {
+    console.error(err)
+    return null
+  }
+}
 
 async function insertTags(supabase: SupabaseClient, tags: string[]) {
   const uid = (await getUser(supabase))?.id
@@ -31,6 +42,12 @@ export async function updateBlock(
   block: BlockModel,
 ) {
   validateBlock(block)
+
+  if (block.category === 'link' && block.link && !block.metadata) {
+    const metadata = await getMetaDataByLink(block.link)
+    if (metadata) block.metadata = metadata
+  }
+
   const { error } = await supabase
     .from('blocks')
     .update(block)
@@ -52,7 +69,14 @@ export async function createBlock(
   uid?: string,
 ) {
   validateBlock(block)
+
   const _uid = uid || (await getUser(supabase))?.id
+
+  if (block.category === 'link' && block.link) {
+    const metadata = await getMetaDataByLink(block.link)
+    if (metadata) block.metadata = metadata
+  }
+
   const { data, error } = await supabase
     .from('blocks')
     .insert({

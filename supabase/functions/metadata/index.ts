@@ -1,5 +1,5 @@
 import { serve } from 'std/server'
-import getMetaData from 'url-metadata'
+import { getMetaDataByLink } from '../_shared/api.ts'
 import { corsHeaders } from '../_shared/cors.ts'
 import { createErrorHandler, UserError } from '../_shared/errors.ts'
 
@@ -22,17 +22,17 @@ serve(async (req) => {
     let data
     switch (true) {
       case req.method === 'GET': {
-        const metadata = await getMetaData(url)
+        const metadata = await getMetaDataByLink(url)
         data = {
-          title: metadata.title,
-          description: metadata.description,
-          image: metadata.image,
-          'og:title': metadata['og:title'],
-          'og:description': metadata['og:description'],
-          'og:image': metadata['og:image'],
-          'twitter:title': metadata['twitter:title'],
-          'twitter:image': metadata['twitter:image'],
-          'twitter:image:alt': metadata['twitter:image:alt'],
+          title: metadata?.title,
+          description: metadata?.description,
+          image: metadata?.image,
+          'og:title': metadata?.['og:title'],
+          'og:description': metadata?.['og:description'],
+          'og:image': metadata?.['og:image'],
+          'twitter:title': metadata?.['twitter:title'],
+          'twitter:image': metadata?.['twitter:image'],
+          'twitter:image:alt': metadata?.['twitter:image:alt'],
         }
         break
       }
