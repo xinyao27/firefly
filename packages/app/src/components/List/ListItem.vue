@@ -81,14 +81,14 @@ function handleTagClick(tag: string) {
   >
     <template #header-extra>
       <div>
-        <NTooltip>
+        <NTooltip v-if="props.data.category === 'text'">
           <template #trigger>
             <NButton
               quaternary
               size="tiny"
               @click="handleCopilot"
             >
-              <i i-ri-openai-line />
+              <i i-ri-sparkling-2-fill />
             </NButton>
           </template>
           {{ t('copilot.ref') }}
@@ -108,8 +108,18 @@ function handleTagClick(tag: string) {
         </NDropdown>
       </div>
     </template>
+    <div v-if="props.data.category === 'link'">
+      <NuxtLink
+        :to="props.data.link"
+        target="_blank"
+        rel="noopener"
+        line-clamp-3
+      >
+        {{ props.data.content }}
+      </NuxtLink>
+    </div>
     <div
-      v-if="props.data.category === 'text'"
+      v-else
       :cursor="expanded ? 'text' : 'pointer'"
       :class="expanded ? '' : 'line-clamp-10'"
       @click="expanded === false && (expanded = true)"
@@ -119,16 +129,6 @@ function handleTagClick(tag: string) {
         class="ProseMirror max-w-full prose prose-white"
         v-html="props.data.content"
       />
-    </div>
-    <div v-else-if="props.data.category === 'link'">
-      <NuxtLink
-        :to="props.data.link"
-        target="_blank"
-        rel="noopener"
-        line-clamp-3
-      >
-        {{ props.data.content }}
-      </NuxtLink>
     </div>
 
     <div
