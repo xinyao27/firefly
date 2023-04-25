@@ -1,11 +1,15 @@
 assistant:
-  capture: Kırpma
+  clipping: Kırpma
   dragTip: buraya sürükleyip bırakın
   dropTip: Koleksiyonu tamamlamak için bırakın
   inputToken: Lütfen önce belirteci girin
   pin: pencere her zaman üstte
   title: Firefly'a Klip
   unpin: pencereyi kapat her zaman üstte
+  website: İnternet sitesi
+assistantLink:
+  invalidUrl: Geçersiz URL
+  placeholder: Lütfen web sitesi URL'sini girin
 block:
   blocks: bloklar
   create: bloklar oluştur

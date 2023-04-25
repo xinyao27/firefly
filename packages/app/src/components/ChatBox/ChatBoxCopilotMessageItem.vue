@@ -38,7 +38,7 @@ async function handleCapture() {
       />
     </template>
     <div flex flex-col>
-      <NTooltip placement="left">
+      <NTooltip placement="left" style="width: max-content">
         <template #trigger>
           <NButton
             quaternary
@@ -50,7 +50,7 @@ async function handleCapture() {
             <i v-else i-ri-check-fill text-green />
           </NButton>
         </template>
-        {{ t('assistant.capture') }}
+        {{ t('assistant.clipping') }}
       </NTooltip>
       <Copyable
         type="button"

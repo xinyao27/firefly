@@ -29,10 +29,10 @@ async function handleCopyResult() {
       relative
     >
       <slot />
-      <NTooltip :placement="props.placement">
+      <NTooltip :placement="props.placement" style="width: max-content">
         <template #trigger>
           <NButton
-            class="copy hidden absolute top-2 right-2"
+            class="copy absolute right-2 top-2 hidden"
             quaternary
             size="tiny"
             @click="handleCopyResult"
@@ -54,7 +54,7 @@ async function handleCopyResult() {
       >
         <slot />
       </span>
-      <NTooltip :placement="props.placement">
+      <NTooltip :placement="props.placement" style="width: max-content">
         <template #trigger>
           <NButton
             class="copy"
@@ -72,7 +72,7 @@ async function handleCopyResult() {
     </div>
   </template>
   <template v-if="props.type === 'button'">
-    <NTooltip :placement="props.placement">
+    <NTooltip :placement="props.placement" style="width: max-content">
       <template #trigger>
         <NButton
           class="copy"

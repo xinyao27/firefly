@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { MentionOption, ScrollbarInst } from 'naive-ui'
-import CopilotMessageItem from './CopilotMessageItem.vue'
-import UserMessageItem from './UserMessageItem.vue'
 import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{
@@ -74,16 +72,16 @@ watch(() => props.currentError, (currentError) => {
         mb-4 flex overflow-hidden break-words
         :justify="item.role === 'user' ? 'end' : 'start'"
       >
-        <UserMessageItem
+        <ChatBoxUserMessageItem
           v-if="item.role === 'user'"
           :message="item.content"
         />
-        <CopilotMessageItem
+        <ChatBoxCopilotMessageItem
           v-else-if="item.role === 'assistant'"
           :message="item.content"
         />
       </div>
-      <CopilotMessageItem
+      <ChatBoxCopilotMessageItem
         v-if="props.currentAssistantMessage"
         :message="props.currentAssistantMessage"
       />

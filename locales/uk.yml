@@ -1,11 +1,15 @@
 assistant:
-  capture: Вирізка
+  clipping: Вирізка
   dragTip: перетягніть сюди
   dropTip: Відпустіть для завершення збору
   inputToken: Спочатку введіть маркер
   pin: вікно завжди зверху
   title: Кліп до Firefly
   unpin: закрите вікно завжди зверху
+  website: Веб-сайт
+assistantLink:
+  invalidUrl: Недійсна URL-адреса
+  placeholder: Введіть URL-адресу веб-сайту
 block:
   blocks: блоки
   create: створювати блоки

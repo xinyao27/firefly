@@ -1,11 +1,15 @@
 assistant:
-  capture: 깎는
+  clipping: 깎는
   dragTip: 여기로 드래그 앤 드롭
   dropTip: 출시하여 컬렉션 완료
   inputToken: 먼저 토큰을 입력하세요
   pin: 창은 항상 위에 있습니다
   title: 클립 투 파이어플라이
   unpin: 닫기 창은 항상 맨 위에 있습니다.
+  website: 웹사이트
+assistantLink:
+  invalidUrl: 잘못된 URL
+  placeholder: 웹사이트 URL을 입력하세요.
 block:
   blocks: 블록
   create: 블록 생성

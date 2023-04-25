@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Editor from '@firefly/editor'
-import type { SelectOption, SelectRenderTag, UploadFileInfo, UploadInst } from 'naive-ui'
+import type { SelectOption, SelectRenderTag } from 'naive-ui'
 import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
+import { isUrl } from '@firefly/common'
 import Bubble from '~/components/Bubble/Bubble.vue'
 
 const props = withDefaults(defineProps<{
@@ -18,9 +18,9 @@ const emit = defineEmits(['update:modelValue'])
 const data = useVModel(props, 'modelValue', emit)
 
 const { t } = useI18n()
-const assistantStore = useAssistantStore()
+const message = useMessage()
+const assistantLinkStore = useAssistantLinkStore()
 const tagStore = useTagStore()
-const uploadRef = ref<UploadInst>()
 const tags = computed(() => tagStore.tags.map(tag => ({
   label: tag.name,
   value: tag.name,
@@ -61,17 +61,21 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
   )
 }
 function handleClose() {
-  assistantStore.close()
-  assistantStore.clear()
+  assistantLinkStore.close()
+  assistantLinkStore.clear()
   props.onClose?.()
 }
 function handleSave() {
-  assistantStore.close()
-  assistantStore.save()
-    .then(assistantStore.clear)
+  // validate
+  if (!isUrl(assistantLinkStore.value))
+    return message.error(t('assistantLink.invalidUrl'))
+
+  assistantLinkStore.close()
+  assistantLinkStore.save()
+    .then(assistantLinkStore.clear)
 }
-function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
-  assistantStore.fileList = data.fileList
+function handleNoSideSpace(value: string) {
+  return !value.startsWith(' ') && !value.endsWith(' ')
 }
 </script>
 
@@ -90,7 +94,7 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
         select-none
         :pl="!showClose ? 16 : 0"
       >
-        {{ assistantStore.type === 'update' ? t('block.update') : t('block.create') }}
+        {{ assistantLinkStore.type === 'update' ? t('common.update') : t('common.create') }} Link
       </div>
     </template>
     <template #header-extra>
@@ -108,38 +112,20 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
         </NButton>
       </div>
     </template>
-    <Editor
-      v-model="data"
-      class="prose prose-white"
-      :class="props.class"
-      :tags="tagStore.tags"
-      :on-created="editor => assistantStore.editor = editor"
-    />
-    <NUpload
-      v-show="assistantStore.fileList.length > 0"
-      ref="uploadRef"
-      v-model:file-list="assistantStore.fileList"
-      class="mt-2"
-      multiple
-      :max="7"
-      accept="image/*"
-      list-type="image-card"
-      @change="handleUploadChange"
+    <NInput
+      v-model:value="data"
+      type="textarea"
+      :placeholder="t('assistantLink.placeholder')"
+      :autosize="{
+        minRows: 3,
+        maxRows: 5,
+      }"
+      :allow-input="handleNoSideSpace"
     />
     <template #footer>
       <div flex items-center justify-between gap-2>
-        <NButton
-          quaternary
-          size="small"
-          @click="uploadRef?.openOpenFileDialog"
-        >
-          <template #icon>
-            <i i-ri-image-fill />
-          </template>
-        </NButton>
-
         <NSelect
-          v-model:value="assistantStore.tags"
+          v-model:value="assistantLinkStore.tags"
           class="flex-1"
           size="small"
           multiple
@@ -154,10 +140,10 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
 
         <div flex items-center gap-2>
           <NButton
-            v-if="assistantStore.editingBlock"
+            v-if="assistantLinkStore.editingBlock"
             text
             size="small"
-            :disabled="!assistantStore.value || assistantStore.loading"
+            :disabled="!assistantLinkStore.value || assistantLinkStore.loading"
             @click="e => {
               e.stopPropagation()
               handleClose()
@@ -169,14 +155,14 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
             secondary
             type="primary"
             size="small"
-            :loading="assistantStore.loading"
-            :disabled="!(assistantStore.value || assistantStore.fileList.length > 0) || assistantStore.loading"
+            :loading="assistantLinkStore.loading"
+            :disabled="!assistantLinkStore.value || assistantLinkStore.loading"
             @click.stop="handleSave"
           >
             <template #icon>
               <i i-ri-send-plane-2-fill />
             </template>
-            {{ assistantStore.type === 'update' ? t('block.update') : t('block.create') }}
+            {{ assistantLinkStore.type === 'update' ? t('common.update') : t('common.create') }}
           </NButton>
         </div>
       </div>

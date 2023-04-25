@@ -1,11 +1,15 @@
 assistant:
-  capture: ამოჭრა
+  clipping: ამოჭრა
   dragTip: გადაათრიეთ და ჩამოაგდეთ აქ
   dropTip: გამოშვება კოლექციის დასასრულებლად
   inputToken: გთხოვთ, ჯერ შეიყვანოთ ჟეტონი
   pin: ფანჯარა ყოველთვის თავზეა
   title: კლიპი Firefly-ზე
   unpin: ფანჯრის დახურვა ყოველთვის თავზეა
+  website: საიტი
+assistantLink:
+  invalidUrl: Არასწორი ლინკი
+  placeholder: გთხოვთ შეიყვანოთ ვებსაიტის URL
 block:
   blocks: ბლოკები
   create: ბლოკების შექმნა

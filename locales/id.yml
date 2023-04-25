@@ -1,11 +1,15 @@
 assistant:
-  capture: Guntingan
+  clipping: Guntingan
   dragTip: seret dan lepas di sini
   dropTip: Rilis untuk melengkapi koleksi
   inputToken: Masukkan token terlebih dahulu
   pin: jendela selalu di atas
   title: Klip ke Firefly
   unpin: tutup jendela selalu di atas
+  website: Situs web
+assistantLink:
+  invalidUrl: Url tidak valid
+  placeholder: Masukkan URL situs web
 block:
   blocks: blok
   create: membuat blok

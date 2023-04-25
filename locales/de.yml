@@ -1,11 +1,15 @@
 assistant:
-  capture: Ausschnitt
+  clipping: Ausschnitt
   dragTip: per Drag-and-Drop hierher ziehen
   dropTip: Freigabe zur Vervollständigung der Sammlung
   inputToken: Bitte geben Sie zuerst den Token ein
   pin: Fenster ist immer oben
   title: Clip zu Firefly
   unpin: Fenster schließen ist immer oben
+  website: Webseite
+assistantLink:
+  invalidUrl: Ungültige URL
+  placeholder: Bitte Website-URL eingeben
 block:
   blocks: Blöcke
   create: Blöcke erstellen

@@ -1,11 +1,15 @@
 assistant:
-  capture: لقطة
+  clipping: لقطة
   dragTip: السحب والإفلات هنا
   dropTip: حرر لإكمال المجموعة
   inputToken: الرجاء إدخال الرمز المميز أولاً
   pin: النافذة دائمًا في المقدمة
   title: مقطع إلى اليراع
   unpin: إغلاق النافذة دائمًا في المقدمة
+  website: موقع إلكتروني
+assistantLink:
+  invalidUrl: URL غير صالح
+  placeholder: الرجاء إدخال URL الموقع
 block:
   blocks: كتل
   create: إنشاء الكتل

@@ -1,11 +1,15 @@
 assistant:
-  capture: Obrzynek
+  clipping: Obrzynek
   dragTip: przeciągnij i upuść tutaj
   dropTip: Zwolnij, aby zakończyć kolekcję
   inputToken: Najpierw wprowadź token
   pin: okno jest zawsze na górze
   title: Klip do Firefly
   unpin: zamknij okno jest zawsze na górze
+  website: Strona internetowa
+assistantLink:
+  invalidUrl: Nieprawidłowy URL
+  placeholder: Wprowadź adres URL witryny
 block:
   blocks: Bloki
   create: tworzyć bloki

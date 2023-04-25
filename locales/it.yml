@@ -1,11 +1,15 @@
 assistant:
-  capture: Ritaglio
+  clipping: Ritaglio
   dragTip: trascina e rilascia qui
   dropTip: Rilascio per completare la raccolta
   inputToken: Inserisci prima il token
   pin: la finestra è sempre in primo piano
   title: Aggancia a Firefly
   unpin: la finestra chiusa è sempre in primo piano
+  website: Sito web
+assistantLink:
+  invalidUrl: URL non valido
+  placeholder: Inserisci l'URL del sito web
 block:
   blocks: blocchi
   create: creare blocchi

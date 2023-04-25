@@ -10,6 +10,7 @@ const props = defineProps<{
 const { t } = useI18n()
 const dialog = useDialog()
 const assistantStore = useAssistantStore()
+const assistantLinkStore = useAssistantLinkStore()
 const blockStore = useBlockStore()
 const tagStore = useTagStore()
 const copilotStore = useCopilotStore()
@@ -22,7 +23,10 @@ const options: DropdownOption[] = [
     label: t('common.edit'),
     key: 'edit',
     onClick() {
-      assistantStore.open('update', props.data)
+      if (props.data.category === 'text')
+        assistantStore.open('update', props.data)
+      else if (props.data.category === 'link')
+        assistantLinkStore.open('update', props.data)
     },
   },
   {
@@ -105,6 +109,7 @@ function handleTagClick(tag: string) {
       </div>
     </template>
     <div
+      v-if="props.data.category === 'text'"
       :cursor="expanded ? 'text' : 'pointer'"
       :class="expanded ? '' : 'line-clamp-10'"
       @click="expanded === false && (expanded = true)"
@@ -114,6 +119,16 @@ function handleTagClick(tag: string) {
         class="ProseMirror max-w-full prose prose-white"
         v-html="props.data.content"
       />
+    </div>
+    <div v-else-if="props.data.category === 'link'">
+      <NuxtLink
+        :to="props.data.link"
+        target="_blank"
+        rel="noopener"
+        line-clamp-3
+      >
+        {{ props.data.content }}
+      </NuxtLink>
     </div>
 
     <div

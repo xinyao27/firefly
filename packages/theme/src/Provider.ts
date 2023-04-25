@@ -16,7 +16,6 @@ export const ThemeProvider: FunctionalComponent = (_, { slots }) => {
       {
         keepAliveOnHover: true,
         containerStyle: { top: '52px' },
-        placement: 'top-right',
       },
       () => h(
         NDialogProvider,

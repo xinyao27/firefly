@@ -1,11 +1,15 @@
 assistant:
-  capture: Отсечение
+  clipping: Отсечение
   dragTip: перетащите сюда
   dropTip: Выпустить для полной коллекции
   inputToken: Сначала введите токен
   pin: окно всегда сверху
   title: Клип к Светлячку
   unpin: закрыть окно всегда сверху
+  website: Веб-сайт
+assistantLink:
+  invalidUrl: Неверная ссылка
+  placeholder: Пожалуйста, введите URL-адрес веб-сайта
 block:
   blocks: блоки
   create: создавать блоки

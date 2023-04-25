@@ -5,7 +5,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <section class="p-3 bg-(slate opacity-15) rounded overflow-hidden break-words">
+  <section class="overflow-hidden break-words rounded bg-(slate opacity-15) p-3">
     {{ props.message }}
   </section>
 </template>

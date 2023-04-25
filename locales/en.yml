@@ -1,11 +1,15 @@
 assistant:
-  capture: Clipping
+  clipping: Clipping
   dragTip: Drag and drop here
   dropTip: Release to complete the capture
   inputToken: Please enter the token first
   pin: window is always on top
   title: Capture To Firefly
   unpin: close window is always on top
+  website: Website
+assistantLink:
+  invalidUrl: Invalid Url
+  placeholder: Please enter website URL
 block:
   blocks: blocks
   create: Create a Block

@@ -1,11 +1,15 @@
 assistant:
-  capture: Coupure
+  clipping: Coupure
   dragTip: glisser-déposer ici
   dropTip: Libération pour compléter la collection
   inputToken: Veuillez d'abord entrer le jeton
   pin: la fenêtre est toujours en haut
   title: Clip sur luciole
   unpin: fermer la fenêtre est toujours en haut
+  website: Site Internet
+assistantLink:
+  invalidUrl: URL invalide
+  placeholder: Veuillez entrer l'URL du site Web
 block:
   blocks: blocs
   create: créer des blocs

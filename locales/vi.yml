@@ -1,11 +1,15 @@
 assistant:
-  capture: cắt
+  clipping: cắt
   dragTip: kéo và thả ở đây
   dropTip: Phát hành để hoàn thành bộ sưu tập
   inputToken: Vui lòng nhập mã thông báo trước
   pin: cửa sổ luôn ở trên cùng
   title: Đoạn phim đom đóm
   unpin: cửa sổ đóng luôn ở trên cùng
+  website: Trang mạng
+assistantLink:
+  invalidUrl: Url không hợp lệ
+  placeholder: Vui lòng nhập URL trang web
 block:
   blocks: khối
   create: tạo khối

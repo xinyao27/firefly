@@ -1,11 +1,15 @@
 assistant:
-  capture: クリッピング
+  clipping: クリッピング
   dragTip: ここにドラッグ＆ドロップ
   dropTip: リリースしてコレクションを完成させる
   inputToken: 最初にトークンを入力してください
   pin: ウィンドウは常に上にあります
   title: ホタルにクリップ
   unpin: 閉じるウィンドウは常に上にあります
+  website: Webサイト
+assistantLink:
+  invalidUrl: 無効なURL
+  placeholder: ウェブサイトの URL を入力してください
 block:
   blocks: ブロック
   create: ブロックを作成する

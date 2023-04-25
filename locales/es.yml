@@ -1,11 +1,15 @@
 assistant:
-  capture: Recorte
+  clipping: Recorte
   dragTip: arrastra y suelta aquí
   dropTip: Liberar para completar la colección
   inputToken: Por favor ingrese el token primero
   pin: la ventana siempre está arriba
   title: Clip a luciérnaga
   unpin: cerrar la ventana siempre está en la parte superior
+  website: Sitio web
+assistantLink:
+  invalidUrl: URL invalida
+  placeholder: Ingrese la URL del sitio web
 block:
   blocks: bloques
   create: crear bloques
