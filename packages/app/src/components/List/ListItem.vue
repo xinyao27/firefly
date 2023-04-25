@@ -108,15 +108,41 @@ function handleTagClick(tag: string) {
         </NDropdown>
       </div>
     </template>
-    <div v-if="props.data.category === 'link'">
-      <NuxtLink
-        :to="props.data.link"
-        target="_blank"
-        rel="noopener"
-        line-clamp-3
+    <div
+      v-if="props.data.category === 'link'"
+      flex
+    >
+      <div flex flex-1 flex-col gap-2>
+        <div
+          v-if="props.data.metadata?.['og:title'] || props.data.metadata?.['twitter:title']"
+          truncate text-lg font-bold
+        >
+          {{ props.data.metadata?.['og:title'] || props.data.metadata?.['twitter:title'] }}
+        </div>
+        <div
+          v-if="props.data.metadata?.['og:description'] || props.data.metadata?.['twitter:description'] || props.data.metadata?.description"
+          line-clamp-3 flex-1 text-sm text-gray-400
+        >
+          {{ props.data.metadata?.['og:description'] || props.data.metadata?.['twitter:description'] || props.data.metadata?.description }}
+        </div>
+        <NuxtLink
+          :to="props.data.link"
+          target="_blank"
+          rel="noopener"
+          line-clamp-2
+        >
+          {{ props.data.content }}
+        </NuxtLink>
+      </div>
+      <div
+        v-if="props.data.metadata?.['og:image'] || props.data.metadata?.['twitter:image:src']"
       >
-        {{ props.data.content }}
-      </NuxtLink>
+        <NImage
+          width="100"
+          :src="(props.data.metadata?.['og:image'] || props.data.metadata?.['twitter:image:src']) as string"
+          :alt="(props.data.metadata?.['og:image:alt'] || props.data.metadata?.['og:description'] || props.data.metadata?.description) as string"
+        />
+      </div>
     </div>
     <div
       v-else
