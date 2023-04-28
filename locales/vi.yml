@@ -98,6 +98,8 @@ editor:
   type: kiểu
   underline: gạch dưới
   uploading: đang tải lên...
+executor:
+  taskDescription: 'Chọn khoảng thời gian để thực hiện tác vụ:'
 index:
   featureAI: >-
     Bàn giao thông tin thu thập được cho AI xử lý và thu thập nội dung do AI xử

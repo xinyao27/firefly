@@ -94,6 +94,8 @@ editor:
   type: 类型
   underline: 下划线
   uploading: 上传中...
+executor:
+  taskDescription: '选择时间段以执行任务:'
 index:
   featureAI: 将收集的信息交予 AI 处理、将 AI 处理后的内容一键收集
   featureAIDesc: 与 AI 对话，将您收集到的信息一键交予 AI 处理，并且一键收集 AI 回复的内容

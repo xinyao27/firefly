@@ -5,10 +5,9 @@ import { ChatCompletionRequestMessage, ChatCompletionRequestMessageRoleEnum, Con
 import { codeBlock, oneLine } from 'common-tags'
 import { corsHeaders } from '../_shared/cors.ts'
 import { ApplicationError, createErrorHandler, UserError } from '../_shared/errors.ts'
-import { Context, generateCompletion } from './chat.ts'
-import { getOpenAiCompletionsStream } from '../_shared/api.ts'
+import { Context, generateCompletion, getOpenAiCompletionsStream } from '../_shared/api.ts'
 import { createSupabaseClient, getOpenAIKey, getUser } from '../_shared/auth.ts'
-import { getChatRequestTokenCount, getMaxTokenCount, tokenizer } from '../_shared/tokenizer.ts'
+import { capMessages, tokenizer } from '../_shared/tokenizer.ts'
 
 export function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
@@ -97,7 +96,7 @@ serve(async (req) => {
           embedding,
           match_threshold: 0.78,
           min_content_length: 10,
-          copilot_id: requestData.copilotId
+          copilot_id: requestData.copilotId,
         })
         .limit(10)
 
@@ -200,30 +199,3 @@ serve(async (req) => {
     return createErrorHandler(err)
   }
 })
-
-/**
- * Remove context messages until the entire request fits
- * the max total token count for that model.
- *
- * Accounts for both message and completion token counts.
- */
-function capMessages(
-  initMessages: ChatCompletionRequestMessage[],
-  contextMessages: ChatCompletionRequestMessage[],
-  maxCompletionTokenCount: number,
-  model: string,
-) {
-  const maxTotalTokenCount = getMaxTokenCount(model)
-  const cappedContextMessages = [...contextMessages]
-  let tokenCount = getChatRequestTokenCount([...initMessages, ...cappedContextMessages], model) +
-    maxCompletionTokenCount
-
-  // Remove earlier context messages until we fit
-  while (tokenCount >= maxTotalTokenCount) {
-    cappedContextMessages.shift()
-    tokenCount = getChatRequestTokenCount([...initMessages, ...cappedContextMessages], model) +
-      maxCompletionTokenCount
-  }
-
-  return [...initMessages, ...cappedContextMessages]
-}

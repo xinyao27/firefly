@@ -94,6 +94,8 @@ editor:
   type: 유형
   underline: 밑줄
   uploading: 업로드 중...
+executor:
+  taskDescription: 작업을 수행할 기간을 선택합니다.
 index:
   featureAI: 수집된 정보를 AI에 넘겨 처리하고 AI가 처리한 내용을 클릭 한 번으로 수집
   featureAIDesc: AI와 대화하고 수집한 정보를 클릭 한 번으로 AI에 전달하여 처리하고 AI 회신 내용을 클릭 한 번으로 수집

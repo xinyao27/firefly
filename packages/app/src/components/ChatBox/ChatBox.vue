@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { MentionOption, ScrollbarInst } from 'naive-ui'
+import type { VNode } from 'vue'
 import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{
-  hi?: string
+  hi?: string | (() => VNode)
   currentInput: string
   messages: ChatMessage[]
   currentAssistantMessage: string
@@ -42,6 +43,7 @@ const handleSmoothToBottom = useThrottleFn(() => {
     scrollBarRef.value?.scrollTo({ top: scrollBarRef.value.scrollbarInstRef?.containerRef?.scrollHeight, behavior: 'smooth' })
   })
 }, 300, false, true)
+
 watch(() => props.messages, (newMessages, oldMessages) => {
   if (newMessages.length !== oldMessages.length)
     handleSmoothToBottom()
@@ -64,7 +66,15 @@ watch(() => props.currentError, (currentError) => {
     >
       <div mb-4 flex justify-start overflow-hidden break-words>
         <section class="border border-(slate opacity-15) rounded p-3">
-          {{ props.hi ?? t('copilot.hi') }}
+          <template v-if="typeof props.hi === 'string'">
+            {{ props.hi }}
+          </template>
+          <template v-if="typeof props.hi === 'undefined'">
+            {{ t('copilot.hi') }}
+          </template>
+          <template v-if="typeof props.hi === 'function'">
+            <component :is="props.hi" />
+          </template>
         </section>
       </div>
       <div

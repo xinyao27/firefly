@@ -1,5 +1,6 @@
 import type { Session, User } from '@supabase/supabase-js'
 import { createClient } from '@supabase/supabase-js'
+import { is } from './is'
 
 const cache = {
   SESSION: null as Session | null,
@@ -7,11 +8,11 @@ const cache = {
 }
 
 export function createSupabaseClient() {
+  // @ts-expect-error noop
+  const { SUPABASE_URL, SUPABASE_ANON_KEY } = useRuntimeConfig().public
   const supabase = createClient(
-    // @ts-expect-error noop
-    import.meta.env.VITE_SUPABASE_URL,
-    // @ts-expect-error noop
-    import.meta.env.VITE_SUPABASE_ANON_KEY,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       auth: {
         detectSessionInUrl: false,
@@ -33,18 +34,18 @@ interface EdgeFunctionsOriginalOptions<T = any> extends EdgeFunctionsOptions<T> 
 export async function edgeFunctions<R = any, T = any>(name: string, options?: EdgeFunctionsOptions<T>): Promise<R>
 export async function edgeFunctions<_, T = any>(name: string, options?: EdgeFunctionsOriginalOptions<T>): Promise<Response>
 export async function edgeFunctions<R = any>(name: string, options: EdgeFunctionsOriginalOptions = {}): Promise<R | Response> {
+  // @ts-expect-error noop
+  const { SUPABASE_ANON_KEY, HOST_URL } = useRuntimeConfig().public
   const session = await getSession()
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...options.headers,
-    // @ts-expect-error noop
-    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+    'apikey': SUPABASE_ANON_KEY,
   }
   if (session?.access_token)
     headers.Authorization = `Bearer ${session?.access_token}`
   const response = await fetch(
-    // @ts-expect-error noop
-    `${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/${name}`,
+    `${is.desktop() ? HOST_URL : ''}/api/${name}`,
     {
       method: options.method || 'POST',
       headers,

@@ -7,14 +7,6 @@ import { i18n } from './config/i18n'
 import { appDescription, appName } from './constants/index'
 import pkg from './package.json'
 
-const define = process.env.NODE_ENV === 'production'
-  ? {
-      'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(process.env.VITE_SUPABASE_URL),
-      'import.meta.env.VITE_SUPABASE_FUNCTIONS_URL': JSON.stringify(process.env.VITE_SUPABASE_FUNCTIONS_URL),
-      'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(process.env.VITE_SUPABASE_ANON_KEY),
-    }
-  : {}
-
 const plugins = [
   AutoImport({
     imports: [
@@ -97,6 +89,9 @@ export default defineNuxtConfig({
       routes: ['/', '/redirect'],
       ignore: ['/inbox'],
     },
+    experimental: {
+      wasm: true,
+    },
   },
 
   app: {
@@ -146,6 +141,25 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  runtimeConfig: {
+    MAX_TOKENS: 1024,
+    HOST_URL: process.env.HOST_URL,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL,
+    SUPABASE_FUNCTIONS_URL: process.env.SUPABASE_FUNCTIONS_URL,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
+    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
+    public: {
+      APP_VERSION: pkg.version,
+      HOST_URL: process.env.HOST_URL,
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_FUNCTIONS_URL: process.env.SUPABASE_FUNCTIONS_URL,
+    },
+  },
+
   build: {
     transpile:
       process.env.NODE_ENV === 'production'
@@ -161,10 +175,6 @@ export default defineNuxtConfig({
     clearScreen: false,
     server: {
       strictPort: true,
-    },
-    define: {
-      ...define,
-      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version.toString()),
     },
     plugins,
     optimizeDeps: {

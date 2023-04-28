@@ -100,6 +100,8 @@ editor:
   type: Typ
   underline: unterstreichen
   uploading: hochladen...
+executor:
+  taskDescription: 'Wählen Sie einen Zeitraum aus, um die Aufgabe auszuführen:'
 index:
   featureAI: >-
     Übergeben Sie die gesammelten Informationen zur Verarbeitung an AI und

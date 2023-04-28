@@ -98,6 +98,8 @@ editor:
   type: يكتب
   underline: تسطير
   uploading: تحميل ...
+executor:
+  taskDescription: 'حدد فترة زمنية لأداء المهمة:'
 index:
   featureAI: >-
     قم بتسليم المعلومات التي تم جمعها إلى AI للمعالجة ، وجمع المحتوى الذي تتم

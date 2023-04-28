@@ -94,6 +94,8 @@ editor:
   type: タイプ
   underline: 下線
   uploading: アップロード中...
+executor:
+  taskDescription: タスクを実行する期間を選択します。
 index:
   featureAI: 収集した情報をAIに渡して処理し、AIが処理した内容をワンクリックで収集
   featureAIDesc: AIに話しかけて、集めた情報をAIに渡してワンクリックで処理、AI返信の内容をワンクリックで収集

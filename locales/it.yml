@@ -99,6 +99,8 @@ editor:
   type: tipo
   underline: sottolineare
   uploading: caricamento...
+executor:
+  taskDescription: 'Seleziona un periodo di tempo per eseguire l''attività:'
 index:
   featureAI: >-
     Consegna le informazioni raccolte ad AI per l'elaborazione e raccogli i

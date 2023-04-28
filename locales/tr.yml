@@ -98,6 +98,8 @@ editor:
   type: tip
   underline: altını çizmek
   uploading: yükleniyor...
+executor:
+  taskDescription: 'Görevi gerçekleştirmek için bir zaman aralığı seçin:'
 index:
   featureAI: >-
     Toplanan bilgileri işlenmesi için AI'ya teslim edin ve AI tarafından işlenen

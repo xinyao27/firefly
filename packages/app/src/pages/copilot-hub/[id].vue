@@ -4,6 +4,7 @@ import { edgeFunctions, getUser } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import type { ChatMessage, Context } from '~/stores/copilot'
 import { supabase } from '~/plugins/api'
+import ExecutorSettings from '~/components/Executor/ExecutorSettings.vue'
 
 const { t } = useI18n()
 const dialog = useDialog()
@@ -149,13 +150,33 @@ function handleRetry() {
     chat()
   }
 }
-
 async function handleCopilotInteractionsIncrement() {
   const { error } = await supabase.rpc('handle_copilot_interactions_increment', {
     copilot_id: copilotHubStore.copilot?.id,
   })
   if (error)
     console.error('Failed to increment copilot interactions', error)
+}
+
+const executorLoading = ref(false)
+async function handleExecutor(range: [number, number]) {
+  executorLoading.value = true
+  const data = await edgeFunctions('executor', {
+    body: {
+      copilotId: params.value,
+      range,
+    },
+  })
+  executorLoading.value = false
+  if (data) {
+    messages.value.push({
+      role: 'assistant',
+      content: data,
+    })
+  }
+}
+function renderExecutorSettings() {
+  return h(ExecutorSettings, { description: copilotHubStore.copilot?.description, onSubmit: handleExecutor, loading: executorLoading.value })
 }
 </script>
 
@@ -169,7 +190,7 @@ async function handleCopilotInteractionsIncrement() {
 
         <ChatBox
           v-model:currentInput="currentInput"
-          :hi="copilotHubStore.copilot?.description"
+          :hi="copilotHubStore.copilot.type === 'executor' ? renderExecutorSettings : copilotHubStore.copilot?.description"
           :create-input-ref="createInputRef"
           :messages="messages"
           :current-assistant-message="currentAssistantMessage"

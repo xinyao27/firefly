@@ -98,6 +98,8 @@ editor:
   type: type
   underline: underline
   uploading: uploading...
+executor:
+  taskDescription: 'Select a time period to perform the task:'
 index:
   featureAI: >-
     Hand over the collected information to AI for processing, and collect the

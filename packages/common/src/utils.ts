@@ -1,5 +1,7 @@
 export function clearHTMLTags(text: string) {
-  return text.replace(/<.*?>/g, '')
+  return text
+    .replace(/<.*?>/g, '')
+    .replace(/\s/g, '')
 }
 
 const protocolAndDomainRE = /^(?:\w+:)?\/\/(\S+)$/

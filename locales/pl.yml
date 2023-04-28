@@ -99,6 +99,8 @@ editor:
   type: typ
   underline: podkreślać
   uploading: ładowanie...
+executor:
+  taskDescription: 'Wybierz okres czasu do wykonania zadania:'
 index:
   featureAI: >-
     Przekaż zebrane informacje AI do przetworzenia i jednym kliknięciem odbierz

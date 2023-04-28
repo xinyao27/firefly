@@ -62,7 +62,7 @@ export function generateCompletion(
   }
 
   const completionOptions: CreateChatCompletionRequest = {
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-3.5-turbo-0301',
     messages: [
       {
         role: 'system',

@@ -100,6 +100,8 @@ editor:
   type: taper
   underline: souligner
   uploading: Téléchargement...
+executor:
+  taskDescription: "Sélectionnez une période pour effectuer la tâche\_:"
 index:
   featureAI: >-
     Transmettez les informations collectées à l'IA pour traitement et collectez

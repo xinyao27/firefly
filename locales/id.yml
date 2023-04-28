@@ -99,6 +99,8 @@ editor:
   type: jenis
   underline: menggarisbawahi
   uploading: mengunggah...
+executor:
+  taskDescription: 'Pilih periode waktu untuk melakukan tugas:'
 index:
   featureAI: >-
     Serahkan informasi yang dikumpulkan ke AI untuk diproses, dan kumpulkan
