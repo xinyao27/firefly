@@ -1,33 +1,27 @@
 // Thanks to supabase
 
-import { serve } from 'std/server'
-import { ChatCompletionRequestMessage, ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from 'openai'
+import type { ChatCompletionRequestMessage } from 'openai'
+import { ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from 'openai'
 import { codeBlock, oneLine } from 'common-tags'
-import { corsHeaders } from '../_shared/cors.ts'
-import { ApplicationError, createErrorHandler, UserError } from '../_shared/errors.ts'
-import { Context, generateCompletion, getOpenAiCompletionsStream } from '../_shared/api.ts'
-import { createSupabaseClient, getOpenAIKey, getUser } from '../_shared/auth.ts'
-import { capMessages, tokenizer } from '../_shared/tokenizer.ts'
+import type { Context } from '../utils'
+import { ApplicationError, UserError, capMessages, createErrorHandler, createSupabaseClient, generateCompletion, getOpenAiCompletionsStream, getUser, tokenizer } from '../utils'
 
 export function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
 }
 
-serve(async (req) => {
-  try {
-    if (req.method === 'OPTIONS') {
-      return new Response('ok', { headers: corsHeaders })
-    }
-    const requestData = (await req.json()) as Context
-    if (!requestData) {
-      throw new UserError('Missing request data')
-    }
-    const Authorization = req.headers.get('Authorization')
-    if (!Authorization) {
-      throw new UserError('Missing Authorization, Please log in to use.')
-    }
+const { OPENAI_API_KEY } = useRuntimeConfig()
 
-    let messages = requestData.messages
+defineEventHandler(async (event) => {
+  try {
+    const Authorization = event.node.req.headers.authorization
+    if (!Authorization)
+      throw new UserError('Missing Authorization, Please log in to use.')
+    const body = await readBody<Context>(event)
+    if (!body)
+      throw new UserError('Missing request data')
+
+    let messages = body.messages
     const systemMessage = messages.find(({ role }) => role === ChatCompletionRequestMessageRoleEnum.System)
     const contextMessages: ChatCompletionRequestMessage[] = messages
       .filter(({ role }) => role !== ChatCompletionRequestMessageRoleEnum.System)
@@ -37,9 +31,9 @@ serve(async (req) => {
             ChatCompletionRequestMessageRoleEnum.Assistant,
             ChatCompletionRequestMessageRoleEnum.User,
           ].includes(role as 'assistant' | 'user')
-        ) {
+        )
           throw new Error(`Invalid message role '${role}'`)
-        }
+
         return {
           role,
           content: content.trim(),
@@ -47,23 +41,20 @@ serve(async (req) => {
       })
     const [userMessage] = contextMessages.filter(({ role }) => role === ChatCompletionRequestMessageRoleEnum.User)
       .slice(-1)
-    if (!userMessage) {
+    if (!userMessage)
       throw new Error('No message with role \'user\'')
-    }
 
     const supabase = createSupabaseClient(Authorization)
-    const openAIKey = getOpenAIKey()
-    const configuration = new Configuration({ apiKey: openAIKey })
+    const configuration = new Configuration({ apiKey: OPENAI_API_KEY })
     const openai = new OpenAIApi(configuration)
 
     const user = await getUser(supabase)
-    if (!user) {
+    if (!user)
       throw new UserError('Invalid Authorization')
-    }
+
     const { data } = await supabase.rpc('handle_profile_copilot_quota_decrement', { uid: user.id })
-    if (data < 0 || data === null) {
+    if (data < 0 || data === null)
       throw new UserError('No quota left')
-    }
 
     // Moderate the content to comply with OpenAI T&C
     // const moderationResponses = await Promise.all(
@@ -79,15 +70,14 @@ serve(async (req) => {
     //   }
     // }
 
-    if (requestData.type === 'copilot') {
+    if (body.type === 'copilot') {
       const embeddingResponse = await openai.createEmbedding({
         model: 'text-embedding-ada-002',
         input: userMessage.content.replaceAll('\n', ' '),
       })
 
-      if (embeddingResponse.status !== 200) {
+      if (embeddingResponse.status !== 200)
         throw new ApplicationError('Failed to create embedding for query', embeddingResponse)
-      }
 
       const [{ embedding }] = embeddingResponse.data.data
 
@@ -96,29 +86,29 @@ serve(async (req) => {
           embedding,
           match_threshold: 0.78,
           min_content_length: 10,
-          copilot_id: requestData.copilotId,
+          copilot_id: body.copilotId,
         })
         .limit(10)
 
-      console.log(`copilotId: ${requestData.copilotId} question: ${userMessage.content}`, blocks)
+      // eslint-disable-next-line no-console
+      console.log(`copilotId: ${body.copilotId} question: ${userMessage.content}`, blocks)
 
-      if (matchError) {
+      if (matchError)
         throw new ApplicationError('Failed to match blocks', matchError)
-      }
 
       let tokenCount = 0
       let contextText = ''
 
       for (let i = 0; i < blocks.length; i++) {
         const block = blocks[i]
-        console.info(`${requestData.copilotId}:`, block)
+        // eslint-disable-next-line no-console
+        console.info(`${body.copilotId}:`, block)
         const content = clearHTMLTags(block.content)
         const encoded = tokenizer.encode(content)
         tokenCount += encoded.length
 
-        if (tokenCount >= 1500) {
+        if (tokenCount >= 1500)
           break
-        }
 
         contextText += `${content.trim()}\n---\n`
       }
@@ -131,7 +121,7 @@ serve(async (req) => {
               ${systemMessage?.content ?? 'You are in a room with a chatbot.'}
             `}
             ${oneLine`
-              Your name is ${requestData.copilotName}. ${requestData.copilotDescription}
+              Your name is ${body.copilotName}. ${body.copilotDescription}
             `}
           `,
         },
@@ -189,13 +179,9 @@ serve(async (req) => {
     const completionOptions = generateCompletion(messages)
     const stream = await getOpenAiCompletionsStream(completionOptions)
 
-    return new Response(stream, {
-      headers: {
-        ...corsHeaders,
-        'Content-Type': 'text/event-stream',
-      },
-    })
-  } catch (err) {
-    return createErrorHandler(err)
+    return stream
+  }
+  catch (err) {
+    return createErrorHandler(err as Error)
   }
 })

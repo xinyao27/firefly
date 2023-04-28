@@ -15,9 +15,7 @@
     "build:desktop": "turbo run build:desktop",
     "dev": "turbo run dev --filter=firefly",
     "dev:desktop": "turbo run dev:desktop --filter=firefly",
-    "dev:webext": "turbo run dev --filter=firefly-webext",
-    "dev:server": "supabase functions serve --env-file ./supabase/.env --no-verify-jwt",
-    "deploy": "supabase functions deploy"
+    "dev:webext": "turbo run dev --filter=firefly-webext"
   },
   "dependencies": {
     "@sentry/vue": "^7.49.0",

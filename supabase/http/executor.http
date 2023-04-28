@@ -1,8 +1,0 @@
-POST http://127.0.0.1:54321/functions/v1/executor
-Content-Type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICAgInJvbGUiOiAiYW5vbiIsCiAgICAiaXNzIjogInN1cGFiYXNlIiwKICAgICJpYXQiOiAxNjgyNDM4NDAwLAogICAgImV4cCI6IDE4NDAyOTEyMDAKfQ.GBL7oB60FOqEBemtMBTqB_YiFhyeTsbxnuseQ0PEriM
-apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpdm13Y2h3aHVnaXFyaWtzcmxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzcyMzQxOTgsImV4cCI6MTk5MjgxMDE5OH0.mdwz7ftBg-0ybjr6liq0CLa85NXFPFIL1-0SDB2Lb_g
-
-{
-  "copilotId": "666"
-}

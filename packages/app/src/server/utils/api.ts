@@ -3,10 +3,12 @@ import getMetaData from 'url-metadata'
 import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 import { createParser } from 'eventsource-parser'
 import type { CreateChatCompletionRequest } from 'openai'
-import { getOpenAIKey, getUser } from './auth.ts'
-import { ApplicationError } from './errors.ts'
-import type { BlockMetadata, BlockModel } from '../_shared/models/Block.ts'
-import { validateBlock } from './validate.ts'
+import type { BlockMetadata, BlockModel } from '@firefly/common'
+import { getUser } from './auth'
+import { ApplicationError } from './errors'
+import { validateBlock } from './validate'
+
+const { OPENAI_API_KEY } = useRuntimeConfig()
 
 export async function getMetaDataByLink(link: string) {
   try {
@@ -14,13 +16,14 @@ export async function getMetaDataByLink(link: string) {
     const result: BlockMetadata = {}
     for (const key in metadata) {
       const value = metadata[key]
-      if (value) {
+      if (value)
         result[key] = value
-      }
     }
-    if (Object.keys(result).length === 0) return null
+    if (Object.keys(result).length === 0)
+      return null
     return result
-  } catch (err) {
+  }
+  catch (err) {
     console.error(err)
     return null
   }
@@ -36,8 +39,8 @@ async function insertTags(supabase: SupabaseClient, tags: string[]) {
     .from('tags')
     .insert(
       tags
-        .filter((tag) => !(data?.some((v) => v.name === tag)))
-        .map((tag) => ({
+        .filter(tag => !(data?.some(v => v.name === tag)))
+        .map(tag => ({
           name: tag,
           uid,
         })),
@@ -53,20 +56,19 @@ export async function updateBlock(
 
   if (block.category === 'link' && block.link && !block.metadata) {
     const metadata = await getMetaDataByLink(block.link)
-    if (metadata) block.metadata = metadata
+    if (metadata)
+      block.metadata = metadata
   }
 
   const { error } = await supabase
     .from('blocks')
     .update(block)
     .eq('id', id)
-  if (error) {
+  if (error)
     throw new ApplicationError(error.message)
-  }
 
-  if (block.tags) {
+  if (block.tags)
     await insertTags(supabase, block.tags)
-  }
 
   return block
 }
@@ -82,7 +84,8 @@ export async function createBlock(
 
   if (block.category === 'link' && block.link) {
     const metadata = await getMetaDataByLink(block.link)
-    if (metadata) block.metadata = metadata
+    if (metadata)
+      block.metadata = metadata
   }
 
   const { data, error } = await supabase
@@ -94,13 +97,11 @@ export async function createBlock(
     .select()
     .limit(1)
     .single()
-  if (error) {
+  if (error)
     throw new ApplicationError(error.message)
-  }
 
-  if (block.tags) {
+  if (block.tags)
     await insertTags(supabase, block.tags)
-  }
 
   return data
 }
@@ -108,10 +109,9 @@ export async function createBlock(
 export async function getOpenAiCompletionsStream(
   completionOptions: CreateChatCompletionRequest,
 ) {
-  const openAIKey = getOpenAIKey()
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     headers: {
-      'Authorization': `Bearer ${openAIKey}`,
+      'Authorization': `Bearer ${OPENAI_API_KEY}`,
       'Content-Type': 'application/json',
     },
     method: 'POST',
@@ -131,12 +131,13 @@ export async function getOpenAiCompletionsStream(
             controller.close()
           }
           try {
-            const json = JSON.parse(data)
+            const json = JSON.parse(data) as any
             const text = json.choices[0].delta?.content || ''
 
             const queue = encoder.encode(text)
             controller.enqueue(queue)
-          } catch (e) {
+          }
+          catch (e) {
             // maybe parse error
             controller.error(e)
           }
@@ -147,9 +148,9 @@ export async function getOpenAiCompletionsStream(
       // this ensures we properly read chunks and invoke an event for each SSE event stream
       const parser = createParser(onParse)
       // https://web.dev/streams/#asynchronous-iteration
-      for await (const chunk of response.body!) {
+      // @ts-expect-error noop
+      for await (const chunk of response.body)
         parser.feed(decoder.decode(chunk))
-      }
     },
   })
   return stream
@@ -157,10 +158,9 @@ export async function getOpenAiCompletionsStream(
 export async function getOpenAiCompletions(
   completionOptions: CreateChatCompletionRequest,
 ) {
-  const openAIKey = getOpenAIKey()
   const response = await fetch('https://openai.firefly.best/v1/chat/completions', {
     headers: {
-      'Authorization': `Bearer ${openAIKey}`,
+      'Authorization': `Bearer ${OPENAI_API_KEY}`,
       'Content-Type': 'application/json',
     },
     method: 'POST',

@@ -27,10 +27,14 @@
     "@vercel/analytics": "^1.0.0",
     "@yeger/vue-masonry-wall": "^3.4.4",
     "common-tags": "^1.8.2",
+    "crypto-js": "^4.1.1",
+    "eventsource-parser": "^1.0.0",
     "gpt-3-encoder": "^1.1.4",
+    "js-base64": "^3.7.5",
     "openai": "^3.2.1",
     "rss-parser": "^3.13.0",
     "tauri-plugin-autostart-api": "https://github.com/tauri-apps/tauri-plugin-autostart",
+    "url-metadata": "^3.0.1",
     "vue-virtual-scroller": "2.0.0-beta.8"
   },
   "devDependencies": {
@@ -40,6 +44,8 @@
     "@pinia/nuxt": "^0.4.8",
     "@tauri-apps/cli": "^1.2.3",
     "@types/common-tags": "^1.8.1",
+    "@types/crypto-js": "^4.1.1",
+    "@types/js-base64": "^3.3.1",
     "@types/vue-virtual-scroller": "npm:@vsme/vue-virtual-scroller@^1.0.1",
     "@unocss/nuxt": "^0.51.5",
     "@vite-pwa/nuxt": "^0.0.7",
