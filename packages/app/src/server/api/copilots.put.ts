@@ -1,7 +1,7 @@
 import type { CopilotModel } from '@firefly/common'
 import { UserError, createErrorHandler, createOrUpdateCopilot, createSupabaseClient, getUser } from '../utils'
 
-defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)

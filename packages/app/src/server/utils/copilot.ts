@@ -1,9 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { Configuration, OpenAIApi } from 'openai'
 import type { CopilotModel } from '@firefly/common'
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { getUser } from './auth'
 import { ApplicationError } from './errors'
 import { validateCopilot } from './validate'
+import { basePath } from './api'
 
 const { OPENAI_API_KEY } = useRuntimeConfig()
 
@@ -36,25 +37,21 @@ export async function createOrUpdateCopilot(
         const input = block.content.replace(/\n/g, ' ')
 
         try {
-          const configuration = new Configuration({
-            apiKey: OPENAI_API_KEY,
-          })
-          const openai = new OpenAIApi(configuration)
-
-          const embeddingResponse = await openai.createEmbedding({
-            model: 'text-embedding-ada-002',
-            input,
-          })
-
-          if (embeddingResponse.status !== 200)
-            throw new Error('Failed to generate embeddings for block.')
-
-          const [responseData] = embeddingResponse.data.data
+          const embeddings = new OpenAIEmbeddings(
+            {
+              timeout: 1000,
+              openAIApiKey: OPENAI_API_KEY,
+            },
+            {
+              basePath,
+            },
+          )
+          const embedding = await embeddings.embedQuery(input)
 
           const { error } = await supabase
             .from('blocks')
             .update({
-              embedding: responseData.embedding,
+              embedding,
             })
             .eq('id', block.id)
 

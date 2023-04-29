@@ -1,10 +1,13 @@
 // Thanks to supabase
 
 import type { ChatCompletionRequestMessage } from 'openai'
-import { ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from 'openai'
+import { ChatCompletionRequestMessageRoleEnum } from 'openai'
+import { ChatOpenAI } from 'langchain/chat_models/openai'
+import { AIChatMessage, HumanChatMessage, SystemChatMessage } from 'langchain/schema'
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { codeBlock, oneLine } from 'common-tags'
 import type { Context } from '../utils'
-import { ApplicationError, UserError, capMessages, createErrorHandler, createSupabaseClient, generateCompletion, getOpenAiCompletionsStream, getUser, tokenizer } from '../utils'
+import { ApplicationError, UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, tokenizer } from '../utils'
 
 export function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
@@ -12,7 +15,7 @@ export function clearHTMLTags(text: string) {
 
 const { OPENAI_API_KEY } = useRuntimeConfig()
 
-defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)
@@ -20,6 +23,12 @@ defineEventHandler(async (event) => {
     const body = await readBody<Context>(event)
     if (!body)
       throw new UserError('Missing request data')
+
+    event.node.res.writeHead(200, {
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Content-Type': 'text/event-stream',
+    })
 
     let messages = body.messages
     const systemMessage = messages.find(({ role }) => role === ChatCompletionRequestMessageRoleEnum.System)
@@ -45,8 +54,6 @@ defineEventHandler(async (event) => {
       throw new Error('No message with role \'user\'')
 
     const supabase = createSupabaseClient(Authorization)
-    const configuration = new Configuration({ apiKey: OPENAI_API_KEY })
-    const openai = new OpenAIApi(configuration)
 
     const user = await getUser(supabase)
     if (!user)
@@ -56,30 +63,17 @@ defineEventHandler(async (event) => {
     if (data < 0 || data === null)
       throw new UserError('No quota left')
 
-    // Moderate the content to comply with OpenAI T&C
-    // const moderationResponses = await Promise.all(
-    //   contextMessages.map((message) => openai.createModeration({ input: message.content })),
-    // )
-    // for (const moderationResponse of moderationResponses) {
-    //   const [results] = moderationResponse.data.results
-    //   if (results.flagged) {
-    //     throw new UserError('Flagged content, please enter a compliant question.', {
-    //       flagged: true,
-    //       categories: results.categories,
-    //     })
-    //   }
-    // }
-
     if (body.type === 'copilot') {
-      const embeddingResponse = await openai.createEmbedding({
-        model: 'text-embedding-ada-002',
-        input: userMessage.content.replaceAll('\n', ' '),
-      })
-
-      if (embeddingResponse.status !== 200)
-        throw new ApplicationError('Failed to create embedding for query', embeddingResponse)
-
-      const [{ embedding }] = embeddingResponse.data.data
+      const embeddings = new OpenAIEmbeddings(
+        {
+          timeout: 1000,
+          openAIApiKey: OPENAI_API_KEY,
+        },
+        {
+          basePath,
+        },
+      )
+      const embedding = await embeddings.embedQuery(userMessage.content)
 
       const { error: matchError, data: blocks } = await supabase
         .rpc('handle_match_blocks', {
@@ -176,10 +170,31 @@ defineEventHandler(async (event) => {
       )
     }
 
-    const completionOptions = generateCompletion(messages)
-    const stream = await getOpenAiCompletionsStream(completionOptions)
+    const chat = new ChatOpenAI(
+      {
+        openAIApiKey: OPENAI_API_KEY,
+        streaming: true,
+        callbacks: [
+          {
+            handleLLMNewToken(token: string) {
+              event.node.res.write(token)
+            },
+          },
+        ],
+      },
+      {
+        basePath,
+      },
+    )
+    await chat.call(messages.map((v) => {
+      if (v.role === 'system')
+        return new SystemChatMessage(v.content)
+      else if (v.role === 'assistant')
+        return new AIChatMessage(v.content)
+      return new HumanChatMessage(v.content)
+    }))
 
-    return stream
+    event.node.res.end()
   }
   catch (err) {
     return createErrorHandler(err as Error)

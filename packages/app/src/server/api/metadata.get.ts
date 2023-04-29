@@ -1,6 +1,6 @@
 import { UserError, createErrorHandler, getMetaDataByLink } from '../utils'
 
-defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)

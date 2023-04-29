@@ -36,7 +36,7 @@ async function generateToken(supabase: SupabaseClient) {
   }
 }
 
-defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)

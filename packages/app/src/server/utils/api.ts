@@ -1,14 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import getMetaData from 'url-metadata'
-import type { ParsedEvent, ReconnectInterval } from 'eventsource-parser'
-import { createParser } from 'eventsource-parser'
-import type { CreateChatCompletionRequest } from 'openai'
 import type { BlockMetadata, BlockModel } from '@firefly/common'
+import { is } from '@firefly/common'
 import { getUser } from './auth'
 import { ApplicationError } from './errors'
 import { validateBlock } from './validate'
-
-const { OPENAI_API_KEY } = useRuntimeConfig()
 
 export async function getMetaDataByLink(link: string) {
   try {
@@ -106,69 +102,7 @@ export async function createBlock(
   return data
 }
 
-export async function getOpenAiCompletionsStream(
-  completionOptions: CreateChatCompletionRequest,
-) {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    headers: {
-      'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(completionOptions),
-  })
-  const encoder = new TextEncoder()
-  const decoder = new TextDecoder()
-  const stream = new ReadableStream({
-    async start(controller) {
-      // callback
-      function onParse(event: ParsedEvent | ReconnectInterval) {
-        if (event.type === 'event') {
-          const data = event.data
-          // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
-          if (data === '[DONE]') {
-            // active
-            controller.close()
-          }
-          try {
-            const json = JSON.parse(data) as any
-            const text = json.choices[0].delta?.content || ''
-
-            const queue = encoder.encode(text)
-            controller.enqueue(queue)
-          }
-          catch (e) {
-            // maybe parse error
-            controller.error(e)
-          }
-        }
-      }
-
-      // stream response (SSE) from OpenAI may be fragmented into multiple chunks
-      // this ensures we properly read chunks and invoke an event for each SSE event stream
-      const parser = createParser(onParse)
-      // https://web.dev/streams/#asynchronous-iteration
-      // @ts-expect-error noop
-      for await (const chunk of response.body)
-        parser.feed(decoder.decode(chunk))
-    },
-  })
-  return stream
-}
-export async function getOpenAiCompletions(
-  completionOptions: CreateChatCompletionRequest,
-) {
-  const response = await fetch('https://openai.firefly.best/v1/chat/completions', {
-    headers: {
-      'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-    body: JSON.stringify(completionOptions),
-  })
-  const json = await response.json()
-  return json
-}
+export const basePath = is.development() ? 'https://openai.firefly.best/v1' : 'https://api.openai.com/v1'
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant'
@@ -181,19 +115,4 @@ export interface Context {
   copilotDescription?: string
   language: string
   messages: ChatMessage[]
-}
-
-export function generateCompletion(messages: ChatMessage[]) {
-  const completionOptions: CreateChatCompletionRequest = {
-    model: 'gpt-3.5-turbo-0301',
-    messages,
-    max_tokens: 1024,
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    stream: false,
-  }
-
-  return completionOptions
 }

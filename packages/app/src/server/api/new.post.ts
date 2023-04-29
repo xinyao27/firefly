@@ -7,7 +7,7 @@ import { createBlock } from '../utils/api'
 
 const { SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SECRET } = useRuntimeConfig()
 
-defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)

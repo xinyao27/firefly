@@ -2,7 +2,7 @@ import type { BlockModel } from '@firefly/common'
 import { UserError, createErrorHandler } from '../utils'
 import { createBlock } from '../utils/api'
 
-defineEventHandler(async (event) => {
+export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)
