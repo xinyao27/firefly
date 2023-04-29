@@ -4,10 +4,11 @@ import { OpenAI } from 'langchain/llms/openai'
 import { LLMChain, MapReduceDocumentsChain, StuffDocumentsChain } from 'langchain/chains'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
+import { getText } from 'langchain/tools/webbrowser'
 import dayjs from 'dayjs'
 import { codeBlock, oneLine } from 'common-tags'
-import { clearHTMLTags, is } from '@firefly/common'
-import { UserError, createErrorHandler, tokenizer } from '../utils'
+import { clearHTMLTags } from '@firefly/common'
+import { UserError, basePath, createErrorHandler, isRssLink, tokenizer } from '../utils'
 
 interface Body {
   copilotId: string
@@ -18,7 +19,6 @@ const { OPENAI_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN, MAX_TO
 if (!OPENAI_API_KEY)
   console.error('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
 
-const basePath = is.development() ? 'https://openai.firefly.best/v1' : 'https://api.openai.com/v1'
 const model = new OpenAI(
   {
     modelName: 'gpt-3.5-turbo-0301',
@@ -28,6 +28,11 @@ const model = new OpenAI(
   },
   { basePath },
 )
+
+const textSplitter = new RecursiveCharacterTextSplitter({
+  chunkSize: 1024,
+  chunkOverlap: 200,
+})
 
 const redis = new Redis({
   url: UPSTASH_REDIS_REST_URL,
@@ -73,15 +78,15 @@ export default defineEventHandler(async (event) => {
     const { data: blocks, error: blocksError } = await supabase
       .from('blocks')
       .select(`
-    id,
-    content,
-    category,
-    link,
-    copilots!inner (
-      id,
-      name
-    )
-  `)
+        id,
+        content,
+        category,
+        link,
+        copilots!inner (
+          id,
+          name
+        )
+      `)
       .eq('copilots.id', copilotId)
       .limit(50) // 限制最大数 避免数据量过大消耗太多 token
     if (blocksError)
@@ -112,13 +117,33 @@ export default defineEventHandler(async (event) => {
             }
           }
           else if (block.category === 'link') {
-            const feed = await parser.parseURL(block.link)
-            const filteredFeed = feed.items?.filter((item) => {
-              const itemDate = dayjs(item.pubDate)
-              return itemDate.isAfter(dayjs(range[0])) && itemDate.isBefore(dayjs(range[1]))
-            })
-            for (const item of filteredFeed) {
-              const content = item.content ? clearHTMLTags(item.content).slice(0, 100) : ''
+            if (await isRssLink(block.link)) {
+              const feed = await parser.parseURL(block.link)
+              const filteredFeed = feed.items?.filter((item) => {
+                const itemDate = dayjs(item.pubDate)
+                return itemDate.isAfter(dayjs(range[0])) && itemDate.isBefore(dayjs(range[1]))
+              })
+              for (const item of filteredFeed) {
+                const _content = item.content ? clearHTMLTags(item.content).slice(0, 100) : ''
+                const content = (await textSplitter.splitText(_content)).slice(0, 4).join('\n')
+                const encoded = tokenizer.encode(content)
+                if (encoded.length <= MAX_TOKENS) {
+                  tokenCount += encoded.length
+                  if (tokenCount > ALL_TOKENS)
+                    return
+
+                  contents.push({
+                    link: item.link,
+                    title: item.title,
+                    content,
+                  })
+                }
+              }
+            }
+            else {
+              const html = await fetch(block.link).then(res => res.text())
+              const text = getText(html, block.link, true)
+              const content = (await textSplitter.splitText(text)).slice(0, 4).join('\n')
               const encoded = tokenizer.encode(content)
               if (encoded.length <= MAX_TOKENS) {
                 tokenCount += encoded.length
@@ -126,8 +151,7 @@ export default defineEventHandler(async (event) => {
                   return
 
                 contents.push({
-                  link: item.link,
-                  title: item.title,
+                  link: block.link,
                   content,
                 })
               }
@@ -139,7 +163,6 @@ export default defineEventHandler(async (event) => {
       if (!contents.length)
         throw new UserError('No contents found.')
 
-      const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 1024 })
       const docs = await textSplitter.createDocuments(contents.map(v => JSON.stringify(v)))
       const prompt = new PromptTemplate({
         inputVariables: ['text'],

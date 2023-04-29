@@ -38,8 +38,8 @@ importers:
         specifier: ^7.1.1
         version: 7.1.1
       langchain:
-        specifier: ^0.0.64
-        version: 0.0.64(@supabase/supabase-js@2.21.0)
+        specifier: ^0.0.66
+        version: 0.0.66(@supabase/supabase-js@2.21.0)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -239,6 +239,9 @@ importers:
       '@yeger/vue-masonry-wall':
         specifier: ^3.4.4
         version: 3.4.4(vue@3.2.47)
+      cheerio:
+        specifier: 1.0.0-rc.12
+        version: 1.0.0-rc.12
       common-tags:
         specifier: ^1.8.2
         version: 1.8.2
@@ -1923,8 +1926,8 @@ packages:
       vue: 3.2.47
     dev: false
 
-  /@dqbd/tiktoken@1.0.6:
-    resolution: {integrity: sha512-umSdeZTy/SbPPKVuZKV/XKyFPmXSN145CcM3iHjBbmhlohBJg7vaDp4cPCW+xNlWL6L2U1sp7T2BD+di2sUKdA==}
+  /@dqbd/tiktoken@1.0.7:
+    resolution: {integrity: sha512-bhR5k5W+8GLzysjk8zTMVygQZsgvf7W1F0IlL4ZQ5ugjo5rCyiwGM5d8DYriXspytfu98tv59niang3/T+FoDw==}
     dev: false
 
   /@emotion/hash@0.8.0:
@@ -10241,8 +10244,8 @@ packages:
     resolution: {integrity: sha512-ymToLHqL02udwVdbkowNpzjFd6UzozMtshPQKVi5k1EjKRqKqBrOnE9QbLEb0/pV76SAiIT13hdL8R6suc+f3g==}
     dev: true
 
-  /langchain@0.0.64(@supabase/supabase-js@2.21.0):
-    resolution: {integrity: sha512-EPR5igtuSemtPAesQ8oa8SF/xjTA+bYJW00JNJ/8PYkPNiU+uc+cifOEH3H/DFam+oDY9XhR7WV+GhBEskVNNA==}
+  /langchain@0.0.66(@supabase/supabase-js@2.21.0):
+    resolution: {integrity: sha512-HsVdXFDp2+YB12tvpMFOK6kIXaLvFzJKQUzitr5VEamhZCFUoojZgcS7ckRjxJIv+aVWbEzCi3KJI/2kPKsMkA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@aws-sdk/client-lambda': ^3.310.0
@@ -10252,6 +10255,9 @@ packages:
       '@opensearch-project/opensearch': '*'
       '@pinecone-database/pinecone': '*'
       '@supabase/supabase-js': ^2.10.0
+      '@tensorflow-models/universal-sentence-encoder': '*'
+      '@tensorflow/tfjs-converter': '*'
+      '@tensorflow/tfjs-core': '*'
       '@zilliz/milvus2-sdk-node': ^2.2.0
       axios: '*'
       cheerio: ^1.0.0-rc.12
@@ -10285,6 +10291,12 @@ packages:
       '@pinecone-database/pinecone':
         optional: true
       '@supabase/supabase-js':
+        optional: true
+      '@tensorflow-models/universal-sentence-encoder':
+        optional: true
+      '@tensorflow/tfjs-converter':
+        optional: true
+      '@tensorflow/tfjs-core':
         optional: true
       '@zilliz/milvus2-sdk-node':
         optional: true
@@ -10326,7 +10338,7 @@ packages:
         optional: true
     dependencies:
       '@anthropic-ai/sdk': 0.4.3
-      '@dqbd/tiktoken': 1.0.6
+      '@dqbd/tiktoken': 1.0.7
       '@supabase/supabase-js': 2.21.0
       binary-extensions: 2.2.0
       browser-or-node: 2.1.1

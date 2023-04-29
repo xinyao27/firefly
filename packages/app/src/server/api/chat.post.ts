@@ -13,7 +13,8 @@ export function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
 }
 
-const { OPENAI_API_KEY } = useRuntimeConfig()
+const { OPENAI_API_KEY, MAX_TOKENS } = useRuntimeConfig()
+const model = 'gpt-3.5-turbo-0301'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -159,20 +160,19 @@ export default defineEventHandler(async (event) => {
         },
       ]
 
-      const model = 'gpt-3.5-turbo-0301'
-      const maxCompletionTokenCount = 1024
-
       messages = capMessages(
         initMessages,
         contextMessages,
-        maxCompletionTokenCount,
+        MAX_TOKENS,
         model,
       )
     }
 
     const chat = new ChatOpenAI(
       {
+        modelName: model,
         openAIApiKey: OPENAI_API_KEY,
+        maxTokens: MAX_TOKENS,
         streaming: true,
         callbacks: [
           {

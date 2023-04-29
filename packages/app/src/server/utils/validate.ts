@@ -28,3 +28,36 @@ export function validateCopilot(copilot: CopilotModel) {
   if (copilot.prompt && copilot.prompt.length > 2000)
     throw new Error('Copilot prompt is too long')
 }
+
+export function isRssLink(url: string) {
+  return new Promise((resolve, reject) => {
+    // 检查链接扩展名是否为 .xml 或 .rss
+    if (url.endsWith('.xml') || url.endsWith('.rss')) {
+      resolve(true)
+      return
+    }
+
+    // 发送 HTTP 请求并解析为 XML
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+    xhr.onload = function () {
+      const xml = xhr.responseXML
+
+      // 检查 XML 是否包含 RSS 标记
+      if (
+        xml && (
+          xml.getElementsByTagName('rss').length > 0
+          || xml.getElementsByTagName('channel').length > 0
+          || xml.getElementsByTagName('item').length > 0
+        )
+      )
+        resolve(true)
+      else
+        resolve(false)
+    }
+    xhr.onerror = function () {
+      reject(new Error('Failed to load XML'))
+    }
+    xhr.send()
+  })
+}
