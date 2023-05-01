@@ -30,34 +30,30 @@ export function validateCopilot(copilot: CopilotModel) {
 }
 
 export function isRssLink(url: string) {
-  return new Promise((resolve, reject) => {
-    // 检查链接扩展名是否为 .xml 或 .rss
-    if (url.endsWith('.xml') || url.endsWith('.rss')) {
-      resolve(true)
-      return
-    }
+  return fetch(url)
+    .then((response) => {
+      // 检查链接扩展名是否为 .xml 或 .rss
+      if (url.endsWith('.xml') || url.endsWith('.rss'))
+        return true
 
-    // 发送 HTTP 请求并解析为 XML
-    const xhr = new XMLHttpRequest()
-    xhr.open('GET', url)
-    xhr.onload = function () {
-      const xml = xhr.responseXML
-
-      // 检查 XML 是否包含 RSS 标记
-      if (
-        xml && (
-          xml.getElementsByTagName('rss').length > 0
-          || xml.getElementsByTagName('channel').length > 0
-          || xml.getElementsByTagName('item').length > 0
-        )
-      )
-        resolve(true)
-      else
-        resolve(false)
-    }
-    xhr.onerror = function () {
-      reject(new Error('Failed to load XML'))
-    }
-    xhr.send()
-  })
+      // 检查响应类型是否为 XML
+      const contentType = response.headers.get('content-type')
+      if (contentType && contentType.includes('application/xml')) {
+        return response.text().then((text) => {
+          // 检查响应内容是否包含 RSS 标记
+          if (text.includes('<rss')
+              || text.includes('<channel')
+              || text.includes('<item'))
+            return true
+          else
+            return false
+        })
+      }
+      else {
+        return false
+      }
+    })
+    .catch(() => {
+      throw new Error('Failed to load XML')
+    })
 }

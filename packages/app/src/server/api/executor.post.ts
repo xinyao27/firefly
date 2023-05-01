@@ -124,37 +124,34 @@ export default defineEventHandler(async (event) => {
                 return itemDate.isAfter(dayjs(range[0])) && itemDate.isBefore(dayjs(range[1]))
               })
               for (const item of filteredFeed) {
-                const _content = item.content ? clearHTMLTags(item.content).slice(0, 100) : ''
+                const _content = item.content ? clearHTMLTags(item.content) : ''
                 const content = (await textSplitter.splitText(_content)).slice(0, 4).join('\n')
                 const encoded = tokenizer.encode(content)
-                if (encoded.length <= MAX_TOKENS) {
-                  tokenCount += encoded.length
-                  if (tokenCount > ALL_TOKENS)
-                    return
 
-                  contents.push({
-                    link: item.link,
-                    title: item.title,
-                    content,
-                  })
-                }
-              }
-            }
-            else {
-              const html = await fetch(block.link).then(res => res.text())
-              const text = getText(html, block.link, true)
-              const content = (await textSplitter.splitText(text)).slice(0, 4).join('\n')
-              const encoded = tokenizer.encode(content)
-              if (encoded.length <= MAX_TOKENS) {
                 tokenCount += encoded.length
                 if (tokenCount > ALL_TOKENS)
                   return
 
                 contents.push({
-                  link: block.link,
+                  link: item.link,
+                  title: item.title,
                   content,
                 })
               }
+            }
+            else {
+              const html = await fetch(block.link).then(res => res.text())
+              const text = getText(html, block.link, true)
+              const content = (await textSplitter.splitText(text)).slice(0, 1).join('\n')
+              const encoded = tokenizer.encode(content)
+              tokenCount += encoded.length
+              if (tokenCount > ALL_TOKENS)
+                return
+
+              contents.push({
+                link: block.link,
+                content,
+              })
             }
           }
         }
