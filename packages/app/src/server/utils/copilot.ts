@@ -10,7 +10,7 @@ const { OPENAI_API_KEY } = useRuntimeConfig()
 
 export async function createOrUpdateCopilot(
   supabase: SupabaseClient,
-  tags: string[],
+  blockIds: string[],
   copilot: CopilotModel,
   uid: string,
 ) {
@@ -20,26 +20,30 @@ export async function createOrUpdateCopilot(
   let blocks: {
     id: string
     content: string
+    category: string
   }[] = []
 
-  if (tags.length) {
+  if (blockIds.length) {
     const { data: _blocks, error: blocksError } = await supabase
       .from('blocks')
-      .select('id,content')
+      .select('id,content,category')
+      .in('id', blockIds)
       .eq('uid', uid)
-      .contains('tags', JSON.stringify(tags))
     if (blocksError)
       throw new ApplicationError(`${blocksError.message}: ${blocksError.details}`)
 
     if (_blocks.length) {
       blocks = _blocks
       for (const block of blocks) {
+        if (block.category !== 'text')
+          continue
+
         const input = block.content.replace(/\n/g, ' ')
 
         try {
           const embeddings = new OpenAIEmbeddings(
             {
-              timeout: 1000,
+              timeout: 3000,
               openAIApiKey: OPENAI_API_KEY,
             },
             {
@@ -59,16 +63,12 @@ export async function createOrUpdateCopilot(
             throw error
         }
         catch (err) {
-          console.error(
-            `Failed to generate embeddings for '${tags}' starting with '${
-              input.slice(
-                0,
-                40,
-              )
-            }...'`,
-          )
-
-          throw err
+          throw new ApplicationError(`Failed to generate embeddings for '${blockIds}' starting with '${
+            input.slice(
+              0,
+              40,
+            )
+          }...'`)
         }
       }
     }

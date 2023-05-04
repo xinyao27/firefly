@@ -23,13 +23,27 @@ export const useCopilotHubStore = defineStore('copilotHub', {
     }
   },
   actions: {
-    async create(copilot: CopilotModel, tags: string[]) {
+    async getSelectedBlockIds(copilotId: string) {
+      const { data, error } = await supabase
+        .from('blocks')
+        .select(`
+          id,
+          copilots!inner (
+            id
+          )
+        `)
+        .eq('copilots.id', copilotId)
+      if (error)
+        throw error.message
+      return data
+    },
+    async create(copilot: CopilotModel, blockIds: string[]) {
       const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
         await edgeFunctions('copilots', {
           body: {
             ...copilot,
-            tags,
+            blockIds,
           },
         })
         window.$message?.success?.($t('copilot.createSuccess'))
@@ -42,7 +56,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
         message?.destroy?.()
       }
     },
-    async update(copilot: CopilotModel, tags: string[]) {
+    async update(copilot: CopilotModel, blockIds: string[]) {
       const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
       try {
         if ('profiles' in copilot)
@@ -52,7 +66,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
           method: 'PUT',
           body: {
             ...copilot,
-            tags,
+            blockIds,
           },
         })
         window.$message?.success?.($t('copilot.updateSuccess'))
@@ -81,6 +95,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
           `)
           .eq('uid', user?.id)
           .order('updatedAt', { ascending: false })
+          .returns<CopilotWithProfiles[]>()
         if (response.error)
           throw new Error(response.error.message)
 
@@ -108,6 +123,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
           .eq('visibility', 'public')
           .range(cursor, cursor + this.size - 1)
           .order('interactions', { ascending: false })
+          .returns<CopilotWithProfiles[]>()
         if (response.error)
           throw new Error(response.error.message)
 
@@ -139,7 +155,7 @@ export const useCopilotHubStore = defineStore('copilotHub', {
             )
           `)
           .eq('id', id)
-          .single()
+          .single<CopilotWithProfiles>()
         if (response.error)
           throw new Error(response.error.message)
 

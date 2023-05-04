@@ -79,8 +79,8 @@ function handleCreated() {
         </div>
         <NButton
           class="mt-8"
-
-          quaternary block
+          quaternary
+          block
           :disabled="!copilotHubStore.hasMore"
           @click="handleLoadMore"
         >

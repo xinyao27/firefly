@@ -61,7 +61,7 @@ export async function edgeFunctions<R = any>(name: string, options: EdgeFunction
   return data as Promise<R>
 }
 
-export async function getSession(refresh = false) {
+export async function getSession(refresh = true) {
   const key = 'SESSION'
   if (!refresh) {
     const session = cache[key]
