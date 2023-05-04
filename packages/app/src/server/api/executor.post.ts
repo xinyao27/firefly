@@ -7,7 +7,6 @@ import { PromptTemplate } from 'langchain/prompts'
 import { getText } from 'langchain/tools/webbrowser'
 import dayjs from 'dayjs'
 import { codeBlock, oneLine } from 'common-tags'
-import { clearHTMLTags } from '@firefly/common'
 import { UserError, basePath, createErrorHandler, isRssLink, tokenizer } from '../utils'
 
 interface Body {
@@ -18,7 +17,6 @@ interface Body {
 const { OPENAI_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN, MAX_TOKENS } = useRuntimeConfig()
 if (!OPENAI_API_KEY)
   console.error('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
-
 const model = new OpenAI(
   {
     modelName: 'gpt-3.5-turbo-0301',
@@ -30,7 +28,7 @@ const model = new OpenAI(
 )
 
 const textSplitter = new RecursiveCharacterTextSplitter({
-  chunkSize: 1024,
+  chunkSize: MAX_TOKENS,
   chunkOverlap: 200,
 })
 
@@ -56,8 +54,17 @@ export default defineEventHandler(async (event) => {
 
     const { copilotId, range } = body
     const CACHED_KEY = `executor_${copilotId}_${range[0]}_${range[1]}`
-    const result = {
+    interface Content {
+      link?: string
+      title?: string
+      content: string
+    }
+    const result: {
+      data: string
+      contents: Content[]
+    } = {
       data: '',
+      contents: [],
     }
 
     const data = await redis.get<string>(CACHED_KEY)
@@ -93,12 +100,6 @@ export default defineEventHandler(async (event) => {
       throw new UserError(blocksError.message)
 
     if (blocks.length) {
-      const contents: {
-        link?: string
-        title?: string
-        content: string
-      }[] = []
-
       async function getContents() {
         let tokenCount = 0
         const ALL_TOKENS = MAX_TOKENS * 7
@@ -110,7 +111,7 @@ export default defineEventHandler(async (event) => {
               if (tokenCount > ALL_TOKENS)
                 return
 
-              contents.push({
+              result.contents.push({
                 link: block.id,
                 content: block.content,
               })
@@ -124,7 +125,7 @@ export default defineEventHandler(async (event) => {
                 return itemDate.isAfter(dayjs(range[0])) && itemDate.isBefore(dayjs(range[1]))
               })
               for (const item of filteredFeed) {
-                const _content = item.content ? clearHTMLTags(item.content) : ''
+                const _content = getText(item.content!, block.link, true)
                 const content = (await textSplitter.splitText(_content)).slice(0, 4).join('\n')
                 const encoded = tokenizer.encode(content)
 
@@ -132,7 +133,7 @@ export default defineEventHandler(async (event) => {
                 if (tokenCount > ALL_TOKENS)
                   return
 
-                contents.push({
+                result.contents.push({
                   link: item.link,
                   title: item.title,
                   content,
@@ -148,7 +149,7 @@ export default defineEventHandler(async (event) => {
               if (tokenCount > ALL_TOKENS)
                 return
 
-              contents.push({
+              result.contents.push({
                 link: block.link,
                 content,
               })
@@ -157,10 +158,10 @@ export default defineEventHandler(async (event) => {
         }
       }
       await getContents()
-      if (!contents.length)
+      if (!result.contents.length)
         throw new UserError('No contents found.')
 
-      const docs = await textSplitter.createDocuments(contents.map(v => JSON.stringify(v)))
+      const docs = await textSplitter.createDocuments(result.contents.map(v => JSON.stringify(v)))
       const prompt = new PromptTemplate({
         inputVariables: ['text'],
         template: codeBlock`
@@ -173,7 +174,7 @@ export default defineEventHandler(async (event) => {
         If the link and title fields have values, please indicate where they come from in the results.
         This is an example:
         1. [title](link) content
-        2. [title](link) content
+        2. [link](link) content
       `}
 
       The Data:
