@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
-import type { CopilotModel } from '@firefly/common'
+import type { BlockModel, CopilotModel } from '@firefly/common'
 import { is } from '@firefly/common'
+import { intersection } from 'lodash'
 import TonyStark from './tonyStark'
 
 const props = defineProps<{
@@ -14,11 +15,14 @@ const show = useVModel(props, 'show', emit)
 
 const { t } = useI18n()
 const message = useMessage()
+const blockStore = useBlockStore()
 const tagStore = useTagStore()
 const copilotHubStore = useCopilotHubStore()
 const current = ref(1)
 const currentStatus = ref<StepsProps['status']>('process')
 const selectedTags = ref<string[]>([])
+const selectedBlocks = ref<string[]>([])
+const tagBlocks = ref<BlockModel[]>([])
 const loading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const model = ref<CopilotModel>({
@@ -67,6 +71,12 @@ onMounted(() => {
     model.value = props.data
 })
 
+watch(selectedTags, (value) => {
+  const blocks = blockStore.blocks.filter(block => intersection(block.tags, value).length > 0)
+  tagBlocks.value = blocks
+  selectedBlocks.value = blocks.map(block => block.id!)
+})
+
 function handleBack() {
   if (current.value === 1)
     return
@@ -106,7 +116,7 @@ async function handleNext() {
     :close-on-esc="false"
     :closable="!loading"
     preset="card"
-    style="width: 800px"
+    class="max-h-700px w-860px"
     :title="props.data ? t('copilot.updateCopilot') : t('copilot.createCopilot')"
     :bordered="false"
   >
@@ -133,9 +143,9 @@ async function handleNext() {
             v-for="tag in tagStore.tags"
             :key="tag.id"
             class="cursor-pointer hover:bg-(slate opacity-30)"
-            :bordered="false"
             size="small"
             checkable
+            :bordered="false"
             :checked="selectedTags.includes(tag.name)"
             @update-checked="selectedTags = $event ? [...selectedTags, tag.name] : selectedTags.filter(name => name !== tag.name)"
           >
@@ -145,6 +155,21 @@ async function handleNext() {
               />
             </template>
             {{ tag.name }}
+          </NTag>
+        </div>
+        <div mt-4 max-h-80 flex flex-wrap gap-1 overflow-x-hidden overflow-y-auto>
+          <NTag
+            v-for="item in tagBlocks"
+            :key="item.id"
+            checkable
+            :bordered="false"
+            :checked="selectedBlocks.includes(item.id!)"
+            @update-checked="selectedBlocks = $event ? [...selectedBlocks, item.id!] : selectedBlocks.filter(name => name !== item.id)"
+          >
+            <template #icon>
+              <i i-ri-edit-fill />
+            </template>
+            <span class="truncate" v-html="item.content" />
           </NTag>
         </div>
       </div>
