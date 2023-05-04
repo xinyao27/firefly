@@ -86,6 +86,12 @@ export async function createOrUpdateCopilot(
   if (copilotsError)
     throw new ApplicationError(copilotsError.message)
 
+  const { error: deleteCopilotsBlocksError } = await supabase
+    .from('copilots_blocks')
+    .delete()
+    .eq('copilotId', data.id)
+  if (deleteCopilotsBlocksError)
+    throw new ApplicationError(deleteCopilotsBlocksError.message)
   const copilotsBlocks = blocks.map(block => ({
     copilotId: data.id,
     blockId: block.id,
