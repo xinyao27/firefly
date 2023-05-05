@@ -2,7 +2,7 @@
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
 import type { BlockModel, CopilotModel } from '@firefly/common'
 import { is } from '@firefly/common'
-import { intersection } from 'lodash'
+import { intersection } from 'lodash-es'
 import TonyStark from './tonyStark'
 
 const props = defineProps<{
