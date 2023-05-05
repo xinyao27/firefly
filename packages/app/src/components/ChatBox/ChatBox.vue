@@ -21,7 +21,6 @@ const emit = defineEmits<{
 }>()
 const currentInput = useVModel(props, 'currentInput', emit)
 
-const { t } = useI18n()
 const scrollBarRef = ref<ScrollbarInst | null>(null)
 const referenceOptions = ref<MentionOption[]>([])
 
@@ -70,7 +69,7 @@ watch(() => props.currentError, (currentError) => {
             {{ props.hi }}
           </template>
           <template v-if="typeof props.hi === 'undefined'">
-            {{ t('copilot.hi') }}
+            {{ $t('copilot.hi') }}
           </template>
           <template v-if="typeof props.hi === 'function'">
             <component :is="props.hi" />
@@ -84,11 +83,19 @@ watch(() => props.currentError, (currentError) => {
       >
         <ChatBoxUserMessageItem
           v-if="item.role === 'user'"
-          :message="item.content"
+          :message="item.content!"
         />
         <ChatBoxCopilotMessageItem
           v-else-if="item.role === 'assistant'"
-          :message="item.content"
+          :message="item.content!"
+        />
+        <ChatBoxBlocksMessageItem
+          v-else-if="item.role === 'blocks'"
+          :blocks="item.metadata"
+        />
+        <ChatBoxFetchMessageItem
+          v-else-if="item.role === 'fetch'"
+          :message="item"
         />
       </div>
       <ChatBoxCopilotMessageItem
@@ -101,13 +108,13 @@ watch(() => props.currentError, (currentError) => {
       >
         {{ props.currentError }}
         <NButton
-
           type="error"
-          secondary ml-2
+          secondary
+          ml-2
           size="small"
           @click="props.onRetry"
         >
-          {{ t('copilot.retry') }}
+          {{ $t('copilot.retry') }}
         </NButton>
       </section>
     </NScrollbar>
@@ -169,7 +176,7 @@ watch(() => props.currentError, (currentError) => {
         </template>
         <div class="flex items-center gap-1 text-xs text-neutral">
           <Spin />
-          {{ t('common.loading') }}
+          {{ $t('common.loading') }}
         </div>
       </NTooltip>
     </div>

@@ -19,6 +19,7 @@ const currentAssistantMessage = ref('')
 const currentError = ref<string | null>(null)
 const controller = ref<AbortController | null>(null)
 const messages = ref<ChatMessage[]>([])
+const fetchMessages = ref<ChatMessage[]>([])
 
 onMounted(async () => {
   if (!params.value)
@@ -66,7 +67,7 @@ async function chat() {
       copilotId: copilotHubStore.copilot?.id,
       copilotName: copilotHubStore.copilot?.name,
       copilotDescription: copilotHubStore.copilot?.description,
-      messages: messages.value,
+      messages: messages.value.filter(v => v.role === 'system' || v.role === 'user' || v.role === 'assistant'),
     }
     const response = await edgeFunctions('chat', {
       original: true,
@@ -161,19 +162,100 @@ async function handleCopilotInteractionsIncrement() {
 const executorLoading = ref(false)
 async function handleExecutor(range: [number, number]) {
   executorLoading.value = true
-  const data = await edgeFunctions('executor', {
-    body: {
-      copilotId: params.value,
-      range,
-    },
+
+  // 1. Get blocks
+  const { data: blocks, error: blocksError } = await supabase
+    .from('blocks')
+    .select(`
+        id,
+        content,
+        category,
+        link,
+        copilots!inner (
+          id,
+          name
+        )
+      `)
+    .eq('copilots.id', copilotHubStore.copilot?.id)
+    .limit(20) // 限制最大数 避免数据量过大消耗太多 token
+  if (blocksError)
+    throw new UserError(blocksError.message)
+  messages.value.push({
+    role: 'blocks',
+    metadata: blocks,
   })
-  executorLoading.value = false
-  if (data) {
-    messages.value.push({
-      role: 'assistant',
-      content: data,
-    })
+
+  // 2. fetch data
+  if (blocks.length) {
+    for (const block of blocks!) {
+      if (block.category === 'text') {
+        messages.value.push({
+          role: 'fetch',
+          content: block.content,
+          metadata: {
+            link: block.id,
+          },
+        })
+        fetchMessages.value.push({
+          role: 'fetch',
+          content: block.content,
+          metadata: {
+            link: block.id,
+          },
+        })
+      }
+      else if (block.category === 'link') {
+        const data = await edgeFunctions<{
+          title?: string
+          link?: string
+          createdAt?: string
+          author?: string
+          content?: string
+        }[]>(`fetch?url=${encodeURIComponent(block.link)}&range=${range.join(',')}`, { method: 'GET' })
+        if (data?.length) {
+          data.forEach((v) => {
+            messages.value.push({
+              role: 'fetch',
+              content: v.content,
+              metadata: {
+                title: v.title,
+                link: v.link,
+                createdAt: v.createdAt,
+                author: v.author,
+              },
+            })
+            fetchMessages.value.push({
+              role: 'fetch',
+              content: v.content,
+              metadata: {
+                title: v.title,
+                link: v.link,
+                createdAt: v.createdAt,
+                author: v.author,
+              },
+            })
+          })
+        }
+      }
+    }
   }
+
+  if (fetchMessages.value.length) {
+    const data = await edgeFunctions('executor', {
+      body: {
+        copilotId: params.value,
+        range,
+        messages: fetchMessages.value,
+      },
+    })
+    if (data) {
+      messages.value.push({
+        role: 'assistant',
+        content: data,
+      })
+    }
+  }
+  executorLoading.value = false
 }
 function renderExecutorSettings() {
   return h(ExecutorSettings, { description: copilotHubStore.copilot?.description, onSubmit: handleExecutor, loading: executorLoading.value })

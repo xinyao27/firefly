@@ -3,9 +3,15 @@ import dayjs from 'dayjs'
 import type { DropdownOption } from 'naive-ui'
 import type { BlockModel } from '@firefly/common'
 
-const props = defineProps<{
-  data: BlockModel
-}>()
+const props = withDefaults(
+  defineProps<{
+    data: BlockModel
+    showOptions?: boolean
+  }>(),
+  {
+    showOptions: true,
+  },
+)
 
 const { t } = useI18n()
 const dialog = useDialog()
@@ -94,6 +100,7 @@ function handleTagClick(tag: string) {
           {{ t('copilot.ref') }}
         </NTooltip>
         <NDropdown
+          v-if="props.showOptions"
           size="small"
           trigger="hover"
           :options="options"

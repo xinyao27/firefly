@@ -2,8 +2,9 @@ import { edgeFunctions } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 
 export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant'
-  content: string
+  role: 'system' | 'user' | 'assistant' | 'blocks' | 'fetch'
+  content?: string
+  metadata?: any
 }
 export interface Context {
   type?: 'default'
@@ -193,7 +194,7 @@ export const useCopilotStore = defineStore('copilot', {
       catch (e) {
         console.error(e)
         this.loading = false
-        this.currentError = e
+        this.currentError = e as string
         this.controller = null
         this.inputRef?.focus()
         return

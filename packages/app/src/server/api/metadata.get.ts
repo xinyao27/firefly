@@ -5,8 +5,8 @@ export default defineEventHandler(async (event) => {
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
-    const u = new URL(event.node.req.url!)
-    const url = u.searchParams.get('url')
+    const query = getQuery(event)
+    const url = query.url as string
     if (!url)
       throw new UserError('Missing url')
 

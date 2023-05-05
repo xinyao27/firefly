@@ -1,17 +1,20 @@
 import { Redis } from '@upstash/redis'
-import Parser from 'rss-parser'
 import { OpenAI } from 'langchain/llms/openai'
 import { LLMChain, MapReduceDocumentsChain, StuffDocumentsChain } from 'langchain/chains'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
-import { getText } from 'langchain/tools/webbrowser'
-import dayjs from 'dayjs'
+import * as tokenizer from 'gpt-3-encoder'
 import { codeBlock, oneLine } from 'common-tags'
-import { UserError, basePath, createErrorHandler, isRssLink, tokenizer } from '../utils'
+import { UserError, basePath, createErrorHandler } from '../utils'
 
 interface Body {
   copilotId: string
   range: [number, number]
+  messages: {
+    role: 'blocks' | 'fetch'
+    content: string
+    metadata?: any
+  }[]
 }
 
 const { OPENAI_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN, MAX_TOKENS } = useRuntimeConfig()
@@ -37,7 +40,7 @@ const redis = new Redis({
   token: UPSTASH_REDIS_REST_TOKEN,
 })
 
-const parser = new Parser()
+const ALL_TOKENS = MAX_TOKENS * 7
 
 export default defineEventHandler(async (event) => {
   try {
@@ -52,7 +55,7 @@ export default defineEventHandler(async (event) => {
     if (!body.range)
       throw new UserError('Missing range.')
 
-    const { copilotId, range } = body
+    const { copilotId, range, messages } = body
     const CACHED_KEY = `executor_${copilotId}_${range[0]}_${range[1]}`
     interface Content {
       link?: string
@@ -82,89 +85,22 @@ export default defineEventHandler(async (event) => {
       .single()
     if (copilotError)
       throw new UserError(copilotError.message)
-    const { data: blocks, error: blocksError } = await supabase
-      .from('blocks')
-      .select(`
-        id,
-        content,
-        category,
-        link,
-        copilots!inner (
-          id,
-          name
-        )
-      `)
-      .eq('copilots.id', copilotId)
-      .limit(50) // 限制最大数 避免数据量过大消耗太多 token
-    if (blocksError)
-      throw new UserError(blocksError.message)
 
-    if (blocks.length) {
-      async function getContents() {
-        let tokenCount = 0
-        const ALL_TOKENS = MAX_TOKENS * 7
-        for (const block of blocks!) {
-          if (block.category === 'text') {
-            const encoded = tokenizer.encode(block.content)
-            if (encoded.length <= MAX_TOKENS) {
-              tokenCount += encoded.length
-              if (tokenCount > ALL_TOKENS)
-                return
+    let tokenCount = 0
+    const texts: string[] = []
+    for (const message of messages) {
+      const encoded = tokenizer.encode(message.content)
 
-              result.contents.push({
-                link: block.id,
-                content: block.content,
-              })
-            }
-          }
-          else if (block.category === 'link') {
-            if (await isRssLink(block.link)) {
-              const feed = await parser.parseURL(block.link)
-              const filteredFeed = feed.items?.filter((item) => {
-                const itemDate = dayjs(item.pubDate)
-                return itemDate.isAfter(dayjs(range[0])) && itemDate.isBefore(dayjs(range[1]))
-              })
-              for (const item of filteredFeed) {
-                const _content = getText(item.content!, block.link, true)
-                const content = (await textSplitter.splitText(_content)).slice(0, 4).join('\n')
-                const encoded = tokenizer.encode(content)
+      tokenCount += encoded.length
+      if (tokenCount > ALL_TOKENS)
+        break
+      texts.push(message.content)
+    }
 
-                tokenCount += encoded.length
-                if (tokenCount > ALL_TOKENS)
-                  return
-
-                result.contents.push({
-                  link: item.link,
-                  title: item.title,
-                  content,
-                })
-              }
-            }
-            else {
-              const html = await fetch(block.link).then(res => res.text())
-              const text = getText(html, block.link, true)
-              const content = (await textSplitter.splitText(text)).slice(0, 1).join('\n')
-              const encoded = tokenizer.encode(content)
-              tokenCount += encoded.length
-              if (tokenCount > ALL_TOKENS)
-                return
-
-              result.contents.push({
-                link: block.link,
-                content,
-              })
-            }
-          }
-        }
-      }
-      await getContents()
-      if (!result.contents.length)
-        throw new UserError('No contents found.')
-
-      const docs = await textSplitter.createDocuments(result.contents.map(v => JSON.stringify(v)))
-      const prompt = new PromptTemplate({
-        inputVariables: ['text'],
-        template: codeBlock`
+    const docs = await textSplitter.createDocuments(texts)
+    const prompt = new PromptTemplate({
+      inputVariables: ['text'],
+      template: codeBlock`
       Pretend you are GPT4.
       ${copilot.prompt}
       ${oneLine`
@@ -172,10 +108,10 @@ export default defineEventHandler(async (event) => {
         The data you will receive will be in JSON format, which may contain three fields: link, title, and content.
         The content field is the information you need to summarize.
         If the link and title fields have values, please indicate where they come from in the results.
-        This is an example:
-        1. [title](link) content
-        2. [link](link) content
       `}
+      This is an example:
+      1. [title](link) content
+      2. [link](link) content
 
       The Data:
 
@@ -183,27 +119,26 @@ export default defineEventHandler(async (event) => {
 
       YOUR RESPONSE:
     `,
-      })
-      const llmChain = new LLMChain({ prompt, llm: model })
-      const combineLLMChain = new LLMChain({ prompt, llm: model })
-      const combineDocumentChain = new StuffDocumentsChain({
-        llmChain: combineLLMChain,
-        documentVariableName: 'text',
-      })
-      const chain = new MapReduceDocumentsChain({
-        llmChain,
-        combineDocumentChain,
-        documentVariableName: 'text',
-        maxTokens: MAX_TOKENS,
-      })
+    })
+    const llmChain = new LLMChain({ prompt, llm: model })
+    const combineLLMChain = new LLMChain({ prompt, llm: model })
+    const combineDocumentChain = new StuffDocumentsChain({
+      llmChain: combineLLMChain,
+      documentVariableName: 'text',
+    })
+    const chain = new MapReduceDocumentsChain({
+      llmChain,
+      combineDocumentChain,
+      documentVariableName: 'text',
+      maxTokens: MAX_TOKENS,
+    })
 
-      const res = await chain.call({
-        input_documents: docs,
-      })
+    const res = await chain.call({
+      input_documents: docs,
+    })
 
-      await redis.set(CACHED_KEY, res.text)
-      result.data = res.text
-    }
+    await redis.set(CACHED_KEY, res.text)
+    result.data = res.text
 
     return result
   }
