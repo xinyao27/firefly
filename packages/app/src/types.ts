@@ -11,3 +11,9 @@ export interface ViteModuleContext {
 }
 
 export type UserModule = (ctx: ViteModuleContext) => void
+
+export interface ChatCompletionRequestMessage {
+  'role': 'system' | 'user' | 'assistant'
+  'content': string
+  'name'?: string
+}

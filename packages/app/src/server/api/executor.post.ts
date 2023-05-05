@@ -4,7 +4,6 @@ import { LLMChain, MapReduceDocumentsChain, StuffDocumentsChain } from 'langchai
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
 import * as tokenizer from 'gpt-3-encoder'
-import { codeBlock, oneLine } from 'common-tags'
 import { UserError, basePath, createErrorHandler } from '../utils'
 
 interface Body {
@@ -100,15 +99,13 @@ export default defineEventHandler(async (event) => {
     const docs = await textSplitter.createDocuments(texts)
     const prompt = new PromptTemplate({
       inputVariables: ['text'],
-      template: codeBlock`
+      template: `
       Pretend you are GPT4.
       ${copilot.prompt}
-      ${oneLine`
-        Output as markdown.
-        The data you will receive will be in JSON format, which may contain three fields: link, title, and content.
-        The content field is the information you need to summarize.
-        If the link and title fields have values, please indicate where they come from in the results.
-      `}
+      Output as markdown.
+      The data you will receive will be in JSON format, which may contain three fields: link, title, and content.
+      The content field is the information you need to summarize.
+      If the link and title fields have values, please indicate where they come from in the results.
       This is an example:
       1. [title](link) content
       2. [link](link) content

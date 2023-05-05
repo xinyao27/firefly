@@ -242,9 +242,6 @@ importers:
       cheerio:
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12
-      common-tags:
-        specifier: ^1.8.2
-        version: 1.8.2
       crypto-js:
         specifier: ^4.1.1
         version: 4.1.1
@@ -257,15 +254,12 @@ importers:
       js-base64:
         specifier: ^3.7.5
         version: 3.7.5
-      openai:
-        specifier: ^3.2.1
-        version: 3.2.1
       rss-parser:
         specifier: ^3.13.0
         version: 3.13.0
       tauri-plugin-autostart-api:
         specifier: https://github.com/tauri-apps/tauri-plugin-autostart
-        version: github.com/tauri-apps/tauri-plugin-autostart/3d370278d86de2d26b78cbd63b43b6dbea386df4
+        version: github.com/tauri-apps/tauri-plugin-autostart/8d2706d05568f71eb81a05c3c891db1291c3ca82
       url-metadata:
         specifier: ^3.0.1
         version: 3.0.1
@@ -288,9 +282,6 @@ importers:
       '@tauri-apps/cli':
         specifier: ^1.2.3
         version: 1.2.3
-      '@types/common-tags':
-        specifier: ^1.8.1
-        version: 1.8.1
       '@types/crypto-js':
         specifier: ^4.1.1
         version: 4.1.1
@@ -4142,10 +4133,6 @@ packages:
     resolution: {integrity: sha512-KnRanxnpfpjUTqTCXslZSEdLfXExwgNxYPdiO2WGUj8+HDjFi8R3k5RVKPeSCzLjCcshCAtVO2QBbVuAV4kTnw==}
     dev: true
 
-  /@types/common-tags@1.8.1:
-    resolution: {integrity: sha512-20R/mDpKSPWdJs5TOpz3e7zqbeCNuMCPhV7Yndk9KU2Rbij2r5W4RzwDPkzC+2lzUqXYu9rFzTktCBnDjHuNQg==}
-    dev: true
-
   /@types/crypto-js@4.1.1:
     resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
     dev: true
@@ -6671,6 +6658,7 @@ packages:
   /common-tags@1.8.2:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
     engines: {node: '>=4.0.0'}
+    dev: true
 
   /commondir@1.0.1:
     resolution: {integrity: sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==}
@@ -16521,8 +16509,8 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-autostart/3d370278d86de2d26b78cbd63b43b6dbea386df4:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/3d370278d86de2d26b78cbd63b43b6dbea386df4}
+  github.com/tauri-apps/tauri-plugin-autostart/8d2706d05568f71eb81a05c3c891db1291c3ca82:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/8d2706d05568f71eb81a05c3c891db1291c3ca82}
     name: tauri-plugin-autostart-api
     version: 0.0.0
     dependencies:

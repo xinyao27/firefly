@@ -1,13 +1,11 @@
 // Thanks to supabase
 
-import type { ChatCompletionRequestMessage } from 'openai'
-import { ChatCompletionRequestMessageRoleEnum } from 'openai'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
 import { AIChatMessage, HumanChatMessage, SystemChatMessage } from 'langchain/schema'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
-import { codeBlock, oneLine } from 'common-tags'
 import type { Context } from '../utils'
 import { ApplicationError, UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, tokenizer } from '../utils'
+import type { ChatCompletionRequestMessage } from '~/types'
 
 export function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
@@ -15,7 +13,6 @@ export function clearHTMLTags(text: string) {
 
 const { OPENAI_API_KEY, MAX_TOKENS } = useRuntimeConfig()
 const model = 'gpt-3.5-turbo-0301'
-
 export default defineEventHandler(async (event) => {
   try {
     const Authorization = event.node.req.headers.authorization
@@ -32,14 +29,14 @@ export default defineEventHandler(async (event) => {
     })
 
     let messages = body.messages
-    const systemMessage = messages.find(({ role }) => role === ChatCompletionRequestMessageRoleEnum.System)
+    const systemMessage = messages.find(({ role }) => role === 'system')
     const contextMessages: ChatCompletionRequestMessage[] = messages
-      .filter(({ role }) => role !== ChatCompletionRequestMessageRoleEnum.System)
+      .filter(({ role }) => role !== 'system')
       .map(({ role, content }) => {
         if (
           ![
-            ChatCompletionRequestMessageRoleEnum.Assistant,
-            ChatCompletionRequestMessageRoleEnum.User,
+            'assistant',
+            'user',
           ].includes(role as 'assistant' | 'user')
         )
           throw new Error(`Invalid message role '${role}'`)
@@ -49,7 +46,7 @@ export default defineEventHandler(async (event) => {
           content: content.trim(),
         }
       })
-    const [userMessage] = contextMessages.filter(({ role }) => role === ChatCompletionRequestMessageRoleEnum.User)
+    const [userMessage] = contextMessages.filter(({ role }) => role === 'user')
       .slice(-1)
     if (!userMessage)
       throw new Error('No message with role \'user\'')
@@ -110,52 +107,29 @@ export default defineEventHandler(async (event) => {
 
       const initMessages: ChatCompletionRequestMessage[] = [
         {
-          role: ChatCompletionRequestMessageRoleEnum.System,
-          content: codeBlock`
-            ${oneLine`
-              ${systemMessage?.content ?? 'You are in a room with a chatbot.'}
-            `}
-            ${oneLine`
-              Your name is ${body.copilotName}. ${body.copilotDescription}
-            `}
+          role: 'system',
+          content: `
+            ${`${systemMessage?.content ?? 'You are in a room with a chatbot.'}`}
+            ${`Your name is ${body.copilotName}. ${body.copilotDescription}`}
           `,
         },
         {
-          role: ChatCompletionRequestMessageRoleEnum.User,
-          content: codeBlock`
+          role: 'user',
+          content: `
             Here is the context data:
             ${contextText}
           `,
         },
         {
-          role: ChatCompletionRequestMessageRoleEnum.User,
-          content: codeBlock`
-            ${oneLine`
-              Answer all future questions using only the above context data.
-              You must also follow the below rules when answering:
-            `}
-            ${oneLine`
-              - What you may be given in the context is content in HTML format.
-              You can choose to ignore the HTML tags and only read the content,
-              or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
-            `}
-            ${oneLine`
-              - Do not make up answers that are not provided in the context data.
-            `}
-            ${oneLine`
-              - If you are unsure and the answer is not explicitly written
-              in the context data, say
-              "Sorry, I don't know how to help with that."
-            `}
-            ${oneLine`
-              - Prefer splitting your response into multiple paragraphs.
-            `}
-            ${oneLine`
-              - Output as markdown.
-            `}
-            ${oneLine`
-              - Include code snippets if available.
-            `}
+          role: 'user',
+          content: `
+            Answer all future questions using only the above context data. You must also follow the below rules when answering:
+            - What you may be given in the context is content in HTML format. You can choose to ignore the HTML tags and only read the content, or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
+            - Do not make up answers that are not provided in the context data.
+            - If you are unsure and the answer is not explicitly written in the context data, say "Sorry, I don't know how to help with that."
+            - Prefer splitting your response into multiple paragraphs.
+            - Output as markdown.
+            - Include code snippets if available.
           `,
         },
       ]

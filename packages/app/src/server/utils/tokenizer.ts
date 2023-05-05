@@ -1,7 +1,7 @@
 // Thanks to supabase
 
 import * as tokenizer from 'gpt-3-encoder'
-import type { ChatCompletionRequestMessage } from 'openai'
+import type { ChatCompletionRequestMessage } from '~/types'
 
 export {
   tokenizer,
