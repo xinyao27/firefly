@@ -22,12 +22,6 @@ export default defineEventHandler(async (event) => {
     if (!body)
       throw new UserError('Missing request data')
 
-    event.node.res.writeHead(200, {
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-      'Content-Type': 'text/event-stream',
-    })
-
     let messages = body.messages
     const systemMessage = messages.find(({ role }) => role === 'system')
     const contextMessages: ChatCompletionRequestMessage[] = messages
@@ -142,7 +136,12 @@ export default defineEventHandler(async (event) => {
       )
     }
 
-    const chat = new ChatOpenAI(
+    event.node.res.writeHead(200, {
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Content-Type': 'text/event-stream',
+    })
+    const llm = new ChatOpenAI(
       {
         modelName: model,
         openAIApiKey: OPENAI_API_KEY,
@@ -153,6 +152,13 @@ export default defineEventHandler(async (event) => {
             handleLLMNewToken(token: string) {
               event.node.res.write(token)
             },
+            handleLLMEnd() {
+              event.node.res.end()
+            },
+            handleLLMError(e: Error) {
+              event.node.res.end()
+              throw e
+            },
           },
         ],
       },
@@ -160,7 +166,7 @@ export default defineEventHandler(async (event) => {
         basePath,
       },
     )
-    await chat.call(messages.map((v) => {
+    await llm.call(messages.map((v) => {
       if (v.role === 'system')
         return new SystemChatMessage(v.content)
       else if (v.role === 'assistant')
@@ -168,7 +174,7 @@ export default defineEventHandler(async (event) => {
       return new HumanChatMessage(v.content)
     }))
 
-    event.node.res.end()
+    return new Promise(() => {})
   }
   catch (err) {
     return createErrorHandler(err as Error)
