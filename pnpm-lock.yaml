@@ -266,6 +266,9 @@ importers:
       vue-virtual-scroller:
         specifier: 2.0.0-beta.8
         version: 2.0.0-beta.8(vue@3.2.47)
+      yield-stream:
+        specifier: ^3.0.0
+        version: 3.0.0
     devDependencies:
       '@nuxt/devtools':
         specifier: ^0.4.1
@@ -13890,6 +13893,11 @@ packages:
       rechoir: 0.6.2
     dev: true
 
+  /shim-streams@0.0.2:
+    resolution: {integrity: sha512-9Otb+FCl13XxRp1nVddtsCbwvB7AEMTjzc3/fixowyzvSVoCzu/VEstblB2SdIDbd61u5D/zpS5u9fGzDdOoZg==}
+    engines: {node: '>=14'}
+    dev: false
+
   /side-channel@1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
@@ -15930,7 +15938,6 @@ packages:
   /web-streams-polyfill@3.2.1:
     resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
     engines: {node: '>= 8'}
-    dev: true
 
   /webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -16469,6 +16476,14 @@ packages:
       y18n: 5.0.8
       yargs-parser: 21.1.1
     dev: true
+
+  /yield-stream@3.0.0:
+    resolution: {integrity: sha512-I0fHp7xcR+ilGKgtLP+6d0SxTLfJcLDX/iiTEQZtg0U/cqWKvcHy4D9em6adhs3emSgik8YAZ2Jmv7gc1kyuhA==}
+    engines: {node: '>=14'}
+    dependencies:
+      shim-streams: 0.0.2
+      web-streams-polyfill: 3.2.1
+    dev: false
 
   /yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}

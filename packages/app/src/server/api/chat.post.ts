@@ -1,11 +1,15 @@
 // Thanks to supabase
 
+import { Readable } from 'node:stream'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
 import { AIChatMessage, HumanChatMessage, SystemChatMessage } from 'langchain/schema'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
+import { yieldStream } from 'yield-stream'
 import type { Context } from '../utils'
 import { ApplicationError, UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, tokenizer } from '../utils'
 import type { ChatCompletionRequestMessage } from '~/types'
+
+const encoder = new TextEncoder()
 
 export function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
@@ -136,45 +140,44 @@ export default defineEventHandler(async (event) => {
       )
     }
 
-    event.node.res.writeHead(200, {
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-      'Content-Type': 'text/event-stream',
-    })
-    const llm = new ChatOpenAI(
-      {
-        modelName: model,
-        openAIApiKey: OPENAI_API_KEY,
-        maxTokens: MAX_TOKENS,
-        streaming: true,
-        callbacks: [
+    const stream = new ReadableStream({
+      async start(controller) {
+        const llm = new ChatOpenAI(
           {
-            handleLLMNewToken(token: string) {
-              event.node.res.write(token)
-            },
-            handleLLMEnd() {
-              event.node.res.end()
-            },
-            handleLLMError(e: Error) {
-              event.node.res.end()
-              throw e
-            },
+            modelName: model,
+            openAIApiKey: OPENAI_API_KEY,
+            maxTokens: MAX_TOKENS,
+            streaming: true,
+            callbacks: [
+              {
+                handleLLMNewToken: async (token) => {
+                  controller.enqueue(encoder.encode(token))
+                },
+                handleLLMEnd: async () => {
+                  controller.close()
+                },
+                handleLLMError: async (e) => {
+                  controller.error(e)
+                  controller.close()
+                },
+              },
+            ],
           },
-        ],
+          {
+            basePath,
+          },
+        )
+        await llm.call(messages.map((v) => {
+          if (v.role === 'system')
+            return new SystemChatMessage(v.content)
+          else if (v.role === 'assistant')
+            return new AIChatMessage(v.content)
+          return new HumanChatMessage(v.content)
+        }))
       },
-      {
-        basePath,
-      },
-    )
-    await llm.call(messages.map((v) => {
-      if (v.role === 'system')
-        return new SystemChatMessage(v.content)
-      else if (v.role === 'assistant')
-        return new AIChatMessage(v.content)
-      return new HumanChatMessage(v.content)
-    }))
+    })
 
-    return new Promise(() => {})
+    return sendStream(event, Readable.from(yieldStream(stream)))
   }
   catch (err) {
     return createErrorHandler(err as Error)
