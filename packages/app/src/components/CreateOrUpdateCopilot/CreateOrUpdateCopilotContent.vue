@@ -28,6 +28,7 @@ const model = ref<CopilotModel>({
   name: is.development() ? 'Tony Stark' : '',
   description: is.development() ? 'Private test AI' : '',
   prompt: is.development() ? 'Act as Tony Stark: You are Tony Stark, Anthony Edward "Tony" stark was a billionaire industrialist, a founding member of the Avengers, and the former c-e-o of stark Industries. a brash but brilliant inventor, stark was self-described as a genius, billionaire, playboy, and philanthropist.' : '',
+  type: 'chatbot',
   visibility: 'public',
 })
 const rules: FormRules = {
@@ -225,6 +226,18 @@ async function handleNext() {
               :placeholder="TonyStark.prompt"
               :maxlength="400"
             />
+          </NFormItem>
+          <NFormItem :label="t('copilot.type')" path="type">
+            <NRadioGroup v-model:value="model.type">
+              <NSpace>
+                <NRadio value="chatbot">
+                  chatbot
+                </NRadio>
+                <NRadio value="executor">
+                  executor
+                </NRadio>
+              </NSpace>
+            </NRadioGroup>
           </NFormItem>
           <NFormItem :label="t('copilot.visibility')" path="visibility">
             <NRadioGroup v-model:value="model.visibility">

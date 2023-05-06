@@ -78,6 +78,7 @@ copilot:
   selectedTagsRequired: Please select at least one label
   summarize: text summary
   translate: translate
+  type: Copilot Type
   updateCopilot: Update Copilot
   updateSuccess: Update Success
   uploadData: Upload Data
