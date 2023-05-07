@@ -177,7 +177,7 @@ export const useCopilotStore = defineStore('copilot', {
         while (!done) {
           const { value, done: doneReading } = await reader.read()
           done = doneReading
-          const char = decoder.decode(value)
+          const char = decoder.decode(value, { stream: true })
           if (char === '\n' && this.currentAssistantMessage.endsWith('\n'))
             continue
           if (char.startsWith('{"error":')) {
