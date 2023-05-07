@@ -28,17 +28,17 @@ async function handleCapture() {
 <template>
   <NPopover
     trigger="hover"
-    placement="left"
+    placement="bottom-start"
     :show-arrow="false"
   >
     <template #trigger>
       <section
-        class="message overflow-hidden break-words border border-(slate opacity-15) rounded p-3 prose prose-white"
+        class="message overflow-hidden break-words border border-(slate opacity-15) rounded px-3 prose prose-white"
         v-html="md.render(props.message)"
       />
     </template>
-    <div flex flex-col>
-      <NTooltip placement="left" style="width: max-content">
+    <div flex mt--1>
+      <NTooltip style="width: max-content">
         <template #trigger>
           <NButton
             quaternary
@@ -55,7 +55,6 @@ async function handleCapture() {
       <Copyable
         type="button"
         :text="props.message"
-        placement="left"
       />
     </div>
   </NPopover>

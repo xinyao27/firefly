@@ -78,7 +78,7 @@ watch(() => props.currentError, (currentError) => {
       </div>
       <div
         v-for="item in props.messages" :key="item.content"
-        mb-4 flex overflow-hidden break-words
+        class="mb-6.5 flex overflow-hidden break-words"
         :justify="item.role === 'user' ? 'end' : 'start'"
       >
         <ChatBoxUserMessageItem
