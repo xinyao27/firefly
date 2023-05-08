@@ -4,9 +4,10 @@ import { Readable } from 'node:stream'
 import { ChatOpenAI } from 'langchain/chat_models/openai'
 import { AIChatMessage, HumanChatMessage, SystemChatMessage } from 'langchain/schema'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
+import { SupabaseVectorStore } from 'langchain/vectorstores/supabase'
 import { yieldStream } from 'yield-stream'
 import type { Context } from '../utils'
-import { ApplicationError, UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, tokenizer } from '../utils'
+import { UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, tokenizer } from '../utils'
 import type { ChatCompletionRequestMessage } from '~/types'
 
 const encoder = new TextEncoder()
@@ -44,8 +45,7 @@ export default defineEventHandler(async (event) => {
           content: content.trim(),
         }
       })
-    const [userMessage] = contextMessages.filter(({ role }) => role === 'user')
-      .slice(-1)
+    const [userMessage] = contextMessages.filter(({ role }) => role === 'user').slice(-1)
     if (!userMessage)
       throw new Error('No message with role \'user\'')
 
@@ -60,40 +60,31 @@ export default defineEventHandler(async (event) => {
       throw new UserError('No quota left')
 
     if (body.type === 'copilot') {
-      const embeddings = new OpenAIEmbeddings(
-        {
-          timeout: 1000,
+      const vectorStore = await SupabaseVectorStore.fromExistingIndex(
+        new OpenAIEmbeddings({
+          timeout: 3000,
           openAIApiKey: OPENAI_API_KEY,
         },
         {
           basePath,
+        }),
+        {
+          client: supabase,
+          tableName: 'blocks',
+          queryName: 'handle_match_blocks_v2',
         },
       )
-      const embedding = await embeddings.embedQuery(userMessage.content)
 
-      const { error: matchError, data: blocks } = await supabase
-        .rpc('handle_match_blocks', {
-          embedding,
-          match_threshold: 0.78,
-          min_content_length: 10,
-          copilot_id: body.copilotId,
-        })
-        .limit(10)
-
-      // eslint-disable-next-line no-console
-      console.log(`copilotId: ${body.copilotId} question: ${userMessage.content}`, blocks)
-
-      if (matchError)
-        throw new ApplicationError('Failed to match blocks', matchError)
+      const result = await vectorStore.similaritySearch(userMessage.content, 10, {
+        copilotId: body.copilotId,
+      })
 
       let tokenCount = 0
       let contextText = ''
 
-      for (let i = 0; i < blocks.length; i++) {
-        const block = blocks[i]
-        // eslint-disable-next-line no-console
-        console.info(`${body.copilotId}:`, block)
-        const content = clearHTMLTags(block.content)
+      for (let i = 0; i < result.length; i++) {
+        const block = result[i].pageContent
+        const content = clearHTMLTags(block)
         const encoded = tokenizer.encode(content)
         tokenCount += encoded.length
 
@@ -102,25 +93,14 @@ export default defineEventHandler(async (event) => {
 
         contextText += `${content.trim()}\n---\n`
       }
-
+      // eslint-disable-next-line no-console
+      console.info(`copilotId: ${body.copilotId} question: ${userMessage.content}`, result, contextText)
       const initMessages: ChatCompletionRequestMessage[] = [
         {
           role: 'system',
           content: `
             ${`${systemMessage?.content ?? 'You are in a room with a chatbot.'}`}
-            ${`Your name is ${body.copilotName}. ${body.copilotDescription}`}
-          `,
-        },
-        {
-          role: 'user',
-          content: `
-            Here is the context data:
-            ${contextText}
-          `,
-        },
-        {
-          role: 'user',
-          content: `
+            ${`Your name is ${body.copilotName}.`}
             Answer all future questions using only the above context data. You must also follow the below rules when answering:
             - What you may be given in the context is content in HTML format. You can choose to ignore the HTML tags and only read the content, or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
             - Do not make up answers that are not provided in the context data.
@@ -128,6 +108,9 @@ export default defineEventHandler(async (event) => {
             - Prefer splitting your response into multiple paragraphs.
             - Output as markdown.
             - Include code snippets if available.
+
+            Here is the context data:
+            ${contextText}
           `,
         },
       ]
@@ -150,13 +133,13 @@ export default defineEventHandler(async (event) => {
             streaming: true,
             callbacks: [
               {
-                handleLLMNewToken: async (token) => {
+                handleLLMNewToken: async (token: string) => {
                   controller.enqueue(encoder.encode(token))
                 },
                 handleLLMEnd: async () => {
                   controller.close()
                 },
-                handleLLMError: async (e) => {
+                handleLLMError: async (e: Error) => {
                   controller.error(e)
                   controller.close()
                 },
