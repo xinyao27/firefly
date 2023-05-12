@@ -7,7 +7,7 @@ import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { SupabaseVectorStore } from 'langchain/vectorstores/supabase'
 import { yieldStream } from 'yield-stream'
 import type { Context } from '../utils'
-import { UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, tokenizer } from '../utils'
+import { UserError, basePath, capMessages, createErrorHandler, createSupabaseClient, getUser, modelName, tokenizer } from '../utils'
 import type { ChatCompletionRequestMessage } from '~/types'
 
 const encoder = new TextEncoder()
@@ -17,9 +17,11 @@ export function clearHTMLTags(text: string) {
 }
 
 const { OPENAI_API_KEY, MAX_TOKENS } = useRuntimeConfig()
-const model = 'gpt-3.5-turbo-0301'
+
 export default defineEventHandler(async (event) => {
   try {
+    if (!OPENAI_API_KEY)
+      throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
@@ -119,7 +121,7 @@ export default defineEventHandler(async (event) => {
         initMessages,
         contextMessages,
         MAX_TOKENS,
-        model,
+        modelName,
       )
     }
 
@@ -127,7 +129,7 @@ export default defineEventHandler(async (event) => {
       async start(controller) {
         const llm = new ChatOpenAI(
           {
-            modelName: model,
+            modelName,
             openAIApiKey: OPENAI_API_KEY,
             maxTokens: MAX_TOKENS,
             streaming: true,

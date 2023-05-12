@@ -31,7 +31,7 @@ export default defineConfig({
     }),
     presetTypography(),
     presetRemToPx(),
-    presetAutoprefixer(),
+    process.env.NODE_ENV === 'production' ? presetAutoprefixer() : { name: 'none' },
   ],
   transformers: [
     transformerDirectives(),

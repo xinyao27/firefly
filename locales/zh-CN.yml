@@ -29,6 +29,7 @@ common:
   create: 创建
   delete: 删除
   deleted: 删除成功
+  download: 下载
   downloadDesktopApp: 下载桌面应用程序
   edit: 编辑
   hotkeyAlreadyRegistered: 热键已注册
@@ -147,10 +148,17 @@ tag:
   deleteLoading: 删除标签中...
   placeholder: 添加标签...
   updateLoading: 更新标签中...
+thankyou:
+  shareToTwitter: 分享到 Twitter
+  uniqueCardTitle: |-
+    谢谢您的订单。
+    我们为您生成了一张可以与他人共享的独特卡片！
 titleBar:
   sync: 立即同步
 user:
+  activate: 激活
   generateNewToken: 生成新的 Token
   generateToken: 生成 Token
   language: 语言
+  licenseKeyPlaceholder: 输入你的激活码 (可以在 LemonSqueezy 上和你的邮件里找到)
   logout: 退出登录

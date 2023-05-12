@@ -6,13 +6,13 @@ import type { ChatCompletionRequestMessage } from '~/types'
 export {
   tokenizer,
 }
-
+export const modelName = 'gpt-3.5-turbo'
 /**
  * Count the tokens for multi-message chat completion requests
  */
 export function getChatRequestTokenCount(
   messages: ChatCompletionRequestMessage[],
-  model = 'gpt-3.5-turbo-0301',
+  model = 'gpt-3.5-turbo',
 ): number {
   const tokensPerRequest = 3 // every reply is primed with <|im_start|>assistant<|im_sep|>
   const numTokens = messages.reduce((acc, message) => acc + getMessageTokenCount(message, model), 0)
@@ -28,25 +28,17 @@ export function getChatRequestTokenCount(
  */
 export function getMessageTokenCount(
   message: ChatCompletionRequestMessage,
-  model = 'gpt-3.5-turbo-0301',
+  model = 'gpt-3.5-turbo',
 ): number {
   let tokensPerMessage: number
   let tokensPerName: number
 
   switch (model) {
     case 'gpt-3.5-turbo':
-      console.warn(
-        'Warning: gpt-3.5-turbo may change over time. Returning num tokens assuming gpt-3.5-turbo-0301.',
-      )
-      return getMessageTokenCount(message, 'gpt-3.5-turbo-0301')
-    case 'gpt-4':
-      console.warn('Warning: gpt-4 may change over time. Returning num tokens assuming gpt-4-0314.')
-      return getMessageTokenCount(message, 'gpt-4-0314')
-    case 'gpt-3.5-turbo-0301':
       tokensPerMessage = 4 // every message follows <|start|>{role/name}\n{content}<|end|>\n
       tokensPerName = -1 // if there's a name, the role is omitted
       break
-    case 'gpt-4-0314':
+    case 'gpt-4':
       tokensPerMessage = 3
       tokensPerName = 1
       break
@@ -73,18 +65,8 @@ export function getMessageTokenCount(
 export function getMaxTokenCount(model: string): number {
   switch (model) {
     case 'gpt-3.5-turbo':
-      console.warn(
-        'Warning: gpt-3.5-turbo may change over time. Returning max num tokens assuming gpt-3.5-turbo-0301.',
-      )
-      return getMaxTokenCount('gpt-3.5-turbo-0301')
-    case 'gpt-4':
-      console.warn(
-        'Warning: gpt-4 may change over time. Returning max num tokens assuming gpt-4-0314.',
-      )
-      return getMaxTokenCount('gpt-4-0314')
-    case 'gpt-3.5-turbo-0301':
       return 4097
-    case 'gpt-4-0314':
+    case 'gpt-4':
       return 4097
     default:
       throw new Error(`Unknown model '${model}'`)

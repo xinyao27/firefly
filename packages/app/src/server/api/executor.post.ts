@@ -4,7 +4,7 @@ import { LLMChain, MapReduceDocumentsChain, StuffDocumentsChain } from 'langchai
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
 import * as tokenizer from 'gpt-3-encoder'
-import { UserError, basePath, createErrorHandler } from '../utils'
+import { UserError, basePath, createErrorHandler, modelName } from '../utils'
 
 interface Body {
   copilotId: string
@@ -17,11 +17,9 @@ interface Body {
 }
 
 const { OPENAI_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN, MAX_TOKENS } = useRuntimeConfig()
-if (!OPENAI_API_KEY)
-  console.error('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
 const model = new OpenAI(
   {
-    modelName: 'gpt-3.5-turbo-0301',
+    modelName,
     openAIApiKey: OPENAI_API_KEY,
     temperature: 0,
     maxTokens: MAX_TOKENS,
@@ -43,6 +41,8 @@ const ALL_TOKENS = MAX_TOKENS * 7
 
 export default defineEventHandler(async (event) => {
   try {
+    if (!OPENAI_API_KEY)
+      throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
     const Authorization = event.node.req.headers.authorization
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')

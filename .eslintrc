@@ -3,7 +3,8 @@
     "@antfu",
     "@unocss"
   ],
-  "ignorePatterns": [
-    "supabase/**/*"
-  ]
+  "rules": {
+    "vue/comma-dangle": "off",
+    "vue/dot-location": "off"
+  }
 }

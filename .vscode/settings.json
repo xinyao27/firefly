@@ -1,9 +1,4 @@
 {
-  "deno.enable": true,
-  "deno.unstable": true,
-  "deno.enablePaths": ["./supabase"],
-  "deno.importMap": "./supabase/functions/import_map.json",
-  "volar.vueserver.noProjectReferences": true,
   "cSpell.words": [
     "antfu",
     "demi",
@@ -20,7 +15,7 @@
     "vitest",
     "vueuse"
   ],
-  "i18n-ally.sourceLanguage": "zh-CN",
+  "i18n-ally.sourceLanguage": "en",
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": [
     "locales"

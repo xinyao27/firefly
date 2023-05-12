@@ -29,6 +29,7 @@ common:
   create: Create
   delete: Delete
   deleted: successfully deleted
+  download: Download
   downloadDesktopApp: Download desktop app
   edit: Edit
   hotkeyAlreadyRegistered: Hotkey already registered
@@ -160,10 +161,17 @@ tag:
   deleteLoading: Removing label in...
   placeholder: Add tag...
   updateLoading: In the update tab...
+thankyou:
+  shareToTwitter: Share to Twitter
+  uniqueCardTitle: >-
+    Thank you for your order. We have generated a unique card for you that can
+    be shared with others!
 titleBar:
   sync: sync now
 user:
+  activate: activate
   generateNewToken: Generate a new token
   generateToken: Generate Token
   language: language
+  licenseKeyPlaceholder: Enter your activation code (found on LemonSqueezy and in your email)
   logout: sign out

@@ -54,11 +54,12 @@ export async function edgeFunctions<R = any>(name: string, options: EdgeFunction
     })
   if (options.original)
     return response
-
-  const { data, error } = await response.json()
-  if (error)
-    throw error
-  return data as Promise<R>
+  const json = await response.json()
+  if (response.ok) {
+    const { data } = json
+    return data as Promise<R>
+  }
+  throw new Error(json.message || response.statusText)
 }
 
 export async function getSession(refresh = true) {
