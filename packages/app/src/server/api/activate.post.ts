@@ -7,7 +7,7 @@ interface Body {
   license: string
 }
 
-const { LEMON_SQUEEZY_API_KEY, OPENAI_API_KEY } = useRuntimeConfig()
+const { LEMON_SQUEEZY_API_KEY, OPENAI_API_KEY, LEMON_SQUEEZY_URL } = useRuntimeConfig()
 
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
@@ -17,7 +17,7 @@ const openai = new OpenAIApi(configuration)
 
 async function activateLicenseKey(licenseKey: string) {
   // https://docs.lemonsqueezy.com/help/licensing/license-api
-  const response = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
+  const response = await fetch(`${LEMON_SQUEEZY_URL}/v1/licenses/activate`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -93,12 +93,16 @@ export default defineEventHandler(async (event) => {
       }
     }
 
-    const openaiResponse = await openai.createImage({
-      prompt: 'abstract 6 layers of waves on a dark background with light refracting through it, very cool subtle minimal dark illustration, blue light leak with subtle highlights',
-      n: 1,
-      size: '512x512',
-    })
-    const url = openaiResponse.data.data[0].url
+    let url: string | undefined
+    try {
+      const openaiResponse = await openai.createImage({
+        prompt: 'abstract 6 layers of waves on a dark background with light refracting through it, very cool subtle minimal dark illustration, blue light leak with subtle highlights',
+        n: 1,
+        size: '512x512',
+      })
+      url = openaiResponse.data.data[0].url
+    }
+    catch (_) {}
     // const filename = `${user?.id}/${uuid()}.png`
     // const { data, error } = await supabase.storage
     //   .from('graphs')
