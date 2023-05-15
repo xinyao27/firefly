@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouteQuery } from '@vueuse/router'
+import type { OrderModel, ProfileModel } from '@firefly/common'
 import { supabase } from '~/plugins/api'
 
 definePageMeta({
@@ -10,16 +11,36 @@ const id = useRouteQuery<string>('id')
 const graphUrl = ref('')
 const productName = ref('Firefly Subscription')
 const variantName = ref('Monthly')
+const createdAt = ref()
+const user = ref<ProfileModel>()
+const pageUrl = computed(() => `http://firefly.best/tickets?id=${id.value}`)
+const shareText = computed(() => `✨ I just received a beautiful electronic card! Check it out!\n${pageUrl.value}`)
 
 onMounted(async () => {
-  const order = supabase.from('orders').select('*').eq('id', id.value).single()
-  console.log('order: ', order)
+  const { data } = await supabase
+    .from('orders')
+    .select(`
+      id,
+      createdAt,
+      productName,
+      variantName,
+      uniqueImage,
+      profiles (
+        id,
+        fullName,
+        avatarUrl
+      )
+    `)
+    .eq('id', id.value)
+    .single<OrderModel & { profiles: ProfileModel }>()
+  if (data) {
+    graphUrl.value = data.uniqueImage ?? ''
+    productName.value = data.productName
+    variantName.value = data.variantName
+    createdAt.value = data.createdAt
+    user.value = data.profiles
+  }
 })
-
-const ticketRef = ref()
-async function handleShareTicket() {
-  // TODO 改为单独的 tickets 页面 每次新建卡片在数据库存一条记录, 将卡片信息/激活信息存入数据库, 生成一个唯一的 url
-}
 </script>
 
 <template>
@@ -27,26 +48,45 @@ async function handleShareTicket() {
     h-full w-full
     flex="~ items-center justify-center"
   >
+    <FireflyBg />
     <div
       class="h-full w-full md:(h-600px w-800px rounded-lg)"
       flex="~ col gap-8 items-center justify-center"
     >
-      <p px-12 text-lg>
+      <p px-12 text-2xl>
         {{ $t('thankyou.uniqueCardTitle') }}
       </p>
-      <div ref="ticketRef">
-        <Ticket
-          :graph-url="graphUrl"
-          :product-name="productName"
-          :variant-name="variantName"
-        />
+      <Ticket
+        :graph-url="graphUrl"
+        :product-name="productName"
+        :variant-name="variantName"
+        :created-at="createdAt"
+        :user="user"
+      />
+      <div flex="~ gap-2">
+        <NButton
+          secondary
+          tag="a"
+          :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`"
+          target="_blank"
+        >
+          <template #icon>
+            <i i-ri-twitter-fill />
+          </template>
+          {{ $t('thankyou.shareToTwitter') }}
+        </NButton>
+        <NButton
+          secondary
+          tag="a"
+          href="https://firefly.lemonsqueezy.com/checkout/buy/043aac19-17a9-4223-adf5-48c798a02306"
+          target="_blank"
+        >
+          <template #icon>
+            <i i-ri-ai-generate />
+          </template>
+          {{ $t('thankyou.getNewTicket') }}
+        </NButton>
       </div>
-      <NButton tertiary @click="handleShareTicket">
-        <template #icon>
-          <i i-ri-twitter-fill />
-        </template>
-        {{ $t('thankyou.shareToTwitter') }}
-      </NButton>
     </div>
   </main>
 </template>

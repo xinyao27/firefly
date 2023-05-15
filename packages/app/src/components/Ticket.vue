@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
+import type { ProfileModel } from '@firefly/common'
 
 const props = defineProps<{
   graphUrl: string
   productName: string
   variantName: string
+  createdAt: string
+  user?: ProfileModel
 }>()
-
-const userStore = useUserStore()
 </script>
 
 <template>
@@ -33,13 +34,13 @@ const userStore = useUserStore()
               flex="~ col gap-2 md:gap-4 items-center justify-center"
             >
               <img
-                v-if="userStore.profiles?.avatarUrl"
+                v-if="props.user"
                 class="h-60px w-60px rounded-full md:(h-100px w-100px)"
-                :src="userStore.profiles?.avatarUrl"
-                :alt="userStore.profiles?.fullName"
+                :src="props.user.avatarUrl"
+                :alt="props.user.fullName"
               >
               <div text-2xl md:text-4xl>
-                {{ userStore.profiles?.fullName }}
+                {{ props.user?.fullName }}
               </div>
               <div text-sm font-semibold>
                 {{ props.productName }} {{ props.variantName }}
@@ -48,7 +49,7 @@ const userStore = useUserStore()
           </div>
         </div>
         <div absolute bottom-4 right-4 hidden text-xs font-semibold opacity-40 md:block>
-          {{ dayjs().format('YYYY/MM/DD') }}
+          {{ dayjs(props.createdAt).format('YYYY/MM/DD') }}
         </div>
         <div class="dashed absolute bottom-0 left-0 h-24 w-full md:(top-0 h-full w-110px)" />
         <div
@@ -56,7 +57,7 @@ const userStore = useUserStore()
           flex="~ items-center justify-center"
         >
           <div class="px-2 py-8 text-center uppercase text-gray opacity-40 md:(absolute w-[max-content] origin-center rotate-90 transform)">
-            {{ userStore.profiles?.id }}
+            {{ props.user?.id }}
           </div>
         </div>
       </div>

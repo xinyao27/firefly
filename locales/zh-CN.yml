@@ -149,10 +149,9 @@ tag:
   placeholder: 添加标签...
   updateLoading: 更新标签中...
 thankyou:
+  getNewTicket: 获取一张新的卡片
   shareToTwitter: 分享到 Twitter
-  uniqueCardTitle: |-
-    谢谢您的订单。
-    我们为您生成了一张可以与他人共享的独特卡片！
+  uniqueCardTitle: 我们使用 AI 为每一个订单生成了一张独一无二的卡片!
 titleBar:
   sync: 立即同步
 user:
@@ -160,5 +159,5 @@ user:
   generateNewToken: 生成新的 Token
   generateToken: 生成 Token
   language: 语言
-  licenseKeyPlaceholder: 输入你的激活码 (可以在 LemonSqueezy 上和你的邮件里找到)
+  licenseKeyPlaceholder: 输入你的激活码, 你可以在 LemonSqueezy 上和你的邮件里找到
   logout: 退出登录

@@ -37,6 +37,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.35",
     "superjson": "^1.12.3",
+    "uuid": "^9.0.0",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "zod": "^3.21.4"
@@ -56,6 +57,7 @@
     "@types/lodash-es": "^4.17.7",
     "@types/markdown-it": "^12.2.3",
     "@types/nprogress": "^0.2.0",
+    "@types/uuid": "^9.0.1",
     "@unocss/core": "^0.51.12",
     "@unocss/eslint-config": "^0.51.12",
     "@unocss/preset-rem-to-px": "^0.51.12",

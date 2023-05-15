@@ -1,7 +1,8 @@
 import type { Editor } from '@tiptap/core'
 import type { BlockModel } from '@firefly/common'
-import { getFileExt, getUser, uuid } from '@firefly/common'
+import { getFileExt, getUser } from '@firefly/common'
 import type { UploadFileInfo } from 'naive-ui'
+import { v4 as uuid } from 'uuid'
 import { supabase } from '~/plugins/api'
 
 type Type = 'update' | 'create'

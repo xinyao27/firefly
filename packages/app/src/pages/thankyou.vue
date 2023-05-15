@@ -38,6 +38,7 @@ onMounted(async () => {
     h-full w-full
     flex="~ items-center justify-center"
   >
+    <FireflyBg />
     <div
       w-400px
       flex="~ col gap-4"
@@ -45,9 +46,12 @@ onMounted(async () => {
       <h1 text-center text-4xl font-bold>
         Thank you!
       </h1>
+      <p text-neutral>
+        {{ $t('user.licenseKeyPlaceholder') }}
+      </p>
       <NInput
         v-model:value="license"
-        :placeholder="$t('user.licenseKeyPlaceholder')"
+        placeholder="license key"
       />
       <NButton
         block

@@ -1,7 +1,8 @@
 import { Configuration, OpenAIApi } from 'openai'
 import dayjs from 'dayjs'
 import type { OrderDetail, OrderModel, ProfileModel } from '@firefly/common'
-import { ApplicationError, UserError, createErrorHandler, createSupabaseClient, getUser } from '../utils'
+import { v4 as uuid } from 'uuid'
+import { ApplicationError, UserError, base64ToArrayBuffer, createErrorHandler, createSupabaseClient, getUser } from '../utils'
 
 interface Body {
   license: string
@@ -52,6 +53,14 @@ export default defineEventHandler(async (event) => {
     if (!user)
       throw new UserError('Invalid Authorization')
 
+    // 判断 license 有没有记录
+    const { data: order } = await supabase.from('orders').select('*').eq('license', body.license).single<OrderModel>()
+    if (order) {
+      return {
+        data: order,
+      }
+    }
+
     const response = await activateLicenseKey(body.license)
     if (!response.activated)
       throw new UserError('licenseKey is not validated!')
@@ -98,30 +107,45 @@ export default defineEventHandler(async (event) => {
       const openaiResponse = await openai.createImage({
         prompt: 'abstract 6 layers of waves on a dark background with light refracting through it, very cool subtle minimal dark illustration, blue light leak with subtle highlights',
         n: 1,
-        size: '512x512',
+        size: '256x256',
+        response_format: 'b64_json',
       })
-      url = openaiResponse.data.data[0].url
+      const base64 = openaiResponse.data.data[0].b64_json!
+      const filename = `${user?.id}/${uuid()}.png`
+      const { error } = await supabase.storage
+        .from('graphs')
+        .upload(
+          filename,
+          base64ToArrayBuffer(base64),
+          {
+            contentType: 'image/png',
+          },
+        )
+      if (error)
+        throw error
+      const { data: { publicUrl } } = supabase
+        .storage
+        .from('graphs')
+        .getPublicUrl(filename)
+      url = publicUrl
     }
-    catch (_) {}
-    // const filename = `${user?.id}/${uuid()}.png`
-    // const { data, error } = await supabase.storage
-    //   .from('graphs')
-    //   .upload(
-    //     filename,
-    //     url!,
-    //     {
-    //       contentType: 'image/png',
-    //     },
-    //   )
+    catch (err) {
+      console.error(err)
+    }
 
-    const { data, error } = await supabase.from('orders').insert<OrderModel>({
-      uid: user.id,
-      license: body.license,
-      detail: response,
-      productName: response.meta.product_name,
-      variantName: response.meta.variant_name,
-      uniqueImage: url,
-    })
+    const { data, error } = await supabase
+      .from('orders')
+      .insert({
+        uid: user.id,
+        license: body.license,
+        detail: response,
+        productName: response.meta.product_name,
+        variantName: response.meta.variant_name,
+        uniqueImage: url,
+      })
+      .select('id')
+      .limit(1)
+      .single()
     if (error)
       throw new ApplicationError(error.message)
 

@@ -162,10 +162,9 @@ tag:
   placeholder: Add tag...
   updateLoading: In the update tab...
 thankyou:
+  getNewTicket: Get a new card
   shareToTwitter: Share to Twitter
-  uniqueCardTitle: >-
-    Thank you for your order. We have generated a unique card for you that can
-    be shared with others!
+  uniqueCardTitle: We use AI to generate a unique card for each order!
 titleBar:
   sync: sync now
 user:
@@ -173,5 +172,5 @@ user:
   generateNewToken: Generate a new token
   generateToken: Generate Token
   language: language
-  licenseKeyPlaceholder: Enter your activation code (found on LemonSqueezy and in your email)
+  licenseKeyPlaceholder: Enter your activation code, you can found on LemonSqueezy and in your email.
   logout: sign out
