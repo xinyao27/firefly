@@ -152,7 +152,6 @@ export default defineNuxtConfig({
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
-    LEMON_SQUEEZY_URL: process.env.LEMON_SQUEEZY_URL,
     LEMON_SQUEEZY_API_KEY: process.env.LEMON_SQUEEZY_API_KEY,
     public: {
       APP_VERSION: pkg.version,

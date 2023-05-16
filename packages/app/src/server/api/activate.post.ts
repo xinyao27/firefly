@@ -8,7 +8,7 @@ interface Body {
   license: string
 }
 
-const { LEMON_SQUEEZY_API_KEY, OPENAI_API_KEY, LEMON_SQUEEZY_URL } = useRuntimeConfig()
+const { LEMON_SQUEEZY_API_KEY, OPENAI_API_KEY } = useRuntimeConfig()
 
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
@@ -18,7 +18,7 @@ const openai = new OpenAIApi(configuration)
 
 async function activateLicenseKey(licenseKey: string) {
   // https://docs.lemonsqueezy.com/help/licensing/license-api
-  const response = await fetch(`${LEMON_SQUEEZY_URL}/v1/licenses/activate`, {
+  const response = await fetch('https://api.lemonsqueezy.com/v1/licenses/activate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
