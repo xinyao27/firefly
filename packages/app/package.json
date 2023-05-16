@@ -3,11 +3,6 @@
   "type": "module",
   "version": "0.4.0",
   "private": true,
-  "engines": {
-    "node": ">=18",
-    "pnpm": ">=8",
-    "preinstall": "npx only-allow pnpm"
-  },
   "scripts": {
     "postinstall": "nuxi prepare",
     "typecheck": "vue-tsc --noEmit",
