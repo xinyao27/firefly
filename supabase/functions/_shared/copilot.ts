@@ -1,12 +1,12 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
-import type { CopilotModel } from '@firefly/common'
+import type { CopilotModel } from 'models'
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
-import { getUser } from './auth'
-import { ApplicationError } from './errors'
-import { validateCopilot } from './validate'
-import { basePath } from './api'
+import { getUser } from './auth.ts'
+import { ApplicationError } from './errors.ts'
+import { validateCopilot } from './validate.ts'
+import { basePath } from './api.ts'
 
-const { OPENAI_API_KEY } = useRuntimeConfig()
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
 
 export async function createOrUpdateCopilot(
   supabase: SupabaseClient,

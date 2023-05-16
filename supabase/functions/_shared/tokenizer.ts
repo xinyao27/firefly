@@ -1,11 +1,21 @@
 // Thanks to supabase
 
-import * as tokenizer from 'gpt-3-encoder'
-import type { ChatCompletionRequestMessage } from '~/types'
+import { Tiktoken, init } from 'tiktoken'
+import type { ChatCompletionRequestMessage } from 'openai'
 
-export {
-  tokenizer,
-}
+const encoderResponse = await fetch('https://esm.sh/tiktoken@1.0.7/encoders/cl100k_base.json')
+const cl100kBase = await encoderResponse.json()
+
+await init(async (imports) => {
+  const req = await fetch('https://esm.sh/tiktoken@1.0.7/lite/tiktoken_bg.wasm')
+  return WebAssembly.instantiate(await req.arrayBuffer(), imports)
+})
+
+export const tokenizer = new Tiktoken(
+  cl100kBase.bpe_ranks,
+  cl100kBase.special_tokens,
+  cl100kBase.pat_str,
+)
 export const modelName = 'gpt-3.5-turbo'
 /**
  * Count the tokens for multi-message chat completion requests

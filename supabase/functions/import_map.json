@@ -1,0 +1,20 @@
+{
+  "imports": {
+    "models": "../../packages/common/src/models/index.ts",
+    "std/": "https://deno.land/std@0.178.0/",
+    "eventsource-parser": "https://esm.sh/eventsource-parser@0.1.0",
+    "openai": "https://esm.sh/openai@3.2.1",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.22.0",
+    "crypto-js": "https://esm.sh/crypto-js@4.1.1",
+    "js-base64": "https://esm.sh/js-base64@3.7.5",
+    "url-metadata": "https://esm.sh/url-metadata@3.0.1",
+    "common-tags": "https://esm.sh/common-tags@1.8.2",
+    "tiktoken": "https://esm.sh/tiktoken@1.0.7/lite/init",
+    "rss": "https://deno.land/x/rss@0.5.8/mod.ts",
+    "dayjs": "https://esm.sh/dayjs@1.11.7",
+    "uuid": "https://esm.sh/uuid@9.0.0",
+    "@upstash/redis": "https://esm.sh/@upstash/redis@1.20.6",
+    "rss-parser": "https://esm.sh/rss-parser@3.13.0",
+    "langchain/": "https://esm.sh/langchain@0.0.75/"
+  }
+}

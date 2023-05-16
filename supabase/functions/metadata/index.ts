@@ -1,12 +1,14 @@
-import { UserError, createErrorHandler, getMetaDataByLink } from '../utils'
+import { serve } from '../_shared/serve.ts'
+import { UserError } from '../_shared/errors.ts'
+import { getMetaDataByLink } from '../_shared/api.ts'
 
-export default defineEventHandler(async (event) => {
-  try {
-    const Authorization = event.node.req.headers.authorization
+serve({
+  GET: async (req) => {
+    const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
-    const query = getQuery(event)
-    const url = query.url as string
+    const searchParams = new URL(req.url).searchParams
+    const url = searchParams.get('url')
     if (!url)
       throw new UserError('Missing url')
 
@@ -22,9 +24,6 @@ export default defineEventHandler(async (event) => {
       'twitter:image': metadata?.['twitter:image'],
       'twitter:image:alt': metadata?.['twitter:image:alt'],
     }
-    return { data }
-  }
-  catch (err) {
-    return createErrorHandler(err as Error)
-  }
+    return data
+  },
 })

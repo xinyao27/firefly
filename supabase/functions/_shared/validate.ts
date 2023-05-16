@@ -1,4 +1,4 @@
-import type { BlockModel, CopilotModel } from '@firefly/common'
+import type { BlockModel, CopilotModel } from 'models'
 
 export function validateBlock(block: BlockModel) {
   if (!block)

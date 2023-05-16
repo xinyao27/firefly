@@ -3,8 +3,11 @@ import { OpenAI } from 'langchain/llms/openai'
 import { LLMChain, MapReduceDocumentsChain, StuffDocumentsChain } from 'langchain/chains'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
-import * as tokenizer from 'gpt-3-encoder'
-import { UserError, basePath, createErrorHandler, modelName } from '../utils'
+import { serve } from '../_shared/serve.ts'
+import { modelName, tokenizer } from '../_shared/tokenizer.ts'
+import { basePath } from '../_shared/api.ts'
+import { ApplicationError, UserError } from '../_shared/errors.ts'
+import { createSupabaseClient } from '../_shared/auth.ts'
 
 interface Body {
   copilotId: string
@@ -16,19 +19,23 @@ interface Body {
   }[]
 }
 
-const { OPENAI_API_KEY, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN, MAX_TOKENS } = useRuntimeConfig()
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
+const UPSTASH_REDIS_REST_URL = Deno.env.get('UPSTASH_REDIS_REST_URL')
+const UPSTASH_REDIS_REST_TOKEN = Deno.env.get('UPSTASH_REDIS_REST_TOKEN')
+const MAX_TOKENS = Deno.env.get('MAX_TOKENS')!
+
 const model = new OpenAI(
   {
     modelName,
     openAIApiKey: OPENAI_API_KEY,
     temperature: 0,
-    maxTokens: MAX_TOKENS,
+    maxTokens: parseInt(MAX_TOKENS, 10),
   },
   { basePath },
 )
 
 const textSplitter = new RecursiveCharacterTextSplitter({
-  chunkSize: MAX_TOKENS,
+  chunkSize: parseInt(MAX_TOKENS, 10),
   chunkOverlap: 200,
 })
 
@@ -37,16 +44,16 @@ const redis = new Redis({
   token: UPSTASH_REDIS_REST_TOKEN,
 })
 
-const ALL_TOKENS = MAX_TOKENS * 7
+const ALL_TOKENS = parseInt(MAX_TOKENS, 10) * 7
 
-export default defineEventHandler(async (event) => {
-  try {
+serve({
+  POST: async (req) => {
     if (!OPENAI_API_KEY)
       throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
-    const Authorization = event.node.req.headers.authorization
+    const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
-    const body = await readBody<Body>(event)
+    const body = await req.json() as Body
     if (!body)
       throw new UserError('Missing request data.')
     if (!body.copilotId)
@@ -127,7 +134,7 @@ export default defineEventHandler(async (event) => {
       llmChain,
       combineDocumentChain,
       documentVariableName: 'text',
-      maxTokens: MAX_TOKENS,
+      maxTokens: parseInt(MAX_TOKENS, 10),
     })
 
     const res = await chain.call({
@@ -138,8 +145,5 @@ export default defineEventHandler(async (event) => {
     result.data = res.text
 
     return result
-  }
-  catch (err) {
-    throw createErrorHandler(err as Error)
-  }
+  },
 })

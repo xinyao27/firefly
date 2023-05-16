@@ -1,9 +1,11 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import crypto from 'crypto-js'
 import { encode } from 'js-base64'
-import { ApplicationError, UserError, createErrorHandler, createSupabaseClient, getUser } from '../utils'
+import { serve } from '../_shared/serve.ts'
+import { createSupabaseClient, getUser } from '../_shared/auth.ts'
+import { ApplicationError, UserError } from '../_shared/errors.ts'
 
-const { SECRET } = useRuntimeConfig()
+const SECRET = Deno.env.get('SECRET')
 
 async function generateToken(supabase: SupabaseClient) {
   const user = await getUser(supabase)
@@ -36,9 +38,9 @@ async function generateToken(supabase: SupabaseClient) {
   }
 }
 
-export default defineEventHandler(async (event) => {
-  try {
-    const Authorization = event.node.req.headers.authorization
+serve({
+  POST: async (req) => {
+    const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
     if (!SECRET) {
@@ -50,9 +52,6 @@ export default defineEventHandler(async (event) => {
     const supabase = createSupabaseClient(Authorization)
     const data = await generateToken(supabase)
 
-    return { data }
-  }
-  catch (err) {
-    return createErrorHandler(err as Error)
-  }
+    return data
+  },
 })

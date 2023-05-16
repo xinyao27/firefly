@@ -2,26 +2,28 @@ import Parser from 'rss-parser'
 import { getText } from 'langchain/tools/webbrowser'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import dayjs from 'dayjs'
-import { UserError, createErrorHandler, isRssLink } from '../utils'
+import { serve } from '../_shared/serve.ts'
+import { UserError } from '../_shared/errors.ts'
+import { isRssLink } from '../_shared/validate.ts'
 
-const { MAX_TOKENS } = useRuntimeConfig()
+const MAX_TOKENS = Deno.env.get('MAX_TOKENS')!
 
 const parser = new Parser()
 const textSplitter = new RecursiveCharacterTextSplitter({
-  chunkSize: MAX_TOKENS,
+  chunkSize: parseInt(MAX_TOKENS, 10),
   chunkOverlap: 200,
 })
 
-export default defineEventHandler(async (event) => {
-  try {
-    const Authorization = event.node.req.headers.authorization
+serve({
+  GET: async (req) => {
+    const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
-    const query = getQuery(event)
-    const url = decodeURIComponent(query.url as string)
+    const searchParams = new URL(req.url).searchParams
+    const url = decodeURIComponent(searchParams.get('url')!)
     if (!url)
       throw new UserError('Missing url')
-    const range = (query.range as string)?.split(',').map(d => dayjs(parseInt(d))) || [dayjs().subtract(1, 'day'), dayjs()]
+    const range = (searchParams.get('range'))?.split(',').map(d => dayjs(parseInt(d))) || [dayjs().subtract(1, 'day'), dayjs()]
 
     if (await isRssLink(url)) {
       const feed = await parser.parseURL(url)
@@ -48,26 +50,19 @@ export default defineEventHandler(async (event) => {
           content,
         })
       }
-      return {
-        data: result,
-      }
+      return result
     }
     else {
       const html = await fetch(url).then(res => res.text())
       const text = getText(html, url, true)
       const content = (await textSplitter.splitText(text)).slice(0, 1).join('\n')
-      return {
-        data: [
-          {
-            title: '',
-            link: url,
-            content,
-          },
-        ],
-      }
+      return [
+        {
+          title: '',
+          link: url,
+          content,
+        },
+      ]
     }
-  }
-  catch (err) {
-    return createErrorHandler(err as Error)
-  }
+  },
 })

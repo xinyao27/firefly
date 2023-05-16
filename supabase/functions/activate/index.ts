@@ -1,13 +1,18 @@
 import { Configuration, OpenAIApi } from 'openai'
-import type { OrderDetail, OrderModel } from '@firefly/common'
+import type { OrderDetail, OrderModel } from 'models'
 import { v4 as uuid } from 'uuid'
-import { ApplicationError, UserError, base64ToArrayBuffer, createErrorHandler, createSupabaseClient, getUser } from '../utils'
+import { serve } from '../_shared/serve.ts'
+import { basePath } from '../_shared/api.ts'
+import { ApplicationError, UserError } from '../_shared/errors.ts'
+import { createSupabaseClient, getUser } from '../_shared/auth.ts'
+import { base64ToArrayBuffer } from '../_shared/transform.ts'
 
 interface Body {
   license: string
 }
 
-const { LEMON_SQUEEZY_API_KEY, OPENAI_API_KEY } = useRuntimeConfig()
+const LEMON_SQUEEZY_API_KEY = Deno.env.get('LEMON_SQUEEZY_API_KEY')
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
 
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
@@ -32,9 +37,9 @@ async function activateLicenseKey(licenseKey: string) {
   return result
 }
 
-export default defineEventHandler(async (event) => {
-  try {
-    const Authorization = event.node.req.headers.authorization
+serve({
+  POST: async (req) => {
+    const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
     if (!LEMON_SQUEEZY_API_KEY) {
@@ -42,7 +47,7 @@ export default defineEventHandler(async (event) => {
         'Missing environment variable LEMON_SQUEEZY_API_KEY',
       )
     }
-    const body = await readBody<Body>(event)
+    const body = await req.json() as Body
     if (!body)
       throw new UserError('Missing request data')
 
@@ -54,11 +59,8 @@ export default defineEventHandler(async (event) => {
 
     // 判断 license 有没有记录
     const { data: order } = await supabase.from('orders').select('*').eq('license', body.license).single<OrderModel>()
-    if (order) {
-      return {
-        data: order,
-      }
-    }
+    if (order)
+      return order
 
     const response = await activateLicenseKey(body.license)
     if (!response.activated)
@@ -149,11 +151,6 @@ export default defineEventHandler(async (event) => {
     if (error)
       throw new ApplicationError(error.message)
 
-    return {
-      data,
-    }
-  }
-  catch (err) {
-    return createErrorHandler(err as Error)
-  }
+    return data
+  },
 })

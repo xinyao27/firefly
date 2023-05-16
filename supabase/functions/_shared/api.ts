@@ -1,10 +1,9 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import getMetaData from 'url-metadata'
-import type { BlockMetadata, BlockModel } from '@firefly/common'
-import { is } from '@firefly/common'
-import { getUser } from './auth'
-import { ApplicationError } from './errors'
-import { validateBlock } from './validate'
+import type { BlockMetadata, BlockModel } from 'models'
+import { getUser } from './auth.ts'
+import { ApplicationError } from './errors.ts'
+import { validateBlock } from './validate.ts'
 
 export async function getMetaDataByLink(link: string) {
   try {
@@ -102,7 +101,7 @@ export async function createBlock(
   return data
 }
 
-export const basePath = is.development() ? 'https://openai.firefly.best/v1' : 'https://api.openai.com/v1'
+export const basePath = 'https://api.openai.com/v1'
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant'

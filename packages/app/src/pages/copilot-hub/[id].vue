@@ -179,7 +179,7 @@ async function handleExecutor(range: [number, number]) {
     .eq('copilots.id', copilotHubStore.copilot?.id)
     .limit(20) // 限制最大数 避免数据量过大消耗太多 token
   if (blocksError)
-    throw new UserError(blocksError.message)
+    throw blocksError
   messages.value.push({
     role: 'blocks',
     metadata: blocks,
@@ -251,7 +251,7 @@ async function handleExecutor(range: [number, number]) {
     if (data) {
       messages.value.push({
         role: 'assistant',
-        content: data,
+        content: data.data,
       })
     }
   }
