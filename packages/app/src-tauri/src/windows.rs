@@ -39,13 +39,24 @@ pub fn set_assistant_window_always_on_top() -> bool {
 #[tauri::command]
 pub fn show_assistant_window_with_selected_text() {
     let window = show_assistant_window(false, false);
-    let selected_text = match utils::get_selected_text() {
-        Ok(text) => text,
-        Err(e) => {
-            eprintln!("Error getting selected text: {}", e);
-            "".to_string()
-        }
-    };
+    let selected_text;
+    if cfg!(target_os = "macos") {
+        selected_text = match utils::get_selected_text_by_clipboard() {
+            Ok(text) => text,
+            Err(e) => {
+                eprintln!("Error getting selected text: {}", e);
+                "".to_string()
+            }
+        };
+    } else {
+        selected_text = match utils::get_selected_text() {
+            Ok(text) => text,
+            Err(e) => {
+                eprintln!("Error getting selected text: {}", e);
+                "".to_string()
+            }
+        };
+    }
     if !selected_text.is_empty() {
         utils::send_text(selected_text);
     } else {
@@ -59,6 +70,9 @@ pub fn close_thumb() {
     match APP_HANDLE.get() {
         Some(handle) => match handle.get_window(THUMB_WIN_NAME) {
             Some(window) => {
+                window
+                    .set_position(LogicalPosition::new(-100.0, -100.0))
+                    .unwrap();
                 window.set_always_on_top(false).unwrap();
                 window.hide().unwrap();
             }

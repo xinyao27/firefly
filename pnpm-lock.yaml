@@ -270,8 +270,8 @@ importers:
         specifier: ^3.13.0
         version: 3.13.0
       tauri-plugin-autostart-api:
-        specifier: github:tauri-apps/tauri-plugin-autostart#v2
-        version: github.com/tauri-apps/tauri-plugin-autostart/2cc8e7a8b1f60fa15121fd46599af7a99eff121b
+        specifier: github:tauri-apps/tauri-plugin-autostart
+        version: github.com/tauri-apps/tauri-plugin-autostart/8d2706d05568f71eb81a05c3c891db1291c3ca82
       url-metadata:
         specifier: ^3.0.1
         version: 3.0.1
@@ -16353,8 +16353,8 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  github.com/tauri-apps/tauri-plugin-autostart/2cc8e7a8b1f60fa15121fd46599af7a99eff121b:
-    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/2cc8e7a8b1f60fa15121fd46599af7a99eff121b}
+  github.com/tauri-apps/tauri-plugin-autostart/8d2706d05568f71eb81a05c3c891db1291c3ca82:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-autostart/tar.gz/8d2706d05568f71eb81a05c3c891db1291c3ca82}
     name: tauri-plugin-autostart-api
     version: 0.0.0
     dependencies:
