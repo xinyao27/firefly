@@ -9,7 +9,7 @@ onMounted(async () => {
 
 const { locales, setLocale } = useI18n()
 const availableLocales = computed(() => {
-  return (locales.value as LocaleObject[]).filter(i => i.path)
+  return locales.value as LocaleObject[]
 })
 watch(() => settings.value.i18n, async (value) => {
   if (value)

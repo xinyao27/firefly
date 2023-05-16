@@ -2,10 +2,18 @@ import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
+import { langMap } from '@firefly/common'
 import { pwa } from './config/pwa'
-import { i18n } from './config/i18n'
 import { appDescription, appName } from './constants/index'
 import pkg from './package.json'
+import type { LocaleObject } from '#i18n'
+
+const availableLocales = Array.from(langMap.keys())
+const locales = availableLocales.map<LocaleObject>(locale => ({
+  code: locale,
+  name: langMap.get(locale) ?? locale,
+  file: `${locale}.yml`,
+}))
 
 const plugins = [
   AutoImport({
@@ -132,7 +140,13 @@ export default defineNuxtConfig({
     preflight: false,
   },
   pwa,
-  i18n,
+  i18n: {
+    lazy: true,
+    locales,
+    langDir: './locales',
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+  },
   gtag: {
     id: 'G-MRKG78WD9B',
   },

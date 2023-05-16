@@ -11,7 +11,7 @@ import { bindHotkey, bindOCRHotkey } from '~/utils'
 
 const { t, locales, setLocale } = useI18n()
 const availableLocales = computed(() => {
-  return (locales.value as LocaleObject[]).filter(i => i.path)
+  return locales.value as LocaleObject[]
 })
 
 const show = ref(false)

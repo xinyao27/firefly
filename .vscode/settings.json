@@ -23,7 +23,7 @@
   "i18n-ally.sourceLanguage": "en",
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": [
-    "locales"
+    "packages/app/src/locales"
   ],
   "i18n-ally.sortKeys": true,
   "editor.codeActionsOnSave": {

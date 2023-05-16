@@ -9,7 +9,7 @@ export default defineNuxtPlugin(async (nuxt) => {
 
   const i18n = nuxt.vueApp.config.globalProperties.$i18n as VueI18n
   $t = nuxt.vueApp.config.globalProperties.$t
-  const { setLocale, locales } = i18n
+  const { setLocale } = i18n
   const settings = useSettings()
   const lang = $computed(() => settings.value.i18n)
 
