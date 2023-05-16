@@ -134,7 +134,7 @@ function handleCreatesSelect(key: string) {
           :opacity="configStore.rightBarShow ? 100 : 40"
           @click="configStore.toggleRightBarShow"
         >
-          <i i-ri-openai-line />
+          <i i-ri-sparkling-2-fill />
         </NButton>
       </div>
     </template>

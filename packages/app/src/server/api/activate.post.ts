@@ -1,6 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai'
-import dayjs from 'dayjs'
-import type { OrderDetail, OrderModel, ProfileModel } from '@firefly/common'
+import type { OrderDetail, OrderModel } from '@firefly/common'
 import { v4 as uuid } from 'uuid'
 import { ApplicationError, UserError, base64ToArrayBuffer, createErrorHandler, createSupabaseClient, getUser } from '../utils'
 
@@ -66,25 +65,8 @@ export default defineEventHandler(async (event) => {
       throw new UserError('licenseKey is not validated!')
     if (response.error)
       throw new ApplicationError(response.error)
-    if (response.meta.product_name === 'Firefly Subscription') {
-      const { data: profile, error } = await supabase.from('profiles').select().single<ProfileModel>()
-      const subscriptionExpirationAt = dayjs(profile?.subscriptionExpirationAt || new Date())
-      if (error)
-        throw new ApplicationError(error.message)
-      if (response.meta.variant_name === 'Monthly') {
-        const newSubscriptionExpirationAt = subscriptionExpirationAt.add(1, 'month').endOf('day')
-        const { error } = await supabase.from('profiles').update({ subscriptionExpirationAt: newSubscriptionExpirationAt }).eq('id', profile.id)
-        if (error)
-          throw new ApplicationError(error.message)
-      }
-      if (response.meta.variant_name === 'Yearly') {
-        const newSubscriptionExpirationAt = subscriptionExpirationAt.add(1, 'year').endOf('day')
-        const { error } = await supabase.from('profiles').update({ subscriptionExpirationAt: newSubscriptionExpirationAt }).eq('id', profile.id)
-        if (error)
-          throw new ApplicationError(error.message)
-      }
-    }
-    else if (response.meta.product_name === 'Firefly Quotas') {
+
+    if (response.meta.product_name === 'Firefly Quotas') {
       if (response.meta.variant_name === '100 Copilot Quotas') {
         const { error } = await supabase.rpc('handle_profile_copilot_quota_increment', { uid: user.id, quota: 100 })
         if (error)
@@ -101,6 +83,24 @@ export default defineEventHandler(async (event) => {
           throw new ApplicationError(error.message)
       }
     }
+    // else if (response.meta.product_name === 'Firefly Subscription') {
+    //   const { data: profile, error } = await supabase.from('profiles').select().single<ProfileModel>()
+    //   const subscriptionExpirationAt = dayjs(profile?.subscriptionExpirationAt || new Date())
+    //   if (error)
+    //     throw new ApplicationError(error.message)
+    //   if (response.meta.variant_name === 'Monthly') {
+    //     const newSubscriptionExpirationAt = subscriptionExpirationAt.add(1, 'month').endOf('day')
+    //     const { error } = await supabase.from('profiles').update({ subscriptionExpirationAt: newSubscriptionExpirationAt }).eq('id', profile.id)
+    //     if (error)
+    //       throw new ApplicationError(error.message)
+    //   }
+    //   if (response.meta.variant_name === 'Yearly') {
+    //     const newSubscriptionExpirationAt = subscriptionExpirationAt.add(1, 'year').endOf('day')
+    //     const { error } = await supabase.from('profiles').update({ subscriptionExpirationAt: newSubscriptionExpirationAt }).eq('id', profile.id)
+    //     if (error)
+    //       throw new ApplicationError(error.message)
+    //   }
+    // }
 
     let url: string | undefined
     try {

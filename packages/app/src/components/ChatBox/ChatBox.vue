@@ -149,7 +149,7 @@ watch(() => props.currentError, (currentError) => {
                   @click="props.onChat"
                 >
                   <template #icon>
-                    <i i-ri-openai-line />
+                    <i i-ri-sparkling-2-fill />
                   </template>
                 </NButton>
               </template>

@@ -55,7 +55,7 @@ const userStore = useUserStore()
         </div>
         <div class="mt-8 flex flex-col justify-center gap-6 text-center text-lg leading-8 lg:(mt-0 text-left)">
           <div class="relative mx-auto mb-4 h-10 w-10 flex flex-shrink-0 items-center justify-center border border-(gray opacity-20) rounded-lg lg:mx-0">
-            <i i-ri-openai-line />
+            <i i-ri-sparkling-2-fill />
           </div>
           <h4 text-xl font-bold tracking-tight lg:text-3xl sm:text-2xl>
             {{ t('index.featureAISubTitle') }}
