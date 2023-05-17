@@ -258,7 +258,12 @@ async function handleExecutor(range: [number, number]) {
   executorLoading.value = false
 }
 function renderExecutorSettings() {
-  return h(ExecutorSettings, { description: copilotHubStore.copilot?.description, onSubmit: handleExecutor, loading: executorLoading.value })
+  return h(ExecutorSettings, {
+    description: copilotHubStore.copilot?.description,
+    prompt: copilotHubStore.copilot?.prompt,
+    onSubmit: handleExecutor,
+    loading: executorLoading.value,
+  })
 }
 </script>
 

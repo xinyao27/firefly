@@ -44,6 +44,7 @@ common:
   notFound: 找不到
   ocrHotkeyAlreadyRegistered: OCRHotkey 已经注册
   openApp: 打开应用程序
+  past7days: 过去 7 天
   redirecting: Redirecting...
   required: 必需的
   save: 保存
@@ -55,6 +56,7 @@ common:
   updated: 更新成功
   warningContent: 确定要删除吗
   warningTitle: 警告
+  yesterday: 昨天
   yourTags: 你的标签
 copilot:
   Config: 配置

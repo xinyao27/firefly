@@ -44,6 +44,7 @@ common:
   notFound: can't find
   ocrHotkeyAlreadyRegistered: OCRHotkey already registered
   openApp: Open App
+  past7days: Past 7 days
   redirecting: Redirecting...
   required: Required
   save: save
@@ -57,6 +58,7 @@ common:
   updated: update completed
   warningContent: You sure you want to delete it
   warningTitle: Warning
+  yesterday: Yesterday
   yourTags: Your tags
 copilot:
   Config: Config
