@@ -62,6 +62,7 @@ function handleRetry() {
       :on-chat="handleAskCopilot"
       :on-retry="handleRetry"
       :on-search-reference="handleSearchReference"
+      :on-abort="copilotStore.abort"
     />
   </div>
 </template>
