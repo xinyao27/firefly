@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '~/styles/main.sass'
-import { getUser, is } from '@firefly/common'
+import { is } from '@firefly/common'
 
 const route = useRoute()
 const configStore = useConfigStore()
@@ -10,7 +10,6 @@ const userStore = useUserStore()
 const isMobileScreen = useMobileScreen()
 
 onMounted(async () => {
-  await getUser(true)
   const profiles = await userStore.getUserProfiles()
   if (profiles && !profiles.token) {
     // 如果没有 token 自动生成一个

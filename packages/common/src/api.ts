@@ -62,36 +62,11 @@ export async function edgeFunctions<R = any>(name: string, options: EdgeFunction
   throw new Error(json.error || json.message || response.statusText)
 }
 
-export async function getSession(refresh = true) {
-  const key = 'SESSION'
-  if (!refresh) {
-    const session = cache[key]
-    if (session)
-      return session
-  }
+export async function getSession() {
   const supabase = createSupabaseClient()
-  const newSession = (await supabase.auth.getSession()).data.session
-  if (newSession)
-    cache[key] = newSession
-  return newSession
+  return (await supabase.auth.getSession()).data.session
 }
 
-export async function getUser(refresh = false) {
-  const key = 'USER'
-  if (!refresh) {
-    const user = cache[key]
-    if (user)
-      return user
-  }
-
-  const supabase = createSupabaseClient()
-  const newUser = (await supabase.auth.getUser()).data.user
-  if (newUser)
-    cache[key] = newUser
-  return newUser
-}
-
-export function clearCache() {
-  cache.SESSION = null
-  cache.USER = null
+export async function getUser() {
+  return (await getSession())?.user
 }

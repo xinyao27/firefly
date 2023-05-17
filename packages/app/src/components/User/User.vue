@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
-import { clearCache } from '@firefly/common'
 import { renderCopilotQuota, renderUserInfo } from './render'
 import { supabase } from '~/plugins/api'
 
@@ -42,7 +41,6 @@ async function handleSelect(key: string) {
     await supabase.auth.signOut()
     await blockStore.clear()
     await tagStore.clear()
-    clearCache()
     if (route.path !== '/')
       router.replace('/login')
   }

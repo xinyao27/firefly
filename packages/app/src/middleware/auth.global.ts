@@ -1,9 +1,9 @@
-import { getUser, is } from '@firefly/common'
+import { getSession, is } from '@firefly/common'
 
 export default defineNuxtRouteMiddleware(async (to) => {
   if (to.path === '/') {
     // Redirect to inbox if logged in
-    if (await getUser()) {
+    if (await getSession()) {
       return navigateTo('/inbox')
     }
     // not logged in
@@ -15,12 +15,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
   else if (to.path === '/inbox') {
     // Redirect to login if not logged in
-    if (!(await getUser()))
+    if (!(await getSession()))
       return navigateTo('/login')
   }
   else if (to.path === '/login' || to.path === '/signup') {
     // Redirect to inbox if logged in
-    if (await getUser())
+    if (await getSession())
       return navigateTo('/inbox')
   }
   else if (to.path === '/assistant' || to.path === '/thumb') {
