@@ -1,5 +1,6 @@
 import type { ProfileModel } from '@firefly/common'
 import { edgeFunctions } from '@firefly/common'
+import { supabase } from '~/plugins/api'
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -10,13 +11,24 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async getUserProfiles() {
-      this.loading = true
-      const data = await edgeFunctions('profiles', { method: 'GET' })
+      try {
+        this.loading = true
+        const { data, error } = await supabase.from('profiles').select().single<ProfileModel>()
+        if (error)
+          throw error
 
-      this.profiles = data
-      this.loading = false
+        this.profiles = data
+        this.loading = false
 
-      return data
+        return data
+      }
+      catch (error) {
+        console.error(error)
+        window.$message?.error?.(error)
+      }
+      finally {
+        this.loading = false
+      }
     },
     async generateToken() {
       try {
