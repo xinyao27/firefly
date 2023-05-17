@@ -2,18 +2,18 @@ import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
+import { langMap } from '@firefly/common'
 import { pwa } from './config/pwa'
-import { i18n } from './config/i18n'
 import { appDescription, appName } from './constants/index'
 import pkg from './package.json'
+import type { LocaleObject } from '#i18n'
 
-const define = process.env.NODE_ENV === 'production'
-  ? {
-      'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(process.env.VITE_SUPABASE_URL),
-      'import.meta.env.VITE_SUPABASE_FUNCTIONS_URL': JSON.stringify(process.env.VITE_SUPABASE_FUNCTIONS_URL),
-      'import.meta.env.VITE_SUPABASE_ANON_KEY': JSON.stringify(process.env.VITE_SUPABASE_ANON_KEY),
-    }
-  : {}
+const availableLocales = Array.from(langMap.keys())
+const locales = availableLocales.map<LocaleObject>(locale => ({
+  code: locale,
+  name: langMap.get(locale) ?? locale,
+  file: `${locale}.yml`,
+}))
 
 const plugins = [
   AutoImport({
@@ -97,6 +97,9 @@ export default defineNuxtConfig({
       routes: ['/', '/redirect'],
       ignore: ['/inbox'],
     },
+    experimental: {
+      wasm: true,
+    },
   },
 
   app: {
@@ -137,13 +140,28 @@ export default defineNuxtConfig({
     preflight: false,
   },
   pwa,
-  i18n,
+  i18n: {
+    lazy: true,
+    locales,
+    langDir: './locales',
+    defaultLocale: 'en',
+    strategy: 'no_prefix',
+  },
   gtag: {
     id: 'G-MRKG78WD9B',
   },
 
   devtools: {
     enabled: true,
+  },
+
+  runtimeConfig: {
+    public: {
+      APP_VERSION: pkg.version,
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_FUNCTIONS_URL: process.env.SUPABASE_FUNCTIONS_URL,
+    },
   },
 
   build: {
@@ -161,10 +179,6 @@ export default defineNuxtConfig({
     clearScreen: false,
     server: {
       strictPort: true,
-    },
-    define: {
-      ...define,
-      'import.meta.env.APP_VERSION': JSON.stringify(pkg.version.toString()),
     },
     plugins,
     optimizeDeps: {

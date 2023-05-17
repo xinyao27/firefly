@@ -1,11 +1,9 @@
-import { serve } from 'std/server'
-import { SupabaseClient } from '@supabase/supabase-js'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import crypto from 'crypto-js'
 import { encode } from 'js-base64'
-import { corsHeaders } from '../_shared/cors.ts'
-import { getUser } from '../_shared/auth.ts'
-import { ApplicationError, createErrorHandler, UserError } from '../_shared/errors.ts'
-import { createSupabaseClient } from '../_shared/auth.ts'
+import { serve } from '../_shared/serve.ts'
+import { createSupabaseClient, getUser } from '../_shared/auth.ts'
+import { ApplicationError, UserError } from '../_shared/errors.ts'
 
 const SECRET = Deno.env.get('SECRET')
 
@@ -31,35 +29,29 @@ async function generateToken(supabase: SupabaseClient) {
         'id',
         user.id,
       )
-    if (error) throw error
+    if (error)
+      throw error
     return base64
-  } else {
+  }
+  else {
     throw new UserError('Invalid Authorization')
   }
 }
 
-serve(async (req) => {
-  try {
-    if (req.method === 'OPTIONS') {
-      return new Response('ok', { headers: corsHeaders })
-    }
+serve({
+  POST: async (req) => {
+    const Authorization = req.headers.get('Authorization')
+    if (!Authorization)
+      throw new UserError('Missing Authorization, Please log in to use.')
     if (!SECRET) {
       throw new ApplicationError(
         'Missing environment variable SECRET',
       )
     }
-    const Authorization = req.headers.get('Authorization')
-    if (!Authorization) {
-      throw new UserError('Missing Authorization, Please log in to use.')
-    }
 
     const supabase = createSupabaseClient(Authorization)
     const data = await generateToken(supabase)
-    return new Response(JSON.stringify({ data }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 200,
-    })
-  } catch (err) {
-    return createErrorHandler(err)
-  }
+
+    return data
+  },
 })

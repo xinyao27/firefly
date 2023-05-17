@@ -142,8 +142,9 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
           v-model:value="assistantStore.tags"
           class="flex-1"
           size="small"
-
-          multiple filterable tag
+          multiple
+          filterable
+          tag
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"

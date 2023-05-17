@@ -22,6 +22,10 @@ export interface CopilotModel {
    */
   visibility?: 'public' | 'private'
   /**
+   * type
+   */
+  type?: 'chatbot' | 'executor'
+  /**
    * 创建时间
    */
   createdAt?: Date

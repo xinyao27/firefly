@@ -1,0 +1,165 @@
+assistant:
+  clipping: 剪藏
+  dragTip: 拖放到这里
+  dropTip: 松开以完成收藏
+  inputToken: 请先输入 Token
+  pin: 窗口总是在最上方
+  title: 剪藏到 Firefly
+  unpin: 关闭窗口总是在最上方
+  website: 网站
+assistantLink:
+  invalidUrl: 无效的网址
+  placeholder: 请输入网址
+block:
+  blocks: blocks
+  create: 创建 Block
+  deleteLoading: 删除 Block 中...
+  saveLoading: 创建 Block 中...
+  synced: 同步完成
+  update: 更新 Block
+  updateLoading: 更新 Block 中...
+common:
+  back: 返回
+  cancel: 取消
+  close: Close
+  confirm: 确定
+  copied: 已复制
+  copilotQuota: Copilot 额度
+  copy: 复制
+  create: 创建
+  delete: 删除
+  deleted: 删除成功
+  download: 下载
+  downloadDesktopApp: 下载桌面应用程序
+  edit: 编辑
+  hotkeyAlreadyRegistered: 热键已注册
+  loadMore: 加载更多
+  loading: 加载中...
+  login: 登录
+  loginError: 登录失败
+  needLogin: 请登录并重试。
+  next: 下一个
+  noMore: 没有更多了...
+  noResult: 没有结果
+  notFound: 找不到
+  ocrHotkeyAlreadyRegistered: OCRHotkey 已经注册
+  openApp: 打开应用程序
+  past7days: 过去 7 天
+  redirecting: Redirecting...
+  required: 必需的
+  save: 保存
+  saved: 保存成功
+  signup: 注册
+  slogan: Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 使得信息的采集变得如此有趣
+  success: Success
+  update: 更新
+  updated: 更新成功
+  warningContent: 确定要删除吗
+  warningTitle: 警告
+  yesterday: 昨天
+  yourTags: 你的标签
+copilot:
+  Config: 配置
+  createCopilot: 创建 Copilot
+  createSuccess: 创造成功
+  customPrompt: 自定义 Prompt
+  deleteLoading: 删除 Copilot 中...
+  description: Copilot 简介
+  extractionTags: 提取标签
+  hi: Hi, 请问有什么可以帮到您
+  name: Copilot 名称
+  polishing: 润色
+  prompt: Copilot Prompt
+  ref: Copilot 引用
+  retry: 重试
+  selectTags: 选择标签
+  selectTagsPlaceholder: 请至少选择一个 Tag, 我们将根据你选择的 Tag 从 Inbox 中筛选出对应的数据源, 作为 Copilot 语料
+  selectedTagsRequired: 请至少选择一个标签
+  summarize: 文本总结
+  translate: 翻译
+  type: Copilot 类型
+  updateCopilot: 更新 Copilot
+  updateSuccess: 更新成功
+  uploadData: 上传数据
+  visibility: Copilot 能见度
+desktop:
+  downloadForMac: 下载适用于 Mac
+  downloadForWindows: 下载 Windows
+editor:
+  blockquote: 引述文字
+  bold: 加粗
+  bulletList: 项目列表
+  code: 代码
+  italic: 斜体
+  orderedList: 编号列表
+  strike: 中划线
+  text: 正文
+  todoList: 待办列表
+  type: 类型
+  underline: 下划线
+  uploading: 上传中...
+executor:
+  taskDescription: '选择时间段以执行任务:'
+index:
+  featureAI: 将收集的信息交予 AI 处理、将 AI 处理后的内容一键收集
+  featureAIDesc: 与 AI 对话，将您收集到的信息一键交予 AI 处理，并且一键收集 AI 回复的内容
+  featureAISubTitle: AI 帮您总结和归纳信息
+  featureCapture: 支持OCR识图收集、快捷键收集、划词图标收集等
+  featureCaptureDesc: 利用我们强大的编辑器，您可以轻松编写 Markdown 文本，支持几乎所有 Markdown 元素
+  featureCaptureSubTitle: Markdown 编辑器
+  featureCopilotHub: |-
+    Copilot Hub 是一个基于大模型技术的人工智能平台。
+    在这里，您可以使用自己的数据来训练模型并建立个人知识库。
+  featureCopilotHubDesc: 只需两个步骤即可轻松创建您的 Copilot。
+  featureCopilotHubSubTitle: 使用您捕获的数据
+  getFireflySlogan: 从今天开始更聪明地工作。
+login:
+  continueWithEmail: 邮箱登录
+  continueWithGithub: 继续使用 Github
+  continueWithGoogle: 继续使用谷歌
+  continueWithLoginCode: Login Code 登录
+  continueWithNotion: 继续概念
+  emailPlaceholder: 输入你的电子邮箱地址...
+  emailRequired: 请输入 Email
+  emailSended: 我们刚刚向您发送了一个邮件，请检查您的收件箱。
+  loginCodePlaceholder: 粘贴 login code
+  otherLoginMethods: 其他登录方式
+  redirectToLogin: 已有账号 ? 去登录
+  redirectToSignup: 还没有账号 ? 去注册
+  resendEmail: 重发邮件
+settings:
+  alwaysShowIcons: 文字选择图标
+  alwaysShowIconsDescription: 是否启用文字选择图标
+  hotKeyRecorderTip: 聚焦后按下所需组合键
+  hotkey: 速记快捷键
+  hotkeyDescription: 快捷键呼出速记助手
+  i18n: 语言
+  i18nDescription: 要使用的语言
+  ocrHotkey: OCR 文字识别快捷键
+  ocrHotkeyDescription: 快捷键呼出 OCR 文字识别
+  proxy: 代理
+  proxyDescription: 要使用的代理设置
+  runAtStartup: 开机启动
+  runAtStartupDescription: 开机启动 Firefly
+  save: 保存
+  saveSuccess: 保存成功
+  title: 设置
+signup: {}
+tag:
+  delete: 删除
+  deleteLoading: 删除标签中...
+  placeholder: 添加标签...
+  updateLoading: 更新标签中...
+thankyou:
+  getNewTicket: 获取一张新的卡片
+  shareToTwitter: 分享到 Twitter
+  uniqueCardTitle: 我们使用 AI 为每一个订单生成了一张独一无二的卡片!
+titleBar:
+  sync: 立即同步
+user:
+  activate: 激活
+  generateNewToken: 生成新的 Token
+  generateToken: 生成 Token
+  language: 语言
+  licenseKeyPlaceholder: 输入你的激活码, 你可以在 LemonSqueezy 上和你的邮件里找到
+  logout: 退出登录

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { MentionOption, ScrollbarInst } from 'naive-ui'
-import CopilotMessageItem from './CopilotMessageItem.vue'
-import UserMessageItem from './UserMessageItem.vue'
+import type { VNode } from 'vue'
 import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{
-  hi?: string
+  hi?: string | (() => VNode)
   currentInput: string
   messages: ChatMessage[]
   currentAssistantMessage: string
@@ -22,7 +21,6 @@ const emit = defineEmits<{
 }>()
 const currentInput = useVModel(props, 'currentInput', emit)
 
-const { t } = useI18n()
 const scrollBarRef = ref<ScrollbarInst | null>(null)
 const referenceOptions = ref<MentionOption[]>([])
 
@@ -44,6 +42,7 @@ const handleSmoothToBottom = useThrottleFn(() => {
     scrollBarRef.value?.scrollTo({ top: scrollBarRef.value.scrollbarInstRef?.containerRef?.scrollHeight, behavior: 'smooth' })
   })
 }, 300, false, true)
+
 watch(() => props.messages, (newMessages, oldMessages) => {
   if (newMessages.length !== oldMessages.length)
     handleSmoothToBottom()
@@ -66,24 +65,40 @@ watch(() => props.currentError, (currentError) => {
     >
       <div mb-4 flex justify-start overflow-hidden break-words>
         <section class="border border-(slate opacity-15) rounded p-3">
-          {{ props.hi ?? t('copilot.hi') }}
+          <template v-if="typeof props.hi === 'string'">
+            {{ props.hi }}
+          </template>
+          <template v-if="typeof props.hi === 'undefined'">
+            {{ $t('copilot.hi') }}
+          </template>
+          <template v-if="typeof props.hi === 'function'">
+            <component :is="props.hi" />
+          </template>
         </section>
       </div>
       <div
         v-for="item in props.messages" :key="item.content"
-        mb-4 flex overflow-hidden break-words
+        class="mb-6.5 flex overflow-hidden break-words"
         :justify="item.role === 'user' ? 'end' : 'start'"
       >
-        <UserMessageItem
+        <ChatBoxUserMessageItem
           v-if="item.role === 'user'"
-          :message="item.content"
+          :message="item.content!"
         />
-        <CopilotMessageItem
+        <ChatBoxCopilotMessageItem
           v-else-if="item.role === 'assistant'"
-          :message="item.content"
+          :message="item.content!"
+        />
+        <ChatBoxBlocksMessageItem
+          v-else-if="item.role === 'blocks'"
+          :blocks="item.metadata"
+        />
+        <ChatBoxFetchMessageItem
+          v-else-if="item.role === 'fetch'"
+          :message="item"
         />
       </div>
-      <CopilotMessageItem
+      <ChatBoxCopilotMessageItem
         v-if="props.currentAssistantMessage"
         :message="props.currentAssistantMessage"
       />
@@ -93,13 +108,13 @@ watch(() => props.currentError, (currentError) => {
       >
         {{ props.currentError }}
         <NButton
-
           type="error"
-          secondary ml-2
+          secondary
+          ml-2
           size="small"
           @click="props.onRetry"
         >
-          {{ t('copilot.retry') }}
+          {{ $t('copilot.retry') }}
         </NButton>
       </section>
     </NScrollbar>
@@ -134,7 +149,7 @@ watch(() => props.currentError, (currentError) => {
                   @click="props.onChat"
                 >
                   <template #icon>
-                    <i i-ri-openai-line />
+                    <i i-ri-sparkling-2-fill />
                   </template>
                 </NButton>
               </template>
@@ -161,7 +176,7 @@ watch(() => props.currentError, (currentError) => {
         </template>
         <div class="flex items-center gap-1 text-xs text-neutral">
           <Spin />
-          {{ t('common.loading') }}
+          {{ $t('common.loading') }}
         </div>
       </NTooltip>
     </div>

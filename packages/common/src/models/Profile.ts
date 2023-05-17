@@ -28,4 +28,8 @@ export interface ProfileModel {
    * 修改时间
    */
   updatedAt?: Date
+  /**
+   * 订阅到期时间
+   */
+  subscriptionExpirationAt?: Date
 }

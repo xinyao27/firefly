@@ -31,8 +31,7 @@ const shortcut = computed(() => {
 <template>
   <div
     v-if="props.shortcut"
-    text-neutral-600 bg-neutral-300 px-1 font-mono font-bold leading-normal tracking-wide
-    uppercase rounded-sm inline-flex items-center align-middle gap-1
+    inline-flex items-center gap-1 rounded-sm bg-neutral-300 px-1 align-middle font-mono font-bold leading-normal tracking-wide uppercase text-neutral-600
   >
     <i v-if="props.showIcon" i-ri-keyboard-box-fill />
     <kbd flex items-center gap-1>

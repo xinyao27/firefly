@@ -5,6 +5,7 @@ import { getUser, is } from '@firefly/common'
 const route = useRoute()
 const configStore = useConfigStore()
 const assistantStore = useAssistantStore()
+const blockStore = useBlockStore()
 const userStore = useUserStore()
 const isMobileScreen = useMobileScreen()
 
@@ -30,6 +31,8 @@ onMounted(async () => {
         assistantStore.open('create')
     })
   }
+
+  await blockStore.sync()
 })
 </script>
 

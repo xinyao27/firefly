@@ -12,9 +12,6 @@ router.afterEach(async (to, from) => {
   else if (from.query.tag)
     await blockStore.refresh()
 })
-onMounted(async () => {
-  await blockStore.sync()
-})
 </script>
 
 <template>

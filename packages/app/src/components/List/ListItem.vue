@@ -3,13 +3,20 @@ import dayjs from 'dayjs'
 import type { DropdownOption } from 'naive-ui'
 import type { BlockModel } from '@firefly/common'
 
-const props = defineProps<{
-  data: BlockModel
-}>()
+const props = withDefaults(
+  defineProps<{
+    data: BlockModel
+    showOptions?: boolean
+  }>(),
+  {
+    showOptions: true,
+  },
+)
 
 const { t } = useI18n()
 const dialog = useDialog()
 const assistantStore = useAssistantStore()
+const assistantLinkStore = useAssistantLinkStore()
 const blockStore = useBlockStore()
 const tagStore = useTagStore()
 const copilotStore = useCopilotStore()
@@ -22,7 +29,10 @@ const options: DropdownOption[] = [
     label: t('common.edit'),
     key: 'edit',
     onClick() {
-      assistantStore.open('update', props.data)
+      if (props.data.category === 'text')
+        assistantStore.open('update', props.data)
+      else if (props.data.category === 'link')
+        assistantLinkStore.open('update', props.data)
     },
   },
   {
@@ -77,19 +87,20 @@ function handleTagClick(tag: string) {
   >
     <template #header-extra>
       <div>
-        <NTooltip>
+        <NTooltip v-if="props.data.category === 'text'">
           <template #trigger>
             <NButton
               quaternary
               size="tiny"
               @click="handleCopilot"
             >
-              <i i-ri-openai-line />
+              <i i-ri-sparkling-2-fill />
             </NButton>
           </template>
           {{ t('copilot.ref') }}
         </NTooltip>
         <NDropdown
+          v-if="props.showOptions"
           size="small"
           trigger="hover"
           :options="options"
@@ -105,6 +116,43 @@ function handleTagClick(tag: string) {
       </div>
     </template>
     <div
+      v-if="props.data.category === 'link'"
+      flex
+    >
+      <div flex flex-1 flex-col gap-2>
+        <div
+          v-if="props.data.metadata?.['og:title'] || props.data.metadata?.['twitter:title']"
+          truncate text-lg font-bold
+        >
+          {{ props.data.metadata?.['og:title'] || props.data.metadata?.['twitter:title'] }}
+        </div>
+        <div
+          v-if="props.data.metadata?.['og:description'] || props.data.metadata?.['twitter:description'] || props.data.metadata?.description"
+          line-clamp-3 flex-1 text-sm text-gray-400
+        >
+          {{ props.data.metadata?.['og:description'] || props.data.metadata?.['twitter:description'] || props.data.metadata?.description }}
+        </div>
+        <NuxtLink
+          :to="props.data.link"
+          target="_blank"
+          rel="noopener"
+          line-clamp-2
+        >
+          {{ props.data.content }}
+        </NuxtLink>
+      </div>
+      <div
+        v-if="props.data.metadata?.['og:image'] || props.data.metadata?.['twitter:image:src']"
+      >
+        <NImage
+          width="100"
+          :src="(props.data.metadata?.['og:image'] || props.data.metadata?.['twitter:image:src']) as string"
+          :alt="(props.data.metadata?.['og:image:alt'] || props.data.metadata?.['og:description'] || props.data.metadata?.description) as string"
+        />
+      </div>
+    </div>
+    <div
+      v-else
       :cursor="expanded ? 'text' : 'pointer'"
       :class="expanded ? '' : 'line-clamp-10'"
       @click="expanded === false && (expanded = true)"

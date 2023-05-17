@@ -7,11 +7,11 @@ const cache = {
 }
 
 export function createSupabaseClient() {
+  // @ts-expect-error noop
+  const { SUPABASE_URL, SUPABASE_ANON_KEY } = useRuntimeConfig().public
   const supabase = createClient(
-    // @ts-expect-error noop
-    import.meta.env.VITE_SUPABASE_URL,
-    // @ts-expect-error noop
-    import.meta.env.VITE_SUPABASE_ANON_KEY,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       auth: {
         detectSessionInUrl: false,
@@ -33,18 +33,19 @@ interface EdgeFunctionsOriginalOptions<T = any> extends EdgeFunctionsOptions<T> 
 export async function edgeFunctions<R = any, T = any>(name: string, options?: EdgeFunctionsOptions<T>): Promise<R>
 export async function edgeFunctions<_, T = any>(name: string, options?: EdgeFunctionsOriginalOptions<T>): Promise<Response>
 export async function edgeFunctions<R = any>(name: string, options: EdgeFunctionsOriginalOptions = {}): Promise<R | Response> {
+  // @ts-expect-error noop
+  const { SUPABASE_ANON_KEY, SUPABASE_FUNCTIONS_URL } = useRuntimeConfig().public
+
   const session = await getSession()
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...options.headers,
-    // @ts-expect-error noop
-    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+    'apikey': SUPABASE_ANON_KEY,
   }
   if (session?.access_token)
     headers.Authorization = `Bearer ${session?.access_token}`
   const response = await fetch(
-    // @ts-expect-error noop
-    `${import.meta.env.VITE_SUPABASE_FUNCTIONS_URL}/${name}`,
+    `${SUPABASE_FUNCTIONS_URL}/${name}`,
     {
       method: options.method || 'POST',
       headers,
@@ -53,14 +54,15 @@ export async function edgeFunctions<R = any>(name: string, options: EdgeFunction
     })
   if (options.original)
     return response
-
-  const { data, error } = await response.json()
-  if (error)
-    throw error
-  return data as Promise<R>
+  const json = await response.json()
+  if (response.ok) {
+    const { data } = json
+    return data as Promise<R>
+  }
+  throw new Error(json.error || json.message || response.statusText)
 }
 
-export async function getSession(refresh = false) {
+export async function getSession(refresh = true) {
   const key = 'SESSION'
   if (!refresh) {
     const session = cache[key]

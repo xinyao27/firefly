@@ -2,8 +2,9 @@ import { edgeFunctions } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 
 export interface ChatMessage {
-  role: 'system' | 'user' | 'assistant'
-  content: string
+  role: 'system' | 'user' | 'assistant' | 'blocks' | 'fetch'
+  content?: string
+  metadata?: any
 }
 export interface Context {
   type?: 'default'
@@ -176,7 +177,7 @@ export const useCopilotStore = defineStore('copilot', {
         while (!done) {
           const { value, done: doneReading } = await reader.read()
           done = doneReading
-          const char = decoder.decode(value)
+          const char = decoder.decode(value, { stream: true })
           if (char === '\n' && this.currentAssistantMessage.endsWith('\n'))
             continue
           if (char.startsWith('{"error":')) {
@@ -193,7 +194,7 @@ export const useCopilotStore = defineStore('copilot', {
       catch (e) {
         console.error(e)
         this.loading = false
-        this.currentError = e
+        this.currentError = e as string
         this.controller = null
         this.inputRef?.focus()
         return

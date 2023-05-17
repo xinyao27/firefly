@@ -4,6 +4,7 @@ import { edgeFunctions, getUser } from '@firefly/common'
 import type { InputInst } from 'naive-ui'
 import type { ChatMessage, Context } from '~/stores/copilot'
 import { supabase } from '~/plugins/api'
+import ExecutorSettings from '~/components/Executor/ExecutorSettings.vue'
 
 const { t } = useI18n()
 const dialog = useDialog()
@@ -18,6 +19,7 @@ const currentAssistantMessage = ref('')
 const currentError = ref<string | null>(null)
 const controller = ref<AbortController | null>(null)
 const messages = ref<ChatMessage[]>([])
+const fetchMessages = ref<ChatMessage[]>([])
 
 onMounted(async () => {
   if (!params.value)
@@ -65,7 +67,7 @@ async function chat() {
       copilotId: copilotHubStore.copilot?.id,
       copilotName: copilotHubStore.copilot?.name,
       copilotDescription: copilotHubStore.copilot?.description,
-      messages: messages.value,
+      messages: messages.value.filter(v => v.role === 'system' || v.role === 'user' || v.role === 'assistant'),
     }
     const response = await edgeFunctions('chat', {
       original: true,
@@ -149,13 +151,119 @@ function handleRetry() {
     chat()
   }
 }
-
 async function handleCopilotInteractionsIncrement() {
   const { error } = await supabase.rpc('handle_copilot_interactions_increment', {
     copilot_id: copilotHubStore.copilot?.id,
   })
   if (error)
     console.error('Failed to increment copilot interactions', error)
+}
+
+const executorLoading = ref(false)
+async function handleExecutor(range: [number, number]) {
+  executorLoading.value = true
+
+  // 1. Get blocks
+  const { data: blocks, error: blocksError } = await supabase
+    .from('blocks')
+    .select(`
+        id,
+        content,
+        category,
+        link,
+        copilots!inner (
+          id,
+          name
+        )
+      `)
+    .eq('copilots.id', copilotHubStore.copilot?.id)
+    .limit(20) // 限制最大数 避免数据量过大消耗太多 token
+  if (blocksError)
+    throw blocksError
+  messages.value.push({
+    role: 'blocks',
+    metadata: blocks,
+  })
+
+  // 2. fetch data
+  if (blocks.length) {
+    for (const block of blocks!) {
+      if (block.category === 'text') {
+        messages.value.push({
+          role: 'fetch',
+          content: block.content,
+          metadata: {
+            link: block.id,
+          },
+        })
+        fetchMessages.value.push({
+          role: 'fetch',
+          content: block.content,
+          metadata: {
+            link: block.id,
+          },
+        })
+      }
+      else if (block.category === 'link') {
+        const data = await edgeFunctions<{
+          title?: string
+          link?: string
+          createdAt?: string
+          author?: string
+          content?: string
+        }[]>(`fetch?url=${encodeURIComponent(block.link)}&range=${range.join(',')}`, { method: 'GET' })
+        if (data?.length) {
+          data.forEach((v) => {
+            messages.value.push({
+              role: 'fetch',
+              content: v.content,
+              metadata: {
+                title: v.title,
+                link: v.link,
+                createdAt: v.createdAt,
+                author: v.author,
+              },
+            })
+            fetchMessages.value.push({
+              role: 'fetch',
+              content: v.content,
+              metadata: {
+                title: v.title,
+                link: v.link,
+                createdAt: v.createdAt,
+                author: v.author,
+              },
+            })
+          })
+        }
+      }
+    }
+  }
+
+  if (fetchMessages.value.length) {
+    const data = await edgeFunctions('executor', {
+      body: {
+        copilotId: params.value,
+        range,
+        messages: fetchMessages.value,
+      },
+    })
+    if (data) {
+      messages.value.push({
+        role: 'assistant',
+        content: data.data,
+      })
+    }
+  }
+  executorLoading.value = false
+}
+function renderExecutorSettings() {
+  return h(ExecutorSettings, {
+    description: copilotHubStore.copilot?.description,
+    prompt: copilotHubStore.copilot?.prompt,
+    onSubmit: handleExecutor,
+    loading: executorLoading.value,
+  })
 }
 </script>
 
@@ -169,7 +277,7 @@ async function handleCopilotInteractionsIncrement() {
 
         <ChatBox
           v-model:currentInput="currentInput"
-          :hi="copilotHubStore.copilot?.description"
+          :hi="copilotHubStore.copilot.type === 'executor' ? renderExecutorSettings : copilotHubStore.copilot?.description"
           :create-input-ref="createInputRef"
           :messages="messages"
           :current-assistant-message="currentAssistantMessage"

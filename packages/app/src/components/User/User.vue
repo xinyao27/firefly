@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
 import { clearCache } from '@firefly/common'
-import renderUserInfo from './render'
+import { renderCopilotQuota, renderUserInfo } from './render'
 import { supabase } from '~/plugins/api'
 
 const { t } = useI18n()
@@ -18,9 +18,9 @@ const options = computed<DropdownOption[]>(() => [
     render: renderUserInfo,
   },
   {
+    type: 'render',
     key: 'copilotQuota',
-    label: `${t('common.copilotQuota')}: ${userStore.profiles?.copilotQuota ?? 0}`,
-    disabled: true,
+    render: renderCopilotQuota,
   },
   {
     type: 'divider',
@@ -59,15 +59,20 @@ async function handleSelect(key: string) {
     trigger="click"
     @select="handleSelect"
   >
-    <section class="flex cursor-pointer items-center gap-2 p-1 transition hover:bg-(slate opacity-15)">
-      <NAvatar
-        size="small"
-        :src="userStore.profiles.avatarUrl"
-        fallback-src="https://firefly.best/icon.png"
-      />
-      <div flex items-center text-white>
-        {{ userStore.profiles.fullName }}
-        <i i-ri-arrow-down-double-line text-neutral />
+    <section
+      class="cursor-pointer p-1 transition hover:bg-(slate opacity-15)"
+      flex="~ items-center justify-between"
+    >
+      <div flex="~ items-center gap-2">
+        <NAvatar
+          size="small"
+          :src="userStore.profiles.avatarUrl"
+          fallback-src="https://firefly.best/icon.png"
+        />
+        <div flex items-center>
+          {{ userStore.profiles.fullName }}
+          <i i-ri-arrow-down-double-line text-neutral />
+        </div>
       </div>
     </section>
   </NDropdown>

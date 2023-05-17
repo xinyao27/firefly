@@ -1,6 +1,7 @@
 {
   "extends": "@chenyueban/tsconfig",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "baseUrl": "./packages",
     "paths": {
       "@firefly/*": ["packages/*/src"]

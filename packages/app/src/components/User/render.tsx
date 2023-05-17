@@ -1,7 +1,7 @@
 import { NAvatar, NButton, NText, NTooltip } from 'naive-ui'
 import Copyable from '../Copyable.vue'
 
-function renderUserInfo() {
+export function renderUserInfo() {
   const userStore = useUserStore()
   const { t } = useI18n()
 
@@ -63,4 +63,14 @@ function renderUserInfo() {
   )
 }
 
-export default renderUserInfo
+export function renderCopilotQuota() {
+  const userStore = useUserStore()
+  const { t } = useI18n()
+
+  return (
+    <div class="px-4 py-2 text-neutral">
+      {`${t('common.copilotQuota')}: `}
+      <span class="text-yellow-200">{userStore.profiles?.copilotQuota ?? 0}</span>
+    </div>
+  )
+}

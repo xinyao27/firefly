@@ -1,229 +1,172 @@
-// Thanks to supabase
-
-import { serve } from 'std/server'
-import { ChatCompletionRequestMessage, ChatCompletionRequestMessageRoleEnum, Configuration, OpenAIApi } from 'openai'
-import { codeBlock, oneLine } from 'common-tags'
+import { ChatOpenAI } from 'langchain/chat_models/openai'
+import { AIChatMessage, HumanChatMessage, SystemChatMessage } from 'langchain/schema'
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
+import { SupabaseVectorStore } from 'langchain/vectorstores/supabase'
+import { CallbackManager } from 'langchain/callbacks'
+import type { ChatCompletionRequestMessage } from 'openai'
+import { serve } from '../_shared/serve.ts'
+import { ApplicationError, UserError } from '../_shared/errors.ts'
+import type { Context } from '../_shared/api.ts'
+import { basePath } from '../_shared/api.ts'
+import { createSupabaseClient, getUser } from '../_shared/auth.ts'
+import { capMessages, modelName, tokenizer } from '../_shared/tokenizer.ts'
 import { corsHeaders } from '../_shared/cors.ts'
-import { ApplicationError, createErrorHandler, UserError } from '../_shared/errors.ts'
-import { Context, generateCompletion } from './chat.ts'
-import { getOpenAiCompletionsStream } from '../_shared/api.ts'
-import { createSupabaseClient, getOpenAIKey, getUser } from '../_shared/auth.ts'
-import { getChatRequestTokenCount, getMaxTokenCount, tokenizer } from '../_shared/tokenizer.ts'
 
-export function clearHTMLTags(text: string) {
+const encoder = new TextEncoder()
+
+function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
 }
 
-serve(async (req) => {
-  try {
-    if (req.method === 'OPTIONS') {
-      return new Response('ok', { headers: corsHeaders })
-    }
-    const requestData = (await req.json()) as Context
-    if (!requestData) {
-      throw new UserError('Missing request data')
-    }
-    const Authorization = req.headers.get('Authorization')
-    if (!Authorization) {
-      throw new UserError('Missing Authorization, Please log in to use.')
-    }
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')!
+const MAX_TOKENS = Deno.env.get('MAX_TOKENS')!
 
-    let messages = requestData.messages
-    const systemMessage = messages.find(({ role }) => role === ChatCompletionRequestMessageRoleEnum.System)
+serve({
+  POST: async (req) => {
+    if (!OPENAI_API_KEY)
+      throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
+    const Authorization = req.headers.get('Authorization')
+    if (!Authorization)
+      throw new UserError('Missing Authorization, Please log in to use.')
+    const body = await req.json() as Context
+    if (!body)
+      throw new UserError('Missing request data')
+
+    let messages = body.messages
+    const systemMessage = messages.find(({ role }) => role === 'system')
     const contextMessages: ChatCompletionRequestMessage[] = messages
-      .filter(({ role }) => role !== ChatCompletionRequestMessageRoleEnum.System)
+      .filter(({ role }) => role !== 'system')
       .map(({ role, content }) => {
         if (
           ![
-            ChatCompletionRequestMessageRoleEnum.Assistant,
-            ChatCompletionRequestMessageRoleEnum.User,
+            'assistant',
+            'user',
           ].includes(role as 'assistant' | 'user')
-        ) {
+        )
           throw new Error(`Invalid message role '${role}'`)
-        }
+
         return {
           role,
           content: content.trim(),
         }
       })
-    const [userMessage] = contextMessages.filter(({ role }) => role === ChatCompletionRequestMessageRoleEnum.User)
-      .slice(-1)
-    if (!userMessage) {
+    const [userMessage] = contextMessages.filter(({ role }) => role === 'user').slice(-1)
+    if (!userMessage)
       throw new Error('No message with role \'user\'')
-    }
 
     const supabase = createSupabaseClient(Authorization)
-    const openAIKey = getOpenAIKey()
-    const configuration = new Configuration({ apiKey: openAIKey })
-    const openai = new OpenAIApi(configuration)
 
     const user = await getUser(supabase)
-    if (!user) {
+    if (!user)
       throw new UserError('Invalid Authorization')
-    }
+
     const { data } = await supabase.rpc('handle_profile_copilot_quota_decrement', { uid: user.id })
-    if (data < 0 || data === null) {
+    if (data < 0 || data === null)
       throw new UserError('No quota left')
-    }
 
-    // Moderate the content to comply with OpenAI T&C
-    // const moderationResponses = await Promise.all(
-    //   contextMessages.map((message) => openai.createModeration({ input: message.content })),
-    // )
-    // for (const moderationResponse of moderationResponses) {
-    //   const [results] = moderationResponse.data.results
-    //   if (results.flagged) {
-    //     throw new UserError('Flagged content, please enter a compliant question.', {
-    //       flagged: true,
-    //       categories: results.categories,
-    //     })
-    //   }
-    // }
+    if (body.type === 'copilot') {
+      const vectorStore = await SupabaseVectorStore.fromExistingIndex(
+        new OpenAIEmbeddings({
+          timeout: 3000,
+          openAIApiKey: OPENAI_API_KEY,
+        },
+        {
+          basePath,
+        }),
+        {
+          client: supabase,
+          tableName: 'blocks',
+          queryName: 'handle_match_blocks_v2',
+        },
+      )
 
-    if (requestData.type === 'copilot') {
-      const embeddingResponse = await openai.createEmbedding({
-        model: 'text-embedding-ada-002',
-        input: userMessage.content.replaceAll('\n', ' '),
+      const result = await vectorStore.similaritySearch(userMessage.content, 10, {
+        copilotId: body.copilotId,
       })
-
-      if (embeddingResponse.status !== 200) {
-        throw new ApplicationError('Failed to create embedding for query', embeddingResponse)
-      }
-
-      const [{ embedding }] = embeddingResponse.data.data
-
-      const { error: matchError, data: blocks } = await supabase
-        .rpc('handle_match_blocks', {
-          embedding,
-          match_threshold: 0.78,
-          min_content_length: 10,
-          copilot_id: requestData.copilotId
-        })
-        .limit(10)
-
-      console.log(`copilotId: ${requestData.copilotId} question: ${userMessage.content}`, blocks)
-
-      if (matchError) {
-        throw new ApplicationError('Failed to match blocks', matchError)
-      }
 
       let tokenCount = 0
       let contextText = ''
 
-      for (let i = 0; i < blocks.length; i++) {
-        const block = blocks[i]
-        console.info(`${requestData.copilotId}:`, block)
-        const content = clearHTMLTags(block.content)
+      for (let i = 0; i < result.length; i++) {
+        const block = result[i].pageContent
+        const content = clearHTMLTags(block)
         const encoded = tokenizer.encode(content)
         tokenCount += encoded.length
 
-        if (tokenCount >= 1500) {
+        if (tokenCount >= 1500)
           break
-        }
 
         contextText += `${content.trim()}\n---\n`
       }
-
+      // eslint-disable-next-line no-console
+      console.info(`copilotId: ${body.copilotId} question: ${userMessage.content}`, result, contextText)
       const initMessages: ChatCompletionRequestMessage[] = [
         {
-          role: ChatCompletionRequestMessageRoleEnum.System,
-          content: codeBlock`
-            ${oneLine`
-              ${systemMessage?.content ?? 'You are in a room with a chatbot.'}
-            `}
-            ${oneLine`
-              Your name is ${requestData.copilotName}. ${requestData.copilotDescription}
-            `}
-          `,
-        },
-        {
-          role: ChatCompletionRequestMessageRoleEnum.User,
-          content: codeBlock`
-            Here is the context data:
-            ${contextText}
-          `,
-        },
-        {
-          role: ChatCompletionRequestMessageRoleEnum.User,
-          content: codeBlock`
-            ${oneLine`
-              Answer all future questions using only the above context data.
-              You must also follow the below rules when answering:
-            `}
-            ${oneLine`
-              - What you may be given in the context is content in HTML format.
-              You can choose to ignore the HTML tags and only read the content,
-              or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
-            `}
-            ${oneLine`
+          role: 'system',
+          content: `
+              ${`${systemMessage?.content ?? 'You are in a room with a chatbot.'}`}
+              ${`Your name is ${body.copilotName}.`}
+              Answer all future questions using only the above context data. You must also follow the below rules when answering:
+              - What you may be given in the context is content in HTML format. You can choose to ignore the HTML tags and only read the content, or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
               - Do not make up answers that are not provided in the context data.
-            `}
-            ${oneLine`
-              - If you are unsure and the answer is not explicitly written
-              in the context data, say
-              "Sorry, I don't know how to help with that."
-            `}
-            ${oneLine`
+              - If you are unsure and the answer is not explicitly written in the context data, say "Sorry, I don't know how to help with that."
               - Prefer splitting your response into multiple paragraphs.
-            `}
-            ${oneLine`
               - Output as markdown.
-            `}
-            ${oneLine`
               - Include code snippets if available.
-            `}
-          `,
+
+              Here is the context data:
+              ${contextText}
+            `,
         },
       ]
-
-      const model = 'gpt-3.5-turbo-0301'
-      const maxCompletionTokenCount = 1024
 
       messages = capMessages(
         initMessages,
         contextMessages,
-        maxCompletionTokenCount,
-        model,
+        parseInt(MAX_TOKENS, 10),
+        modelName,
       )
     }
+    const stream = new TransformStream()
+    const writer = stream.writable.getWriter()
+    const llm = new ChatOpenAI(
+      {
+        modelName,
+        openAIApiKey: OPENAI_API_KEY,
+        maxTokens: parseInt(MAX_TOKENS, 10),
+        streaming: true,
+        callbackManager: CallbackManager.fromHandlers({
+          handleLLMNewToken: async (token) => {
+            await writer.ready
+            await writer.write(encoder.encode(token))
+          },
+          handleLLMEnd: async () => {
+            await writer.ready
+            await writer.close()
+          },
+          handleLLMError: async (e) => {
+            await writer.ready
+            await writer.abort(e)
+          },
+        }),
+      },
+      {
+        basePath,
+      },
+    )
+    llm.call(messages.map((v) => {
+      if (v.role === 'system')
+        return new SystemChatMessage(v.content)
+      else if (v.role === 'assistant')
+        return new AIChatMessage(v.content)
+      return new HumanChatMessage(v.content)
+    }))
 
-    const completionOptions = generateCompletion(messages)
-    const stream = await getOpenAiCompletionsStream(completionOptions)
-
-    return new Response(stream, {
+    return new Response(stream.readable, {
       headers: {
         ...corsHeaders,
         'Content-Type': 'text/event-stream',
       },
     })
-  } catch (err) {
-    return createErrorHandler(err)
-  }
+  },
 })
-
-/**
- * Remove context messages until the entire request fits
- * the max total token count for that model.
- *
- * Accounts for both message and completion token counts.
- */
-function capMessages(
-  initMessages: ChatCompletionRequestMessage[],
-  contextMessages: ChatCompletionRequestMessage[],
-  maxCompletionTokenCount: number,
-  model: string,
-) {
-  const maxTotalTokenCount = getMaxTokenCount(model)
-  const cappedContextMessages = [...contextMessages]
-  let tokenCount = getChatRequestTokenCount([...initMessages, ...cappedContextMessages], model) +
-    maxCompletionTokenCount
-
-  // Remove earlier context messages until we fit
-  while (tokenCount >= maxTotalTokenCount) {
-    cappedContextMessages.shift()
-    tokenCount = getChatRequestTokenCount([...initMessages, ...cappedContextMessages], model) +
-      maxCompletionTokenCount
-  }
-
-  return [...initMessages, ...cappedContextMessages]
-}

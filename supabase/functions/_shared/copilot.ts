@@ -1,14 +1,16 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { Configuration, OpenAIApi } from 'openai'
-import { CopilotModel } from '../_shared/models/Copilot.ts'
-import { getOpenAIKey, getUser } from './auth.ts'
+import type { CopilotModel } from 'models'
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
+import { getUser } from './auth.ts'
 import { ApplicationError } from './errors.ts'
 import { validateCopilot } from './validate.ts'
-import { inspect } from 'https://deno.land/std@0.177.0/node/util.ts'
+import { basePath } from './api.ts'
+
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
 
 export async function createOrUpdateCopilot(
   supabase: SupabaseClient,
-  tags: string[],
+  blockIds: string[],
   copilot: CopilotModel,
   uid: string,
 ) {
@@ -18,60 +20,55 @@ export async function createOrUpdateCopilot(
   let blocks: {
     id: string
     content: string
+    category: string
   }[] = []
 
-  if (tags.length) {
+  if (blockIds.length) {
     const { data: _blocks, error: blocksError } = await supabase
       .from('blocks')
-      .select('id,content')
+      .select('id,content,category')
+      .in('id', blockIds)
       .eq('uid', uid)
-      .contains('tags', JSON.stringify(tags))
-    if (blocksError) {
+    if (blocksError)
       throw new ApplicationError(`${blocksError.message}: ${blocksError.details}`)
-    }
+
     if (_blocks.length) {
       blocks = _blocks
       for (const block of blocks) {
+        if (block.category !== 'text')
+          continue
+
         const input = block.content.replace(/\n/g, ' ')
 
         try {
-          const configuration = new Configuration({
-            apiKey: getOpenAIKey(),
-          })
-          const openai = new OpenAIApi(configuration)
-
-          const embeddingResponse = await openai.createEmbedding({
-            model: 'text-embedding-ada-002',
-            input,
-          })
-
-          if (embeddingResponse.status !== 200) {
-            throw new Error(inspect(embeddingResponse.data, false, 2))
-          }
-
-          const [responseData] = embeddingResponse.data.data
+          const embeddings = new OpenAIEmbeddings(
+            {
+              timeout: 3000,
+              openAIApiKey: OPENAI_API_KEY,
+            },
+            {
+              basePath,
+            },
+          )
+          const embedding = await embeddings.embedQuery(input)
 
           const { error } = await supabase
             .from('blocks')
             .update({
-              embedding: responseData.embedding,
+              embedding,
             })
             .eq('id', block.id)
 
-          if (error) {
+          if (error)
             throw error
-          }
-        } catch (err) {
-          console.error(
-            `Failed to generate embeddings for '${tags}' starting with '${
-              input.slice(
-                0,
-                40,
-              )
-            }...'`,
-          )
-
-          throw err
+        }
+        catch (err) {
+          throw new ApplicationError(`Failed to generate embeddings for '${blockIds}' starting with '${
+            input.slice(
+              0,
+              40,
+            )
+          }...'`)
         }
       }
     }
@@ -86,21 +83,25 @@ export async function createOrUpdateCopilot(
     .select()
     .limit(1)
     .single()
-  if (copilotsError) {
+  if (copilotsError)
     throw new ApplicationError(copilotsError.message)
-  }
 
-  const copilotsBlocks = blocks.map((block) => ({
+  const { error: deleteCopilotsBlocksError } = await supabase
+    .from('copilots_blocks')
+    .delete()
+    .eq('copilotId', data.id)
+  if (deleteCopilotsBlocksError)
+    throw new ApplicationError(deleteCopilotsBlocksError.message)
+  const copilotsBlocks = blocks.map(block => ({
     copilotId: data.id,
     blockId: block.id,
     uid: _uid,
-  })).filter((v) => !!v.copilotId && !!v.blockId && !!v.uid)
+  })).filter(v => !!v.copilotId && !!v.blockId && !!v.uid)
   const { error: copilotsBlocksError } = await supabase
     .from('copilots_blocks')
     .upsert(copilotsBlocks)
-  if (copilotsBlocksError) {
+  if (copilotsBlocksError)
     throw new ApplicationError(copilotsBlocksError.message)
-  }
 
   return data
 }

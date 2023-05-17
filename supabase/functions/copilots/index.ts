@@ -1,46 +1,30 @@
-import { serve } from 'std/server'
-import { corsHeaders } from '../_shared/cors.ts'
-import { createErrorHandler, UserError } from '../_shared/errors.ts'
-import { CopilotModel } from '../_shared/models/Copilot.ts'
-import { createOrUpdateCopilot } from '../_shared/copilot.ts'
+import type { CopilotModel } from 'models'
+import { serve } from '../_shared/serve.ts'
+import { UserError } from '../_shared/errors.ts'
 import { createSupabaseClient, getUser } from '../_shared/auth.ts'
+import { createOrUpdateCopilot } from '../_shared/copilot.ts'
 
-serve(async (req) => {
-  try {
-    if (req.method === 'OPTIONS') {
-      return new Response('ok', { headers: corsHeaders })
-    }
+async function handler(req: Request) {
+  const Authorization = req.headers.get('Authorization')
+  if (!Authorization)
+    throw new UserError('Missing Authorization, Please log in to use.')
+  const body = await req.json() as CopilotModel & { blockIds: string[] }
+  if (!body)
+    throw new UserError('Missing request data')
 
-    const requestData = (await req.json()) as CopilotModel & { tags: string[] }
-    if (!requestData) {
-      throw new UserError('Missing request data')
-    }
-    const Authorization = req.headers.get('Authorization')
-    if (!Authorization) {
-      throw new UserError('Missing Authorization, Please log in to use.')
-    }
+  const { blockIds, ...copilot } = body
 
-    const { tags, ...copilot } = requestData
+  const supabase = createSupabaseClient(Authorization)
+  const user = await getUser(supabase)
+  if (!user)
+    throw new UserError('Invalid Authorization')
 
-    const supabase = createSupabaseClient(Authorization)
-    const user = await getUser(supabase)
-    if (!user) {
-      throw new UserError('Invalid Authorization')
-    }
-    let data
-    switch (req.method) {
-      case 'POST':
-        data = await createOrUpdateCopilot(supabase, tags, copilot, user.id)
-        break
-      case 'PUT':
-        data = await createOrUpdateCopilot(supabase, tags, copilot, user.id)
-        break
-    }
-    return new Response(JSON.stringify({ data }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 200,
-    })
-  } catch (err) {
-    return createErrorHandler(err)
-  }
+  const data = await createOrUpdateCopilot(supabase, blockIds, copilot, user.id)
+
+  return data
+}
+
+serve({
+  POST: handler,
+  PUT: handler,
 })
