@@ -1,5 +1,48 @@
 
 
+# [0.5.0](https://github.com/chenyueban/firefly/compare/v0.4.0...v0.5.0) (2023-05-17)
+
+
+### Bug Fixes
+
+* Add abort functionality to copilot in RightBar.vue component ([753c1d3](https://github.com/chenyueban/firefly/commit/753c1d37f46b42e7e2d07b677c4e39a4a1a4214a))
+* Add isMobileScreen hook to IndexHeader and modify button visibility based on it, and conditionally inject Vercel analytics only in production environment ([2b0623c](https://github.com/chenyueban/firefly/commit/2b0623c00198efb59357e89e933a51712cb844cf))
+* Fix lodash import in CreateOrUpdateCopilotContent.vue component ([d2ba17a](https://github.com/chenyueban/firefly/commit/d2ba17aa3cb65d17557f70793edbb1b2ba54330f))
+* Fix openai stream not working ([42e0323](https://github.com/chenyueban/firefly/commit/42e03237131deabc4a7a481ef0cc3d8e128760fd))
+* handle_match_blocks select by copilotId ([89f16b9](https://github.com/chenyueban/firefly/commit/89f16b9c0d0ac69ed578f267f6885a2dbf05796b))
+* hide left bar button on login and signup pages for mobile screens ([667a640](https://github.com/chenyueban/firefly/commit/667a6401566e57ce5de4ede77a3bf138c1cdd0d4))
+* macOS mouse position is logical and Windows mouse position is physical ([2f4c460](https://github.com/chenyueban/firefly/commit/2f4c460af2e75104d05edeb539269a70fa51e196))
+* Optimize the height issue of assistant editor. ([169647a](https://github.com/chenyueban/firefly/commit/169647ab0c7929f0d79e51c1ef924fa8b40c1d68))
+* Refactor getMetaDataByLink to filter out null or undefined values and return a valid result, and update url-metadata to version 3.0.1 ([775daee](https://github.com/chenyueban/firefly/commit/775daee4405111c2e523ba1880906703fa6e1282))
+* Refactor handle_match_blocks function to return distinct blocks based on their id and improve readability by ordering the query results by block id and embedding similarity ([bf9179a](https://github.com/chenyueban/firefly/commit/bf9179aa2fa7ef02c03c0c2cf6bf5f010815caeb))
+* Refactor ListItem.vue to conditionally render NTooltip and NuxtLink based on props.data.category ([2b55fc8](https://github.com/chenyueban/firefly/commit/2b55fc87f2e82c32ec8fe1abdf0686a4cc47808f))
+* Refactor RSS link validation to use fetch and handle different content types ([5d9da13](https://github.com/chenyueban/firefly/commit/5d9da1333f27edcf51921bd62b55ce7d83220006))
+
+
+### Features
+
+* Add function to retrieve metadata by link in shared API and update BlockMetadata interface in models ([af8db98](https://github.com/chenyueban/firefly/commit/af8db98ec9fcb5def5328f8a3992e2ada56ad20c))
+* Add localization support for ExecutorSettings.vue component prompt text ([d5395a0](https://github.com/chenyueban/firefly/commit/d5395a0c8fda27563544cd9eab178676fbba2e66))
+* Add multiple image upload functionality with a limit of 7 images and accepts only image files in Assistant.vue component ([f28b1a2](https://github.com/chenyueban/firefly/commit/f28b1a277ce8cf989bbc2ff069a3b3c928d3f8fd))
+* Add new copilot type options with radio buttons for chatbot and executor in CreateOrUpdateCopilotContent.vue ([9313973](https://github.com/chenyueban/firefly/commit/9313973a16be4998d5b98a018360cf2ee902c660))
+* Add Supabase vector store for OpenAI embeddings and update chat.post.ts to use it in similarity search instead of handle_match_blocks in Git commit message ([ee3d9ec](https://github.com/chenyueban/firefly/commit/ee3d9ec35cb6a3204fe9831791ffdd349918e83e))
+* add tickets pages ([742a2a7](https://github.com/chenyueban/firefly/commit/742a2a7855dff01b916be85670e82e89d04e59f6))
+* Add yield-stream package to package.json and update chat post endpoint to use it for streaming data ([810e640](https://github.com/chenyueban/firefly/commit/810e640f4da610de2de5f4547cfab167b438d44b))
+* Complete basic Copilot Executor capability ([be297d0](https://github.com/chenyueban/firefly/commit/be297d0b3f4e196dec9ab93da49a4019f6456f64))
+* Copilot update/new process added support for block selection ([f0a4485](https://github.com/chenyueban/firefly/commit/f0a448505318a3d0ffee8c4a3af2692fb520d9c8))
+* Delete copilot blocks associated with the copilot when creating or updating in copilot.ts ([5fa751b](https://github.com/chenyueban/firefly/commit/5fa751be9e74284088b4134dee0082ddb202295a))
+* executor 支持爬取 website ([1db6159](https://github.com/chenyueban/firefly/commit/1db61595014a21133cb539e2419d29a8524026f4))
+* Finally refactored using Nuxt. ([e61e7a1](https://github.com/chenyueban/firefly/commit/e61e7a1f151fbf05c8be4dc6a8006a943eea6f85))
+* finish tickets page ([fb2b197](https://github.com/chenyueban/firefly/commit/fb2b1979888b90ee80bf6d1d12b16c04fda1d197))
+* Migration to supabase edge functions ([92f86ea](https://github.com/chenyueban/firefly/commit/92f86ea81efa556218b184ea2b70c9a84bbb1bfc))
+* move create button to titlebar ([c3dd3a1](https://github.com/chenyueban/firefly/commit/c3dd3a1b78748af2bc5cfe40c40cc7965502de10))
+* Refactor image upload method ([2edccf5](https://github.com/chenyueban/firefly/commit/2edccf53588c180366f730e99852876400581556))
+* Refactor ListItem.vue to handle link metadata and display it in the component ([c5bcd87](https://github.com/chenyueban/firefly/commit/c5bcd8771d540bf2c09974c24c54069af11b832e))
+* Refactor Supabase functions using Nuxt Server API. ([bb32dc3](https://github.com/chenyueban/firefly/commit/bb32dc3287b56cc5b43446a7c0bd9dbc0bcace5d))
+* Refactor the executor module to make the process more clear. ([ec3fb3c](https://github.com/chenyueban/firefly/commit/ec3fb3c45eb5e4fd9712bd0b1f95fa7317ac25a9))
+* Remove unused language support to reduce size ([1f047d6](https://github.com/chenyueban/firefly/commit/1f047d6b8009d28ccd973605768803c596634315))
+* Support inputting website URL ([3831734](https://github.com/chenyueban/firefly/commit/38317347f3f020258eed16ed85f070d12d9123a5))
+
 # [0.4.0](https://github.com/chenyueban/firefly/compare/v0.3.0...v0.4.0) (2023-04-19)
 
 
