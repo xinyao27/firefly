@@ -10,7 +10,7 @@ const block = computed(() => (typeof props.node.attrs.block === 'string' ? JSON.
 
 async function getWebsiteMetadata(link: string) {
   try {
-    const data = await edgeFunctions(`metadata?url=${link}`, {
+    const data = await edgeFunctions(`metadata?url=${encodeURIComponent(link)}`, {
       method: 'GET',
     })
 
@@ -35,14 +35,14 @@ const metadata = computedAsync(async () => {
 
 <template>
   <NodeViewWrapper
-    class="border rounded-sm cursor-pointer border-neutral-500 my-1"
+    class="my-1 cursor-pointer border border-neutral-500 rounded-sm"
   >
     <a
-      class="grid transition gap-2 grid-cols-12 overflow-hidden hover:bg-neutral-500 no-underline"
+      class="grid grid-cols-12 gap-2 overflow-hidden no-underline transition hover:bg-neutral-500"
       :href="block?.link"
       target="_blank"
     >
-      <div class="flex flex-col p-4 gap-2 col-span-7 justify-between">
+      <div class="col-span-7 flex flex-col justify-between gap-2 p-4">
         <div class="flex flex-col gap-2">
           <NSkeleton
             v-if="!metadata"
@@ -65,7 +65,7 @@ const metadata = computedAsync(async () => {
           />
           <div
             v-else
-            class="text-neutral text-xs line-clamp-2"
+            class="line-clamp-2 text-xs text-neutral"
           >
             {{ metadata?.description || metadata?.['og:description'] }}
           </div>
@@ -78,14 +78,14 @@ const metadata = computedAsync(async () => {
         />
         <div
           v-else
-          class="flex text-xs items-center"
+          class="flex items-center text-xs"
         >
           <div class="truncate">
             {{ block.link }}
           </div>
         </div>
       </div>
-      <div class="h-120px col-span-5">
+      <div class="col-span-5 h-120px">
         <NSkeleton
           v-if="!metadata"
           h-full

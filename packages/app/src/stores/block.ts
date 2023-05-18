@@ -1,5 +1,5 @@
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
-import type { BlockId, BlockModel } from '@firefly/common'
+import type { BlockId, BlockMetadata, BlockModel } from '@firefly/common'
 import { edgeFunctions, getUser } from '@firefly/common'
 import { supabase } from '~/plugins/api'
 import { getDB } from '~/plugins/db'
@@ -123,14 +123,49 @@ export const useBlockStore = defineStore('block', {
         message.destroy()
       }
     },
-    async save(data: BlockModel) {
+    async save(block: BlockModel) {
       const message = window.$message?.loading?.($t('block.saveLoading'), { duration: 0 })
       try {
-        const response = await edgeFunctions<BlockModel>('blocks', {
-          body: data,
-        })
+        const uid = (await getUser())?.id
 
-        await (await getDB()).add('blocks', response)
+        if (block.category === 'link' && block.link) {
+          const metadata = await edgeFunctions<BlockMetadata>(`metadata?url=${encodeURIComponent(block.link)}`, { method: 'GET' })
+          if (metadata)
+            block.metadata = metadata
+        }
+
+        const { data, error } = await supabase
+          .from('blocks')
+          .insert({
+            ...block,
+            uid,
+          })
+          .select()
+          .limit(1)
+          .single<BlockModel>()
+        if (error)
+          throw error
+
+        if (block.tags?.length) {
+          const { data } = await supabase
+            .from('tags')
+            .select('name')
+            .in('name', block.tags)
+
+          const insertData = block.tags
+            .filter(tag => !(data?.some(v => v.name === tag)))
+            .map(tag => ({
+              name: tag,
+              uid,
+            }))
+          if (insertData.length) {
+            await supabase
+              .from('tags')
+              .insert(insertData)
+          }
+        }
+
+        await (await getDB()).add('blocks', data)
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
@@ -144,15 +179,43 @@ export const useBlockStore = defineStore('block', {
         message?.destroy?.()
       }
     },
-    async update(data: BlockModel) {
+    async update(block: BlockModel) {
       const message = window.$message?.loading?.($t('block.updateLoading'), { duration: 0 })
       try {
-        const response = await edgeFunctions<BlockModel>('blocks', {
-          method: 'PUT',
-          body: data,
-        })
+        if (block.category === 'link' && block.link && !block.metadata) {
+          const metadata = await edgeFunctions<BlockMetadata>(`metadata?url=${encodeURIComponent(block.link)}`, { method: 'GET' })
+          if (metadata)
+            block.metadata = metadata
+        }
 
-        await (await getDB()).put('blocks', response)
+        const { error } = await supabase
+          .from('blocks')
+          .update(block)
+          .eq('id', block.id)
+        if (error)
+          throw error
+
+        if (block.tags?.length) {
+          const uid = (await getUser())?.id
+          const { data } = await supabase
+            .from('tags')
+            .select('name')
+            .in('name', block.tags)
+
+          const insertData = block.tags
+            .filter(tag => !(data?.some(v => v.name === tag)))
+            .map(tag => ({
+              name: tag,
+              uid,
+            }))
+          if (insertData.length) {
+            await supabase
+              .from('tags')
+              .insert(insertData)
+          }
+        }
+
+        await (await getDB()).put('blocks', block)
         await this.refresh()
         const tagStore = useTagStore()
         await tagStore.sync()
