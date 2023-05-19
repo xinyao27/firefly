@@ -252,7 +252,7 @@ async function handleExecutor(_range?: [number, number]) {
     }
 
     if (fetchMessages.value.length) {
-      const response = await edgeFunctions('executor_dev', {
+      const response = await edgeFunctions('executor', {
         original: true,
         body: {
           copilotId: params.value,
