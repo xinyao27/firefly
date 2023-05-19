@@ -15,6 +15,7 @@ const userStore = useUserStore()
 const inputRef = ref<InputInst | null>(null)
 const currentInput = ref('')
 const loading = ref(false)
+const lastStatus = ref<'chat' | 'executor' | null>(null)
 const currentAssistantMessage = ref('')
 const currentError = ref<string | null>(null)
 const controller = ref<AbortController | null>(null)
@@ -59,6 +60,7 @@ async function chat() {
       return
     }
 
+    lastStatus.value = 'chat'
     loading.value = true
     currentError.value = null
     controller.value = new AbortController()
@@ -148,7 +150,10 @@ function handleRetry() {
     if (lastMessage.role === 'assistant')
       messages.value = messages.value.slice(0, -1)
 
-    chat()
+    if (lastStatus.value === 'chat')
+      chat()
+    else if (lastStatus.value === 'executor')
+      handleExecutor()
   }
 }
 async function handleCopilotInteractionsIncrement() {
@@ -160,13 +165,19 @@ async function handleCopilotInteractionsIncrement() {
 }
 
 const executorLoading = ref(false)
-async function handleExecutor(range: [number, number]) {
-  executorLoading.value = true
+const lastRange = ref<[number, number] | null>(null)
+async function handleExecutor(_range?: [number, number]) {
+  const range = _range || lastRange.value
+  if (_range)
+    lastRange.value = _range
+  try {
+    lastStatus.value = 'executor'
+    executorLoading.value = true
 
-  // 1. Get blocks
-  const { data: blocks, error: blocksError } = await supabase
-    .from('blocks')
-    .select(`
+    // 1. Get blocks
+    const { data: blocks, error: blocksError } = await supabase
+      .from('blocks')
+      .select(`
         id,
         content,
         category,
@@ -176,86 +187,93 @@ async function handleExecutor(range: [number, number]) {
           name
         )
       `)
-    .eq('copilots.id', copilotHubStore.copilot?.id)
-    .limit(20) // 限制最大数 避免数据量过大消耗太多 token
-  if (blocksError)
-    throw blocksError
-  messages.value.push({
-    role: 'blocks',
-    metadata: blocks,
-  })
+      .eq('copilots.id', copilotHubStore.copilot?.id)
+      .limit(20) // 限制最大数 避免数据量过大消耗太多 token
+    if (blocksError)
+      throw blocksError
+    messages.value.push({
+      role: 'blocks',
+      metadata: blocks,
+    })
 
-  // 2. fetch data
-  if (blocks.length) {
-    for (const block of blocks!) {
-      if (block.category === 'text') {
-        messages.value.push({
-          role: 'fetch',
-          content: block.content,
-          metadata: {
-            link: block.id,
-          },
-        })
-        fetchMessages.value.push({
-          role: 'fetch',
-          content: block.content,
-          metadata: {
-            link: block.id,
-          },
-        })
-      }
-      else if (block.category === 'link') {
-        const data = await edgeFunctions<{
-          title?: string
-          link?: string
-          createdAt?: string
-          author?: string
-          content?: string
-        }[]>(`fetch?url=${encodeURIComponent(block.link)}&range=${range.join(',')}`, { method: 'GET' })
-        if (data?.length) {
-          data.forEach((v) => {
-            messages.value.push({
-              role: 'fetch',
-              content: v.content,
-              metadata: {
-                title: v.title,
-                link: v.link,
-                createdAt: v.createdAt,
-                author: v.author,
-              },
-            })
-            fetchMessages.value.push({
-              role: 'fetch',
-              content: v.content,
-              metadata: {
-                title: v.title,
-                link: v.link,
-                createdAt: v.createdAt,
-                author: v.author,
-              },
-            })
+    // 2. fetch data
+    if (blocks.length) {
+      for (const block of blocks!) {
+        if (block.category === 'text') {
+          messages.value.push({
+            role: 'fetch',
+            content: block.content,
+            metadata: {
+              link: block.id,
+            },
           })
+          fetchMessages.value.push({
+            role: 'fetch',
+            content: block.content,
+            metadata: {
+              link: block.id,
+            },
+          })
+        }
+        else if (block.category === 'link') {
+          const data = await edgeFunctions<{
+            title?: string
+            link?: string
+            createdAt?: string
+            author?: string
+            content?: string
+          }[]>(`fetch?url=${encodeURIComponent(block.link)}&range=${range?.join(',')}`, { method: 'GET' })
+          if (data?.length) {
+            data.forEach((v) => {
+              messages.value.push({
+                role: 'fetch',
+                content: v.content,
+                metadata: {
+                  title: v.title,
+                  link: v.link,
+                  createdAt: v.createdAt,
+                  author: v.author,
+                },
+              })
+              fetchMessages.value.push({
+                role: 'fetch',
+                content: v.content,
+                metadata: {
+                  title: v.title,
+                  link: v.link,
+                  createdAt: v.createdAt,
+                  author: v.author,
+                },
+              })
+            })
+          }
         }
       }
     }
-  }
 
-  if (fetchMessages.value.length) {
-    const data = await edgeFunctions('executor', {
-      body: {
-        copilotId: params.value,
-        range,
-        messages: fetchMessages.value,
-      },
-    })
-    if (data) {
-      messages.value.push({
-        role: 'assistant',
-        content: data.data,
+    if (fetchMessages.value.length) {
+      const data = await edgeFunctions('executor', {
+        body: {
+          copilotId: params.value,
+          range,
+          messages: fetchMessages.value,
+        },
       })
+      if (data) {
+        messages.value.push({
+          role: 'assistant',
+          content: data.data,
+        })
+      }
     }
   }
-  executorLoading.value = false
+  catch (e) {
+    console.error(e)
+    currentError.value = e as string
+  }
+  finally {
+    executorLoading.value = false
+  }
 }
 function renderExecutorSettings() {
   return h(ExecutorSettings, {

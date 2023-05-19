@@ -1,6 +1,6 @@
 import { Redis } from '@upstash/redis'
 import { OpenAI } from 'langchain/llms/openai'
-import { LLMChain, MapReduceDocumentsChain, StuffDocumentsChain } from 'langchain/chains'
+import { loadSummarizationChain } from 'langchain/chains'
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
 import { serve } from '../_shared/serve.ts'
@@ -44,7 +44,7 @@ const redis = new Redis({
   token: UPSTASH_REDIS_REST_TOKEN,
 })
 
-const ALL_TOKENS = parseInt(MAX_TOKENS, 10) * 7
+const ALL_TOKENS = parseInt(MAX_TOKENS, 10) * 10
 
 serve({
   POST: async (req) => {
@@ -63,17 +63,10 @@ serve({
 
     const { copilotId, range, messages } = body
     const CACHED_KEY = `executor_${copilotId}_${range[0]}_${range[1]}`
-    interface Content {
-      link?: string
-      title?: string
-      content: string
-    }
     const result: {
       data: string
-      contents: Content[]
     } = {
       data: '',
-      contents: [],
     }
 
     const data = await redis.get<string>(CACHED_KEY)
@@ -100,49 +93,41 @@ serve({
       tokenCount += encoded.length
       if (tokenCount > ALL_TOKENS)
         break
-      texts.push(message.content)
+      texts.push(JSON.stringify({
+        content: message.content,
+        ...message.metadata,
+      }))
     }
 
     const docs = await textSplitter.createDocuments(texts)
     const prompt = new PromptTemplate({
       inputVariables: ['text'],
       template: `
-      Pretend you are GPT4.
-      ${copilot.prompt}
-      Output as markdown.
-      The data you will receive will be in JSON format, which may contain three fields: link, title, and content.
-      The content field is the information you need to summarize.
-      If the link and title fields have values, please indicate where they come from in the results.
-      This is an example:
-      1. [title](link) content
-      2. [link](link) content
+Pretend you are GPT4.
+${copilot.prompt}
+Output as markdown.
+The data you will receive will be in JSON format, which may contain three fields: link, title, and content.
+The content field is the information you need to summarize.
+If the link and title fields have values, please indicate where they come from in the results.
+This is an example:
+1. [title](link) content
+2. [link](link) content
 
-      The Data:
+The Data:
 
-      {text}
+"{text}"
 
-      YOUR RESPONSE:
-    `,
+YOUR RESPONSE:
+`,
     })
-    const llmChain = new LLMChain({ prompt, llm: model })
-    const combineLLMChain = new LLMChain({ prompt, llm: model })
-    const combineDocumentChain = new StuffDocumentsChain({
-      llmChain: combineLLMChain,
-      documentVariableName: 'text',
-    })
-    const chain = new MapReduceDocumentsChain({
-      llmChain,
-      combineDocumentChain,
-      documentVariableName: 'text',
-      maxTokens: parseInt(MAX_TOKENS, 10),
-    })
+    const chain = loadSummarizationChain(model, { type: 'map_reduce', combinePrompt: prompt, combineMapPrompt: prompt })
 
     const res = await chain.call({
       input_documents: docs,
     })
+    result.data = res.text
 
     await redis.set(CACHED_KEY, res.text)
-    result.data = res.text
 
     return result
   },

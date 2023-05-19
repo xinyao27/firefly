@@ -40,7 +40,7 @@ serve({
         content?: string
       }[] = []
       for (const item of filteredFeed) {
-        const text = getText(item.content!, url, true)
+        const text = item.contentSnippet ?? ''
         const content = (await textSplitter.splitText(text)).slice(0, 1).join('\n')
         result.push({
           title: item.title,

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{
@@ -22,8 +23,16 @@ const props = defineProps<{
         :name="props.message.metadata.link"
       >
         <template #header>
-          <div text-xs text-neutral>
-            {{ props.message.metadata.link }}
+          <div flex="~ gap-2">
+            <span text-xs>
+              {{ props.message.metadata.title }}
+            </span>
+            <span text-xs text-neutral>
+              {{ props.message.metadata.link }}
+            </span>
+            <span text-xs text-neutral>
+              {{ dayjs(props.message.metadata.createdAt).format('YYYY-MM-DD HH:mm:ss') }}
+            </span>
           </div>
         </template>
         <div class="border border-(slate opacity-15) rounded p-2">
