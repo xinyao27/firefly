@@ -140,12 +140,12 @@ watch(() => props.currentError, (currentError) => {
               @search="props.onSearchReference"
               @keydown.enter="handleEnter"
             />
-            <NTooltip v-if="!props.loading">
+            <NTooltip>
               <template #trigger>
                 <NButton
                   type="primary"
                   quaternary
-                  :disabled="currentInput.length === 0"
+                  :disabled="currentInput.length === 0 || props.loading"
                   @click="props.onChat"
                 >
                   <template #icon>
@@ -158,25 +158,33 @@ watch(() => props.currentError, (currentError) => {
                 <KBD :shortcut="['ctrl', 'enter']" />
               </div>
             </NTooltip>
-            <NTooltip v-else>
-              <template #trigger>
-                <NButton
-                  type="primary"
-                  quaternary
-                  @click="props.onAbort"
-                >
-                  <template #icon>
-                    <i i-ri-stop-line />
-                  </template>
-                </NButton>
-              </template>
-              Stop !
-            </NTooltip>
           </NInputGroup>
         </template>
-        <div class="flex items-center gap-1 text-xs text-neutral">
-          <Spin />
-          {{ $t('common.loading') }}
+        <div
+          flex="~ items-center gap-4"
+          p-1
+        >
+          <div
+            flex="~ items-center gap-1"
+            text="xs neutral"
+          >
+            <Spin />
+            {{ $t('common.loading') }}
+          </div>
+          <NTooltip>
+            <template #trigger>
+              <NButton
+                size="small"
+                tertiary
+                @click="props.onAbort"
+              >
+                <template #icon>
+                  <i i-ri-stop-line />
+                </template>
+                Stop !
+              </NButton>
+            </template>
+          </NTooltip>
         </div>
       </NTooltip>
     </div>

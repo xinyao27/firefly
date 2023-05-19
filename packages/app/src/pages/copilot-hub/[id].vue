@@ -101,19 +101,14 @@ async function chat() {
     loading.value = false
   }
   catch (e) {
-    console.error(e)
-    loading.value = false
     currentError.value = e as string
-    controller.value = null
-    inputRef.value?.focus()
-    return
   }
   finally {
     handleCopilotInteractionsIncrement()
+    archiveCurrentMessage()
+    // refresh user profiles
+    userStore.getUserProfiles()
   }
-  archiveCurrentMessage()
-  // refresh user profiles
-  userStore.getUserProfiles()
 }
 function handleAbort() {
   controller.value?.abort()
@@ -164,7 +159,6 @@ async function handleCopilotInteractionsIncrement() {
     console.error('Failed to increment copilot interactions', error)
 }
 
-const executorLoading = ref(false)
 const lastRange = ref<[number, number] | null>(null)
 async function handleExecutor(_range?: [number, number]) {
   const range = _range || lastRange.value
@@ -172,7 +166,10 @@ async function handleExecutor(_range?: [number, number]) {
     lastRange.value = _range
   try {
     lastStatus.value = 'executor'
-    executorLoading.value = true
+    fetchMessages.value = []
+    loading.value = true
+    currentError.value = null
+    controller.value = new AbortController()
 
     // 1. Get blocks
     const { data: blocks, error: blocksError } = await supabase
@@ -222,7 +219,10 @@ async function handleExecutor(_range?: [number, number]) {
             createdAt?: string
             author?: string
             content?: string
-          }[]>(`fetch?url=${encodeURIComponent(block.link)}&range=${range?.join(',')}`, { method: 'GET' })
+          }[]>(`fetch?url=${encodeURIComponent(block.link)}&range=${range?.join(',')}`, {
+            method: 'GET',
+            signal: controller.value.signal,
+          })
           if (data?.length) {
             data.forEach((v) => {
               messages.value.push({
@@ -252,27 +252,45 @@ async function handleExecutor(_range?: [number, number]) {
     }
 
     if (fetchMessages.value.length) {
-      const data = await edgeFunctions('executor', {
+      const response = await edgeFunctions('executor_dev', {
+        original: true,
         body: {
           copilotId: params.value,
           range,
           messages: fetchMessages.value,
         },
+        signal: controller.value.signal,
       })
-      if (data) {
-        messages.value.push({
-          role: 'assistant',
-          content: data.data,
-        })
+
+      const data = response.body
+      if (!data)
+        throw new Error('No data')
+
+      const reader = data.getReader()
+      const decoder = new TextDecoder('utf-8')
+      let done = false
+      while (!done) {
+        const { value, done: doneReading } = await reader.read()
+        done = doneReading
+        const char = decoder.decode(value)
+        if (char === '\n' && currentAssistantMessage.value.endsWith('\n'))
+          continue
+        if (char.startsWith('{"error":')) {
+          const { error } = JSON.parse(char) as { error: string }
+          throw new Error(error)
+        }
+
+        if (char)
+          currentAssistantMessage.value += char
       }
     }
   }
   catch (e) {
-    console.error(e)
     currentError.value = e as string
   }
   finally {
-    executorLoading.value = false
+    handleCopilotInteractionsIncrement()
+    archiveCurrentMessage()
   }
 }
 function renderExecutorSettings() {
@@ -280,7 +298,7 @@ function renderExecutorSettings() {
     description: copilotHubStore.copilot?.description,
     prompt: copilotHubStore.copilot?.prompt,
     onSubmit: handleExecutor,
-    loading: executorLoading.value,
+    loading: loading.value,
   })
 }
 </script>

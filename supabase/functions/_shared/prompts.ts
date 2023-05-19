@@ -12,3 +12,18 @@ Human: ${human}
 AI: ${ai}
 `
 }
+
+export function getExecutorPrompt(basePrompt: string) {
+  return `
+${basePrompt}
+Please make sure all sentences are concise and returned in markdown format, (There may be typos in the text, please correct them if you find any.) Good luck!
+
+The Data:
+
+"{text}"
+
+This data is in JSON format. Please analyze the provided JSON data and reflect the metadata in the returned response.
+
+YOUR RESPONSE:
+`
+}

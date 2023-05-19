@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const now = ref(dayjs().startOf('date'))
-const value = ref<[number, number]>([now.value.subtract(7, 'day').valueOf(), now.value.valueOf()])
+const value = ref<[number, number]>([now.value.subtract(1, 'day').valueOf(), now.value.valueOf()])
 const rangeShortcuts = ref({
   [t('common.yesterday')]: () => [now.value.subtract(1, 'day').valueOf(), now.value.valueOf()] as const,
   [t('common.past7days')]: () => [now.value.subtract(7, 'day').valueOf(), now.value.valueOf()] as const,
