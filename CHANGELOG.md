@@ -1,5 +1,12 @@
 
 
+## [0.5.2](https://github.com/chenyueban/firefly/compare/v0.5.1...v0.5.2) (2023-05-19)
+
+
+### Bug Fixes
+
+* Fix edgeFunction call on copilot-hub page ([8066e88](https://github.com/chenyueban/firefly/commit/8066e88686cdc3d3b76844d030a99399faeb51e8))
+
 ## [0.5.1](https://github.com/chenyueban/firefly/compare/v0.5.0...v0.5.1) (2023-05-17)
 
 # [0.5.0](https://github.com/chenyueban/firefly/compare/v0.4.0...v0.5.0) (2023-05-17)
