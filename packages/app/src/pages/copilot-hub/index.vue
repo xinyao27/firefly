@@ -41,7 +41,6 @@ function handleCreated() {
         <NButton
           class="mb-4"
           tertiary
-          :disabled="copilotHubStore.myCopilots.length >= 3"
           @click="createCopilotShow = true"
         >
           <template #icon>
