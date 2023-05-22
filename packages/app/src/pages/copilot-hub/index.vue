@@ -41,6 +41,7 @@ function handleCreated() {
         <NButton
           class="mb-4"
           tertiary
+          :disabled="userStore.profiles.fullName === 'Firefly' ? false : copilotHubStore.myCopilots.length >= 3"
           @click="createCopilotShow = true"
         >
           <template #icon>

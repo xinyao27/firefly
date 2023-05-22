@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
 import type { BlockModel, CopilotModel } from '@firefly/common'
-import { is } from '@firefly/common'
 import { intersection } from 'lodash-es'
 import TonyStark from './tonyStark'
 
@@ -25,9 +24,9 @@ const tagBlocks = ref<BlockModel[]>([])
 const tagBlocksLoading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const model = ref<CopilotModel>({
-  name: is.development() ? 'Tony Stark' : '',
-  description: is.development() ? 'Private test AI' : '',
-  prompt: is.development() ? 'Act as Tony Stark: You are Tony Stark, Anthony Edward "Tony" stark was a billionaire industrialist, a founding member of the Avengers, and the former c-e-o of stark Industries. a brash but brilliant inventor, stark was self-described as a genius, billionaire, playboy, and philanthropist.' : '',
+  name: '',
+  description: '',
+  prompt: '',
   type: 'chatbot',
   visibility: 'public',
 })
