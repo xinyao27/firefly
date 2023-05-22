@@ -1,9 +1,9 @@
 import { Redis } from '@upstash/redis'
 import { OpenAI } from 'langchain/llms/openai'
 import { loadSummarizationChain } from 'langchain/chains'
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import { PromptTemplate } from 'langchain/prompts'
 import { CallbackManager } from 'langchain/callbacks'
+import type { Document } from 'langchain/document'
 import { serve } from '../_shared/serve.ts'
 import { modelName, tokenizer } from '../_shared/tokenizer.ts'
 import { basePath } from '../_shared/api.ts'
@@ -23,25 +23,25 @@ interface Body {
 }
 
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
-const UPSTASH_REDIS_REST_URL = Deno.env.get('UPSTASH_REDIS_REST_URL')
-const UPSTASH_REDIS_REST_TOKEN = Deno.env.get('UPSTASH_REDIS_REST_TOKEN')
+const UPSTASH_REDIS_REST_URL = Deno.env.get('UPSTASH_REDIS_REST_URL')!
+const UPSTASH_REDIS_REST_TOKEN = Deno.env.get('UPSTASH_REDIS_REST_TOKEN')!
 const MAX_TOKENS = parseInt(Deno.env.get('MAX_TOKENS') || '1000')
-
-const encoder = new TextEncoder()
-
-const textSplitter = new RecursiveCharacterTextSplitter({
-  chunkSize: 1000,
-})
 
 const redis = new Redis({
   url: UPSTASH_REDIS_REST_URL,
   token: UPSTASH_REDIS_REST_TOKEN,
 })
 
+const encoder = new TextEncoder()
+
 serve({
   POST: async (req) => {
     if (!OPENAI_API_KEY)
       throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
+    if (!UPSTASH_REDIS_REST_URL)
+      throw new ApplicationError('No Upstash Redis REST URL found. Please set the UPSTASH_REDIS_REST_URL environment variable.')
+    if (!UPSTASH_REDIS_REST_TOKEN)
+      throw new ApplicationError('No Upstash Redis REST token found. Please set the UPSTASH_REDIS_REST_TOKEN environment variable.')
     const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
@@ -64,7 +64,7 @@ serve({
       // deno-lint-ignore no-inner-declarations
       async function write() {
         await writer.ready
-        for (const token of data)
+        for (const token of data!)
           await writer.write(encoder.encode(token))
         await writer.close()
       }
@@ -88,25 +88,19 @@ serve({
       throw new UserError(copilotError.message)
 
     let tokenCount = 0
-    const texts: string[] = []
+    const docs: Document[] = []
     for (const message of messages) {
-      const content = JSON.stringify({
-        content: message.content,
-        metadata: message.metadata,
-      })
-      const encoded = tokenizer.encode(content)
+      const encoded = tokenizer.encode(message.content)
 
       tokenCount += encoded.length
-      if (tokenCount > MAX_TOKENS)
+      if (tokenCount > MAX_TOKENS * 7)
         break
-      texts.push(content)
+      docs.push({
+        pageContent: message.content,
+        metadata: message.metadata,
+      })
     }
 
-    const docs = await textSplitter.createDocuments(texts)
-    const prompt = new PromptTemplate({
-      inputVariables: ['text'],
-      template: getExecutorPrompt(copilot.prompt),
-    })
     let text = ''
     const model = new OpenAI(
       {
@@ -134,7 +128,11 @@ serve({
       },
       { basePath },
     )
-    const chain = loadSummarizationChain(model, { type: 'map_reduce', combinePrompt: prompt, combineMapPrompt: prompt })
+    const prompt = new PromptTemplate({
+      inputVariables: ['text'],
+      template: getExecutorPrompt(copilot.prompt),
+    })
+    const chain = loadSummarizationChain(model, { type: 'map_reduce', combineMapPrompt: prompt, combinePrompt: prompt })
 
     chain.call({
       input_documents: docs,
