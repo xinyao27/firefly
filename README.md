@@ -2,7 +2,7 @@
 
 An open-source lightweight AI-powered memo hub.
 
-English | [简体中文](./README-zh_CN.md)
+English | [简体中文](./README-zh_CN.md) • Discuss in [Discord](https://discord.gg/qxqNEGyH3k) / [Telegram](https://t.me/+Q3_77Ajx8jE5YTFl)
 
 ![hero](./packages/app/src/assets/images/hero.png)
 

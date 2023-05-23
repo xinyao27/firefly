@@ -42,6 +42,13 @@ watch(() => settings.value.i18n, async (value) => {
         >
           <i i-ri-discord-fill />
         </a>
+        <a
+          btn-slate
+          href="https://t.me/+Q3_77Ajx8jE5YTFl"
+          target="_blank"
+        >
+          <i i-ri-telegram-fill />
+        </a>
       </div>
       <div>
         <NSelect

@@ -2,7 +2,7 @@
 
 Firefly 是一个开源轻量化 AI 驱动的备忘录应用
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 • Discuss in [Discord](https://discord.gg/qxqNEGyH3k) / [Telegram](https://t.me/+Q3_77Ajx8jE5YTFl)
 
 ![hero](./packages/app/src/assets/images/hero.png)
 
@@ -65,10 +65,6 @@ Firefly 是一个开源轻量化 AI 驱动的备忘录应用
     ```
 
 - 如果您每次打开它都遇到权限提示，或者无法执行快捷键划词翻译，请前往 `设置` -> `隐私与安全性` -> `辅助功能` 中删除 Firefly，然后重新添加 Firefly:
-
-## 问题反馈
-
-我们需要你的建议和反馈，以持续完善 Firefly。如果在使用中遇到任何问题，都可以[在这里](https://discord.gg/qxqNEGyH3k)向我们反馈。
 
 ## 感谢
 
