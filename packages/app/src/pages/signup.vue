@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import { appName } from '~~/constants'
+
 definePageMeta({
   layout: 'none',
+})
+
+useHead({
+  title: `Signup | ${appName}`,
 })
 </script>
 

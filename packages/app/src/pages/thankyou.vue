@@ -2,6 +2,7 @@
 import { useRouteQuery } from '@vueuse/router'
 import type { OrderModel } from '@firefly/common'
 import { edgeFunctions, getUser } from '@firefly/common'
+import { appName } from '~~/constants'
 
 definePageMeta({
   layout: 'none',
@@ -12,6 +13,10 @@ const message = useMessage()
 const licenseKey = useRouteQuery<string>('license_key')
 const license = ref('')
 const loading = ref(false)
+
+useHead({
+  title: `Thank you | ${appName}`,
+})
 
 async function handleActivate() {
   try {
@@ -29,7 +34,7 @@ async function handleActivate() {
 
 onMounted(async () => {
   license.value = licenseKey.value
-  await getUser(true)
+  await getUser()
 })
 </script>
 

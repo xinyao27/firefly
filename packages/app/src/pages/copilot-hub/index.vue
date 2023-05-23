@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { appName } from '~~/constants'
+
 definePageMeta({
   layout: 'default',
 })
@@ -7,6 +9,10 @@ const { t } = useI18n()
 const userStore = useUserStore()
 const copilotHubStore = useCopilotHubStore()
 const createCopilotShow = ref(false)
+
+useHead({
+  title: `Copilot Hub | ${appName}`,
+})
 
 onMounted(() => {
   if (!copilotHubStore.myCopilots.length)

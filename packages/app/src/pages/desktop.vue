@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { appName } from '~~/constants'
+
 definePageMeta({
   layout: 'index',
 })
 
 const { t } = useI18n()
+
+useHead({
+  title: `Desktop | ${appName}`,
+})
 
 const appleMacDownloadUrl = ref('')
 const interMacDownloadUrl = ref('')
