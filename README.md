@@ -1,6 +1,6 @@
 # Firefly
 
-Firefly is a fragment information collection tool, which combines the data analysis ability of AI to make information collection so interesting.
+An open-source lightweight AI-powered memo hub.
 
 English | [简体中文](./README-zh_CN.md)
 

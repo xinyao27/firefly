@@ -1,6 +1,6 @@
 # Firefly
 
-Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 使得信息的采集变得如此有趣
+Firefly 是一个开源轻量化 AI 驱动的备忘录应用
 
 [English](./README.md) | 简体中文
 

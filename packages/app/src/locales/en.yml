@@ -50,9 +50,7 @@ common:
   save: save
   saved: Saved successfully
   signup: Sign up
-  slogan: >-
-    Firefly is a fragment information collection tool, which combines the data
-    analysis ability of AI to make information collection so interesting
+  slogan: An open-source lightweight AI-powered memo hub
   success: Success
   update: Update
   updated: update completed

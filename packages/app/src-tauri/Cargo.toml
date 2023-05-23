@@ -1,7 +1,7 @@
 [package]
 authors = ["chenyueban"]
 default-run = "app"
-description = "Firefly is a fragment information collection tool, which combines the data analysis ability of AI to make information collection so interesting."
+description = "An open-source lightweight AI-powered memo hub."
 edition = "2021"
 license = ""
 name = "app"
