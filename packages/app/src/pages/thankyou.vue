@@ -53,6 +53,9 @@ onMounted(async () => {
       <p text-neutral>
         {{ $t('user.licenseKeyPlaceholder') }}
       </p>
+      <p text-neutral>
+        <a href="https://app.lemonsqueezy.com/my-orders" target="_blank">Check all your orders on Lemon Squeezy</a>
+      </p>
       <NInput
         v-model:value="license"
         placeholder="license key"

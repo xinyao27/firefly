@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { pricing } from './data'
 
+const router = useRouter()
 const pricingStore = usePricingStore()
 
 function handleClose() {
   pricingStore.show = false
+}
+function handleToThankYou() {
+  handleClose()
+  router.push('/thankyou')
 }
 </script>
 
@@ -52,7 +57,7 @@ function handleClose() {
       </div>
 
       <div>
-        <NButton quaternary block>
+        <NButton quaternary block @click="handleToThankYou">
           <template #icon>
             <i i-ri-key-2-line />
           </template>
