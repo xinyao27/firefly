@@ -32,6 +32,7 @@ common:
   download: 下载
   downloadDesktopApp: 下载桌面应用程序
   edit: 编辑
+  enterLicense: 输入激活码
   hotkeyAlreadyRegistered: 热键已注册
   loadMore: 加载更多
   loading: 加载中...
@@ -54,6 +55,7 @@ common:
   success: Success
   update: 更新
   updated: 更新成功
+  upgrade: 订购
   warningContent: 确定要删除吗
   warningTitle: 警告
   yesterday: 昨天

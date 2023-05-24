@@ -32,6 +32,7 @@ common:
   download: Download
   downloadDesktopApp: Download desktop app
   edit: Edit
+  enterLicense: Enter License
   hotkeyAlreadyRegistered: Hotkey already registered
   loadMore: Load More
   loading: Loading...
@@ -54,6 +55,7 @@ common:
   success: Success
   update: Update
   updated: update completed
+  upgrade: Upgrade
   warningContent: You sure you want to delete it
   warningTitle: Warning
   yesterday: Yesterday
