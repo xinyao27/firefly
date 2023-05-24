@@ -1,5 +1,20 @@
 
 
+# [0.6.0](https://github.com/chenyueban/firefly/compare/v0.5.2...v0.6.0) (2023-05-24)
+
+
+### Bug Fixes
+
+* Add error logging for unexpected errors in serve() function and update copilot quota increments in activate() function ([6248de0](https://github.com/chenyueban/firefly/commit/6248de076f3b5d3e563b5c6ca781c86dfd1965ac))
+* Fixed memory overflow issue in executor summary content, improving the upper limit of summarization. ([b1b1a40](https://github.com/chenyueban/firefly/commit/b1b1a4046b957274c5ba5b88843da0254a5d920b))
+
+
+### Features
+
+* add page titles ([32f2864](https://github.com/chenyueban/firefly/commit/32f2864d44ec789de0fd09a46afe5e79aaacc5bc))
+* Add PricingProvider to App.vue and Pricing components ([b881a6a](https://github.com/chenyueban/firefly/commit/b881a6aa542f04c15c1ea382cf6854cedc73d2cd))
+* add redirection to thankyou page ([7de9ead](https://github.com/chenyueban/firefly/commit/7de9eadea1c61ddb546dbb8ea6f09366954fad98))
+
 ## [0.5.2](https://github.com/chenyueban/firefly/compare/v0.5.1...v0.5.2) (2023-05-19)
 
 
