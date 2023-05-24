@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRouteQuery } from '@vueuse/router'
 import type { OrderModel } from '@firefly/common'
-import { edgeFunctions, getUser } from '@firefly/common'
+import { edgeFunctions } from '@firefly/common'
+import { appName } from '~~/constants'
 
 definePageMeta({
   layout: 'none',
@@ -12,6 +13,10 @@ const message = useMessage()
 const licenseKey = useRouteQuery<string>('license_key')
 const license = ref('')
 const loading = ref(false)
+
+useHead({
+  title: `Thank you | ${appName}`,
+})
 
 async function handleActivate() {
   try {
@@ -29,7 +34,6 @@ async function handleActivate() {
 
 onMounted(async () => {
   license.value = licenseKey.value
-  await getUser(true)
 })
 </script>
 
@@ -48,6 +52,9 @@ onMounted(async () => {
       </h1>
       <p text-neutral>
         {{ $t('user.licenseKeyPlaceholder') }}
+      </p>
+      <p text-neutral>
+        <a href="https://app.lemonsqueezy.com/my-orders" target="_blank">Check all your orders on Lemon Squeezy</a>
       </p>
       <NInput
         v-model:value="license"

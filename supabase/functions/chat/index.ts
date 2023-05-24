@@ -103,20 +103,24 @@ serve({
       const initMessages: ChatCompletionRequestMessage[] = [
         {
           role: 'system',
-          content: `
-              ${`${systemMessage?.content ?? 'You are in a room with a chatbot.'}`}
-              ${`Your name is ${body.copilotName}.`}
-              Answer all future questions using only the above context data. You must also follow the below rules when answering:
-              - What you may be given in the context is content in HTML format. You can choose to ignore the HTML tags and only read the content, or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
-              - Do not make up answers that are not provided in the context data.
-              - If you are unsure and the answer is not explicitly written in the context data, say "Sorry, I don't know how to help with that."
-              - Prefer splitting your response into multiple paragraphs.
-              - Output as markdown.
-              - Include code snippets if available.
+          content:
+          contextText
+            ? `
+                ${`${systemMessage?.content ?? 'You are in a room with a chatbot.'}`}
+                ${`Your name is ${body.copilotName}.`}
+                Answer all future questions using only the above context data. You must also follow the below rules when answering:
+                - What you may be given in the context is content in HTML format. You can choose to ignore the HTML tags and only read the content, or further interpret the meaning of the context based on the semantic meaning of the HTML tags.
+                - Do not make up answers that are not provided in the context data.
+                - If you are unsure and the answer is not explicitly written in the context data, say "Sorry, I don't know how to help with that."
+                - Prefer splitting your response into multiple paragraphs.
+                - Output as markdown.
+                - Include code snippets if available.
 
-              Here is the context data:
-              ${contextText}
-            `,
+                Here is the context data:
+                ${contextText}
+            `
+            : systemMessage?.content
+              ?? `You are in a room with a chatbot. Your name is ${body.copilotName}. ${body.copilotDescription ? `Your description is ${body.copilotDescription}.` : ''}`,
         },
       ]
 

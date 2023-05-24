@@ -24,7 +24,9 @@ onMounted(() => {
   <ThemeProvider>
     <Inject />
     <NuxtLayout>
-      <NuxtPage />
+      <PricingProvider>
+        <NuxtPage />
+      </PricingProvider>
     </NuxtLayout>
   </ThemeProvider>
 </template>

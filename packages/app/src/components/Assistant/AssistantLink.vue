@@ -6,7 +6,6 @@ import { isUrl } from '@firefly/common'
 import Bubble from '~/components/Bubble/Bubble.vue'
 
 const props = withDefaults(defineProps<{
-  modelValue: string
   pinned?: boolean
   class?: string
   showClose?: boolean
@@ -14,8 +13,9 @@ const props = withDefaults(defineProps<{
 }>(), {
   showClose: true,
 })
-const emit = defineEmits(['update:modelValue'])
-const data = useVModel(props, 'modelValue', emit)
+const { modelValue } = defineModels<{
+  modelValue: string
+}>()
 
 const { t } = useI18n()
 const message = useMessage()
@@ -113,7 +113,7 @@ function handleNoSideSpace(value: string) {
       </div>
     </template>
     <NInput
-      v-model:value="data"
+      v-model:value="modelValue"
       type="textarea"
       :placeholder="t('assistantLink.placeholder')"
       :autosize="{

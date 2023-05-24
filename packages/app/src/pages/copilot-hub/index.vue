@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { appName } from '~~/constants'
+
 definePageMeta({
   layout: 'default',
 })
@@ -7,6 +9,10 @@ const { t } = useI18n()
 const userStore = useUserStore()
 const copilotHubStore = useCopilotHubStore()
 const createCopilotShow = ref(false)
+
+useHead({
+  title: `Copilot Hub | ${appName}`,
+})
 
 onMounted(() => {
   if (!copilotHubStore.myCopilots.length)
@@ -41,7 +47,7 @@ function handleCreated() {
         <NButton
           class="mb-4"
           tertiary
-          :disabled="copilotHubStore.myCopilots.length >= 3"
+          :disabled="userStore.profiles.fullName === 'Firefly' ? false : copilotHubStore.myCopilots.length >= 3"
           @click="createCopilotShow = true"
         >
           <template #icon>

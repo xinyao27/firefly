@@ -37,7 +37,7 @@ async function handleCapture() {
         v-html="md.render(props.message)"
       />
     </template>
-    <div flex mt--1>
+    <div mt--1 flex>
       <NTooltip style="width: max-content">
         <template #trigger>
           <NButton

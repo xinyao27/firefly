@@ -32,6 +32,7 @@ common:
   download: Download
   downloadDesktopApp: Download desktop app
   edit: Edit
+  enterLicense: Enter License
   hotkeyAlreadyRegistered: Hotkey already registered
   loadMore: Load More
   loading: Loading...
@@ -50,12 +51,11 @@ common:
   save: save
   saved: Saved successfully
   signup: Sign up
-  slogan: >-
-    Firefly is a fragment information collection tool, which combines the data
-    analysis ability of AI to make information collection so interesting
+  slogan: An open-source lightweight AI-powered memo hub
   success: Success
   update: Update
   updated: update completed
+  upgrade: Upgrade
   warningContent: You sure you want to delete it
   warningTitle: Warning
   yesterday: Yesterday

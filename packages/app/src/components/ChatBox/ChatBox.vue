@@ -5,7 +5,6 @@ import type { ChatMessage } from '~/stores/copilot'
 
 const props = defineProps<{
   hi?: string | (() => VNode)
-  currentInput: string
   messages: ChatMessage[]
   currentAssistantMessage: string
   currentError: string | null
@@ -16,10 +15,9 @@ const props = defineProps<{
   onRetry?: () => void
   onSearchReference?: () => void
 }>()
-const emit = defineEmits<{
-  (e: 'update:currentInput', value: string): void
+const { currentInput } = defineModels<{
+  currentInput: string
 }>()
-const currentInput = useVModel(props, 'currentInput', emit)
 
 const scrollBarRef = ref<ScrollbarInst | null>(null)
 const referenceOptions = ref<MentionOption[]>([])
@@ -145,7 +143,7 @@ watch(() => props.currentError, (currentError) => {
                 <NButton
                   type="primary"
                   quaternary
-                  :disabled="currentInput.length === 0 || props.loading"
+                  :disabled="currentInput?.length === 0 || props.loading"
                   @click="props.onChat"
                 >
                   <template #icon>

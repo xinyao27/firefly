@@ -6,7 +6,6 @@ import type { VNodeChild } from 'vue'
 import Bubble from '~/components/Bubble/Bubble.vue'
 
 const props = withDefaults(defineProps<{
-  modelValue: string
   pinned?: boolean
   class?: string
   showClose?: boolean
@@ -14,8 +13,9 @@ const props = withDefaults(defineProps<{
 }>(), {
   showClose: true,
 })
-const emit = defineEmits(['update:modelValue'])
-const data = useVModel(props, 'modelValue', emit)
+const { modelValue } = defineModels<{
+  modelValue: string
+}>()
 
 const { t } = useI18n()
 const assistantStore = useAssistantStore()
@@ -109,7 +109,7 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
       </div>
     </template>
     <Editor
-      v-model="data"
+      v-model="modelValue"
       class="prose prose-white"
       :class="props.class"
       :tags="tagStore.tags"

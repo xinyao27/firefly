@@ -3,12 +3,13 @@ import type { CopilotModel } from '@firefly/common'
 import CreateOrUpdateCopilotContent from './CreateOrUpdateCopilotContent.vue'
 
 const props = defineProps<{
-  show: boolean
   data?: CopilotModel
   onFinished: () => void
 }>()
-const emit = defineEmits(['update:show'])
-const show = useVModel(props, 'show', emit)
+const { show } = defineModels<{
+  show: boolean
+}>()
+
 const loading = ref(false)
 </script>
 

@@ -32,6 +32,7 @@ common:
   download: 下载
   downloadDesktopApp: 下载桌面应用程序
   edit: 编辑
+  enterLicense: 输入激活码
   hotkeyAlreadyRegistered: 热键已注册
   loadMore: 加载更多
   loading: 加载中...
@@ -50,10 +51,11 @@ common:
   save: 保存
   saved: 保存成功
   signup: 注册
-  slogan: Firefly 是一个碎片信息收集工具, 它结合了AI的数据解析能力, 使得信息的采集变得如此有趣
+  slogan: Firefly 是一个开源轻量化 AI 驱动的备忘录应用
   success: Success
   update: 更新
   updated: 更新成功
+  upgrade: 订购
   warningContent: 确定要删除吗
   warningTitle: 警告
   yesterday: 昨天

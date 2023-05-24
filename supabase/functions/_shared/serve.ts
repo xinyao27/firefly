@@ -38,6 +38,7 @@ export function serve(p: P) {
       })
     }
     catch (err) {
+      console.error(err)
       if (err instanceof UserError) {
         return new Response(
           JSON.stringify({
@@ -61,10 +62,6 @@ export function serve(p: P) {
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           },
         )
-      }
-      else {
-        // Print out unexpected errors as is to help with debugging
-        console.error(err)
       }
 
       return new Response(

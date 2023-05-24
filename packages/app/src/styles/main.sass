@@ -42,3 +42,6 @@ i
 
 a
   @apply transition text-(primary opacity-80) hover:(underline text-opacity-100)
+
+.prose :where(tr):not(:where(.not-prose,.not-prose *)):nth-child(2n)
+  @apply bg-neutral-700

@@ -2,6 +2,7 @@
 import { useRouteQuery } from '@vueuse/router'
 import type { OrderModel, ProfileModel } from '@firefly/common'
 import { supabase } from '~/plugins/api'
+import { appName } from '~~/constants'
 
 definePageMeta({
   layout: 'none',
@@ -15,6 +16,10 @@ const createdAt = ref()
 const user = ref<ProfileModel>()
 const pageUrl = computed(() => `http://firefly.best/tickets?id=${id.value}`)
 const shareText = computed(() => `✨ I just received a beautiful electronic card! Check it out!\n${pageUrl.value}`)
+
+useHead({
+  title: `Tickets | ${appName}`,
+})
 
 onMounted(async () => {
   const { data } = await supabase

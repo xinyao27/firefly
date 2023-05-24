@@ -5,6 +5,7 @@ import type { InputInst } from 'naive-ui'
 import type { ChatMessage, Context } from '~/stores/copilot'
 import { supabase } from '~/plugins/api'
 import ExecutorSettings from '~/components/Executor/ExecutorSettings.vue'
+import { appName } from '~~/constants'
 
 const { t } = useI18n()
 const dialog = useDialog()
@@ -305,6 +306,10 @@ function renderExecutorSettings() {
 
 <template>
   <main h-full overflow-hidden>
+    <Head>
+      <Title>{{ `${copilotHubStore.copilot?.name ?? 'Copilot'} | ${appName}` }}</Title>
+    </Head>
+
     <div h-full flex flex-col overflow-hidden>
       <template v-if="copilotHubStore.copilot">
         <h2 p-2 text-center text-lg font-semibold>

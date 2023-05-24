@@ -65,12 +65,23 @@ export function renderUserInfo() {
 
 export function renderCopilotQuota() {
   const userStore = useUserStore()
+  const pricingStore = usePricingStore()
   const { t } = useI18n()
 
   return (
-    <div class="px-4 py-2 text-neutral">
-      {`${t('common.copilotQuota')}: `}
-      <span class="text-yellow-200">{userStore.profiles?.copilotQuota ?? 0}</span>
+    <div class="flex items-center gap-4 px-4 py-2 text-neutral">
+      <div>
+        {`${t('common.copilotQuota')}: `}
+        <span class="text-yellow-200">{userStore.profiles?.copilotQuota ?? 0}</span>
+      </div>
+      <NButton
+        secondary
+        type="warning"
+        size="small"
+        onClick={() => pricingStore.show = true}
+      >
+        {t('common.upgrade')}
+      </NButton>
     </div>
   )
 }

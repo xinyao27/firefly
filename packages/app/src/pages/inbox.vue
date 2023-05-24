@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { appName } from '~~/constants'
+
 definePageMeta({
   layout: 'default',
 })
 
 const router = useRouter()
 const blockStore = useBlockStore()
+
+useHead({
+  title: `Inbox | ${appName}`,
+})
 
 router.afterEach(async (to, from) => {
   if (to.query.tag)

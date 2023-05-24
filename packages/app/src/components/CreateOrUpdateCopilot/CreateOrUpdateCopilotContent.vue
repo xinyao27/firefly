@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import type { FormInst, FormRules, StepsProps } from 'naive-ui'
 import type { BlockModel, CopilotModel } from '@firefly/common'
-import { is } from '@firefly/common'
 import { intersection } from 'lodash-es'
 import TonyStark from './tonyStark'
 
 const props = defineProps<{
-  loading: boolean
   data?: CopilotModel
   onFinished: () => void
 }>()
-const emit = defineEmits(['update:loading'])
-const loading = useVModel(props, 'loading', emit)
+const { loading } = defineModels<{
+  loading: boolean
+}>()
 
 const { t } = useI18n()
 const blockStore = useBlockStore()
@@ -25,9 +24,9 @@ const tagBlocks = ref<BlockModel[]>([])
 const tagBlocksLoading = ref(false)
 const formRef = ref<FormInst | null>(null)
 const model = ref<CopilotModel>({
-  name: is.development() ? 'Tony Stark' : '',
-  description: is.development() ? 'Private test AI' : '',
-  prompt: is.development() ? 'Act as Tony Stark: You are Tony Stark, Anthony Edward "Tony" stark was a billionaire industrialist, a founding member of the Avengers, and the former c-e-o of stark Industries. a brash but brilliant inventor, stark was self-described as a genius, billionaire, playboy, and philanthropist.' : '',
+  name: '',
+  description: '',
+  prompt: '',
   type: 'chatbot',
   visibility: 'public',
 })
@@ -94,10 +93,11 @@ function handleBack() {
 async function handleNext() {
   loading.value = true
   try {
-    if (current.value === 2) {
+    if (current.value === 1) {
       // config
       await formRef.value?.validate()
-
+    }
+    else if (current.value === 2) {
       if (props.data)
         await copilotHubStore.update(model.value, selectedBlocks.value)
       else
@@ -105,6 +105,7 @@ async function handleNext() {
 
       props.onFinished()
     }
+
     currentStatus.value = 'process'
     current.value = current.value + 1
   }
@@ -125,15 +126,71 @@ async function handleNext() {
       size="small"
     >
       <NStep
-        :title="t('copilot.selectTags')"
+        :title="t('copilot.Config')"
       />
       <NStep
-        :title="t('copilot.Config')"
+        :title="t('copilot.selectTags')"
       />
     </NSteps>
     <div mt-8>
-      <!-- Choose Tags -->
+      <!-- Config -->
       <div v-if="current === 1">
+        <NForm
+          ref="formRef"
+          :model="model"
+          :rules="rules"
+        >
+          <NFormItem :label="t('copilot.name')" path="name">
+            <NInput
+              v-model:value="model.name"
+              :placeholder="TonyStark.name"
+              :maxlength="20"
+            />
+          </NFormItem>
+          <NFormItem :label="t('copilot.description')" path="description">
+            <NInput
+              v-model:value="model.description"
+              type="textarea"
+              :placeholder="TonyStark.description"
+              :maxlength="400"
+            />
+          </NFormItem>
+          <NFormItem :label="t('copilot.prompt')" path="prompt">
+            <NInput
+              v-model:value="model.prompt"
+              type="textarea"
+              :placeholder="TonyStark.prompt"
+              :maxlength="400"
+            />
+          </NFormItem>
+          <NFormItem :label="t('copilot.type')" path="type">
+            <NRadioGroup v-model:value="model.type">
+              <NSpace>
+                <NRadio value="chatbot">
+                  chatbot
+                </NRadio>
+                <NRadio value="executor">
+                  executor
+                </NRadio>
+              </NSpace>
+            </NRadioGroup>
+          </NFormItem>
+          <NFormItem :label="t('copilot.visibility')" path="visibility">
+            <NRadioGroup v-model:value="model.visibility">
+              <NSpace>
+                <NRadio value="public">
+                  public
+                </NRadio>
+                <NRadio value="private" disabled>
+                  private
+                </NRadio>
+              </NSpace>
+            </NRadioGroup>
+          </NFormItem>
+        </NForm>
+      </div>
+      <!-- Choose Tags -->
+      <div v-if="current === 2">
         <p text-xs text-neutral>
           {{ t('copilot.selectTagsPlaceholder') }}
         </p>
@@ -196,62 +253,6 @@ async function handleNext() {
             </NTag>
           </template>
         </div>
-      </div>
-      <!-- Config -->
-      <div v-if="current === 2">
-        <NForm
-          ref="formRef"
-          :model="model"
-          :rules="rules"
-        >
-          <NFormItem :label="t('copilot.name')" path="name">
-            <NInput
-              v-model:value="model.name"
-              :placeholder="TonyStark.name"
-              :maxlength="20"
-            />
-          </NFormItem>
-          <NFormItem :label="t('copilot.description')" path="description">
-            <NInput
-              v-model:value="model.description"
-              type="textarea"
-              :placeholder="TonyStark.description"
-              :maxlength="400"
-            />
-          </NFormItem>
-          <NFormItem :label="t('copilot.prompt')" path="prompt">
-            <NInput
-              v-model:value="model.prompt"
-              type="textarea"
-              :placeholder="TonyStark.prompt"
-              :maxlength="400"
-            />
-          </NFormItem>
-          <NFormItem :label="t('copilot.type')" path="type">
-            <NRadioGroup v-model:value="model.type">
-              <NSpace>
-                <NRadio value="chatbot">
-                  chatbot
-                </NRadio>
-                <NRadio value="executor">
-                  executor
-                </NRadio>
-              </NSpace>
-            </NRadioGroup>
-          </NFormItem>
-          <NFormItem :label="t('copilot.visibility')" path="visibility">
-            <NRadioGroup v-model:value="model.visibility">
-              <NSpace>
-                <NRadio value="public">
-                  public
-                </NRadio>
-                <NRadio value="private" disabled>
-                  private
-                </NRadio>
-              </NSpace>
-            </NRadioGroup>
-          </NFormItem>
-        </NForm>
       </div>
 
       <div mt-6 w-full flex justify-end gap-2>
