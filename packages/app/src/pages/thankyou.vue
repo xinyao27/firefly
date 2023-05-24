@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouteQuery } from '@vueuse/router'
 import type { OrderModel } from '@firefly/common'
-import { edgeFunctions, getUser } from '@firefly/common'
+import { edgeFunctions } from '@firefly/common'
 import { appName } from '~~/constants'
 
 definePageMeta({
@@ -34,7 +34,6 @@ async function handleActivate() {
 
 onMounted(async () => {
   license.value = licenseKey.value
-  await getUser()
 })
 </script>
 

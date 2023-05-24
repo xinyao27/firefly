@@ -2,6 +2,7 @@
 import type { FormInst } from 'naive-ui'
 import { is } from '@firefly/common'
 import type { Event } from '@tauri-apps/api/event'
+import { useRouteQuery } from '@vueuse/router'
 import { tauri } from '~/plugins/tauri'
 import { supabase } from '~/plugins/api'
 import { parseSchema } from '~/utils'
@@ -12,6 +13,7 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const router = useRouter()
+const query = useRouteQuery('from')
 const message = useMessage()
 const formRef = ref<FormInst | null>(null)
 const formValue = ref({
@@ -50,7 +52,7 @@ async function signInWithToken(url: string) {
           if (error)
             message.error(error.message)
           else
-            router.replace('/inbox')
+            router.replace(query.value ? `/${query.value}` : '/inbox')
         }
         else {
           message.error(t('common.loginError'))
@@ -89,7 +91,7 @@ async function signInWithToken(url: string) {
             message.error(error.message)
           }
           else {
-            router.replace('/inbox')
+            router.replace(query.value ? `/${query.value}` : '/inbox')
             authWindow?.close()
           }
         }
@@ -184,9 +186,9 @@ function signInWithOtp() {
         },
       })
         .then(({ error }) => {
+          emailSended.value = true
           if (error)
             throw error
-          emailSended.value = true
         })
         .catch((error) => {
           message.error(error.message || error.msg || error)
@@ -211,7 +213,7 @@ function signInWithLoginCode() {
       })
         .then(({ data, error }) => {
           if (data.session)
-            router.replace('/inbox')
+            router.replace(query.value ? `/${query.value}` : '/inbox')
           else
             throw error
         })
