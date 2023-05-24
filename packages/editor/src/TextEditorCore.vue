@@ -2,7 +2,6 @@
 import 'highlight.js/scss/github-dark.scss'
 import './style.sass'
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useVModel } from '@vueuse/core'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import type { Editor } from '@tiptap/core'
 import type { TagModel } from '@firefly/common'
@@ -12,20 +11,20 @@ import { useTextEditorState } from './state'
 
 const props = withDefaults(defineProps<{
   class?: string
-  modelValue: string
   tags: TagModel[]
   onCreated?: (editor: Editor) => void
   bubbleMenu?: boolean
 }>(), {
   bubbleMenu: true,
 })
-const emit = defineEmits(['update:modelValue'])
-const data = useVModel(props, 'modelValue', emit)
+const { modelValue } = defineModels<{
+  modelValue: string
+}>()
 const emitAfterOnUpdate = ref(false)
 
 const state = useTextEditorState()
 const editor = useEditor({
-  content: data.value,
+  content: modelValue.value,
   autofocus: true,
   extensions,
   editorProps: {
@@ -37,7 +36,7 @@ const editor = useEditor({
   onUpdate({ editor }) {
     emitAfterOnUpdate.value = true
     const content = editor.getHTML()
-    data.value = content
+    modelValue.value = content
   },
 })
 
@@ -48,7 +47,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   editor.value?.destroy()
 })
-watch(() => props.modelValue, (value) => {
+watch(modelValue, (value) => {
   if (emitAfterOnUpdate.value) {
     emitAfterOnUpdate.value = false
     return

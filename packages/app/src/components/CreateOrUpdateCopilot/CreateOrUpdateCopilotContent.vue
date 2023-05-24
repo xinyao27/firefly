@@ -5,12 +5,12 @@ import { intersection } from 'lodash-es'
 import TonyStark from './tonyStark'
 
 const props = defineProps<{
-  loading: boolean
   data?: CopilotModel
   onFinished: () => void
 }>()
-const emit = defineEmits(['update:loading'])
-const loading = useVModel(props, 'loading', emit)
+const { loading } = defineModels<{
+  loading: boolean
+}>()
 
 const { t } = useI18n()
 const blockStore = useBlockStore()
