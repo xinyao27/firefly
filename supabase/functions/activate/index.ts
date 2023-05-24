@@ -69,17 +69,17 @@ serve({
       throw new ApplicationError(response.error)
 
     if (response.meta.product_name === 'Firefly Quotas') {
-      if (response.meta.variant_name === '200 Copilot Quotas') {
+      if (response.meta.variant_name === 'Tall Copilot Quotas') {
         const { error } = await supabase.rpc('handle_profile_copilot_quota_increment', { uid: user.id, quota: 200 })
         if (error)
           throw new ApplicationError(error.message)
       }
-      if (response.meta.variant_name === '400 Copilot Quotas') {
+      if (response.meta.variant_name === 'Grande Copilot Quotas') {
         const { error } = await supabase.rpc('handle_profile_copilot_quota_increment', { uid: user.id, quota: 400 })
         if (error)
           throw new ApplicationError(error.message)
       }
-      if (response.meta.variant_name === '1000 Copilot Quotas') {
+      if (response.meta.variant_name === 'Venti Copilot Quotas') {
         const { error } = await supabase.rpc('handle_profile_copilot_quota_increment', { uid: user.id, quota: 1000 })
         if (error)
           throw new ApplicationError(error.message)
