@@ -25,6 +25,7 @@
     "@tauri-apps/api": "^1.3.0",
     "@vercel/analytics": "^1.0.1",
     "@yeger/vue-masonry-wall": "^3.4.4",
+    "mark.js": "^8.11.1",
     "tauri-plugin-autostart-api": "github:tauri-apps/tauri-plugin-autostart",
     "vue-virtual-scroller": "2.0.0-beta.8"
   },
@@ -36,6 +37,7 @@
     "@tauri-apps/cli": "^1.3.1",
     "@types/crypto-js": "^4.1.1",
     "@types/js-base64": "^3.3.1",
+    "@types/mark.js": "^8.11.8",
     "@types/vue-virtual-scroller": "npm:@vsme/vue-virtual-scroller@^1.0.1",
     "@unocss/nuxt": "^0.51.13",
     "@vite-pwa/nuxt": "^0.0.8",

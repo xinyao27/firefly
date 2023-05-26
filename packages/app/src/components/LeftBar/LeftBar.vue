@@ -2,6 +2,7 @@
 import type { colors } from '@firefly/common'
 import type { TreeOption } from 'naive-ui'
 import { NButton, NCollapseItem, NDropdown } from 'naive-ui'
+import { useRouteQuery } from '@vueuse/router'
 import menuOptions from './menuOptions'
 import BubbleSelector from '~/components/Bubble/BubbleSelector.vue'
 
@@ -67,11 +68,13 @@ const tags = computed<TreeOption[]>(() => tagStore.tags.map(v => ({
         }),
     }),
 })))
+const _query = useRouteQuery('query')
 function handleTagSelect([key]: string[]) {
   router.push({
     name: 'inbox',
     query: {
       tag: key,
+      query: _query.value,
     },
   })
 }

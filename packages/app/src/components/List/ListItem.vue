@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import type { DropdownOption } from 'naive-ui'
+import { useRouteQuery } from '@vueuse/router'
+import Mark from 'mark.js'
 import type { BlockModel } from '@firefly/common'
 
 const props = withDefaults(
@@ -21,6 +23,7 @@ const blockStore = useBlockStore()
 const tagStore = useTagStore()
 const copilotStore = useCopilotStore()
 const router = useRouter()
+const query = useRouteQuery('query')
 const el = ref<HTMLDivElement>()
 const expanded = ref(false)
 
@@ -75,6 +78,14 @@ function handleTagClick(tag: string) {
     },
   })
 }
+const renderContent = computed(() => {
+  if (query.value) {
+    const instance = new Mark(el.value!)
+    instance.unmark({ element: 'span', className: 'highlightText' })
+    instance.mark(query.value, { element: 'span', className: 'highlightText' })
+  }
+  return props.data.content
+})
 </script>
 
 <template>
@@ -160,7 +171,7 @@ function handleTagClick(tag: string) {
       <div
         ref="el"
         class="ProseMirror max-w-full prose prose-white"
-        v-html="props.data.content"
+        v-html="renderContent"
       />
     </div>
 
@@ -202,3 +213,10 @@ function handleTagClick(tag: string) {
     </div>
   </NCard>
 </template>
+
+<style lang="sass">
+.highlightText
+  @apply relative
+  &::before
+    @apply absolute content-[""] z--1 w-[calc(100%+4px)] h-60% left-[-2px] bottom-0 bg-primary
+</style>

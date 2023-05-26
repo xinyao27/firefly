@@ -109,6 +109,7 @@ function handleCreatesSelect(key: string) {
       h-full flex-auto select-none
     />
 
+    <SearchInput v-if="isInboxPage" />
     <NDropdown
       v-if="isInboxPage && !isMobileScreen"
       trigger="hover"

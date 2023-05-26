@@ -13,9 +13,9 @@ useHead({
 })
 
 router.afterEach(async (to, from) => {
-  if (to.query.tag)
-    await blockStore.search({ tag: to.query.tag as string })
-  else if (from.query.tag)
+  if (to.query.tag || to.query.query)
+    await blockStore.search({ tag: to.query.tag as string, query: to.query.query as string })
+  else if (from.query.tag || from.query.query)
     await blockStore.refresh()
 })
 </script>

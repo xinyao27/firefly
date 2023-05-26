@@ -1,12 +1,14 @@
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
 import type { BlockId, BlockMetadata, BlockModel } from '@firefly/common'
 import { edgeFunctions, getUser } from '@firefly/common'
+import { intersectionBy } from 'lodash-es'
 import { supabase } from '~/plugins/api'
 import { getDB } from '~/plugins/db'
 import { $t } from '~/plugins/i18n'
 
 interface SearchParams {
   tag?: string
+  query?: string
 }
 interface SyncParams {
   lastUpdatedAt?: Date
@@ -107,10 +109,7 @@ export const useBlockStore = defineStore('block', {
         }
 
         window.$message?.success?.(`${$t('block.synced')} ${result.length} ${$t('block.blocks')}`)
-        const params = new URLSearchParams(document.location.search)
-        const tag = params.get('tag')
-        if (tag)
-          await this.search({ tag })
+        await this.search()
 
         return this.blocks
       }
@@ -166,7 +165,7 @@ export const useBlockStore = defineStore('block', {
         }
 
         await (await getDB()).add('blocks', data)
-        await this.refresh()
+        await this.search()
         const tagStore = useTagStore()
         await tagStore.sync()
         window.$message?.success?.($t('common.saved'))
@@ -216,7 +215,7 @@ export const useBlockStore = defineStore('block', {
         }
 
         await (await getDB()).put('blocks', block)
-        await this.refresh()
+        await this.search()
         const tagStore = useTagStore()
         await tagStore.sync()
         window.$message?.success?.($t('common.updated'))
@@ -237,7 +236,7 @@ export const useBlockStore = defineStore('block', {
           throw new Error(response.error.message)
 
         await (await getDB()).delete('blocks', id)
-        await this.refresh()
+        await this.search()
         window.$message?.success?.($t('common.deleted'))
       }
       catch (error: any) {
@@ -251,17 +250,46 @@ export const useBlockStore = defineStore('block', {
     async clear() {
       try {
         await (await getDB()).clear('blocks')
-        await this.refresh()
+        await this.search()
       }
       catch (error: any) {
         console.error(error)
         window.$message?.error?.(error.message || error)
       }
     },
-    async search({ tag }: SearchParams) {
+    async search(params: SearchParams = {}) {
       try {
         this.loading = true
-        if (tag) {
+        const searchParams = new URLSearchParams(document.location.search)
+        const tag = params.tag || searchParams.get('tag')
+        const query = params.query || searchParams.get('query')
+        if (!tag && !query) {
+          await this.refresh()
+        }
+        else if (tag && query) {
+          const queryResult = []
+          const tagsResult = []
+
+          const tx = (await getDB()).transaction('blocks', 'readwrite')
+          let contentCursor = await tx.store.index('content').openCursor()
+          while (contentCursor) {
+            if (contentCursor.key.includes(query))
+              queryResult.push(contentCursor.value)
+
+            contentCursor = await contentCursor.continue()
+          }
+          let tagsCursor = await tx.store.index('tags').openCursor()
+          while (tagsCursor) {
+            if (tagsCursor.key.includes(tag))
+              tagsResult.push(tagsCursor.value)
+
+            tagsCursor = await tagsCursor.continue()
+          }
+          await tx.done
+
+          this.blocks = intersectionBy(queryResult, tagsResult, v => v.id).reverse()
+        }
+        else if (tag) {
           const result = []
 
           const tx = (await getDB()).transaction('blocks', 'readwrite')
@@ -276,8 +304,20 @@ export const useBlockStore = defineStore('block', {
 
           this.blocks = result.reverse()
         }
-        else {
-          this.blocks = []
+        else if (query) {
+          const result = []
+
+          const tx = (await getDB()).transaction('blocks', 'readwrite')
+          let cursor = await tx.store.index('content').openCursor()
+          while (cursor) {
+            if (cursor.key.includes(query))
+              result.push(cursor.value)
+
+            cursor = await cursor.continue()
+          }
+          await tx.done
+
+          this.blocks = result.reverse()
         }
         return this.blocks
       }
