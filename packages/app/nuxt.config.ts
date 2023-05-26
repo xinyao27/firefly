@@ -38,12 +38,6 @@ if (process.env.SENTRY_AUTH_TOKEN && process.env.NODE_ENV === 'production') {
     sentryVitePlugin({
       org: 'fireflybest',
       project: 'app',
-
-      // Specify the directory containing build artifacts
-      include: './.output',
-
-      // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
-      // and needs the `project:releases` and `org:read` scopes
       authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   )
