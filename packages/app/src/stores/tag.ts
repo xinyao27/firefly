@@ -1,5 +1,5 @@
 import type { PostgrestSingleResponse } from '@supabase/supabase-js'
-import type { TagId, TagModel } from '@firefly/common'
+import type { TagId, TagModel, TagWithChildren } from '@firefly/common'
 import { getUser } from '@firefly/common'
 import { supabase } from '~/plugins/api'
 import { getDB } from '~/plugins/db'
@@ -14,27 +14,74 @@ export const useTagStore = defineStore('tag', {
   state: () => {
     return {
       ready: false,
-      tags: [] as TagModel[],
+      originalTags: [] as TagModel[],
+      tags: [] as TagWithChildren[],
       loading: false,
       size: 20,
     }
   },
   actions: {
+    transform(tags: (TagModel | TagWithChildren)[]): TagWithChildren[] {
+      const tagMap = new Map<string, TagWithChildren>()
+      const result: TagWithChildren[] = []
+
+      for (const tag of tags) {
+        const tagParts = tag.name.split('/')
+        let parent: TagWithChildren | undefined
+
+        for (let i = 0; i < tagParts.length; i++) {
+          const name = tagParts[i]
+          const tagId = i === tagParts.length - 1 ? tag.id : undefined
+          const originalName = tagParts.slice(0, i + 1).join('/')
+          const existingTag = tagMap.get(originalName)
+
+          if (existingTag) {
+            if (tagId)
+              existingTag.id = tagId
+
+            parent = existingTag
+          }
+          else {
+            const newTag: TagWithChildren = {
+              ...tag,
+              id: tagId,
+              name,
+              originalName,
+              children: [],
+            }
+
+            if (parent)
+              parent.children?.push(newTag)
+
+            else
+              result.push(newTag)
+
+            tagMap.set(originalName, newTag)
+            parent = newTag
+          }
+        }
+      }
+
+      return result
+    },
     async init() {
       const db = await getDB()
       const data = await db.getAllFromIndex('tags', 'updatedAt')
-      this.tags = data.reverse()
+      this.originalTags = data.reverse()
+      this.tags = this.transform(this.originalTags)
       this.ready = true
     },
     async find() {
       const uid = (await getUser())?.id
-      return (await (await getDB()).getAllFromIndex('tags', 'updatedAt')).filter(v => v.uid === uid).reverse()
+      this.originalTags = (await (await getDB()).getAllFromIndex('tags', 'updatedAt')).filter(v => v.uid === uid).reverse()
+      return this.originalTags
     },
     findOne(name: string) {
-      return (this.tags as TagModel[]).find(v => v.name === name)
+      return this.originalTags.find(v => v.name === name)
     },
     async refresh() {
-      this.tags = await this.find()
+      await this.find()
+      this.tags = this.transform(this.originalTags)
     },
     async count({ lastUpdatedAt, lastTagId }: SyncParams) {
       const lastTag = (await this.find())[0]
@@ -132,14 +179,16 @@ export const useTagStore = defineStore('tag', {
         message?.destroy?.()
       }
     },
-    async delete(id: TagId) {
+    async delete(ids: TagId[]) {
       const message = window.$message?.loading?.($t('tag.deleteLoading'), { duration: 0 })
       try {
-        const response = await supabase.from('tags').delete().eq('id', id)
-        if (response.error)
-          throw new Error(response.error.message)
+        for (const id of ids) {
+          const response = await supabase.from('tags').delete().eq('id', id)
+          if (response.error)
+            throw new Error(response.error.message)
 
-        await (await getDB()).delete('tags', id)
+          await (await getDB()).delete('tags', id)
+        }
         await this.refresh()
         window.$message?.success?.($t('common.deleted'))
       }

@@ -25,3 +25,9 @@ export interface TagModel {
    */
   updatedAt?: Date
 }
+
+export interface TagWithChildren extends Omit<TagModel, 'id'> {
+  id?: TagId
+  children?: TagWithChildren[]
+  originalName?: string
+}
