@@ -53,8 +53,8 @@ const rules: FormRules = {
   ],
   prompt: [
     {
-      max: 400,
-      message: 'Prompt can\'t be longer than 400 characters',
+      max: 20000,
+      message: 'Prompt can\'t be longer than 20000 characters',
     },
   ],
   visibility: [
@@ -160,7 +160,7 @@ async function handleNext() {
               v-model:value="model.prompt"
               type="textarea"
               :placeholder="TonyStark.prompt"
-              :maxlength="400"
+              :maxlength="20000"
             />
           </NFormItem>
           <NFormItem :label="t('copilot.type')" path="type">

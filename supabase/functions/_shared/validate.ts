@@ -25,7 +25,7 @@ export function validateCopilot(copilot: CopilotModel) {
   if (copilot.description.length > 2000)
     throw new Error('Copilot description is too long')
 
-  if (copilot.prompt && copilot.prompt.length > 2000)
+  if (copilot.prompt && copilot.prompt.length > 20000)
     throw new Error('Copilot prompt is too long')
 }
 
