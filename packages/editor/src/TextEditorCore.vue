@@ -4,14 +4,14 @@ import './style.sass'
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import type { Editor } from '@tiptap/core'
-import type { TagModel } from '@firefly/common'
+import type { TagWithChildren } from '@firefly/common'
 import BubbleMenu from './BubbleMenu'
 import { extensions } from './extensions/starter-kit'
 import { useTextEditorState } from './state'
 
 const props = withDefaults(defineProps<{
   class?: string
-  tags: TagModel[]
+  tags: TagWithChildren[]
   onCreated?: (editor: Editor) => void
   bubbleMenu?: boolean
 }>(), {

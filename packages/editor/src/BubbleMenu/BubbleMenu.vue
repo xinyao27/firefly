@@ -128,7 +128,7 @@ function handleSelect(_: string, option: DropdownOption) {
     :tippy-options="{ duration: 100, appendTo: state.root.value }"
     :should-show="shouldShow"
   >
-    <div class="bg-neutral-800 border border-(slate opacity-5) shadow-lg rounded-sm overflow-hidden flex items-center">
+    <div class="flex items-center overflow-hidden border border-(slate opacity-5) rounded-sm bg-neutral-800 shadow-lg">
       <template v-for="item in actions" :key="item.key">
         <NDropdown v-if="item.children" :options="item.children" @select="handleSelect">
           <NButton
@@ -168,7 +168,7 @@ function handleSelect(_: string, option: DropdownOption) {
             </NButton>
           </template>
           <div>{{ item.label }}</div>
-          <div text-gray-400 text-xs flex gap-1>
+          <div flex gap-1 text-xs text-gray-400>
             <KBD
               v-if="item.shortcut"
               :shortcut="item.shortcut"

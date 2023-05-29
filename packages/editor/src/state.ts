@@ -1,11 +1,11 @@
 import { createGlobalState } from '@vueuse/core'
-import type { TagModel } from '@firefly/common'
+import type { TagWithChildren } from '@firefly/common'
 import { ref } from 'vue'
 
 export const useTextEditorState = createGlobalState(
   () => {
     const root = ref()
-    const tags = ref<TagModel[]>([])
+    const tags = ref<TagWithChildren[]>([])
 
     return { root, tags }
   },

@@ -280,7 +280,7 @@ export const useBlockStore = defineStore('block', {
           }
           let tagsCursor = await tx.store.index('tags').openCursor()
           while (tagsCursor) {
-            if (tagsCursor.key.includes(tag))
+            if (Array.isArray(tagsCursor.key) && tagsCursor.key.some(v => v.includes(tag)))
               tagsResult.push(tagsCursor.value)
 
             tagsCursor = await tagsCursor.continue()
@@ -295,7 +295,7 @@ export const useBlockStore = defineStore('block', {
           const tx = (await getDB()).transaction('blocks', 'readwrite')
           let cursor = await tx.store.index('tags').openCursor()
           while (cursor) {
-            if (cursor.key.includes(tag))
+            if (Array.isArray(cursor.key) && cursor.key.some(v => v.includes(tag)))
               result.push(cursor.value)
 
             cursor = await cursor.continue()

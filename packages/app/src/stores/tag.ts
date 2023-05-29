@@ -160,6 +160,26 @@ export const useTagStore = defineStore('tag', {
         this.loading = false
       }
     },
+    async create(name: string) {
+      const message = window.$message?.loading?.($t('common.loading'), { duration: 0 })
+      try {
+        const uid = (await getUser())?.id
+        const response = await supabase.from('tags').insert({ name, uid }).select().single<TagModel>()
+        if (response.error)
+          throw new Error(response.error.message)
+
+        const tag = response.data
+        await (await getDB()).put('tags', tag)
+        await this.refresh()
+      }
+      catch (error) {
+        console.error(error)
+        window.$message?.error?.(error)
+      }
+      finally {
+        message?.destroy?.()
+      }
+    },
     async update(data: TagModel) {
       const message = window.$message?.loading?.($t('tag.updateLoading'), { duration: 0 })
       try {

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Editor from '@firefly/editor'
-import type { SelectOption, SelectRenderTag, UploadFileInfo, UploadInst } from 'naive-ui'
+import type { CascaderOption, SelectOption, SelectRenderTag, UploadFileInfo, UploadInst } from 'naive-ui'
 import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
+import type { TagWithChildren } from '@firefly/common'
 import Bubble from '~/components/Bubble/Bubble.vue'
 
 const props = withDefaults(defineProps<{
@@ -21,10 +22,19 @@ const { t } = useI18n()
 const assistantStore = useAssistantStore()
 const tagStore = useTagStore()
 const uploadRef = ref<UploadInst>()
-const tags = computed(() => tagStore.tags.map(tag => ({
-  label: tag.name,
-  value: tag.name,
-})))
+const tags = computed(() => getOptions(tagStore.tags))
+const newTag = ref('')
+function getOptions(tags: TagWithChildren[]): CascaderOption[] {
+  return tags.map((tag) => {
+    const result: CascaderOption = {
+      label: tag.name,
+      value: tag.originalName,
+    }
+    if (tag.children?.length)
+      result.children = getOptions(tag.children)
+    return result
+  })
+}
 function renderLabel(option: SelectOption): VNodeChild {
   if (option.type === 'group')
     return `${option.label}(Cool!)`
@@ -72,6 +82,15 @@ function handleSave() {
 }
 function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
   assistantStore.fileList = data.fileList
+}
+async function handleCreateNewTag(tagName: string) {
+  try {
+    await tagStore.create(tagName)
+    assistantStore.tags.push(tagName)
+  }
+  finally {
+    newTag.value = ''
+  }
 }
 </script>
 
@@ -138,19 +157,30 @@ function handleUploadChange(data: { fileList: UploadFileInfo[] }) {
           </template>
         </NButton>
 
-        <NSelect
+        <NCascader
           v-model:value="assistantStore.tags"
           class="flex-1"
           size="small"
-          multiple
-          filterable
-          tag
+          multiple filterable
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"
           :max-tag-count="8"
+          check-strategy="child"
           :placeholder="t('tag.placeholder')"
-        />
+        >
+          <template #action>
+            <NInput
+              v-model:value="newTag"
+              placeholder="Create a tag Enter to save"
+              @keyup="e => e.key === 'Enter' && handleCreateNewTag(newTag)"
+            >
+              <template #prefix>
+                <i i-ri-add-line />
+              </template>
+            </NInput>
+          </template>
+        </NCascader>
 
         <div flex items-center gap-2>
           <NButton

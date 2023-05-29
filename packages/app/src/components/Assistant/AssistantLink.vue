@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { SelectOption, SelectRenderTag } from 'naive-ui'
+import type { CascaderOption, SelectOption, SelectRenderTag } from 'naive-ui'
 import { NTag } from 'naive-ui'
 import type { VNodeChild } from 'vue'
+import type { TagWithChildren } from '@firefly/common'
 import { isUrl } from '@firefly/common'
 import Bubble from '~/components/Bubble/Bubble.vue'
 
@@ -21,10 +22,19 @@ const { t } = useI18n()
 const message = useMessage()
 const assistantLinkStore = useAssistantLinkStore()
 const tagStore = useTagStore()
-const tags = computed(() => tagStore.tags.map(tag => ({
-  label: tag.name,
-  value: tag.name,
-})))
+const tags = computed(() => getOptions(tagStore.tags))
+const newTag = ref('')
+function getOptions(tags: TagWithChildren[]): CascaderOption[] {
+  return tags.map((tag) => {
+    const result: CascaderOption = {
+      label: tag.name,
+      value: tag.originalName,
+    }
+    if (tag.children?.length)
+      result.children = getOptions(tag.children)
+    return result
+  })
+}
 function renderLabel(option: SelectOption): VNodeChild {
   if (option.type === 'group')
     return `${option.label}(Cool!)`
@@ -77,6 +87,15 @@ function handleSave() {
 function handleNoSideSpace(value: string) {
   return !value.startsWith(' ') && !value.endsWith(' ')
 }
+async function handleCreateNewTag(tagName: string) {
+  try {
+    await tagStore.create(tagName)
+    assistantLinkStore.tags.push(tagName)
+  }
+  finally {
+    newTag.value = ''
+  }
+}
 </script>
 
 <template>
@@ -124,19 +143,30 @@ function handleNoSideSpace(value: string) {
     />
     <template #footer>
       <div flex items-center justify-between gap-2>
-        <NSelect
+        <NCascader
           v-model:value="assistantLinkStore.tags"
           class="flex-1"
           size="small"
-          multiple
-          filterable
-          tag
+          filterable multiple
           :options="tags"
           :render-label="renderLabel"
           :render-tag="renderTag"
           :max-tag-count="8"
+          check-strategy="child"
           :placeholder="t('tag.placeholder')"
-        />
+        >
+          <template #action>
+            <NInput
+              v-model:value="newTag"
+              placeholder="Create a tag Enter to save"
+              @keyup="e => e.key === 'Enter' && handleCreateNewTag(newTag)"
+            >
+              <template #prefix>
+                <i i-ri-add-line />
+              </template>
+            </NInput>
+          </template>
+        </NCascader>
 
         <div flex items-center gap-2>
           <NButton
