@@ -43,10 +43,13 @@ export const useTagStore = defineStore('tag', {
           }
           else {
             const newTag: TagWithChildren = {
-              ...tag,
               id: tagId,
               name,
               originalName,
+              color: originalName === tag.name ? tag.color : undefined,
+              pinned: originalName === tag.name ? tag.pinned : undefined,
+              createdAt: originalName === tag.name ? tag.createdAt : undefined,
+              updatedAt: originalName === tag.name ? tag.updatedAt : undefined,
               children: [],
             }
 

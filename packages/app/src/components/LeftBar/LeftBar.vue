@@ -17,18 +17,20 @@ function renderTag(tag: TagWithChildren) {
     id: tag.id,
     key: tag.originalName || tag.name,
     label: tag.name,
-    prefix: () => h(BubbleSelector, {
-      color: tag.color,
-      onSelect(color: keyof typeof colors) {
-        const t = tagStore.findOne(tag.name)
-        if (t) {
-          tagStore.update({
-            ...t,
-            color,
-          })
-        }
-      },
-    }),
+    suffix: () => tag.id
+      ? h(BubbleSelector, {
+        color: tag.color,
+        onSelect(color: keyof typeof colors) {
+          const t = tagStore.findOne(tag.originalName || tag.name)
+          if (t) {
+            tagStore.update({
+              ...t,
+              color,
+            })
+          }
+        },
+      })
+      : null,
   }
   if (tag.children && tag.children.length)
     option.children = tag.children.map(v => renderTag(v))

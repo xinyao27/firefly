@@ -196,7 +196,7 @@ async function handleNext() {
         </p>
         <div mt-4 flex flex-wrap gap-2>
           <NTag
-            v-for="tag in tagStore.tags"
+            v-for="tag in tagStore.originalTags"
             :key="tag.id"
             class="cursor-pointer hover:bg-(slate opacity-30)"
             size="small"
