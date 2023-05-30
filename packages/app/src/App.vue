@@ -4,7 +4,7 @@ import { is } from '@firefly/common'
 import { ThemeProvider, colorDark, colorPrimary } from '@firefly/theme'
 
 onMounted(() => {
-  const { APP_VERSION } = useRuntimeConfig()
+  const { APP_VERSION } = useRuntimeConfig().public
   // eslint-disable-next-line no-console
   console.log(
     `%c Firefly %c v${APP_VERSION} %c`,
