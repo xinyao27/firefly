@@ -1,5 +1,19 @@
 
 
+# [0.7.0](https://github.com/chenyueban/firefly/compare/v0.6.0...v0.7.0) (2023-05-30)
+
+
+### Bug Fixes
+
+* APP_VERSION problem ([e8a7c0e](https://github.com/chenyueban/firefly/commit/e8a7c0eed5c7eebfde6d1ee84d769cea3c24e18d))
+
+
+### Features
+
+* Add search functionality to inbox page ([4ab5a91](https://github.com/chenyueban/firefly/commit/4ab5a91313c4c0a6af4637eb3339aa2e6d62a87d))
+* Add support for nested tags in Assistant and AssistantLink components ([0d3d2de](https://github.com/chenyueban/firefly/commit/0d3d2deab787c55ea8f1d9fc3be3f589a403a94a))
+* support azure openai ([4138596](https://github.com/chenyueban/firefly/commit/4138596429182239ed3216225e8fcb718d755432))
+
 # [0.6.0](https://github.com/chenyueban/firefly/compare/v0.5.2...v0.6.0) (2023-05-24)
 
 
