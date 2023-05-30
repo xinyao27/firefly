@@ -6,11 +6,11 @@ import { CallbackManager } from 'langchain/callbacks'
 import type { Document } from 'langchain/document'
 import { serve } from '../_shared/serve.ts'
 import { modelName, tokenizer } from '../_shared/tokenizer.ts'
-import { basePath } from '../_shared/api.ts'
 import { ApplicationError, UserError } from '../_shared/errors.ts'
 import { createSupabaseClient } from '../_shared/auth.ts'
 import { getExecutorPrompt } from '../_shared/prompts.ts'
 import { corsHeaders } from '../_shared/cors.ts'
+import { getOpenAIConfig } from '../_shared/openai.ts'
 
 interface Body {
   copilotId: string
@@ -22,7 +22,6 @@ interface Body {
   }[]
 }
 
-const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
 const UPSTASH_REDIS_REST_URL = Deno.env.get('UPSTASH_REDIS_REST_URL')!
 const UPSTASH_REDIS_REST_TOKEN = Deno.env.get('UPSTASH_REDIS_REST_TOKEN')!
 const MAX_TOKENS = parseInt(Deno.env.get('MAX_TOKENS') || '1000')
@@ -36,8 +35,7 @@ const encoder = new TextEncoder()
 
 serve({
   POST: async (req) => {
-    if (!OPENAI_API_KEY)
-      throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
+    const openaiConfig = getOpenAIConfig()
     if (!UPSTASH_REDIS_REST_URL)
       throw new ApplicationError('No Upstash Redis REST URL found. Please set the UPSTASH_REDIS_REST_URL environment variable.')
     if (!UPSTASH_REDIS_REST_TOKEN)
@@ -104,8 +102,8 @@ serve({
     let text = ''
     const model = new OpenAI(
       {
+        ...openaiConfig,
         modelName,
-        openAIApiKey: OPENAI_API_KEY,
         temperature: 0,
         maxTokens: -1,
         streaming: true,
@@ -126,7 +124,6 @@ serve({
           },
         }),
       },
-      { basePath },
     )
     const prompt = new PromptTemplate({
       inputVariables: ['text'],

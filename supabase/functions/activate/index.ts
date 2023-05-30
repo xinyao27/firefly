@@ -2,7 +2,6 @@ import { Configuration, OpenAIApi } from 'openai'
 import type { OrderDetail, OrderModel } from 'models'
 import { v4 as uuid } from 'uuid'
 import { serve } from '../_shared/serve.ts'
-import { basePath } from '../_shared/api.ts'
 import { ApplicationError, UserError } from '../_shared/errors.ts'
 import { createSupabaseClient, getUser } from '../_shared/auth.ts'
 import { base64ToArrayBuffer } from '../_shared/transform.ts'
@@ -16,7 +15,6 @@ const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
 
 const configuration = new Configuration({
   apiKey: OPENAI_API_KEY,
-  basePath,
 })
 const openai = new OpenAIApi(configuration)
 

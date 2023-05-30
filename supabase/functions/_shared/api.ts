@@ -101,8 +101,6 @@ export async function createBlock(
   return data
 }
 
-export const basePath = 'https://api.openai.com/v1'
-
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant'
   content: string

@@ -5,12 +5,12 @@ import { SupabaseVectorStore } from 'langchain/vectorstores/supabase'
 import { CallbackManager } from 'langchain/callbacks'
 import type { ChatCompletionRequestMessage } from 'openai'
 import { serve } from '../_shared/serve.ts'
-import { ApplicationError, UserError } from '../_shared/errors.ts'
+import { UserError } from '../_shared/errors.ts'
 import type { Context } from '../_shared/api.ts'
-import { basePath } from '../_shared/api.ts'
 import { createSupabaseClient, getUser } from '../_shared/auth.ts'
 import { capMessages, modelName, tokenizer } from '../_shared/tokenizer.ts'
 import { corsHeaders } from '../_shared/cors.ts'
+import { getOpenAIConfig } from '../_shared/openai.ts'
 
 const encoder = new TextEncoder()
 
@@ -18,13 +18,10 @@ function clearHTMLTags(text: string) {
   return text.replace(/<.*?>/g, '')
 }
 
-const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')!
 const MAX_TOKENS = Deno.env.get('MAX_TOKENS')!
 
 serve({
   POST: async (req) => {
-    if (!OPENAI_API_KEY)
-      throw new ApplicationError('No OpenAI API key found. Please set the OPENAI_API_KEY environment variable.')
     const Authorization = req.headers.get('Authorization')
     if (!Authorization)
       throw new UserError('Missing Authorization, Please log in to use.')
@@ -67,11 +64,8 @@ serve({
     if (body.type === 'copilot') {
       const vectorStore = await SupabaseVectorStore.fromExistingIndex(
         new OpenAIEmbeddings({
+          ...getOpenAIConfig('embeddings'),
           timeout: 3000,
-          openAIApiKey: OPENAI_API_KEY,
-        },
-        {
-          basePath,
         }),
         {
           client: supabase,
@@ -135,8 +129,8 @@ serve({
     const writer = stream.writable.getWriter()
     const llm = new ChatOpenAI(
       {
+        ...getOpenAIConfig(),
         modelName,
-        openAIApiKey: OPENAI_API_KEY,
         maxTokens: parseInt(MAX_TOKENS, 10),
         streaming: true,
         callbackManager: CallbackManager.fromHandlers({
@@ -153,9 +147,6 @@ serve({
             await writer.abort(e)
           },
         }),
-      },
-      {
-        basePath,
       },
     )
     llm.call(messages.map((v) => {

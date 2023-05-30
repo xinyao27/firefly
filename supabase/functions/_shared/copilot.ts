@@ -4,9 +4,7 @@ import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
 import { getUser } from './auth.ts'
 import { ApplicationError } from './errors.ts'
 import { validateCopilot } from './validate.ts'
-import { basePath } from './api.ts'
-
-const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY')
+import { getOpenAIConfig } from './openai.ts'
 
 export async function createOrUpdateCopilot(
   supabase: SupabaseClient,
@@ -14,6 +12,7 @@ export async function createOrUpdateCopilot(
   copilot: CopilotModel,
   uid: string,
 ) {
+  const openaiConfig = getOpenAIConfig()
   validateCopilot(copilot)
 
   const _uid = uid || (await getUser(supabase))?.id
@@ -43,11 +42,8 @@ export async function createOrUpdateCopilot(
         try {
           const embeddings = new OpenAIEmbeddings(
             {
+              ...openaiConfig,
               timeout: 3000,
-              openAIApiKey: OPENAI_API_KEY,
-            },
-            {
-              basePath,
             },
           )
           const embedding = await embeddings.embedQuery(input)

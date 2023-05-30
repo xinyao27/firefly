@@ -13,6 +13,6 @@
     "uuid": "https://esm.sh/uuid@9.0.0",
     "@upstash/redis": "https://esm.sh/@upstash/redis@1.20.6",
     "rss-parser": "https://esm.sh/rss-parser@3.13.0",
-    "langchain/": "https://esm.sh/langchain@0.0.76/"
+    "langchain/": "https://esm.sh/langchain@0.0.84/"
   }
 }
