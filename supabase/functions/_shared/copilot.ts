@@ -12,7 +12,6 @@ export async function createOrUpdateCopilot(
   copilot: CopilotModel,
   uid: string,
 ) {
-  const openaiConfig = getOpenAIConfig()
   validateCopilot(copilot)
 
   const _uid = uid || (await getUser(supabase))?.id
@@ -42,7 +41,7 @@ export async function createOrUpdateCopilot(
         try {
           const embeddings = new OpenAIEmbeddings(
             {
-              ...openaiConfig,
+              ...getOpenAIConfig('embeddings'),
               timeout: 3000,
             },
           )
