@@ -3,7 +3,7 @@ import {
   disable as autostartDisable,
   enable as autostartEnable,
   isEnabled as isAutostartEnabled,
-} from 'tauri-plugin-autostart-api'
+} from '@tauri-apps/plugin-autostart'
 import { defaultSettings, getSettings, is, setSettings } from '@firefly/common'
 import type { LocaleObject } from '#i18n'
 import { tauri } from '~/plugins/tauri'
