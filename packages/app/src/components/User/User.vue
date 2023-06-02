@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { DropdownOption } from 'naive-ui'
-import { renderCopilotQuota, renderUserInfo } from './render'
+import { renderCopilotQuota, renderThemeSwitcher, renderUserInfo } from './render'
 import { supabase } from '~/plugins/api'
 
 const { t } = useI18n()
@@ -20,6 +20,14 @@ const options = computed<DropdownOption[]>(() => [
     type: 'render',
     key: 'copilotQuota',
     render: renderCopilotQuota,
+  },
+  {
+    type: 'divider',
+  },
+  {
+    type: 'render',
+    key: 'themeSwitcher',
+    render: renderThemeSwitcher,
   },
   {
     type: 'divider',

@@ -18,7 +18,7 @@ const containerRef = ref<HTMLElement>()
 <template>
   <div
     ref="containerRef"
-    h-full p-4 overflow-x-hidden overflow-y-auto
+    h-full overflow-x-hidden overflow-y-auto p-4
   >
     <DynamicScroller
       :items="props.data"
@@ -43,7 +43,7 @@ const containerRef = ref<HTMLElement>()
     </DynamicScroller>
     <NButton
       v-if="isMobileScreen"
-      class="w-[calc(100vw-42px)] round fixed bottom-40px shadow-lg capitalize"
+      class="round fixed bottom-40px w-[calc(100vw-42px)] capitalize shadow-lg"
       size="large"
       color="rgb(135, 206, 235)"
       round

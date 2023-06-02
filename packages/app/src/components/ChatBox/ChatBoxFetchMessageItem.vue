@@ -9,7 +9,10 @@ const props = defineProps<{
 
 <template>
   <section
-    class="message flex flex-col gap-2 overflow-hidden break-words border border-(slate opacity-15) rounded p-3"
+    class="message"
+    overflow-hidden break-words rounded p-3
+    flex="~ col gap-2"
+    border="~ neutral opacity-30 dark:slate dark:opacity-15"
   >
     <NCollapse
       :default-expanded-names="['blocks']"

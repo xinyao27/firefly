@@ -175,4 +175,4 @@ user:
   generateToken: Generate Token
   language: language
   licenseKeyPlaceholder: Enter your activation code, you can found on LemonSqueezy and in your email.
-  logout: sign out
+  logout: Sign out

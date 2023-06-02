@@ -57,7 +57,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
-    '@nuxtjs/color-mode',
     '@nuxtjs/i18n',
     '@vite-pwa/nuxt',
     '@vue-macros/nuxt',
@@ -75,10 +74,6 @@ export default defineNuxtConfig({
   css: [
     '~/styles/normalize.css',
   ],
-
-  colorMode: {
-    classSuffix: '',
-  },
 
   nitro: {
     esbuild: {

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import '~/styles/main.sass'
-import { ThemeProvider } from '@firefly/theme'
 import { is } from '@firefly/common'
 import type { Event } from '@tauri-apps/api/event'
 import type { Editor } from '@tiptap/core'

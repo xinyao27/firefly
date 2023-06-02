@@ -90,7 +90,7 @@ const renderContent = computed(() => {
 
 <template>
   <NCard
-    class="bg-(slate opacity-3) hover:bg-(slate opacity-6)"
+    class="dark:(bg-slate bg-opacity-3 hover:bg-slate hover:bg-opacity-6)"
     size="small"
     hoverable
     :bordered="false"
@@ -170,7 +170,7 @@ const renderContent = computed(() => {
     >
       <div
         ref="el"
-        class="ProseMirror max-w-full prose prose-white"
+        class="ProseMirror max-w-full prose prose-dark dark:prose-white"
         v-html="renderContent"
       />
     </div>

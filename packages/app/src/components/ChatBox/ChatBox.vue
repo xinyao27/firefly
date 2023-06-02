@@ -62,7 +62,10 @@ watch(() => props.currentError, (currentError) => {
       flex-1 p-4
     >
       <div mb-4 flex justify-start overflow-hidden break-words>
-        <section class="border border-(slate opacity-15) rounded p-3">
+        <section
+          rounded p-3
+          border="~ neutral opacity-30 dark:slate dark:opacity-15"
+        >
           <template v-if="typeof props.hi === 'string'">
             {{ props.hi }}
           </template>
@@ -172,6 +175,7 @@ watch(() => props.currentError, (currentError) => {
           <NTooltip>
             <template #trigger>
               <NButton
+                class="text-neutral"
                 size="small"
                 tertiary
                 @click="props.onAbort"

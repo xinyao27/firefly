@@ -129,7 +129,7 @@ async function handleCreateNewTag(tagName: string) {
     </template>
     <Editor
       v-model="modelValue"
-      class="prose prose-white"
+      class="prose prose-dark dark:prose-white"
       :class="props.class"
       :tags="tagStore.tags"
       :on-created="editor => assistantStore.editor = editor"

@@ -1,5 +1,5 @@
 <template>
-  <div class="root" relative h-full>
+  <div class="root" relative h-full text-white>
     <FireflyBg />
     <IndexHeader />
     <IndexContent />
@@ -7,8 +7,8 @@
   </div>
 </template>
 
-<style scoped lang="sass">
+<style lang="sass">
 $bg: #212121
-.root
+body, .root
   background-color: $bg
 </style>

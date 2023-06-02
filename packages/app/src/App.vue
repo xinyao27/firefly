@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@total-typescript/ts-reset'
 import { is } from '@firefly/common'
-import { ThemeProvider, colorDark, colorPrimary } from '@firefly/theme'
+import { colorDark, colorPrimary } from '@firefly/theme'
 
 onMounted(() => {
   const { APP_VERSION } = useRuntimeConfig().public

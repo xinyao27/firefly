@@ -33,7 +33,10 @@ async function handleCapture() {
   >
     <template #trigger>
       <section
-        class="message overflow-hidden break-words border border-(slate opacity-15) rounded px-3 prose prose-white"
+        class="message"
+        overflow-hidden break-words rounded px-3
+        border="~ neutral opacity-30 dark:slate dark:opacity-15"
+        prose="~ dark dark:white"
         v-html="md.render(props.message)"
       />
     </template>

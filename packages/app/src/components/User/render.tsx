@@ -1,4 +1,8 @@
-import { NAvatar, NButton, NText, NTooltip } from 'naive-ui'
+import type { SelectOption } from 'naive-ui'
+import { NAvatar, NButton, NSelect, NText, NTooltip } from 'naive-ui'
+import { useColorMode } from '@vueuse/core'
+import type { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface'
+import type { VNodeChild } from 'vue'
 import Copyable from '../Copyable.vue'
 
 export function renderUserInfo() {
@@ -69,19 +73,60 @@ export function renderCopilotQuota() {
   const { t } = useI18n()
 
   return (
-    <div class="flex items-center gap-4 px-4 py-2 text-neutral">
+    <div class="flex items-center justify-between gap-4 px-4 py-2 dark:text-neutral">
       <div>
         {`${t('common.copilotQuota')}: `}
-        <span class="text-yellow-200">{userStore.profiles?.copilotQuota ?? 0}</span>
+        <span class="text-yellow">{userStore.profiles?.copilotQuota ?? 0}</span>
       </div>
       <NButton
-        secondary
         type="warning"
         size="small"
         onClick={() => pricingStore.show = true}
       >
         {t('common.upgrade')}
       </NButton>
+    </div>
+  )
+}
+
+export function renderThemeSwitcher() {
+  const options: Array<SelectOption & { icon: VNodeChild }> = [
+    {
+      label: 'System',
+      value: 'auto',
+      icon: <i class="i-ri-computer-line" />,
+    },
+    {
+      label: 'Light',
+      value: 'light',
+      icon: <i class="i-ri-sun-line" />,
+    },
+    {
+      label: 'Dark',
+      value: 'dark',
+      icon: <i class="i-ri-moon-line" />,
+    },
+  ]
+  const renderLabel: RenderLabel = (option: SelectOption & { icon: VNodeChild }) => {
+    return <div class="flex items-center gap-2">
+      {option.icon}
+      <span>{option.label}</span>
+    </div>
+  }
+  const { store } = useColorMode()
+
+  return (
+    <div class="flex items-center justify-between gap-4 px-4 py-2">
+      Theme:
+      <NSelect
+        options={options}
+        renderLabel={renderLabel}
+        value={store.value}
+        onUpdateValue={value => store.value = value}
+        size="small"
+        class="w-28"
+        to={document.body}
+      />
     </div>
   )
 }
