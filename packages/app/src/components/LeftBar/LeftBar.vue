@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TagWithChildren, colors } from '@firefly/common'
-import type { TreeOption } from 'naive-ui'
+import type { DropdownOption, TreeOption } from 'naive-ui'
 import { NCollapseItem, NDropdown } from 'naive-ui'
 import { useRouteQuery } from '@vueuse/router'
 import menuOptions from './menuOptions'
@@ -11,6 +11,9 @@ const route = useRoute()
 const router = useRouter()
 const dialog = useDialog()
 const tagStore = useTagStore()
+const configStore = useConfigStore()
+const assistantStore = useAssistantStore()
+const assistantLinkStore = useAssistantLinkStore()
 
 function renderTag(tag: TagWithChildren) {
   const option: TreeOption = {
@@ -102,10 +105,41 @@ function nodeProps({ option }: { option: TreeOption }) {
     },
   }
 }
+
+const creates: DropdownOption[] = [
+  {
+    label: t('assistant.clipping'),
+    key: 'text',
+    icon: () => h('i', { class: 'i-ri-pencil-line' }),
+  },
+  {
+    label: t('assistant.website'),
+    key: 'link',
+    icon: () => h('i', { class: 'i-ri-global-line' }),
+  },
+]
+function handleCreatesSelect(key: string) {
+  if (key === 'text')
+    assistantStore.open('create')
+  if (key === 'link')
+    assistantLinkStore.open('create')
+}
 </script>
 
 <template>
-  <aside h-full flex flex-col gap-4 p-4>
+  <aside h-full flex flex-col gap-4>
+    <section>
+      <!-- leftBarShow -->
+      <NButton
+        size="small"
+        quaternary
+        :opacity="configStore.leftBarShow ? 100 : 40"
+        @click="configStore.toggleLeftBarShow"
+      >
+        <i i-ri-layout-left-line />
+      </NButton>
+    </section>
+
     <User />
 
     <section>
@@ -155,6 +189,27 @@ function nodeProps({ option }: { option: TreeOption }) {
           />
         </NCollapseItem>
       </NCollapse>
+    </section>
+
+    <section
+      flex="~ justify-between"
+    >
+      <!-- Settings -->
+      <Settings />
+
+      <NDropdown
+        trigger="hover"
+        :options="creates"
+        placement="bottom-end"
+        @select="handleCreatesSelect"
+      >
+        <NButton
+          size="small"
+          quaternary
+        >
+          <i i-ri-add-fill />
+        </NButton>
+      </NDropdown>
     </section>
   </aside>
 </template>

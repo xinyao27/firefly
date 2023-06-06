@@ -3,6 +3,8 @@ const rightBarShow = useLocalStorage('rightBarShow', false)
 
 export const useConfigStore = defineStore('config', {
   state: () => {
+    const containerRef = ref<HTMLElement>()
+
     return {
       rootPaddingTop: 40,
       rootPaddingLeft: 240,
@@ -10,6 +12,8 @@ export const useConfigStore = defineStore('config', {
 
       leftBarShow,
       rightBarShow,
+
+      containerRef,
     }
   },
   actions: {
@@ -18,6 +22,9 @@ export const useConfigStore = defineStore('config', {
     },
     toggleRightBarShow() {
       this.rightBarShow = !this.rightBarShow
+    },
+    scrollToTop() {
+      this.containerRef?.scrollTo({ top: 0, behavior: 'smooth' })
     },
   },
 })

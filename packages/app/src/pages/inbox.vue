@@ -21,7 +21,10 @@ router.afterEach(async (to, from) => {
 </script>
 
 <template>
-  <main h-full overflow-hidden>
-    <List :data="blockStore.blocks" />
+  <main flex="~ col 1">
+    <TitleBar />
+    <div flex-1 overflow-auto p-4>
+      <List :data="blockStore.blocks" />
+    </div>
   </main>
 </template>

@@ -9,17 +9,13 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const configStore = useConfigStore()
 const assistantStore = useAssistantStore()
 const isMobileScreen = useMobileScreen()
-
-const containerRef = ref<HTMLElement>()
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    h-full overflow-x-hidden overflow-y-auto p-4
-  >
+  <div>
     <DynamicScroller
       :items="props.data"
       :min-item-size="80"
@@ -58,7 +54,7 @@ const containerRef = ref<HTMLElement>()
       v-if="isMobileScreen"
       :bottom="100"
       :right="24"
-      :listen-to="() => containerRef"
+      :listen-to="() => configStore.containerRef"
     >
       <i i-ri-skip-up-line />
     </NBackTop>

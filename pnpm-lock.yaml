@@ -2254,8 +2254,8 @@ packages:
     engines: {node: '>= 14'}
     dev: true
 
-  /@intlify/shared@9.3.0-beta.18:
-    resolution: {integrity: sha512-Z+XZ1YQL/ZudauayZFNbW2PDf4ac7UBs3PCRsBRb2UcAgat3jN9IZYNDyluQBx4Gmko02kvqc8kC5uJmMlGhmQ==}
+  /@intlify/shared@9.3.0-beta.19:
+    resolution: {integrity: sha512-+lhQggrLvlQ/O5OmIYAc9gadcYXMoaDi0Doef+X/f6TLZFr9PTMjOpBWmpwNNHi026e54jckntUn6GzqDtIN4w==}
     engines: {node: '>= 16'}
     dev: true
 
@@ -15793,7 +15793,7 @@ packages:
       vue-router:
         optional: true
     dependencies:
-      '@intlify/shared': 9.3.0-beta.18
+      '@intlify/shared': 9.3.0-beta.19
       '@intlify/vue-i18n-bridge': 0.8.0(vue-i18n@9.3.0-beta.17)
       '@intlify/vue-router-bridge': 0.8.0(vue-router@4.2.2)(vue@3.3.4)
       ufo: 1.1.2

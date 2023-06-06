@@ -33,15 +33,6 @@ export const themeOverrides: GlobalThemeOverrides = {
     infoColorHover: colors.blue[600],
     infoColorPressed: colors.blue[700],
     infoColorSuppl: colors.blue[500],
-
-    modalColor: colorWarmGray,
-    bodyColor: colorWarmGray,
-    cardColor: colorWarmGray,
-    popoverColor: colorWarmGray,
-  },
-  Layout: {
-    headerColor: colorWarmGray,
-    siderColor: colorWarmGray,
   },
   Popover: {
     padding: '0',
@@ -49,7 +40,6 @@ export const themeOverrides: GlobalThemeOverrides = {
   Tooltip: {
     peers: {
       Popover: {
-        arrowHeight: '0',
         color: colorBlack,
         padding: '4px 6px',
       },
@@ -105,7 +95,6 @@ export const darkThemeOverrides: GlobalThemeOverrides = {
   Tooltip: {
     peers: {
       Popover: {
-        arrowHeight: '0',
         color: colorBlack,
         padding: '4px 6px',
       },

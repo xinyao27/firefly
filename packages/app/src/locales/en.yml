@@ -168,7 +168,7 @@ thankyou:
   shareToTwitter: Share to Twitter
   uniqueCardTitle: We use AI to generate a unique card for each order!
 titleBar:
-  sync: sync now
+  sync: Sync now
 user:
   activate: activate
   generateNewToken: Generate a new token
