@@ -37,7 +37,7 @@ const { hotkey } = defineModels<{
 const { t } = useI18n()
 const targetRef = ref<HTMLElement>()
 const { focused } = useFocus(targetRef)
-const keys = ref<string[]>(props.hotkey?.split('+') ?? [])
+const keys = ref<string[]>(hotkey.value?.split('+') ?? [])
 const done = ref(true)
 
 onKeyStroke(
@@ -68,7 +68,7 @@ onKeyStroke(
 watchDebounced(
   keys,
   (value) => {
-    hotkey.value = value.value.join('+')
+    hotkey.value = value.join('+')
   },
   { debounce: 300, maxWait: 600 },
 )

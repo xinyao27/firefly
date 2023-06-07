@@ -127,8 +127,16 @@ function handleCreatesSelect(key: string) {
 </script>
 
 <template>
-  <aside h-full flex flex-col gap-4>
-    <section>
+  <aside
+    data-tauri-drag-region
+    h-full flex flex-col gap-4
+  >
+    <section
+      data-tauri-drag-region
+      flex="~ justify-between"
+    >
+      <div />
+
       <!-- leftBarShow -->
       <NButton
         size="small"
@@ -136,7 +144,7 @@ function handleCreatesSelect(key: string) {
         :opacity="configStore.leftBarShow ? 100 : 40"
         @click="configStore.toggleLeftBarShow"
       >
-        <i i-ri-layout-left-line />
+        <i i-ri-arrow-left-double-line />
       </NButton>
     </section>
 
@@ -152,10 +160,11 @@ function handleCreatesSelect(key: string) {
     </section>
 
     <section
-      v-if="route.path === '/inbox'"
+      data-tauri-drag-region
       flex-1 overflow-x-hidden overflow-y-auto
     >
       <NCollapse
+        v-if="route.path === '/inbox'"
         :default-expanded-names="['tags']"
         display-directive="show"
       >
@@ -192,6 +201,7 @@ function handleCreatesSelect(key: string) {
     </section>
 
     <section
+      data-tauri-drag-region
       flex="~ justify-between"
     >
       <!-- Settings -->

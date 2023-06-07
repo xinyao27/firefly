@@ -37,8 +37,8 @@ onMounted(async () => {
 
 <template>
   <div
-    h-full flex
-    bg="zinc-50 dark:dark-800"
+    data-tauri-drag-region
+    h-full flex select-none
   >
     <template v-if="isMobileScreen">
       <NDrawer
@@ -53,15 +53,31 @@ onMounted(async () => {
     </template>
     <template v-else>
       <div
-        p-4 pr-0 transition-all
+        h-full transition-all
         :style="{
           width: `${configStore.leftBarShow ? configStore.rootPaddingLeft : 0}px`,
           opacity: configStore.leftBarShow ? 1 : 0,
         }"
       >
-        <LeftBar />
+        <div
+          data-tauri-drag-region
+          h-full p-3 pr-0
+        >
+          <LeftBar />
+        </div>
       </div>
     </template>
+    <Transition>
+      <NButton
+        v-if="!isMobileScreen && !configStore.leftBarShow"
+        size="tiny"
+        quaternary
+        class="fixed left--2 top-4 z-50 transition-all hover:left-0"
+        @click="configStore.toggleLeftBarShow"
+      >
+        <i i-ri-arrow-right-double-line />
+      </NButton>
+    </Transition>
 
     <template v-if="route.path === '/inbox'">
       <NDrawer
@@ -79,8 +95,9 @@ onMounted(async () => {
     </template>
 
     <div
+      data-tauri-drag-region
       flex="~ 1"
-      p-4
+      p-3
     >
       <div
         overflow-hidden rounded-lg shadow

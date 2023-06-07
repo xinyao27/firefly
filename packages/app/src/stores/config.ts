@@ -1,4 +1,4 @@
-const leftBarShow = useLocalStorage('leftBarShow', false)
+const leftBarShow = useLocalStorage('leftBarShow', true)
 const rightBarShow = useLocalStorage('rightBarShow', false)
 
 export const useConfigStore = defineStore('config', {

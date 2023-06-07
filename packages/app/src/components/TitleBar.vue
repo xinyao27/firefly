@@ -8,7 +8,6 @@ const router = useRouter()
 const route = useRoute()
 const configStore = useConfigStore()
 const blockStore = useBlockStore()
-const isMobileScreen = useMobileScreen()
 const tag = useRouteQuery<string>('tag')
 const tags = computed(() => tag.value?.split('/'))
 const isInboxPage = computed(() => route.path === '/inbox')
@@ -67,11 +66,7 @@ const isInboxPage = computed(() => route.path === '/inbox')
       </NTooltip>
     </div>
 
-    <!-- Drag Area -->
-    <div
-      data-tauri-drag-region
-      h-full flex-auto select-none
-    />
+    <div h-full flex-auto select-none />
 
     <SearchInput v-if="isInboxPage" />
 
@@ -89,8 +84,5 @@ const isInboxPage = computed(() => route.path === '/inbox')
         </NButton>
       </div>
     </template>
-
-    <!-- windows tools -->
-    <WindowsTools v-if="is.desktop() && is.windows()" />
   </div>
 </template>
