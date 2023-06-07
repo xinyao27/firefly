@@ -98,7 +98,7 @@ onMounted(async () => {
       style="-webkit-app-region: drag;"
     >
       <div
-        overflow-hidden rounded-lg shadow
+        overflow-hidden rounded-lg shadow-lg
         flex="~ 1"
         bg="white dark:dark-300"
         style="-webkit-app-region: no-drag;"
