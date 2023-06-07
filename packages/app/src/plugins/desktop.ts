@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-mutable-exports
-export let tauri: typeof import('@tauri-apps/api')
+export let desktop: typeof import('electron')
 
 export default defineNuxtPlugin(async () => {
   if (process.server) {
     // @ts-expect-error noop
-    tauri = {}
+    desktop = {}
   }
   else {
-    tauri = await import('@tauri-apps/api')
-    window.$tauri = tauri
+    desktop = await import('electron')
+    window.$desktop = desktop
   }
 })

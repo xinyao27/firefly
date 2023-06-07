@@ -1,19 +1,19 @@
 import { is } from '@firefly/common'
-import { tauri } from '~/plugins/tauri'
+import { desktop } from '~/plugins/desktop'
 import { $t } from '~/plugins/i18n'
 
 export async function bindHotkey(hotkey: string, oldHotkey?: string) {
   if (!hotkey)
     return
 
-  if (oldHotkey && (await tauri.globalShortcut.isRegistered(oldHotkey)))
-    await tauri.globalShortcut.unregister(oldHotkey)
+  if (oldHotkey && (await desktop.globalShortcut.isRegistered(oldHotkey)))
+    await desktop.globalShortcut.unregister(oldHotkey)
 
-  if (await tauri.globalShortcut.isRegistered(hotkey))
+  if (await desktop.globalShortcut.isRegistered(hotkey))
     throw new Error($t('common.hotkeyAlreadyRegistered'))
 
-  await tauri.globalShortcut.register(hotkey, () => {
-    tauri.invoke('show_assistant_window_with_selected_text')
+  await desktop.globalShortcut.register(hotkey, () => {
+    desktop.invoke('show_assistant_window_with_selected_text')
   })
 }
 
@@ -21,19 +21,19 @@ export async function bindOCRHotkey(ocrHotkey: string, oldOCRHotkey?: string) {
   if (!ocrHotkey)
     return
 
-  if (oldOCRHotkey && (await tauri.globalShortcut.isRegistered(oldOCRHotkey)))
-    await tauri.globalShortcut.unregister(oldOCRHotkey)
+  if (oldOCRHotkey && (await desktop.globalShortcut.isRegistered(oldOCRHotkey)))
+    await desktop.globalShortcut.unregister(oldOCRHotkey)
 
-  if (await tauri.globalShortcut.isRegistered(ocrHotkey))
+  if (await desktop.globalShortcut.isRegistered(ocrHotkey))
     throw new Error($t('common.ocrHotkeyAlreadyRegistered'))
 
-  await tauri.globalShortcut.register(ocrHotkey, () => {
-    tauri.invoke('ocr')
+  await desktop.globalShortcut.register(ocrHotkey, () => {
+    desktop.invoke('ocr')
   })
 }
 
 export function unBindAll() {
-  tauri.globalShortcut.unregisterAll()
+  desktop.globalShortcut.unregisterAll()
 }
 
 export function parseSchema(link: string) {

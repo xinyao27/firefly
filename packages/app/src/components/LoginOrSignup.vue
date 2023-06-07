@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { is } from '@firefly/common'
-import type { Event } from '@tauri-apps/api/event'
 import { useRouteQuery } from '@vueuse/router'
-import { tauri } from '~/plugins/tauri'
+import { desktop } from '~/plugins/desktop'
 import { supabase } from '~/plugins/api'
 import { parseSchema } from '~/utils'
 
@@ -40,7 +39,7 @@ const rules = {
 const loading = ref(false)
 async function signInWithToken(url: string) {
   if (is.desktop()) {
-    tauri.event.listen('firefly_scheme', async (event: Event<string>) => {
+    desktop.event.listen('firefly_scheme', async (event: Event<string>) => {
       if (event.event === 'firefly_scheme') {
         const parsed = parseSchema(event.payload)
         const { access_token, refresh_token } = parsed || {}

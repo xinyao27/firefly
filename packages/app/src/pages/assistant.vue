@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import '~/styles/main.sass'
 import { is } from '@firefly/common'
-import type { Event } from '@tauri-apps/api/event'
 import type { Editor } from '@tiptap/core'
-import { tauri } from '~/plugins/tauri'
+import { desktop } from '~/plugins/desktop'
 
 definePageMeta({
   layout: false,
@@ -15,7 +14,7 @@ const editor = ref<Editor>()
 
 async function handleClose() {
   assistantStore.clear()
-  await tauri.invoke('hide_assistant_window')
+  await desktop.invoke('hide_assistant_window')
 }
 
 const settings = useSettings()
@@ -27,7 +26,7 @@ onMounted(
   () => {
     let unlisten
     ;(async () => {
-      unlisten = await tauri.event.listen('change-text', async (event: Event<string>) => {
+      unlisten = await desktop.event.listen('change-text', async (event: Event<string>) => {
         const selectedText = event.payload
         if (selectedText) {
           editor.value?.commands.focus()

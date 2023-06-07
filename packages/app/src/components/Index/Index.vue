@@ -6,9 +6,3 @@
     <IndexFooter />
   </div>
 </template>
-
-<style lang="sass">
-$bg: #212121
-body, .root
-  background-color: $bg
-</style>

@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import {
-  disable as autostartDisable,
-  enable as autostartEnable,
-  isEnabled as isAutostartEnabled,
-} from '@tauri-apps/plugin-autostart'
 import { defaultSettings, getSettings, is, setSettings } from '@firefly/common'
 import type { LocaleObject } from '#i18n'
-import { tauri } from '~/plugins/tauri'
 import { bindHotkey, bindOCRHotkey } from '~/utils'
 
 const { t, locales, setLocale } = useI18n()
@@ -28,17 +22,17 @@ async function handleSave() {
     const oldSetting = await getSettings()
     const newSetting = settings.value
     if (is.desktop()) {
-      await tauri.invoke('clear_config_cache')
+      await $desktop.invoke('clear_config_cache')
       if (newSetting.hotkey)
         await bindHotkey(newSetting.hotkey, oldSetting.hotkey)
       if (is.macOS() && newSetting.ocrHotkey)
         await bindOCRHotkey(newSetting.ocrHotkey, oldSetting.ocrHotkey)
-      if (newSetting.runAtStartup !== await isAutostartEnabled()) {
-        if (newSetting.runAtStartup === true)
-          await autostartEnable()
-        else if (newSetting.runAtStartup === false)
-          await autostartDisable()
-      }
+      // if (newSetting.runAtStartup !== await isAutostartEnabled()) {
+      //   if (newSetting.runAtStartup === true)
+      //     await autostartEnable()
+      //   else if (newSetting.runAtStartup === false)
+      //     await autostartDisable()
+      // }
     }
     if (newSetting.i18n)
       setLocale(newSetting.i18n)

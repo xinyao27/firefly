@@ -96,7 +96,6 @@ async function handleCreateNewTag(tagName: string) {
 
 <template>
   <NCard
-    data-tauri-drag-region
     class="h-full max-h-431px overflow-hidden rounded-sm bg-neutral-800 bg-opacity-90 shadow-lg backdrop-blur"
     size="small"
     :bordered="false"
@@ -105,7 +104,7 @@ async function handleCreateNewTag(tagName: string) {
   >
     <template #header>
       <div
-        data-tauri-drag-region
+
         select-none
         :pl="!showClose ? 16 : 0"
       >

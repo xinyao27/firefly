@@ -12,11 +12,11 @@ declare namespace globalThis {
   const $message: MessageApi
   const $router: Router
   const $route: Route
-  const $tauri: typeof import('@tauri-apps/api')
+  const $desktop: typeof import('electron')
   interface Window {
     $message?: MessageApi
     $router?: Router
     $route?: Route
-    $tauri?: typeof import('@tauri-apps/api')
+    $desktop?: typeof import('electron')
   }
 }

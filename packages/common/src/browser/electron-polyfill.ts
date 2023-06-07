@@ -1,7 +1,7 @@
 import type { IBrowser } from './types'
 
 async function getSettings(): Promise<Record<string, any>> {
-  const settings = await $tauri?.invoke<string>('get_config_content')
+  const settings = await $desktop?.invoke<string>('get_config_content')
   return JSON.parse(settings)
 }
 
@@ -25,8 +25,8 @@ class BrowserStorageSync {
     }, {})
     const settings = await getSettings()
     const newSettings = { ...settings, ...newItems }
-    await $tauri?.fs.writeTextFile('config.json', JSON.stringify(newSettings), {
-      dir: $tauri?.fs.BaseDirectory.AppConfig,
+    await $desktop?.fs.writeTextFile('config.json', JSON.stringify(newSettings), {
+      dir: $desktop?.fs.BaseDirectory.AppConfig,
     })
   }
 }
@@ -81,4 +81,4 @@ class Browser implements IBrowser {
   }
 }
 
-export const tauriBrowser = new Browser()
+export const electronBrowser = new Browser()

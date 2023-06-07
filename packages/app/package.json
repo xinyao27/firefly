@@ -1,8 +1,8 @@
 {
   "name": "firefly",
-  "type": "module",
   "version": "0.7.0",
   "private": true,
+  "main": "dist-electron/main.js",
   "scripts": {
     "postinstall": "nuxi prepare",
     "typecheck": "vue-tsc --noEmit",
@@ -13,17 +13,13 @@
     "start": "node .output/server/index.mjs",
     "start:generate": "npx serve .output/public",
     "generate": "node --max_old_space_size=16384 ./node_modules/nuxt/bin/nuxt.mjs generate",
-    "dev:desktop": "tauri dev",
-    "build:desktop": "tauri build",
-    "build:desktop:debug": "tauri build --debug",
-    "tauri": "tauri"
+    "dev:desktop": "nuxi dev",
+    "build:desktop": "nuxi build --prerender && electron-builder"
   },
   "dependencies": {
     "@firefly/common": "workspace:*",
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
-    "@tauri-apps/api": "^1.3.0",
-    "@tauri-apps/plugin-autostart": "2.0.0-alpha.0",
     "@vercel/analytics": "^1.0.1",
     "@yeger/vue-masonry-wall": "^3.5.0",
     "mark.js": "^8.11.1",
@@ -33,7 +29,6 @@
     "@nuxt/devtools": "^0.5.5",
     "@nuxtjs/i18n": "8.0.0-beta.12",
     "@pinia/nuxt": "^0.4.11",
-    "@tauri-apps/cli": "^1.3.1",
     "@types/crypto-js": "^4.1.1",
     "@types/js-base64": "^3.3.1",
     "@types/mark.js": "^8.11.8",
@@ -42,7 +37,12 @@
     "@vite-pwa/nuxt": "^0.0.9",
     "@vue-macros/nuxt": "^1.3.11",
     "@vueuse/nuxt": "^10.1.2",
+    "electron": "^25.0.1",
+    "electron-builder": "^23.6.0",
     "nuxt": "^3.5.2",
-    "nuxt-gtag": "^0.5.7"
+    "nuxt-electron": "^0.5.0",
+    "nuxt-gtag": "^0.5.7",
+    "vite-plugin-electron": "^0.11.2",
+    "vite-plugin-electron-renderer": "^0.14.5"
   }
 }

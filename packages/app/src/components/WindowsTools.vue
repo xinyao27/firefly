@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { tauri } from '~/plugins/tauri'
+import { desktop } from '~/plugins/desktop'
 
 function handleMinimize() {
-  tauri.window.appWindow.minimize()
+  desktop.window.appWindow.minimize()
 }
 const maximize = ref(false)
 async function handleMaximize() {
   maximize.value = !maximize.value
-  if (await tauri.window.appWindow.isMaximized())
-    await tauri.window.appWindow.unmaximize()
+  if (await desktop.window.appWindow.isMaximized())
+    await desktop.window.appWindow.unmaximize()
   else
-    await tauri.window.appWindow.maximize()
+    await desktop.window.appWindow.maximize()
 }
 function handleClose() {
-  tauri.window.appWindow.hide()
+  desktop.window.appWindow.hide()
 }
 </script>
 

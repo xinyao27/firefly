@@ -61,7 +61,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@vue-macros/nuxt',
     'nuxt-gtag',
-    '~/modules/tauri/index',
+    'nuxt-electron',
   ],
 
   experimental: {
@@ -123,6 +123,20 @@ export default defineNuxtConfig({
     },
   },
 
+  electron: {
+    build: [
+      {
+        entry: 'electron/main.ts',
+      },
+      {
+        entry: 'electron/preload.ts',
+        onstart(options) {
+          options.reload()
+        },
+      },
+    ],
+    renderer: {},
+  },
   pinia: {
     autoImports: ['defineStore', 'acceptHMRUpdate'],
   },

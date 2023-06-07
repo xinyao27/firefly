@@ -37,8 +37,8 @@ onMounted(async () => {
 
 <template>
   <div
-    data-tauri-drag-region
     h-full flex select-none
+    style="-webkit-app-region: drag;"
   >
     <template v-if="isMobileScreen">
       <NDrawer
@@ -59,10 +59,7 @@ onMounted(async () => {
           opacity: configStore.leftBarShow ? 1 : 0,
         }"
       >
-        <div
-          data-tauri-drag-region
-          h-full p-3 pr-0
-        >
+        <div h-full p-3 pr-0>
           <LeftBar />
         </div>
       </div>
@@ -73,6 +70,7 @@ onMounted(async () => {
         size="tiny"
         quaternary
         class="fixed left--2 top-4 z-50 transition-all hover:left-0"
+        style="-webkit-app-region: no-drag;"
         @click="configStore.toggleLeftBarShow"
       >
         <i i-ri-arrow-right-double-line />
@@ -95,14 +93,15 @@ onMounted(async () => {
     </template>
 
     <div
-      data-tauri-drag-region
       flex="~ 1"
       p-3
+      style="-webkit-app-region: drag;"
     >
       <div
         overflow-hidden rounded-lg shadow
         flex="~ 1"
         bg="white dark:dark-300"
+        style="-webkit-app-region: no-drag;"
       >
         <KeepAlive>
           <AssistantProvider>

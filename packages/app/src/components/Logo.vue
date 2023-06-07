@@ -9,7 +9,6 @@ const props = defineProps<{
     <span
       class="root"
       :class="props.white ? 'white' : 'colorful'"
-      data-tauri-drag-region
     >
       Firefly
     </span>

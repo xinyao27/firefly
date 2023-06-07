@@ -128,11 +128,10 @@ function handleCreatesSelect(key: string) {
 
 <template>
   <aside
-    data-tauri-drag-region
     h-full flex flex-col gap-4
   >
     <section
-      data-tauri-drag-region
+      style="-webkit-app-region: no-drag;"
       flex="~ justify-between"
     >
       <div />
@@ -150,7 +149,7 @@ function handleCreatesSelect(key: string) {
 
     <User />
 
-    <section>
+    <section style="-webkit-app-region: no-drag;">
       <NMenu
         :value="route.path"
         :options="menuOptions"
@@ -160,13 +159,13 @@ function handleCreatesSelect(key: string) {
     </section>
 
     <section
-      data-tauri-drag-region
       flex-1 overflow-x-hidden overflow-y-auto
     >
       <NCollapse
         v-if="route.path === '/inbox'"
         :default-expanded-names="['tags']"
         display-directive="show"
+        style="-webkit-app-region: no-drag;"
       >
         <template #arrow>
           <i i-ri-arrow-right-s-line text-xs />
@@ -201,8 +200,8 @@ function handleCreatesSelect(key: string) {
     </section>
 
     <section
-      data-tauri-drag-region
       flex="~ justify-between"
+      style="-webkit-app-region: no-drag;"
     >
       <!-- Settings -->
       <Settings />

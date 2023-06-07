@@ -68,6 +68,7 @@ async function handleSelect(key: string) {
     <section
       class="cursor-pointer p-1 transition hover:bg-(slate opacity-15)"
       flex="~ items-center justify-between"
+      style="-webkit-app-region: no-drag;"
     >
       <div flex="~ items-center gap-2">
         <NAvatar

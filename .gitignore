@@ -8,6 +8,7 @@ node_modules
 *.xpi
 *.zip
 dist
+dist-electron
 dev-dist
 .output
 .nuxt
@@ -15,7 +16,6 @@ out
 *.local
 auto-imports.d.ts
 components.d.ts
-/target/
 
 # Logs
 logs

@@ -34,7 +34,5 @@
   },
   "editor.formatOnSave": false,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "rust-analyzer.linkedProjects": [
-    "packages/app/src-tauri/Cargo.toml"
-  ]
+  "vue.codeActions.enabled": false
 }
