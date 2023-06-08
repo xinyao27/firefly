@@ -130,23 +130,6 @@ function handleCreatesSelect(key: string) {
   <aside
     h-full flex flex-col gap-4
   >
-    <section
-      style="-webkit-app-region: no-drag;"
-      flex="~ justify-between"
-    >
-      <div />
-
-      <!-- leftBarShow -->
-      <NButton
-        size="small"
-        quaternary
-        :opacity="configStore.leftBarShow ? 100 : 40"
-        @click="configStore.toggleLeftBarShow"
-      >
-        <i i-ri-arrow-left-double-line />
-      </NButton>
-    </section>
-
     <User />
 
     <section style="-webkit-app-region: no-drag;">
