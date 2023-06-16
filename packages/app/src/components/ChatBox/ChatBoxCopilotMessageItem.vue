@@ -1,20 +1,23 @@
 <script setup lang="ts">
 import type { BlockModel } from '@firefly/common'
-import { md } from '@firefly/common'
+import MarkdownIt from 'markdown-it'
 
 const props = defineProps<{
   message: string
 }>()
+
+const md: MarkdownIt = new MarkdownIt()
 
 const { t } = useI18n()
 const blockStore = useBlockStore()
 
 const capturing = ref(false)
 const copied = ref(false)
+const content = computedAsync(async () => md.render(props.message))
 async function handleCapture() {
   capturing.value = true
   const block: BlockModel = {
-    content: md.render(props.message),
+    content: content.value,
   }
   await blockStore.save(block)
   capturing.value = false
@@ -37,7 +40,7 @@ async function handleCapture() {
         overflow-hidden break-words rounded px-3
         border="~ neutral opacity-30 dark:slate dark:opacity-15"
         prose="~ dark dark:white"
-        v-html="md.render(props.message)"
+        v-html="content"
       />
     </template>
     <div mt--1 flex>

@@ -5,8 +5,8 @@ const { t } = useI18n()
 
 const pinned = ref(false)
 async function handleTogglePin() {
-  const value = await desktop.invoke<boolean>('set_assistant_window_always_on_top')
-  pinned.value = value
+  await desktop.ipcRenderer.invoke('windows:setAssistantWindowAlwaysOnTop', !pinned.value)
+  pinned.value = !pinned.value
 }
 </script>
 

@@ -43,7 +43,6 @@ common:
   noMore: No More...
   noResult: no result
   notFound: can't find
-  ocrHotkeyAlreadyRegistered: OCRHotkey already registered
   openApp: Open App
   past7days: Past 7 days
   redirecting: Redirecting...
@@ -141,15 +140,11 @@ login:
   redirectToSignup: Don't have an account yet? Sign up
   resendEmail: resend email
 settings:
-  alwaysShowIcons: text selection icon
-  alwaysShowIconsDescription: Whether to enable the text selection icon
   hotKeyRecorderTip: Press the desired key combination
   hotkey: shorthand shortcut
   hotkeyDescription: Shortcut keys call out the shorthand assistant
   i18n: language
   i18nDescription: language to use
-  ocrHotkey: OCR text recognition shortcut key
-  ocrHotkeyDescription: Shortcut keys call out OCR text recognition
   proxy: proxy
   proxyDescription: The proxy settings to use
   runAtStartup: boot

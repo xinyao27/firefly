@@ -32,6 +32,14 @@ const plugins = [
     resolvers: [NaiveUiResolver()], // 全自动按需引入naive-ui组件
   }),
 ]
+const modules = [
+  '@vueuse/nuxt',
+  '@unocss/nuxt',
+  '@pinia/nuxt',
+  '@nuxtjs/i18n',
+  '@vue-macros/nuxt',
+  'nuxt-gtag',
+]
 if (process.env.SENTRY_AUTH_TOKEN && process.env.NODE_ENV === 'production') {
   plugins.push(
     // https://docs.sentry.io/platforms/javascript/sourcemaps/uploading/vite/
@@ -42,6 +50,10 @@ if (process.env.SENTRY_AUTH_TOKEN && process.env.NODE_ENV === 'production') {
     }),
   )
 }
+if (process.env.ELECTRON)
+  modules.push('nuxt-electron')
+else
+  modules.push('@vite-pwa/nuxt')
 
 export default defineNuxtConfig({
   srcDir: 'src',
@@ -53,16 +65,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  modules: [
-    '@vueuse/nuxt',
-    '@unocss/nuxt',
-    '@pinia/nuxt',
-    '@nuxtjs/i18n',
-    '@vite-pwa/nuxt',
-    '@vue-macros/nuxt',
-    'nuxt-gtag',
-    'nuxt-electron',
-  ],
+  modules,
 
   experimental: {
     // when using generate, payload js assets included in sw precache manifest
@@ -74,6 +77,10 @@ export default defineNuxtConfig({
   css: [
     '~/styles/normalize.css',
   ],
+
+  routeRules: {
+    '/assistant': { ssr: false },
+  },
 
   nitro: {
     esbuild: {
@@ -127,6 +134,13 @@ export default defineNuxtConfig({
     build: [
       {
         entry: 'electron/main.ts',
+        vite: {
+          build: {
+            rollupOptions: {
+              external: ['@chenyueban/robot'],
+            },
+          },
+        },
       },
       {
         entry: 'electron/preload.ts',
@@ -165,6 +179,7 @@ export default defineNuxtConfig({
       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
       SUPABASE_URL: process.env.SUPABASE_URL,
       SUPABASE_FUNCTIONS_URL: process.env.SUPABASE_FUNCTIONS_URL,
+      SENTRY_DSN: process.env.SENTRY_DSN,
     },
   },
 

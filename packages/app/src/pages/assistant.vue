@@ -14,7 +14,7 @@ const editor = ref<Editor>()
 
 async function handleClose() {
   assistantStore.clear()
-  await desktop.invoke('hide_assistant_window')
+  await desktop.ipcRenderer.invoke('windows:hideAssistantWindow')
 }
 
 const settings = useSettings()
@@ -24,17 +24,14 @@ watch(() => settings.value.i18n, (locale) => {
 
 onMounted(
   () => {
-    let unlisten
-    ;(async () => {
-      unlisten = await desktop.event.listen('change-text', async (event: Event<string>) => {
-        const selectedText = event.payload
+    if (is.desktop()) {
+      desktop.ipcRenderer.on('assistant:setText', (_, selectedText: string) => {
         if (selectedText) {
           editor.value?.commands.focus()
           assistantStore.value = selectedText
         }
       })
-    })()
-    return unlisten
+    }
   },
 )
 </script>

@@ -20,9 +20,9 @@ onMounted(async () => {
   const data = (await response.json()) as any[]
   const latestRelease = data[0]
   const latestVersion = latestRelease?.tag_name?.split('v')?.[1]
-  appleMacDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_aarch64.dmg`
-  interMacDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_x64.dmg`
-  windowsDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/Firefly_${latestVersion}_x64_en-US.msi`
+  appleMacDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/firefly_${latestVersion}.dmg`
+  interMacDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/firefly_${latestVersion}.dmg`
+  windowsDownloadUrl.value = `https://github.com/chenyueban/firefly/releases/download/v${latestVersion}/firefly_${latestVersion}.exe`
 })
 function handleMacSelect(key: string) {
   if (key === 'apple')

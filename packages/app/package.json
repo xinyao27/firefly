@@ -2,6 +2,8 @@
   "name": "firefly",
   "version": "0.7.0",
   "private": true,
+  "description": "An open-source lightweight OpenAI powered memo hub.",
+  "author": "chenyueban <jasonchan0527@gmail.com>",
   "main": "dist-electron/main.js",
   "scripts": {
     "postinstall": "nuxi prepare",
@@ -13,15 +15,19 @@
     "start": "node .output/server/index.mjs",
     "start:generate": "npx serve .output/public",
     "generate": "node --max_old_space_size=16384 ./node_modules/nuxt/bin/nuxt.mjs generate",
-    "dev:desktop": "nuxi dev",
-    "build:desktop": "nuxi build --prerender && electron-builder"
+    "dev:desktop": "cross-env ELECTRON=true nuxi dev",
+    "build:desktop": "cross-env ELECTRON=true nuxi build --prerender && electron-builder --publish never"
   },
   "dependencies": {
+    "@chenyueban/robot": "^0.0.2",
     "@firefly/common": "workspace:*",
     "@firefly/editor": "workspace:*",
     "@firefly/theme": "workspace:*",
+    "@sentry/electron": "^4.6.0",
     "@vercel/analytics": "^1.0.1",
     "@yeger/vue-masonry-wall": "^3.5.0",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^5.3.0",
     "mark.js": "^8.11.1",
     "vue-virtual-scroller": "2.0.0-beta.8"
   },
@@ -39,6 +45,7 @@
     "@vueuse/nuxt": "^10.1.2",
     "electron": "^25.0.1",
     "electron-builder": "^23.6.0",
+    "electron-rebuild": "^3.2.9",
     "nuxt": "^3.5.2",
     "nuxt-electron": "^0.5.0",
     "nuxt-gtag": "^0.5.7",

@@ -1,9 +1,6 @@
 export const is = {
-  // @ts-expect-error noop
   desktop: () => !!process.type,
-  // @ts-expect-error noop
   renderer: () => process.type === 'renderer',
-  // @ts-expect-error noop
   main: () => process.type === 'browser',
   macOS: () => process.platform === 'darwin',
   linux: () => process.platform === 'linux',

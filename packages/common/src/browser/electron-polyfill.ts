@@ -1,19 +1,9 @@
+import { ipcRenderer } from 'electron'
 import type { IBrowser } from './types'
-
-async function getSettings(): Promise<Record<string, any>> {
-  const settings = await $desktop?.invoke<string>('get_config_content')
-  return JSON.parse(settings)
-}
 
 class BrowserStorageSync {
   async get(keys: string[]): Promise<Record<string, any>> {
-    const settings = await getSettings()
-    return keys.reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]: settings[key],
-      }
-    }, {})
+    return await ipcRenderer.invoke('settings:get', keys)
   }
 
   async set(items: Record<string, any>): Promise<void> {
@@ -23,11 +13,7 @@ class BrowserStorageSync {
 
       return { ...acc, [key]: value }
     }, {})
-    const settings = await getSettings()
-    const newSettings = { ...settings, ...newItems }
-    await $desktop?.fs.writeTextFile('config.json', JSON.stringify(newSettings), {
-      dir: $desktop?.fs.BaseDirectory.AppConfig,
-    })
+    return await ipcRenderer.invoke('settings:set', newItems)
   }
 }
 

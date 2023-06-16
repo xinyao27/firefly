@@ -39,23 +39,21 @@ const rules = {
 const loading = ref(false)
 async function signInWithToken(url: string) {
   if (is.desktop()) {
-    desktop.event.listen('firefly_scheme', async (event: Event<string>) => {
-      if (event.event === 'firefly_scheme') {
-        const parsed = parseSchema(event.payload)
-        const { access_token, refresh_token } = parsed || {}
-        if (access_token && refresh_token) {
-          const { error } = await supabase.auth.setSession({
-            access_token,
-            refresh_token,
-          })
-          if (error)
-            message.error(error.message)
-          else
-            router.replace(query.value ? `/${query.value}` : '/inbox')
-        }
-        else {
-          message.error(t('common.loginError'))
-        }
+    desktop.ipcRenderer.on('schema:login', async (_, url) => {
+      const parsed = parseSchema(url)
+      const { access_token, refresh_token } = parsed || {}
+      if (access_token && refresh_token) {
+        const { error } = await supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        })
+        if (error)
+          message.error(error.message)
+        else
+          router.replace(query.value ? `/${query.value}` : '/inbox')
+      }
+      else {
+        message.error(t('common.loginError'))
       }
     })
 

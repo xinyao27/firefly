@@ -32,7 +32,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
     if (session)
       return navigateTo('/inbox')
   }
-  else if (to.path === '/assistant' || to.path === '/thumb') {
+  else if (to.path === '/assistant') {
     if (!is.desktop())
       return navigateTo('/404')
   }

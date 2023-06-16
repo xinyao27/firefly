@@ -2,14 +2,15 @@
  * @see https://www.electron.build/configuration/configuration
  */
 {
-  "appId": "your.app.id",
-  "asar": false,
+  "appId": "com.firefly.best",
   "directories": {
+    "buildResources":"resources",
     "output": "release/${version}"
   },
   "files": [
     ".output/**/*",
-    "dist-electron"
+    "dist-electron",
+    "resources/**/*"
   ],
   "mac": {
     "artifactName": "${productName}_${version}.${ext}",
@@ -32,6 +33,12 @@
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": false
+    "deleteAppDataOnUninstall": true
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "chenyueban",
+    "repo": "firefly",
+    "private": false
   }
 }

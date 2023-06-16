@@ -8,6 +8,5 @@ export default defineNuxtPlugin(async () => {
   }
   else {
     desktop = await import('electron')
-    window.$desktop = desktop
   }
 })

@@ -9,14 +9,14 @@ declare module '*.vue' {
 declare namespace globalThis {
   import type { MessageApi } from 'naive-ui'
   import type { Router, Route } from 'vue-router'
+  import * as electron from 'electron'
+
   const $message: MessageApi
   const $router: Router
   const $route: Route
-  const $desktop: typeof import('electron')
   interface Window {
     $message?: MessageApi
     $router?: Router
     $route?: Route
-    $desktop?: typeof import('electron')
   }
 }

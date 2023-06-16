@@ -104,7 +104,7 @@ async function handleCreateNewTag(tagName: string) {
   >
     <template #header>
       <div
-
+        style="-webkit-app-region: drag;"
         select-none
         :pl="!showClose ? 16 : 0"
       >

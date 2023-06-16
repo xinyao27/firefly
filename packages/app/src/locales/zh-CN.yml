@@ -43,7 +43,6 @@ common:
   noMore: 没有更多了...
   noResult: 没有结果
   notFound: 找不到
-  ocrHotkeyAlreadyRegistered: OCRHotkey 已经注册
   openApp: 打开应用程序
   past7days: 过去 7 天
   redirecting: Redirecting...
@@ -130,15 +129,11 @@ login:
   redirectToSignup: 还没有账号 ? 去注册
   resendEmail: 重发邮件
 settings:
-  alwaysShowIcons: 文字选择图标
-  alwaysShowIconsDescription: 是否启用文字选择图标
   hotKeyRecorderTip: 聚焦后按下所需组合键
   hotkey: 速记快捷键
   hotkeyDescription: 快捷键呼出速记助手
   i18n: 语言
   i18nDescription: 要使用的语言
-  ocrHotkey: OCR 文字识别快捷键
-  ocrHotkeyDescription: 快捷键呼出 OCR 文字识别
   proxy: 代理
   proxyDescription: 要使用的代理设置
   runAtStartup: 开机启动

@@ -32,7 +32,5 @@ export interface ISettings {
   proxy?: string
   i18n?: string
   hotkey?: string
-  ocrHotkey?: string
-  alwaysShowIcons: boolean
   runAtStartup?: boolean
 }

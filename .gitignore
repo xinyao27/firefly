@@ -16,6 +16,7 @@ out
 *.local
 auto-imports.d.ts
 components.d.ts
+release
 
 # Logs
 logs
@@ -52,6 +53,7 @@ coverage
 # config
 .env*
 !.env.example
+.sentryclirc
 
 # Supabase
 .branches

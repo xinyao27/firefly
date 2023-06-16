@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defaultSettings, getSettings, is, setSettings } from '@firefly/common'
+import { desktop } from '~/plugins/desktop'
 import type { LocaleObject } from '#i18n'
-import { bindHotkey, bindOCRHotkey } from '~/utils'
 
 const { t, locales, setLocale } = useI18n()
 const availableLocales = computed(() => {
@@ -10,6 +10,7 @@ const availableLocales = computed(() => {
 
 const show = ref(false)
 const settings = ref(defaultSettings)
+const { history: oldSettings } = useRefHistory(settings)
 onMounted(async () => {
   settings.value = await getSettings()
 })
@@ -19,25 +20,14 @@ const loading = ref(false)
 async function handleSave() {
   try {
     loading.value = true
-    const oldSetting = await getSettings()
     const newSetting = settings.value
-    if (is.desktop()) {
-      await $desktop.invoke('clear_config_cache')
-      if (newSetting.hotkey)
-        await bindHotkey(newSetting.hotkey, oldSetting.hotkey)
-      if (is.macOS() && newSetting.ocrHotkey)
-        await bindOCRHotkey(newSetting.ocrHotkey, oldSetting.ocrHotkey)
-      // if (newSetting.runAtStartup !== await isAutostartEnabled()) {
-      //   if (newSetting.runAtStartup === true)
-      //     await autostartEnable()
-      //   else if (newSetting.runAtStartup === false)
-      //     await autostartDisable()
-      // }
-    }
-    if (newSetting.i18n)
-      setLocale(newSetting.i18n)
 
     await setSettings(newSetting)
+
+    if (newSetting.i18n)
+      setLocale(newSetting.i18n)
+    if (is.desktop())
+      desktop.ipcRenderer.invoke('settings:emit', oldSettings.value)
 
     show.value = false
     message.success(t('settings.saveSuccess'))
@@ -131,30 +121,6 @@ watch(show, async (value) => {
           <template #suffix>
             <div w-50>
               <HotkeyRecorder v-model:hotkey="settings.hotkey" />
-            </div>
-          </template>
-        </NListItem>
-        <NListItem v-if="is.desktop() && is.macOS()">
-          <NThing
-            :title="t('settings.ocrHotkey')"
-            :description="t('settings.ocrHotkeyDescription')"
-          />
-
-          <template #suffix>
-            <div w-50>
-              <HotkeyRecorder v-model:hotkey="settings.ocrHotkey" />
-            </div>
-          </template>
-        </NListItem>
-        <NListItem v-if="is.desktop()">
-          <NThing
-            :title="t('settings.alwaysShowIcons')"
-            :description="t('settings.alwaysShowIconsDescription')"
-          />
-
-          <template #suffix>
-            <div w-50 text-right>
-              <NSwitch v-model:value="settings.alwaysShowIcons" />
             </div>
           </template>
         </NListItem>
