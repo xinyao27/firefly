@@ -206,5 +206,10 @@ export default defineNuxtConfig({
           ? ['naive-ui', 'vueuc', 'date-fns-tz/esm/formatInTimeZone']
           : [],
     },
+    build: {
+      rollupOptions: {
+        external: ['electron'],
+      },
+    },
   },
 })

@@ -18,7 +18,7 @@ watch(() => settings.value.i18n, async (value) => {
 </script>
 
 <template>
-  <footer class="border-(t slate opacity-15)">
+  <footer class="border-(t slate opacity-15) bg-dark">
     <div class="mx-auto max-w-7xl flex items-center justify-between py-16">
       <div flex gap-2>
         <a

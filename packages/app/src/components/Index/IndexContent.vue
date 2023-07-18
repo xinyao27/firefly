@@ -5,7 +5,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <div mt-16 flex flex-col>
+  <div mt-16 flex flex-col bg-dark>
     <div relative>
       <div mx-auto max-w-7xl px-4 pb-32 pt-20 lg:px-8 sm:px-6 lg:pb-40 lg:pt-28>
         <div relative>

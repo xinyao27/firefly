@@ -17,7 +17,7 @@ watch(y, (value) => {
 <template>
   <header
     ref="containerRef"
-    class="fixed top-0 z-9999999 w-full border-(b slate opacity-0) transition-color"
+    class="fixed top-0 z-9999999 w-full border-(b slate opacity-0) bg-dark transition-color"
   >
     <nav mx-auto h-16 max-w-7xl flex items-center justify-between px-4 lg:px-8 sm:px-6>
       <Logo white />

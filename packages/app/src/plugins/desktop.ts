@@ -1,3 +1,5 @@
+import { is } from '@firefly/common'
+
 // eslint-disable-next-line import/no-mutable-exports
 export let desktop: typeof import('electron')
 
@@ -6,7 +8,7 @@ export default defineNuxtPlugin(async () => {
     // @ts-expect-error noop
     desktop = {}
   }
-  else {
+  else if (is.desktop()) {
     desktop = await import('electron')
   }
 })
